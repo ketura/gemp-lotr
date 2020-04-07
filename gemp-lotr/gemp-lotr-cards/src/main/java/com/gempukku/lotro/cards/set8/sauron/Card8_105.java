@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set8.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -39,11 +37,11 @@ public class Card8_105 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         int count = 0;
-        final Collection<PhysicalCard> sites = Filters.filterActive(gameState, modifiersQuerying, CardType.SITE);
+        final Collection<PhysicalCard> sites = Filters.filterActive(game, CardType.SITE);
         for (PhysicalCard site : sites)
-            count += Filters.filter(gameState.getStackedCards(site), gameState, modifiersQuerying, Filters.activeSide, Culture.SAURON, CardType.MINION).size();
+            count += Filters.filter(game.getGameState().getStackedCards(site), game, Filters.activeSide, Culture.SAURON, CardType.MINION).size();
 
         return -2 * count;
     }

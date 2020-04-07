@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: At the start of the Fellowship phase, you may exert two hunter companions to play a hunter companion
  * from your draw deck.
  */
-public class Card15_190 extends AbstractNewSite {
+public class Card15_190 extends AbstractShadowsSite {
     public Card15_190() {
         super("East Wall of Rohan", 3, Direction.RIGHT);
     }

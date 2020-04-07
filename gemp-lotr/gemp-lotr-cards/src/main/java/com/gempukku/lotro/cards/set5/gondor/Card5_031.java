@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set5.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Card5_031 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new TwilightCostModifier(self,
                         Filters.and(
@@ -45,7 +45,7 @@ public class Card5_031 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canSpot(game, self, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.and(CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION))))) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set7.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 
@@ -29,13 +29,12 @@ public class Card7_027 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, 1, 2, Race.ELF, CardType.COMPANION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, 1, 2, Race.ELF, CardType.COMPANION);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ELF, CardType.COMPANION));
@@ -43,7 +42,7 @@ public class Card7_027 extends AbstractEvent {
                 new DiscardTopCardFromDeckEffect(self, playerId, 3, false) {
                     @Override
                     protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
-                        int elvenCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN).size();
+                        int elvenCount = Filters.filter(cards, game, Culture.ELVEN).size();
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new ArcheryTotalModifier(self, Side.FREE_PEOPLE, elvenCount)));

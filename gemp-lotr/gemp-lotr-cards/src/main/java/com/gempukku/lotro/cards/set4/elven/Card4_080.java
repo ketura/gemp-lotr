@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,17 +31,16 @@ public class Card4_080 extends AbstractCompanion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.ELF);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", PossessionClass.RANGED_WEAPON, ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override
-                    public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
+                    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
                         if (target == self)
                             return -1;
                         return 0;

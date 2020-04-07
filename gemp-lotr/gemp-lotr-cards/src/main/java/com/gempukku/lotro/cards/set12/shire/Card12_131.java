@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set12.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card12_131 extends AbstractPermanent {
     public Card12_131() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Stand Together");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Stand Together");
     }
 
     @Override

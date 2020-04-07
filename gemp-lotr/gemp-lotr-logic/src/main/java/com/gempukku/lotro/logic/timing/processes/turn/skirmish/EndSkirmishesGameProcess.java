@@ -13,12 +13,8 @@ public class EndSkirmishesGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        SystemQueueAction action = new SystemQueueAction() {
-            @Override
-            public String getText(LotroGame game) {
-                return "After all skirmishes";
-            }
-        };
+        SystemQueueAction action = new SystemQueueAction();
+        action.setText("After all skirmishes");
         action.appendEffect(
                 new TriggeringResultEffect(null, _afterAllSkirmishesResult, "After all skirmishes"));
         game.getActionsEnvironment().addActionToStack(action);

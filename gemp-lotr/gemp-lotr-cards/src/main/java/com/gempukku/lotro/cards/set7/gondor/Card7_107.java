@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -49,7 +49,7 @@ public class Card7_107 extends AbstractCompanion {
                         new RemoveTwilightEffect(1));
             else
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, playResult.getPlayedCard()));
+                        new DiscardCardsFromPlayEffect(playerId, self, playResult.getPlayedCard()));
             return Collections.singletonList(action);
         }
         return null;

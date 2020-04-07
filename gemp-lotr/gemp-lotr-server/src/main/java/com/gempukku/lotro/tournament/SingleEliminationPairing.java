@@ -3,6 +3,7 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.competitive.PlayerStanding;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SingleEliminationPairing implements PairingMechanism {
     private String _registryRepresentation;
@@ -69,7 +70,7 @@ public class SingleEliminationPairing implements PairingMechanism {
 
         for (List<String> playersGroupedByBye : playersGroupedByByes) {
             if (playersGroupedByBye != null) {
-                Collections.shuffle(playersGroupedByBye);
+                Collections.shuffle(playersGroupedByBye, ThreadLocalRandom.current());
                 playersRandomized.addAll(playersGroupedByBye);
             }
         }

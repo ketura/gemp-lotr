@@ -1,17 +1,20 @@
 package com.gempukku.lotro.cards.set13.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Bloodlines
@@ -31,9 +34,9 @@ public class Card13_096 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new SpotCondition(Filters.not(self), Culture.MEN, CardType.MINION),
-                new MultiplyEvaluator(2, new CountActiveEvaluator(CardType.COMPANION, Filters.assignedToSkirmish)));
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self,
+new SpotCondition(Filters.not(self), Culture.MEN, CardType.MINION),
+new MultiplyEvaluator(2, new CountActiveEvaluator(CardType.COMPANION, Filters.assignedToSkirmish))));
+}
 }

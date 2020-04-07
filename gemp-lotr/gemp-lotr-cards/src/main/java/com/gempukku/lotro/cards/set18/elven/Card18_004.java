@@ -1,15 +1,14 @@
 package com.gempukku.lotro.cards.set18.elven;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,12 +29,12 @@ public class Card18_004 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.ELVEN, CardType.COMPANION);
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.arwen)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Culture.ELVEN)) {

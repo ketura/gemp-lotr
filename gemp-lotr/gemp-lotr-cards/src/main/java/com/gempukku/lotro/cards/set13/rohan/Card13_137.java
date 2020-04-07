@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.set13.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Names;
@@ -10,8 +8,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -38,7 +38,7 @@ public class Card13_137 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Theodred"))) {
+                && Filters.canSpot(game, Filters.name("Theodred"))) {
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self,1));
             game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
@@ -47,7 +47,7 @@ public class Card13_137 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, self, new SpotCondition(Filters.name(Names.eowyn)), Keyword.DEFENDER, 1));

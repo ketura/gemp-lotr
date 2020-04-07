@@ -25,7 +25,7 @@ public class ReturnFollowersToSupportGameProcess implements GameProcess {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        Collection<PhysicalCard> followers = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.FOLLOWER, Zone.ATTACHED);
+                        Collection<PhysicalCard> followers = Filters.filterActive(game, CardType.FOLLOWER, Zone.ATTACHED);
                         game.getGameState().removeCardsFromZone(game.getGameState().getCurrentPlayerId(), followers);
                         for (PhysicalCard attachedFollowers : followers)
                             game.getGameState().addCardToZone(game, attachedFollowers, Zone.SUPPORT);

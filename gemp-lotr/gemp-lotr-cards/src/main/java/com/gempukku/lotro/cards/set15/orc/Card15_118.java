@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set15.orc;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.MinThreatCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.condition.MinThreatCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,16 +31,16 @@ import java.util.List;
  */
 public class Card15_118 extends AbstractPermanent {
     public Card15_118() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Unmistakable Omen", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, "Unmistakable Omen", null, true);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new MinionSiteNumberModifier(self, Filters.and(Culture.ORC, Race.ORC), new MinThreatCondition(1), -1);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new MinionSiteNumberModifier(self, Filters.and(Culture.ORC, Race.ORC), new MinThreatCondition(1), -1));
+}
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canRemoveThreat(game, self, 3)
                 && PlayConditions.canDiscardFromPlay(self, game, 3, Culture.ORC, Race.ORC)) {

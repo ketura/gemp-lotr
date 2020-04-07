@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Underground. If this site is not in region 1 when the fellowship moves from here during the regroup phase,
  * add a burden.
  */
-public class Card13_185 extends AbstractNewSite {
+public class Card13_185 extends AbstractShadowsSite {
     public Card13_185() {
         super("Abandoned Mine Shaft", 0, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);

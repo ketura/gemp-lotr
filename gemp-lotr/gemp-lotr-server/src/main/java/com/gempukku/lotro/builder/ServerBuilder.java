@@ -1,23 +1,12 @@
 package com.gempukku.lotro.builder;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
-import com.gempukku.lotro.db.CollectionDAO;
-import com.gempukku.lotro.db.DeckDAO;
-import com.gempukku.lotro.db.GameHistoryDAO;
-import com.gempukku.lotro.db.IpBanDAO;
-import com.gempukku.lotro.db.LeagueDAO;
-import com.gempukku.lotro.db.LeagueMatchDAO;
-import com.gempukku.lotro.db.LeagueParticipationDAO;
-import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.game.AdventureLibrary;
-import com.gempukku.lotro.game.DefaultAdventureLibrary;
-import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.GameRecorder;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
@@ -26,12 +15,8 @@ import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.service.LoggedUserHolder;
-import com.gempukku.lotro.tournament.PairingMechanismRegistry;
-import com.gempukku.lotro.tournament.TournamentDAO;
-import com.gempukku.lotro.tournament.TournamentMatchDAO;
-import com.gempukku.lotro.tournament.TournamentPlayerDAO;
-import com.gempukku.lotro.tournament.TournamentPrizeSchemeRegistry;
-import com.gempukku.lotro.tournament.TournamentService;
+import com.gempukku.lotro.tournament.*;
+import com.gempukku.mtg.MtgCardServer;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -58,8 +43,14 @@ public class ServerBuilder {
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, CollectionDAO.class),
                         extract(objectMap, TransferDAO.class),
+                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+
+        objectMap.put(SoloDraftDefinitions.class,
+                new SoloDraftDefinitions(
+                        extract(objectMap, CollectionsManager.class),
                         extract(objectMap, LotroCardBlueprintLibrary.class),
-                        extract(objectMap, CardSets.class)));
+                        extract(objectMap, LotroFormatLibrary.class),
+                        extract(objectMap, CardSets.class).getSetDefinitions()));
 
         objectMap.put(LeagueService.class,
                 new LeagueService(
@@ -67,7 +58,8 @@ public class ServerBuilder {
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, CardSets.class)));
+                        extract(objectMap, CardSets.class),
+                        extract(objectMap, SoloDraftDefinitions.class)));
 
         objectMap.put(AdminService.class,
                 new AdminService(
@@ -97,7 +89,8 @@ public class ServerBuilder {
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, CardSets.class)));
 
-        objectMap.put(ChatServer.class, new ChatServer());
+        objectMap.put(ChatServer.class, new ChatServer(
+                extract(objectMap, IgnoreDAO.class)));
 
         objectMap.put(LotroServer.class,
                 new LotroServer(
@@ -108,6 +101,7 @@ public class ServerBuilder {
 
         objectMap.put(HallServer.class,
                 new HallServer(
+                        extract(objectMap, IgnoreDAO.class),
                         extract(objectMap, LotroServer.class),
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, LeagueService.class),
@@ -120,6 +114,8 @@ public class ServerBuilder {
                         pairingMechanismRegistry,
                         extract(objectMap, CardSets.class)
                 ));
+
+        objectMap.put(MtgCardServer.class, new MtgCardServer());
     }
 
     private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {
@@ -130,12 +126,21 @@ public class ServerBuilder {
     }
 
     public static void constructObjects(Map<Type, Object> objectMap) {
+        if (isMtgEnabled())
+            extract(objectMap, MtgCardServer.class).startServer();
         extract(objectMap, HallServer.class).startServer();
         extract(objectMap, LotroServer.class).startServer();
         extract(objectMap, ChatServer.class).startServer();
     }
 
+    private static boolean isMtgEnabled() {
+        String mtgEnabled = ApplicationConfiguration.getProperty("mtg.enabled");
+        return mtgEnabled != null && mtgEnabled.equals("true");
+    }
+
     public static void destroyObjects(Map<Type, Object> objectMap) {
+        if (isMtgEnabled())
+            extract(objectMap, MtgCardServer.class).stopServer();
         extract(objectMap, HallServer.class).stopServer();
         extract(objectMap, LotroServer.class).stopServer();
         extract(objectMap, ChatServer.class).stopServer();

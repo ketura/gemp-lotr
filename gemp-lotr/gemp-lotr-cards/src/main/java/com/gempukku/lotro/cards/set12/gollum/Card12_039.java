@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set12.gollum;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card12_039 extends AbstractPermanent {
     public Card12_039() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Not Alone");
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.GOLLUM, "Not Alone");
     }
 
     @Override

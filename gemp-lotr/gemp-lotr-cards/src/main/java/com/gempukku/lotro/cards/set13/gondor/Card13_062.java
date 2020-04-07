@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,18 +36,18 @@ public class Card13_062 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, self, null, new NegativeEvaluator(new CountActiveEvaluator(CardType.MINION, Keyword.LURKER)));
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, self, null, new NegativeEvaluator(new CountActiveEvaluator(CardType.MINION, Keyword.LURKER))));
+}
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int bonus = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION, Filters.attachedTo(self));
+            int bonus = Filters.countActive(game, CardType.POSSESSION, Filters.attachedTo(self));
             if (bonus > 0)
                 action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Battleground. Each time a follower is transferred to a character, the first Shadow player may exert
  * a companion twice.
  */
-public class Card15_192 extends AbstractNewSite {
+public class Card15_192 extends AbstractShadowsSite {
     public Card15_192() {
         super("Isengard Ruined", 1, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);

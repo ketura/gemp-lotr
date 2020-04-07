@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set6.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -31,7 +29,7 @@ import java.util.List;
  */
 public class Card6_111 extends AbstractPermanent {
     public Card6_111() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Kept Safe", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, "Kept Safe", null, true);
     }
 
     @Override

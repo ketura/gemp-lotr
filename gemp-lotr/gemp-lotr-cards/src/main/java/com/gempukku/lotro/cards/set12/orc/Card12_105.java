@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set12.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.RevealHandEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -12,8 +8,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.RevealHandEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -38,7 +37,7 @@ public class Card12_105 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -48,7 +47,7 @@ public class Card12_105 extends AbstractMinion {
                     new RevealHandEffect(self, playerId, playerId) {
                         @Override
                         protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                            int count = Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.ORC, Race.TROLL).size();
+                            int count = Filters.filter(game.getGameState().getHand(playerId), game, Culture.ORC, Race.TROLL).size();
                             action.appendEffect(
                                     new AddTwilightEffect(self, count));
                         }

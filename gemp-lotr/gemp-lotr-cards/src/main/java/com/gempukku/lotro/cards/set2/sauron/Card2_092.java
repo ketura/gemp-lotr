@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set2.sauron;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,21 +24,20 @@ import java.util.List;
  */
 public class Card2_092 extends AbstractPermanent {
     public Card2_092() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Spies of Mordor");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Spies of Mordor");
         addKeyword(Keyword.SEARCH);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Culture.SAURON, Race.ORC);
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
-            boolean spotsTracker = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Keyword.TRACKER);
+            boolean spotsTracker = Filters.canSpot(game, Culture.SAURON, Keyword.TRACKER);
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, spotsTracker ? 2 : 1));

@@ -25,7 +25,17 @@ public abstract class AbstractEffect implements Effect {
         return _carriedOut && !_prevented;
     }
 
-    protected final String getAppendedTextNames(Collection<PhysicalCard> cards) {
+    @Override
+    public String getText(LotroGame game) {
+        return null;
+    }
+
+    @Override
+    public Type getType() {
+        return null;
+    }
+
+    protected final String getAppendedTextNames(Collection<? extends PhysicalCard> cards) {
         return GameUtils.getAppendedTextNames(cards);
     }
 

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.merchant;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.db.MerchantDAO;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import org.junit.Test;
 

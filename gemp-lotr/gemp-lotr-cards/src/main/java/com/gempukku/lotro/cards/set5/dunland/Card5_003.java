@@ -1,20 +1,20 @@
 package com.gempukku.lotro.cards.set5.dunland;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.ShuffleCardsFromHandIntoDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
+import com.gempukku.lotro.logic.effects.ShuffleCardsFromHandIntoDeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.HashSet;
@@ -34,13 +34,12 @@ public class Card5_003 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 3, Culture.DUNLAND, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 3, Culture.DUNLAND, CardType.MINION);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PreventableEffect(action,
@@ -60,7 +59,7 @@ public class Card5_003 extends AbstractEvent {
                         }, game.getGameState().getCurrentPlayerId(),
                         new PreventableEffect.PreventionCost() {
                             @Override
-                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                 return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 3);
                             }
                         }

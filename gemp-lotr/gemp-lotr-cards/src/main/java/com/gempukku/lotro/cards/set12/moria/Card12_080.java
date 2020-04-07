@@ -1,23 +1,17 @@
 package com.gempukku.lotro.cards.set12.moria;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealHandEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.RevealHandEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -40,15 +34,18 @@ public class Card12_080 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.balrog;
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), Keyword.FIERCE));
         return modifiers;
@@ -62,7 +59,7 @@ public class Card12_080 extends AbstractAttachable {
                     new RevealHandEffect(self, self.getOwner(), game.getGameState().getCurrentPlayerId()) {
                         @Override
                         protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                            final Collection<PhysicalCard> cardsToDiscard = Filters.filter(game.getGameState().getHand(game.getGameState().getCurrentPlayerId()), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(Filters.printedTwilightCost(1), Filters.printedTwilightCost(0)));
+                            final Collection<PhysicalCard> cardsToDiscard = Filters.filter(game.getGameState().getHand(game.getGameState().getCurrentPlayerId()), game, Side.FREE_PEOPLE, Filters.or(Filters.printedTwilightCost(1), Filters.printedTwilightCost(0)));
                             action.appendEffect(
                                     new DiscardCardsFromHandEffect(self, game.getGameState().getCurrentPlayerId(), cardsToDiscard, true));
                         }

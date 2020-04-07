@@ -1,0 +1,408 @@
+{
+  "30_32": {
+    "title": "Anger",
+    "culture": "gundabad",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(minion)",
+        "memorize": "chosenMinion",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "chosenMinion",
+            "filter": "inSkirmishAgainst(hasAttached(follower))"
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
+  "30_33": {
+    "title": "*Fimbul",
+    "subtitle": "Orkish Assassin",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 3,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(orc)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(minion)"
+        }
+      }
+    ]
+  },
+  "30_34": {
+    "title": "Hatred Rekindled",
+    "culture": "gundabad",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false,
+        "filter": "choose(any)",
+        "count": 3
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(orc)"
+      }
+    }
+  },
+  "30_35": {
+    "title": "Host of Thousands",
+    "culture": "gundabad",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(orc)"
+      }
+    }
+  },
+  "30_36": {
+    "title": "*Narzug",
+    "subtitle": "Orkish Assassin",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 2,
+    "site": 3,
+    "keyword": "archer",
+    "effects": {
+      "type": "discardedFromPlayTrigger",
+      "optional": true,
+      "condition": [
+        {
+          "type": "isOwner"
+        },
+        {
+          "type": "not",
+          "condition": {
+            "type": "phase",
+            "phase": "regroup"
+          }
+        }
+      ],
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(ally)",
+        "times": 2
+      }
+    }
+  },
+  "30_37": {
+    "title": "*Not at Home",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "condition": {
+          "type": "canSpotInDeadPile",
+          "filter": "culture(dwarven),companion"
+        },
+        "trigger": {
+          "type": "played",
+          "filter": "culture(dwarven),companion",
+          "memorize": "playedCompanion"
+        },
+        "effect": {
+          "type": "exhaust",
+          "filter": "memory(playedCompanion)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "effect": [
+          {
+            "type": "putCardsFromDiscardOnTopOfDrawDeck",
+            "filter": "choose(side(shadow),not(name(Smaug)))"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
+  "30_38": {
+    "title": "Orkish Marauder",
+    "culture": "gundabad",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 2,
+    "site": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(dwarven),follower",
+          "count": 4
+        },
+        "effect": {
+          "type": "exhaust",
+          "filter": "choose(culture(dwarven),companion)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "canSpot",
+          "filter": "companion",
+          "count": 7
+        },
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 2
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(companion,not(name(Bilbo)))"
+        }
+      }
+    ]
+  },
+  "30_39": {
+    "title": "Orkish Aggressor",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "assignment",
+      "effect": [
+        {
+          "type": "assignFpCharacterToSkirmish",
+          "fpCharacter": "choose(name(Bilbo))",
+          "against": "self"
+        },
+        {
+          "type": "optional",
+          "player": "fp",
+          "text": "Would you like to add a burden to discard this minion?",
+          "effect": {
+            "type": "costToEffect",
+            "cost": {
+              "type": "addBurdens",
+              "amount": 1
+            },
+            "effect": {
+              "type": "discard",
+              "filter": "self"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "30_40": {
+    "title": "Watchful Orc",
+    "culture": "gundabad",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 3,
+    "site": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "playNextSite"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": [
+          {
+            "type": "chooseAKeyword",
+            "keywords": "Battleground,Mountain,Forest,Underground",
+            "memorize": "keywordSelected"
+          },
+          {
+            "type": "addKeyword",
+            "filter": "all(site)",
+            "keyword": "fromMemory(keywordSelected)",
+            "until": "endOfTurn"
+          }
+        ]
+      }
+    ]
+  },
+  "30_41": {
+    "title": "*Yazneg",
+    "subtitle": "Orkish Assassin",
+    "culture": "gundabad",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": [
+        {
+          "type": "removeTwilight",
+          "amount": 3
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "discard",
+        "filter": "choose(follower)"
+      }
+    }
+  },
+  "30_42": {
+    "title": "Goblin Footman",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(possession)",
+        "on": "minion"
+      }
+    }
+  },
+  "30_58": {
+    "title": "*Smaug",
+    "subtitle": "The Golden",
+    "culture": "smaug",
+    "cost": 16,
+    "type": "minion",
+    "race": "dragon",
+    "strength": 17,
+    "vitality": 5,
+    "site": 7,
+    "keyword": [
+      "damage+2",
+      "fierce"
+    ],
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "not(mountain)"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "or(dwarf,man,elf)",
+          "multiplier": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": [
+          {
+            "type": "exert",
+            "filter": "self"
+          },
+          {
+            "type": "discard",
+            "filter": "choose(another,minion)"
+          }
+        ],
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(free people),not(or(companion,name(Bard),ring)))"
+        }
+      }
+    ]
+  }
+}

@@ -1,49 +1,49 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.SetDefinition;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.game.packs.SetDefinition;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
 
 import java.util.*;
 
 public class SortAndFilterCards {
-    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
+    public <T extends CardItem> List<T> process(String filter, Iterable<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
 
         Side side = getSideFilter(filterParams);
         String type = getTypeFilter(filterParams);
-        String rarity = getRarityFilter(filterParams);
+        String[] rarity = getRarityFilter(filterParams);
         String[] sets = getSetFilter(filterParams);
         List<String> words = getWords(filterParams);
         Set<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
         Set<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
         Set<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptySet(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
+        Set<Race> races = getEnumFilter(Race.values(), Race.class, "race", null, filterParams);
+        Set<PossessionClass> itemClasses = getEnumFilter(PossessionClass.values(), PossessionClass.class, "itemClass", Collections.<PossessionClass>emptySet(), filterParams);
+        Set<Keyword> phases = getEnumFilter(Keyword.values(),Keyword.class, "phase", Collections.<Keyword>emptySet(), filterParams);
 
         List<T> result = new ArrayList<T>();
-        Map<String, LotroCardBlueprint> cardBlueprintMap = new HashMap<String, LotroCardBlueprint>();
+        Map<String, LotroCardBlueprint> cardBlueprintMap = new HashMap<>();
 
         for (T item : items) {
             String blueprintId = item.getBlueprintId();
             if (isPack(blueprintId)) {
-                if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
+                if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
                     result.add(item);
             } else {
                 try {
                     cardBlueprintMap.put(blueprintId, cardLibrary.getLotroCardBlueprint(blueprintId));
-                    if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
+                    if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
                         result.add(item);
                 } catch (CardNotFoundException e) {
                     // Ignore the card
                 }
-           }
+            }
         }
 
         String sort = getSort(filterParams);
@@ -55,19 +55,19 @@ public class SortAndFilterCards {
         MultipleComparator<CardItem> comparators = new MultipleComparator<CardItem>();
         for (String oneSort : sortSplit) {
             if (oneSort.equals("twilight"))
-                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardBlueprintMap)));
             else if (oneSort.equals("siteNumber"))
-                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardBlueprintMap)));
             else if (oneSort.equals("strength"))
-                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardBlueprintMap)));
             else if (oneSort.equals("vitality"))
-                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardBlueprintMap)));
             else if (oneSort.equals("cardType"))
-                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardBlueprintMap)));
             else if (oneSort.equals("culture"))
-                comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardBlueprintMap)));
             else if (oneSort.equals("name"))
-                comparators.addComparator(new PacksFirstComparator(new NameComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new NameComparator(cardBlueprintMap)));
         }
 
         Collections.sort(result, comparators);
@@ -76,8 +76,8 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
-            Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
+            LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String[] rarity, String[] sets,
+            Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber, Set<Race> races, Set<PossessionClass> itemClasses, Set<Keyword> phases) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
                 return true;
@@ -90,13 +90,16 @@ public class SortAndFilterCards {
                 final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
                 if (side == null || blueprint.getSide() == side)
                     if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                        if (sets == null || isInSets(blueprintId, sets, library, formatLibrary))
+                        if (sets == null || isInSets(blueprintId, sets, library, formatLibrary, cardBlueprint))
                             if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                                 if (cultures == null || cultures.contains(blueprint.getCulture()))
                                     if (containsAllKeywords(blueprint, keywords))
                                         if (containsAllWords(blueprint, words))
                                             if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                                return true;
+                                                if (races == null || races.contains(blueprint.getRace()))
+                                                    if (containsAllClasses(blueprint, itemClasses))
+                                                        if (containsAllKeywords(blueprint, phases))
+                                                            return true;
             }
         }
         return false;
@@ -118,10 +121,10 @@ public class SortAndFilterCards {
         return null;
     }
 
-    private String getRarityFilter(String[] filterParams) {
+    private String[] getRarityFilter(String[] filterParams) {
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("rarity:"))
-                return filterParam.substring("rarity:".length());
+                return filterParam.substring("rarity:".length()).split(",");
         }
         return null;
     }
@@ -134,29 +137,68 @@ public class SortAndFilterCards {
         return sets;
     }
 
-    private boolean isRarity(String blueprintId, String rarity, LotroCardBlueprintLibrary library, Map<String, SetDefinition> rarities) {
+    private boolean isRarity(String blueprintId, String[] rarity, LotroCardBlueprintLibrary library, Map<String, SetDefinition> rarities) {
         if (blueprintId.contains("_")) {
             SetDefinition setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
-            if (setRarity != null && setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId)).equals(rarity))
-                return true;
+            if (setRarity != null) {
+                String cardRarity = setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId));
+                for (String r : rarity) {
+                    if (cardRarity.equals(r))
+                        return true;
+                }
+            }
             return false;
         }
         return true;
     }
 
-    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary) {
+    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, Map<String, LotroCardBlueprint> cardBlueprint) {
         for (String set : sets) {
             LotroFormat format = formatLibrary.getFormat(set);
+
             if (format != null) {
                 try {
                     format.validateCard(blueprintId);
-                    return true;
                 } catch (DeckInvalidException exp) {
                     return false;
                 }
-            } else {
-                if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
+                final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
+                if (blueprint.getCardType() == CardType.SITE) {
+                    if (blueprint.getSiteBlock() == SitesBlock.FELLOWSHIP) {
+                        if ("fotr_block,lotr".contains(set)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    if (blueprint.getSiteBlock() == SitesBlock.TWO_TOWERS) {
+                        if ("towers_standard,ttt_block,lotr".contains(set)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    if (blueprint.getSiteBlock() == SitesBlock.KING) {
+                        if ("king_block,rotk_sta,movie,lotr".contains(set)) {
+                            return true;
+                        }
+                        return false;
+                    }
                     return true;
+                } else {
+                    return true;
+                }
+            } else {
+                if (set.contains("-")) {
+                    final String[] split = set.split("-", 2);
+                    int min = Integer.parseInt(split[0]);
+                    int max = Integer.parseInt(split[1]);
+                    for (int setNo = min; setNo <= max; setNo++) {
+                        if (blueprintId.startsWith(setNo + "_") || library.hasAlternateInSet(blueprintId, setNo))
+                            return true;
+                    }
+                } else {
+                    if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
+                        return true;
+                }
             }
         }
 
@@ -175,7 +217,7 @@ public class SortAndFilterCards {
         List<String> result = new LinkedList<String>();
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("name:"))
-                result.add(filterParam.substring("name:".length()));
+                result.add(replaceSpecialCharacters(filterParam.substring("name:".length()).toLowerCase()));
         }
         return result;
     }
@@ -204,12 +246,41 @@ public class SortAndFilterCards {
         return true;
     }
 
+    private boolean containsAllClasses(LotroCardBlueprint blueprint, Set<PossessionClass> possessionClasses) {
+        for (PossessionClass filterPossessionClass : possessionClasses) {
+            if (blueprint == null)
+                return false;
+            else {
+                if (blueprint.getPossessionClasses() == null) {
+                    if (filterPossessionClass == PossessionClass.CLASSLESS)
+                        return true;
+                    return false;
+                }            
+                for (PossessionClass blueprintPossessionClass : blueprint.getPossessionClasses()) {
+                    if (filterPossessionClass == blueprintPossessionClass)
+                        return true;
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean containsAllWords(LotroCardBlueprint blueprint, List<String> words) {
         for (String word : words) {
-            if (blueprint == null || !GameUtils.getFullName(blueprint).toLowerCase().contains(word.toLowerCase()))
+            if (blueprint == null || !replaceSpecialCharacters(GameUtils.getFullName(blueprint).toLowerCase()).contains(word))
                 return false;
         }
         return true;
+    }
+
+    private String replaceSpecialCharacters(String text) {
+        return text
+                .replace('é', 'e')
+                .replace('ú', 'u')
+                .replace('ë', 'e')
+                .replace('û', 'u')
+                .replace('ó', 'o');
     }
 
     private <T extends Enum> Set<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, Set<T> defaultResult, String[] filterParams) {
@@ -263,11 +334,9 @@ public class SortAndFilterCards {
     }
 
     private static class SiteNumberComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private SiteNumberComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private SiteNumberComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -291,11 +360,9 @@ public class SortAndFilterCards {
     }
 
     private static class NameComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private NameComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private NameComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -306,11 +373,9 @@ public class SortAndFilterCards {
     }
 
     private static class TwilightComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private TwilightComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private TwilightComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -321,11 +386,9 @@ public class SortAndFilterCards {
     }
 
     private static class StrengthComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private StrengthComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private StrengthComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -344,11 +407,9 @@ public class SortAndFilterCards {
     }
 
     private static class VitalityComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private VitalityComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private VitalityComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -367,11 +428,9 @@ public class SortAndFilterCards {
     }
 
     private static class CardTypeComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private CardTypeComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private CardTypeComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -384,11 +443,9 @@ public class SortAndFilterCards {
     }
 
     private static class CultureComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private CultureComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private CultureComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 

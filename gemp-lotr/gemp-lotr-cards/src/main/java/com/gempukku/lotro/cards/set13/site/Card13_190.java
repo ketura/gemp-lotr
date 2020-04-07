@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -9,14 +7,16 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,33 +25,33 @@ import java.util.Map;
  * Type: Site
  * Game Text: Marsh. Each companion of a race that has the most companions is strength -1 until the regroup phase.
  */
-public class Card13_190 extends AbstractNewSite {
+public class Card13_190 extends AbstractShadowsSite {
     public Card13_190() {
         super("Doors of Durin", 0, Direction.LEFT);
         addKeyword(Keyword.MARSH);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 final Race race = physicalCard.getBlueprint().getRace();
-                                if (race != null && isRaceMostCommonRaceAmongCompanions(gameState, modifiersQuerying, race))
+                                if (race != null && isRaceMostCommonRaceAmongCompanions(game, race))
                                     return true;
                                 return false;
                             }
-                        }), new NotCondition(new PhaseCondition(Phase.REGROUP)), -1);
+                        }), new NotCondition(new PhaseCondition(Phase.REGROUP)), -1));
     }
 
-    private boolean isRaceMostCommonRaceAmongCompanions(GameState gameState, ModifiersQuerying modifiersQuerying, Race race) {
+    private boolean isRaceMostCommonRaceAmongCompanions(LotroGame game, Race race) {
         if (race == null)
             return false;
 
         Map<Race, Integer> counts = new HashMap<Race, Integer>();
-        for (PhysicalCard companion : Filters.filterActive(gameState, modifiersQuerying, CardType.COMPANION)) {
+        for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION)) {
             final Race companionRace = companion.getBlueprint().getRace();
             if (companionRace != null) {
                 Integer count = counts.get(companionRace);

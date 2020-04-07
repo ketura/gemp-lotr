@@ -26,12 +26,12 @@ public class RemoveThreatsEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getThreats() >= _count && game.getModifiersQuerying().canRemoveThreat(game.getGameState(), _source);
+        return game.getGameState().getThreats() >= _count && game.getModifiersQuerying().canRemoveThreat(game, _source);
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (_source == null || game.getModifiersQuerying().canRemoveThreat(game.getGameState(), _source)) {
+        if (_source == null || game.getModifiersQuerying().canRemoveThreat(game, _source)) {
             int toRemove = Math.min(game.getGameState().getThreats(), _count);
 
             if (toRemove > 0) {

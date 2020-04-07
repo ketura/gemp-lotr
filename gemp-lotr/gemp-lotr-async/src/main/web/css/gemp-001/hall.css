@@ -7,6 +7,7 @@ body {
     font-size: 120%;
     font-weight: bolder;
     background-color: #666666;
+    cursor: pointer;
 }
 
 .serverTime {

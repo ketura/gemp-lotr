@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set8.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,7 +29,7 @@ public class Card8_040 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Keyword.KNIGHT;
     }
 

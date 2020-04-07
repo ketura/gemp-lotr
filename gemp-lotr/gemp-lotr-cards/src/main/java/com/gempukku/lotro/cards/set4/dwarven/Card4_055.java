@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.Set;
@@ -22,24 +22,18 @@ import java.util.Set;
  * Game Text: Regroup: Exert a Dwarf to shuffle a [DWARVEN] condition (and all cards stacked on it) into your draw deck.
  * Exert a minion for each card shuffled into your draw deck.
  */
-public class Card4_055 extends AbstractOldEvent {
+public class Card4_055 extends AbstractEvent {
     public Card4_055() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Restless Axe", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 2, Culture.DWARVEN, "Restless Axe", Phase.REGROUP);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.DWARF);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Race.DWARF);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 2;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));

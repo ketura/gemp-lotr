@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card3_003 extends AbstractPermanent {
     public Card3_003() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Mines of Khazad-Dum");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, "Mines of Khazad-Dum");
     }
 
     @Override

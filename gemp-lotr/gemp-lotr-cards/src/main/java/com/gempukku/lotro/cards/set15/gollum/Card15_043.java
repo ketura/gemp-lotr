@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set15.gollum;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -37,7 +37,7 @@ public class Card15_043 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)) {
-            int rbStr = game.getModifiersQuerying().getStrength(game.getGameState(),
+            int rbStr = game.getModifiersQuerying().getStrength(game,
                     game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()));
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,14 +28,13 @@ public class Card6_026 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Race.ENT, Filters.not(Filters.hasAttached(Filters.name(getName()))));
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Race.ENT, Filters.not(Filters.hasAttached(Filters.name(getTitle()))));
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
-                new StrengthModifier(self, Filters.hasAttached(self), 4));
+    public int getStrength() {
+        return 4;
     }
 
     @Override

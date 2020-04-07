@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set15.rohan;
 
-import com.gempukku.lotro.cards.AbstractFollower;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -10,11 +7,13 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.cardtype.AbstractFollower;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,23 +33,22 @@ public class Card15_137 extends AbstractFollower {
     }
 
     @Override
-    protected boolean canPayAidCost(LotroGame game, PhysicalCard self) {
+    public boolean canPayAidCost(LotroGame game, PhysicalCard self) {
         return true;
     }
 
     @Override
-    protected Effect getAidCost(LotroGame game, Action action, PhysicalCard self) {
-        return new AddTwilightEffect(self, 2);
+    public void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self) {
+        action.appendCost(new AddTwilightEffect(self, 2));
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN);
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.hasAttached(self), null, new CountActiveEvaluator(CardType.POSSESSION, Filters.attachedTo(Filters.hasAttached(self)))));
     }

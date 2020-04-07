@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +28,7 @@ public class Card7_056 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.smeagol;
     }
 
@@ -38,7 +38,7 @@ public class Card7_056 extends AbstractAttachable {
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.hasAttached(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

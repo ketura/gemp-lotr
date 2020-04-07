@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set18.elven;
 
-import com.gempukku.lotro.cards.AbstractFollower;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractFollower;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,23 +33,22 @@ public class Card18_007 extends AbstractFollower {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Culture.ELVEN, CardType.COMPANION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, Culture.ELVEN, CardType.COMPANION);
     }
 
     @Override
-    protected boolean canPayAidCost(LotroGame game, PhysicalCard self) {
+    public boolean canPayAidCost(LotroGame game, PhysicalCard self) {
         return true;
     }
 
     @Override
-    protected Effect getAidCost(LotroGame game, Action action, PhysicalCard self) {
-        return new AddTwilightEffect(self, 2);
+    public void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self) {
+        action.appendCost(new AddTwilightEffect(self, 2));
     }
 
     @Override
-    protected List<OptionalTriggerAction> getExtraOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

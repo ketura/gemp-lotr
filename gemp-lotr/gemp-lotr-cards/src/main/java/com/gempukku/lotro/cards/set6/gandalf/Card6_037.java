@@ -1,11 +1,5 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.UnhastyCompanionParticipatesInSkirmishedModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -14,8 +8,14 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.UnhastyCompanionParticipatesInSkirmishedModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Card6_037 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canExert(self, game, Race.HOBBIT, Filters.unboundCompanion)) {
             ActivateCardAction action = new ActivateCardAction(self);

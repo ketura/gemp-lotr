@@ -1,14 +1,18 @@
 package com.gempukku.lotro.cards.set12.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.modifiers.condition.CardPlayedInCurrentPhaseCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,13 +27,13 @@ import java.util.List;
  */
 public class Card12_003 extends AbstractPermanent {
     public Card12_003() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "A Clamour of Many Voices");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "A Clamour of Many Voices");
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
-                && Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).size() > 0) {
+                && new CardPlayedInCurrentPhaseCondition(Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).isFullfilled(game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));

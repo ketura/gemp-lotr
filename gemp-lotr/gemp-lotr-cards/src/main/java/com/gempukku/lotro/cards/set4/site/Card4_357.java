@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
@@ -24,13 +24,13 @@ import java.util.List;
  */
 public class Card4_357 extends AbstractSite {
     public Card4_357() {
-        super("King's Room", Block.TWO_TOWERS, 7, 6, Direction.RIGHT);
+        super("King's Room", SitesBlock.TWO_TOWERS, 7, 6, Direction.RIGHT);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.COMPANION) == 0) {
+                && Filters.countActive(game, Culture.ROHAN, CardType.COMPANION) == 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(action, self, Filters.unboundCompanion));

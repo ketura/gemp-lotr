@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set17.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -18,7 +18,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Plains. While you control this site, each of your hunter minions is strength +1.
  */
-public class Card17_148 extends AbstractNewSite {
+public class Card17_148 extends AbstractShadowsSite {
     public Card17_148() {
         super("Nurn", 1, Direction.LEFT);
         addKeyword(Keyword.PLAINS);

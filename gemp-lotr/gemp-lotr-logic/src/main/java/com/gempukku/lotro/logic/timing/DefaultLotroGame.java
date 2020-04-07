@@ -4,11 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
-import com.gempukku.lotro.game.ActionsEnvironment;
-import com.gempukku.lotro.game.Adventure;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
@@ -20,12 +16,7 @@ import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultLotroGame implements LotroGame {
     private static final Logger log = Logger.getLogger(DefaultLotroGame.class);
@@ -75,7 +66,8 @@ public class DefaultLotroGame implements LotroGame {
 
             cards.put(playerId, deck);
             ringBearers.put(playerId, lotroDeck.getRingBearer());
-            rings.put(playerId, lotroDeck.getRing());
+            if (lotroDeck.getRing() != null)
+                rings.put(playerId, lotroDeck.getRing());
         }
 
         _gameState = new GameState();
@@ -98,7 +90,6 @@ public class DefaultLotroGame implements LotroGame {
 
         _adventure.applyAdventureRules(this, _actionsEnvironment, _modifiersLogic);
     }
-
 
 
     @Override
@@ -269,7 +260,7 @@ public class DefaultLotroGame implements LotroGame {
             Zone zone = ringBearer.getZone();
             if (zone != null && zone.isInPlay()) {
                 // Ring-bearer corruption
-                int ringBearerResistance = getModifiersQuerying().getResistance(getGameState(), ringBearer);
+                int ringBearerResistance = getModifiersQuerying().getResistance(this, ringBearer);
                 if (ringBearerResistance <= 0)
                     playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
             }

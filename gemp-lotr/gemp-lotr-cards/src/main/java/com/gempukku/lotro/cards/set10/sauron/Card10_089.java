@@ -1,15 +1,14 @@
 package com.gempukku.lotro.cards.set10.sauron;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,17 +30,23 @@ public class Card10_089 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.SAURON, Race.ORC);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.name("Gothmog"), Filters.hasAttached(self)), null,
                         new MultiplyEvaluator(2, new CountActiveEvaluator(Filters.siteControlled(self.getOwner())))));

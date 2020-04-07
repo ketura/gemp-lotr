@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.RemoveGameTextModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -10,7 +8,9 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.RemoveGameTextModifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,19 +29,18 @@ public class Card2_076 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.frodo)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Filters.frodo)
+                && Filters.canSpot(game, Race.NAZGUL);
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.sam;
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new RemoveGameTextModifier(self, Filters.hasAttached(self)));
     }

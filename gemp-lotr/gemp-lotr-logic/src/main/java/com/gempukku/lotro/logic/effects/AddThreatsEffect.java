@@ -33,7 +33,7 @@ public class AddThreatsEffect extends AbstractEffect {
     }
 
     private int evaluateCount(LotroGame game) {
-        return _count.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        return _count.evaluateExpression(game, null);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AddThreatsEffect extends AbstractEffect {
     }
 
     private int getThreatsPossibleToAdd(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)
+        return Filters.countActive(game, CardType.COMPANION)
                 - game.getGameState().getThreats();
     }
 

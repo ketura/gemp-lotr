@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set13.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.ReinforceTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,13 +28,12 @@ import java.util.List;
  */
 public class Card13_164 extends AbstractPermanent {
     public Card13_164() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Fearless Approach");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.URUK_HAI, "Fearless Approach");
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION);
     }
 
     @Override

@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set17.dwarven;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,13 +28,13 @@ import java.util.List;
  * Game Text: Bearer must be a Dwarf. Each time bearer is about to take a wound, you may add a threat to prevent that.
  * Regroup: Discard this possession to take up to 2 other [DWARVEN] possessions into hand from your discard pile.
  */
-public class Card17_001 extends AbstractAttachable {
+public class Card17_001 extends AbstractAttachableFPPossession {
     public Card17_001() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, PossessionClass.ARMOR, "Armor of Khazad");
+        super(2, 0, 0, Culture.DWARVEN, PossessionClass.ARMOR, "Armor of Khazad");
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.DWARF;
     }
 
@@ -47,21 +46,21 @@ public class Card17_001 extends AbstractAttachable {
             action.appendCost(
                     new AddThreatsEffect(playerId, self, 1));
             action.appendEffect(
-                    new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((PreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 0, 2, Culture.DWARVEN, CardType.POSSESSION));
+                    new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 0, 2, Culture.DWARVEN, CardType.POSSESSION, Filters.not(self)));
             return Collections.singletonList(action);
         }
         return null;

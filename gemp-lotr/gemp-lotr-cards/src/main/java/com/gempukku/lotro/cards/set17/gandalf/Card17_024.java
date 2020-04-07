@@ -1,21 +1,19 @@
 package com.gempukku.lotro.cards.set17.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -39,15 +37,18 @@ public class Card17_024 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.GANDALF, Race.WIZARD);
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public int getResistance() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new ResistanceModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new MayNotBearModifier(self, Filters.hasAttached(self), PossessionClass.HAND_WEAPON));
         return modifiers;
@@ -58,14 +59,14 @@ public class Card17_024 extends AbstractAttachableFPPossession {
         if (PlayConditions.canSpot(game, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(Filters.hasAttached(self)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(Filters.hasAttached(self))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(Filters.hasAttached(self))));
             return Collections.singletonList(action);
         }
         return null;
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canAddThreat(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);

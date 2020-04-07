@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set3.dwarven;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,14 +22,14 @@ import java.util.List;
  * Game Text: Tale. Bearer must be a Dwarf. At the start of each fellowship phase when the fellowship is at site 4
  * or higher, you may draw a card for each Dwarf companion.
  */
-public class Card3_001 extends AbstractAttachable {
+public class Card3_001 extends AbstractAttachableFPPossession {
     public Card3_001() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, null, "Book of Mazarbul", null, true);
+        super(2, 0, 0, Culture.DWARVEN, null, "Book of Mazarbul", null, true);
         addKeyword(Keyword.TALE);
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.DWARF;
     }
 
@@ -37,9 +37,9 @@ public class Card3_001 extends AbstractAttachable {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && game.getGameState().getCurrentSiteNumber() >= 4
-                && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
+                && game.getGameState().getCurrentSiteBlock() == SitesBlock.FELLOWSHIP) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
+            int dwarfCompanions = Filters.countActive(game, Race.DWARF, CardType.COMPANION);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, dwarfCompanions));
             return Collections.singletonList(action);

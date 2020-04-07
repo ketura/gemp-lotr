@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set7.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -10,9 +7,12 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Return of the King
@@ -28,7 +28,7 @@ public class Card7_031 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Gandalf", Filters.gandalf) {

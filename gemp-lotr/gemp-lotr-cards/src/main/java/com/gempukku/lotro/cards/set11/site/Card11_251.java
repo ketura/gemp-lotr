@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Forest. At the start of your fellowship phase, you may heal 2 Elves.
  */
-public class Card11_251 extends AbstractNewSite {
+public class Card11_251 extends AbstractShadowsSite {
     public Card11_251() {
         super("Old Forest Road", 3, Direction.RIGHT);
         addKeyword(Keyword.FOREST);

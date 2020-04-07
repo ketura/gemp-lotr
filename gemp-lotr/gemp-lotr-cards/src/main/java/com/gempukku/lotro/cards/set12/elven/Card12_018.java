@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set12.elven;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
@@ -34,7 +34,7 @@ public class Card12_018 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.or(Filters.arwen, Filters.name("Elrond"));
     }
 

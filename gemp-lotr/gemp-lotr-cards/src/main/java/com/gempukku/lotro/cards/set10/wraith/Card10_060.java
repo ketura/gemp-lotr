@@ -1,22 +1,21 @@
 package com.gempukku.lotro.cards.set10.wraith;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PutCardFromPlayOnTopOfDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromPlayOnTopOfDeckEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,15 +37,18 @@ public class Card10_060 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.WRAITH, Race.ORC);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getStrength() {
+        return 2;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.name("Gorbag"), Filters.hasAttached(self)), Keyword.FIERCE));
         return modifiers;
@@ -72,7 +74,7 @@ public class Card10_060 extends AbstractAttachable {
                                                 @Override
                                                 protected void no() {
                                                     action.appendEffect(
-                                                            new DiscardCardsFromPlayEffect(self, card));
+                                                            new DiscardCardsFromPlayEffect(playerId, self, card));
                                                 }
                                             }));
                         }

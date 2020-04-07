@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set8.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Siege of Gondor
@@ -23,19 +23,18 @@ public class Card8_002 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Race.DWARF, Keyword.DAMAGE);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Race.DWARF, Keyword.DAMAGE);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Keyword.DAMAGE) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
+                        int count = game.getModifiersQuerying().getKeywordCount(game, card, Keyword.DAMAGE);
                         for (int i = 0; i < count; i++)
                             action.appendEffect(
                                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));

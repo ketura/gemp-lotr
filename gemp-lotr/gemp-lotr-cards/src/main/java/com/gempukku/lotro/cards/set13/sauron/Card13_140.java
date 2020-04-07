@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set13.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.DiscountEffect;
-import com.gempukku.lotro.cards.effects.discount.ExertCharactersDiscountEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -12,6 +8,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.discount.ExertCharactersDiscountEffect;
 
 /**
  * Set: Bloodlines
@@ -33,12 +32,12 @@ public class Card13_140 extends AbstractMinion {
     }
 
     @Override
-    protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.canExert(self)) * GameUtils.getRegion(game.getGameState());
+    public int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self) {
+        return Filters.countActive(game, CardType.MINION, Filters.canExert(self)) * GameUtils.getRegion(game);
     }
 
     @Override
-    protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
-        return new ExertCharactersDiscountEffect(action, self, playerId, GameUtils.getRegion(game.getGameState()), CardType.MINION);
+    public void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self) {
+        action.appendPotentialDiscount(new ExertCharactersDiscountEffect(action, self, playerId, GameUtils.getRegion(game), CardType.MINION));
     }
 }

@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +29,7 @@ import java.util.List;
  */
 public class Card4_034 extends AbstractPermanent {
     public Card4_034() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Secret Folk", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.DUNLAND, "Secret Folk", null, true);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class Card4_034 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int possesions = Math.min(3, game.getGameState().getTokenCount(self, Token.DUNLAND));

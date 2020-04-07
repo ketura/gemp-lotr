@@ -47,15 +47,15 @@ public class AssignmentEffect extends AbstractEffect {
     @Override
     public boolean isPlayableInFull(LotroGame game) {
         Side side = _playerId.equals(game.getGameState().getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW;
-        return Filters.assignableToSkirmishAgainst(side, _fpChar, _ignoreSingleMinionRestriction, _skipAllyLocationCheck).accepts(game.getGameState(), game.getModifiersQuerying(), _minion);
+        return Filters.assignableToSkirmishAgainst(side, _fpChar, _ignoreSingleMinionRestriction, _skipAllyLocationCheck).accepts(game, _minion);
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            if (Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar))
+            if (Filters.notAssignedToSkirmish.accepts(game, _fpChar))
                 game.getActionsEnvironment().emitEffectResult(new AssignedToSkirmishResult(_fpChar, _playerId));
-            if (Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), _minion))
+            if (Filters.notAssignedToSkirmish.accepts(game, _minion))
                 game.getActionsEnvironment().emitEffectResult(new AssignedToSkirmishResult(_minion, _playerId));
 
             game.getGameState().sendMessage(_playerId + " assigns " + GameUtils.getCardLink(_minion) + " to skirmish " + GameUtils.getCardLink(_fpChar));

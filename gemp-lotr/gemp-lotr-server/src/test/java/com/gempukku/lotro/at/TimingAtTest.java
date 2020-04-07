@@ -1,9 +1,7 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -12,6 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -19,6 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Test;
 
@@ -51,26 +51,26 @@ public class TimingAtTest extends AbstractAtTest {
 
         playerDecided(P1, getArbitraryCardId(secondCharacterDecision, "6_121"));
     }
-    
+
     @Test
     public void playStartingFellowshipWithDiscountFromCardItself() throws DecisionResultInvalidException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
-        extraCards.put(P1, Arrays.asList("20_53", "20_57"));
+        extraCards.put(P1, Arrays.asList("40_17", "40_20"));
         initializeSimplestGame(extraCards);
 
         // Play first character
         AwaitingDecision firstCharacterDecision = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.ARBITRARY_CARDS, firstCharacterDecision.getDecisionType());
-        validateContents(new String[]{"20_53", "20_57"}, ((String[]) firstCharacterDecision.getDecisionParameters().get("blueprintId")));
+        validateContents(new String[]{"40_17", "40_20"}, ((String[]) firstCharacterDecision.getDecisionParameters().get("blueprintId")));
 
-        playerDecided(P1, getArbitraryCardId(firstCharacterDecision, "20_53"));
+        playerDecided(P1, getArbitraryCardId(firstCharacterDecision, "40_17"));
 
         // Play second character with discount
         AwaitingDecision secondCharacterDecision = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.ARBITRARY_CARDS, secondCharacterDecision.getDecisionType());
-        validateContents(new String[]{"20_57"}, ((String[]) secondCharacterDecision.getDecisionParameters().get("blueprintId")));
+        validateContents(new String[]{"40_20"}, ((String[]) secondCharacterDecision.getDecisionParameters().get("blueprintId")));
 
-        playerDecided(P1, getArbitraryCardId(secondCharacterDecision, "20_57"));
+        playerDecided(P1, getArbitraryCardId(secondCharacterDecision, "40_20"));
     }
 
     @Test
@@ -221,7 +221,7 @@ public class TimingAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, letThemCome, Zone.SUPPORT);
         _game.getGameState().stackCard(_game, tossMe, letThemCome);
 
-        assertEquals(7, _game.getModifiersQuerying().getStrength(_game.getGameState(), gimli));
+        assertEquals(7, _game.getModifiersQuerying().getStrength(_game, gimli));
     }
 
     @Test
@@ -234,7 +234,7 @@ public class TimingAtTest extends AbstractAtTest {
         final AtomicInteger moveTo = new AtomicInteger(0);
 
         PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
                     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
                         if (TriggerConditions.movesFrom(game, effectResult, self)) {
@@ -247,7 +247,7 @@ public class TimingAtTest extends AbstractAtTest {
                 });
         moveFromSite.setSiteNumber(1);
         PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
                     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
                         if (TriggerConditions.movesTo(game, effectResult, self)) {
@@ -281,18 +281,20 @@ public class TimingAtTest extends AbstractAtTest {
         skipMulligans();
 
         PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
-                    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-                        return new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE);
+                    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+                        return Collections.singletonList(
+                                new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE));
                     }
                 });
         moveFromSite.setSiteNumber(1);
         PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
-                    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-                        return new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS);
+                    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+                        return Collections.singletonList(
+                                new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS));
                     }
                 });
         moveToSite.setSiteNumber(2);
@@ -301,8 +303,8 @@ public class TimingAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, moveFromSite, Zone.ADVENTURE_PATH);
         _game.getGameState().addCardToZone(_game, moveToSite, Zone.ADVENTURE_PATH);
 
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
 
         // End fellowship phase
         playerDecided(P1, "");
@@ -310,8 +312,8 @@ public class TimingAtTest extends AbstractAtTest {
         // End shadow phase
         playerDecided(P2, "");
 
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
 
         // Pass in Regroup phase
         assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
@@ -324,8 +326,8 @@ public class TimingAtTest extends AbstractAtTest {
         playerDecided(P1, getMultipleDecisionIndex(_userFeedback.getAwaitingDecision(P1), "No"));
 
         // Fellowship of player2
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
 
         // End fellowship phase
         playerDecided(P2, "");
@@ -333,8 +335,8 @@ public class TimingAtTest extends AbstractAtTest {
         // End shadow phase
         playerDecided(P1, "");
 
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
     }
 
     @Test
@@ -407,14 +409,14 @@ public class TimingAtTest extends AbstractAtTest {
         playerDecided(P1, "");
         playerDecided(P2, "");
 
-        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId()+" "+urukHaiRaidingParty.getCardId());
+        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId() + " " + urukHaiRaidingParty.getCardId());
 
         // Choose Gimli's skirmish
-        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+        playerDecided(P1, "" + _game.getGameState().getRingBearer(P1).getCardId());
 
         assertEquals(3, _game.getGameState().getBurdens());
         _game.getGameState().removeBurdens(3);
-        
+
         AwaitingDecision skirmishDecision = _userFeedback.getAwaitingDecision(P1);
         playerDecided(P1, getCardActionId(skirmishDecision, "Use The One"));
         assertEquals(1, _game.getGameState().getBurdens());

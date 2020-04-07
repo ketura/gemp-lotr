@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 
 /**
  * Set: Rise of Saruman
@@ -26,10 +25,10 @@ public class Card17_058 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         int modifier = 0;
-        for (PhysicalCard possession : Filters.filterActive(gameState, modifiersQuerying, Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Culture.MEN, CardType.MINION))) {
-            modifier -= Filters.filter(gameState.getStackedCards(possession), gameState, modifiersQuerying, Culture.MEN, CardType.MINION).size();
+        for (PhysicalCard possession : Filters.filterActive(game, Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Culture.MEN, CardType.MINION))) {
+            modifier -= Filters.filter(game.getGameState().getStackedCards(possession), game, Culture.MEN, CardType.MINION).size();
         }
         return modifier;
     }

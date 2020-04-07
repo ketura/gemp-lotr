@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.timing.results.KilledResult;
 import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
-    private Collection<PhysicalCard> _cards;
+    private Collection<? extends PhysicalCard> _cards;
     private Cause _cause;
 
     public enum Cause {
@@ -26,7 +26,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
         this(Collections.singleton(card), cause);
     }
 
-    public KillEffect(Collection<PhysicalCard> cards, Cause cause) {
+    public KillEffect(Collection<? extends PhysicalCard> cards, Cause cause) {
         _cards = cards;
         _cause = cause;
     }
@@ -87,7 +87,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
             }
         }
 
-        DiscardUtils.cardsToChangeZones(gameState, toBeKilled, discardedCards, toAddToDiscard);
+        DiscardUtils.cardsToChangeZones(game, toBeKilled, discardedCards, toAddToDiscard);
         toRemoveFromZone.addAll(toAddToDiscard);
 
         gameState.removeCardsFromZone(null, toRemoveFromZone);
@@ -103,7 +103,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
         for (PhysicalCard killedCard : killedCards)
             game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
         for (PhysicalCard discardedCard : discardedCards)
-            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, discardedCard));
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, null, discardedCard));
 
     }
 }

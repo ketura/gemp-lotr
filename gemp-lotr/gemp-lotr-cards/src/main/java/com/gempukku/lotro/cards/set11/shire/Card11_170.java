@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set11.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ReplaceInSkirmishEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -10,6 +7,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.ReplaceInSkirmishEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,10 +32,10 @@ public class Card11_170 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
-            final int pippinResistance = game.getModifiersQuerying().getResistance(game.getGameState(), self);
+                && Filters.notAssignedToSkirmish.accepts(game, self)) {
+            final int pippinResistance = game.getModifiersQuerying().getResistance(game, self);
             if (PlayConditions.canSpot(game, Filters.unboundCompanion, Filters.maxResistance(pippinResistance - 1), Filters.inSkirmish)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(

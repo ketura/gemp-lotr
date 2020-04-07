@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.raider;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -37,7 +37,7 @@ public class Card7_131 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)
+                && Filters.inSkirmish.accepts(game, self)
                 && game.getGameState().getTwilightPool() >= 1) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

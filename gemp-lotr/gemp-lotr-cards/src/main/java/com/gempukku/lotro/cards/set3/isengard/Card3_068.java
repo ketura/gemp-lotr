@@ -1,25 +1,24 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -43,7 +42,7 @@ public class Card3_068 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantTakeWoundsModifier(self,
@@ -51,16 +50,16 @@ public class Card3_068 extends AbstractMinion {
                                 new PhaseCondition(Phase.ARCHERY),
                                 new Condition() {
                                     @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                                    public boolean isFullfilled(LotroGame game) {
+                                        return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                                     }
                                 }), self));
         modifiers.add(
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            public boolean isFullfilled(LotroGame game) {
+                                return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
                         self));

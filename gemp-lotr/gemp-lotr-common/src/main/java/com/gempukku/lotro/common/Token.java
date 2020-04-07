@@ -5,9 +5,12 @@ public enum Token {
 
     DUNLAND(Culture.DUNLAND), DWARVEN(Culture.DWARVEN), ELVEN(Culture.ELVEN), GANDALF(Culture.GANDALF),
     GONDOR(Culture.GONDOR), ISENGARD(Culture.ISENGARD), RAIDER(Culture.RAIDER), ROHAN(Culture.ROHAN), SHIRE(Culture.SHIRE),
-    WRAITH(Culture.WRAITH), SAURON(Culture.SAURON), GOLLUM(Culture.GOLLUM),
+    WRAITH(Culture.WRAITH), SAURON(Culture.SAURON), GOLLUM(Culture.GOLLUM), MORIA(Culture.MORIA),
 
-    URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN), ORC(Culture.ORC);
+    URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN), ORC(Culture.ORC),
+
+    //Additional Hobbit Draft cultures
+    ESGAROTH(Culture.ESGAROTH), GUNDABAD(Culture.GUNDABAD), MIRKWOOD(Culture.MIRKWOOD), SMAUG(Culture.SMAUG), SPIDER(Culture.SPIDER), TROLL(Culture.TROLL);
 
     private Culture _culture;
 
@@ -21,5 +24,13 @@ public enum Token {
 
     public Culture getCulture() {
         return _culture;
+    }
+
+    public static Token findTokenForCulture(Culture culture) {
+        for (Token token : Token.values()) {
+            if (token.getCulture() == culture)
+                return token;
+        }
+        return null;
     }
 }

@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,18 +28,18 @@ public class Card7_242 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.name("Merry");
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, 2, Filters.name("Merry"))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Merry")));
-            int countActive = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.COMPANION);
+            int countActive = Filters.countActive(game, Culture.ROHAN, CardType.COMPANION);
             for (int i = 0; i < countActive; i++) {
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));

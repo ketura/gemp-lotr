@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set15.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -11,8 +8,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -36,7 +35,7 @@ public class Card15_092 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && game.getGameState().getAdventureDeck(game.getGameState().getCurrentPlayerId()).size() > 0
                 && PlayConditions.canExert(self, game, 1, 2, Culture.MEN, Race.MAN)) {

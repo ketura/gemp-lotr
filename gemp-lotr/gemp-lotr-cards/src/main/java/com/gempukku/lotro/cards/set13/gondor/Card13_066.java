@@ -1,17 +1,18 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Bloodlines
@@ -31,17 +32,17 @@ public class Card13_066 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         int modifier = 0;
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.boromir))
+        if (Filters.canSpot(game, Filters.boromir))
             modifier--;
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.name("Denethor")))
+        if (Filters.canSpot(game, Filters.name("Denethor")))
             modifier--;
         return modifier;
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(self, Filters.hasAttached(Culture.GONDOR, CardType.POSSESSION)), Keyword.DEFENDER, 1);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(self, Filters.hasAttached(Culture.GONDOR, CardType.POSSESSION)), Keyword.DEFENDER, 1));
+}
 }

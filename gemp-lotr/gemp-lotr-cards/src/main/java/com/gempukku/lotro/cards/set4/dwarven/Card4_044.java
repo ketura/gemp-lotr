@@ -1,20 +1,19 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.StackCardFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.StackCardFromDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,7 +30,7 @@ import java.util.List;
  */
 public class Card4_044 extends AbstractPermanent {
     public Card4_044() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Courtesy of My Hall", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, "Courtesy of My Hall", null, true);
     }
 
     @Override
@@ -54,9 +53,9 @@ public class Card4_044 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size() > 0) {
+                && Filters.filter(game.getGameState().getStackedCards(self), game, Side.FREE_PEOPLE).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, self, Side.FREE_PEOPLE));

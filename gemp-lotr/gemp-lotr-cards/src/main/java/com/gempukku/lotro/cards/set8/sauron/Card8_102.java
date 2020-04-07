@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set8.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,14 +33,14 @@ public class Card8_102 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Culture.SAURON, Keyword.ENGINE);
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        return -Filters.countActive(game, Culture.SAURON, Keyword.ENGINE);
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && game.getGameState().getCurrentSiteBlock() == Block.KING
+                && game.getGameState().getCurrentSiteBlock() == SitesBlock.KING
                 && game.getGameState().getCurrentSiteNumber() >= 5 && game.getGameState().getCurrentSiteNumber() <= 9) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

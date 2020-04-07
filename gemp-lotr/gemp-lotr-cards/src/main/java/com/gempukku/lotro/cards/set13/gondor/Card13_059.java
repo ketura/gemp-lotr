@@ -1,11 +1,5 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -14,11 +8,17 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,9 +42,9 @@ public class Card13_059 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Culture.GONDOR, Filters.hasAnyCultureTokens(1)));
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null, new CountActiveEvaluator(Culture.GONDOR, Filters.hasAnyCultureTokens(1))));
+}
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {

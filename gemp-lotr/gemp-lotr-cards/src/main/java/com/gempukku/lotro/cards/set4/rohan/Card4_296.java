@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card4_296 extends AbstractPermanent {
     public Card4_296() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Well Stored");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Well Stored");
     }
 
     @Override

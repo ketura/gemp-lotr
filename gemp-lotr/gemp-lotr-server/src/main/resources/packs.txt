@@ -77,3 +77,16 @@ Special-09
 Expanded
 Wraith
 AgesEnd
+TSSealedS1D1
+TSSealedS1D2
+TSSealedS1D3
+TSSealedS2D1
+TSSealedS2D2
+TSSealedS2D3
+TSSealedS3D1
+TSSealedS3D2
+TSSealedS3D3
+(S)TSSealed-S1
+(S)TSSealed-S2
+(S)TSSealed-S3
+(S)TSBoosterChoice

@@ -1,18 +1,17 @@
 package com.gempukku.lotro.cards.set17.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExhaustCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExhaustCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -33,12 +32,12 @@ public class Card17_029 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.GONDOR, Keyword.RANGER);
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name("Faramir")), Keyword.ARCHER));
@@ -48,7 +47,7 @@ public class Card17_029 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, 2, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -57,7 +56,7 @@ public class Card17_029 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseAndExhaustCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))));
+                    new ChooseAndExhaustCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.name("Faramir"))));
             return Collections.singletonList(action);
         }
         return null;

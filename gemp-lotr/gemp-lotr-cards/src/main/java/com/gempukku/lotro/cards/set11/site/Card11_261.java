@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Dwelling. River. When your fellowship moves to this site, you may heal each Hobbit companion.
  */
-public class Card11_261 extends AbstractNewSite {
+public class Card11_261 extends AbstractShadowsSite {
     public Card11_261() {
         super("Valley of the Silverlode", 3, Direction.RIGHT);
         addKeyword(Keyword.DWELLING);
@@ -33,7 +33,7 @@ public class Card11_261 extends AbstractNewSite {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
-            Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION);
+            Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game, Race.HOBBIT, CardType.COMPANION);
             if (hobbitCompanions.size() > 0) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(

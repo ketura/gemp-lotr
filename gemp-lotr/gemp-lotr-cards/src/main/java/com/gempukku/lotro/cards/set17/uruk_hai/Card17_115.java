@@ -1,22 +1,21 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collections;
@@ -42,7 +41,7 @@ public class Card17_115 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Culture.URUK_HAI, Keyword.HUNTER)
-                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE)) {
             final CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
             final PhysicalCard winner = winResult.getWinner();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
@@ -54,7 +53,7 @@ public class Card17_115 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set15.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,12 +33,12 @@ public class Card15_149 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(self, Filters.hasAttached(CardType.FOLLOWER)), 2);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(self, Filters.hasAttached(CardType.FOLLOWER)), 2));
+}
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmishAgainst(CardType.MINION, Keyword.HUNTER))
                 && PlayConditions.canAddThreat(game, self, 1)) {

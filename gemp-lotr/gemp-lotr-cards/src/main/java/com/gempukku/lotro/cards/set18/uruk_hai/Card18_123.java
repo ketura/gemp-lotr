@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set18.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card18_123 extends AbstractPermanent {
     public Card18_123() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Tracking the Prize", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, "Tracking the Prize", null, true);
     }
 
     @Override

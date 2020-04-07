@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.ForEachBurdenEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.ForEachBurdenEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_083 extends AbstractPermanent {
     public Card3_083() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "The Ring Draws Them", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "The Ring Draws Them", null, true);
     }
 
     @Override

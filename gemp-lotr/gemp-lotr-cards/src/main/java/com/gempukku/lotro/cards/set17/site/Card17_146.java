@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set17.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDeadPileEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeadPileEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: River. When the fellowship moves to this site in region 2, the Free Peoples player places a card from
  * the dead pile out of play.
  */
-public class Card17_146 extends AbstractNewSite {
+public class Card17_146 extends AbstractShadowsSite {
     public Card17_146() {
         super("Falls of Rauros", 3, Direction.LEFT);
         addKeyword(Keyword.RIVER);

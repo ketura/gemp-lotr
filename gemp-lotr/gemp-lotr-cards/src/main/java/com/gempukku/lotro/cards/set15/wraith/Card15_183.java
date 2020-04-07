@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set15.wraith;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPreventCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card15_183 extends AbstractPermanent {
     public Card15_183() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "They Feel the Precious");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "They Feel the Precious");
     }
 
     @Override

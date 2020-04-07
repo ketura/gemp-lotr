@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set12.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card12_122 extends AbstractPermanent {
     public Card12_122() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Home and Hearth");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Home and Hearth");
     }
 
     @Override

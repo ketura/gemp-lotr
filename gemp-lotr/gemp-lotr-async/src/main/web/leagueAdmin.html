@@ -31,29 +31,30 @@
     <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
     <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
 
-    <script type="text/javascript" src="js/gemp-019/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-019/common.js"></script>
-    <script type="text/javascript" src="js/gemp-019/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-019/chat.js"></script>
-    <script type="text/javascript" src="js/gemp-019/communication.js"></script>
-    <script type="text/javascript" src="js/gemp-019/deliveryService.js"></script>
-    <script type="text/javascript" src="js/gemp-019/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/cardFilter.js"></script>
+    <script type="text/javascript" src="js/gemp-022/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-022/common.js"></script>
+    <script type="text/javascript" src="js/gemp-022/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-022/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-022/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-022/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-022/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>
 
-    <script type="text/javascript" src="js/gemp-019/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/gemp-019/set20.js"></script>
-    <script type="text/javascript" src="js/gemp-019/jCards.js"></script>
+    <script type="text/javascript" src="js/gemp-022/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-022/hobbit.js"></script>
+    <script type="text/javascript" src="js/gemp-022/set40.js"></script>
+    <script type="text/javascript" src="js/gemp-022/jCards.js"></script>
 
-    <script type="text/javascript" src="js/gemp-019/hallUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/leagueResultsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/tournamentResultsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/statsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/playerStatsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/gameHistoryUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/deckBuildingUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/gameUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/gameAnimations.js"></script>
-    <script type="text/javascript" src="js/gemp-019/merchantUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
 
     <script type="text/javascript">
         function submitFormToAddress(url, formElem, success, error) {
@@ -80,7 +81,7 @@
 
             $.ajax({
                 type:"POST",
-                url:url,
+                url:serverDomain+url,
                 cache:false,
                 data:data,
                 traditional:true,
@@ -149,6 +150,13 @@
                                 previewDialog.dialog("open");
                             });
 
+                    $("#previewSoloDraft").click(
+                            function () {
+                                submitFormToAddress("/gemp-lotr-server/admin/previewSoloDraftLeague", $("#addSoloDraftForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
                     $("#previewConstructed").click(
                             function () {
                                 submitFormToAddress("/gemp-lotr-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
@@ -179,11 +187,31 @@
         <option value="movie">King (Movie) block</option>
         <option value="war_block">War of the Ring block</option>
         <option value="movie_special">Movie Special block</option>
+        <option value="ts_special">TS Special block</option>
     </select><br/>
     Series duration in days: <input type="text" name="serieDuration"><br/>
     Maximum matches in series: <input type="text" name="maxMatches"><br/>
     <input id="previewSealed" type="button" value="Preview sealed league">
     <input type="submit" value="Add sealed league">
+</form>
+
+<h2>Add solo-draft league</h2>
+
+<form id="addSoloDraftForm" method="POST" action="/gemp-lotr-server/admin/addSoloDraftLeague">
+    Name: <input type="text" name="name"><br/>
+    Cost (in silver): <input type="text" name="cost"><br/>
+    Start (YYYYMMDD): <input type="text" name="start"><br/>
+    Format:
+    <select name="format">
+        <option value="test_draft">Test Draft</option>
+        <option value="fotr_draft">Fellowship Draft</option>
+        <option value="ttt_draft">Two Towers Draft</option>
+        <option value="hobbit_draft">Hobbit Draft</option>
+    </select><br/>
+    Series duration in days: <input type="text" name="serieDuration"><br/>
+    Maximum matches in series: <input type="text" name="maxMatches"><br/>
+    <input id="previewSoloDraft" type="button" value="Preview solo draft league">
+    <input type="submit" value="Add solo draft league">
 </form>
 
 <h2>Add constructed league</h2>
@@ -207,26 +235,35 @@
                 <option value="fotr_block">Fellowship block</option>
                 <option value="fotr1_block">Fellowship block - Set 1</option>
                 <option value="fotr2_block">Fellowship block - Sets 1&2</option>
+                <option value="fotr_poorman">Fellowship block - Poorman</option>
+                <option value="fotr_highlander">Fellowship block - Highlander</option>
                 <option value="ttt_block">Towers block</option>
                 <option value="ttt1_block">Towers block - Set 4</option>
                 <option value="ttt2_block">Towers block - Sets 4&5</option>
                 <option value="towers_standard">Towers standard</option>
                 <option value="ttt_standard">Towers standard - Sets 1-4</option>
                 <option value="bohd_standard">Towers standard - Sets 1-5</option>
+                <option value="ts_no_fotr">Towers standard - Sets 2-6</option>
                 <option value="ts_reflections">Towers standard - Sets 1-6,9,14&16</option>
                 <option value="king_block">King block</option>
+                <option value="king1_block">King block - Set 7</option>
+                <option value="king2_block">King block - Sets 7-8</option>
                 <option value="movie">Movie block</option>
                 <option value="movie_exp">Movie block, no GLR (10R11)</option>
                 <option value="movie7">Movie block - Sets 1-7</option>
                 <option value="movie8">Movie block - Sets 1-8</option>
                 <option value="movie9">Movie block - Sets 1-9</option>
+                <option value="movie_sans9">Movie block - Sets 1-8,10</option>
+                <option value="movie_highlander">Movie block - Highlander</option>
                 <option value="war_block">War of the Ring block</option>
                 <option value="war_block11">War of the Ring block - Set 11</option>
                 <option value="war_block12">War of the Ring block - Sets 11-12</option>
                 <option value="war_block14">War of the Ring block - Sets 10-14</option>
+                <option value="hunter_block">Hunters block</option>
                 <option value="war_standard">War of the Ring standard</option>
                 <option value="standard">Standard</option>
                 <option value="open">Open</option>
+                <option value="open_legacy">Open - Sets 1-4</option>
                 <option value="expanded">Expanded</option>
             </select><br/>
             Series duration in days: <input type="text" name="serieDuration"><br/>

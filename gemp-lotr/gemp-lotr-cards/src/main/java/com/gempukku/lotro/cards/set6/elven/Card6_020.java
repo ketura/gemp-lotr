@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set6.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.List;
 
@@ -30,13 +30,12 @@ public class Card6_020 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Race.ELF);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Race.ELF);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {

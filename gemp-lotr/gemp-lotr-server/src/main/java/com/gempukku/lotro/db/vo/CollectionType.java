@@ -8,7 +8,7 @@ public final class CollectionType {
     public final static CollectionType TROPHY = new CollectionType("trophy", "Trophies");
     public final static CollectionType ALL_CARDS = new CollectionType("default", "All cards");
 
-    public final static CollectionType OWNED_TOURNAMENT_CARDS = new CollectionType("permanent+trophy", "All cards");
+    public final static CollectionType OWNED_TOURNAMENT_CARDS = new CollectionType("permanent+trophy", "My cards");
 
     private final String _code;
     private final String _fullName;

@@ -1,18 +1,18 @@
 package com.gempukku.lotro.cards.set10.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDeadPileEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeadPileEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.*;
 
@@ -30,13 +30,12 @@ public class Card10_014 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Filters.owner(playerId), Race.WIZARD);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Filters.owner(self.getOwner()), Race.WIZARD);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseCardsFromHandEffect(playerId, 1, 1, CardType.COMPANION) {

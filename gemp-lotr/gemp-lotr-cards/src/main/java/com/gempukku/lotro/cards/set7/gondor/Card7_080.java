@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.modifiers.MaxThreatCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.MaxThreatCondition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -27,12 +27,12 @@ public class Card7_080 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.aragorn;
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new KeywordModifier(self, Filters.hasAttached(self), new MaxThreatCondition(0), Keyword.DEFENDER, 1));
     }

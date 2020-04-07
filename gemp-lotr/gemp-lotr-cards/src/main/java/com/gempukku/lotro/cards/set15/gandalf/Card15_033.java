@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 /**
@@ -29,16 +27,15 @@ public class Card15_033 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Filters.gandalf)
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Filters.gandalf)
                 && PlayConditions.canSpot(game, Filters.unboundCompanion, Filters.inSkirmishAgainst(CardType.MINION));
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        final PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
+        final PhysicalCard gandalf = Filters.findFirstActive(game, Filters.gandalf);
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
@@ -48,8 +45,8 @@ public class Card15_033 extends AbstractEvent {
                             skirmish.setFpStrengthOverrideEvaluator(
                                     new Evaluator() {
                                         @Override
-                                        public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                            return modifiersQuerying.getResistance(gameState, gandalf);
+                                        public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                            return game.getModifiersQuerying().getResistance(game, gandalf);
                                         }
                                     });
                         }

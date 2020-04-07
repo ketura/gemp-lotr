@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set18.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.ExhaustCharacterEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -35,7 +34,7 @@ public class Card18_080 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 3));
@@ -45,7 +44,7 @@ public class Card18_080 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 2)
                 && PlayConditions.canPlayFromDiscard(playerId, game, 2, 0, Culture.ORC, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);

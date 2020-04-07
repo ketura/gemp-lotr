@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.conditions.InitiativeCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,12 +26,12 @@ public class Card7_105 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.GONDOR, Race.MAN);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new KeywordModifier(self, Filters.hasAttached(self), new InitiativeCondition(Side.FREE_PEOPLE), Keyword.DEFENDER, 1));
     }

@@ -4,11 +4,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.List;
@@ -50,7 +49,12 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard physicalCard, PhysicalCard attachedTo) {
+        return false;
+    }
+
+    @Override
+    public String getText(LotroGame game, PhysicalCard self) {
         return _text;
     }
 
@@ -60,317 +64,327 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return (_affectFilter != null && _affectFilter.accepts(gameState, modifiersQuerying, physicalCard));
+    public boolean affectsCard(LotroGame game, PhysicalCard physicalCard) {
+        return (_affectFilter != null && _affectFilter.accepts(game, physicalCard));
     }
 
     @Override
-    public boolean hasRemovedText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public boolean hasRemovedText(LotroGame game, PhysicalCard physicalCard) {
         return false;
     }
 
     @Override
-    public boolean isKeywordRemoved(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+    public boolean isKeywordRemoved(LotroGame game, PhysicalCard physicalCard, Keyword keyword) {
         return false;
     }
 
     @Override
-    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+    public boolean hasKeyword(LotroGame game, PhysicalCard physicalCard, Keyword keyword) {
         return false;
     }
 
     @Override
-    public int getKeywordCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+    public int getKeywordCountModifier(LotroGame game, PhysicalCard physicalCard, Keyword keyword) {
         return 0;
     }
 
     @Override
-    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword) {
+    public boolean appliesKeywordModifier(LotroGame game, PhysicalCard modifierSource, Keyword keyword) {
         return true;
     }
 
     @Override
-    public boolean hasSignet(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Signet signet) {
+    public boolean hasSignet(LotroGame game, PhysicalCard physicalCard, Signet signet) {
         return false;
     }
 
     @Override
-    public int getStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public int getStrengthModifier(LotroGame game, PhysicalCard physicalCard) {
         return 0;
     }
 
     @Override
-    public boolean appliesStrengthBonusModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, PhysicalCard modifierTaget) {
+    public boolean appliesStrengthBonusModifier(LotroGame game, PhysicalCard modifierSource, PhysicalCard modifierTaget) {
         return true;
     }
 
     @Override
-    public int getVitalityModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public int getVitalityModifier(LotroGame game, PhysicalCard physicalCard) {
         return 0;
     }
 
     @Override
-    public int getResistanceModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public int getResistanceModifier(LotroGame game, PhysicalCard physicalCard) {
         return 0;
     }
 
     @Override
-    public int getMinionSiteNumberModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public int getMinionSiteNumberModifier(LotroGame game, PhysicalCard physicalCard) {
         return 0;
     }
 
     @Override
-    public boolean isAdditionalCardTypeModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, CardType cardType) {
+    public boolean isAdditionalCardTypeModifier(LotroGame game, PhysicalCard physicalCard, CardType cardType) {
         return false;
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
         return 0;
     }
 
     @Override
-    public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
+    public int getOverwhelmMultiplier(LotroGame game, PhysicalCard physicalCard) {
         return 0;
     }
 
     @Override
-    public int getOverwhelmMultiplier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public boolean canTakeWounds(LotroGame game, Collection<PhysicalCard> woundSources, PhysicalCard physicalCard, int woundsAlreadyTaken, int woundsToTake) {
+        return true;
+    }
+
+    @Override
+    public boolean canTakeWoundsFromLosingSkirmish(LotroGame game, PhysicalCard physicalCard, Set<PhysicalCard> winners) {
+        return true;
+    }
+
+    @Override
+    public boolean canTakeArcheryWound(LotroGame game, PhysicalCard physicalCard) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard exertedCard) {
+        return true;
+    }
+
+    @Override
+    public boolean isAllyParticipateInArcheryFire(LotroGame game, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public boolean isAllyParticipateInSkirmishes(LotroGame game, Side sidePlayer, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public boolean isUnhastyCompanionAllowedToParticipateInSkirmishes(LotroGame game, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public boolean isAllyPreventedFromParticipatingInArcheryFire(LotroGame game, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public boolean isAllyPreventedFromParticipatingInSkirmishes(LotroGame game, Side sidePlayer, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public int getArcheryTotalModifier(LotroGame game, Side side) {
         return 0;
     }
 
     @Override
-    public boolean canTakeWounds(GameState gameState, ModifiersQuerying modifiersQuerying, Collection<PhysicalCard> woundSources, PhysicalCard physicalCard, int woundsAlreadyTaken, int woundsToTake) {
-        return true;
-    }
-
-    @Override
-    public boolean canTakeWoundsFromLosingSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Set<PhysicalCard> winners) {
-        return true;
-    }
-
-    @Override
-    public boolean canTakeArcheryWound(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        return true;
-    }
-
-    @Override
-    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard exertionSource, PhysicalCard card) {
-        return true;
-    }
-
-    @Override
-    public boolean isAllyParticipateInArcheryFire(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public boolean isAllyParticipateInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public boolean isUnhastyCompanionAllowedToParticipateInSkirmishes(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public boolean isAllyPreventedFromParticipatingInArcheryFire(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public boolean isAllyPreventedFromParticipatingInSkirmishes(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public int getArcheryTotalModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Side side) {
+    public int getMoveLimitModifier(LotroGame game) {
         return 0;
     }
 
     @Override
-    public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return 0;
-    }
-
-    @Override
-    public boolean addsTwilightForCompanionMove(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard companion) {
+    public boolean addsTwilightForCompanionMove(LotroGame game, PhysicalCard companion) {
         return true;
     }
 
     @Override
-    public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean addsToArcheryTotal(LotroGame game, PhysicalCard card) {
         return true;
     }
 
     @Override
-    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
         return true;
     }
 
     @Override
-    public List<? extends ActivateCardAction> getExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public List<? extends Action> getExtraPhaseAction(LotroGame game, PhysicalCard card) {
         return null;
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActionFromStacked(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public List<? extends Action> getExtraPhaseActionFromStacked(LotroGame game, PhysicalCard card) {
         return null;
     }
 
     @Override
-    public boolean canPayExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, PhysicalCard card) {
+    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
         return true;
     }
 
     @Override
-    public List<? extends Effect> getExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, Action action, PhysicalCard card) {
+    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
+
+    }
+
+    @Override
+    public boolean canHavePlayedOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target) {
+        return true;
+    }
+
+    @Override
+    public boolean canHaveTransferredOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeTransferred(LotroGame game, PhysicalCard attachment) {
+        return true;
+    }
+
+    @Override
+    public boolean shouldSkipPhase(LotroGame game, Phase phase, String playerId) {
+        return false;
+    }
+
+    @Override
+    public boolean isValidAssignments(LotroGame game, Side side, PhysicalCard companion, Set<PhysicalCard> minions) {
+        return true;
+    }
+
+    @Override
+    public boolean isValidAssignments(LotroGame game, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
+        return true;
+    }
+
+    @Override
+    public boolean isPreventedFromBeingAssignedToSkirmish(LotroGame game, Side sidePlayer, PhysicalCard card) {
+        return false;
+    }
+
+    @Override
+    public boolean canBeDiscardedFromPlay(LotroGame game, String performingPlayer, PhysicalCard card, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeLiberated(LotroGame game, String performingPlayer, PhysicalCard card, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeReturnedToHand(LotroGame game, PhysicalCard card, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canBeHealed(LotroGame game, PhysicalCard card) {
+        return true;
+    }
+
+    @Override
+    public boolean canAddBurden(LotroGame game, String performingPlayer, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canRemoveBurden(LotroGame game, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canRemoveThreat(LotroGame game, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public int getRoamingPenaltyModifier(LotroGame game, PhysicalCard physicalCard) {
+        return 0;
+    }
+
+    @Override
+    public boolean canLookOrRevealCardsInHand(LotroGame game, String revealingPlayerId, String actingPlayerId) {
+        return true;
+    }
+
+    @Override
+    public boolean canDiscardCardsFromHand(LotroGame game, String playerId, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public boolean canDiscardCardsFromTopOfDeck(LotroGame game, String playerId, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
+    public int getSpotCountModifier(LotroGame game, Filterable filter) {
+        return 0;
+    }
+
+    @Override
+    public boolean hasFlagActive(LotroGame game, ModifierFlag modifierFlag) {
+        return false;
+    }
+
+    @Override
+    public boolean isSiteReplaceable(LotroGame game, String playerId) {
+        return true;
+    }
+
+    @Override
+    public boolean canPlaySite(LotroGame game, String playerId) {
+        return true;
+    }
+
+    @Override
+    public boolean shadowCanHaveInitiative(LotroGame game) {
+        return true;
+    }
+
+    @Override
+    public Side hasInitiative(LotroGame game) {
         return null;
     }
 
     @Override
-    public boolean canHavePlayedOn(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard playedCard, PhysicalCard target) {
-        return true;
-    }
-
-    @Override
-    public boolean canHaveTransferredOn(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard playedCard, PhysicalCard target) {
-        return true;
-    }
-
-    @Override
-    public boolean canBeTransferred(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard attachment) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
-        return false;
-    }
-
-    @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, PhysicalCard companion, Set<PhysicalCard> minions) {
-        return true;
-    }
-
-    @Override
-    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
-        return true;
-    }
-
-    @Override
-    public boolean isPreventedFromBeingAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, PhysicalCard card, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public boolean canBeLiberated(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, PhysicalCard card, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public boolean canBeReturnedToHand(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return true;
-    }
-
-    @Override
-    public boolean canAddBurden(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public boolean canRemoveBurden(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public boolean canRemoveThreat(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public int getRoamingPenaltyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public int getInitiativeHandSizeModifier(LotroGame game) {
         return 0;
     }
 
     @Override
-    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String revealingPlayerId, String actingPlayerId) {
-        return true;
-    }
-
-    @Override
-    public boolean canDiscardCardsFromHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public boolean canDiscardCardsFromTopOfDeck(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
-        return true;
-    }
-
-    @Override
-    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable filter) {
-        return 0;
-    }
-
-    @Override
-    public boolean hasFlagActive(GameState gameState, ModifiersQuerying modifiersQuerying, ModifierFlag modifierFlag) {
+    public boolean lostAllKeywords(LotroGame game, PhysicalCard card) {
         return false;
     }
 
     @Override
-    public boolean isSiteReplaceable(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        return true;
-    }
-
-    @Override
-    public boolean canPlaySite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        return true;
-    }
-
-    @Override
-    public boolean shadowCanHaveInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return true;
-    }
-
-    @Override
-    public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
+    public Evaluator getFpSkirmishStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter) {
         return null;
     }
 
     @Override
-    public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return 0;
-    }
-
-    @Override
-    public boolean lostAllKeywords(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-        return false;
-    }
-
-    @Override
-    public Evaluator getFpSkirmishStrengthOverrideEvaluator(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard fpCharacter) {
-        return null;
-    }
-
-    @Override
-    public boolean canSpotCulture(GameState gameState, ModifiersQuerying modifiersQuerying, Culture culture, String playerId) {
+    public boolean canSpotCulture(LotroGame game, Culture culture, String playerId) {
         return true;
     }
 
     @Override
-    public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+    public int getFPCulturesSpotCountModifier(LotroGame game, String playerId) {
         return 0;
+    }
+
+    @Override
+    public int getSanctuaryHealModifier(LotroGame game) {
+        return 0;
+    }
+
+    @Override
+    public int getPotentialDiscount(LotroGame game, PhysicalCard discountCard) {
+        return 0;
+    }
+
+    @Override
+    public void appendPotentialDiscounts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
+
     }
 }

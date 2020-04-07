@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set10.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class Card10_108 extends AbstractPermanent {
     public Card10_108() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "A Light in His Mind", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "A Light in His Mind", null, true);
     }
 
     @Override

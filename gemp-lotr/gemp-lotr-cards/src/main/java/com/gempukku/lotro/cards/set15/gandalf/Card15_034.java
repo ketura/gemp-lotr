@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.ReinforceTokenEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,13 +32,12 @@ public class Card15_034 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                - modifiersQuerying.getSpotBonus(gameState, Race.ENT);
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        return -Filters.countSpottable(game, Race.ENT);
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);

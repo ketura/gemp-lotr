@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set11.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -12,7 +7,12 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Shadows
@@ -28,13 +28,12 @@ public class Card11_006 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Filters.ringBearer) && PlayConditions.canExert(self, game, Race.DWARF, Filters.not(Filters.ringBearer));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Filters.ringBearer) && PlayConditions.canExert(self, game, Race.DWARF, Filters.not(Filters.ringBearer));
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
@@ -42,7 +41,7 @@ public class Card11_006 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, Filters.not(Filters.ringBearer)) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        int resistance = game.getModifiersQuerying().getResistance(game.getGameState(), character);
+                        int resistance = game.getModifiersQuerying().getResistance(game, character);
                         if (resistance > 0)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

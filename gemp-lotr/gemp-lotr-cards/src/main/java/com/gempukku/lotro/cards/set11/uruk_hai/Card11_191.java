@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,15 +27,18 @@ public class Card11_191 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.URUK_HAI, CardType.MINION);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), new LocationCondition(Keyword.BATTLEGROUND), Keyword.ARCHER, 1));
         return modifiers;

@@ -1,15 +1,16 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,13 +30,12 @@ public class Card15_032 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.ENT) + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT)) >= 1;
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.ENT);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
@@ -45,7 +45,7 @@ public class Card15_032 extends AbstractEvent {
                         return "Take a GANDALF companion into hand from your draw deck";
                     }
                 });
-        if ((Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.ENT) + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT)) >= 2) {
+        if (PlayConditions.canSpot(game, 2, Race.ENT)) {
             possibleEffects.add(
                     new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, CardType.COMPANION) {
                         @Override

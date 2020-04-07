@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set5.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -28,12 +28,12 @@ import java.util.List;
  */
 public class Card5_119 extends AbstractSite {
     public Card5_119() {
-        super("Nan Curunir", Block.TWO_TOWERS, 8, 8, Direction.RIGHT);
+        super("Nan Curunir", SitesBlock.TWO_TOWERS, 8, 8, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
     }
 
     @Override
-    public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId), Filters.mounted)
                 && game.getGameState().getTwilightPool() >= 2) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

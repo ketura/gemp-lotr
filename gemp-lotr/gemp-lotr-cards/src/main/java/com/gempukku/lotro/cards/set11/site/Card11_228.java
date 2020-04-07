@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +19,7 @@ import java.util.List;
  * Type: Site
  * Game Text: River. When the fellowship moves to this site, discard each ally from play.
  */
-public class Card11_228 extends AbstractNewSite {
+public class Card11_228 extends AbstractShadowsSite {
     public Card11_228() {
         super("Anduin Confluence", 1, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
@@ -30,7 +30,7 @@ public class Card11_228 extends AbstractNewSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.ALLY));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

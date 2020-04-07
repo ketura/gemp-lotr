@@ -2,15 +2,20 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
+import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
 
 import java.util.List;
 
 public interface LeagueData {
-    public List<LeagueSerieData> getSeries();
+    boolean isSoloDraftLeague();
 
-    public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);
+    List<LeagueSerieData> getSeries();
 
-    public int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime);
+    SoloDraft getSoloDraft();
+
+    CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);
+
+    int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime);
 }

@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +31,7 @@ import java.util.List;
  */
 public class Card3_036 extends AbstractPermanent {
     public Card3_036() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Unknown Perils");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, "Unknown Perils");
     }
 
     @Override

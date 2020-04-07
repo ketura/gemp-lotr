@@ -1,20 +1,17 @@
 package com.gempukku.lotro.cards.set5.gollum;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,18 +31,17 @@ public class Card5_027 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.smeagol;
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
+    public int getStrength() {
+        return 1;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canDiscardFromPlay(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);

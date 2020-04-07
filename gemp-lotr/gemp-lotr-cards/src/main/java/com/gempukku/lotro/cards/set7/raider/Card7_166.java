@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set7.raider;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,9 +37,9 @@ public class Card7_166 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
-                && new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null) >= 4
+                && new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game, null) >= 4
                 && (PlayConditions.canSelfExert(self, game) || PlayConditions.canRemoveThreat(game, self, 1))) {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();

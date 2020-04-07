@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 
@@ -26,24 +26,18 @@ import java.util.Collections;
  * Game Text: Maneuver: Exert a Hobbit bearing a weapon to wound a minion. That minion's owner may remove (3)
  * to prevent this.
  */
-public class Card2_103 extends AbstractOldEvent {
+public class Card2_103 extends AbstractEvent {
     public Card2_103() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Hobbit Sword-play", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Hobbit Sword-play", Phase.MANEUVER);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.HOBBIT, Filters.hasAttached(Filters.weapon));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Race.HOBBIT, Filters.hasAttached(Filters.weapon));
     }
 
     @Override
-    public int getTwilightCost() {
-        return 0;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.hasAttached(Filters.weapon)));
@@ -57,7 +51,7 @@ public class Card2_103 extends AbstractOldEvent {
                                         Collections.singletonList(card.getOwner()),
                                         new PreventableEffect.PreventionCost() {
                                             @Override
-                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                                 return new RemoveTwilightEffect(3);
                                             }
                                         }

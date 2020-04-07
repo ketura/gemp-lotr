@@ -1,22 +1,20 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveFromTheGameCardsInPlayEffect;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveFromTheGameCardsInPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,18 +37,18 @@ public class Card13_064 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new ResistanceModifier(self, self,
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new ResistanceModifier(self, self,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Filters.filter(gameState.getDiscard(self.getOwner()), gameState, modifiersQuerying, Culture.GONDOR, CardType.POSSESSION).size();
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return Filters.filter(game.getGameState().getDiscard(self.getOwner()), game, Culture.GONDOR, CardType.POSSESSION).size();
                     }
-                });
+                }));
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSpot(game, Culture.GONDOR, CardType.POSSESSION, Filters.attachedTo(CardType.COMPANION))) {
             ActivateCardAction action = new ActivateCardAction(self);

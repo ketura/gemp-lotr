@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set3.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.RevealRandomCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.ShuffleCardsFromDiscardIntoDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,18 +24,13 @@ import java.util.List;
  * Game Text: Fellowship: Reveal a card at random from an opponent's hand. Shuffle up to X [DWARVEN] cards from your
  * discard pile into your draw deck, where X is the twilight cost of the card revealed.
  */
-public class Card3_006 extends AbstractOldEvent {
+public class Card3_006 extends AbstractEvent {
     public Card3_006() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Storm of Argument", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Storm of Argument", Phase.FELLOWSHIP);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {

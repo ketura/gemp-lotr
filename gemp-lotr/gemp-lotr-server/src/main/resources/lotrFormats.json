@@ -26,6 +26,32 @@
         "hall":false
     },
     {
+        "name":"Fellowship block - Poorman's",
+        "code":"fotr_poorman",
+        "sites":"FELLOWSHIP",
+        "cancelRingBearerSkirmish":true,
+        "banned":["1_1", "1_13", "1_14", "1_15", "1_16", "1_22", "1_23", "1_28", "1_30", "1_33", "1_34", "1_35", "1_36", "1_38", "1_40", "1_45", "1_47", "1_49", "1_50", "1_55", "1_62", "1_66", "1_69",
+        "1_71", "1_72", "1_75", "1_79", "1_80", "1_81", "1_83", "1_87", "1_88", "1_89", "1_90", "1_93", "1_95", "1_96", "1_99", "1_100", "1_111", "1_114", "1_115", "1_118", "1_120", "1_123", "1_124",
+        "1_125", "1_127", "1_128", "1_129", "1_131", "1_132", "1_137", "1_139", "1_140", "1_143", "1_147", "1_148", "1_155", "1_163", "1_165", "1_166", "1_167", "1_169", "1_170", "1_172", "1_173",
+        "1_175", "1_183", "1_186", "1_189", "1_190", "1_195", "1_199", "1_200", "1_204", "1_205", "1_206", "1_208", "1_210", "1_212", "1_214", "1_216", "1_217", "1_221", "1_224", "1_228", "1_229",
+        "1_230", "1_236", "1_237", "1_240", "1_243", "1_244", "1_245", "1_246", "1_247", "1_250", "1_252", "1_253", "1_254", "1_256", "1_259", "1_263", "1_264", "1_265", "1_272", "1_276", "1_279",
+        "1_282", "1_284", "1_288", "1_289", "1_291", "1_302", "1_307", "1_308", "1_310", "1_313", "1_314", "1_318", "2_1", "2_7", "2_11", "2_12", "2_15", "2_19", "2_20", "2_22", "2_25", "2_27",
+        "2_32", "2_36", "2_38", "2_39", "2_43", "2_45", "2_46", "2_49", "2_50", "2_52", "2_53", "2_57", "2_66", "2_73", "2_74", "2_75", "2_77", "2_80", "2_84", "2_85", "2_86", "2_93", "2_94", "2_97",
+        "2_100", "2_105", "2_108", "2_109", "2_112", "2_113", "3_1", "3_3", "3_8", "3_13", "3_15", "3_17", "3_19", "3_21", "3_23", "3_27", "3_29", "3_34", "3_38", "3_39", "3_40", "3_41", "3_42",
+        "3_44", "3_50", "3_52", "3_54", "3_64", "3_65", "3_66", "3_67", "3_68", "3_71", "3_77", "3_80", "3_81", "3_85", "3_91", "3_93", "3_99", "3_102", "3_103", "3_104", "3_105", "3_110", "3_113"],
+        "restricted":["1_248"],
+	    "set":[1, 2, 3],
+        "hall":false
+    },
+    {
+        "name":"Open - Sets 1-4",
+        "code":"open_legacy",
+        "sites":"TWO_TOWERS",
+        "cancelRingBearerSkirmish":true,
+        "set":[1, 2, 3, 4],
+        "hall":false
+    },
+    {
         "name":"Towers block",
         "code":"ttt_block",
         "sites":"TWO_TOWERS",
@@ -57,9 +83,9 @@
         "set":[1, 2, 3, 4, 5, 6]
     },
     {
-        "name":"Revised Towers Standard",
+        "name": "Anything goes",
         "code":"rev_tow_sta",
-        "sites":"TWO_TOWERS",
+        "sites": "SPECIAL",
         "cancelRingBearerSkirmish":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     },
@@ -100,12 +126,38 @@
         "hall":false
     },
     {
+        "name":"King Standard",
+        "code":"rotk_sta",
+        "sites":"KING",
+        "cancelRingBearerSkirmish":true,
+        "banned":["1_40", "1_45","1_80", "1_108", "1_139", "1_195", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_67", "3_68", "3_106", "3_108"],
+        "set":[1, 2, 3, 4, 5, 6, 7]
+    },
+    {
         "name":"King block",
         "code":"king_block",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
         "restricted":["7_49"],
         "set":[7, 8, 10]
+    },
+    {
+        "name":"King block - Set 7",
+        "code":"king1_block",
+        "sites":"KING",
+        "cancelRingBearerSkirmish":true,
+        "restricted":["7_49"],
+        "set":[7],
+        "hall":false
+    },
+    {
+        "name":"King block - Sets 7-8",
+        "code":"king2_block",
+        "sites":"KING",
+        "cancelRingBearerSkirmish":true,
+        "restricted":["7_49"],
+        "set":[7, 8],
+        "hall":false
     },
     {
         "name":"Movie block",
@@ -136,6 +188,14 @@
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9],
+        "hall":false
+    },
+    {
+        "name":"Movie block - Sets 1-8, 10",
+        "code":"movie_sans9",
+        "sites":"KING",
+        "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
+        "set":[1, 2, 3, 4, 5, 6, 7, 8, 10],
         "hall":false
     },
     {
@@ -181,38 +241,6 @@
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     },
     {
-        "name":"Limited",
-        "code":"limited_fotr",
-        "sites":"FELLOWSHIP",
-        "cancelRingBearerSkirmish":true,
-        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-        "hall":false
-    },
-    {
-        "name":"Limited",
-        "code":"limited_ttt",
-        "sites":"TWO_TOWERS",
-        "cancelRingBearerSkirmish":true,
-        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-        "hall":false
-    },
-    {
-        "name":"Limited",
-        "code":"limited_king",
-        "sites":"KING",
-        "cancelRingBearerSkirmish":true,
-        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-        "hall":false
-    },
-    {
-        "name":"Limited",
-        "code":"limited_shadows",
-        "sites":"SHADOWS",
-        "cancelRingBearerSkirmish":false,
-        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-        "hall":false
-    },
-    {
         "name":"War of the Ring block - Set 11",
         "code":"war_block11",
         "sites":"SHADOWS",
@@ -255,17 +283,115 @@
     },
     {
         "name":"Second Edition",
-        "surveyUrl":"https://docs.google.com/forms/d/1lw_MKQZ2xqvukkH6DaYYEONiatnpsGhl305g37lOknk/viewform?sid=10592f5f2527e366",
         "code":"2nd_ed",
         "sites":"SECOND_ED",
         "banned":[],
         "restricted":[],
         "valid":[],
-        "set":[20],
+        "set":[40],
         "cancelRingBearerSkirmish":true,
         "winAtEndOfRegroup":true,
         "ruleOfFour":false,
         "winOnControlling5Sites":true,
         "hall":true
+    },
+    {
+        "name":"Hobbit: The Short Rest",
+        "code":"hobbit_tsr",
+        "sites":"HOBBIT",
+        "cancelRingBearerSkirmish":true,
+        "restricted":["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_16", "30_17", "30_18", "30_19", "30_29", "30_47", "30_48", "30_58", "31_13", "31_14", "31_16", "31_23", "31_56"],
+        "limit2":["30_1", "30_24", "31_1", "31_38"],
+        "limit3":[],
+        "set":[30, 31],
+        "restrictedName":["Gandalf", "Bilbo"],
+        "hall":true
+    },
+    {
+        "name": "Hobbit: The Clouds Burst",
+        "code": "hobbit_tcb",
+        "sites": "HOBBIT",
+        "cancelRingBearerSkirmish": true,
+        "restricted": ["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_16", "30_17", "30_18", "30_19", "30_29", "30_47", "30_48", "30_58"], 
+        "limit2": ["30_24", "32_21", "32_22"],
+        "limit3": [],
+        "set": [30, 32],
+        "restrictedName": ["Gandalf", "Bilbo"],
+        "hall": true
+    },
+    {
+        "name": "Hobbit: Fire and Water",
+        "code": "hobbit_faw",
+        "sites": "HOBBIT",
+        "cancelRingBearerSkirmish": true,
+        "restricted": ["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_16", "30_17", "30_18", "30_19", "30_29", "30_47", "30_48", "30_58"],
+        "limit2": ["30_1", "30_24"],
+        "limit3": [],
+        "set": [30, 33],
+        "restrictedName": ["Gandalf","Bilbo"],
+        "hall": false
+    },
+    {
+        "name":"Fellowship block - Highlander",
+        "code":"fotr_highlander",
+        "sites":"FELLOWSHIP",
+        "cancelRingBearerSkirmish":true,
+        "maximumSameName":1,
+        "set":[1, 2, 3],
+        "hall":false
+    },
+    {
+        "name":"Movie block - Highlander",
+        "code":"movie_highlander",
+        "sites":"KING",
+        "maximumSameName":1,
+        "set":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        "hall":false
+    },
+    {
+        "name":"Limited",
+        "code":"limited_hobbit",
+        "sites":"HOBBIT",
+        "cancelRingBearerSkirmish":true,
+        "limited":true,
+        "set":[30, 31, 32, 33],
+        "maximumSameName":100,
+        "hall":false
+    },
+    {
+        "name":"Limited",
+        "code":"limited_fotr",
+        "sites":"FELLOWSHIP",
+        "cancelRingBearerSkirmish":true,
+        "maximumSameName":100,
+        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        "hall":false
+    },
+    {
+        "name":"Limited",
+        "code":"limited_ttt",
+        "sites":"TWO_TOWERS",
+        "cancelRingBearerSkirmish":true,
+        "maximumSameName":100,
+        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        "hall":false
+    },
+    {
+        "name":"Limited",
+        "code":"limited_king",
+        "sites":"KING",
+        "cancelRingBearerSkirmish":true,
+        "maximumSameName":100,
+        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        "hall":false
+    },
+    {
+        "name":"Limited",
+        "code":"limited_shadows",
+        "sites":"SHADOWS",
+        "cancelRingBearerSkirmish":false,
+        "maximumSameName":100,
+        "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        "hall":false
     }
 ]

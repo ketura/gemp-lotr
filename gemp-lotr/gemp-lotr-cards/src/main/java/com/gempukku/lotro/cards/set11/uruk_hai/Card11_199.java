@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +35,7 @@ public class Card11_199 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Side.FREE_PEOPLE, CardType.EVENT)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

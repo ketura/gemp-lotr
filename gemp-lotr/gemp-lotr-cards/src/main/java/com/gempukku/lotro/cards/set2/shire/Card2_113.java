@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,14 +23,14 @@ import java.util.List;
  */
 public class Card2_113 extends AbstractPermanent {
     public Card2_113() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Red Book of Westmarch", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.SHIRE, "Red Book of Westmarch", null, true);
         addKeyword(Keyword.TALE);
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Keyword.TALE)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Bilbo"))) {
+                && Filters.canSpot(game, Filters.name("Bilbo"))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));

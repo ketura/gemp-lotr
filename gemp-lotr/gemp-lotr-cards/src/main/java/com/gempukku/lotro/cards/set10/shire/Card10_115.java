@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set10.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 
 /**
@@ -27,17 +27,16 @@ public class Card10_115 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE).size() >= 6;
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.filter(game.getGameState().getDiscard(self.getOwner()), game, Culture.SHIRE).size() >= 6;
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         Skirmish skirmish = game.getGameState().getSkirmish();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Filters.owner(playerId), Race.HOBBIT)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, CardType.MINION, Filters.not(Keyword.FIERCE)))
+        if (Filters.canSpot(game, Filters.inSkirmish, Filters.owner(playerId), Race.HOBBIT)
+                && Filters.canSpot(game, Filters.inSkirmish, CardType.MINION, Filters.not(Keyword.FIERCE)))
             action.appendEffect(
                     new CancelSkirmishEffect());
         action.appendEffect(

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.game;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SumCardCollection implements CardCollection {
     private List<CardCollection> _cardCollections;
@@ -19,21 +21,30 @@ public class SumCardCollection implements CardCollection {
     }
 
     @Override
-    public Map<String, Item> getAll() {
+    public Map<String, Object> getExtraInformation() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        for (CardCollection cardCollection : _cardCollections) {
+            result.putAll(cardCollection.getExtraInformation());
+        }
+        return result;
+    }
+
+    @Override
+    public Iterable<Item> getAll() {
         Map<String, Item> sum = new HashMap<String, Item>();
         for (CardCollection cardCollection : _cardCollections) {
-            Map<String, Item> inCollection = cardCollection.getAll();
-            for (Map.Entry<String, Item> cardCount : inCollection.entrySet()) {
-                String cardId = cardCount.getKey();
+            Iterable<Item> inCollection = cardCollection.getAll();
+            for (Item cardCount : inCollection) {
+                String cardId = cardCount.getBlueprintId();
                 Integer count = sum.get(cardId).getCount();
                 if (count != null)
-                    sum.put(cardId, Item.createItem(cardId, count + cardCount.getValue().getCount()));
+                    sum.put(cardId, Item.createItem(cardId, count + cardCount.getCount()));
                 else
-                    sum.put(cardId, Item.createItem(cardId, cardCount.getValue().getCount()));
+                    sum.put(cardId, Item.createItem(cardId, cardCount.getCount()));
             }
         }
 
-        return sum;
+        return sum.values();
     }
 
     @Override
@@ -43,13 +54,5 @@ public class SumCardCollection implements CardCollection {
             sum += cardCollection.getItemCount(blueprintId);
 
         return sum;
-    }
-
-    @Override
-    public Set<BasicCardItem> getAllCardsInCollection() {
-        Set<BasicCardItem> result = new HashSet<BasicCardItem>();
-        for (CardCollection cardCollection : _cardCollections)
-            result.addAll(cardCollection.getAllCardsInCollection());
-        return result;
     }
 }

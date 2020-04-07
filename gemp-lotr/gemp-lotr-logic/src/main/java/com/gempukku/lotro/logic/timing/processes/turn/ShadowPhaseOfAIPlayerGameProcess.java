@@ -18,7 +18,7 @@ public class ShadowPhaseOfAIPlayerGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        if (game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.SHADOW, "AI"))
+        if (game.getModifiersQuerying().shouldSkipPhase(game, Phase.SHADOW, "AI"))
             _followingGameProcess = new ManeuverGameProcess();
         else
             _followingGameProcess = new StartOfPhaseGameProcess(Phase.SHADOW, "AI",

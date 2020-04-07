@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 
 /**
  * Set: Mines of Moria
@@ -16,25 +16,19 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Spot a twilight Nazgul and the Ring-bearer wearing The One Ring to add 3 burdens.
  */
-public class Card2_086 extends AbstractOldEvent {
+public class Card2_086 extends AbstractEvent {
     public Card2_086() {
-        super(Side.SHADOW, Culture.WRAITH, "Wraith-world", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.WRAITH, "Wraith-world", Phase.SKIRMISH);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Keyword.TWILIGHT)
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.NAZGUL, Keyword.TWILIGHT)
                 && game.getGameState().isWearingRing();
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddBurdenEffect(self.getOwner(), self, 3));

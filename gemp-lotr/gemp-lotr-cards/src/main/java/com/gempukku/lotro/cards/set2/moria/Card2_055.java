@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,11 +26,11 @@ import java.util.List;
  */
 public class Card2_055 extends AbstractPermanent {
     public Card2_055() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Dark Places");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, "Dark Places");
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(
@@ -43,9 +42,9 @@ public class Card2_055 extends AbstractPermanent {
 
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.not(Filters.owner(playerId)))) {
+                && Filters.canSpot(game, CardType.SITE, Filters.not(Filters.owner(playerId)))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", CardType.SITE, Filters.not(Filters.owner(playerId))) {
@@ -53,7 +52,7 @@ public class Card2_055 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int siteNumber = card.getSiteNumber();
                             action.appendEffect(
-                                    new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, siteNumber, Filters.or(Keyword.MARSH, Keyword.UNDERGROUND)));
+                                    new PlaySiteEffect(action, playerId, SitesBlock.FELLOWSHIP, siteNumber, Filters.or(Keyword.MARSH, Keyword.UNDERGROUND)));
                         }
                     });
             return Collections.singletonList(action);

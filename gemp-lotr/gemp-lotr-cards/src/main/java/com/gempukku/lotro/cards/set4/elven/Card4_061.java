@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Two Towers
@@ -16,24 +16,18 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Archery: Spot 2 Elf companions to discard a condition.
  */
-public class Card4_061 extends AbstractOldEvent {
+public class Card4_061 extends AbstractEvent {
     public Card4_061() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Company of Archers", Phase.ARCHERY);
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Company of Archers", Phase.ARCHERY);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Race.ELF, CardType.COMPANION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, Race.ELF, CardType.COMPANION);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));

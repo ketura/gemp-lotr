@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set10.gollum;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -50,6 +50,7 @@ public class Card10_023 extends AbstractMinion {
                             action.appendEffect(
                                     new AddUntilEndOfTurnModifierEffect(
                                             new CantBeAssignedToSkirmishModifier(self, card)));
+                            game.getGameState().sendMessage(self.getOwner() +" has chosen "+ card.getBlueprint().getTitle());
                         }
                     });
             return Collections.singletonList(action);

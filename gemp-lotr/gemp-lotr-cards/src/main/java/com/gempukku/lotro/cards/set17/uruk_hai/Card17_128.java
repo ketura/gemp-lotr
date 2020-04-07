@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -37,7 +37,7 @@ public class Card17_128 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(self.getOwner()));
+            int count = Filters.countActive(game, Filters.siteControlled(self.getOwner()));
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, CardType.COMPANION));

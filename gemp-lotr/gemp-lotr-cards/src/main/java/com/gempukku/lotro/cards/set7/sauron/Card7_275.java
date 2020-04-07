@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -33,7 +33,7 @@ public class Card7_275 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getStackedOnModifiers(LotroGame game, PhysicalCard self) {
         if (self.getStackedOn() != null
-                && Filters.siteControlled(self.getOwner()).accepts(game.getGameState(), game.getModifiersQuerying(), self.getStackedOn())) {
+                && Filters.siteControlled(self.getOwner()).accepts(game, self.getStackedOn())) {
             return Collections.singletonList(
                     new KeywordModifier(self, Keyword.BESIEGER, Keyword.FIERCE));
         }

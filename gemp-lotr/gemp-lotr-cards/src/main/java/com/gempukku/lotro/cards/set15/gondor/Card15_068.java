@@ -1,25 +1,19 @@
 package com.gempukku.lotro.cards.set15.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.OrCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
+import com.gempukku.lotro.logic.modifiers.condition.OrCondition;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -43,15 +37,18 @@ public class Card15_068 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.GONDOR, Race.MAN);
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public int getResistance() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new ResistanceModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new MinionSiteNumberModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))),
                         new OrCondition(
@@ -61,7 +58,7 @@ public class Card15_068 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && (PlayConditions.canAddThreat(game, self, 1)
                 || PlayConditions.canExert(self, game, self.getAttachedTo()))) {

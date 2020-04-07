@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 import java.util.*;
 
-public abstract class AbstractPreventableCardEffect extends AbstractEffect {
+public abstract class AbstractPreventableCardEffect extends AbstractEffect implements PreventableCardEffect {
     private Filter _filter;
     private Set<PhysicalCard> _preventedTargets = new HashSet<PhysicalCard>();
     private int _requiredTargets;
@@ -27,7 +27,7 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
     protected abstract Filter getExtraAffectableFilter();
 
     protected final Collection<PhysicalCard> getAffectedCards(LotroGame game) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter, getExtraAffectableFilter());
+        return Filters.filterActive(game, _filter, getExtraAffectableFilter());
     }
 
     public final Collection<PhysicalCard> getAffectedCardsMinusPrevented(LotroGame game) {

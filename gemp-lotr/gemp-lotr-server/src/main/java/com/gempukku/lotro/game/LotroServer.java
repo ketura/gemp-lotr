@@ -5,6 +5,7 @@ import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.DeckDAO;
+import com.gempukku.lotro.hall.GameSettings;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
@@ -83,23 +84,25 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public LotroGameMediator createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
+    public LotroGameMediator createNewGame(String tournamentName, final LotroGameParticipant[] participants, GameSettings gameSettings) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
                 throw new IllegalArgumentException("There has to be at least two players");
             final String gameId = String.valueOf(_nextGameId);
 
-            if (!allowChatAccess) {
+            if (gameSettings.isCompetitive()) {
                 Set<String> allowedUsers = new HashSet<String>();
                 for (LotroGameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else
-                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30);
+                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, false, null);
 
-            LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, lotroFormat, participants, _lotroCardBlueprintLibrary,
-                    competitiveTime ? 60 * 40 : 60 * 80, allowSpectators, allowCancelling);
+            // Allow spectators for leagues, but not tournaments
+            LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,
+                    gameSettings.getMaxSecondsPerPlayer(), gameSettings.getMaxSecondsPerDecision(),
+                    gameSettings.getLeague() != null || !gameSettings.isCompetitive(), !gameSettings.isCompetitive(), gameSettings.isPrivateGame());
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override
@@ -112,7 +115,7 @@ public class LotroServer extends AbstractServer {
                             _finishedGamesTime.put(gameId, new Date());
                         }
                     });
-            lotroGameMediator.sendMessageToPlayers("You're starting a game of " + lotroFormat.getName());
+            lotroGameMediator.sendMessageToPlayers("You're starting a game of " + gameSettings.getLotroFormat().getName());
 
             StringBuffer players = new StringBuffer();
             Map<String, String> deckNames = new HashMap<String, String>();
@@ -125,7 +128,7 @@ public class LotroServer extends AbstractServer {
 
             lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players.toString());
 
-            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, lotroFormat.getName(), tournamentName, deckNames);
+            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat().getName(), tournamentName, deckNames);
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override

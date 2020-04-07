@@ -1,20 +1,19 @@
 package com.gempukku.lotro.cards.set8.gollum;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,17 +29,16 @@ import java.util.List;
  */
 public class Card8_023 extends AbstractPermanent {
     public Card8_023() {
-        super(Side.SHADOW, 1, CardType.POSSESSION, Culture.GOLLUM, Zone.SUPPORT, "Larder");
+        super(Side.SHADOW, 1, CardType.POSSESSION, Culture.GOLLUM, "Larder");
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.GOLLUM, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.GOLLUM, CardType.MINION);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);

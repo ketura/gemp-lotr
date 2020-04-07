@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set10.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Card10_072 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -44,7 +44,7 @@ public class Card10_072 extends AbstractCompanion {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             int wounds = 0;
-                            for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.inSkirmishAgainst(self)))
+                            for (PhysicalCard minion : Filters.filterActive(game, CardType.MINION, Filters.inSkirmishAgainst(self)))
                                 wounds += game.getGameState().getWounds(minion);
                             for (int i = 0; i < wounds; i++)
                                 action.appendEffect(

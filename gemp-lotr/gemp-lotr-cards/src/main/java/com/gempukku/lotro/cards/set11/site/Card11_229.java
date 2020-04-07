@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,7 +21,7 @@ import java.util.List;
  * Game Text: Mountain. At the start of your fellowship phase, you may exert a Dwarf to play a [DWARF] possession from
  * your draw deck.
  */
-public class Card11_229 extends AbstractNewSite {
+public class Card11_229 extends AbstractShadowsSite {
     public Card11_229() {
         super("Barazinbar", 2, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);

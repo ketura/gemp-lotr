@@ -1,18 +1,17 @@
 package com.gempukku.lotro.cards.set12.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card12_132 extends AbstractPermanent {
     public Card12_132() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Sudden Fury");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, "Sudden Fury");
     }
 
     @Override
@@ -43,7 +42,7 @@ public class Card12_132 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canRemoveTokens(game, self, Token.SHIRE)) {
             ActivateCardAction action = new ActivateCardAction(self);

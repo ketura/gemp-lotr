@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set13.rohan;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.ReinforceTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +35,7 @@ public class Card13_126 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.ROHAN, Race.MAN);
     }
 
@@ -48,7 +48,7 @@ public class Card13_126 extends AbstractAttachableFPPossession {
             return Collections.singletonList(action);
         }
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
-                && self.getAttachedTo().getBlueprint().getName().equals(Names.eomer)
+                && self.getAttachedTo().getBlueprint().getTitle().equals(Names.eomer)
                 && PlayConditions.canRemoveTokensFromAnything(game, Token.ROHAN, 2)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

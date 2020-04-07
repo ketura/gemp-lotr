@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 
 public interface Action {
     public enum Type {
-        PLAY_CARD, SPECIAL_ABILITY, TRIGGER, OTHER
+        PLAY_CARD, SPECIAL_ABILITY, TRIGGER, TRANSFER, RECONCILE, RESOLVE_DAMAGE, OTHER
     }
 
     public Type getType();

@@ -1,9 +1,8 @@
 package com.gempukku.lotro.cards.set13.men;
 
-import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 
 public class DiscountChoiceEffect extends AbstractSuccessfulEffect implements DiscountEffect {
@@ -39,6 +38,11 @@ public class DiscountChoiceEffect extends AbstractSuccessfulEffect implements Di
     }
 
     @Override
+    public int getMaximumPossibleDiscount(LotroGame game) {
+        return _discountOffer;
+    }
+
+    @Override
     public void playEffect(LotroGame game) {
         if (_minimalRequiredDiscount > 0)
             _discountedBy = _discountOffer;
@@ -52,9 +56,4 @@ public class DiscountChoiceEffect extends AbstractSuccessfulEffect implements Di
                     });
         }
     }
-
-    @Override
-    public void afterDiscountCallback(AbstractCostToEffectAction action) {
-    }
-
 }

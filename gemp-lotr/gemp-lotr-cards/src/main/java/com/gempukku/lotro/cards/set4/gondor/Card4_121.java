@@ -1,21 +1,18 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.LiberateASiteEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,23 +28,23 @@ import java.util.List;
  */
 public class Card4_121 extends AbstractPermanent {
     public Card4_121() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Forests of Ithilien", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, "Forests of Ithilien", null, true);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new MinionSiteNumberModifier(self, Filters.and(Race.MAN, Filters.inSkirmish),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentSiteNumber() == 5 && gameState.getCurrentSiteBlock() == Block.TWO_TOWERS;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getCurrentSiteNumber() == 5 && game.getGameState().getCurrentSiteBlock() == SitesBlock.TWO_TOWERS;
                             }
                         }, 2));
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, Race.MAN, Keyword.RING_BOUND)) {
             ActivateCardAction action = new ActivateCardAction(self);

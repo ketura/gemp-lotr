@@ -1,0 +1,26 @@
+package com.gempukku.lotro.logic.modifiers;
+
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+
+public class MayNotBearModifier extends AbstractModifier {
+    private Filter _unbearableCardFilter;
+
+    public MayNotBearModifier(PhysicalCard source, Filterable affectFilter, Filterable... unbearableCardFilter) {
+        super(source, "Affected by \"may not bear\" limitation", affectFilter, ModifierEffect.TARGET_MODIFIER);
+        _unbearableCardFilter = Filters.and(unbearableCardFilter);
+    }
+
+    @Override
+    public boolean canHavePlayedOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target) {
+        return !_unbearableCardFilter.accepts(game, playedCard);
+    }
+
+    @Override
+    public boolean canHaveTransferredOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target) {
+        return !_unbearableCardFilter.accepts(game, playedCard);
+    }
+}

@@ -1,20 +1,20 @@
 package com.gempukku.lotro.cards.set17.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
-import com.gempukku.lotro.cards.modifiers.LoseAllKeywordsModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.logic.modifiers.LoseAllKeywordsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,15 +38,15 @@ public class Card17_096 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantTakeWoundsModifier(self,
-                new AndCondition(
-                        new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish),
-                        new SpotCondition(self, Filters.inSkirmish)), self);
-    }
+    public java.util.List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new CantTakeWoundsModifier(self,
+new AndCondition(
+new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish),
+new SpotCondition(self, Filters.inSkirmish)), self));
+}
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.ringBearer))) {

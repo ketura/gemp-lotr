@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set12.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,7 +37,7 @@ public class Card12_119 extends AbstractCompanion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSelfExert(self, game)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));

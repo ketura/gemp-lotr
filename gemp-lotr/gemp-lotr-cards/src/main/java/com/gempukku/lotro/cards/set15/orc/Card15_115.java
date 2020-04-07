@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set15.orc;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.CantReplaceSiteByFPPlayerModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.CantReplaceSiteByFPPlayerModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,26 +32,23 @@ public class Card15_115 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.currentSite;
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canExert(self, game, Culture.ORC, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Culture.ORC, CardType.MINION);
     }
 
     @Override
-    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        final AttachPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        playCardAction.appendCost(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Culture.ORC, CardType.MINION));
-        return playCardAction;
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new ExertExtraPlayCostModifier(self, self, null, 1, Culture.ORC, CardType.MINION));
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantReplaceSiteByFPPlayerModifier(self, null, Filters.hasAttached(self)));

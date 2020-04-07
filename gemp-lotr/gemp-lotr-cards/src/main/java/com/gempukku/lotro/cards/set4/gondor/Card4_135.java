@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -19,24 +19,19 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [GONDOR] Man strength +2 (or +3 and damage +1 if skirmishing a roaming minion).
  */
-public class Card4_135 extends AbstractOldEvent {
+public class Card4_135 extends AbstractEvent {
     public Card4_135() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "War and Valor", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "War and Valor", Phase.SKIRMISH);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 0;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR Man", Culture.GONDOR, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        boolean isAgainstRoaming = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.roamingMinion, Filters.inSkirmishAgainst(Filters.sameCard(card))) > 0;
+                        boolean isAgainstRoaming = Filters.countActive(game, Filters.roamingMinion, Filters.inSkirmishAgainst(Filters.sameCard(card))) > 0;
                         int bonus = isAgainstRoaming ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

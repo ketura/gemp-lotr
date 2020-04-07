@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set11.shire;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,14 +36,14 @@ public class Card11_173 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.or(Filters.name("Bilbo"), Filters.frodo, Filters.sam);
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && Filters.or(Filters.name("Bilbo"), Filters.frodo).accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
+                && Filters.or(Filters.name("Bilbo"), Filters.frodo).accepts(game, self.getAttachedTo())
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

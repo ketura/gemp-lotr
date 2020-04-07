@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Realms of Elf-lords
@@ -18,35 +18,29 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: Exert an [ISENGARD] minion to make the Free Peoples player exert X companions, where X is
  * the number of these races you can spot in the fellowship: Dwarf, Elf, Man, and Wizard.
  */
-public class Card3_063 extends AbstractOldEvent {
+public class Card3_063 extends AbstractEvent {
     public Card3_063() {
-        super(Side.SHADOW, Culture.ISENGARD, "One of You Must Do This", Phase.MANEUVER);
+        super(Side.SHADOW, 1, Culture.ISENGARD, "One of You Must Do This", Phase.MANEUVER);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Culture.ISENGARD, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Culture.ISENGARD, CardType.MINION);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
         int exertionCount = 0;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.DWARF))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.DWARF))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.ELF))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.ELF))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.MAN))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.MAN))
             exertionCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.WIZARD))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.WIZARD))
             exertionCount++;
         action.appendEffect(
                 new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), exertionCount, exertionCount, CardType.COMPANION));

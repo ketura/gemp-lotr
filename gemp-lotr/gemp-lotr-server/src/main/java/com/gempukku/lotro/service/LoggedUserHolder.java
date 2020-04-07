@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -67,7 +68,7 @@ public class LoggedUserHolder {
     private char[] _chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 
     private String insertValueForUser(String userName) {
-        Random rnd = new Random();
+        Random rnd = ThreadLocalRandom.current();
         String sessionId;
         do {
             StringBuilder result = new StringBuilder();

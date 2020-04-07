@@ -1,12 +1,5 @@
 package com.gempukku.lotro.cards.set11.gollum;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.PlayNextSiteEffect;
-import com.gempukku.lotro.cards.effects.PutPlayedEventIntoHandEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -14,8 +7,15 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.PlayNextSiteEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.PutPlayedEventIntoHandEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Shadows
@@ -32,13 +32,12 @@ public class Card11_049 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Filters.smeagol);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Filters.smeagol);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayNextSiteEffect(action, playerId));
@@ -47,11 +46,11 @@ public class Card11_049 extends AbstractEvent {
                         new YesNoDecision("Do you want to return " + GameUtils.getCardLink(self) + " back into hand?") {
                             @Override
                             protected void yes() {
-                                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                SubAction subAction = new SubAction(action);
                                 subAction.appendCost(
                                         new AddBurdenEffect(playerId, self, 1));
                                 subAction.appendEffect(
-                                        new PutPlayedEventIntoHandEffect(action));
+                                        new PutPlayedEventIntoHandEffect(self));
                                 game.getActionsEnvironment().addActionToStack(subAction);
                             }
                         }));

@@ -31,7 +31,7 @@ public class ThreatRule {
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
                             KilledResult killResult = (KilledResult) effectResult;
-                            if (Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY)).size() > 0) {
+                            if (Filters.filter(killResult.getKilledCards(), game, Filters.or(CardType.COMPANION, CardType.ALLY)).size() > 0) {
                                 RequiredTriggerAction action = new RequiredTriggerAction(null);
                                 action.appendEffect(
                                         new ThreatWoundsEffect(killResult));
@@ -49,7 +49,7 @@ public class ThreatRule {
                                 for (int i = 0; i < threats; i++) {
                                     Filterable filter = CardType.COMPANION;
 
-                                    if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_BEARER_CANT_TAKE_THREAT_WOUNDS))
+                                    if (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_BEARER_CANT_TAKE_THREAT_WOUNDS))
                                         filter = Filters.and(filter, Filters.not(Filters.ringBearer));
 
                                     ChooseAndWoundCharactersEffect woundCharacter = new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, filter);

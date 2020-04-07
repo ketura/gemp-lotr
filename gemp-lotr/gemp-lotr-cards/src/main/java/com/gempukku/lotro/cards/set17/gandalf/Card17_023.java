@@ -1,20 +1,19 @@
 package com.gempukku.lotro.cards.set17.gandalf;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,12 +30,12 @@ import java.util.List;
  */
 public class Card17_023 extends AbstractPermanent {
     public Card17_023() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Scintillating Bird");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "Scintillating Bird");
         addKeyword(Keyword.SPELL);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, Filters.owner(playerId), Race.WIZARD)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -57,7 +56,7 @@ public class Card17_023 extends AbstractPermanent {
                                                                 @Override
                                                                 protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                                                     Side side = (index == 0) ? Side.FREE_PEOPLE : Side.SHADOW;
-                                                                    if (Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), side).size() >= 2) {
+                                                                    if (Filters.filter(revealedCards, game, side).size() >= 2) {
                                                                         putCardsIntoHandFromDeck(action, playerId, game, revealedCards);
                                                                     } else {
                                                                         action.appendEffect(

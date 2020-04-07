@@ -1,7 +1,7 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
+import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
@@ -72,7 +72,7 @@ public class RoamingAtTest extends AbstractAtTest {
         // Orc Chieftain in play
         assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
         assertEquals(0, _game.getGameState().getTwilightPool());
-        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game, orcChieftain, Keyword.ROAMING));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class RoamingAtTest extends AbstractAtTest {
         // Orc Chieftain in play
         assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
         assertEquals(1, _game.getGameState().getTwilightPool());
-        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game, orcChieftain, Keyword.ROAMING));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class RoamingAtTest extends AbstractAtTest {
         // Orc Chieftain in play
         assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
         assertEquals(2, _game.getGameState().getTwilightPool());
-        assertFalse(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+        assertFalse(_game.getModifiersQuerying().hasKeyword(_game, orcChieftain, Keyword.ROAMING));
     }
 
     @Test
@@ -165,7 +165,7 @@ public class RoamingAtTest extends AbstractAtTest {
         // Orc Chieftain in play
         assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
         assertEquals(2, _game.getGameState().getTwilightPool());
-        assertFalse(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+        assertFalse(_game.getModifiersQuerying().hasKeyword(_game, orcChieftain, Keyword.ROAMING));
     }
 
     @Test
@@ -196,7 +196,7 @@ public class RoamingAtTest extends AbstractAtTest {
         // Orc Chieftain in play
         assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
         assertEquals(0, _game.getGameState().getTwilightPool());
-        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game, orcChieftain, Keyword.ROAMING));
     }
 
     @Test
@@ -226,6 +226,6 @@ public class RoamingAtTest extends AbstractAtTest {
         // Orc Chieftain in play
         assertEquals(Zone.SHADOW_CHARACTERS, orcChieftain.getZone());
         assertEquals(0, _game.getGameState().getTwilightPool());
-        assertTrue(_game.getModifiersQuerying().hasKeyword(_game.getGameState(), orcChieftain, Keyword.ROAMING));
+        assertTrue(_game.getModifiersQuerying().hasKeyword(_game, orcChieftain, Keyword.ROAMING));
     }
 }

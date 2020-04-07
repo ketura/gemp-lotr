@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set8.gollum;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.AddBurdenExtraPlayCostModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,20 +37,18 @@ public class Card8_027 extends AbstractCompanion {
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        action.appendCost(
-                new AddBurdenEffect(self.getOwner(), self, 1));
-        return action;
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new AddBurdenExtraPlayCostModifier(self, 1, null, self));
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             int totalVitality = 0;
-            for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.inSkirmishAgainst(self))) {
-                totalVitality += game.getModifiersQuerying().getVitality(game.getGameState(), minion);
+            for (PhysicalCard minion : Filters.filterActive(game, CardType.MINION, Filters.inSkirmishAgainst(self))) {
+                totalVitality += game.getModifiersQuerying().getVitality(game, minion);
             }
             if (PlayConditions.canAddThreat(game, self, totalVitality)) {
                 ActivateCardAction action = new ActivateCardAction(self);

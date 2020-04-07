@@ -1,18 +1,15 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,20 +30,19 @@ public class Card4_177 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.URUK_HAI;
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
-                new StrengthModifier(self, Filters.hasAttached(self), 3));
+    public int getStrength() {
+        return 3;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && self.getAttachedTo().getBlueprint().getName().equals("Ugluk")
+                && self.getAttachedTo().getBlueprint().getTitle().equals("Ugluk")
                 && PlayConditions.canExert(self, game, Filters.name("Ugluk"))
                 && PlayConditions.canPlayFromHand(playerId, game, -3, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);

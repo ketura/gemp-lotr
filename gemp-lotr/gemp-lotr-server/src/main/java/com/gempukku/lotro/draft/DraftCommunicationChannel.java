@@ -61,7 +61,7 @@ public class DraftCommunicationChannel implements LongPollableResource {
 
     private String getSerialized(CardCollection cardCollection) {
         StringBuilder sb = new StringBuilder();
-        for (CardCollection.Item collectionItem : cardCollection.getAll().values())
+        for (CardCollection.Item collectionItem : cardCollection.getAll())
             sb.append(collectionItem.getCount()+"x"+collectionItem.getBlueprintId()+"|");
 
         return sb.toString();

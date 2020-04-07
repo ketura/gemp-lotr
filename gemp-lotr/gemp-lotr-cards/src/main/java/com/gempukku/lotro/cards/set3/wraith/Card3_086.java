@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -45,7 +45,7 @@ public class Card3_086 extends AbstractMinion {
                     new ChooseActiveCardEffect(self, playerId, "Choose Blade Tip", Filters.name("Blade Tip"), Zone.SUPPORT, Filters.owner(playerId)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            final PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))));
+                            final PhysicalCard ringBearer = Filters.findFirstActive(game, Filters.ringBearer, Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))));
                             if (ringBearer != null)
                                 action.insertEffect(
                                         new TransferPermanentEffect(card, ringBearer));

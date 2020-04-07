@@ -1,23 +1,22 @@
 package com.gempukku.lotro.cards.set10.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SpotEffect;
-import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.SpotEffect;
+import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,19 +33,19 @@ import java.util.List;
  */
 public class Card10_032 extends AbstractPermanent {
     public Card10_032() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Fifth Level");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "Fifth Level");
         addKeyword(Keyword.FORTIFICATION);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.hasAttached(self), null, new NegativeEvaluator(new CountActiveEvaluator(Keyword.FORTIFICATION))));
     }
 
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && (
                 PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN)

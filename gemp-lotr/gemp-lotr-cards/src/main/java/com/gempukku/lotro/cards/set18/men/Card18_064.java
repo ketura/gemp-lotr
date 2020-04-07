@@ -1,14 +1,17 @@
 package com.gempukku.lotro.cards.set18.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCultureTokensEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.LimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCultureTokensEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.LimitEvaluator;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Treachery & Deceit
@@ -24,13 +27,13 @@ public class Card18_064 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.MEN, CardType.MINION);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), null,
-                new LimitEvaluator(new CountCultureTokensEvaluator(Token.MEN, Filters.any), 5));
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(self), null,
+new LimitEvaluator(new CountCultureTokensEvaluator(Token.MEN, Filters.any), 5)));
+}
 }

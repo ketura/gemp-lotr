@@ -1,11 +1,13 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.draft2.SoloDraft;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.Player;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class NewConstructedLeagueData implements LeagueData {
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private CollectionType _collectionType;
 
-    public NewConstructedLeagueData(CardSets cardSets, String parameters) {
+    public NewConstructedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
         
         String[] params = parameters.split(",");
@@ -42,6 +44,16 @@ public class NewConstructedLeagueData implements LeagueData {
 
             serieStart = DateUtils.offsetDate(serieStart, duration);
         }
+    }
+
+    @Override
+    public boolean isSoloDraftLeague() {
+        return false;
+    }
+
+    @Override
+    public SoloDraft getSoloDraft() {
+        return null;
     }
 
     @Override
@@ -68,10 +80,10 @@ public class NewConstructedLeagueData implements LeagueData {
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesPlayed, _collectionType);
                     if (leaguePrize != null)
-                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                     final CardCollection leagueTrophies = _leaguePrizes.getTrophiesForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesPlayed, _collectionType);
                     if (leagueTrophies != null)
-                        collectionsManager.addItemsToPlayerCollection(true, "End of league trophies", leagueStanding.getPlayerName(), CollectionType.TROPHY, leagueTrophies.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league trophies", leagueStanding.getPlayerName(), CollectionType.TROPHY, leagueTrophies.getAll());
                 }
                 status++;
             }

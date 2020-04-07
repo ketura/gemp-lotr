@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Bloodlines
@@ -25,15 +25,14 @@ public class Card13_021 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Race.ELF, Keyword.ARCHER);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, Race.ELF, Keyword.ARCHER);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        int total = game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.SHADOW_PLAYER_REPLACED_CURRENT_SITE) ? 2 : 1;
+        int total = game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SHADOW_PLAYER_REPLACED_CURRENT_SITE) ? 2 : 1;
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new ArcheryTotalModifier(self, Side.FREE_PEOPLE, total)));

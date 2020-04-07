@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set12.wraith;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -41,7 +41,7 @@ public class Card12_175 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ToilDiscountEffect toilEffect = (ToilDiscountEffect) effect;
             PhysicalCard payingFor = toilEffect.getPayingFor();
-            if (Filters.and(Filters.owner(playerId), Culture.WRAITH, CardType.EVENT).accepts(game.getGameState(), game.getModifiersQuerying(), payingFor)) {
+            if (Filters.and(Filters.owner(playerId), Culture.WRAITH, CardType.EVENT).accepts(game, payingFor)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new SelfExertEffect(action, self));

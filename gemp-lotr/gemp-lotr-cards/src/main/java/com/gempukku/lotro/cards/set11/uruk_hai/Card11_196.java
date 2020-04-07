@@ -1,21 +1,14 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-
-import java.util.LinkedList;
-import java.util.List;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Shadows
@@ -33,23 +26,22 @@ public class Card11_196 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION);
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Filters.unboundCompanion, Filters.not(Filters.hasAttached(Filters.name(getName()))));
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return Filters.and(Filters.unboundCompanion, Filters.not(Filters.hasAttached(Filters.name(getTitle()))));
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), -1));
-        modifiers.add(
-                new ResistanceModifier(self, Filters.hasAttached(self), -3));
-        return modifiers;
+    public int getStrength() {
+        return -1;
+    }
+
+    @Override
+    public int getResistance() {
+        return -3;
     }
 }

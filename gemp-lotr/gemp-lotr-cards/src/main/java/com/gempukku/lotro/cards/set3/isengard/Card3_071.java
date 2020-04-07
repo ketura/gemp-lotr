@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,19 +26,18 @@ import java.util.List;
  */
 public class Card3_071 extends AbstractPermanent {
     public Card3_071() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Tower of Orthanc");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Tower of Orthanc");
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Culture.ISENGARD, CardType.MINION);
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.exhausted)) {
+                && Filters.canSpot(game, CardType.COMPANION, Filters.exhausted)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 3));

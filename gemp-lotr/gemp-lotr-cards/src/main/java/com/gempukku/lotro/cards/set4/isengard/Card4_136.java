@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.*;
 
 import java.util.LinkedList;
@@ -32,14 +31,14 @@ public class Card4_136 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.BATTLEGROUND);
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND);
                             }
                         }, Keyword.FIERCE, 1));
         modifiers.add(

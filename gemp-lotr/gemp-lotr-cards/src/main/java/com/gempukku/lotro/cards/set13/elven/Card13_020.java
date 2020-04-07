@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -12,8 +8,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,7 +43,7 @@ public class Card13_020 extends AbstractCompanion {
                 && game.getModifiersEnvironment().getWoundsTakenInCurrentPhase(self) >= 1) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new PreventCardEffect((AbstractPreventableCardEffect) effect, self));
+                    new PreventCardEffect((PreventableCardEffect) effect, self));
             return Collections.singletonList(action);
         }
         return null;

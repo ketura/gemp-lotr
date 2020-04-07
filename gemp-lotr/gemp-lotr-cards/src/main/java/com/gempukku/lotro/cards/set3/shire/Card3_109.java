@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set3.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.RevealRandomCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 
 import java.util.List;
 
@@ -21,24 +21,18 @@ import java.util.List;
  * Game Text: Fellowship: Spot a Hobbit companion (except the Ring-bearer) to reveal a card at random from
  * an opponent's hand. Remove (X), where X is the twilight cost of the card revealed.
  */
-public class Card3_109 extends AbstractOldEvent {
+public class Card3_109 extends AbstractEvent {
     public Card3_109() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Meant to Be Alone", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 1, Culture.SHIRE, "Meant to Be Alone", Phase.FELLOWSHIP);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION, Filters.not(Filters.ringBearer));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.HOBBIT, CardType.COMPANION, Filters.not(Filters.ringBearer));
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {

@@ -37,22 +37,22 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                                             Filters.allyAtHome,
                                                             new Filter() {
                                                                 @Override
-                                                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                                    return !modifiersQuerying.isAllyPreventedFromParticipatingInArcheryFire(gameState, physicalCard);
+                                                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                                                    return !game.getModifiersQuerying().isAllyPreventedFromParticipatingInArcheryFire(game, physicalCard);
                                                                 }
                                                             }),
                                                     new Filter() {
                                                         @Override
-                                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                            return modifiersQuerying.isAllyAllowedToParticipateInArcheryFire(gameState, physicalCard);
+                                                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                                            return game.getModifiersQuerying().isAllyAllowedToParticipateInArcheryFire(game, physicalCard);
                                                         }
                                                     })
                                     )
                             ),
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return modifiersQuerying.canTakeArcheryWound(gameState, physicalCard);
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                    return game.getModifiersQuerying().canTakeArcheryWound(game, physicalCard);
                                 }
                             }
                     );

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set12.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -36,7 +36,7 @@ public class Card12_099 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4);
+            int count = Math.max(0, Filters.countActive(game, CardType.COMPANION) - 4);
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));

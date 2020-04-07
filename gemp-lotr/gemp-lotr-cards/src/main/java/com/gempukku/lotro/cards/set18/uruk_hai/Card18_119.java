@@ -1,25 +1,20 @@
 package com.gempukku.lotro.cards.set18.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,17 +34,17 @@ public class Card18_119 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 1));
-        return modifiers;
+    public int getStrength() {
+        return 1;
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.URUK_HAI;
     }
 
@@ -65,7 +60,7 @@ public class Card18_119 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && PlayConditions.canSpot(game, Filters.name("Lurtz"), Filters.hasAttached(self))
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Culture.URUK_HAI)) {

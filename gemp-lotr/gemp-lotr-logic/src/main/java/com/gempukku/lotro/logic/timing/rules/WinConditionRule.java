@@ -39,7 +39,7 @@ public class WinConditionRule {
                         } else if (game.getFormat().winOnControlling5Sites()
                                 && effectResults.getType() == EffectResult.Type.TAKE_CONTROL_OF_SITE) {
                             for (String opponent : GameUtils.getShadowPlayers(game)) {
-                                if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.siteControlled(opponent)) >= 5)
+                                if (Filters.countActive(game, CardType.SITE, Filters.siteControlled(opponent)) >= 5)
                                     game.playerWon(opponent, "Controls 5 sites");
                             }
                         }
@@ -49,7 +49,7 @@ public class WinConditionRule {
     }
 
     private boolean isWinAtReconcile(LotroGame game) {
-        return (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)
+        return (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)
                 || game.getFormat().winWhenShadowReconciles());
     }
 }

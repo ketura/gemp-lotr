@@ -1,9 +1,9 @@
 package com.gempukku.lotro.merchant;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.db.MerchantDAO;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.Date;
 import java.util.HashMap;

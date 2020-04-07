@@ -1,7 +1,7 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;

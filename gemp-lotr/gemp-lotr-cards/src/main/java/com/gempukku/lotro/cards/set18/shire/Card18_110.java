@@ -1,21 +1,16 @@
 package com.gempukku.lotro.cards.set18.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +26,7 @@ import java.util.List;
  */
 public class Card18_110 extends AbstractPermanent {
     public Card18_110() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Prized Lagan");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Prized Lagan");
     }
 
     @Override
@@ -48,7 +43,7 @@ public class Card18_110 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canAddThreat(game, self, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);

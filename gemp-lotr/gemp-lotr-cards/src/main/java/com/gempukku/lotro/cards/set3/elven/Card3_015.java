@@ -1,12 +1,11 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 public class Card3_015 extends AbstractPermanent {
     public Card3_015() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Forests of Lothlorien");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, "Forests of Lothlorien");
     }
 
     @Override

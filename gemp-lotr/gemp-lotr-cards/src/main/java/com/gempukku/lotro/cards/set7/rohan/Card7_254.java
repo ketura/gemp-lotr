@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,13 +29,13 @@ import java.util.List;
  */
 public class Card7_254 extends AbstractCompanion {
     public Card7_254() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, Names.theoden, "Leader of Spears", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THEODEN, Names.theoden, "Leader of Spears", true);
         addKeyword(Keyword.VALIANT);
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        if (Filters.canSpot(game, Culture.ROHAN, Race.MAN))
             return -1;
         return 0;
     }

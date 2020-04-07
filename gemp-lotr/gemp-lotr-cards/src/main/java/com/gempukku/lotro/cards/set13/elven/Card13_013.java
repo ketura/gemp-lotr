@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardPhaseSpecialAbilitiesModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,11 +30,11 @@ import java.util.List;
  */
 public class Card13_013 extends AbstractPermanent {
     public Card13_013() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Crashing Cavalry");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, "Crashing Cavalry");
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
@@ -52,15 +51,8 @@ public class Card13_013 extends AbstractPermanent {
                                                     new AssignmentEffect(playerId, companion, minion));
                                             action.appendEffect(
                                                     new AddUntilStartOfPhaseModifierEffect(
-                                                            new AbstractModifier(self, "Can't use skirmish special abilities", null, ModifierEffect.ACTION_MODIFIER) {
-                                                                @Override
-                                                                public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                                                                    if (action.getActionTimeword() == Phase.SKIRMISH && action.getType() == Action.Type.SPECIAL_ABILITY
-                                                                            && (action.getActionSource() == minion || action.getActionSource() == companion))
-                                                                        return false;
-                                                                    return true;
-                                                                }
-                                                            }, Phase.REGROUP));
+                                                            new PlayersCantUseCardPhaseSpecialAbilitiesModifier(
+                                                                    self, Phase.SKIRMISH, Filters.or(minion, companion)), Phase.REGROUP));
                                         }
                                     });
                         }

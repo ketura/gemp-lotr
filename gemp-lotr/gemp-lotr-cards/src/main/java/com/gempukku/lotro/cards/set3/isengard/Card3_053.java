@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
@@ -16,25 +16,19 @@ import com.gempukku.lotro.logic.effects.DrawCardsEffect;
  * Type: Event
  * Game Text: Shadow: Spot an Uruk-hai and a [MORIA] minion to draw 3 cards.
  */
-public class Card3_053 extends AbstractOldEvent {
+public class Card3_053 extends AbstractEvent {
     public Card3_053() {
-        super(Side.SHADOW, Culture.ISENGARD, "Hate and Anger", Phase.SHADOW);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Hate and Anger", Phase.SHADOW);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.URUK_HAI)
+                && Filters.canSpot(game, Culture.MORIA, CardType.MINION);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 2;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new DrawCardsEffect(action, playerId, 3));

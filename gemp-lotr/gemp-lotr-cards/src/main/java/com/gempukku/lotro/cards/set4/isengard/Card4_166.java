@@ -1,22 +1,20 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PutCardFromDeckOnBottomOfDeckEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.PutCardFromDeckOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,17 +30,16 @@ import java.util.List;
  */
 public class Card4_166 extends AbstractPermanent {
     public Card4_166() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palantir of Orthanc", "Seventh Seeing-stone", true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, "The Palantir of Orthanc", "Seventh Seeing-stone", true);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.ISENGARD, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.ISENGARD, CardType.MINION);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 2)
                 && PlayConditions.canSpot(game, Culture.ISENGARD, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);

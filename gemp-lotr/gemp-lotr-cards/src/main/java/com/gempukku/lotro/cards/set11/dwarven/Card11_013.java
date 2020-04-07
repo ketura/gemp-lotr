@@ -1,18 +1,18 @@
 package com.gempukku.lotro.cards.set11.dwarven;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,20 +31,12 @@ public class Card11_013 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Race.DWARF, Filters.minResistance(3))
-                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
-            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-
+                && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Filters.minResistance(3), Filters.in(woundEffect.getAffectedCardsMinusPrevented(game))) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.appendEffect(
-                                    new PreventCardEffect(woundEffect, card));
-                        }
-                    });
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose a Dwarf", Race.DWARF, Filters.minResistance(3)));
             return Collections.singletonList(action);
         }
         return null;

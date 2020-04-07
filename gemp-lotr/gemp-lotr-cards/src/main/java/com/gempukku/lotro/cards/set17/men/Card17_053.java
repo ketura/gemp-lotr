@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,7 +8,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,7 +36,7 @@ public class Card17_053 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

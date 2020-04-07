@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,11 +31,11 @@ public class Card7_233 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new PlaySiteEffect(action, playerId, Block.KING, game.getGameState().getCurrentSiteNumber(), Keyword.PLAINS));
+                    new PlaySiteEffect(action, playerId, SitesBlock.KING, game.getGameState().getCurrentSiteNumber(), Keyword.PLAINS));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
             return Collections.singletonList(action);

@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set12.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Black Rider
@@ -26,17 +26,16 @@ public class Card12_034 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.GANDALF, Race.WIZARD);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.GANDALF, Race.WIZARD);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose site to replace", CardType.SITE, Filters.region(GameUtils.getRegion(game.getGameState()))) {
+                new ChooseActiveCardEffect(self, playerId, "Choose site to replace", CardType.SITE, Filters.region(GameUtils.getRegion(game))) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(

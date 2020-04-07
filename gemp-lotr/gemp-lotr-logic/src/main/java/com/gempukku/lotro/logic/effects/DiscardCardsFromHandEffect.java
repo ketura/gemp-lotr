@@ -16,10 +16,10 @@ import java.util.Set;
 public class DiscardCardsFromHandEffect extends AbstractEffect {
     private PhysicalCard _source;
     private String _playerId;
-    private Collection<PhysicalCard> _cards;
+    private Collection<? extends PhysicalCard> _cards;
     private boolean _forced;
 
-    public DiscardCardsFromHandEffect(PhysicalCard source, String playerId, Collection<PhysicalCard> cards, boolean forced) {
+    public DiscardCardsFromHandEffect(PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, boolean forced) {
         _source = source;
         _playerId = playerId;
         _cards = cards;
@@ -42,14 +42,14 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
             if (card.getZone() != Zone.HAND)
                 return false;
         }
-        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _source))
+        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source))
             return false;
         return true;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _source)) {
+        if (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source)) {
             GameState gameState = game.getGameState();
 
             Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();

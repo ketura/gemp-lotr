@@ -1,12 +1,5 @@
 package com.gempukku.lotro.cards.set15.men;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -14,14 +7,15 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Hunters
@@ -39,20 +33,19 @@ public class Card15_085 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Filters.owner(playerId), Culture.MEN, Race.MAN)
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Filters.owner(self.getOwner()), Culture.MEN, Race.MAN)
                 && PlayConditions.canSpot(game, Filters.unboundCompanion,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getAttachedCards(physicalCard).size() >= 3;
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getGameState().getAttachedCards(physicalCard).size() >= 3;
                     }
                 });
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.MEN, Race.MAN));
@@ -60,8 +53,8 @@ public class Card15_085 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getAttachedCards(physicalCard).size() >= 3;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getGameState().getAttachedCards(physicalCard).size() >= 3;
                             }
                         }) {
                     @Override
@@ -76,10 +69,10 @@ public class Card15_085 extends AbstractEvent {
                                         }, game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override
-                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                                 return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1);
                                             }
-                                        }, new DiscardCardsFromPlayEffect(self, Side.FREE_PEOPLE, Filters.attachedTo(card))
+                                        }, new DiscardCardsFromPlayEffect(self.getOwner(), self, Side.FREE_PEOPLE, Filters.attachedTo(card))
                                 ));
                     }
                 });

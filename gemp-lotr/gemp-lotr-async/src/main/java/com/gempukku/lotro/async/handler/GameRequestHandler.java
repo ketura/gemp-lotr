@@ -60,7 +60,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             updateGameState(request, uri.substring(1), responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 
@@ -90,11 +90,11 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
             GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(pollableResource, channelNumber, gameMediator, resourceOwner, responseWriter);
             _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
         } catch (SubscriptionConflictException exp) {
-            responseWriter.writeError(409);
+            throw new HttpProcessingException(409);
         } catch (PrivateInformationException e) {
-            responseWriter.writeError(403);
+            throw new HttpProcessingException(403);
         } catch (SubscriptionExpiredException e) {
-            responseWriter.writeError(410);
+            throw new HttpProcessingException(410);
         }
     }
 

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set10.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.conditions.InitiativeCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,11 +24,11 @@ import java.util.List;
  */
 public class Card10_035 extends AbstractPermanent {
     public Card10_035() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Suffered Much Loss");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Suffered Much Loss");
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH), Keyword.BATTLEGROUND));

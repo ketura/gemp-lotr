@@ -4,15 +4,13 @@ import com.gempukku.lotro.game.CardCollection;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LeagueStarterBox implements PackBox {
-    private Random _random = new Random();
-
     @Override
     public List<CardCollection.Item> openPack() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
-        int starter = _random.nextInt(6);
+        int starter = ThreadLocalRandom.current().nextInt(6);
         if (starter == 0) {
             result.add(CardCollection.Item.createItem("FotR - Gandalf Starter", 1));
         } else if (starter == 1) {

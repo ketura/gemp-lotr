@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set15.rohan;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Hunters
@@ -23,16 +23,15 @@ public class Card15_131 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN)
-                && PlayConditions.canPlayFromDiscard(playerId, game, CardType.POSSESSION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN)
+                && PlayConditions.canPlayFromDiscard(self.getOwner(), game, CardType.POSSESSION);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        int huntersCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.character, Keyword.HUNTER);
+        int huntersCount = Filters.countActive(game, Filters.character, Keyword.HUNTER);
         for (int i = 0; i < huntersCount; i++)
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.POSSESSION));

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class SpecialFlagModifier extends AbstractModifier {
     private ModifierFlag _modifierFlag;
@@ -16,7 +16,7 @@ public class SpecialFlagModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean hasFlagActive(GameState gameState, ModifiersQuerying modifiersQuerying, ModifierFlag modifierFlag) {
+    public boolean hasFlagActive(LotroGame game, ModifierFlag modifierFlag) {
         return modifierFlag == _modifierFlag;
     }
 }

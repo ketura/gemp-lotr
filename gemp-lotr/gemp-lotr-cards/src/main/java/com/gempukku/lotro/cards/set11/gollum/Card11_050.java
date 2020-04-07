@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set11.gollum;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,11 +29,11 @@ import java.util.List;
  */
 public class Card11_050 extends AbstractPermanent {
     public Card11_050() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Safe Passage", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GOLLUM, "Safe Passage", null, true);
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
@@ -49,6 +49,8 @@ public class Card11_050 extends AbstractPermanent {
                                         self.setWhileInZoneData(Keyword.PLAINS);
                                     else
                                         self.setWhileInZoneData(Keyword.RIVER);
+                                    
+                                    game.getGameState().sendMessage(self.getOwner() +" has chosen "+ result);
                                 }
                             }));
             return Collections.singletonList(action);

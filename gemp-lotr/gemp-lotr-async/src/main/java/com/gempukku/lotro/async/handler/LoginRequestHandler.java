@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.game.Player;
 import org.jboss.netty.channel.MessageEvent;
@@ -28,18 +29,17 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
                 if (player.getType().contains("u")) {
                     final Date bannedUntil = player.getBannedUntil();
                     if (bannedUntil != null && bannedUntil.after(new Date()))
-                        responseWriter.writeError(409);
+                        throw new HttpProcessingException(409);
                     else
                         responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
                 } else {
-                    responseWriter.writeError(403);
+                    throw new HttpProcessingException(403);
                 }
             } else {
-                responseWriter.writeError(401);
+                throw new HttpProcessingException(401);
             }
-
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

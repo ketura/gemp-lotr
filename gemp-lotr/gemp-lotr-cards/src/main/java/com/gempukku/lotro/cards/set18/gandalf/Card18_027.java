@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set18.gandalf;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PutCardsFromDeckIntoHandDiscardRestEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.PutCardsFromDeckIntoHandDiscardRestEffect;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card18_027 extends AbstractPermanent {
     public Card18_027() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Ship of Smoke", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GANDALF, "Ship of Smoke", null, true);
         addKeyword(Keyword.PIPEWEED);
     }
 

@@ -1,24 +1,18 @@
 package com.gempukku.lotro.cards.set15.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SpotEffect;
-import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.SpotEffect;
+import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,27 +32,27 @@ import java.util.List;
  */
 public class Card15_067 extends AbstractPermanent {
     public Card15_067() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Portico");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.GONDOR, "Portico");
         addKeyword(Keyword.FORTIFICATION);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), -2));
-        modifiers.add(
-                new MinionSiteNumberModifier(self, Filters.hasAttached(self), null, 2));
-        return modifiers;
+    public int getStrength() {
+        return -2;
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Culture.GONDOR, Keyword.RANGER);
+    public int getSiteNumber() {
+        return 2;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        return -Filters.countActive(game, Culture.GONDOR, Keyword.RANGER);
+    }
+
+    @Override
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && (PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN)
                 || PlayConditions.canSpot(game, 2, Keyword.RANGER))

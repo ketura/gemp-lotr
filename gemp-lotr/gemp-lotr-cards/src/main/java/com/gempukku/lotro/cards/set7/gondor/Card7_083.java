@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class Card7_083 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR Man", Culture.GONDOR, Race.MAN) {
@@ -42,7 +42,7 @@ public class Card7_083 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                 new StrengthModifier(self, card, 2), Phase.SKIRMISH);
-                        final Collection<PhysicalCard> sauronMinions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card));
+                        final Collection<PhysicalCard> sauronMinions = Filters.filterActive(game, Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card));
                         if (sauronMinions.size() > 0) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(

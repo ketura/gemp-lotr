@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set4.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,13 +23,13 @@ import java.util.List;
  */
 public class Card4_362 extends AbstractSite {
     public Card4_362() {
-        super("Orthanc Library", Block.TWO_TOWERS, 9, 9, Direction.LEFT);
+        super("Orthanc Library", SitesBlock.TWO_TOWERS, 9, 9, Direction.LEFT);
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
-            int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            int companionCount = Filters.countActive(game, CardType.COMPANION);
             if (!playerId.equals(game.getGameState().getCurrentPlayerId())
                     && companionCount > 4) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);

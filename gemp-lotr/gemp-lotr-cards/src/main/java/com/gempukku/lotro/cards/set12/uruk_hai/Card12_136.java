@@ -1,15 +1,16 @@
 package com.gempukku.lotro.cards.set12.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Black Rider
@@ -27,22 +28,22 @@ public class Card12_136 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.URUK_HAI, Race.URUK_HAI);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmish), null,
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmish), null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         int wounds = 0;
-                        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.character, Filters.inSkirmish, Filters.wounded)) {
-                            wounds += gameState.getWounds(physicalCard);
+                        for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.character, Filters.inSkirmish, Filters.wounded)) {
+                            wounds += game.getGameState().getWounds(physicalCard);
                         }
                         return wounds * 2;
                     }
-                });
+                }));
     }
 }

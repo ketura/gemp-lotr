@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.men;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card11_091 extends AbstractPermanent {
     public Card11_091() {
-        super(Side.SHADOW, 4, CardType.CONDITION, Culture.MEN, Zone.SUPPORT, "Oath Sworn");
+        super(Side.SHADOW, 4, CardType.CONDITION, Culture.MEN, "Oath Sworn");
     }
 
     @Override

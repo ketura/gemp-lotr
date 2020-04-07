@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -25,13 +25,13 @@ public class Card7_231 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a ROHAN Man", Culture.ROHAN, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        boolean againstWounded = Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded).accepts(game.getGameState(), game.getModifiersQuerying(), card);
+                        boolean againstWounded = Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded).accepts(game, card);
                         int bonus = againstWounded ? 3 : 2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card7_334 extends AbstractSite {
     public Card7_334() {
-        super("Steps of Edoras", Block.KING, 1, 0, Direction.LEFT);
+        super("Steps of Edoras", SitesBlock.KING, 1, 0, Direction.LEFT);
     }
 
     @Override

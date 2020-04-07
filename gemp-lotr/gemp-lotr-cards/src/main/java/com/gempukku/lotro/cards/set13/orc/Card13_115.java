@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set13.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,9 +33,8 @@ public class Card13_115 extends AbstractMinion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.ORC, Zone.SUPPORT);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.ORC, Zone.SUPPORT);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class Card13_115 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self, Filters.not(card), Filters.name(card.getBlueprint().getName())));
+                                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.not(card), Filters.name(card.getBlueprint().getTitle())));
                         }
                     });
             return Collections.singletonList(action);

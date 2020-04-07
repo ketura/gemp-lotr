@@ -1,20 +1,19 @@
 package com.gempukku.lotro.cards.set17.wraith;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,14 +42,14 @@ public class Card17_141 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Race.NAZGUL)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(action, playerId, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.wounded)));
+                    new DrawCardsEffect(action, playerId, Filters.countActive(game, CardType.COMPANION, Filters.wounded)));
             return Collections.singletonList(action);
         }
         return null;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.WRAITH)) {

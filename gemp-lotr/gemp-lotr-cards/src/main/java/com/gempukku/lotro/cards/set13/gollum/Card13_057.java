@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set13.gollum;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -13,9 +8,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 /**
@@ -33,14 +33,13 @@ public class Card13_057 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canDiscardFromPlay(self, game, Filters.gollum)
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canDiscardFromPlay(self, game, Filters.gollum)
                 && PlayConditions.canHeal(self, game, Filters.ringBearer);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.gollum));
@@ -66,7 +65,7 @@ public class Card13_057 extends AbstractEvent {
 
         @Override
         protected void doPlayEffect(LotroGame game) {
-            if (GameUtils.getRegion(game.getGameState()) != 1
+            if (GameUtils.getRegion(game) != 1
                     && PlayConditions.canHeal(_self, game, Filters.ringBearer)) {
                 _action.appendEffect(
                         new PlayoutDecisionEffect(_playerId, new YesNoDecision("Do you want to repeat the effect?") {

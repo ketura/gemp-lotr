@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -19,24 +19,18 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Spot The Shards of Narsil to make a [GONDOR] companion strength +3 and damage +1.
  */
-public class Card3_046 extends AbstractOldEvent {
+public class Card3_046 extends AbstractEvent {
     public Card3_046() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Still Sharp", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Still Sharp", Phase.SKIRMISH);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("The Shards of Narsil"));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Filters.name("The Shards of Narsil"));
     }
 
     @Override
-    public int getTwilightCost() {
-        return 0;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose GONDOR companion", Culture.GONDOR, CardType.COMPANION) {

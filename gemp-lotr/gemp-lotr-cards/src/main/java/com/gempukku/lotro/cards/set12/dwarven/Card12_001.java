@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set12.dwarven;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Black Rider
@@ -29,16 +27,15 @@ public class Card12_001 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Race.DWARF);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Race.DWARF);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final Filter hasRace = new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                 return physicalCard.getBlueprint().getRace() != null;
             }
         };
@@ -53,7 +50,7 @@ public class Card12_001 extends AbstractEvent {
                                     @Override
                                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                                         action.insertEffect(
-                                                new DiscardCardsFromPlayEffect(self, hasRace, CardType.MINION, Filters.not(card.getBlueprint().getRace())));
+                                                new DiscardCardsFromPlayEffect(self.getOwner(), self, hasRace, CardType.MINION, Filters.not(card.getBlueprint().getRace())));
                                     }
                                 });
                     }

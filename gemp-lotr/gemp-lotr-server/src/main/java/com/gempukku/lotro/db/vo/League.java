@@ -1,6 +1,7 @@
 package com.gempukku.lotro.db.vo;
 
-import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.league.LeagueData;
 
 import java.lang.reflect.Constructor;
@@ -35,12 +36,12 @@ public class League {
         return _type;
     }
 
-    public synchronized LeagueData getLeagueData(CardSets cardSets) {
+    public synchronized LeagueData getLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions) {
         if (_leagueData == null) {
             try {
                 Class<?> aClass = Class.forName(_clazz);
-                Constructor<?> constructor = aClass.getConstructor(CardSets.class, String.class);
-                _leagueData = (LeagueData) constructor.newInstance(cardSets, _parameters);
+                Constructor<?> constructor = aClass.getConstructor(CardSets.class, SoloDraftDefinitions.class, String.class);
+                _leagueData = (LeagueData) constructor.newInstance(cardSets, soloDraftDefinitions, _parameters);
             } catch (Exception exp) {
                 throw new RuntimeException("Unable to create LeagueData", exp);
             }

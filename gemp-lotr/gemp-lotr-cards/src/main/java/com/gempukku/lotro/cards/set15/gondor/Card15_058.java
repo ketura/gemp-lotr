@@ -1,24 +1,17 @@
 package com.gempukku.lotro.cards.set15.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,27 +28,27 @@ import java.util.List;
  */
 public class Card15_058 extends AbstractPermanent {
     public Card15_058() {
-        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Decorated Barricade", null, true);
+        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.GONDOR, "Decorated Barricade", null, true);
         addKeyword(Keyword.FORTIFICATION);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), -1));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), -2));
-        return modifiers;
+    public int getStrength() {
+        return -1;
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Culture.GONDOR, Keyword.RANGER);
+    public int getVitality() {
+        return -2;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        return -Filters.countActive(game, Culture.GONDOR, Keyword.RANGER);
+    }
+
+    @Override
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN)
                 && self.getZone() == Zone.SUPPORT) {

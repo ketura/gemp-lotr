@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.shire;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -33,7 +33,7 @@ public class Card4_317 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Race.HOBBIT, Keyword.RING_BOUND);
     }
 

@@ -1,15 +1,17 @@
 package com.gempukku.lotro.cards.set12.gollum;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.CantHealModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.CantHealModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Black Rider
@@ -26,18 +28,17 @@ public class Card12_041 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canSpot(game, Culture.GOLLUM);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.GOLLUM);
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(CardType.COMPANION, Filters.wounded);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantHealModifier(self, new SpotCondition(Culture.GOLLUM, Filters.or(Filters.character, Filters.and(Zone.SUPPORT, Filters.owner(self.getOwner())))), Filters.hasAttached(self));
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantHealModifier(self, new SpotCondition(Culture.GOLLUM, Filters.or(Filters.character, Filters.and(Zone.SUPPORT, Filters.owner(self.getOwner())))), Filters.hasAttached(self)));
+}
 }

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Dwelling. When the fellowship moves from this site, wound each minion that is not a lurker.
  */
-public class Card12_189 extends AbstractNewSite {
+public class Card12_189 extends AbstractShadowsSite {
     public Card12_189() {
         super("Hobbiton Market", 2, Direction.LEFT);
         addKeyword(Keyword.DWELLING);

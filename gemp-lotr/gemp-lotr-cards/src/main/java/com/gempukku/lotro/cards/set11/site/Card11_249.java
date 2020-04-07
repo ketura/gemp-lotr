@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Marsh. When the fellowship moves to here, heal each character who has resistance 5 or more and exert each
  * other character.
  */
-public class Card11_249 extends AbstractNewSite {
+public class Card11_249 extends AbstractShadowsSite {
     public Card11_249() {
         super("Neekerbreekers' Bog", 1, Direction.RIGHT);
         addKeyword(Keyword.MARSH);

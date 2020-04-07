@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -36,7 +36,7 @@ public class Card2_051 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ShouldSkipPhaseModifier(self, Phase.ARCHERY));
     }
@@ -44,13 +44,13 @@ public class Card2_051 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.not(self))) {
+        if (Filters.canSpot(game, CardType.MINION, Filters.not(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(CardType.MINION, Filters.not(self))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(CardType.MINION, Filters.not(self))));
             actions.add(action);
         }
-        if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
+        if (!game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

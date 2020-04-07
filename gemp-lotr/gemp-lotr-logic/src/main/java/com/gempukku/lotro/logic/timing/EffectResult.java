@@ -34,6 +34,8 @@ public abstract class EffectResult {
 
         RECONCILE,
 
+        SKIRMISH_CANCELLED,
+
         ZERO_VITALITY,
 
         PLAY, ACTIVATE,
@@ -44,7 +46,7 @@ public abstract class EffectResult {
 
         REMOVE_BURDEN, ADD_BURDEN, ADD_THREAT,
 
-        REVEAL_CARDS_FROM_HAND, REVEAL_CARDS_FROM_TOP_OF_DECK,
+        FOR_EACH_REVEALED_FROM_HAND, FOR_EACH_REVEALED_FROM_TOP_OF_DECK,
 
         SKIRMISH_FINISHED_WITH_OVERWHELM, SKIRMISH_FINISHED_NORMALLY,
 
@@ -52,7 +54,9 @@ public abstract class EffectResult {
 
         ASSIGNED_AGAINST, ASSIGNED_TO_SKIRMISH, CARD_TRANSFERRED,
 
-        REPLACE_SITE, TAKE_CONTROL_OF_SITE
+        REPLACE_SITE, TAKE_CONTROL_OF_SITE,
+
+        FINISHED_PLAYING_FELLOWSHIP
     }
 
     private Type _type;

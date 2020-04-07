@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -11,10 +7,14 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.RevealRandomCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 
 import java.util.List;
 
@@ -27,24 +27,18 @@ import java.util.List;
  * Game Text: Maneuver: Spot Gandalf to reveal a card at random from an opponent's hand. You may add (X) to discard
  * that card, where X is the twilight cost of the card revealed.
  */
-public class Card3_033 extends AbstractOldEvent {
+public class Card3_033 extends AbstractEvent {
     public Card3_033() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "His First Serious Check", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "His First Serious Check", Phase.MANEUVER);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Filters.gandalf);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {

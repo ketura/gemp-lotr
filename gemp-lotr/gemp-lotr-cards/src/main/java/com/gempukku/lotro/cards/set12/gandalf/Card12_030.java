@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set12.gandalf;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -37,7 +37,7 @@ public class Card12_030 extends AbstractCompanion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             int count = PlayConditions.canSpot(game, Filters.not(self), Culture.GANDALF, CardType.COMPANION) ? 2 : 1;
             action.appendEffect(

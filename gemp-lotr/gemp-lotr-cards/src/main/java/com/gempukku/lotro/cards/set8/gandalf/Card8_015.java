@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set8.gandalf;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 
 /**
  * Set: Siege of Gondor
@@ -27,8 +26,8 @@ public class Card8_015 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (gameState.getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        if (game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)
             return -2;
         return 0;
     }

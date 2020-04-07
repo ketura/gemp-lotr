@@ -36,10 +36,10 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
         GameState gameState = game.getGameState();
         Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId), Filters.in(_leftoverMinions));
 
-        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
+        final Collection<PhysicalCard> minions = Filters.filterActive(game, minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
         if (minions.size() > 0) {
             final Collection<PhysicalCard> freePeopleTargets =
-                    Filters.filterActive(gameState, game.getModifiersQuerying(),
+                    Filters.filterActive(game,
                             Filters.and(
                                     Filters.or(
                                             CardType.COMPANION, CardType.ALLY),
@@ -55,7 +55,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                             action.appendEffect(
                                     new AssignmentPhaseEffect(_playerId, assignments, "Shadow player assignments"));
 
-                            if (!game.getModifiersQuerying().isValidAssignments(game.getGameState(), Side.SHADOW, assignments))
+                            if (!game.getModifiersQuerying().isValidAssignments(game, Side.SHADOW, assignments))
                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
                             game.getActionsEnvironment().addActionToStack(action);

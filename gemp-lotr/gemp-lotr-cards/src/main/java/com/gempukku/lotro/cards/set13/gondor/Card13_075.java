@@ -1,25 +1,20 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.RemoveSpecialAbilitiesModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collections;
@@ -37,7 +32,7 @@ import java.util.List;
  */
 public class Card13_075 extends AbstractPermanent {
     public Card13_075() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Stewards' Legacy", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, "Stewards' Legacy", null, true);
     }
 
     @Override
@@ -69,7 +64,7 @@ public class Card13_075 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new RemoveSpecialAbilitiesModifier(self, card), Phase.REGROUP));
+                                            new PlayersCantUseCardSpecialAbilitiesModifier(self, card), Phase.REGROUP));
                         }
                     });
             action.setText("Spot a minion to prevent it from using special abilities");

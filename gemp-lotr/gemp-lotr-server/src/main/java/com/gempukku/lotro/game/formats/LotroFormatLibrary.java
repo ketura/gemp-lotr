@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.formats;
 
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.Adventure;
 import com.gempukku.lotro.game.AdventureLibrary;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -33,7 +33,7 @@ public class LotroFormatLibrary {
                     String formatCode = (String) formatDef.get("code");
                     String name = (String) formatDef.get("name");
                     String surveyUrl = (String) formatDef.get("surveyUrl");
-                    Block block = Block.valueOf((String) formatDef.get("sites"));
+                    SitesBlock block = SitesBlock.valueOf((String) formatDef.get("sites"));
                     Boolean cancelRingBearerSkirmish = (Boolean) formatDef.get("cancelRingBearerSkirmish");
                     if (cancelRingBearerSkirmish == null)
                         cancelRingBearerSkirmish = false;
@@ -47,7 +47,10 @@ public class LotroFormatLibrary {
                     if (winOnControlling5Sites == null)
                         winOnControlling5Sites = false;
 
-                    final DefaultLotroFormat format = new DefaultLotroFormat(adventure, library, name, surveyUrl, block, true, 60, 4, true,
+                    Number maximumSameNameCount = (Number) formatDef.get("maximumSameName");
+                    int maximumSameName = (maximumSameNameCount != null) ? maximumSameNameCount.intValue() : 4;
+
+                    final DefaultLotroFormat format = new DefaultLotroFormat(adventure, library, name, surveyUrl, block, true, 60, maximumSameName, true,
                             cancelRingBearerSkirmish, hasRuleOfFour, winAtEndOfRegroup, winOnControlling5Sites);
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
@@ -72,12 +75,30 @@ public class LotroFormatLibrary {
                             format.addValidCard((String) valid);
                         }
 
+                    //Additional Hobbit Draft deck restrictions
+                    JSONArray limit2Cards = (JSONArray) formatDef.get("limit2");
+                    if (limit2Cards != null)
+                        for (Object limit2 : limit2Cards) {
+                            format.addLimit2Card((String) limit2);
+                        }
+
+                    JSONArray limit3Cards = (JSONArray) formatDef.get("limit3");
+                    if (limit3Cards != null)
+                        for (Object limit3 : limit3Cards) {
+                            format.addLimit3Card((String) limit3);
+                        }
+
+                    JSONArray restrictedCardNames = (JSONArray) formatDef.get("restrictedName");
+                    if (restrictedCardNames != null) {
+                        for (Object restrictedCardName : restrictedCardNames) {
+                            format.addRestrictedCardName((String) restrictedCardName);
+                        }
+                    }
+
                     _allFormats.put(formatCode, format);
 
                     Boolean hallFormat = (Boolean) formatDef.get("hall");
-                    if (hallFormat == null)
-                        hallFormat = true;
-                    if (hallFormat)
+                    if (hallFormat == null || hallFormat)
                         _hallFormats.put(formatCode, format);
                 }
             } catch (ParseException exp) {

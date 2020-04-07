@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set17.isengard;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -39,25 +38,14 @@ public class Card17_037 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantBeAssignedToSkirmishModifier(self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
-                    }
-                }, self);
-    }
-
-    @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            public boolean isFullfilled(LotroGame game) {
+                                return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         }, self));
         modifiers.add(

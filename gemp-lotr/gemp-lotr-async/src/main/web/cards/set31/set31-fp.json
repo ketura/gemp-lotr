@@ -1,0 +1,804 @@
+{
+  "31_1": {
+    "title": "Dwarven Axe",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(dwarven),character",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "condition": {
+          "type": "location",
+          "filter": "mountain"
+        },
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "31_2": {
+    "title": "Dwarven Song",
+    "culture": "dwarven",
+    "cost": 3,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Sites 1-5",
+          "Sites 6-9"
+        ],
+        "effects": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "siteNumber(1-5),siteBlock(hobbit)"
+            },
+            "effect": {
+              "type": "discard",
+              "filter": "choose(culture(dwarven),follower)",
+              "memorize": "discardedFollower"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "not(siteNumber(1-5),siteBlock(hobbit))"
+            }
+          }
+        ]
+      },
+      "effect": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(1-5),siteBlock(hobbit)"
+          },
+          "effect": {
+            "type": "duplicate",
+            "amount": {
+              "type": "twilightCostInMemory",
+              "memory": "discardedFollower"
+            },
+            "effect": {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(dwarven),not(event))"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "not(siteNumber(1-5),siteBlock(hobbit))"
+          },
+          "effect": {
+            "type": "heal",
+            "filter": "choose(name(Thorin))",
+            "times": 2
+          }
+        }
+      ]
+    }
+  },
+  "31_3": {
+    "title": "*Emeralds of Girion",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "addTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(any)",
+          "on": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(elven),ally)"
+        },
+        "effect": {
+          "type": "stackCardsFromDiscard",
+          "filter": "choose(or(and(culture(elven),event),name(Lore of Imladris)))",
+          "where": "self"
+        }
+      }
+    ]
+  },
+  "31_4": {
+    "title": "*Great Barricade",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "fortification"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(dwarven),companion)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "minion,inSkirmishAgainst(culture(dwarven),companion)",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(7-8)"
+          },
+          "amount": -3
+        }
+      }
+    ]
+  },
+  "31_5": {
+    "title": "*Mithril-coat",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "artifact",
+    "vitality": 1,
+    "target": "name(Bilbo)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyArcheryTotal",
+          "side": "shadow",
+          "amount": -1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "canSpot",
+            "filter": "bearer,inSkirmish"
+          },
+          "filter": "side(shadow),event",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "31_6": {
+    "title": "*Oakenshield",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "shield",
+    "strength": 1,
+    "target": "name(Thorin)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "culture(dwarven),event",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(memory(bearer))"
+        }
+      }
+    ]
+  },
+  "31_8": {
+    "title": "*Elf Army",
+    "culture": "elven",
+    "cost": 3,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 7,
+    "vitality": 4,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "isMore",
+        "firstNumber": {
+          "type": "forEachYouCanSpot",
+          "filter": "minion"
+        },
+        "secondNumber": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion"
+        }
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+        "filter": "self",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "31_9": {
+    "title": "*Legolas",
+    "subtitle": "Prince of Mirkwood",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "condition": {
+        "type": "canSpot",
+        "filter": "orc"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "free people",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "or(river,forest)"
+          },
+          "true": 2,
+          "false": 1
+        }
+      }
+    }
+  },
+  "31_10": {
+    "title": "*Tauriel",
+    "subtitle": "Staunch Defender",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "returnToHand",
+        "filter": "choose(orc,strengthLessThan(8))"
+      }
+    }
+  },
+  "31_11": {
+    "title": "The Evil Becomes Stronger",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "archery",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "spot",
+        "filter": "choose(culture(elven),archer,ally)",
+        "memorize": "chosenAlly"
+      },
+      "effect": [
+        {
+          "type": "exert",
+          "filter": "choose(minion)"
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "memory(chosenAlly)",
+          "amount": 2,
+          "until": "start(regroup)"
+        },
+        {
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+          "filter": "memory(chosenAlly)",
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  "31_12": {
+    "title": "*Thranduil",
+    "subtitle": "Elven King",
+    "culture": "elven",
+    "cost": 4,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 9,
+    "vitality": 4,
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert Thorin twice",
+          "Discard a DWARVEN artifact"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(name(Thorin))",
+            "times": 2
+          },
+          {
+            "type": "discard",
+            "filter": "choose(culture(dwarven),artifact)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+        "filter": "self",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "31_13": {
+    "title": "*Beorn",
+    "subtitle": "Skin-Changer",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "follower",
+    "strength": 2,
+    "vitality": 1,
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeDiscarded",
+          "filter": "self",
+          "by": "side(shadow)",
+          "condition": {
+            "type": "canSpot",
+            "filter": "self,attachedTo(any)"
+          }
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "bearer"
+        },
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(culture(gandalf))"
+        }
+      }
+    ]
+  },
+  "31_14": {
+    "title": "The Eagles Are Coming",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "spell",
+      "skirmish"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Gandalf))"
+      },
+      "effect": [
+        {
+          "type": "choice",
+          "texts": [
+            "Play GANDALF follower from your draw deck",
+            "Play GANDALF follower from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(gandalf),follower)"
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(culture(gandalf),follower)"
+            }
+          ]
+        },
+        {
+          "type": "optional",
+          "text": "Would you like to attach a GANDALF follower from your support area to a companion?",
+          "effect": {
+            "type": "transfer",
+            "filter": "choose(culture(gandalf),follower,zone(support))",
+            "where": "choose(companion)"
+          }
+        }
+      ]
+    }
+  },
+  "31_15": {
+    "title": "*Gwaihir",
+    "subtitle": "Lord of the Eagles",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "follower",
+    "strength": 1,
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(culture(gandalf))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,attachedTo(any)"
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "transferToSupport",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "canSpot",
+            "filter": "inSkirmish,mounted,orc"
+          },
+          "effect": {
+            "type": "cancelSkirmish",
+            "filter": "memory(bearer)"
+          }
+        }
+      }
+    ]
+  },
+  "31_16": {
+    "title": "His Wrath Was Redoubled",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "assignment",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "all(culture(dwarven),companion,hasAttached(follower))",
+          "amount": 2,
+          "until": "start(regroup)"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "all(culture(dwarven),companion,hasAttached(and(follower,culture(gandalf))))",
+          "keyword": "defender+1",
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  "31_17": {
+    "title": "*Radagast",
+    "subtitle": "The Brown",
+    "culture": "gandalf",
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "wizard",
+    "cost": 4,
+    "strength": 8,
+    "vitality": 4,
+    "keyword": "wise",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(name(gandalf))"
+      },
+      "effect": [
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": 1
+          },
+          "until": "endOfTurn"
+        },
+        {
+          "type": "optional",
+          "player": "shadowPlayer",
+          "text": "Would you like to draw 2 cards?",
+          "effect": {
+            "type": "drawCards",
+            "count": 2
+          }
+        }
+      ]
+    }
+  },
+  "31_18": {
+    "title": "*Wizard Staff",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "artifact",
+    "possession": "staff",
+    "vitality": 1,
+    "target": "wizard",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfTurn"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "putCardsFromDeckIntoHand",
+        "filter": "choose(culture(gandalf),spell)"
+      }
+    }
+  },
+  "31_38": {
+    "title": "An Acorn from Beorn's House",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "target": "name(Bilbo)",
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "removeBurdens",
+          "amount": 1
+        },
+        {
+          "type": "discard",
+          "filter": "choose(side(shadow),condition)"
+        }
+      ]
+    }
+  },
+  "31_40": {
+    "title": "Barrels",
+    "culture": "shire",
+    "type": "event",
+    "keyword": "regroup",
+    "cost": 1,
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "count": 2,
+        "filter": "choose(culture(dwarven),companion)"
+      },
+      "effect": [
+        {
+          "type": "discard",
+          "count": "0-2",
+          "filter": "choose(minion,not(name(Smaug)))"
+        },
+        {
+          "type": "drawCards",
+          "count": 3
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "river"
+          },
+          "effect": {
+            "type": "addModifier",
+            "modifier": {
+              "type": "modifyMoveLimit",
+              "amount": 1
+            },
+            "until": "endOfTurn"
+          }
+        }
+      ]
+    }
+  },
+  "31_41": {
+    "title": "*Burglar's Contract",
+    "culture": "shire",
+    "type": "possession",
+    "cost": 1,
+    "resistance": 1,
+    "target": "name(Bilbo)",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "addBurdens",
+          "amount": 1
+        },
+        {
+          "type": "exert",
+          "filter": "bearer"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(not(bearer),companion)",
+        "amount": {
+          "type": "cardAffectedLimitPerPhase",
+          "limit": 4,
+          "source": 2
+        }
+      }
+    }
+  },
+  "31_42": {
+    "title": "*Old Thrush",
+    "culture": "shire",
+    "type": "follower",
+    "race": "bird",
+    "cost": 1,
+    "strength": 1,
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Bilbo))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,attachedTo(any)"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Take a card from your draw deck into hand",
+            "Take a card from your discard into hand"
+          ],
+          "effects": [
+            {
+              "type": "putCardsFromDeckIntoHand",
+              "filter": "choose(side(free people),not(or(culture(gandalf),culture(elven))))"
+            }
+            {
+              "type": "putCardsFromDiscardIntoHand",
+              "filter": "choose(side(free people),not(or(culture(gandalf),culture(elven))))"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "31_43": {
+    "title": "Skillful Negociator",
+    "culture": "shire",
+    "type": "event",
+    "keyword": "maneuver",
+    "cost": 1,
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "spot",
+          "filter": "choose(ally)",
+          "memorize": "chosenAlly"
+        },
+        {
+          "type": "exert",
+          "filter": "choose(name(Bilbo))"
+        }
+      ],
+      "effect": {
+        "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+        "filter": "memory(chosenAlly)",
+        "until": "start(regroup)"
+      }
+    }
+  }
+}

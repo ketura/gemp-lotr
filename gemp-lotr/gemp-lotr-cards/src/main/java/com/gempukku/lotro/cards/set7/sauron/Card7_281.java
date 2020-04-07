@@ -1,17 +1,18 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,12 +28,12 @@ import java.util.List;
  */
 public class Card7_281 extends AbstractPermanent {
     public Card7_281() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Great Siege-towers");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Great Siege-towers");
         addKeyword(Keyword.ENGINE);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canPlayFromHand(playerId, game, Keyword.BESIEGER)) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -48,8 +49,15 @@ public class Card7_281 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.SAURON, 1, CardType.CONDITION));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 2, Phase.SKIRMISH,
-                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Culture.SAURON, Race.ORC)));
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Culture.SAURON, Race.ORC) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.appendEffect(
+                                    new CheckPhaseLimitEffect(action, self, card.getCardId() + "-", 2, null,
+                                            new AddUntilEndOfPhaseModifierEffect(
+                                                    new StrengthModifier(self, card, 1))));
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;

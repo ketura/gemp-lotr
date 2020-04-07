@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set11.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExchangeCardsInHandWithStackedOnEffect;
-import com.gempukku.lotro.cards.effects.StackTopCardsFromDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ExchangeCardsInHandWithStackedOnEffect;
+import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card11_011 extends AbstractPermanent {
     public Card11_011() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Hall of Our Fathers", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "Hall of Our Fathers", null, true);
     }
 
     @Override

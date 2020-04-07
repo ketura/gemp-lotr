@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set7.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_349 extends AbstractSite {
     public Card7_349() {
-        super("Minas Tirith Second Circle", Block.KING, 6, 3, Direction.LEFT);
+        super("Minas Tirith Second Circle", SitesBlock.KING, 6, 3, Direction.LEFT);
 
     }
 

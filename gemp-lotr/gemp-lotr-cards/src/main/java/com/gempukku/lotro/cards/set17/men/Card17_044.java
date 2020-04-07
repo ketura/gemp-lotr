@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.CancelEventEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
-import com.gempukku.lotro.cards.results.PlayEventResult;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.CancelEventEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -37,15 +36,18 @@ public class Card17_044 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.MEN, Race.MAN);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.name("Grima"), Filters.hasAttached(self)), null,
                         new CountCulturesEvaluator(2, Side.FREE_PEOPLE)));
@@ -53,7 +55,7 @@ public class Card17_044 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.EVENT, Keyword.SKIRMISH)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);

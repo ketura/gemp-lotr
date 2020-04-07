@@ -1,18 +1,17 @@
 package com.gempukku.lotro.cards.set13.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -36,7 +35,7 @@ public class Card13_114 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.ORC, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -45,7 +44,7 @@ public class Card13_114 extends AbstractMinion {
                     new SelfDiscardEffect(self));
             PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
             if (nextSite != null
-                    && Filters.and(Keyword.UNDERGROUND).accepts(game.getGameState(), game.getModifiersQuerying(), nextSite)
+                    && Filters.and(Keyword.UNDERGROUND).accepts(game, nextSite)
                     && PlayConditions.canSelfExert(self, game))
                 possibleCosts.add(
                         new SelfExertEffect(action, self));

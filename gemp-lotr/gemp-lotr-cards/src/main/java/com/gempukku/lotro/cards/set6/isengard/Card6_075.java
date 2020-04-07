@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set6.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card6_075 extends AbstractPermanent {
     public Card6_075() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Twisted Tales");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Twisted Tales");
     }
 
     @Override

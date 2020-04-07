@@ -1,18 +1,15 @@
 package com.gempukku.lotro.cards.set17.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConditionEvaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Rise of Saruman
@@ -28,26 +25,19 @@ public class Card17_025 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canDiscardCardsFromHandToPlay(self, game, playerId, 1, CardType.COMPANION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canDiscardCardsFromHandToPlay(self, game, self.getOwner(), 1, CardType.COMPANION);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, CardType.COMPANION));
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new ConditionEvaluator(3, 4,
-                                new Condition() {
-                                    @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 3;
-                                    }
-                                }), Culture.GANDALF, CardType.COMPANION));
+                                new SpotCondition(3, Race.ENT)), Culture.GANDALF, CardType.COMPANION));
         return action;
     }
 }

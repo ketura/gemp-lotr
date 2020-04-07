@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
@@ -8,6 +7,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -29,12 +29,12 @@ public class Card4_132 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.aragorn;
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(

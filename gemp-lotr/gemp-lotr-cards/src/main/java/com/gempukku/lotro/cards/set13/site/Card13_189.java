@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -28,7 +28,7 @@ import java.util.Set;
  * Game Text: Forest. When the fellowship moves to this site during the regroup phase, the Free Peoples player may heal
  * a companion of each culture.
  */
-public class Card13_189 extends AbstractNewSite {
+public class Card13_189 extends AbstractShadowsSite {
     public Card13_189() {
         super("Crossroads of the Fallen Kings", 3, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
@@ -41,7 +41,7 @@ public class Card13_189 extends AbstractNewSite {
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             Set<Culture> companionCultures = new HashSet<Culture>();
-            for (PhysicalCard companion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
+            for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION)) {
                 if (companion.getBlueprint().getCulture() != null)
                     companionCultures.add(companion.getBlueprint().getCulture());
             }

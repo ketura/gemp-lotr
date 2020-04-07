@@ -2,6 +2,7 @@ package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
+import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.game.ChatCommunicationChannel;
 import org.apache.log4j.Logger;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ChatRoomMediator {
+    private IgnoreDAO ignoreDAO;
     private Logger _logger;
     private ChatRoom _chatRoom;
 
@@ -21,16 +23,20 @@ public class ChatRoomMediator {
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
     private Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<String, ChatCommandCallback>();
+    private String welcomeMessage;
 
-    public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod) {
-        this(roomName, muteJoinPartMessages, secondsTimeoutPeriod, null);
+    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean allowIncognito, String welcomeMessage) {
+        this(ignoreDAO, roomName, muteJoinPartMessages, secondsTimeoutPeriod, null, allowIncognito);
+        this.welcomeMessage = welcomeMessage;
     }
 
-    public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers) {
+    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers,
+                            boolean allowIncognito) {
+        this.ignoreDAO = ignoreDAO;
         _logger = Logger.getLogger("chat."+roomName);
         _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
-        _chatRoom = new ChatRoom(muteJoinPartMessages);
+        _chatRoom = new ChatRoom(muteJoinPartMessages, allowIncognito);
     }
 
     public void addChatCommandCallback(String command, ChatCommandCallback callback) {
@@ -43,10 +49,13 @@ public class ChatRoomMediator {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
                 throw new PrivateInformationException();
 
-            ChatCommunicationChannel value = new ChatCommunicationChannel();
+            ChatCommunicationChannel value = new ChatCommunicationChannel(ignoreDAO.getIgnoredUsers(playerId));
             _listeners.put(playerId, value);
             _chatRoom.joinChatRoom(playerId, value);
-            return value.consumeMessages();
+            final List<ChatMessage> chatMessages = value.consumeMessages();
+            if (welcomeMessage != null)
+                chatMessages.add(new ChatMessage(new Date(), "System", welcomeMessage, false));
+            return chatMessages;
         } finally {
             _lock.writeLock().unlock();
         }
@@ -84,7 +93,25 @@ public class ChatRoomMediator {
                 throw new PrivateInformationException();
 
             _logger.trace(playerId+": "+message);
-            _chatRoom.postMessage(playerId, message);
+            _chatRoom.postMessage(playerId, message, true, admin);
+        } finally {
+            _lock.writeLock().unlock();
+        }
+    }
+
+    public void setIncognito(String username, boolean incognito) {
+        _lock.writeLock().lock();
+        try {
+            _chatRoom.setUserIncognitoMode(username, incognito);
+        } finally {
+            _lock.writeLock().unlock();
+        }
+    }
+
+    public void sendToUser(String from, String to, String message) {
+        _lock.writeLock().lock();
+        try {
+            _chatRoom.postToUser(from, to, message);
         } finally {
             _lock.writeLock().unlock();
         }
@@ -130,10 +157,10 @@ public class ChatRoomMediator {
         }
     }
 
-    public Collection<String> getUsersInRoom() {
+    public Collection<String> getUsersInRoom(boolean admin) {
         _lock.readLock().lock();
         try {
-            return _chatRoom.getUsersInRoom();
+            return _chatRoom.getUsersInRoom(admin);
         } finally {
             _lock.readLock().unlock();
         }

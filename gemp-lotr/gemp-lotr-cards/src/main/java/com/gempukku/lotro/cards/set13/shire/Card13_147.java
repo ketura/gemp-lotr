@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set13.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card13_147 extends AbstractPermanent {
     public Card13_147() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Faith in Friendship", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "Faith in Friendship", null, true);
     }
 
     @Override

@@ -31,11 +31,11 @@ public class LotroGameMediator {
     private Set<String> _playersPlaying = new HashSet<String>();
 
     private String _gameId;
-    private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
+    private int _maxSecondsForGamePerPlayer;
+    private int _maxSecondsPerDecision;
     private boolean _allowSpectators;
     private boolean _cancellable;
-    //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
-    private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
+    private boolean privateGame;
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -44,11 +44,13 @@ public class LotroGameMediator {
     private volatile boolean _destroyed;
 
     public LotroGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean allowSpectators, boolean cancellable) {
+                             int maxSecondsPerDecision, boolean allowSpectators, boolean cancellable, boolean privateGame) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
+        _maxSecondsPerDecision = maxSecondsPerDecision;
         _allowSpectators = allowSpectators;
         _cancellable = cancellable;
+        this.privateGame = privateGame;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -64,6 +66,10 @@ public class LotroGameMediator {
         _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
+    }
+
+    public boolean isVisibleToUser(String username) {
+        return !privateGame || _playersPlaying.contains(username);
     }
 
     public boolean isDestroyed() {
@@ -143,17 +149,17 @@ public class LotroGameMediator {
 
                 if (card.getZone() == Zone.HAND)
                     sb.append("<b>Card is in hand - stats are only provisional</b><br><br>");
-                else if (Filters.filterActive(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card).size() == 0)
+                else if (Filters.filterActive(_lotroGame, card).size() == 0)
                     sb.append("<b>Card is inactive - current stats may be inaccurate</b><br><br>");
 
                 sb.append("<b>Affecting card:</b>");
-                Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
+                Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame, card);
                 for (Modifier modifier : modifiers) {
                     PhysicalCard source = modifier.getSource();
                     if (source != null)
-                        sb.append("<br><b>" + GameUtils.getCardLink(source) + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                        sb.append("<br><b>" + GameUtils.getCardLink(source) + ":</b> " + modifier.getText(_lotroGame, card));
                     else
-                        sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                        sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame, card));
                 }
                 if (modifiers.size() == 0)
                     sb.append("<br><i>nothing</i>");
@@ -182,27 +188,28 @@ public class LotroGameMediator {
 
                 sb.append("<br><br><b>Effective stats:</b>");
                 try {
-                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card, 0, false);
+                    PhysicalCard target = card.getAttachedTo();
+                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame, card, target, 0, false);
                     sb.append("<br><b>Twilight cost:</b> " + twilightCost);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card);
+                    int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame, card);
                     sb.append("<br><b>Strength:</b> " + strength);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card);
+                    int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame, card);
                     sb.append("<br><b>Vitality:</b> " + vitality);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int resistance = _lotroGame.getModifiersQuerying().getResistance(_lotroGame.getGameState(), card);
+                    int resistance = _lotroGame.getModifiersQuerying().getResistance(_lotroGame, card);
                     sb.append("<br><b>Resistance:</b> " + resistance);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame.getGameState(), card);
+                    int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame, card);
                     sb.append("<br><b>Site number:</b> " + siteNumber);
                 } catch (UnsupportedOperationException exp) {
                 }
@@ -211,11 +218,11 @@ public class LotroGameMediator {
                 for (Keyword keyword : Keyword.values()) {
                     if (keyword.isInfoDisplayable()) {
                         if (keyword.isMultiples()) {
-                            int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame.getGameState(), card, keyword);
+                            int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame, card, keyword);
                             if (count > 0)
                                 keywords.append(keyword.getHumanReadable() + " +" + count + ", ");
                         } else {
-                            if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame.getGameState(), card, keyword))
+                            if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame, card, keyword))
                                 keywords.append(keyword.getHumanReadable() + ", ");
                         }
                     }
@@ -251,17 +258,17 @@ public class LotroGameMediator {
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
                 // User can always reconnect and establish a new channel
                 GameCommunicationChannel channel = playerChannels.getValue();
-                if (currentTime > channel.getLastAccessed() + _playerDecisionTimeoutPeriod) {
+                if (currentTime > channel.getLastAccessed() + _maxSecondsPerDecision*1000) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
                 }
             }
 
-            if (_lotroGame.getGameState() != null && _lotroGame.getWinnerPlayerId() == null) {
+            if (_lotroGame != null && _lotroGame.getWinnerPlayerId() == null) {
                 for (Map.Entry<String, Long> playerDecision : new HashMap<String, Long>(_decisionQuerySentTimes).entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
-                    if (currentTime > decisionSent + _playerDecisionTimeoutPeriod) {
+                    if (currentTime > decisionSent + _maxSecondsPerDecision*1000) {
                         addTimeSpentOnDecisionToUserClock(playerId);
                         _lotroGame.playerLost(playerId, "Player decision timed-out");
                     }
@@ -379,7 +386,7 @@ public class LotroGameMediator {
 
             String warning = _userFeedback.consumeWarning(playerName);
             if (warning != null)
-                visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
+                visitor.visitGameEvent(new GameEvent(GameEvent.Type.SEND_WARNING).message(warning));
 
             Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {

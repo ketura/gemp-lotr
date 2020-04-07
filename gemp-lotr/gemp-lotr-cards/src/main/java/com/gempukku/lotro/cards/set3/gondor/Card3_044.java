@@ -1,17 +1,18 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromHandEffect;
-import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -28,15 +29,15 @@ import java.util.List;
  */
 public class Card3_044 extends AbstractPermanent {
     public Card3_044() {
-        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "The Shards of Narsil", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, "The Shards of Narsil", null, true);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+        List<ActivateCardAction> actions = new LinkedList<>();
 
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
+            if (PlayConditions.canStackCardFromHand(self, game, playerId, 1, self, Culture.GONDOR)) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack a GONDOR card from hand here");
                 action.appendEffect(

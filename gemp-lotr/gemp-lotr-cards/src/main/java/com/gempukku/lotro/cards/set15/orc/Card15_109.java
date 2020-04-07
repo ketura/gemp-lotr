@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set15.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -39,7 +39,7 @@ public class Card15_109 extends AbstractMinion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(),
-                            Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.character, Keyword.HUNTER), true));
+                            Filters.countActive(game, Filters.character, Keyword.HUNTER), true));
             return Collections.singletonList(action);
         }
         return null;

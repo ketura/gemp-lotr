@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
@@ -29,14 +29,14 @@ import java.util.List;
  */
 public class Card13_076 extends AbstractPermanent {
     public Card13_076() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Storied Homestead", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, "Storied Homestead", null, true);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION, Filters.minResistance(7));
+            int count = Filters.countActive(game, Culture.GONDOR, CardType.COMPANION, Filters.minResistance(7));
             if (count > 0)
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.GONDOR, count));

@@ -20,7 +20,7 @@ public class DbTransferDAO implements TransferDAO {
 
     @Override
     public void addTransferFrom(String player, String reason, String collectionName, int currency, CardCollection items) {
-        if (currency > 0 || items.getAll().size() > 0) {
+        if (currency > 0 || items.getAll().iterator().hasNext()) {
             try {
                 Connection connection = _dbAccess.getDataSource().getConnection();
                 try {
@@ -50,7 +50,7 @@ public class DbTransferDAO implements TransferDAO {
 
     @Override
     public void addTransferTo(boolean notifyPlayer, String player, String reason, String collectionName, int currency, CardCollection items) {
-        if (currency > 0 || items.getAll().size() > 0) {
+        if (currency > 0 || items.getAll().iterator().hasNext()) {
             try {
                 Connection connection = _dbAccess.getDataSource().getConnection();
                 try {
@@ -132,7 +132,7 @@ public class DbTransferDAO implements TransferDAO {
 
                             cardCollection.addCurrency(resultSet.getInt(2));
                             CardCollection retrieved = deserializeCollection(resultSet.getString(3));
-                            for (CardCollection.Item item : retrieved.getAll().values())
+                            for (CardCollection.Item item : retrieved.getAll())
                                 cardCollection.addItem(item.getBlueprintId(), item.getCount());
                             result.put(name, cardCollection);
                         }
@@ -143,7 +143,7 @@ public class DbTransferDAO implements TransferDAO {
                     statement.close();
                 }
 
-                sql = "update transfer set notify=0 where player=?";
+                sql = "update transfer set notify=0 where player=? and notify=1";
                 statement = connection.prepareStatement(sql);
                 try {
                     statement.setString(1, player);
@@ -162,7 +162,7 @@ public class DbTransferDAO implements TransferDAO {
 
     private String serializeCollection(CardCollection cardCollection) {
         StringBuilder sb = new StringBuilder();
-        for (CardCollection.Item item : cardCollection.getAll().values())
+        for (CardCollection.Item item : cardCollection.getAll())
             sb.append(item.getCount()).append("x").append(item.getBlueprintId()).append(",");
         return sb.toString();
     }

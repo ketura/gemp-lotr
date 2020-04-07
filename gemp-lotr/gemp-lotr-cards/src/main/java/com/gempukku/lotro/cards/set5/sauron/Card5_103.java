@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set5.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -38,7 +38,7 @@ public class Card5_103 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Culture.SAURON, CardType.CONDITION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int sitesControlled = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId));
+            int sitesControlled = Filters.countActive(game, Filters.siteControlled(playerId));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, Math.min(3, sitesControlled)));
             return Collections.singletonList(action);

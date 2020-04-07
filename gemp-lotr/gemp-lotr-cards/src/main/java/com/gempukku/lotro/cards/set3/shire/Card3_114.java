@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set3.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_114 extends AbstractPermanent {
     public Card3_114() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Three Monstrous Trolls");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Three Monstrous Trolls");
         addKeyword(Keyword.TALE);
     }
 

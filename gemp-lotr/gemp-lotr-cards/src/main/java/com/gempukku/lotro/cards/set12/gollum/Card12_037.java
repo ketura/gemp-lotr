@@ -1,23 +1,22 @@
 package com.gempukku.lotro.cards.set12.gollum;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,13 +33,13 @@ import java.util.List;
  */
 public class Card12_037 extends AbstractPermanent {
     public Card12_037() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Come Away");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GOLLUM, "Come Away");
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, CardType.SITE, new SpotCondition(Filters.smeagol), -1);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, CardType.SITE, new SpotCondition(Filters.smeagol), -1));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

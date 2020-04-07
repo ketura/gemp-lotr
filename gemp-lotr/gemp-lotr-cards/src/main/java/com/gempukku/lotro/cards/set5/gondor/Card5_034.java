@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set5.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
@@ -23,14 +23,14 @@ public class Card5_034 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
-                                new DiscardCardsFromPlayEffect(self, Filters.and(Side.SHADOW, Filters.attachedTo(card))));
+                                new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(Side.SHADOW, Filters.attachedTo(card))));
                     }
                 });
         return action;

@@ -1,20 +1,16 @@
 package com.gempukku.lotro.cards.set8.raider;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.OptionalEffect;
-import com.gempukku.lotro.cards.effects.PutPlayedEventOnTopOfDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Siege of Gondor
@@ -31,13 +27,13 @@ public class Card8_066 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Corsair", Keyword.CORSAIR) {
                     @Override
                     protected void cardSelected(final LotroGame game, final PhysicalCard card) {
-                        int count = Math.min(6, GameUtils.getSpottableTokensTotal(game.getGameState(), game.getModifiersQuerying(), Token.RAIDER));
+                        int count = Math.min(6, GameUtils.getSpottableTokensTotal(game, Token.RAIDER));
 
                         IntegerAwaitingDecision spotDecision = new IntegerAwaitingDecision(1, "How many RAIDER tokens you wish to spot?", 0, count) {
                             @Override

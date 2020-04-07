@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set13.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.ExtraFilters;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.ExtraFilters;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 
@@ -30,14 +30,13 @@ public class Card13_176 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Filters.owner(playerId), Culture.URUK_HAI, CardType.MINION, Keyword.LURKER)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.URUK_HAI, PossessionClass.HAND_WEAPON, ExtraFilters.attachableTo(game, Filters.owner(playerId), Culture.URUK_HAI, CardType.MINION));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Filters.owner(self.getOwner()), Culture.URUK_HAI, CardType.MINION, Keyword.LURKER)
+                && PlayConditions.canPlayFromDiscard(self.getOwner(), game, Culture.URUK_HAI, PossessionClass.HAND_WEAPON, ExtraFilters.attachableTo(game, Filters.owner(self.getOwner()), Culture.URUK_HAI, CardType.MINION));
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final Filter targetFilter = Filters.and(Filters.owner(playerId), Culture.URUK_HAI, CardType.MINION);
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
@@ -51,7 +50,7 @@ public class Card13_176 extends AbstractEvent {
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                         if (selectedCards.size() > 0) {
                             PhysicalCard selectedCard = selectedCards.iterator().next();
-                            game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, targetFilter, 0));
+                            game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, selectedCard, 0, targetFilter, false));
                         }
                     }
                 });

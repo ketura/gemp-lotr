@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,11 +39,11 @@ public class Card17_121 extends AbstractMinion {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.ARCHERY)
                 && PlayConditions.canSpot(game, Filters.siteControlled(playerId))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game, null);
             if (count > 0)
                 action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(
-                                new ArcheryTotalModifier(self, Side.SHADOW, null, count)));
+                                new ArcheryTotalModifier(self, Side.SHADOW, null, (count * 2))));
             return Collections.singletonList(action);
         }
         return null;

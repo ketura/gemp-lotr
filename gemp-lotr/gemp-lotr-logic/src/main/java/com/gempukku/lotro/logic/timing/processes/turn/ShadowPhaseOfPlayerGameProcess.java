@@ -28,7 +28,7 @@ public class ShadowPhaseOfPlayerGameProcess implements GameProcess {
         else
             afterGameProcess = new ShadowPhaseOfPlayerGameProcess(_playOrder, nextPlayer);
 
-        if (game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.SHADOW, _shadowPlayer))
+        if (game.getModifiersQuerying().shouldSkipPhase(game, Phase.SHADOW, _shadowPlayer))
             _followingGameProcess = afterGameProcess;
         else
             _followingGameProcess = new StartOfPhaseGameProcess(Phase.SHADOW, _shadowPlayer,

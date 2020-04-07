@@ -1,14 +1,18 @@
 package com.gempukku.lotro.cards.set18.gondor;
 
-import com.gempukku.lotro.cards.*;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeckEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.ExtraFilters;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -43,7 +47,7 @@ public class Card18_040 extends AbstractCompanion {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
                                 PhysicalCard selectedCard = selectedCards.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, self, 0));
+                                game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, selectedCard, 0, self, false));
                             }
                         }
                     });

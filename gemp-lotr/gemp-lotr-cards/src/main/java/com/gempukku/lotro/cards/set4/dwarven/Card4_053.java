@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 
 /**
@@ -16,25 +16,19 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Spot a Dwarf companion and an Elf companion to wound a minion.
  */
-public class Card4_053 extends AbstractOldEvent {
+public class Card4_053 extends AbstractEvent {
     public Card4_053() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Quick As May Be", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Quick As May Be", Phase.MANEUVER);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF, CardType.COMPANION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.DWARF, CardType.COMPANION)
+                && Filters.canSpot(game, Race.ELF, CardType.COMPANION);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 1;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));

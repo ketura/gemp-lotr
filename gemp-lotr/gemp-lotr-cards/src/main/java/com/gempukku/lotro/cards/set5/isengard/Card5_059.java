@@ -1,21 +1,18 @@
 package com.gempukku.lotro.cards.set5.isengard;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.CancelActivatedEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.CancelActivatedEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
 import java.util.Collections;
@@ -39,27 +36,33 @@ public class Card5_059 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Keyword.WARG_RIDER;
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getStrength() {
+        return 5;
+    }
+
+    @Override
+    public int getVitality() {
+        return 3;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 5));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 3));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name("Sharku")), Keyword.DAMAGE, 1));
         return modifiers;
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.activated(game, effectResult, Filters.any)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
-            if (Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
+            if (Filters.inSkirmish.accepts(game, self.getAttachedTo())
                     && activateEffect.getActionTimeword() == Phase.SKIRMISH
                     && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
                 ActivateCardAction action = new ActivateCardAction(self);

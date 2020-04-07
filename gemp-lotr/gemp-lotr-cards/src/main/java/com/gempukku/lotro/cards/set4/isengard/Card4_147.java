@@ -1,19 +1,15 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,13 +25,12 @@ import java.util.List;
  */
 public class Card4_147 extends AbstractPermanent {
     public Card4_147() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Covering Fire");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Covering Fire");
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Culture.ISENGARD, Keyword.ARCHER);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, Culture.ISENGARD, Keyword.ARCHER);
     }
 
     @Override
@@ -50,18 +45,9 @@ public class Card4_147 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (!performingPlayer.equals(gameState.getCurrentPlayerId()))
-                            return true;
-                        if (action.getActionTimeword() == Phase.ARCHERY)
-                            return false;
-
-                        return true;
-                    }
-                });
+                new PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(
+                        self, game.getGameState().getCurrentPlayerId(), Phase.ARCHERY));
     }
 }

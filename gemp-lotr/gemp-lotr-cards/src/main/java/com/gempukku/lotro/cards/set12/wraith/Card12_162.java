@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set12.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Black Rider
@@ -23,16 +23,15 @@ public class Card12_162 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        int modifier = Math.max(-4, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Keyword.FOREST));
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canPlayFromHand(playerId, game, modifier, Race.NAZGUL);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        int modifier = Math.max(-4, -Filters.countActive(game, CardType.SITE, Keyword.FOREST));
+        return PlayConditions.canPlayFromHand(self.getOwner(), game, modifier, Race.NAZGUL);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        int modifier = Math.max(-4, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Keyword.FOREST));
+        int modifier = Math.max(-4, -Filters.countActive(game, CardType.SITE, Keyword.FOREST));
         action.appendEffect(
                 new ChooseAndPlayCardFromHandEffect(playerId, game, modifier, Race.NAZGUL));
         return action;

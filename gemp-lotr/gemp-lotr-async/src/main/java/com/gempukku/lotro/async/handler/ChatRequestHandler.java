@@ -44,7 +44,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             postMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 
@@ -60,12 +60,13 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(404);
 
         try {
+            final boolean admin = resourceOwner.getType().contains("a");
             if (message != null && message.trim().length() > 0) {
-                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
+                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), admin);
                 responseWriter.writeXmlResponse(null);
             } else {
                 ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
-                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
+                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), admin, responseWriter);
                 _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
             }
         } catch (SubscriptionExpiredException exp) {
@@ -78,46 +79,48 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class ChatUpdateLongPollingResource implements LongPollingResource {
-        private ChatRoomMediator _chatRoom;
-        private String _room;
-        private String _playerId;
-        private ResponseWriter _responseWriter;
-        private boolean _processed;
+        private ChatRoomMediator chatRoom;
+        private String room;
+        private String playerId;
+        private boolean admin;
+        private ResponseWriter responseWriter;
+        private boolean processed;
 
-        private ChatUpdateLongPollingResource(ChatRoomMediator chatRoom, String room, String playerId, ResponseWriter responseWriter) {
-            _chatRoom = chatRoom;
-            _room = room;
-            _playerId = playerId;
-            _responseWriter = responseWriter;
+        private ChatUpdateLongPollingResource(ChatRoomMediator chatRoom, String room, String playerId, boolean admin, ResponseWriter responseWriter) {
+            this.chatRoom = chatRoom;
+            this.room = room;
+            this.playerId = playerId;
+            this.admin = admin;
+            this.responseWriter = responseWriter;
         }
 
         @Override
         public synchronized boolean wasProcessed() {
-            return _processed;
+            return processed;
         }
 
         @Override
         public synchronized void processIfNotProcessed() {
-            if (!_processed) {
+            if (!processed) {
                 try {
-                    List<ChatMessage> chatMessages = _chatRoom.getChatRoomListener(_playerId).consumeMessages();
+                    List<ChatMessage> chatMessages = chatRoom.getChatRoomListener(playerId).consumeMessages();
 
-                    Collection<String> usersInRoom = _chatRoom.getUsersInRoom();
+                    Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
 
                     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
                     Document doc = documentBuilder.newDocument();
 
-                    serializeChatRoomData(_room, chatMessages, usersInRoom, doc);
+                    serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
-                    _responseWriter.writeXmlResponse(doc);
+                    responseWriter.writeXmlResponse(doc);
                 } catch (SubscriptionExpiredException exp) {
-                    _responseWriter.writeError(410);
+                    responseWriter.writeError(410);
                 } catch (Exception exp) {
-                    _responseWriter.writeError(500);
+                    responseWriter.writeError(500);
                 }
-                _processed = true;
+                processed = true;
             }
         }
     }
@@ -132,8 +135,9 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         if (chatRoom == null)
             throw new HttpProcessingException(404);
         try {
-            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.getType().contains("a"));
-            Collection<String> usersInRoom = chatRoom.getUsersInRoom();
+            final boolean admin = resourceOwner.getType().contains("a");
+            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), admin);
+            Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

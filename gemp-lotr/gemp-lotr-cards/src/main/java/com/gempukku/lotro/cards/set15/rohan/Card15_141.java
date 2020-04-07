@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set15.rohan;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.LiberateASiteEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,18 +32,18 @@ public class Card15_141 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.ROHAN, Race.MAN);
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.hasAttached(self), new NotCondition(new SpotCondition(Filters.siteControlledByShadowPlayer(self.getOwner()))), 1));
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -52,7 +51,7 @@ public class Card15_141 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new LiberateASiteEffect(self, playerId, null));
-            if (Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo()))
+            if (Filters.mounted.accepts(game, self.getAttachedTo()))
                 action.appendEffect(
                         new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);

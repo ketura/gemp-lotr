@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card7_333 extends AbstractSite {
     public Card7_333() {
-        super("Sleeping Quarters", Block.KING, 1, 0, Direction.LEFT);
+        super("Sleeping Quarters", SitesBlock.KING, 1, 0, Direction.LEFT);
     }
 
     @Override

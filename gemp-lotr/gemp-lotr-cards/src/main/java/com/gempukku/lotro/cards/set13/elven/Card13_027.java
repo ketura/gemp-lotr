@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card13_027 extends AbstractPermanent {
     public Card13_027() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Wells of Deep Memory", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, "Wells of Deep Memory", null, true);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Card13_027 extends AbstractPermanent {
         if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canSpot(game, Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel))) {
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel));
+            int count = Filters.countActive(game, Filters.or(Filters.arwen, Filters.name("Celeborn"), Filters.galadriel));
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, count));

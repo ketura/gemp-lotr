@@ -1,11 +1,5 @@
 package com.gempukku.lotro.cards.set10.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -13,8 +7,14 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,26 +34,30 @@ public class Card10_112 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Culture.SHIRE, Filters.character);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Culture.SHIRE, Filters.character);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SHIRE, Filters.character));
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new RemoveBurdenEffect(playerId, self));
-        possibleEffects.add(
-                new RemoveThreatsEffect(self, 2) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Remove 2 threats";
-                    }
-                });
+        if (game.getGameState().getThreats() > 1) {
+            possibleEffects.add(
+                    new RemoveThreatsEffect(self, 2) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Remove 2 threats";
+                }
+            });
+        } else if (game.getGameState().getBurdens() == 0) {
+            possibleEffects.add(
+                    new RemoveThreatsEffect(self, 1));
+        }
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
         return action;

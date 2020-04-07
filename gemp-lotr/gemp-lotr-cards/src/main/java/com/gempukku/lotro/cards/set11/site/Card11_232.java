@@ -1,12 +1,15 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.modifiers.PlayersCantUsePhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUsePhaseSpecialAbilitiesModifier;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -14,14 +17,14 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * Type: Site
  * Game Text: Underground. Skirmish special abilities cannot be used.
  */
-public class Card11_232 extends AbstractNewSite {
+public class Card11_232 extends AbstractShadowsSite {
     public Card11_232() {
         super("Cavern Entrance", 1, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new PlayersCantUsePhaseSpecialAbilitiesModifier(self, Phase.SKIRMISH);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new PlayersCantUsePhaseSpecialAbilitiesModifier(self, Phase.SKIRMISH));
+}
 }

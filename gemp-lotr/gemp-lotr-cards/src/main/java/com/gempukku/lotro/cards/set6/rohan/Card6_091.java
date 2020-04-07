@@ -1,16 +1,15 @@
 package com.gempukku.lotro.cards.set6.rohan;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.OverwhelmedByMultiplierModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.*;
 
@@ -25,11 +24,11 @@ import java.util.*;
  */
 public class Card6_091 extends AbstractPermanent {
     public Card6_091() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Blood Has Been Spilled");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Blood Has Been Spilled");
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canDiscardFromPlay(self, game, PossessionClass.MOUNT, Filters.attachedTo(Culture.ROHAN, Race.MAN))) {
             final ActivateCardAction action = new ActivateCardAction(self);

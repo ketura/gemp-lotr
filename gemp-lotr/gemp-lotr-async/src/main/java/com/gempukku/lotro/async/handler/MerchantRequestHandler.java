@@ -1,12 +1,12 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.game.packs.SetDefinition;
 import com.gempukku.lotro.merchant.MerchantException;
 import com.gempukku.lotro.merchant.MerchantService;
 import org.jboss.netty.channel.MessageEvent;
@@ -55,7 +55,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         } else if (uri.equals("/tradeFoil") && request.getMethod() == HttpMethod.POST) {
             tradeInFoil(request, responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 
@@ -115,18 +115,20 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode());
 
-        Set<CardItem> cardItems = new HashSet<CardItem>();
+        Set<BasicCardItem> cardItems = new HashSet<>();
         if (ownedMin <= 0) {
             cardItems.addAll(_merchantService.getSellableItems());
-            cardItems.addAll(collection.getAllCardsInCollection());
+            final Iterable<CardCollection.Item> items = collection.getAll();
+            for (CardCollection.Item item : items)
+                cardItems.add(new BasicCardItem(item.getBlueprintId()));
         } else {
-            for (CardCollection.Item item : collection.getAll().values()) {
+            for (CardCollection.Item item : collection.getAll()) {
                 if (item.getCount() >= ownedMin)
-                    cardItems.add(item);
+                    cardItems.add(new BasicCardItem(item.getBlueprintId()));
             }
         }
 
-        List<CardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
+        List<BasicCardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
 
         List<CardItem> pageToDisplay = new ArrayList<CardItem>();
         for (int i = start; i < start + count; i++) {

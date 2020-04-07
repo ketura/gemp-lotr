@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set13.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
-import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.ForEachYouSpotEffect;
+import com.gempukku.lotro.logic.effects.ReinforceTokenEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,13 +33,12 @@ public class Card13_097 extends AbstractMinion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.MEN, Filters.owner(playerId), Zone.SUPPORT);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.MEN, Filters.owner(self.getOwner()), Zone.SUPPORT);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, Side.FREE_PEOPLE, CardType.CONDITION)) {
@@ -52,7 +50,7 @@ public class Card13_097 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard condition) {
                             action.appendEffect(
-                                    new ForEachYouSpotEffect(playerId, Filters.name(condition.getBlueprint().getName())) {
+                                    new ForEachYouSpotEffect(playerId, Filters.name(condition.getBlueprint().getTitle())) {
                                         @Override
                                         protected void spottedCards(int spotCount) {
                                             for (int i = 0; i < spotCount; i++)

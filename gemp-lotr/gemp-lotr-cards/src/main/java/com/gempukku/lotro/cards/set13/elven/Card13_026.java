@@ -1,18 +1,17 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,12 +29,12 @@ import java.util.List;
  */
 public class Card13_026 extends AbstractPermanent {
     public Card13_026() {
-        super(Side.FREE_PEOPLE, 6, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Take Up the Bow");
+        super(Side.FREE_PEOPLE, 6, CardType.CONDITION, Culture.ELVEN, "Take Up the Bow");
         addKeyword(Keyword.TOIL, 2);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canSpot(game, 3, Race.ELF, Keyword.ARCHER)) {

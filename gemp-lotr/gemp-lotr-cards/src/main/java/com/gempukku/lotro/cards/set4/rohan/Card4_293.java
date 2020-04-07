@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card4_293 extends AbstractPermanent {
     public Card4_293() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Valleys of the Mark");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Valleys of the Mark");
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set12.dwarven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;

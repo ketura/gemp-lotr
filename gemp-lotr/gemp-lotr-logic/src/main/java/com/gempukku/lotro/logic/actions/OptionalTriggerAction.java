@@ -12,7 +12,6 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     private String _message;
 
     private boolean _sentMessage;
-    private String _text;
     private String _triggerIdentifier;
 
     public OptionalTriggerAction(String triggerIdentifier, PhysicalCard attachedToCard) {
@@ -24,7 +23,7 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
         _physicalCard = physicalCard;
         _actionAttachedToCard = physicalCard;
 
-        _text = "Optional trigger from " + GameUtils.getCardLink(_physicalCard);
+        setText("Optional trigger from " + GameUtils.getCardLink(_physicalCard));
         _message = GameUtils.getCardLink(_physicalCard) + " optional triggered effect is used";
         _triggerIdentifier = String.valueOf(physicalCard.getCardId());
     }
@@ -54,15 +53,6 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionAttachedToCard() {
         return _actionAttachedToCard;
-    }
-
-    public void setText(String text) {
-        _text = text;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return _text;
     }
 
     @Override

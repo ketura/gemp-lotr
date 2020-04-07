@@ -1,16 +1,17 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: The Hunters
@@ -29,20 +30,14 @@ public class Card15_030 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                - modifiersQuerying.getSpotBonus(gameState, Race.ENT);
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        return -Filters.countSpottable(game, Race.ENT);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, Filters.not(self), Race.ENT)
-                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 4;
-                    }
-                }, 4);
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self,
+                // All Ents, minus itself
+                new SpotCondition(5, Race.ENT), 4));
     }
 }

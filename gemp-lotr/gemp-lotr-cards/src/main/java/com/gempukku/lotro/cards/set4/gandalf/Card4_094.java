@@ -1,19 +1,17 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.modifiers.MayNotBePlayedOnModifier;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.MayNotBePlayedOnModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -37,19 +35,23 @@ public class Card4_094 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Filters.gandalf);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+    public int getStrength() {
+        return 2;
+    }
 
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 2));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 1));
+    @Override
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new MayNotBePlayedOnModifier(self, Filters.hasAttached(self), Filters.and(Side.SHADOW, CardType.CONDITION)));
 
@@ -57,7 +59,7 @@ public class Card4_094 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.name(Names.theoden);
     }
 
@@ -66,7 +68,7 @@ public class Card4_094 extends AbstractAttachable {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Filters.hasAttached(self)))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Filters.hasAttached(self)))));
             return Collections.singletonList(action);
         }
         return null;

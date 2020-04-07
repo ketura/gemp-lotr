@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set11.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -11,9 +7,13 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 
 import java.util.Set;
 
@@ -32,23 +32,22 @@ public class Card11_060 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && canExertMinResistanceGondorCompanions(game, self, 12);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return canExertMinResistanceGondorCompanions(game, self, 12);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new PlayoutDecisionEffect(playerId,
-                        new CardsSelectionDecision(1, "Choose GONDOR companions to exert with a total resistance of 12 or more", Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION, Filters.canExert(self)), 1, Integer.MAX_VALUE) {
+                        new CardsSelectionDecision(1, "Choose GONDOR companions to exert with a total resistance of 12 or more", Filters.filterActive(game, Culture.GONDOR, CardType.COMPANION, Filters.canExert(self)), 1, Integer.MAX_VALUE) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> characters = getSelectedCardsByResponse(result);
                                 int resistanceTotal = 0;
                                 for (PhysicalCard character : characters)
-                                    resistanceTotal += game.getModifiersQuerying().getResistance(game.getGameState(), character);
+                                    resistanceTotal += game.getModifiersQuerying().getResistance(game, character);
                                 if (resistanceTotal < 12)
                                     throw new DecisionResultInvalidException("These characters have only " + resistanceTotal + " resistance total");
 
@@ -63,8 +62,8 @@ public class Card11_060 extends AbstractEvent {
 
     private boolean canExertMinResistanceGondorCompanions(LotroGame game, PhysicalCard self, int resistance) {
         int resistanceTotal = 0;
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Culture.GONDOR, Filters.canExert(self))) {
-            resistanceTotal += game.getModifiersQuerying().getResistance(game.getGameState(), physicalCard);
+        for (PhysicalCard physicalCard : Filters.filterActive(game, CardType.COMPANION, Culture.GONDOR, Filters.canExert(self))) {
+            resistanceTotal += game.getModifiersQuerying().getResistance(game, physicalCard);
         }
         return resistanceTotal >= resistance;
     }

@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set5.shire;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
@@ -12,9 +8,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,12 +33,12 @@ public class Card5_116 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.frodo;
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, Filters.frodo)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -49,7 +48,7 @@ public class Card5_116 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(self, playerId, "Choose Smeagol or Gollum", Filters.gollumOrSmeagol) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            if (card.getBlueprint().getName().equals("Smeagol"))
+                            if (card.getBlueprint().getTitle().equals("Smeagol"))
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(card), 2)));

@@ -13,7 +13,7 @@ public interface ResponseWriter {
 
     public void writeHtmlResponse(String html);
 
-    public void writeByteResponse(String contentType, byte[] bytes);
+    public void writeByteResponse(byte[] bytes, Map<String, String> headers);
 
     public void writeXmlResponse(Document document);
 

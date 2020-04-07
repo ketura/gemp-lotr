@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set15.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -37,7 +37,7 @@ public class Card15_108 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ORC, Filters.or(CardType.POSSESSION, CardType.ARTIFACT));
+            int count = Filters.countActive(game, Culture.ORC, Filters.or(CardType.POSSESSION, CardType.ARTIFACT));
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.FORTIFICATION));

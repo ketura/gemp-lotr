@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set7.raider;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,8 +8,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 
 import java.util.Collection;
@@ -38,9 +38,8 @@ public class Card7_152 extends AbstractMinion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.RAIDER, Race.MAN);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.RAIDER, Race.MAN);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Card7_152 extends AbstractMinion {
         if (TriggerConditions.winsSkirmishInvolving(game, effectResult, self, CardType.COMPANION)
                 && game.getGameState().getThreats() >= 6) {
             CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
-            final Collection<PhysicalCard> losingCompanion = Filters.filter(skirmishResult.getInvolving(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            final Collection<PhysicalCard> losingCompanion = Filters.filter(skirmishResult.getInvolving(), game, CardType.COMPANION);
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new KillEffect(losingCompanion, KillEffect.Cause.CARD_EFFECT));

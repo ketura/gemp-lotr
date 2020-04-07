@@ -1,10 +1,6 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.game.DefaultAdventureLibrary;
-import com.gempukku.lotro.game.DefaultUserFeedback;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -14,38 +10,31 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import org.junit.BeforeClass;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
+    private int cardId = 100;
+
+    static {
+        _library = new LotroCardBlueprintLibrary();
+        final String property = System.getProperty("user.dir");
+        String projectRoot = new File(property).getParentFile().getAbsolutePath();
+
+        _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"), new CardSets());
+    }
 
     protected DefaultLotroGame _game;
     protected DefaultUserFeedback _userFeedback;
     protected static final String P1 = "player1";
     protected static final String P2 = "player2";
 
-    @BeforeClass
-    public static void initializeCardLibrary() {
-        _library = new LotroCardBlueprintLibrary();
-//        for (int i = 1; i <= 10; i++) {
-//            for (int j = 1; j <= 365; j++) {
-//                String blueprintId = i + "_" + j;
-//                try {
-//                    _library.getLotroCardBlueprint(blueprintId);
-//                } catch (IllegalArgumentException exp) {
-//
-//                }
-//            }
-//        }
+    protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
+        return new PhysicalCardImpl(cardId++, blueprintId, owner, _library.getLotroCardBlueprint(blueprintId));
     }
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {
@@ -117,6 +106,10 @@ public abstract class AbstractAtTest {
         return null;
     }
 
+    protected String getCardActionId(String playerId, String actionTextStart) {
+        return getCardActionId(_userFeedback.getAwaitingDecision(playerId), actionTextStart);
+    }
+
     protected String getCardActionIdContains(AwaitingDecision awaitingDecision, String actionTextContains) {
         String[] actionTexts = (String[]) awaitingDecision.getDecisionParameters().get("actionText");
         for (int i = 0; i < actionTexts.length; i++)
@@ -133,7 +126,7 @@ public abstract class AbstractAtTest {
         return null;
     }
 
-    private void addPlayerDeck(String player, Map<String, LotroDeck> decks, Map<String, Collection<String>> additionalCardsInDeck) {
+    protected void addPlayerDeck(String player, Map<String, LotroDeck> decks, Map<String, Collection<String>> additionalCardsInDeck) {
         LotroDeck deck = createSimplestDeck();
         if (additionalCardsInDeck != null) {
             Collection<String> extraCards = additionalCardsInDeck.get(player);

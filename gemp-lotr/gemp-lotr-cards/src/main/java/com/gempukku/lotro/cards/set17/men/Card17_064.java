@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,7 +38,7 @@ public class Card17_064 extends AbstractMinion {
             PlayCardResult playResult = (PlayCardResult) effectResult;
             if (playResult.getPlayedFrom() == Zone.DECK ||
                     (playResult.getPlayedFrom() == Zone.STACKED
-                            && Filters.and(Culture.MEN, CardType.POSSESSION).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedOrStackedPlayedFrom()))) {
+                            && Filters.and(Culture.MEN, CardType.POSSESSION).accepts(game, playResult.getAttachedOrStackedPlayedFrom()))) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new AddUntilStartOfPhaseModifierEffect(

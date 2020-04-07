@@ -19,16 +19,6 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     private PhysicalCard _source;
     private String _performingPlayer;
 
-    public DiscardCardsFromPlayEffect(PhysicalCard source, PhysicalCard... cards) {
-        super(cards);
-        _source = source;
-    }
-
-    public DiscardCardsFromPlayEffect(PhysicalCard source, Filterable... filters) {
-        super(filters);
-        _source = source;
-    }
-
     public DiscardCardsFromPlayEffect(String performingPlayer, PhysicalCard source, Filterable... filters) {
         super(filters);
         _performingPlayer = performingPlayer;
@@ -47,10 +37,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     }
 
     public String getPerformingPlayer() {
-        final String performingPlayer = _performingPlayer;
-        if (performingPlayer != null)
-            return performingPlayer;
-        return _source.getOwner();
+        return _performingPlayer;
     }
 
     @Override
@@ -77,7 +64,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
         GameState gameState = game.getGameState();
 
-        DiscardUtils.cardsToChangeZones(gameState, cards, discardedCards, toMoveFromZoneToDiscard);
+        DiscardUtils.cardsToChangeZones(game, cards, discardedCards, toMoveFromZoneToDiscard);
 
         discardedCards.addAll(cards);
         toMoveFromZoneToDiscard.addAll(cards);
@@ -95,7 +82,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
             game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));
 
         for (PhysicalCard discardedCard : discardedCards)
-            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(_source, discardedCard));
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(_source, getPerformingPlayer(), discardedCard));
 
         forEachDiscardedByEffectCallback(cards);
     }

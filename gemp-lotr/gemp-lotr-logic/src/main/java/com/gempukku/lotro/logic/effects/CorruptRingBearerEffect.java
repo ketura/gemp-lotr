@@ -8,4 +8,9 @@ public class CorruptRingBearerEffect extends UnrespondableEffect {
     public void doPlayEffect(LotroGame game) {
         game.playerLost(game.getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted by a card effect");
     }
+
+    @Override
+    public String getText(LotroGame game) {
+        return "Corrupt the Ring-Bearer";
+    }
 }

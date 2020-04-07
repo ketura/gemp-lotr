@@ -2,6 +2,7 @@ package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.google.common.collect.Iterables;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
+import java.util.Collections;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -30,16 +31,15 @@ public class CollectionSerializerTest {
 
         CardCollection resultCollection = serializeAndDeserialize(collection);
 
-        final Map<String, CardCollection.Item> result = resultCollection.getAll();
-        assertEquals(7, result.size());
+        assertEquals(7, Iterables.size(resultCollection.getAll()));
         assertEquals(256 * 256 * 250, resultCollection.getCurrency());
-        assertEquals(2, result.get("1_1").getCount());
-        assertEquals(3, result.get("1_231T").getCount());
-        assertEquals(3, result.get("1_23*").getCount());
-        assertEquals(3, result.get("1_237T*").getCount());
-        assertEquals(3, result.get("15_2").getCount());
-        assertEquals(3, result.get("15_4*").getCount());
-        assertEquals(2, result.get("FotR - Booster").getCount());
+        assertEquals(2, resultCollection.getItemCount("1_1"));
+        assertEquals(3, resultCollection.getItemCount("1_231T"));
+        assertEquals(3, resultCollection.getItemCount("1_23*"));
+        assertEquals(3, resultCollection.getItemCount("1_237T*"));
+        assertEquals(3, resultCollection.getItemCount("15_2"));
+        assertEquals(3, resultCollection.getItemCount("15_4*"));
+        assertEquals(2, resultCollection.getItemCount("FotR - Booster"));
     }
 
     @Test
@@ -47,18 +47,54 @@ public class CollectionSerializerTest {
         InputStream is = CollectionSerializerTest.class.getResourceAsStream("/testCollection");
         try {
             CardCollection resultCollection = _serializer.deserializeCollection(is);
-            final Map<String, CardCollection.Item> result = resultCollection.getAll();
-            assertEquals(6, result.size());
+            assertEquals(6, Iterables.size(resultCollection.getAll()));
             assertEquals(256 * 256 * 250, resultCollection.getCurrency());
-            assertEquals(2, result.get("1_1").getCount());
-            assertEquals(3, result.get("1_231T").getCount());
-            assertEquals(3, result.get("1_23*").getCount());
-            assertEquals(3, result.get("1_237T*").getCount());
-            assertEquals(2, result.get("FotR - Booster").getCount());
-            assertEquals(1, result.get("15_2").getCount());
+            assertEquals(2, resultCollection.getItemCount("1_1"));
+            assertEquals(3, resultCollection.getItemCount("1_231T"));
+            assertEquals(3, resultCollection.getItemCount("1_23*"));
+            assertEquals(3, resultCollection.getItemCount("1_237T*"));
+            assertEquals(2, resultCollection.getItemCount("FotR - Booster"));
+            assertEquals(1, resultCollection.getItemCount("15_2"));
         } finally {
             IOUtils.closeQuietly(is);
         }
+    }
+
+    @Test
+    public void deserializeFromBytesV4() throws IOException {
+        InputStream is = CollectionSerializerTest.class.getResourceAsStream("/testCollection-v4");
+        try {
+            CardCollection resultCollection = _serializer.deserializeCollection(is);
+            assertEquals(7, Iterables.size(resultCollection.getAll()));
+            assertEquals(256 * 256 * 250, resultCollection.getCurrency());
+            assertEquals(2, resultCollection.getItemCount("1_1"));
+            assertEquals(3, resultCollection.getItemCount("1_231T"));
+            assertEquals(3, resultCollection.getItemCount("1_23*"));
+            assertEquals(3, resultCollection.getItemCount("1_237T*"));
+            assertEquals(3, resultCollection.getItemCount("15_2"));
+            assertEquals(3, resultCollection.getItemCount("15_4*"));
+            assertEquals(2, resultCollection.getItemCount("FotR - Booster"));
+            assertEquals(1, resultCollection.getExtraInformation().size());
+            assertEquals("b", resultCollection.getExtraInformation().get("a"));
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+    }
+
+    @Test
+    public void testExtraInfo() throws IOException {
+        DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addCurrency(12);
+        collection.addItem("15_4*", 2);
+
+        collection.setExtraInformation(Collections.singletonMap("a", "b"));
+
+        CardCollection resultCollection = serializeAndDeserialize(collection);
+        assertEquals(12, resultCollection.getCurrency());
+        assertEquals(1, Iterables.size(resultCollection.getAll()));
+        assertEquals(2, resultCollection.getItemCount("15_4*"));
+        assertEquals(1, resultCollection.getExtraInformation().size());
+        assertEquals("b", resultCollection.getExtraInformation().get("a"));
     }
 
     @Test
@@ -66,9 +102,9 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 8);
 
-        final Map<String, CardCollection.Item> result = serializeAndDeserialize(collection).getAll();
-        assertEquals(1, result.size());
-        assertEquals(8, result.get("FotR - Booster").getCount());
+        CardCollection resultCollection = serializeAndDeserialize(collection);
+        assertEquals(1, Iterables.size(resultCollection.getAll()));
+        assertEquals(8, resultCollection.getItemCount("FotR - Booster"));
     }
 
     private CardCollection serializeAndDeserialize(DefaultCardCollection collection) throws IOException {
@@ -85,9 +121,9 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 500);
 
-        final Map<String, CardCollection.Item> result = serializeAndDeserialize(collection).getAll();
-        assertEquals(1, result.size());
-        assertEquals(500, result.get("FotR - Booster").getCount());
+        CardCollection resultCollection = serializeAndDeserialize(collection);
+        assertEquals(1, Iterables.size(resultCollection.getAll()));
+        assertEquals(500, resultCollection.getItemCount("FotR - Booster"));
     }
 
     @Test

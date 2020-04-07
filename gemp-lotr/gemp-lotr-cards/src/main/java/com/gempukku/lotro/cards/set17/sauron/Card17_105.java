@@ -1,15 +1,16 @@
 package com.gempukku.lotro.cards.set17.sauron;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,17 +26,16 @@ import java.util.List;
  */
 public class Card17_105 extends AbstractPermanent {
     public Card17_105() {
-        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.SAURON, Zone.SUPPORT, "Throne of the Dark Lord", null, true);
+        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.SAURON, "Throne of the Dark Lord", null, true);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, CardType.MINION);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(CardType.MINION, Filters.not(Filters.name("Sauron"))),
@@ -44,11 +44,11 @@ public class Card17_105 extends AbstractPermanent {
                 new ResistanceModifier(self, CardType.COMPANION,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                            public boolean isFullfilled(LotroGame game) {
                                 for (int siteNo = 1; siteNo <= 9; siteNo++) {
-                                    if (GameUtils.getRegion(siteNo) == GameUtils.getRegion(gameState)) {
-                                        PhysicalCard site = gameState.getSite(siteNo);
-                                        if (site != null && site.getBlueprint().getName().equals("Mount Doom"))
+                                    if (GameUtils.getRegion(siteNo) == GameUtils.getRegion(game)) {
+                                        PhysicalCard site = game.getGameState().getSite(siteNo);
+                                        if (site != null && site.getBlueprint().getTitle().equals("Mount Doom"))
                                             return true;
 
                                     }

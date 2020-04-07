@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set18.gollum;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class Card18_029 extends AbstractPermanent {
     public Card18_029() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Deceit");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Deceit");
     }
 
     @Override
@@ -40,7 +39,7 @@ public class Card18_029 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendEffect(
-                    new ChooseAndPreventCardEffect(self, (DiscardCardsFromPlayEffect) effect, playerId, "Choose condition to prevent discarding", Filters.not(self), Culture.GOLLUM, CardType.CONDITION));
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose condition to prevent discarding", Filters.not(self), Culture.GOLLUM, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

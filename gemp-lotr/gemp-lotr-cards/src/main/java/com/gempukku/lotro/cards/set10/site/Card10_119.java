@@ -1,15 +1,11 @@
 package com.gempukku.lotro.cards.set10.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.modifiers.CantHealModifier;
-import com.gempukku.lotro.cards.modifiers.CantRemoveBurdensModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.modifiers.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,11 +19,11 @@ import java.util.List;
  */
 public class Card10_119 extends AbstractSite {
     public Card10_119() {
-        super("Steward's Tomb", Block.KING, 5, 8, Direction.LEFT);
+        super("Steward's Tomb", SitesBlock.KING, 5, 8, Direction.LEFT);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CantHealModifier(self, Filters.character));

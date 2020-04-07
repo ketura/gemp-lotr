@@ -1,13 +1,16 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -15,14 +18,14 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Site
  * Game Text: Battleground. Each character bearing a hand weapon is strength +2.
  */
-public class Card11_245 extends AbstractNewSite {
+public class Card11_245 extends AbstractShadowsSite {
     public Card11_245() {
         super("Helm's Gate", 2, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.character, Filters.hasAttached(PossessionClass.HAND_WEAPON)), 2);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(Filters.character, Filters.hasAttached(PossessionClass.HAND_WEAPON)), 2));
+}
 }

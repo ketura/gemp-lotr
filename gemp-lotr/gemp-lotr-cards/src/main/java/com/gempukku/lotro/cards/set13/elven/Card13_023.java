@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PutPlayedEventOnTopOfDeckEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.results.PlayEventResult;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.PutPlayedEventOnTopOfDeckEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -40,7 +40,7 @@ public class Card13_023 extends AbstractCompanion {
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.owner(playerId), CardType.EVENT)
                 && PlayConditions.isPhase(game, Phase.SKIRMISH)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)
+                && Filters.inSkirmish.accepts(game, self)
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

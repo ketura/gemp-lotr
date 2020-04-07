@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public interface Effect {
@@ -55,4 +56,12 @@ public interface Effect {
      * @return
      */
     public boolean wasCarriedOut();
+
+    default PhysicalCard getSource() {
+        return null;
+    }
+
+    default String getPerformingPlayer() {
+        return null;
+    }
 }

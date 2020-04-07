@@ -9,7 +9,7 @@ public class RevealCardFromHandResult extends EffectResult {
     private PhysicalCard _card;
 
     public RevealCardFromHandResult(PhysicalCard source, String playerId, PhysicalCard card) {
-        super(Type.REVEAL_CARDS_FROM_HAND);
+        super(Type.FOR_EACH_REVEALED_FROM_HAND);
         _source = source;
         _playerId = playerId;
         _card = card;

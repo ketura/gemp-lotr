@@ -1,13 +1,13 @@
 package com.gempukku.lotro;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DbCollectionDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.io.IOException;
 import java.sql.SQLException;

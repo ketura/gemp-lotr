@@ -1,15 +1,16 @@
 package com.gempukku.lotro.cards.set8.dwarven;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,15 +29,15 @@ public class Card8_007 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF, Keyword.DAMAGE)
-                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
+                && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Keyword.DAMAGE, Filters.inSkirmish) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
+                            int count = game.getModifiersQuerying().getKeywordCount(game, card, Keyword.DAMAGE);
                             action.insertEffect(
                                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, count, CardType.MINION, Filters.notAssignedToSkirmish));
                         }

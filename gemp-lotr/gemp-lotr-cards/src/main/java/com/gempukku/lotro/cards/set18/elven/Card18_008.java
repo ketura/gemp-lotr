@@ -1,15 +1,11 @@
 package com.gempukku.lotro.cards.set18.elven;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
-import com.gempukku.lotro.cards.modifiers.PlayerCantUsePhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.modifiers.*;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -42,12 +38,12 @@ public class Card18_008 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.ELVEN, CardType.COMPANION, Filters.not(Filters.hasAttached(CardType.POSSESSION)));
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new MayNotBearModifier(self, Filters.hasAttached(self), Filters.not(self), CardType.POSSESSION));

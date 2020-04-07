@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set18.shire;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card18_112 extends AbstractPermanent {
     public Card18_112() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Scouring of the Shire");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Scouring of the Shire");
         addKeyword(Keyword.TALE);
     }
 
@@ -52,7 +52,7 @@ public class Card18_112 extends AbstractPermanent {
             action.appendCost(
                     new AddTokenEffect(self, self, Token.SHIRE));
             action.appendEffect(
-                    new ChooseAndPreventCardEffect(self, (DiscardCardsFromPlayEffect) effect, playerId, "Choose card to prevent discarding of", Culture.SHIRE, Filters.or(CardType.CONDITION, CardType.POSSESSION)));
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose card to prevent discarding of", Culture.SHIRE, Filters.or(CardType.CONDITION, CardType.POSSESSION)));
             return Collections.singletonList(action);
         }
         return null;

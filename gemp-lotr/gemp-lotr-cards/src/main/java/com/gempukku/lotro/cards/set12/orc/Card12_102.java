@@ -1,15 +1,19 @@
 package com.gempukku.lotro.cards.set12.orc;
 
-import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.ExtraFilters;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -47,7 +51,7 @@ public class Card12_102 extends AbstractMinion {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
                                 PhysicalCard selectedCard = selectedCards.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, attachableToFilter, 0));
+                                game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, selectedCard, 0, attachableToFilter, false));
                             }
                         }
                     });

@@ -1,14 +1,12 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.MutableCardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.draft2.SoloDraft;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
+import com.gempukku.lotro.game.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,7 +21,7 @@ public class SealedLeagueData implements LeagueData {
     private LeaguePrizes _leaguePrizes;
     private SealedLeagueProduct _leagueProduct;
 
-    public SealedLeagueData(CardSets cardSets, String parameters) {
+    public SealedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
         
         String[] params = parameters.split(",");
@@ -46,6 +44,16 @@ public class SealedLeagueData implements LeagueData {
     }
 
     @Override
+    public boolean isSoloDraftLeague() {
+        return false;
+    }
+
+    @Override
+    public SoloDraft getSoloDraft() {
+        return null;
+    }
+
+    @Override
     public List<LeagueSerieData> getSeries() {
         return Collections.unmodifiableList(_series);
     }
@@ -58,8 +66,8 @@ public class SealedLeagueData implements LeagueData {
             if (currentTime >= serie.getStart()) {
                 CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
 
-                for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
-                    startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
+                for (CardCollection.Item serieCollectionItem : leagueProduct.getAll())
+                    startingCollection.addItem(serieCollectionItem.getBlueprintId(), serieCollectionItem.getCount());
             }
         }
         collectionManager.addPlayerCollection(true, "Sealed league product", player, _collectionType, startingCollection);
@@ -76,7 +84,7 @@ public class SealedLeagueData implements LeagueData {
                 CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll().values());
+                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll());
                 }
                 status = i + 1;
             }
@@ -93,10 +101,10 @@ public class SealedLeagueData implements LeagueData {
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesPlayed, _collectionType);
                     if (leaguePrize != null)
-                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                     final CardCollection leagueTrophies = _leaguePrizes.getTrophiesForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesPlayed, _collectionType);
                     if (leagueTrophies != null)
-                        collectionsManager.addItemsToPlayerCollection(true, "End of league trophies", leagueStanding.getPlayerName(), CollectionType.TROPHY, leagueTrophies.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league trophies", leagueStanding.getPlayerName(), CollectionType.TROPHY, leagueTrophies.getAll());
                 }
                 status++;
             }

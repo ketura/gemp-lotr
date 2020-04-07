@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,19 +30,19 @@ import java.util.List;
  */
 public class Card7_365 extends AbstractCompanion {
     public Card7_365() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, Names.eomer, "Valiant Warchief", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THEODEN, Names.eomer, "Valiant Warchief", true);
         addKeyword(Keyword.VALIANT);
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        if (Filters.canSpot(game, Culture.ROHAN, Race.MAN))
             return -1;
         return 0;
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
                 && PlayConditions.canDiscardFromHand(game, playerId, 3, Filters.any)) {

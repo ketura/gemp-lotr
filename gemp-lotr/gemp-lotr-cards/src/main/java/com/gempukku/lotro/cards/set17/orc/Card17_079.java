@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set17.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RevealCardsFromYourHandEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -42,7 +42,7 @@ public class Card17_079 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Culture.ORC, CardType.CONDITION).size() > 0) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseCardsFromHandEffect(playerId, 1, 1, Culture.ORC, CardType.CONDITION) {

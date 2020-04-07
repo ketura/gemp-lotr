@@ -42,7 +42,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filter(_cards, game.getGameState(), game.getModifiersQuerying(), _filter).size() >= _minimum;
+        return Filters.filter(_cards, game, _filter).size() >= _minimum;
     }
 
     @Override
@@ -57,7 +57,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        Collection<PhysicalCard> possibleCards = Filters.filter(_cards, game.getGameState(), game.getModifiersQuerying(), _filter);
+        Collection<PhysicalCard> possibleCards = Filters.filter(_cards, game, _filter);
 
         boolean success = possibleCards.size() >= _minimum;
 

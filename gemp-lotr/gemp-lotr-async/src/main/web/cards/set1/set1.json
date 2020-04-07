@@ -1,0 +1,1226 @@
+{
+  "1_1": {
+    "title": "*The One Ring",
+    "subtitle": "Isildur's Bane",
+    "cost": 0,
+    "type": "the one ring",
+    "strength": 1,
+    "vitality": 1,
+    "effects": [
+      {
+        "type": "activatedTrigger",
+        "condition": {
+          "type": "ringIsActive"
+        },
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "effect": [
+          {
+            "type": "putOnRing"
+          },
+          {
+            "type": "negateWound",
+            "filter": "all(bearer)"
+          },
+          {
+            "type": "addBurdens",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "type": "trigger",
+        "condition": [
+          {
+            "type": "ringIsOn"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "effect": [
+          {
+            "type": "negateWound",
+            "filter": "all(bearer)"
+          },
+          {
+            "type": "addBurdens",
+            "amount": 2
+          }
+        ]
+      }
+    ]
+  },
+  "1_2": {
+    "title": "*The One Ring",
+    "subtitle": "The Ruling Ring",
+    "cost": 0,
+    "type": "the one ring",
+    "strength": 1,
+    "effects": [
+      {
+        "type": "trigger",
+        "condition": [
+          {
+            "type": "ringIsOn"
+          },
+          {
+            "type": "phase",
+            "phase": "skirmish"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "effect": [
+          {
+            "type": "negateWound",
+            "filter": "all(bearer)"
+          },
+          {
+            "type": "addBurdens"
+          }
+        ]
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "condition": [
+          {
+            "type": "phase",
+            "phase": "skirmish"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
+        "effect": [
+          {
+            "type": "putOnRing"
+          },
+          {
+            "type": "negateWound",
+            "filter": "all(bearer)"
+          },
+          {
+            "type": "addBurdens"
+          }
+        ]
+      }
+    ]
+  },
+  "1_319": {
+    "title": "Bag End",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(The Gaffer))"
+      }
+    }
+  },
+  "1_320": {
+    "title": "East Road",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "companion",
+        "amount": 2
+      }
+    }
+  },
+  "1_321": {
+    "title": "Farmer Maggot's Fields",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(or(name(Merry),name(Pippin)))"
+      }
+    }
+  },
+  "1_322": {
+    "title": "Green Dragon Inn",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(Sam))"
+      }
+    }
+  },
+  "1_323": {
+    "title": "Green Hill Country",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "hobbit",
+        "amount": -1
+      }
+    }
+  },
+  "1_324": {
+    "title": "The Prancing Pony",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "addBurdens"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(Aragorn))"
+      }
+    }
+  },
+  "1_325": {
+    "title": "Shire Lookout Point",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "condition": {
+        "type": "canSpot",
+        "filter": "name(Gandalf)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(Gandalf's Cart))"
+      }
+    }
+  },
+  "1_326": {
+    "title": "Westfarthing",
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "play",
+        "filter": "choose(or(companion,ally))",
+        "cost": -1
+      }
+    }
+  },
+  "1_327": {
+    "title": "Bree Gate",
+    "cost": 2,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "condition",
+        "condition": {
+          "type": "canSpot",
+          "filter": "ranger"
+        }
+      },
+      "condition": {
+        "type": "perTurnLimit",
+        "limit": 1
+      },
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": 1
+          },
+          "until": "endOfTurn"
+        }
+      ]
+    }
+  },
+  "1_328": {
+    "title": "Bree Streets",
+    "cost": 1,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyRoamingPenalty",
+        "filter": "nazgul",
+        "amount": -2
+      }
+    }
+  },
+  "1_329": {
+    "title": "Breeland Forest",
+    "cost": 1,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "keyword": "forest",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cantPlayCards",
+        "filter": "stealth,event"
+      }
+    }
+  },
+  "1_330": {
+    "title": "Buckleberry Ferry",
+    "cost": 1,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "left",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "skipPhase",
+          "condition": {
+            "type": "cantSpot",
+            "filter": "companion,not(hobbit)"
+          },
+          "phase": "assignment"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "skipPhase",
+          "condition": {
+            "type": "cantSpot",
+            "filter": "companion,not(hobbit)"
+          },
+          "phase": "skirmish"
+        }
+      }
+    ]
+  },
+  "1_331": {
+    "title": "Ettenmoors",
+    "cost": 2,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "keyword": "plains",
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(your,or(companion,minion))",
+        "memorize": "exertedCharacter"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(exertedCharacter)",
+        "amount": 2
+      }
+    }
+  },
+  "1_332": {
+    "title": "Midgewater Marshes",
+    "cost": 1,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "keyword": "marsh",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "hobbit,companion"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "all(hobbit,companion)"
+      }
+    }
+  },
+  "1_333": {
+    "title": "Midgewater Moors",
+    "cost": 1,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "keyword": "plains",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "minion"
+      },
+      "effect": {
+        "type": "discardFromHand",
+        "hand": "fp",
+        "player": "fp",
+        "forced": true,
+        "count": 1
+      }
+    }
+  },
+  "1_334": {
+    "title": "Trollshaw Forest",
+    "cost": 1,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "keyword": "forest",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "or(possession,artifact)",
+        "on": "companion"
+      },
+      "effect": {
+        "type": "drawCards",
+        "player": "fp",
+        "count": 1
+      }
+    }
+  },
+  "1_335": {
+    "title": "Weatherhills",
+    "cost": 3,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "nazgul",
+        "amount": -1
+      }
+    }
+  },
+  "1_336": {
+    "title": "Weathertop",
+    "cost": 3,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "nazgul",
+        "keyword": "fierce"
+      }
+    }
+  },
+  "1_337": {
+    "title": "Council Courtyard",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "direction": "right",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesFrom",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "removeTwilight",
+        "amount": 2
+      }
+    }
+  },
+  "1_338": {
+    "title": "Ford of Bruinen",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "not",
+            "condition": {
+              "type": "hasInZoneData",
+              "filter": "self"
+            }
+          },
+          "filter": "nazgul",
+          "amount": -5
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "nazgul",
+          "memorize": "playedNazgul"
+        },
+        "condition": {
+          "type": "not",
+          "condition": {
+            "type": "hasInZoneData",
+            "filter": "self"
+          }
+        },
+        "effect": {
+          "type": "appendCardIdsToWhileInZone",
+          "memory": "playedNazgul"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "resetWhileInZoneData"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "resetWhileInZoneData"
+        }
+      }
+    ]
+  },
+  "1_339": {
+    "title": "Frodo's Bedroom",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "play",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": 1
+      }
+    }
+  },
+  "1_340": {
+    "title": "Rivendell Terrace",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "play",
+        "filter": "choose(man)"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": 1
+      }
+    }
+  },
+  "1_341": {
+    "title": "Rivendell Valley",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "play",
+        "filter": "choose(elf)"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": 1
+      }
+    }
+  },
+  "1_342": {
+    "title": "Rivendell Waterfall",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "keyword": "forest",
+    "direction": "right",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "condition",
+        "condition": {
+          "type": "canSpot",
+          "filter": "ranger"
+        }
+      },
+      "condition": {
+        "type": "perTurnLimit",
+        "limit": 1
+      },
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": 1
+          },
+          "until": "endOfTurn"
+        }
+      ]
+    }
+  },
+  "1_343": {
+    "title": "Balin's Tomb",
+    "cost": 3,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "keyword": "underground",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Discard your tale from play",
+          "Discard tale from hand"
+        ],
+        "effects": [
+          {
+            "type": "discard",
+            "filter": "choose(your,tale)"
+          },
+          {
+            "type": "discardFromHand",
+            "forced": false,
+            "filter": "choose(tale)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(your,companion)"
+      }
+    }
+  },
+  "1_344": {
+    "title": "Dwarrowdelf Chamber",
+    "cost": 2,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "keyword": "underground",
+    "direction": "right",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "choice",
+        "player": "fp",
+        "texts": [
+          "Exert Gimli",
+          "Exert 2 other companions"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(name(Gimli))"
+          },
+          {
+            "type": "exert",
+            "count": 2,
+            "filter": "choose(not(name(Gimli)),companion)"
+          }
+        ]
+      }
+    }
+  },
+  "1_345": {
+    "title": "Mithril Mine",
+    "cost": 3,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "keyword": "underground",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 1
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(side(shadow),weapon)"
+      }
+    }
+  },
+  "1_346": {
+    "title": "Moria Lake",
+    "cost": 3,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "keyword": "marsh",
+    "direction": "right",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "choice",
+        "player": "fp",
+        "texts": [
+          "Exert Frodo",
+          "Exert 2 other companions"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(name(Frodo))"
+          },
+          {
+            "type": "exert",
+            "count": 2,
+            "filter": "choose(not(name(Frodo)),companion)"
+          }
+        ]
+      }
+    }
+  },
+  "1_347": {
+    "title": "Moria Stairway",
+    "cost": 2,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "keyword": "underground",
+    "direction": "right",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "or(companion,minion),hasAttached(hand weapon)",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "1_348": {
+    "title": "Pass of Caradhras",
+    "cost": 2,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "keyword": "mountain",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "condition": [
+        {
+          "type": "perTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "canSpot",
+          "filter": "culture(isengard),minion"
+        }
+      ],
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(weather)"
+        }
+      ]
+    }
+  },
+  "1_349": {
+    "title": "The Bridge of Khazad-dum",
+    "cost": 6,
+    "type": "site",
+    "site": 5,
+    "block": "fellowship",
+    "keyword": "underground",
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play The Balrog from your draw deck",
+          "Play The Balrog from hand"
+        ],
+        "effects": [
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(The Balrog))",
+            "cost": -6
+          },
+          {
+            "type": "play",
+            "filter": "choose(name(The Balrog))",
+            "cost": -6
+          }
+        ]
+      }
+    }
+  },
+  "1_350": {
+    "title": "Dimrill Dale",
+    "cost": 3,
+    "type": "site",
+    "site": 6,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "not",
+            "condition": {
+              "type": "hasInZoneData",
+              "filter": "self"
+            }
+          },
+          "filter": "culture(moria),orc",
+          "amount": -2
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "culture(moria),orc",
+          "memorize": "playedOrc"
+        },
+        "condition": {
+          "type": "not",
+          "condition": {
+            "type": "hasInZoneData",
+            "filter": "self"
+          }
+        },
+        "effect": {
+          "type": "appendCardIdsToWhileInZone",
+          "memory": "playedOrc"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfPhase",
+          "phase": "shadow"
+        },
+        "effect": {
+          "type": "resetWhileInZoneData"
+        }
+      }
+    ]
+  },
+  "1_351": {
+    "title": "Galadriel's Glade",
+    "cost": 3,
+    "type": "site",
+    "site": 6,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)"
+      },
+      "effect": {
+        "type": "lookAtHand",
+        "hand": "shadowPlayer"
+      }
+    }
+  },
+  "1_352": {
+    "title": "Lothlorien Woods",
+    "cost": 3,
+    "type": "site",
+    "site": 6,
+    "block": "fellowship",
+    "keyword": "forest",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "ally,allyHome(fellowship,6)",
+        "amount": 3
+      }
+    }
+  },
+  "1_353": {
+    "title": "Anduin Confluence",
+    "cost": 6,
+    "type": "site",
+    "site": 7,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "all(ally)"
+      }
+    }
+  },
+  "1_354": {
+    "title": "Anduin Wilderlands",
+    "cost": 6,
+    "type": "site",
+    "site": 7,
+    "block": "fellowship",
+    "keyword": [
+      "forest",
+      "river"
+    ],
+    "direction": "right",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "skipPhase",
+        "phase": "archery"
+      }
+    }
+  },
+  "1_355": {
+    "title": "Silverlode Banks",
+    "cost": 6,
+    "type": "site",
+    "site": 7,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "cantSpot",
+        "filter": "ranger"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "all(companion)"
+      }
+    }
+  },
+  "1_356": {
+    "title": "Anduin Banks",
+    "cost": 6,
+    "type": "site",
+    "site": 8,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 4,
+          "multiplier": 2
+        }
+      }
+    }
+  },
+  "1_357": {
+    "title": "Brown Lands",
+    "cost": 6,
+    "type": "site",
+    "site": 8,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "minion,archer",
+          "limit": 4
+        }
+      }
+    }
+  },
+  "1_358": {
+    "title": "Pillars of the Kings",
+    "cost": 6,
+    "type": "site",
+    "site": 8,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false,
+        "filter": "choose(culture(gondor))"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(culture(gondor),companion)"
+      }
+    }
+  },
+  "1_359": {
+    "title": "Shores of Nen Hithoel",
+    "cost": 9,
+    "type": "site",
+    "site": 8,
+    "block": "fellowship",
+    "keyword": "river",
+    "direction": "right",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "condition": {
+        "type": "canSpot",
+        "count": 5,
+        "filter": "orc,minion"
+      },
+      "effect": {
+        "type": "addModifier",
+        "modifier": {
+          "type": "modifyMoveLimit",
+          "amount": -1000
+        },
+        "until": "endOfTurn"
+      }
+    }
+  },
+  "1_360": {
+    "title": "Emyn Muil",
+    "cost": 9,
+    "type": "site",
+    "site": 9,
+    "block": "fellowship",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(your,minion)",
+        "memorize": "exertedMinion"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "memory(exertedMinion)",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_361": {
+    "title": "Slopes of Amon Hen",
+    "cost": 9,
+    "type": "site",
+    "site": 9,
+    "block": "fellowship",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "culture(isengard),minion",
+        "amount": -1
+      }
+    }
+  },
+  "1_362": {
+    "title": "Summit of Amon Hen",
+    "cost": 8,
+    "type": "site",
+    "site": 9,
+    "block": "fellowship",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "shadow"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": {
+          "type": "forEachBurden"
+        }
+      }
+    }
+  },
+  "1_363": {
+    "title": "Tol Brandir",
+    "cost": 9,
+    "type": "site",
+    "site": 9,
+    "block": "fellowship",
+    "keyword": "river",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": [
+        {
+          "type": "duplicate",
+          "amount": 3,
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(tracker)"
+          }
+        },
+        {
+          "type": "endPhase"
+        }
+      ]
+    }
+  }
+}

@@ -23,29 +23,30 @@
     <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
     <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
 
-    <script type="text/javascript" src="js/gemp-019/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-019/common.js"></script>
-    <script type="text/javascript" src="js/gemp-019/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-019/chat.js"></script>
-    <script type="text/javascript" src="js/gemp-019/communication.js"></script>
-    <script type="text/javascript" src="js/gemp-019/deliveryService.js"></script>
-    <script type="text/javascript" src="js/gemp-019/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/cardFilter.js"></script>
+    <script type="text/javascript" src="js/gemp-022/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-022/common.js"></script>
+    <script type="text/javascript" src="js/gemp-022/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-022/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-022/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-022/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-022/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>
 
-    <script type="text/javascript" src="js/gemp-019/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/gemp-019/set20.js"></script>
-    <script type="text/javascript" src="js/gemp-019/jCards.js"></script>
+    <script type="text/javascript" src="js/gemp-022/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-022/hobbit.js"></script>
+    <script type="text/javascript" src="js/gemp-022/set40.js"></script>
+    <script type="text/javascript" src="js/gemp-022/jCards.js"></script>
 
-    <script type="text/javascript" src="js/gemp-019/hallUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/leagueResultsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/tournamentResultsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/statsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/playerStatsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/gameHistoryUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/deckBuildingUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/gameUi.js"></script>
-    <script type="text/javascript" src="js/gemp-019/gameAnimations.js"></script>
-    <script type="text/javascript" src="js/gemp-019/merchantUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
 
     <script type="text/javascript">
         function submitFormToAddress(url, formElem, success, error) {
@@ -72,7 +73,7 @@
 
             $.ajax({
                 type:"POST",
-                url:url,
+                url:serverDomain+url,
                 cache:false,
                 data:data,
                 traditional:true,

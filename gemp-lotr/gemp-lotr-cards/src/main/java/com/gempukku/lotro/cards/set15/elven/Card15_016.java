@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set15.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card15_016 extends AbstractPermanent {
     public Card15_016() {
-        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "Gift of the Evenstar", "Blessed Light", true);
+        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, "Gift of the Evenstar", "Blessed Light", true);
     }
 
     @Override

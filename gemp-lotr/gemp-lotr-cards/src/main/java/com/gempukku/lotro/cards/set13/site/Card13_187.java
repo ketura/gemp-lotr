@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -21,7 +21,7 @@ import java.util.List;
  * Game Text: Battleground. When the fellowship moves to this site during the regroup phase, the Free Peoples player may
  * draw a card.
  */
-public class Card13_187 extends AbstractNewSite {
+public class Card13_187 extends AbstractShadowsSite {
     public Card13_187() {
         super("City of Kings", 3, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);

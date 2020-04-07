@@ -32,7 +32,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
         List<String> participantIds = new LinkedList<String>();
         for (String participant : participants)
             participantIds.add(participant);
-        appendEvent(new GameEvent(P).participantId(_self).allParticipantIds(participantIds));
+        appendEvent(new GameEvent(PARTICIPANTS).participantId(_self).allParticipantIds(participantIds));
     }
 
     @Override
@@ -69,17 +69,17 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void addAssignment(PhysicalCard freePeople, Set<PhysicalCard> minions) {
-        appendEvent(new GameEvent(AA).cardId(freePeople.getCardId()).otherCardIds(getCardIds(minions)));
+        appendEvent(new GameEvent(ADD_ASSIGNMENT).cardId(freePeople.getCardId()).otherCardIds(getCardIds(minions)));
     }
 
     @Override
     public void removeAssignment(PhysicalCard freePeople) {
-        appendEvent(new GameEvent(RA).cardId(freePeople.getCardId()));
+        appendEvent(new GameEvent(REMOVE_ASSIGNMENT).cardId(freePeople.getCardId()));
     }
 
     @Override
     public void startSkirmish(PhysicalCard freePeople, Set<PhysicalCard> minions) {
-        GameEvent gameEvent = new GameEvent(SS).otherCardIds(getCardIds(minions));
+        GameEvent gameEvent = new GameEvent(START_SKIRMISH).otherCardIds(getCardIds(minions));
         if (freePeople != null)
             gameEvent.cardId(freePeople.getCardId());
         appendEvent(gameEvent);
@@ -87,33 +87,33 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void addToSkirmish(PhysicalCard card) {
-        appendEvent(new GameEvent(ATS).card(card));
+        appendEvent(new GameEvent(ADD_TO_SKIRMISH).card(card));
     }
 
     @Override
     public void removeFromSkirmish(PhysicalCard card) {
-        appendEvent(new GameEvent(RFS).card(card));
+        appendEvent(new GameEvent(REMOVE_FROM_SKIRMISH).card(card));
     }
 
     @Override
     public void finishSkirmish() {
-        appendEvent(new GameEvent(ES));
+        appendEvent(new GameEvent(END_SKIRMISH));
     }
 
     @Override
     public void setCurrentPhase(String phase) {
-        appendEvent(new GameEvent(GPC).phase(phase));
+        appendEvent(new GameEvent(GAME_PHASE_CHANGE).phase(phase));
     }
 
     @Override
     public void cardCreated(PhysicalCard card) {
         if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
-            appendEvent(new GameEvent(PCIP).card(card));
+            appendEvent(new GameEvent(PUT_CARD_INTO_PLAY).card(card));
     }
 
     @Override
     public void cardMoved(PhysicalCard card) {
-        appendEvent(new GameEvent(MCIP).card(card));
+        appendEvent(new GameEvent(MOVE_CARD_IN_PLAY).card(card));
     }
 
     @Override
@@ -124,67 +124,67 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
                 removedCardsVisibleByPlayer.add(card);
         }
         if (removedCardsVisibleByPlayer.size() > 0)
-            appendEvent(new GameEvent(RCFP).otherCardIds(getCardIds(removedCardsVisibleByPlayer)).participantId(playerPerforming));
+            appendEvent(new GameEvent(REMOVE_CARD_FROM_PLAY).otherCardIds(getCardIds(removedCardsVisibleByPlayer)).participantId(playerPerforming));
     }
 
     @Override
     public void setPlayerPosition(String participant, int position) {
-        appendEvent(new GameEvent(PP).participantId(participant).index(position));
+        appendEvent(new GameEvent(PLAYER_POSITION).participantId(participant).index(position));
     }
 
     @Override
     public void setTwilight(int twilightPool) {
-        appendEvent(new GameEvent(TP).count(twilightPool));
+        appendEvent(new GameEvent(TWILIGHT_POOL_UPDATE).count(twilightPool));
     }
 
     @Override
     public void setCurrentPlayerId(String currentPlayerId) {
-        appendEvent(new GameEvent(TC).participantId(currentPlayerId));
+        appendEvent(new GameEvent(TURN_CHANGE).participantId(currentPlayerId));
     }
 
     @Override
     public void addTokens(PhysicalCard card, Token token, int count) {
-        appendEvent(new GameEvent(AT).card(card).token(token).count(count));
+        appendEvent(new GameEvent(ADD_TOKENS).card(card).token(token).count(count));
     }
 
     @Override
     public void removeTokens(PhysicalCard card, Token token, int count) {
-        appendEvent(new GameEvent(RT).card(card).token(token).count(count));
+        appendEvent(new GameEvent(REMOVE_TOKENS).card(card).token(token).count(count));
     }
 
     @Override
     public void sendMessage(String message) {
-        appendEvent(new GameEvent(M).message(message));
+        appendEvent(new GameEvent(SEND_MESSAGE).message(message));
     }
 
     @Override
     public void setSite(PhysicalCard card) {
-        appendEvent(new GameEvent(PCIP).card(card).index(card.getSiteNumber()));
+        appendEvent(new GameEvent(PUT_CARD_INTO_PLAY).card(card).index(card.getSiteNumber()));
     }
 
     @Override
     public void sendGameStats(GameStats gameStats) {
-        appendEvent(new GameEvent(GS).gameStats(gameStats.makeACopy()));
+        appendEvent(new GameEvent(GAME_STATS).gameStats(gameStats.makeACopy()));
     }
 
     @Override
     public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCards) {
-        appendEvent(new GameEvent(CAC).card(card).participantId(playerPerforming).otherCardIds(getCardIds(affectedCards)));
+        appendEvent(new GameEvent(CARD_AFFECTED_BY_CARD).card(card).participantId(playerPerforming).otherCardIds(getCardIds(affectedCards)));
     }
 
     @Override
     public void eventPlayed(PhysicalCard card) {
-        appendEvent(new GameEvent(EP).card(card));
+        appendEvent(new GameEvent(SHOW_CARD_ON_SCREEN).card(card));
     }
 
     @Override
     public void cardActivated(String playerPerforming, PhysicalCard card) {
-        appendEvent(new GameEvent(CA).card(card).participantId(playerPerforming));
+        appendEvent(new GameEvent(FLASH_CARD_IN_PLAY).card(card).participantId(playerPerforming));
     }
 
     public void decisionRequired(String playerId, AwaitingDecision decision) {
         if (playerId.equals(_self))
-            appendEvent(new GameEvent(D).awaitingDecision(decision).participantId(playerId));
+            appendEvent(new GameEvent(DECISION).awaitingDecision(decision).participantId(playerId));
     }
 
     public List<GameEvent> consumeGameEvents() {

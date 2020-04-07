@@ -1,17 +1,20 @@
 package com.gempukku.lotro.cards.set12.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Black Rider
@@ -30,10 +33,10 @@ public class Card12_020 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, self,
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, self,
                 new AndCondition(
                         new LocationCondition(Keyword.FOREST),
-                        new SpotCondition(Filters.not(self), Race.ELF)), Keyword.ARCHER, 1);
+                        new SpotCondition(Filters.not(self), Race.ELF)), Keyword.ARCHER, 1));
     }
 }

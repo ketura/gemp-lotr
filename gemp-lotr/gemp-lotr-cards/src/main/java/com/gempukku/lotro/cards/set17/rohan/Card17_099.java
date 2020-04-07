@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set17.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -10,6 +7,9 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.CancelKeywordBonusTargetModifier;
+import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
@@ -34,7 +34,7 @@ public class Card17_099 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new CancelStrengthBonusTargetModifier(self,

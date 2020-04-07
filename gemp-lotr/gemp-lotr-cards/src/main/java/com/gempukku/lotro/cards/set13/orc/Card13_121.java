@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set13.orc;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.OptionalEffect;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.OptionalEffect;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -31,7 +29,7 @@ public class Card13_121 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final AtomicInteger bonus = new AtomicInteger(2);
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
@@ -49,7 +47,7 @@ public class Card13_121 extends AbstractEvent {
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 return bonus.get();
                             }
                         }, Culture.ORC, Race.ORC));

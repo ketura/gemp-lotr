@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set17.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -40,7 +40,7 @@ public class Card17_075 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.ORC, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game, null);
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));

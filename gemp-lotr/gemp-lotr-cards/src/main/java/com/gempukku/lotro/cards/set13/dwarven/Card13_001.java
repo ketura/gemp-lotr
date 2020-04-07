@@ -1,23 +1,20 @@
 package com.gempukku.lotro.cards.set13.dwarven;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.ReinforceTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,14 +35,13 @@ public class Card13_001 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.DWARF;
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
-        return Collections.singletonList(
-                new ResistanceModifier(self, Filters.hasAttached(self), 1));
+    public int getResistance() {
+        return 1;
     }
 
     @Override
@@ -60,7 +56,7 @@ public class Card13_001 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, self.getAttachedTo())
                 && PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canRemoveTokensFromAnything(game, Token.DWARVEN, 2)) {
@@ -70,7 +66,7 @@ public class Card13_001 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
             action.appendEffect(
-                    new PreventCardEffect((AbstractPreventableCardEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((PreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

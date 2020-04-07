@@ -1,21 +1,18 @@
 package com.gempukku.lotro.cards.set17.orc;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,24 +35,30 @@ public class Card17_089 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.ORC, Race.ORC, Filters.lessStrengthThan(11));
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public int getStrength() {
+        return 2;
+    }
+
+    @Override
+    public int getVitality() {
+        return 2;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 2));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), Keyword.FIERCE));
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getRace() == self.getWhileInZoneData();
                             }
                         })), 3));
@@ -63,7 +66,7 @@ public class Card17_089 extends AbstractAttachable {
                 new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getRace() == self.getWhileInZoneData();
                             }
                         })), Keyword.DAMAGE, 1));
@@ -78,7 +81,7 @@ public class Card17_089 extends AbstractAttachable {
                     new ChooseActiveCardEffect(self, self.getOwner(), "Choose character with race", Filters.character,
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                     return physicalCard.getBlueprint().getRace() != null;
                                 }
                             }) {

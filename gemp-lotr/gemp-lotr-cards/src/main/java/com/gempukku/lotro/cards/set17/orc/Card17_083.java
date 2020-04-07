@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set17.orc;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -12,8 +9,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,14 +35,14 @@ public class Card17_083 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.ORC, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int region = GameUtils.getRegion(game.getGameState());
+            int region = GameUtils.getRegion(game);
             action.appendEffect(
                     new AddTwilightEffect(self, region));
             return Collections.singletonList(action);

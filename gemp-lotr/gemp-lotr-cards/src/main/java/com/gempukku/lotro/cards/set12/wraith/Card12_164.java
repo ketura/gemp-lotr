@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set12.wraith;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.ExtraFilters;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.timing.ExtraFilters;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Black Rider
@@ -27,20 +27,19 @@ public class Card12_164 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Filters.owner(playerId), Race.NAZGUL)
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Filters.owner(self.getOwner()), Race.NAZGUL)
                 && PlayConditions.location(game, Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST));
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndPlayCardFromDeckEffect(playerId, PossessionClass.MOUNT, ExtraFilters.attachableTo(game, Filters.owner(playerId), Race.NAZGUL)) {
                     @Override
                     protected void cardSelectedToPlay(LotroGame game, PhysicalCard selectedCard) {
-                        game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, Filters.and(Filters.owner(playerId), Race.NAZGUL), 0));
+                        game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, selectedCard, 0, Filters.and(Filters.owner(playerId), Race.NAZGUL), false));
                     }
                 });
         return action;

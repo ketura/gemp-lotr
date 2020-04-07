@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set6.dunland;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.*;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -32,7 +30,7 @@ import java.util.List;
  */
 public class Card6_001 extends AbstractPermanent {
     public Card6_001() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Bound By Rage", null, true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.DUNLAND, "Bound By Rage", null, true);
     }
 
     @Override

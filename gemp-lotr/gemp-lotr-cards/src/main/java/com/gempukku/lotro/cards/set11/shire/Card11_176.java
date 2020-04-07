@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set11.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 
 /**
@@ -22,9 +22,9 @@ public class Card11_176 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION);
+        int count = Filters.countActive(game, CardType.MINION);
         for (int i = 0; i < count; i++)
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 0, 1, Race.HOBBIT));

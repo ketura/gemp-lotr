@@ -1,20 +1,17 @@
 package com.gempukku.lotro.cards.set12.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,22 +27,22 @@ import java.util.List;
  */
 public class Card12_012 extends AbstractPermanent {
     public Card12_012() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Proud and Able", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "Proud and Able", null, true);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
+    public java.util.List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.POSSESSION, Filters.attachedTo(cardAffected));
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return Filters.countActive(game, CardType.POSSESSION, Filters.attachedTo(cardAffected));
                     }
-                });
+                }));
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.DWARVEN, CardType.POSSESSION)) {

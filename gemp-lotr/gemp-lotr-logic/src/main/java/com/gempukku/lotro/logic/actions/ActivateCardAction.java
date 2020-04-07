@@ -18,11 +18,9 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
 
     private boolean _prevented;
 
-    private String _text;
-
     public ActivateCardAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
-        _text = "Use " + GameUtils.getFullName(_physicalCard);
+        setText("Use " + GameUtils.getFullName(_physicalCard));
         _message = GameUtils.getCardLink(_physicalCard) + " is used";
     }
 
@@ -39,15 +37,6 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionAttachedToCard() {
         return _physicalCard;
-    }
-
-    public void setText(String text) {
-        _text = text;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return _text;
     }
 
     public void prevent() {

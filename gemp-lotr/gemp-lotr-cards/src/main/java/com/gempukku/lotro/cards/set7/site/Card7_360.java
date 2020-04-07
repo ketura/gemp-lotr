@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card7_360 extends AbstractSite {
     public Card7_360() {
-        super("Dagorlad", Block.KING, 9, 9, Direction.LEFT);
+        super("Dagorlad", SitesBlock.KING, 9, 9, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

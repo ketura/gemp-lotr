@@ -4,10 +4,8 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
@@ -37,8 +35,8 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
         return Filters.and(
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getWounds(physicalCard) >= _count && modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getGameState().getWounds(physicalCard) >= _count && game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
     }
@@ -49,8 +47,8 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
                 Filters.wounded,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
     }

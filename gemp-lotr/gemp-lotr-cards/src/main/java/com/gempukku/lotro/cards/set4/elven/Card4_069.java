@@ -1,19 +1,20 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,19 +31,19 @@ import java.util.List;
  */
 public class Card4_069 extends AbstractPermanent {
     public Card4_069() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Final Count", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, "Final Count", null, true);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.legolas, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
-                                PhysicalCard myAxeIsNotched = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("My Axe Is Notched"));
+                            public int evaluateExpression(LotroGame game, PhysicalCard card) {
+                                PhysicalCard myAxeIsNotched = Filters.findFirstActive(game, Filters.name("My Axe Is Notched"));
                                 if (myAxeIsNotched != null)
-                                    return Math.min(3, Math.min(gameState.getTokenCount(self, Token.ELVEN), gameState.getTokenCount(myAxeIsNotched, Token.DWARVEN)));
+                                    return Math.min(3, Math.min(game.getGameState().getTokenCount(self, Token.ELVEN), game.getGameState().getTokenCount(myAxeIsNotched, Token.DWARVEN)));
                                 return 0;
                             }
                         }));

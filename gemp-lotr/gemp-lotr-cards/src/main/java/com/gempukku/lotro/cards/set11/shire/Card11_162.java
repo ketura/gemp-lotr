@@ -1,15 +1,13 @@
 package com.gempukku.lotro.cards.set11.shire;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
 
 /**
  * Set: Shadows
@@ -27,15 +25,15 @@ public class Card11_162 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new CancelSkirmishEffect(Race.HOBBIT,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                int resistance = modifiersQuerying.getResistance(gameState, physicalCard);
-                                return Filters.inSkirmishAgainst(CardType.MINION, Filters.lessStrengthThan(resistance)).accepts(gameState, modifiersQuerying, physicalCard);
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                int resistance = game.getModifiersQuerying().getResistance(game, physicalCard);
+                                return Filters.inSkirmishAgainst(CardType.MINION, Filters.lessStrengthThan(resistance)).accepts(game, physicalCard);
                             }
                         }));
         return action;

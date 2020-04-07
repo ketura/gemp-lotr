@@ -1,23 +1,16 @@
 package com.gempukku.lotro.cards.set5.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,12 +25,12 @@ import java.util.List;
  */
 public class Card5_060 extends AbstractPermanent {
     public Card5_060() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Siege Engine");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Siege Engine");
         addKeyword(Keyword.MACHINE);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canPlayFromHand(playerId, game, Race.URUK_HAI)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -58,20 +51,14 @@ public class Card5_060 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingDiscarded(effect, game, Keyword.MACHINE)) {
-            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
-            if (!discardEffect.getPerformingPlayer().equals(self.getOwner())) {
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new SelfDiscardEffect(self));
+        if (TriggerConditions.isGettingDiscardedByOpponent(effect, game, playerId, Keyword.MACHINE)) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfDiscardEffect(self));
+            action.appendEffect(
+                    new PreventCardEffect((PreventableCardEffect) effect, Keyword.MACHINE));
 
-                Collection<PhysicalCard> machines = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Keyword.MACHINE);
-                for (PhysicalCard machine : machines)
-                    action.appendEffect(
-                            new PreventCardEffect(discardEffect, machine));
-
-                return Collections.singletonList(action);
-            }
+            return Collections.singletonList(action);
         }
         return null;
     }

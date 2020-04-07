@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set17.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,14 +38,14 @@ public class Card17_030 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
-                new SpotCondition(CardType.MINION, Keyword.ROAMING),
-                Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.CONDITION), Side.SHADOW);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
+new SpotCondition(CardType.MINION, Keyword.ROAMING),
+Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.CONDITION), Side.SHADOW));
+}
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, 1, 2, Keyword.RANGER)) {
             final ActivateCardAction action = new ActivateCardAction(self);

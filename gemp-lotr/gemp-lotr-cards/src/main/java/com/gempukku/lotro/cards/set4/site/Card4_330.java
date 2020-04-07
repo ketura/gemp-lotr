@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set4.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -22,14 +22,14 @@ import java.util.List;
  */
 public class Card4_330 extends AbstractSite {
     public Card4_330() {
-        super("Derndingle", Block.TWO_TOWERS, 2, 2, Direction.LEFT);
+        super("Derndingle", SitesBlock.TWO_TOWERS, 2, 2, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion)) {
+                && Filters.canSpot(game, Race.HOBBIT, Filters.unboundCompanion)) {
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self, 1));
             game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);

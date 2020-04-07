@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -37,10 +37,10 @@ public class Card12_158 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
 
-            int count = game.getGameState().getWounds(Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(self)));
+            int count = game.getGameState().getWounds(Filters.findFirstActive(game, Filters.inSkirmishAgainst(self)));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, count));
             return Collections.singletonList(action);

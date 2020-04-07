@@ -1,0 +1,96 @@
+{
+  "32_50": {
+    "title": "Dol Guldur",
+    "cost": 8,
+    "type": "site",
+    "block": "hobbit",
+    "site": 5,
+    "keyword": "forest",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "condition": {
+        "type": "isSide",
+        "side": "shadow"
+      },
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "shadow"
+      },
+      "cost": {
+        "type": "discard",
+        "filter": "choose(name(Gandalf))"
+      },
+      "effect": {
+        "type": "allyCanParticipateInSkirmishes",
+        "filter": "all(wise,ally)",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "32_53": {
+    "title": "Town Hall",
+    "cost": 3,
+    "type": "site",
+    "block": "hobbit",
+    "site": 6,
+    "keyword": "river",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "limitPerTurn": 1,
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(esgaroth),ally)"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(weapon)"
+      }
+    }
+  },
+  "32_55": {
+    "title": "Secret Door",
+    "cost": 8,
+    "type": "site",
+    "block": "hobbit",
+    "site": 7,
+    "keyword": "mountain",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "self",
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Thror's Key)"
+        },
+        "amount": -3
+      }
+    }
+  },
+  "32_56": {
+    "title": "Northern Slopes",
+    "cost": 9,
+    "type": "site",
+    "block": "hobbit",
+    "site": 9,
+    "keyword": [
+      "Mountain",
+      "Battleground"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "limitPerTurn": 1,
+      "effect": {
+        "type": "exert",
+        "filter": "choose(culture(dwarven),character)",
+        "count": {
+          "type": "forEachCultureOver",
+          "filter": "side(shadow)"
+        }
+      }
+    }
+  }
+}

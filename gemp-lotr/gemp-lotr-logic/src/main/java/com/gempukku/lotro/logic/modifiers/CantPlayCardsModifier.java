@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class CantPlayCardsModifier extends AbstractModifier {
@@ -20,11 +20,11 @@ public class CantPlayCardsModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
         final PhysicalCard actionSource = action.getActionSource();
         if (actionSource != null)
             if (action.getType() == Action.Type.PLAY_CARD)
-                if (_filters.accepts(gameState, modifiersQuerying, actionSource))
+                if (_filters.accepts(game, actionSource))
                     return false;
         return true;
     }

@@ -6,17 +6,29 @@ import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Item> _counts = new LinkedHashMap<String, Item>();
-    private Set<BasicCardItem> _basicItems = new HashSet<BasicCardItem>();
     private int _currency;
+    private Map<String, Object> _extraInformation = new HashMap<String, Object>();
 
     public DefaultCardCollection() {
 
     }
 
     public DefaultCardCollection(CardCollection cardCollection) {
-        _counts.putAll(cardCollection.getAll());
-        _basicItems.addAll(cardCollection.getAllCardsInCollection());
+        for (Item item : cardCollection.getAll()) {
+            _counts.put(item.getBlueprintId(), item);
+        }
+
         _currency = cardCollection.getCurrency();
+        _extraInformation.putAll(cardCollection.getExtraInformation());
+    }
+
+    public synchronized void setExtraInformation(Map<String, Object> extraInformation) {
+        _extraInformation = extraInformation;
+    }
+
+    @Override
+    public synchronized Map<String, Object> getExtraInformation() {
+        return Collections.unmodifiableMap(_extraInformation);
     }
 
     @Override
@@ -43,7 +55,6 @@ public class DefaultCardCollection implements MutableCardCollection {
             Item oldCount = _counts.get(itemId);
             if (oldCount == null) {
                 _counts.put(itemId, Item.createItem(itemId, toAdd));
-                _basicItems.add(new BasicCardItem(itemId));
             } else
                 _counts.put(itemId, Item.createItem(itemId, toAdd + oldCount.getCount()));
         }
@@ -57,16 +68,10 @@ public class DefaultCardCollection implements MutableCardCollection {
                 return false;
             if (oldCount.getCount() == toRemove) {
                 _counts.remove(itemId);
-                _basicItems.remove(new BasicCardItem(itemId));
             } else
                 _counts.put(itemId, Item.createItem(itemId, oldCount.getCount() - toRemove));
         }
         return true;
-    }
-
-    @Override
-    public Set<BasicCardItem> getAllCardsInCollection() {
-        return Collections.unmodifiableSet(_basicItems);
     }
 
     @Override
@@ -76,8 +81,8 @@ public class DefaultCardCollection implements MutableCardCollection {
             return null;
         if (count.getCount() > 0) {
             List<Item> packContents = null;
-            if (selection != null && packId.startsWith("(S)")) {
-                if (hasSelection(packId, selection, packsStorage)) {
+            if (packId.startsWith("(S)")) {
+                if (selection != null && hasSelection(packId, selection, packsStorage)) {
                     packContents = new LinkedList<Item>();
                     packContents.add(Item.createItem(selection, 1));
                 }
@@ -103,8 +108,8 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public synchronized Map<String, Item> getAll() {
-        return Collections.unmodifiableMap(_counts);
+    public synchronized Iterable<Item> getAll() {
+        return _counts.values();
     }
 
     @Override

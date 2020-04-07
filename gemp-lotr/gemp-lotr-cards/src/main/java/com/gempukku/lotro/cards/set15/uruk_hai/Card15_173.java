@@ -1,13 +1,16 @@
 package com.gempukku.lotro.cards.set15.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
 import java.util.LinkedList;
@@ -29,15 +32,18 @@ public class Card15_173 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.URUK_HAI, Race.URUK_HAI);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new CantTakeWoundsModifier(self,
                         new AndCondition(

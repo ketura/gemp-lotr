@@ -1,21 +1,20 @@
 package com.gempukku.lotro.cards.set15.orc;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.CantReplaceSiteByFPPlayerModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.DiscardCardFromDeckEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromDeckIntoHandEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.RevealBottomCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.CantReplaceSiteByFPPlayerModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,29 +31,29 @@ import java.util.List;
  */
 public class Card15_113 extends AbstractPermanent {
     public Card15_113() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Orkish Camp");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, "Orkish Camp");
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.ORC, Race.ORC), Filters.currentSite);
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.ORC, Race.ORC), Filters.currentSite));
+}
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 2)
                 && PlayConditions.canExert(self, game, Culture.ORC, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ORC, Race.ORC));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ORC, CardType.MINION));
             action.appendEffect(
-                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
+                    new RevealBottomCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard card : revealedCards) {
-                                if (Filters.and(Culture.ORC, Race.ORC).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                                if (Filters.and(Culture.ORC, Race.ORC).accepts(game, card))
                                     action.appendEffect(
                                             new PutCardFromDeckIntoHandEffect(card));
                                 else

@@ -32,8 +32,8 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
                 Filters.wounded,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
     }

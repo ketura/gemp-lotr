@@ -1,34 +1,16 @@
 package com.gempukku.lotro.game.state;
 
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.PhysicalCardVisitor;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.GameStats;
 import org.apache.log4j.Logger;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GameState {
     private static Logger _log = Logger.getLogger(GameState.class);
@@ -105,7 +87,9 @@ public class GameState {
             addPlayerCards(playerId, decks, library);
             try {
                 _ringBearers.put(playerId, createPhysicalCardImpl(playerId, library, ringBearers.get(playerId)));
-                _rings.put(playerId, createPhysicalCardImpl(playerId, library, rings.get(playerId)));
+                String ringBlueprintId = rings.get(playerId);
+                if (ringBlueprintId != null)
+                    _rings.put(playerId, createPhysicalCardImpl(playerId, library, ringBlueprintId));
             } catch (CardNotFoundException exp) {
                 throw new RuntimeException("Unable to create game, due to either ring-bearer or ring being invalid cards");
             }
@@ -480,7 +464,7 @@ public class GameState {
     }
 
     private void addCardToZone(LotroGame game, PhysicalCard card, Zone zone, boolean end) {
-        if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
+        if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
             zone = Zone.REMOVED;
 
         if (zone.isInPlay())
@@ -566,73 +550,6 @@ public class GameState {
         return false;
     }
 
-    public boolean iterateActiveTextCards(PhysicalCardVisitor physicalCardVisitor) {
-        for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (physicalCard.getBlueprint().getCardType() != CardType.SITE || (_currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == physicalCard))
-                if (isCardInPlayActive(physicalCard))
-                    if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                        return true;
-        }
-
-        return false;
-    }
-
-    public boolean iterateActiveTextCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        if (_currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
-            physicalCardVisitor.visitPhysicalCard(getCurrentSite());
-
-        for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (physicalCard.getBlueprint().getCardType() != CardType.SITE && physicalCard.getOwner().equals(player) && isCardInPlayActive(physicalCard))
-                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                    return true;
-        }
-        return false;
-    }
-
-    public boolean iterateActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        if (_currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
-            if (physicalCardVisitor.visitPhysicalCard(getCurrentSite()))
-                return true;
-        for (PhysicalCardImpl physicalCard : _inPlay) {
-            if (physicalCard.getOwner().equals(player)
-                    && physicalCard.getBlueprint().getCardType() != CardType.SITE && isCardInPlayActive(physicalCard))
-                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                    return true;
-        }
-        for (PhysicalCardImpl physicalCard : _hands.get(player)) {
-            if (_currentPlayerId.equals(player)) {
-                if (physicalCard.getBlueprint().getSide() == Side.FREE_PEOPLE)
-                    if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                        return true;
-            } else {
-                if (physicalCard.getBlueprint().getSide() == Side.SHADOW)
-                    if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                        return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean iterateStackedActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        for (PhysicalCardImpl physicalCard : _stacked.get(player)) {
-            Side playerSide = player.equals(getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW;
-            if (physicalCard.getBlueprint().getSide() == playerSide)
-                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                    return true;
-        }
-        return false;
-    }
-
-    public boolean iterateDiscardActivableCards(String player, PhysicalCardVisitor physicalCardVisitor) {
-        for (PhysicalCardImpl physicalCard : _discards.get(player)) {
-            Side playerSide = player.equals(getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW;
-            if (physicalCard.getBlueprint().getSide() == playerSide)
-                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
-                    return true;
-        }
-        return false;
-    }
-
     public PhysicalCard findCardById(int cardId) {
         return _allCards.get(cardId);
     }
@@ -663,6 +580,14 @@ public class GameState {
 
     public List<? extends PhysicalCard> getAdventureDeck(String playerId) {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
+    }
+
+    public List<? extends PhysicalCard> getInPlay() {
+        return Collections.unmodifiableList(_inPlay);
+    }
+
+    public List<? extends PhysicalCard> getStacked(String playerId) {
+        return Collections.unmodifiableList(_stacked.get(playerId));
     }
 
     public String getCurrentPlayerId() {
@@ -845,7 +770,7 @@ public class GameState {
         return !_fierceSkirmishes && !_extraSkirmishes;
     }
 
-    private boolean isCardInPlayActive(PhysicalCard card) {
+    public boolean isCardInPlayActive(PhysicalCard card) {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
@@ -989,7 +914,7 @@ public class GameState {
         return getSite(getCurrentSiteNumber());
     }
 
-    public Block getCurrentSiteBlock() {
+    public SitesBlock getCurrentSiteBlock() {
         return getCurrentSite().getBlueprint().getSiteBlock();
     }
 
@@ -1105,7 +1030,7 @@ public class GameState {
 
     public void shuffleDeck(String player) {
         List<PhysicalCardImpl> deck = _decks.get(player);
-        Collections.shuffle(deck);
+        Collections.shuffle(deck, ThreadLocalRandom.current());
     }
 
     public void sendGameStats(GameStats gameStats) {

@@ -7,6 +7,7 @@ import com.gempukku.lotro.logic.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ChooseSeatingOrderGameProcess implements GameProcess {
     private String[] _choices = new String[]{"first", "second", "third", "fourth", "fifth"};
@@ -22,7 +23,7 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
         _playerOrderFeedback = playerOrderFeedback;
 
         ArrayList<String> participantList = new ArrayList<String>(bids.keySet());
-        Collections.shuffle(participantList);
+        Collections.shuffle(participantList, ThreadLocalRandom.current());
 
         Collections.sort(participantList, new Comparator<String>() {
             @Override

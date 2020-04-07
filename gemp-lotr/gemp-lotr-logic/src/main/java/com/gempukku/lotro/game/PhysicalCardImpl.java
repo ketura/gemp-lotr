@@ -68,7 +68,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     }
 
     public void startAffectingGame(LotroGame game) {
-        List<? extends Modifier> modifiers = _blueprint.getAlwaysOnModifiers(game, this);
+        List<? extends Modifier> modifiers = _blueprint.getInPlayModifiers(game, this);
         if (modifiers != null) {
             _modifierHooks = new LinkedList<ModifierHook>();
             for (Modifier modifier : modifiers)

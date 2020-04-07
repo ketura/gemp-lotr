@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +19,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Battleground. Each time a companion is killed, add a burden.
  */
-public class Card11_258 extends AbstractNewSite {
+public class Card11_258 extends AbstractShadowsSite {
     public Card11_258() {
         super("Slag Mounds", 1, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);

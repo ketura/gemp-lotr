@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Two Towers
@@ -18,19 +18,18 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: Exert a [RAIDER] Man to discard a Free Peoples condition (or 2 Free Peoples conditions if
  * you spot 3 burdens).
  */
-public class Card4_223 extends AbstractOldEvent {
+public class Card4_223 extends AbstractEvent {
     public Card4_223() {
-        super(Side.SHADOW, Culture.RAIDER, "Discovered", Phase.MANEUVER);
+        super(Side.SHADOW, 1, Culture.RAIDER, "Discovered", Phase.MANEUVER);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Culture.RAIDER, Race.MAN);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Culture.RAIDER, Race.MAN);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Race.MAN));
@@ -38,10 +37,5 @@ public class Card4_223 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Side.FREE_PEOPLE, CardType.CONDITION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

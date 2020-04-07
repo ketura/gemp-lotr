@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.set17.orc;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardsFromHandBeneathDrawDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RevealHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardsFromHandBeneathDrawDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +30,7 @@ import java.util.List;
  */
 public class Card17_069 extends AbstractPermanent {
     public Card17_069() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Cry and Panic");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ORC, "Cry and Panic");
     }
 
     @Override

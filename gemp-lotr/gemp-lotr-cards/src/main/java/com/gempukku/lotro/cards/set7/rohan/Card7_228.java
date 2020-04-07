@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -26,12 +26,12 @@ import java.util.List;
  */
 public class Card7_228 extends AbstractCompanion {
     public Card7_228() {
-        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, Names.eowyn, "Dernhelm", true);
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, Signet.THEODEN, Names.eowyn, "Dernhelm", true);
         addKeyword(Keyword.VALIANT);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new StrengthModifier(self, Filters.and(self, Filters.inSkirmishAgainst(CardType.MINION, Filters.mounted)), 2));

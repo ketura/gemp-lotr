@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.RevealRandomCardsFromHandEffect;
 
 import java.util.List;
 
@@ -22,18 +22,13 @@ import java.util.List;
  * Game Text: Regroup: Reveal a card at random from the Free Peoples player's hand. Heal X [ISENGARD] minions, where X
  * is the twilight cost of the card revealed.
  */
-public class Card3_051 extends AbstractOldEvent {
+public class Card3_051 extends AbstractEvent {
     public Card3_051() {
-        super(Side.SHADOW, Culture.ISENGARD, "Coming for the Ring", Phase.REGROUP);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Coming for the Ring", Phase.REGROUP);
     }
 
     @Override
-    public int getTwilightCost() {
-        return 2;
-    }
-
-    @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new RevealRandomCardsFromHandEffect(playerId, game.getGameState().getCurrentPlayerId(), self, 1) {

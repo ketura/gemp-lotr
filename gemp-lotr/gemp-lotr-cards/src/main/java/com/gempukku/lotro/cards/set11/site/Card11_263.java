@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -18,7 +18,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Underground. When the fellowship moves from this site, remove (2).
  */
-public class Card11_263 extends AbstractNewSite {
+public class Card11_263 extends AbstractShadowsSite {
     public Card11_263() {
         super("West Gate of Moria", 2, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);

@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class GameHasCondition implements Condition {
     private Filterable[] _filter;
@@ -18,7 +18,7 @@ public class GameHasCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return Filters.countActive(gameState, modifiersQuerying, _filter)>=_count;
+    public boolean isFullfilled(LotroGame game) {
+        return Filters.countActive(game, _filter)>=_count;
     }
 }

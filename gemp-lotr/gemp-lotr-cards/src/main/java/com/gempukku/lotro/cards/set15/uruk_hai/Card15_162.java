@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set15.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -38,7 +38,7 @@ public class Card15_162 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int regionNumber = GameUtils.getRegion(game.getGameState());
+            int regionNumber = GameUtils.getRegion(game);
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), regionNumber, regionNumber, CardType.COMPANION));
             return Collections.singletonList(action);

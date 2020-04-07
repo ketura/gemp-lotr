@@ -1,23 +1,22 @@
 package com.gempukku.lotro.cards.set11.wraith;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +33,7 @@ import java.util.List;
  */
 public class Card11_217 extends AbstractPermanent {
     public Card11_217() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Shapes Slowly Advancing");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "Shapes Slowly Advancing");
     }
 
     @Override
@@ -49,7 +48,7 @@ public class Card11_217 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Filters.owner(playerId), Race.NAZGUL)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -65,7 +64,7 @@ public class Card11_217 extends AbstractPermanent {
                             }, game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override
-                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                     return new ChooseAndReturnCardsToHandEffect(subAction, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)) {
                                         @Override
                                         public String getText(LotroGame game) {

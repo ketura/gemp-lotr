@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: When the Fellowship moves to this site, add a threat (or 2 if you can spot a hunter minion)
  * for each companion over 4.
  */
-public class Card15_189 extends AbstractNewSite {
+public class Card15_189 extends AbstractShadowsSite {
     public Card15_189() {
         super("City Gates", 1, Direction.RIGHT);
     }
@@ -32,7 +32,7 @@ public class Card15_189 extends AbstractNewSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int threats = PlayConditions.canSpot(game, CardType.MINION, Keyword.HUNTER) ? 2 : 1;
-            int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            int companions = Filters.countActive(game, CardType.COMPANION);
             if (companions > 4)
                 action.appendEffect(
                         new AddThreatsEffect(game.getGameState().getCurrentPlayerId(), self, (companions - 4) * threats));

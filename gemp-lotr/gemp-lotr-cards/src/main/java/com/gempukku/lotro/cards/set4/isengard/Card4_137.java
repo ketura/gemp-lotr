@@ -1,18 +1,17 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
+import com.gempukku.lotro.logic.effects.TakeControlOfASiteEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,13 +27,13 @@ import java.util.List;
  */
 public class Card4_137 extends AbstractPermanent {
     public Card4_137() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Attack on Helm's Deep");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Attack on Helm's Deep");
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.playable(game)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Race.URUK_HAI, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Race.URUK_HAI));
@@ -44,7 +43,7 @@ public class Card4_137 extends AbstractPermanent {
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && game.getGameState().getTokenCount(self, Token.ISENGARD) >= 3
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI) > 0) {
+                && Filters.countActive(game, Race.URUK_HAI) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.ISENGARD, 3));

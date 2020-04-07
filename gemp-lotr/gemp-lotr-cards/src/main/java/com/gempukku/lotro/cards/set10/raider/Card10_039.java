@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set10.raider;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -41,7 +41,7 @@ public class Card10_039 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.CORSAIR)
-                && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game.getGameState(), game.getGameState().getCurrentPlayerId(), self)
+                && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, game.getGameState().getCurrentPlayerId(), self)
                 && game.getGameState().getDeck(game.getGameState().getCurrentPlayerId()).size() > 0) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

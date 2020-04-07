@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set8.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,9 +36,8 @@ public class Card8_094 extends AbstractMinion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.SAURON, Race.ORC);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.SAURON, Race.ORC);
     }
 
     @Override
@@ -47,7 +45,7 @@ public class Card8_094 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.BESIEGER)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4;
+            int count = Filters.countActive(game, CardType.COMPANION) - 4;
             if (count > 0)
                 action.appendEffect(
                         new AddThreatsEffect(playerId, self, count));
@@ -57,7 +55,7 @@ public class Card8_094 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canRemoveThreat(game, self, 1)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Keyword.ENGINE)) {

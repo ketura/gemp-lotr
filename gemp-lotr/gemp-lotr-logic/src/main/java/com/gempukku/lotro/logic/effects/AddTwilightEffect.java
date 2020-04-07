@@ -71,6 +71,6 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
     }
 
     private int getTwilightToAdd(LotroGame game) {
-        return _twilight.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        return _twilight.evaluateExpression(game, null);
     }
 }

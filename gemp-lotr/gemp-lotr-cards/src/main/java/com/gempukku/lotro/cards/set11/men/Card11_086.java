@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set11.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
@@ -36,7 +36,7 @@ public class Card11_086 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.assignedToSkirmish(game, effectResult, Side.FREE_PEOPLE, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int twilight = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.character, Filters.maxResistance(5));
+            int twilight = Filters.countActive(game, Side.FREE_PEOPLE, Filters.character, Filters.maxResistance(5));
             action.appendEffect(
                     new AddTwilightEffect(self, twilight));
             return Collections.singletonList(action);

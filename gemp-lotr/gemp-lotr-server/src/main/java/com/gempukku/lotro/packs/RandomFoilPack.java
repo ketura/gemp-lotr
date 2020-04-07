@@ -1,13 +1,13 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomFoilPack implements PackBox {
     private List<String> _availableCards = new ArrayList<String>();
@@ -21,7 +21,7 @@ public class RandomFoilPack implements PackBox {
     @Override
     public List<CardCollection.Item> openPack() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
-        final String cardBlueprintId = _availableCards.get(new Random().nextInt(_availableCards.size())) + "*";
+        final String cardBlueprintId = _availableCards.get(ThreadLocalRandom.current().nextInt(_availableCards.size())) + "*";
         result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
         return result;
     }

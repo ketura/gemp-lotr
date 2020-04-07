@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: Dwelling. At the start of your fellowship phase, you may exert 2 Hobbits to play a Hobbit from your draw
  * deck.
  */
-public class Card11_242 extends AbstractNewSite {
+public class Card11_242 extends AbstractShadowsSite {
     public Card11_242() {
         super("Green Dragon Inn", 3, Direction.RIGHT);
         addKeyword(Keyword.DWELLING);

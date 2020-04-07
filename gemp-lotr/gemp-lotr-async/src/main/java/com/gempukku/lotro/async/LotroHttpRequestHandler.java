@@ -59,7 +59,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
 
         public void printLog(int statusCode, long finishedTime) {
-            _accesslog.debug(remoteIp+","+statusCode+","+uri+","+(finishedTime-requestTime));
+            _accesslog.debug(remoteIp + "," + statusCode + "," + uri + "," + (finishedTime - requestTime));
         }
     }
 
@@ -110,9 +110,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
 
                 @Override
-                public void writeByteResponse(String contentType, byte[] bytes) {
-                    Map<String, String> headers = new HashMap<String, String>();
-                    headers.put(CONTENT_TYPE, contentType);
+                public void writeByteResponse(byte[] bytes, Map<String, String> headers) {
                     writeHttpByteResponse(requestInformation, request, bytes, headers, e);
                 }
 
@@ -125,8 +123,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             try {
                 String ipAddress = ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress();
                 if (isBanned(ipAddress))
-                    throw new HttpProcessingException(404);
-                _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
+                    responseWriter.writeError(404);
+                else
+                    _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
             } catch (HttpProcessingException exp) {
                 responseWriter.writeError(exp.getStatus());
             } catch (Exception exp) {
@@ -408,9 +407,8 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
-            throws Exception {
-        if (!(e.getCause() instanceof IOException))
+    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
+        if (!(e.getCause() instanceof IOException) && !(e.getCause() instanceof IllegalArgumentException))
             _log.error("Error while processing request", e.getCause());
         e.getChannel().close();
     }

@@ -8,9 +8,13 @@ import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
+
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 
 public class ReplayRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private GameRecorder _gameRecorder;
@@ -45,13 +49,18 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
                 int count;
                 while ((count = recordedGame.read(bytes)) != -1)
                     baos.write(bytes, 0, count);
+            } catch (IOException exp) {
+                throw new HttpProcessingException(404);
             } finally {
                 recordedGame.close();
             }
 
-            responseWriter.writeByteResponse("application/html; charset=UTF-8", baos.toByteArray());
+            Map<String, String> headers = new HashMap<String, String>();
+            headers.put(CONTENT_TYPE, "application/html; charset=UTF-8");
+
+            responseWriter.writeByteResponse(baos.toByteArray(), headers);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

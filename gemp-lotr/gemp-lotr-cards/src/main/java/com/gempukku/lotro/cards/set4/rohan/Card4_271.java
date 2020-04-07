@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,7 +38,7 @@ public class Card4_271 extends AbstractCompanion {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, self)
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && Filters.exhausted.accepts(game.getGameState(), game.getModifiersQuerying(), self)
+                && Filters.exhausted.accepts(game, self)
                 && game.getGameState().getHand(playerId).size() >= 2) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

@@ -1,22 +1,20 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.RevealCardEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -40,19 +38,13 @@ public class Card15_036 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 4;
-                    }
-                }, 3);
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self,
+                new SpotCondition(4, Race.ENT), 3));
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -68,7 +60,7 @@ public class Card15_036 extends AbstractCompanion {
                                 action.appendEffect(
                                         new RevealCardEffect(self, bottomCard));
                                 if (Filters.and(Culture.GANDALF, Filters.character)
-                                        .accepts(game.getGameState(), game.getModifiersQuerying(), bottomCard)
+                                        .accepts(game, bottomCard)
                                         && PlayConditions.canPlayFromDeck(playerId, game, bottomCard)) {
                                     action.appendEffect(
                                             new ChooseAndPlayCardFromDeckEffect(playerId, bottomCard));

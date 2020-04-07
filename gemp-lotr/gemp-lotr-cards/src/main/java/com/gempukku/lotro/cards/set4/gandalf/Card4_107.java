@@ -1,16 +1,7 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
@@ -18,9 +9,13 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.ExertTargetExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -42,19 +37,18 @@ public class Card4_107 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Race.ENT, Filters.canExert(self));
     }
 
     @Override
-    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        AttachPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        permanentAction.setExertTarget(true);
-        return permanentAction;
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new ExertTargetExtraPlayCostModifier(self, self, null));
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.forEachKilled(game, effectResult, Culture.ISENGARD, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

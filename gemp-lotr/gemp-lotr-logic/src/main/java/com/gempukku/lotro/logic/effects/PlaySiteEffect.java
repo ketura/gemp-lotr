@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.effects;
 
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -11,7 +11,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -27,15 +26,15 @@ import java.util.List;
 public class PlaySiteEffect extends AbstractEffect {
     private Action _action;
     private String _playerId;
-    private Block _siteBlock;
+    private SitesBlock _siteBlock;
     private int _siteNumber;
     private Filterable[] _extraSiteFilters;
 
-    public PlaySiteEffect(Action action, String playerId, Block siteBlock, int siteNumber) {
+    public PlaySiteEffect(Action action, String playerId, SitesBlock siteBlock, int siteNumber) {
         this(action, playerId, siteBlock, siteNumber, Filters.any);
     }
 
-    public PlaySiteEffect(Action action, String playerId, Block siteBlock, int siteNumber, Filterable... extraSiteFilters) {
+    public PlaySiteEffect(Action action, String playerId, SitesBlock siteBlock, int siteNumber, Filterable... extraSiteFilters) {
         _action = action;
         _playerId = playerId;
         _siteBlock = siteBlock;
@@ -56,19 +55,19 @@ public class PlaySiteEffect extends AbstractEffect {
         if (game.getFormat().isOrderedSites()) {
             Filter printedSiteNumber = new Filter() {
                 @Override
-                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                     return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
                 }
             };
             if (_siteBlock != null)
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, printedSiteNumber, Filters.siteBlock(_siteBlock)));
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, Filters.and(_extraSiteFilters, printedSiteNumber, Filters.siteBlock(_siteBlock)));
             else
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, printedSiteNumber));
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, Filters.and(_extraSiteFilters, printedSiteNumber));
         } else {
             if (_siteBlock != null)
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, Filters.siteBlock(_siteBlock)));
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, Filters.and(_extraSiteFilters, Filters.siteBlock(_siteBlock)));
             else
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), _extraSiteFilters);
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, _extraSiteFilters);
         }
     }
 
@@ -95,8 +94,8 @@ public class PlaySiteEffect extends AbstractEffect {
 
         PhysicalCard currentSite = game.getGameState().getSite(siteNumber);
 
-        if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game.getGameState(), _playerId, currentSite))
-                && game.getModifiersQuerying().canPlaySite(game.getGameState(), _playerId)) {
+        if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game, _playerId, currentSite))
+                && game.getModifiersQuerying().canPlaySite(game, _playerId)) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerId, "Choose site to play", newSite, 1, 1) {

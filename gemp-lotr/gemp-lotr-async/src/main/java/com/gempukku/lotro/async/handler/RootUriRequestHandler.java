@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.jboss.netty.channel.MessageEvent;
@@ -10,8 +11,8 @@ import java.util.Collections;
 import java.util.Map;
 
 public class RootUriRequestHandler implements UriRequestHandler {
-    private String _serverContextPath ="/gemp-lotr-server/";
-    private String _webContextPath="/gemp-lotr/";
+    private String _serverContextPath = "/gemp-lotr-server/";
+    private String _webContextPath = "/gemp-lotr/";
     private HallRequestHandler _hallRequestHandler;
     private WebRequestHandler _webRequestHandler;
     private LoginRequestHandler _loginRequestHandler;
@@ -30,6 +31,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private ServerStatsRequestHandler _serverStatsRequestHandler;
     private PlayerStatsRequestHandler _playerStatsRequestHandler;
     private TournamentRequestHandler _tournamentRequestHandler;
+    private MtgCardsRequestHandler _mtgCardsRequestHandler;
+    private SoloDraftRequestHandler _soloDraftRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _webRequestHandler = new WebRequestHandler(ApplicationConfiguration.getProperty("web.path"));
@@ -50,50 +53,56 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
         _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
         _tournamentRequestHandler = new TournamentRequestHandler(context);
+        _mtgCardsRequestHandler = new MtgCardsRequestHandler(context);
+        _soloDraftRequestHandler = new SoloDraftRequestHandler(context);
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.startsWith(_webContextPath)) {
             _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, e);
+        } else if (uri.equals("/mtg-cards/database.json")) {
+            _mtgCardsRequestHandler.handleRequest(uri, request, context, responseWriter, e);
         } else if (uri.equals("/gemp-lotr")) {
             responseWriter.writeError(301, Collections.singletonMap("Location", "/gemp-lotr/"));
-        } else if (uri.startsWith(_serverContextPath +"hall")) {
-            _hallRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "hall")) {
+            _hallRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "deck")) {
-            _deckRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"login")) {
-            _loginRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"register")) {
-            _registerRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"replay")) {
-            _replayRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+6), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"gameHistory")) {
-            _gameHistoryRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+11), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"stats")) {
-            _serverStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"playerStats")) {
-            _playerStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+11), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"admin")) {
-            _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
+            _deckRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "login")) {
+            _loginRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "register")) {
+            _registerRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "replay")) {
+            _replayRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 6), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "gameHistory")) {
+            _gameHistoryRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 11), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "stats")) {
+            _serverStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "playerStats")) {
+            _playerStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 11), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "admin")) {
+            _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "chat")) {
-            _chatRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
+            _chatRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "collection")) {
-            _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+10), request, context, responseWriter, e);
+            _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "delivery")) {
-            _deliveryRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
+            _deliveryRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "game")) {
-            _gameRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
+            _gameRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "league")) {
-            _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+6), request, context, responseWriter, e);
+            _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 6), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "merchant")) {
-            _merchantRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
+            _merchantRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "tournament")) {
-            _tournamentRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+10), request, context, responseWriter, e);
+            _tournamentRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "soloDraft")) {
+            _soloDraftRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 9), request, context, responseWriter, e);
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

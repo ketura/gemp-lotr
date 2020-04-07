@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set12.gollum;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -11,7 +7,12 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.actions.PlayPermanentAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,9 +32,9 @@ public class Card12_038 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GOLLUM);
+        int count = Filters.countActive(game, Culture.GOLLUM);
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, count) {
                     @Override
@@ -44,7 +45,7 @@ public class Card12_038 extends AbstractEvent {
                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {
                                             final PhysicalCard selectedCard = selectedCards.iterator().next();
-                                            PlayPermanentAction action = (PlayPermanentAction) selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, -2, false);
+                                            PlayPermanentAction action = (PlayPermanentAction) PlayUtils.getPlayCardAction(game, selectedCard, -2, Filters.any, false);
                                             action.skipShufflingDeck();
                                             game.getActionsEnvironment().addActionToStack(action);
                                         }

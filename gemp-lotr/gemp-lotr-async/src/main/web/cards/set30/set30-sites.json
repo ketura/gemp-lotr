@@ -1,0 +1,209 @@
+{
+  "30_49": {
+    "title": "Bag End",
+    "type": "site",
+    "block": "hobbit",
+    "site": 1,
+    "cost": 0,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "play",
+        "filter": "choose(culture(dwarven),follower)"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": 1
+      }
+    }
+  },
+  "30_50": {
+    "title": "The Troll Hoard",
+    "cost": 3,
+    "type": "site",
+    "block": "hobbit",
+    "site": 2,
+    "keyword": [
+      "forest",
+      "underground"
+    ],
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "fellowship"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(hand weapon)"
+      }
+    }
+  },
+  "30_51": {
+    "title": "Rivendell",
+    "cost": 1,
+    "type": "site",
+    "block": "hobbit",
+    "site": 3,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cantPlayCards",
+        "filter": "troll"
+      }
+    }
+  },
+  "30_52": {
+    "title": "Goblin Town",
+    "cost": 4,
+    "type": "site",
+    "block": "hobbit",
+    "site": 4,
+    "keyword": "underground",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(The One Ring))"
+      }
+    }
+  },
+  "30_53": {
+    "title": "Mirkwood",
+    "cost": 6,
+    "type": "site",
+    "block": "hobbit",
+    "site": 5,
+    "keyword": "forest",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "all(name(Gandalf))"
+      }
+    }
+  },
+  "30_54": {
+    "title": "Esgaroth",
+    "cost": 3,
+    "type": "site",
+    "block": "hobbit",
+    "site": 6,
+    "keyword": "river",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "regroup"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(or(culture(esgaroth),culture(dwarven)),ally)"
+      }
+    }
+  },
+  "30_55": {
+    "title": "Erebor",
+    "cost": 6,
+    "type": "site",
+    "block": "hobbit",
+    "site": 7,
+    "keyword": [
+      "mountain",
+      "river"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "condition": {
+        "type": "canSpot",
+        "filter": "companion",
+        "count": 6
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(minion)",
+        "count": 2
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": 2
+      }
+    }
+  },
+  "30_56": {
+    "title": "Smaug's Den",
+    "cost": 8,
+    "type": "site",
+    "block": "hobbit",
+    "site": 8,
+    "keyword": [
+      "mountain",
+      "underground"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play Smaug from your draw deck",
+          "Play Smaug from your discard pile"
+        ],
+        "effects": [
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(Smaug))"
+          },
+          {
+            "type": "playCardFromDiscard",
+            "filter": "choose(name(Smaug))"
+          }
+        ]
+      }
+    }
+  },
+  "30_57": {
+    "title": "Battle of the Five Armies",
+    "cost": 9,
+    "type": "site",
+    "block": "hobbit",
+    "site": 9,
+    "keyword": [
+      "mountain",
+      "battleground"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "removeBurdens",
+        "amount": 2
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(minion,not(name(Smaug)))"
+      }
+    }
+  }
+}

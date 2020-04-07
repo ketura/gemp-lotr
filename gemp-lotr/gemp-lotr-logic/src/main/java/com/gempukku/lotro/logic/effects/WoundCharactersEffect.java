@@ -53,8 +53,8 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
     protected Filter getExtraAffectableFilter() {
         return new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWounds(gameState, _sources, physicalCard, 1);
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                return game.getModifiersQuerying().canTakeWounds(game, _sources, physicalCard, 1);
             }
         };
     }
@@ -84,7 +84,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
 
     @Override
     public void preventEffect(LotroGame game, PhysicalCard card) {
-        if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS))
+        if (!game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PREVENT_WOUNDS))
             super.preventEffect(game, card);
     }
 

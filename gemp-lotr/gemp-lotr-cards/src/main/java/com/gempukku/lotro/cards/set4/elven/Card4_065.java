@@ -1,15 +1,13 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.*;
 
 import java.util.LinkedList;
@@ -33,36 +31,35 @@ public class Card4_065 extends AbstractCompanion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return Filters.canSpot(game, Race.ELF);
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, 1));
         modifiers.add(
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, Keyword.DAMAGE, 1));
         modifiers.add(
                 new DoesNotAddToArcheryTotalModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }));
         return modifiers;

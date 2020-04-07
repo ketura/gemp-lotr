@@ -1,9 +1,12 @@
 package com.gempukku.lotro.logic.actions;
 
+import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public interface CostToEffectAction extends Action {
+    void appendPotentialDiscount(DiscountEffect cost);
+
     /**
      * Inserts the specified costs as the next costs to be executed.
      *
@@ -20,17 +23,23 @@ public interface CostToEffectAction extends Action {
     public void appendCost(Effect cost);
 
     /**
-     * Inserts the speicified effects as the next effects to be executer.
+     * Inserts the specified effects as the next effects to be executedD.
      *
      * @param effect
      */
     public void insertEffect(Effect... effect);
 
     /**
-     * Appends the specified effect to the list of the effects. It will be executed after all the other costs currently
+     * Appends the specified effect to the list of the effects. It will be executed after all the other effects currently
      * in the queue.
      *
      * @param effect
      */
     public void appendEffect(Effect effect);
+
+    void setText(String text);
+
+    void setPaidToil(boolean toilPaid);
+
+    boolean wasCarriedOut();
 }

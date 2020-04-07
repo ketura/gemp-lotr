@@ -1,19 +1,14 @@
 package com.gempukku.lotro.cards.set11.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.RevealHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 
@@ -32,19 +27,18 @@ public class Card11_036 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.GANDALF, Race.WIZARD);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.GANDALF, Race.WIZARD);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new RevealHandEffect(self, playerId, playerId) {
                     @Override
                     protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                        int companionCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size();
+                        int companionCount = Filters.filter(cards, game, CardType.COMPANION).size();
                         int penalty = companionCount * (PlayConditions.location(game, Keyword.BATTLEGROUND) ? -4 : -3);
                         action.appendEffect(
                                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, penalty, CardType.MINION));

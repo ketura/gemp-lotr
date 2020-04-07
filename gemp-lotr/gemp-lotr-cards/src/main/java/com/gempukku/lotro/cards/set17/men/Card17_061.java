@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -11,9 +7,16 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCulturesEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Rise of Saruman
@@ -33,14 +36,13 @@ public class Card17_061 extends AbstractMinion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Culture.MEN, Race.MAN);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, Culture.MEN, Race.MAN);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, new SpotCondition(CardType.POSSESSION, Filters.attachedTo(self)),
-                new MultiplyEvaluator(2, new CountCulturesEvaluator(Side.FREE_PEOPLE)));
-    }
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, new SpotCondition(CardType.POSSESSION, Filters.attachedTo(self)),
+new MultiplyEvaluator(2, new CountCulturesEvaluator(Side.FREE_PEOPLE))));
+}
 }

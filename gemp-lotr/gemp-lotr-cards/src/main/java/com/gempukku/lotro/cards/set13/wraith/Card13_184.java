@@ -1,11 +1,10 @@
 package com.gempukku.lotro.cards.set13.wraith;
 
-import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 
 /**
  * Set: Bloodlines
@@ -25,8 +24,8 @@ public class Card13_184 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Filters.maxResistance(3)))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        if (Filters.canSpot(game, CardType.COMPANION, Filters.maxResistance(3)))
             return -2;
         return 0;
     }

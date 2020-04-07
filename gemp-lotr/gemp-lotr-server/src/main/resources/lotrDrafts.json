@@ -1,0 +1,18 @@
+[
+  {
+    "type": "test_draft",
+    "location": "/draft/testDraft.json"
+  },
+  {
+    "type": "fotr_draft",
+    "location": "/draft/fellowshipDraft.json"
+  },
+  {
+    "type": "ttt_draft",
+    "location": "/draft/twoTowersDraft.json"
+  },
+  {
+    "type": "hobbit_draft",
+    "location": "/draft/hobbitDraft.json"
+  }
+]

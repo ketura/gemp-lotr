@@ -1,16 +1,13 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.OpponentsCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,19 +33,9 @@ public class Card4_117 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "Can't play skimirhs events or skirmish special abilities", null, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (!Filters.inSkirmish.accepts(gameState, modifiersQuerying, self))
-                            return true;
-                        if (performingPlayer != null && performingPlayer.equals(self.getOwner()))
-                            return true;
-                        if (action.getActionTimeword() == Phase.SKIRMISH)
-                            return false;
-                        return true;
-                    }
-                });
+                new OpponentsCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(self,
+                        new SpotCondition(self, Filters.inSkirmish), self.getOwner(), Phase.SKIRMISH));
     }
 }

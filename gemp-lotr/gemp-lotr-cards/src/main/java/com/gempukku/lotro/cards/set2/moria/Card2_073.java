@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,8 +8,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -39,7 +39,7 @@ public class Card2_073 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new StrengthModifier(self, Keyword.TENTACLE, 2));
@@ -53,13 +53,13 @@ public class Card2_073 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))) {
+        if (Filters.canSpot(game, CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))));
             actions.add(action);
         }
-        if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.MARSH)) {
+        if (!game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.MARSH)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

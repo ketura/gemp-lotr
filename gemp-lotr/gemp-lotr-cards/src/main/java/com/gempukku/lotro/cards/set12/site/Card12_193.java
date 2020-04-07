@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Mountain. Each time your Dwarf wins a skirmish, you may draw a card.
  */
-public class Card12_193 extends AbstractNewSite {
+public class Card12_193 extends AbstractShadowsSite {
     public Card12_193() {
         super("Starkhorn", 3, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);

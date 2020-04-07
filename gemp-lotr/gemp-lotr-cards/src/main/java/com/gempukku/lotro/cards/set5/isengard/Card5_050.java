@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set5.isengard;
 
-import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class Card5_050 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(self, Filters.not(Filters.exhausted)), Keyword.FIERCE));
@@ -43,16 +41,16 @@ public class Card5_050 extends AbstractMinion {
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return modifiersQuerying.getVitality(gameState, self) >= 3;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getModifiersQuerying().getVitality(game, self) >= 3;
                             }
                         }, Keyword.AMBUSH, 1));
         modifiers.add(
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return modifiersQuerying.getVitality(gameState, self) >= 4;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getModifiersQuerying().getVitality(game, self) >= 4;
                             }
                         }, Keyword.DAMAGE, 1));
         return modifiers;

@@ -6,12 +6,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
-import java.util.LinkedList;
-
-public class SubAction implements Action {
+public class SubAction extends AbstractCostToEffectAction {
     private Action _action;
-    private LinkedList<Effect> _effects = new LinkedList<Effect>();
-    private LinkedList<Effect> _processedEffects = new LinkedList<Effect>();
 
     public SubAction(Action action) {
         _action = action;
@@ -23,20 +19,8 @@ public class SubAction implements Action {
     }
 
     @Override
-    public void setVirtualCardAction(boolean virtualCardAction) {
-    }
-
-    @Override
-    public boolean isVirtualCardAction() {
-        return false;
-    }
-
-    public void appendEffect(Effect effect) {
-        _effects.add(effect);
-    }
-
-    public void insertEffect(Effect effect) {
-        _effects.add(0, effect);
+    public PhysicalCard getActionAttachedToCard() {
+        return _action.getActionAttachedToCard();
     }
 
     @Override
@@ -45,23 +29,18 @@ public class SubAction implements Action {
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
-        return _action.getActionAttachedToCard();
-    }
-
-    @Override
     public Phase getActionTimeword() {
         return _action.getActionTimeword();
     }
 
     @Override
-    public void setActionTimeword(Phase phase) {
-        _action.setActionTimeword(phase);
+    public String getPerformingPlayer() {
+        return _action.getPerformingPlayer();
     }
 
     @Override
-    public String getPerformingPlayer() {
-        return _action.getPerformingPlayer();
+    public void setActionTimeword(Phase phase) {
+        _action.setActionTimeword(phase);
     }
 
     @Override
@@ -71,25 +50,20 @@ public class SubAction implements Action {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return _action.getText(game);
     }
 
     @Override
     public Effect nextEffect(LotroGame game) {
-        final Effect effect = _effects.poll();
-        if (effect != null)
-            _processedEffects.add(effect);
-        return effect;
-    }
+        if (!isCostFailed()) {
+            Effect cost = getNextCost();
+            if (cost != null)
+                return cost;
 
-    public boolean wasCarriedOut() {
-        if (!_effects.isEmpty())
-            return false;
-        for (Effect effect : _processedEffects) {
-            if (!effect.wasCarriedOut())
-                return false;
+            Effect effect = getNextEffect();
+            if (effect != null)
+                return effect;
         }
-
-        return true;
+        return null;
     }
 }

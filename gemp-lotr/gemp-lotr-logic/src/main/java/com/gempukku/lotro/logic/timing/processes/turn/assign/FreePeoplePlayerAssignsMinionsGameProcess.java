@@ -44,10 +44,10 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     protected void doPlayEffect(final LotroGame game) {
                         final GameState gameState = game.getGameState();
 
-                        final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), CardType.MINION, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
+                        final Collection<PhysicalCard> minions = Filters.filterActive(game, CardType.MINION, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
                         if (minions.size() > 0) {
                             final Collection<PhysicalCard> freePeopleTargets =
-                                    Filters.filterActive(gameState, game.getModifiersQuerying(),
+                                    Filters.filterActive(game,
                                             Filters.and(
                                                     Filters.or(
                                                             CardType.COMPANION, CardType.ALLY),
@@ -60,16 +60,16 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
                                             Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                                            Set<PhysicalCard> unassignedMinions = new HashSet<PhysicalCard>(Filters.filterActive(gameState, game.getModifiersQuerying(), CardType.MINION));
+                                            Set<PhysicalCard> unassignedMinions = new HashSet<PhysicalCard>(Filters.filterActive(game, CardType.MINION));
                                             // Validate minion count (Defender)
                                             for (PhysicalCard freeCard : assignments.keySet()) {
                                                 Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
-                                                if (minionsAssigned.size() + getMinionsAssignedBeforeCount(freeCard, gameState) > 1 + game.getModifiersQuerying().getKeywordCount(game.getGameState(), freeCard, Keyword.DEFENDER))
+                                                if (minionsAssigned.size() + getMinionsAssignedBeforeCount(freeCard, gameState) > 1 + game.getModifiersQuerying().getKeywordCount(game, freeCard, Keyword.DEFENDER))
                                                     throw new DecisionResultInvalidException(GameUtils.getFullName(freeCard) + " can't have so many minions assigned");
                                                 unassignedMinions.removeAll(minionsAssigned);
                                             }
 
-                                            if (!game.getModifiersQuerying().isValidAssignments(game.getGameState(), Side.FREE_PEOPLE, assignments))
+                                            if (!game.getModifiersQuerying().isValidAssignments(game, Side.FREE_PEOPLE, assignments))
                                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
 
                                             _leftoverMinions = unassignedMinions;
@@ -79,7 +79,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         }
                                     });
                         } else {
-                            _leftoverMinions = new HashSet<PhysicalCard>(Filters.filterActive(gameState, game.getModifiersQuerying(), CardType.MINION));
+                            _leftoverMinions = new HashSet<PhysicalCard>(Filters.filterActive(game, CardType.MINION));
                         }
                     }
                 });

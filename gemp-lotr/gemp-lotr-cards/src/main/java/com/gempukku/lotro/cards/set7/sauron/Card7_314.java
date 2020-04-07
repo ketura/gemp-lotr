@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,23 +28,25 @@ import java.util.List;
  */
 public class Card7_314 extends AbstractPermanent {
     public Card7_314() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Stronghold of Cirith Ungol", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Stronghold of Cirith Ungol", null, true);
     }
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.MINION)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.MINION)
+                && PlayConditions.checkPhaseLimit(game, self, Phase.REGROUP, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1, Phase.REGROUP,
-                            new AddTokenEffect(self, self, Token.SAURON)));
+                    new IncrementPhaseLimitEffect(self, Phase.REGROUP, 1));
+            action.appendEffect(
+                    new AddTokenEffect(self, self, Token.SAURON));
             return Collections.singletonList(action);
         }
         return null;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int tokens = game.getGameState().getTokenCount(self, Token.SAURON);

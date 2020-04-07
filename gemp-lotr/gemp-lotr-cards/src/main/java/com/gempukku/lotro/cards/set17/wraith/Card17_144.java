@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set17.wraith;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,7 +36,7 @@ public class Card17_144 extends AbstractMinion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)
                 && game.getGameState().isFierceSkirmishes()) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4;
+            int count = Filters.countActive(game, CardType.COMPANION) - 4;
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));

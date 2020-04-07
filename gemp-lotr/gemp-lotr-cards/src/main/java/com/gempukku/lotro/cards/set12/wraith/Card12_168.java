@@ -1,14 +1,16 @@
 package com.gempukku.lotro.cards.set12.wraith;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
-import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Black Rider
@@ -25,14 +27,18 @@ public class Card12_168 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.NAZGUL;
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), null,
-                new ConditionEvaluator(1, 2,
-                        new LocationCondition(Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST))));
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new StrengthModifier(self, Filters.hasAttached(self), new LocationCondition(Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST)), 1));
     }
 }

@@ -1,11 +1,5 @@
 package com.gempukku.lotro.cards.set12.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.OptionalEffect;
-import com.gempukku.lotro.cards.effects.PutPlayedEventIntoHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,6 +7,12 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.OptionalEffect;
+import com.gempukku.lotro.logic.effects.PutPlayedEventIntoHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Black Rider
@@ -28,14 +28,14 @@ public class Card12_139 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.URUK_HAI, CardType.MINION));
         if (PlayConditions.canSpot(game, 6, CardType.COMPANION))
             action.appendEffect(
                     new OptionalEffect(action, playerId,
-                            new PutPlayedEventIntoHandEffect(action) {
+                            new PutPlayedEventIntoHandEffect(self) {
                                 @Override
                                 public String getText(LotroGame game) {
                                     return "Return " + GameUtils.getFullName(self) + " to your hand";

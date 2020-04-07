@@ -1,12 +1,16 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.packs.SetDefinition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class FixedLeaguePrizes implements LeaguePrizes {
     private List<String> _commons = new ArrayList<String>();
@@ -49,7 +53,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     public CardCollection getPrizeForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, CollectionType collectionType) {
         if (collectionType.equals(CollectionType.ALL_CARDS)) {
             return getPrizeForConstructedLeague(position, playersCount, gamesPlayed, maxGamesPlayed);
-        } else if (collectionType.equals(CollectionType.MY_CARDS)) {
+        } else if (collectionType.equals(CollectionType.MY_CARDS) || collectionType.equals(CollectionType.OWNED_TOURNAMENT_CARDS)) {
             return getPrizeForCollectorsLeague(position, playersCount, gamesPlayed, maxGamesPlayed);
         } else {
             return getPrizeForSealedLeague(position, playersCount, gamesPlayed, maxGamesPlayed);
@@ -60,7 +64,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     public CardCollection getTrophiesForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, CollectionType collectionType) {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Tengwar", getTengwarCount(position));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -78,7 +82,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getSealedBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -110,7 +114,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getCollectorsBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -138,7 +142,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getConstructedBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -174,14 +178,14 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     }
 
     private String getRandom(List<String> list) {
-        return list.get(new Random().nextInt(list.size()));
+        return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }
 
     private List<String> getRandomFoil(List<String> list, int count) {
         List<String> result = new LinkedList<String>();
         for (String element : list)
             result.add(element + "*");
-        Collections.shuffle(result);
+        Collections.shuffle(result, ThreadLocalRandom.current());
         return result.subList(0, count);
     }
 

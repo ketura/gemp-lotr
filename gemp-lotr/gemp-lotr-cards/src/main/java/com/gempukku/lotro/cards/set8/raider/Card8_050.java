@@ -1,22 +1,21 @@
 package com.gempukku.lotro.cards.set8.raider;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.List;
  */
 public class Card8_050 extends AbstractPermanent {
     public Card8_050() {
-        super(Side.SHADOW, 2, CardType.POSSESSION, Culture.RAIDER, Zone.SUPPORT, "Black Sails of Umbar");
+        super(Side.SHADOW, 2, CardType.POSSESSION, Culture.RAIDER, "Black Sails of Umbar");
     }
 
     @Override
@@ -47,7 +46,7 @@ public class Card8_050 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
             int tokens = game.getGameState().getTokenCount(self, Token.RAIDER);
             if (PlayConditions.canPlayFromDiscard(playerId, game, -tokens, Keyword.CORSAIR)) {

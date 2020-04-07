@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameStats {
+    private Integer wearingRing;
+
     private Integer _fellowshipArchery;
     private Integer _shadowArchery;
 
@@ -42,6 +44,16 @@ public class GameStats {
      */
     public boolean updateGameStats(LotroGame game) {
         boolean changed = false;
+        PlayerOrder playerOrder = game.getGameState().getPlayerOrder();
+
+        final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
+        if (game.getGameState().isWearingRing() && (wearingRing == null || wearingRing != ringBearer.getCardId())) {
+            changed = true;
+            wearingRing = ringBearer.getCardId();
+        } else if (!game.getGameState().isWearingRing() && wearingRing != null) {
+            changed = true;
+            wearingRing = null;
+        }
 
         if (game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             int newFellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
@@ -104,7 +116,7 @@ public class GameStats {
         if (skirmish != null) {
             PhysicalCard fpChar = skirmish.getFellowshipCharacter();
             if (fpChar != null) {
-                int multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game.getGameState(), fpChar);
+                int multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game, fpChar);
                 if (newFellowshipStrength * multiplier <= newShadowStrength && newShadowStrength != 0)
                     newFpOverwhelmed = true;
             }
@@ -115,7 +127,6 @@ public class GameStats {
         }
 
         Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<String, Map<Zone, Integer>>();
-        PlayerOrder playerOrder = game.getGameState().getPlayerOrder();
         if (playerOrder != null) {
             for (String player : playerOrder.getAllPlayers()) {
                 final HashMap<Zone, Integer> playerZoneSizes = new HashMap<Zone, Integer>();
@@ -137,14 +148,14 @@ public class GameStats {
         Map<Integer, Integer> newCharVitalities = new HashMap<Integer, Integer>();
         Map<Integer, Integer> newSiteNumbers = new HashMap<Integer, Integer>();
         Map<Integer, String> newCharResistances = new HashMap<Integer, String>();
-        for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
-            newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game.getGameState(), character));
-            newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game.getGameState(), character));
+        for (PhysicalCard character : Filters.filterActive(game, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
+            newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game, character));
+            newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game, character));
             final LotroCardBlueprint blueprint = character.getBlueprint();
-            if (blueprint.getCardType() == CardType.MINION || game.getModifiersQuerying().isAdditionalCardType(game.getGameState(), character, CardType.MINION))
-                newSiteNumbers.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game.getGameState(), character));
+            if (blueprint.getCardType() == CardType.MINION || game.getModifiersQuerying().isAdditionalCardType(game, character, CardType.MINION))
+                newSiteNumbers.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game, character));
             else {
-                final int resistance = game.getModifiersQuerying().getResistance(game.getGameState(), character);
+                final int resistance = game.getModifiersQuerying().getResistance(game, character);
                 if (blueprint.getCardType() == CardType.COMPANION) {
                     Signet signet = blueprint.getSignet();
                     String resistanceStr;
@@ -154,7 +165,7 @@ public class GameStats {
                         resistanceStr = "F" + resistance;
                     else if (signet == Signet.GANDALF)
                         resistanceStr = "G" + resistance;
-                    else if (signet == Signet.THÉODEN)
+                    else if (signet == Signet.THEODEN)
                         resistanceStr = "T" + resistance;
                     else
                         resistanceStr = String.valueOf(resistance);
@@ -197,6 +208,10 @@ public class GameStats {
         }
 
         return changed;
+    }
+
+    public Integer getWearingRing() {
+        return wearingRing;
     }
 
     public Integer getFellowshipArchery() {
@@ -261,6 +276,7 @@ public class GameStats {
 
     public GameStats makeACopy() {
         GameStats copy = new GameStats();
+        copy.wearingRing = wearingRing;
         copy._fellowshipArchery = _fellowshipArchery;
         copy._fellowshipSkirmishStrength = _fellowshipSkirmishStrength;
         copy._fellowshipSkirmishDamageBonus = _fellowshipSkirmishDamageBonus;

@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set11.rohan;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.*;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collections;
@@ -31,13 +30,12 @@ import java.util.List;
  */
 public class Card11_157 extends AbstractPermanent {
     public Card11_157() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Rush of Steeds", null, true);
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ROHAN, "Rush of Steeds", null, true);
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN);
     }
 
     @Override

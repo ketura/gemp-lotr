@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set13.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,9 +33,8 @@ public class Card13_015 extends AbstractCompanion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 3, Race.ELF);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 3, Race.ELF);
     }
 
     @Override
@@ -43,10 +42,10 @@ public class Card13_015 extends AbstractCompanion {
         if (TriggerConditions.moves(game, effectResult) && PlayConditions.isPhase(game, Phase.REGROUP)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new RevealTopCardsOfDrawDeckEffect(self, playerId, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Zone.ADVENTURE_PATH, Keyword.FOREST)) {
+                    new RevealTopCardsOfDrawDeckEffect(self, playerId, Filters.countActive(game, CardType.SITE, Zone.ADVENTURE_PATH, Keyword.FOREST)) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                            for (PhysicalCard revealedElvenCard : Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN)) {
+                            for (PhysicalCard revealedElvenCard : Filters.filter(revealedCards, game, Culture.ELVEN)) {
                                 action.appendEffect(
                                         new ChooseAndHealCharactersEffect(action, playerId, Race.ELF));
                             }

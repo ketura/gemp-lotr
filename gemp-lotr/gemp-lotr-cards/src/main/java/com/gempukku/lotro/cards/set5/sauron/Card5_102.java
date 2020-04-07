@@ -1,25 +1,22 @@
 package com.gempukku.lotro.cards.set5.sauron;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,34 +32,34 @@ import java.util.List;
  */
 public class Card5_102 extends AbstractPermanent {
     public Card5_102() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Morannon", null, true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, "Morannon", null, true);
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Culture.SAURON,
                         Race.ORC,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }),
-                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)), -3);
+                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)), -3));
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Culture.SAURON, Race.ORC)
-                && Filters.and(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()))
+                && Filters.and(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)).accepts(game, game.getGameState().getCurrentSite()))
             game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSpot(game, 2, Culture.SAURON, Race.ORC)
                 && game.getGameState().getHand(playerId).size() >= 4) {

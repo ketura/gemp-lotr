@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set4.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_338 extends AbstractSite {
     public Card4_338() {
-        super("Golden Hall", Block.TWO_TOWERS, 3, 1, Direction.RIGHT);
+        super("Golden Hall", SitesBlock.TWO_TOWERS, 3, 1, Direction.RIGHT);
 
     }
 
@@ -32,7 +32,7 @@ public class Card4_338 extends AbstractSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Side.FREE_PEOPLE, Filters.weapon)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(Side.FREE_PEOPLE, Filters.weapon)));
             return Collections.singletonList(action);
         }
         return null;

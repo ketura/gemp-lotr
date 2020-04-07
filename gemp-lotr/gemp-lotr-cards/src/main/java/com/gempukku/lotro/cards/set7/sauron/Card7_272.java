@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -38,7 +38,7 @@ public class Card7_272 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
-            if (playResult.getPlayedFrom() == Zone.STACKED && Filters.siteControlled(self.getOwner()).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedOrStackedPlayedFrom())) {
+            if (playResult.getPlayedFrom() == Zone.STACKED && Filters.siteControlled(self.getOwner()).accepts(game, playResult.getAttachedOrStackedPlayedFrom())) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new AddThreatsEffect(self.getOwner(), self, 2));

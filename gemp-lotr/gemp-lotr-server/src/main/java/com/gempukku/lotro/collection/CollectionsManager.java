@@ -1,74 +1,76 @@
 package com.gempukku.lotro.collection;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.packs.PacksStorage;
-import org.apache.log4j.Logger;
+import com.google.common.collect.Iterables;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CollectionsManager {
-    private static Logger _logger = Logger.getLogger(CollectionsManager.class);
     private ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
     private PlayerDAO _playerDAO;
     private CollectionDAO _collectionDAO;
     private TransferDAO _transferDAO;
+    private LotroCardBlueprintLibrary lotroCardBlueprintLibrary;
 
-    private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
-    private DefaultCardCollection _defaultCollection;
-
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary,
-                              CardSets cardSets) {
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
         _transferDAO = transferDAO;
-
-        _defaultCollection = new DefaultCardCollection();
-
-        // Hunters have 1-194 normal cards, 9 "O" cards, and 3 extra to cover the different culture versions of 15_60
-
-        boolean test = Boolean.valueOf(System.getProperty("test"));
-
-        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
-            if (setDefinition.hasFlag("playable")) {
-                _logger.debug("Loading set " + setDefinition.getSetId());
-                final Set<String> allCards = setDefinition.getAllCards();
-                for (String blueprintId : allCards) {
-                    if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                        try {
-                            LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                            CardType cardType = cardBlueprint.getCardType();
-                            if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                _defaultCollection.addItem(blueprintId, 1);
-                            else
-                                _defaultCollection.addItem(blueprintId, 4);
-                        } catch (CardNotFoundException exp) {
-                            throw new RuntimeException("Unable to start the server, due to invalid (missing) card definition - " + blueprintId);
-                        }
-                    }
-                }
-            }
-        }
-        _collectionReadyLatch.countDown();
+        this.lotroCardBlueprintLibrary = lotroCardBlueprintLibrary;
     }
 
     public CardCollection getDefaultCollection() {
-        try {
-            _collectionReadyLatch.await();
-        } catch (InterruptedException exp) {
-            throw new RuntimeException("Error while awaiting loading a default colleciton", exp);
-        }
-        return _defaultCollection;
+        return new CardCollection() {
+            @Override
+            public int getCurrency() {
+                return 0;
+            }
+
+            @Override
+            public Iterable<Item> getAll() {
+                return Iterables.transform(lotroCardBlueprintLibrary.getBaseCards().entrySet(),
+                        cardBlueprintEntry -> {
+                            String blueprintId = cardBlueprintEntry.getKey();
+                            int count = getCount(cardBlueprintEntry.getValue());
+                            return Item.createItem(blueprintId, count);
+                        }
+                );
+            }
+
+            @Override
+            public int getItemCount(String blueprintId) {
+                final String baseBlueprintId = lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId);
+                if (baseBlueprintId.equals(blueprintId)) {
+                    try {
+                        return getCount(lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId));
+                    } catch (CardNotFoundException exp) {
+                        return 0;
+                    }
+                }
+                return 0;
+            }
+
+            private int getCount(LotroCardBlueprint blueprint) {
+                final CardType cardType = blueprint.getCardType();
+                if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                    return 1;
+                return 4;
+            }
+
+            @Override
+            public Map<String, Object> getExtraInformation() {
+                return Collections.emptyMap();
+            }
+        };
     }
 
     public CardCollection getPlayerCollection(String playerName, String collectionType) {
@@ -186,7 +188,7 @@ public class CollectionsManager {
         return result;
     }
 
-    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, Collection<CardCollection.Item> items) {
+    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, Iterable<CardCollection.Item> items, Map<String, Object> extraInformation) {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -198,6 +200,12 @@ public class CollectionsManager {
                     addedCards.addItem(item.getBlueprintId(), item.getCount());
                 }
 
+                if (extraInformation != null) {
+                    Map<String, Object> resultExtraInformation = new HashMap<String, Object>(playerCollection.getExtraInformation());
+                    resultExtraInformation.putAll(extraInformation);
+                    mutableCardCollection.setExtraInformation(resultExtraInformation);
+                }
+
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                 _transferDAO.addTransferTo(notifyPlayer, player.getName(), reason, collectionType.getFullName(), 0, addedCards);
             }
@@ -206,7 +214,11 @@ public class CollectionsManager {
         }
     }
 
-    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, String player, CollectionType collectionType, Collection<CardCollection.Item> items) {
+    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, Iterable<CardCollection.Item> items) {
+        addItemsToPlayerCollection(notifyPlayer, reason, player, collectionType, items, null);
+    }
+
+    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, String player, CollectionType collectionType, Iterable<CardCollection.Item> items) {
         addItemsToPlayerCollection(notifyPlayer, reason, _playerDAO.getPlayer(player), collectionType, items);
     }
 

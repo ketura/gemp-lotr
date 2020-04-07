@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,16 +31,9 @@ public class Card3_121 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ArcheryTotalModifier(self, Side.FREE_PEOPLE,
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                PhysicalCard currentSite = gameState.getCurrentSite();
-                                return modifiersQuerying.hasKeyword(gameState, currentSite, Keyword.RIVER)
-                                        || modifiersQuerying.hasKeyword(gameState, currentSite, Keyword.FOREST);
-                            }
-                        }, 1));
+                        new LocationCondition(Filters.or(Keyword.RIVER, Keyword.FOREST)), 1));
     }
 }

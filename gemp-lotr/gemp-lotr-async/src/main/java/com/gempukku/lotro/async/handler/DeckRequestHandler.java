@@ -56,7 +56,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         } else if (uri.equals("/stats") && request.getMethod() == HttpMethod.POST) {
             getDeckStats(request, responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 
@@ -179,17 +179,17 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         result.append("<br/>");
         result.append("<b>Adventure deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll().values(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll(), _library, _formatLibrary, null))
             result.append(GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Free Peoples Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll().values(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Shadow Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll().values(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("</body></html>");

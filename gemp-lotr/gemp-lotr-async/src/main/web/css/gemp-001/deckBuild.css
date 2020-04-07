@@ -73,3 +73,9 @@ body {
 #filtering select {
     font-size: 80%;
 }
+
+#messageDiv {
+    text-align: center;
+    color: #ffffff;
+    font-size: 180%;
+}

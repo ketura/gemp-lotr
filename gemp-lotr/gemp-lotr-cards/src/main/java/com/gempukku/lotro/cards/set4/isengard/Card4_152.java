@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -10,6 +7,9 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.CantBeAssignedToSkirmishModifier;
 
@@ -21,13 +21,13 @@ import com.gempukku.lotro.logic.modifiers.CantBeAssignedToSkirmishModifier;
  * Type: Event
  * Game Text: Assignment: Prevent an [ISENGARD] tracker from being assigned to a skirmish by any player.
  */
-public class Card4_152 extends AbstractOldEvent {
+public class Card4_152 extends AbstractEvent {
     public Card4_152() {
-        super(Side.SHADOW, Culture.ISENGARD, "Get Back", Phase.ASSIGNMENT);
+        super(Side.SHADOW, 0, Culture.ISENGARD, "Get Back", Phase.ASSIGNMENT);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD tracker", Culture.ISENGARD, Keyword.TRACKER) {
@@ -39,10 +39,5 @@ public class Card4_152 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

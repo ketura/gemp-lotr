@@ -1,17 +1,13 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.StackActionEffect;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -30,7 +26,7 @@ public class Card17_045 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a MEN possession in your support are", Culture.MEN, CardType.POSSESSION, Zone.SUPPORT) {
@@ -43,10 +39,10 @@ public class Card17_045 extends AbstractEvent {
                                         action.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new StrengthModifier(self, minion, null,
-                                                                Filters.filter(game.getGameState().getStackedCards(possession), game.getGameState(), game.getModifiersQuerying(), CardType.MINION).size())));
-                                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                                                Filters.filter(game.getGameState().getStackedCards(possession), game, CardType.MINION).size())));
+                                        SubAction subAction = new SubAction(action);
                                         subAction.appendCost(
-                                                new DiscardCardsFromPlayEffect(self, possession));
+                                                new DiscardCardsFromPlayEffect(playerId, self, possession));
                                         subAction.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new KeywordModifier(self, minion, Keyword.DAMAGE, 1)));

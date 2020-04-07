@@ -1,11 +1,10 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
@@ -13,6 +12,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class DefaultTournamentTest {
     private int _waitForPairingsTime = 100;
@@ -114,10 +115,10 @@ public class DefaultTournamentTest {
         Thread.sleep(_waitForPairingsTime);
         tournament.advanceTournament(tournamentCallback, collectionsManager);
 
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p2", playerDecks.get("p2"), false);
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p3", playerDecks.get("p3"), "p4", playerDecks.get("p4"), false);
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p5", playerDecks.get("p5"), "p6", playerDecks.get("p6"), false);
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p7", playerDecks.get("p7"), "p8", playerDecks.get("p8"), false);
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p2", playerDecks.get("p2"));
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p3", playerDecks.get("p3"), "p4", playerDecks.get("p4"));
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p5", playerDecks.get("p5"), "p6", playerDecks.get("p6"));
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p7", playerDecks.get("p7"), "p8", playerDecks.get("p8"));
         
         Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
@@ -150,8 +151,8 @@ public class DefaultTournamentTest {
         Thread.sleep(_waitForPairingsTime);
         tournament.advanceTournament(tournamentCallback, collectionsManager);
 
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p3", playerDecks.get("p3"), false);
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p5", playerDecks.get("p5"), "p7", playerDecks.get("p7"), false);
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p3", playerDecks.get("p3"));
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p5", playerDecks.get("p5"), "p7", playerDecks.get("p7"));
 
         Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
         
@@ -174,7 +175,7 @@ public class DefaultTournamentTest {
         Thread.sleep(_waitForPairingsTime);
         tournament.advanceTournament(tournamentCallback, collectionsManager);
 
-        Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p5", playerDecks.get("p5"), false);
+        Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p5", playerDecks.get("p5"));
 
         Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 

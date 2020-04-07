@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set18.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Mountain. When the fellowship moves to this site, each player wounds two of his characters.
  */
-public class Card18_134 extends AbstractNewSite {
+public class Card18_134 extends AbstractShadowsSite {
     public Card18_134() {
         super("Doorway to Doom", 1, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);

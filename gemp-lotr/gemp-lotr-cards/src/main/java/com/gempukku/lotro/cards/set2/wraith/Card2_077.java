@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card2_077 extends AbstractPermanent {
     public Card2_077() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "His Terrible Servants");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "His Terrible Servants");
     }
 
     @Override

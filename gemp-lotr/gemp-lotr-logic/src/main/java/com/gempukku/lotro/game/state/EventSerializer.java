@@ -12,7 +12,7 @@ import java.util.Map;
 public class EventSerializer {
     public Node serializeEvent(Document doc, GameEvent gameEvent) {
         Element eventElem = doc.createElement("ge");
-        eventElem.setAttribute("type", gameEvent.getType().name());
+        eventElem.setAttribute("type", gameEvent.getType().getCode());
         if (gameEvent.getBlueprintId() != null)
             eventElem.setAttribute("blueprintId", gameEvent.getBlueprintId());
         if (gameEvent.getCardId() != null)
@@ -57,6 +57,8 @@ public class EventSerializer {
             eventElem.setAttribute("message", gameEvent.getMessage());
         if (gameEvent.getGameStats() != null) {
             GameStats gameStats = gameEvent.getGameStats();
+            if (gameStats.getWearingRing() != null)
+                eventElem.setAttribute("wearingRing", String.valueOf(gameStats.getWearingRing()));
             eventElem.setAttribute("fellowshipArchery", String.valueOf(gameStats.getFellowshipArchery()));
             eventElem.setAttribute("shadowArchery", String.valueOf(gameStats.getShadowArchery()));
 

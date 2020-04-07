@@ -11,6 +11,10 @@ public class PlayerOrder {
         _turnOrder = turnOrder;
     }
 
+    public String getFirstPlayer() {
+        return _turnOrder.get(0);
+    }
+
     public List<String> getAllPlayers() {
         return Collections.unmodifiableList(_turnOrder);
     }

@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set15.orc;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -11,11 +7,15 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Hunters
@@ -32,13 +32,12 @@ public class Card15_119 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Culture.ORC, CardType.MINION);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, 2, Culture.ORC, CardType.MINION);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a card to discard", Side.FREE_PEOPLE, CardType.CONDITION, Filters.canBeDiscarded(self)) {
@@ -46,12 +45,12 @@ public class Card15_119 extends AbstractEvent {
                     protected void cardSelected(final LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new PreventableEffect(action,
-                                        new DiscardCardsFromPlayEffect(self, card),
+                                        new DiscardCardsFromPlayEffect(playerId, self, card),
                                         game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override
-                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                return new AddTwilightEffect(self, 2 * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.CONDITION));
+                                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
+                                                return new AddTwilightEffect(self, 2 * Filters.countActive(game, Side.FREE_PEOPLE, CardType.CONDITION));
                                             }
                                         }
                                 ));

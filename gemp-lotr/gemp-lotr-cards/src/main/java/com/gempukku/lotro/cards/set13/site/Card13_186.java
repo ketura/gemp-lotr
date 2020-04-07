@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -21,7 +21,7 @@ import java.util.List;
  * Game Text: Underground. When the fellowship moves to this site during the regroup phase, the Free Peoples player may
  * remove 2 burdens.
  */
-public class Card13_186 extends AbstractNewSite {
+public class Card13_186 extends AbstractShadowsSite {
     public Card13_186() {
         super("Caves of Aglarond", 3, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);

@@ -1,19 +1,18 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
-import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
-import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
+import com.gempukku.lotro.logic.effects.PreventAllWoundsActionProxy;
+import com.gempukku.lotro.logic.effects.StackCardFromHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,14 +29,14 @@ import java.util.List;
  */
 public class Card4_047 extends AbstractPermanent {
     public Card4_047() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "From the Armory");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, "From the Armory");
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, Race.DWARF)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Side.FREE_PEOPLE).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF) {

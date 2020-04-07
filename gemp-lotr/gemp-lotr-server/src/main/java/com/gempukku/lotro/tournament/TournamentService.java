@@ -1,9 +1,9 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DraftPack;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;

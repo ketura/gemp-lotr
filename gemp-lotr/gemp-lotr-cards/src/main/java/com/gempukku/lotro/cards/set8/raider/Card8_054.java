@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set8.raider;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -43,7 +43,9 @@ public class Card8_054 extends AbstractMinion {
                 && PlayConditions.canRemoveAnyCultureTokens(game, 2, Filters.any)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 2, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 1, Filters.any));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a card to add tokens to", Filters.hasToken(Token.RAIDER)) {
                         @Override

@@ -1,18 +1,19 @@
 package com.gempukku.lotro.cards.set18.men;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
+import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Collections;
@@ -33,15 +34,14 @@ public class Card18_065 extends AbstractResponseEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canDiscardCardsFromHandToPlay(self, game, playerId, 1, Culture.MEN);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canDiscardCardsFromHandToPlay(self, game, self.getOwner(), 1, Culture.MEN);
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.owner(game.getGameState().getCurrentPlayerId()), CardType.COMPANION)
-                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
+                && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.MEN));

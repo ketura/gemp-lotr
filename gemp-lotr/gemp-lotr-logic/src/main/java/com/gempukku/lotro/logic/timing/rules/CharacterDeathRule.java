@@ -55,12 +55,12 @@ public class CharacterDeathRule {
         if (game.getGameState().getCurrentPhase() != Phase.PUT_RING_BEARER && game.getGameState().getCurrentPhase() != Phase.BETWEEN_TURNS) {
             GameState gameState = game.getGameState();
 
-            Collection<PhysicalCard> characters = Filters.filterActive(gameState, game.getModifiersQuerying(),
+            Collection<PhysicalCard> characters = Filters.filterActive(game,
                     Filters.or(CardType.ALLY, CardType.COMPANION, CardType.MINION));
 
             Set<PhysicalCard> deadChars = new HashSet<PhysicalCard>();
             for (PhysicalCard character : characters)
-                if (!_charactersAlreadyOnWayToDeath.contains(character) && game.getModifiersQuerying().getVitality(gameState, character) <= 0)
+                if (!_charactersAlreadyOnWayToDeath.contains(character) && game.getModifiersQuerying().getVitality(game, character) <= 0)
                     deadChars.add(character);
 
             if (deadChars.size() > 0) {

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -21,7 +21,7 @@ import java.util.List;
  * Game Text: Battleground. Each time a [GANDALF] companion wins a skirmish, the Free Peoples player may discard
  * a condition from play.
  */
-public class Card11_244 extends AbstractNewSite {
+public class Card11_244 extends AbstractShadowsSite {
     public Card11_244() {
         super("Heights of Isengard", 3, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);

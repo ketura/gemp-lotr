@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set8.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.OverwhelmedByMultiplierModifier;
 
 /**
  * Set: Siege of Gondor
@@ -26,10 +26,10 @@ public class Card8_014 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard currentSite = game.getGameState().getCurrentSite();
-        if (currentSite.getBlueprint().getSiteBlock() == Block.KING
+        if (currentSite.getBlueprint().getSiteBlock() == SitesBlock.KING
                 && currentSite.getSiteNumber() >= 1 && currentSite.getSiteNumber() <= 5) {
             action.appendEffect(
                     new HealCharactersEffect(self, Filters.gandalf));

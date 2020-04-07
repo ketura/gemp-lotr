@@ -1,12 +1,10 @@
 package com.gempukku.lotro.cards.set18.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 
 /**
  * Set: Treachery & Deceit
@@ -23,17 +21,17 @@ public class Card18_069 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.MEN, CardType.MINION);
+    }
+
+    @Override
+    public int getStrength() {
+        return 1;
     }
 
     @Override
     public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
         return true;
-    }
-
-    @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), 1);
     }
 }
