@@ -175,9 +175,7 @@
             "type": "chooseYesOrNo",
             "player": "fp",
             "text": "Would you like to skip the Archery phase?",
-            "memorize": "choice",
-            "yes": "yes",
-            "no": "no"
+            "memorize": "choice"
           },
           {
             "type": "conditional",
