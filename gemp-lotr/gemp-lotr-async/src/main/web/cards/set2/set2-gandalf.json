@@ -27,6 +27,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "artifact",
+    "possession": "staff",
     "vitality": 1,
     "target": "name(Gandalf)",
     "effects": [
@@ -263,6 +264,7 @@
       "type": "event",
       "effect": {
         "type": "removeKeyword",
+        "keyword": "fierce",
         "until": "start(regroup)",
         "filter": "choose(minion)"
       }
