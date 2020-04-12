@@ -657,6 +657,29 @@
       ]
     }
   },
+  "31_39": {
+    "title": "An Invisible Ring",
+    "culture": "shire",
+    "type": "event",
+    "keyword": "skirmish",
+    "cost": 1,
+    "condition": {
+      "type": "ringIsOn"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "wound",
+          "filter": "all(minion,inSkirmishAgainst(ring bearer))"
+        },
+        {
+          "type": "removefromthegame",
+          "filter": "self"
+        }
+      ]
+    }
+  },
   "31_40": {
     "title": "Barrels",
     "culture": "shire",
