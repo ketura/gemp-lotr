@@ -27,6 +27,9 @@ var packBlueprints = {
     "(S)SH - Starter": "/gemp-lotr/images/boosters/sh_starter_selection.png",
     "(S)BR - Starter": "/gemp-lotr/images/boosters/br_starter_selection.png",
     "(S)BL - Starter": "/gemp-lotr/images/boosters/bl_starter_selection.png",
+    
+    "(S)HU - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)RoS - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
 
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
@@ -92,12 +95,12 @@ var packBlueprints = {
     "BL - Boromir Starter": "/gemp-lotr/images/boosters/bl_boromir_starter.png",
     "BL - Booster": "/gemp-lotr/images/boosters/bl_booster.png",
 
-    "HU - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "HU - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "HU - Aragorn Starter": "/gemp-lotr/images/boosters/hu_aragorn_starter.png",
+    "HU - Mauhur Starter": "/gemp-lotr/images/boosters/hu_mauhur_starter.png",
     "HU - Booster": "/gemp-lotr/images/boosters/hu_booster.png",
 
-    "RoS - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "RoS - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "RoS - Uruk Rampage Starter": "/gemp-lotr/images/boosters/ros_uruk_rampage_starter.png",
+    "RoS - Evil Man Starter": "/gemp-lotr/images/boosters/ros_evil_man_starter.png",
     "RoS - Booster": "/gemp-lotr/images/boosters/ros_booster.png",
 
     "TaD - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",

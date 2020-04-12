@@ -23,8 +23,8 @@ public class ChooseYesOrNo implements EffectAppenderProducer {
         if (text == null)
             throw new InvalidCardDefinitionException("Text is required for Yes or No decision");
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
-        final String yesAnswer = FieldUtils.getString(effectObject.get("yes"), "yes");
-        final String noAnswer = FieldUtils.getString(effectObject.get("no"), "no");
+        final String yesAnswer = FieldUtils.getString(effectObject.get("yes"), "yes", "yes");
+        final String noAnswer = FieldUtils.getString(effectObject.get("no"), "no", "no");
         PlayerSource playerSource = PlayerResolver.resolvePlayer(FieldUtils.getString(effectObject.get("player"), "player", "you"), environment);
 
         return new DelayedAppender() {

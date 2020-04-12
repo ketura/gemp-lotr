@@ -17,6 +17,7 @@ public class SealedLeagueProduct {
         createTowersBlock();
         createMovieBlock();
         createWarOfTheRingBlock();
+        createHuntersBlock();
         createMovieSpecialBlock();
         createTSSpecialBlock();
     }
@@ -206,7 +207,37 @@ public class SealedLeagueProduct {
 
         _collections.put(SealedLeagueType.WAR_BLOCK.getSealedCode(), warOfTheRingBlock);
     }
+    
+private void createHuntersBlock() {
+        List<CardCollection> huntersBlock = new ArrayList<CardCollection>();
 
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        firstWeek.addItem("(S)HU - Starter", 1);
+        firstWeek.addItem("HU - Booster", 6);
+        huntersBlock.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        secondWeek.addItem("(S)RoS - Starter", 1);
+        secondWeek.addItem("RoS - Booster", 6);
+        huntersBlock.add(secondWeek);
+
+        MutableCardCollection thirdWeek = new DefaultCardCollection();
+        thirdWeek.addItem("TaD - Booster", 6);
+        thirdWeek.addItem("19_5", 1);
+        thirdWeek.addItem("19_24", 1);
+        thirdWeek.addItem("19_23", 1);
+        thirdWeek.addItem("19_33", 1);
+        huntersBlock.add(thirdWeek);
+    
+        MutableCardCollection fourthWeek = new DefaultCardCollection();
+        fourthWeek.addItem("HU - Booster", 2);
+        fourthWeek.addItem("RoS - Booster", 2);
+        fourthWeek.addItem("TaD - Booster", 2);
+        huntersBlock.add(fourthWeek);
+
+        _collections.put(SealedLeagueType.HUNTERS_BLOCK.getSealedCode(), huntersBlock);
+    }
+    
     public CardCollection getCollectionForSerie(String leagueCode, int serieIndex) {
         return _collections.get(leagueCode).get(serieIndex);
     }
