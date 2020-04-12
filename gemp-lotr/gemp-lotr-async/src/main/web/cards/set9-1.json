@@ -699,7 +699,7 @@
     "title": "*Narya",
     "subtitle": "Ring of Fire",
     "culture": "elven",
-    "cost": 1,
+    "cost": 0,
     "type": "artifact",
     "possession": "ring",
     "vitality": 1,
