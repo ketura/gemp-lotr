@@ -23,10 +23,11 @@ import java.util.List;
 public class PutCardsFromDeckIntoHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "shuffle");
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
+        final boolean shuffle = FieldUtils.getBoolean(effectObject.get("shuffle"), "shuffle", false);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -46,13 +47,14 @@ public class PutCardsFromDeckIntoHand implements EffectAppenderProducer {
                         return result;
                     }
                 });
-        result.addEffectAppender(
-                new DelayedAppender() {
-                    @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        return new ShuffleDeckEffect(actionContext.getPerformingPlayer());
-                    }
-                });
+        if (shuffle)
+            result.addEffectAppender(
+                    new DelayedAppender() {
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new ShuffleDeckEffect(actionContext.getPerformingPlayer());
+                }
+            });
 
         return result;
 
