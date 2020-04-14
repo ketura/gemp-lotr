@@ -241,6 +241,54 @@
       }
     ]
   },
+  "31_7": {
+    "title": "*The Arkenstone",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "addTwilight"
+        },
+        "effect": {
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(any)",
+          "on": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(dwarven),companion)"
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "perPhaseLimit",
+            "limit": 1
+          },
+          "effect": [
+            {
+              "type": "incrementPerPhaseLimit",
+              "limit": 1
+            },
+            {
+              "type": "stackCardsFromDeck",
+              "filter": "choose(culture(dwarven),event)",
+              "where": "self",
+              "shuffle": true
+            }
+          ]
+        }
+      }
+    ]
+  },
   "31_8": {
     "title": "*Elf Army",
     "culture": "elven",
