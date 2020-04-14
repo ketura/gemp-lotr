@@ -1,0 +1,64 @@
+{
+  "6_79": {
+    "side": "shadow",
+    "cost": 0,
+    "strength": 2,
+    "culture": "Raider",
+    "possession": "Hand Weapon",
+    "title": "Easterling Polearm",
+    "type": "possession"
+  },
+  "6_78": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 6,
+    "race": "Man",
+    "strength": 13,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "Easterling Army",
+    "type": "minion",
+    "keyword": [
+      "Fierce",
+      "Easterling"
+    ]
+  },
+  "6_80": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 8,
+    "race": "Man",
+    "strength": 13,
+    "culture": "Raider",
+    "vitality": 4,
+    "title": "Southron Archer Legion",
+    "type": "minion",
+    "keyword": [
+      "Archer",
+      "Southron"
+    ]
+  },
+  "6_82": {
+    "side": "shadow",
+    "cost": 0,
+    "culture": "Raider",
+    "title": "Trample",
+    "type": "event",
+    "keyword": "Maneuver"
+  },
+  "6_81": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 5,
+    "race": "Man",
+    "strength": 10,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "Southron Invaders",
+    "type": "minion",
+    "keyword": [
+      "Ambush",
+      "Southron"
+    ]
+  }
+}

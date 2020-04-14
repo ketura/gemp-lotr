@@ -1,0 +1,112 @@
+{
+  "5_76": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 3,
+    "race": "Man",
+    "strength": 8,
+    "culture": "Raider",
+    "vitality": 1,
+    "title": "Southron Traveler",
+    "type": "minion",
+    "keyword": [
+      "Ambush+2",
+      "Southron"
+    ]
+  },
+  "5_75": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 3,
+    "race": "Man",
+    "strength": 4,
+    "culture": "Raider",
+    "vitality": 1,
+    "title": "Southron Runner",
+    "type": "minion",
+    "keyword": [
+      "Ambush+2",
+      "Southron"
+    ]
+  },
+  "5_78": {
+    "side": "shadow",
+    "cost": 3,
+    "strength": 4,
+    "culture": "Raider",
+    "possession": "Mount",
+    "title": "War Mumak",
+    "type": "possession"
+  },
+  "5_77": {
+    "side": "shadow",
+    "cost": 0,
+    "culture": "Raider",
+    "title": "Strength in Numbers",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "5_70": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 7,
+    "race": "Man",
+    "strength": 14,
+    "culture": "Raider",
+    "vitality": 4,
+    "title": "*Army of Haradrim",
+    "type": "minion",
+    "keyword": "Southron"
+  },
+  "5_72": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 5,
+    "race": "Man",
+    "strength": 11,
+    "culture": "Raider",
+    "vitality": 2,
+    "title": "Desert Stalker",
+    "type": "minion",
+    "keyword": [
+      "Ambush+2",
+      "Southron"
+    ]
+  },
+  "5_71": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 6,
+    "race": "Man",
+    "strength": 13,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "Company of Haradrim",
+    "type": "minion",
+    "keyword": "Southron"
+  },
+  "5_74": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 4,
+    "race": "Man",
+    "strength": 6,
+    "culture": "Raider",
+    "vitality": 1,
+    "title": "Southron Marcher",
+    "type": "minion",
+    "keyword": [
+      "Ambush+2",
+      "Southron"
+    ]
+  },
+  "5_73": {
+    "side": "shadow",
+    "cost": 2,
+    "strength": 3,
+    "culture": "Raider",
+    "possession": "Mount",
+    "title": "Mumak",
+    "type": "possession"
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "8_58": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 2,
+    "race": "Man",
+    "strength": 6,
+    "culture": "Raider",
+    "vitality": 2,
+    "title": "Corsair Plunderer",
+    "type": "minion",
+    "keyword": "Corsair"
+  },
+  "8_59": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Raider",
+    "title": "Corsair War Galley",
+    "type": "possession",
+    "keyword": "Support Area"
+  },
+  "8_56": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 1,
+    "race": "Man",
+    "strength": 5,
+    "culture": "Raider",
+    "vitality": 1,
+    "title": "Corsair Lookout",
+    "type": "minion",
+    "keyword": "Corsair"
+  },
+  "8_57": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 4,
+    "race": "Man",
+    "strength": 9,
+    "culture": "Raider",
+    "vitality": 2,
+    "title": "Corsair Marauder",
+    "type": "minion",
+    "keyword": "Corsair"
+  },
+  "8_49": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 6,
+    "race": "Man",
+    "strength": 12,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "Black Numenorean",
+    "type": "minion",
+    "keyword": [
+      "Fierce",
+      "Corsair"
+    ]
+  },
+  "8_50": {
+    "side": "shadow",
+    "cost": 2,
+    "culture": "Raider",
+    "title": "Black Sails of Umbar",
+    "type": "possession",
+    "keyword": "Support Area"
+  },
+  "8_61": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Raider",
+    "title": "*Haradwaith",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "8_51": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 7,
+    "race": "Man",
+    "strength": 14,
+    "culture": "Raider",
+    "vitality": 4,
+    "title": "*Castamir of Umbar",
+    "type": "minion",
+    "keyword": [
+      "Enduring",
+      "Fierce",
+      "Corsair"
+    ]
+  },
+  "8_62": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 5,
+    "race": "Man",
+    "strength": 11,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "*Heavy Axeman",
+    "type": "minion",
+    "keyword": "Easterling"
+  },
+  "8_60": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 5,
+    "race": "Man",
+    "strength": 11,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "*Haradrim Marksman",
+    "type": "minion",
+    "keyword": [
+      "Archer",
+      "Southron"
+    ]
+  },
+  "8_54": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 3,
+    "race": "Man",
+    "strength": 8,
+    "culture": "Raider",
+    "vitality": 2,
+    "title": "Corsair Freebooter",
+    "type": "minion",
+    "keyword": "Corsair"
+  },
+  "8_65": {
+    "side": "shadow",
+    "cost": 2,
+    "culture": "Raider",
+    "title": "Ships of Great Draught",
+    "type": "possession",
+    "keyword": "Support Area"
+  },
+  "8_55": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 5,
+    "race": "Man",
+    "strength": 10,
+    "culture": "Raider",
+    "vitality": 3,
+    "title": "Corsair Gunners",
+    "type": "minion",
+    "keyword": "Corsair"
+  },
+  "8_66": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Raider",
+    "title": "Wind That Sped Ships",
+    "type": "event",
+    "keyword": "Skirmish"
+  },
+  "8_52": {
+    "side": "shadow",
+    "cost": 0,
+    "strength": 2,
+    "culture": "Raider",
+    "possession": "Ranged Weapon",
+    "title": "Corsair Ballista",
+    "type": "possession"
+  },
+  "8_63": {
+    "side": "shadow",
+    "cost": 3,
+    "culture": "Raider",
+    "title": "Line of Defense",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "8_53": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 3,
+    "race": "Man",
+    "strength": 8,
+    "culture": "Raider",
+    "vitality": 2,
+    "title": "Corsair Buccaneer",
+    "type": "minion",
+    "keyword": "Corsair"
+  },
+  "8_64": {
+    "side": "shadow",
+    "cost": 3,
+    "strength": 3,
+    "culture": "Raider",
+    "possession": "Mount",
+    "title": "Mumakil",
+    "type": "possession"
+  }
+}

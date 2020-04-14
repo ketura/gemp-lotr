@@ -1,0 +1,40 @@
+{
+  "13_79": {
+    "side": "shadow",
+    "cost": 3,
+    "race": "Wizard",
+    "culture": "Isengard",
+    "title": "*Pallando Deceived",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "13_78": {
+    "side": "shadow",
+    "cost": 3,
+    "race": "Wizard",
+    "culture": "Isengard",
+    "title": "*Alatar Deceived",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "13_81": {
+    "side": "shadow",
+    "cost": 2,
+    "strength": 2,
+    "culture": "Isengard",
+    "vitality": 1,
+    "subtitle": "Fallen Istar's Stave",
+    "possession": "Staff",
+    "title": "*Staff of Saruman",
+    "type": "artifact"
+  },
+  "13_80": {
+    "side": "shadow",
+    "cost": 3,
+    "race": "Wizard",
+    "culture": "Isengard",
+    "title": "*Radagast Deceived",
+    "type": "condition",
+    "keyword": "Support Area"
+  }
+}

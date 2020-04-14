@@ -1,0 +1,18 @@
+{
+  "18_132": {
+    "side": "shadow",
+    "cost": 2,
+    "culture": "Wraith",
+    "title": "All Life Flees",
+    "type": "event",
+    "keyword": "Shadow"
+  },
+  "18_133": {
+    "side": "shadow",
+    "cost": 0,
+    "culture": "Wraith",
+    "title": "Pull of the Ring",
+    "type": "event",
+    "keyword": "Assignment"
+  }
+}

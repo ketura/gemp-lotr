@@ -1,0 +1,26 @@
+{
+  "6_9": {
+    "side": "free_people",
+    "cost": 0,
+    "culture": "Dwarven",
+    "title": "Lend Us Your Aid",
+    "type": "event",
+    "keyword": "Maneuver"
+  },
+  "6_11": {
+    "side": "free_people",
+    "cost": 1,
+    "culture": "Dwarven",
+    "title": "Toss Me",
+    "type": "event",
+    "keyword": "Fellowship"
+  },
+  "6_10": {
+    "side": "free_people",
+    "cost": 2,
+    "culture": "Dwarven",
+    "title": "*Suspended Palaces",
+    "type": "condition",
+    "keyword": "Support Area"
+  }
+}

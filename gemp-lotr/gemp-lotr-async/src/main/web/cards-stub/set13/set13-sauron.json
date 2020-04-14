@@ -1,0 +1,28 @@
+{
+  "13_140": {
+    "side": "shadow",
+    "site": 6,
+    "cost": 16,
+    "race": "Maia",
+    "strength": 24,
+    "culture": "Sauron",
+    "vitality": 5,
+    "subtitle": "Dark Lord of Mordor",
+    "title": "*Sauron",
+    "type": "minion",
+    "keyword": [
+      "Damage",
+      "Fierce"
+    ]
+  },
+  "13_141": {
+    "side": "shadow",
+    "cost": 0,
+    "strength": 2,
+    "culture": "Sauron",
+    "vitality": 1,
+    "possession": "Hand Weapon",
+    "title": "*Sceptre of the Dark Lord",
+    "type": "artifact"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "3_116": {
+    "site": 4,
+    "cost": 2,
+    "block": "Fellowship",
+    "title": "Eregion Hills",
+    "type": "site",
+    "direction": "right"
+  },
+  "3_117": {
+    "site": 8,
+    "cost": 8,
+    "block": "Fellowship",
+    "title": "Gates of Argonath",
+    "type": "site",
+    "keyword": "River",
+    "direction": "right"
+  },
+  "3_115": {
+    "site": 6,
+    "cost": 3,
+    "block": "Fellowship",
+    "title": "Caras Galadhon",
+    "type": "site",
+    "keyword": "Forest",
+    "direction": "left"
+  },
+  "3_118": {
+    "site": 7,
+    "cost": 6,
+    "block": "Fellowship",
+    "title": "The Great River",
+    "type": "site",
+    "keyword": "River",
+    "direction": "right"
+  },
+  "3_119": {
+    "site": 3,
+    "cost": 0,
+    "block": "Fellowship",
+    "title": "House of Elrond",
+    "type": "site",
+    "direction": "right"
+  },
+  "3_120": {
+    "site": 9,
+    "cost": 9,
+    "block": "Fellowship",
+    "title": "Wastes of Emyn Muil",
+    "type": "site",
+    "direction": "left"
+  }
+}
