@@ -1,0 +1,68 @@
+{
+  "15_187": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Anduin River",
+    "type": "site",
+    "keyword": "River",
+    "direction": "left"
+  },
+  "15_188": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Breeding Pit of Isengard",
+    "type": "site",
+    "keyword": "Underground",
+    "direction": "left"
+  },
+  "15_189": {
+    "cost": 1,
+    "block": "Shadows and onwards",
+    "title": "City Gates",
+    "type": "site",
+    "direction": "right"
+  },
+  "15_193": {
+    "cost": 3,
+    "block": "Shadows and onwards",
+    "title": "Mount Doom",
+    "type": "site",
+    "keyword": [
+      "Underground",
+      "Mountain",
+      "Battleground"
+    ],
+    "direction": "left"
+  },
+  "15_194": {
+    "cost": 2,
+    "block": "Shadows and onwards",
+    "title": "Westfold Village",
+    "type": "site",
+    "keyword": "Plains",
+    "direction": "left"
+  },
+  "15_190": {
+    "cost": 3,
+    "block": "Shadows and onwards",
+    "title": "East Wall of Rohan",
+    "type": "site",
+    "direction": "right"
+  },
+  "15_191": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Gate of Mordor",
+    "type": "site",
+    "keyword": "Battleground",
+    "direction": "left"
+  },
+  "15_192": {
+    "cost": 1,
+    "block": "Shadows and onwards",
+    "title": "Isengard Ruined",
+    "type": "site",
+    "keyword": "Battleground",
+    "direction": "right"
+  }
+}

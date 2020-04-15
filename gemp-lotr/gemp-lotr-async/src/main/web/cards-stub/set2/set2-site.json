@@ -1,0 +1,54 @@
+{
+  "2_119": {
+    "site": 4,
+    "cost": 3,
+    "block": "Fellowship",
+    "title": "Hollin",
+    "type": "site",
+    "keyword": "Plains",
+    "direction": "right"
+  },
+  "2_115": {
+    "site": 1,
+    "cost": 0,
+    "block": "Fellowship",
+    "title": "Hobbiton Party Field",
+    "type": "site",
+    "direction": "left"
+  },
+  "2_116": {
+    "site": 1,
+    "cost": 0,
+    "block": "Fellowship",
+    "title": "Hobbiton Woods",
+    "type": "site",
+    "keyword": "Forest",
+    "direction": "left"
+  },
+  "2_117": {
+    "site": 1,
+    "cost": 0,
+    "block": "Fellowship",
+    "title": "Town Center",
+    "type": "site",
+    "direction": "left"
+  },
+  "2_118": {
+    "site": 4,
+    "cost": 4,
+    "block": "Fellowship",
+    "title": "Great Chasm",
+    "type": "site",
+    "keyword": "Underground",
+    "direction": "right"
+  },
+  "2_120": {
+    "site": 6,
+    "cost": 3,
+    "block": "Fellowship",
+    "title": "Valley of the Silverlode",
+    "type": "site",
+    "keyword": "River",
+    "direction": "left"
+  }
+}

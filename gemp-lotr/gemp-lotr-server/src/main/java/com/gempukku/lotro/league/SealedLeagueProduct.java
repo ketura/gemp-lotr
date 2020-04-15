@@ -224,9 +224,11 @@ private void createHuntersBlock() {
         MutableCardCollection thirdWeek = new DefaultCardCollection();
         thirdWeek.addItem("TaD - Booster", 6);
         thirdWeek.addItem("19_5", 1);
+        thirdWeek.addItem("19_14", 1);
         thirdWeek.addItem("19_24", 1);
         thirdWeek.addItem("19_23", 1);
         thirdWeek.addItem("19_33", 1);
+        thirdWeek.addItem("11_88", 1);
         huntersBlock.add(thirdWeek);
     
         MutableCardCollection fourthWeek = new DefaultCardCollection();

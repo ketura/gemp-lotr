@@ -1,0 +1,61 @@
+{
+  "10_19": {
+    "side": "shadow",
+    "cost": 0,
+    "culture": "Gollum",
+    "title": "A Dark Shape Sprang",
+    "type": "event",
+    "keyword": "Response"
+  },
+  "10_21": {
+    "side": "shadow",
+    "site": 3,
+    "cost": 2,
+    "strength": 5,
+    "culture": "Gollum",
+    "vitality": 4,
+    "subtitle": "Mad Thing",
+    "title": "*Gollum",
+    "type": "minion"
+  },
+  "10_20": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Gollum",
+    "title": "Final Strike",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "10_23": {
+    "side": "shadow",
+    "site": 8,
+    "cost": 6,
+    "race": "Spider",
+    "strength": 8,
+    "culture": "Gollum",
+    "vitality": 8,
+    "subtitle": "Her Ladyship",
+    "title": "*Shelob",
+    "type": "minion",
+    "keyword": [
+      "Enduring",
+      "Fierce"
+    ]
+  },
+  "10_22": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Gollum",
+    "title": "Reclaim the Precious",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "10_24": {
+    "side": "shadow",
+    "cost": 0,
+    "culture": "Gollum",
+    "title": "*Unabated in Malice",
+    "type": "condition",
+    "keyword": "Support Area"
+  }
+}

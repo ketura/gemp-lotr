@@ -1,0 +1,23 @@
+{
+  "6_77": {
+    "side": "shadow",
+    "cost": 0,
+    "culture": "Moria",
+    "title": "*Durin's Tower",
+    "type": "condition",
+    "keyword": "Support Area"
+  },
+  "6_76": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 14,
+    "race": "Balrog",
+    "strength": 17,
+    "culture": "Moria",
+    "vitality": 5,
+    "subtitle": "Terror of Flame and Shadow",
+    "title": "*The Balrog",
+    "type": "minion",
+    "keyword": "Damage+2"
+  }
+}

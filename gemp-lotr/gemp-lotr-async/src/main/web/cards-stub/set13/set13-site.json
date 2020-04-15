@@ -1,0 +1,85 @@
+{
+  "13_190": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Doors of Durin",
+    "type": "site",
+    "keyword": "Marsh",
+    "direction": "left"
+  },
+  "13_191": {
+    "cost": 2,
+    "block": "Shadows and onwards",
+    "title": "Fords of Isen",
+    "type": "site",
+    "keyword": "River",
+    "direction": "left"
+  },
+  "13_192": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "The Great Gates",
+    "type": "site",
+    "keyword": "Battleground",
+    "direction": "left"
+  },
+  "13_193": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Isenwash",
+    "type": "site",
+    "keyword": [
+      "Plains",
+      "Battleground"
+    ],
+    "direction": "left"
+  },
+  "13_194": {
+    "cost": 2,
+    "block": "Shadows and onwards",
+    "title": "Redhorn Pass",
+    "type": "site",
+    "keyword": "Mountain",
+    "direction": "left"
+  },
+  "13_185": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Abandoned Mine Shaft",
+    "type": "site",
+    "keyword": "Underground",
+    "direction": "left"
+  },
+  "13_186": {
+    "cost": 3,
+    "block": "Shadows and onwards",
+    "title": "Caves of Aglarond",
+    "type": "site",
+    "keyword": "Underground",
+    "direction": "right"
+  },
+  "13_187": {
+    "cost": 3,
+    "block": "Shadows and onwards",
+    "title": "City of Kings",
+    "type": "site",
+    "keyword": "Battleground",
+    "direction": "right"
+  },
+  "13_188": {
+    "cost": 0,
+    "block": "Shadows and onwards",
+    "title": "Courtyard Parapet",
+    "type": "site",
+    "keyword": "Dwelling",
+    "direction": "left"
+  },
+  "13_189": {
+    "cost": 3,
+    "block": "Shadows and onwards",
+    "title": "Crossroads of the Fallen Kings",
+    "type": "site",
+    "keyword": "Forest",
+    "direction": "right"
+  }
+}

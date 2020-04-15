@@ -116,6 +116,7 @@
     "cost": 1,
     "type": "ally",
     "allyHome": "fellowship,3",
+    "race": "man",
     "strength": 4,
     "vitality": 2,
     "condition": {
