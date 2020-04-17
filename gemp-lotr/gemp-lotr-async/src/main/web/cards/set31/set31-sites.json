@@ -35,7 +35,6 @@
     "keyword": "forest",
     "effects": {
       "type": "trigger",
-      "optional": true,
       "trigger": {
         "type": "startOfPhase",
         "phase": "maneuver"
