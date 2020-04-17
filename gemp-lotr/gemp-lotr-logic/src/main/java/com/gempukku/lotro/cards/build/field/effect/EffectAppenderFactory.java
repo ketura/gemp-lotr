@@ -133,6 +133,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("getcardsfromtopofdeck", new GetCardsFromTopOfDeck());
         effectAppenderProducers.put("removetext", new RemoveText());
         effectAppenderProducers.put("stackcardsfromdeck", new StackCardsFromDeck());
+        effectAppenderProducers.put("foreachplayer", new ForEachPlayer());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
