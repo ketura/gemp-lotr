@@ -35,14 +35,31 @@
     "keyword": "forest",
     "effects": {
       "type": "trigger",
-      "optional": true,
       "trigger": {
         "type": "startOfPhase",
         "phase": "maneuver"
       },
       "effect": {
-        "type": "playCardFromDrawDeck",
-        "filter": "choose(hand weapon)"
+        "type":"forEachPlayer",
+        "effect": [
+          {
+            "type": "chooseYesOrNo",
+            "text": "Would you like to play a hand weapon?",
+            "memorize": "choice"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryIs",
+              "memory": "choice",
+              "value": "yes"
+            },
+            "effect": {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(hand weapon)"
+            }
+          }
+        ]
       }
     }
   },

@@ -419,19 +419,28 @@
       "search",
       "support area"
     ],
-    "effects": {
-      "type": "modifier",
-      "modifier": {
-        "type": "modifyCost",
-        "condition": {
-          "type": "canSpot",
-          "count": 5,
-          "filter": "companion"
-        },
-        "filter": "companion",
-        "amount": 2
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "canSpot",
+            "count": 5,
+            "filter": "companion"
+          },
+          "filter": "companion",
+          "amount": 2
+        }
       }
-    }
+    ]
   },
   "1_254": {
     "title": "Mordor Enraged",

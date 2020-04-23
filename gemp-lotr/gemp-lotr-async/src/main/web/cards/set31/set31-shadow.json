@@ -79,31 +79,37 @@
       {
         "type": "activated",
         "phase": "assignment",
+        "condition": {
+          "type": "canspot",
+          "filter": "self,assignableToSkirmishAgainst(name(Bilbo))"
+        },
         "cost": [
           {
             "type": "exert",
             "filter": "choose(self,not(roaming))"
-          },
+          }
+        ],
+        "effect": [
           {
             "type": "assignFpCharacterToSkirmish",
             "fpCharacter": "choose(name(Bilbo))",
             "against": "self"
-          }
-        ],
-        "effect": {
-          "type": "modifyStrength",
-          "filter": "self",
-          "amount": {
-            "type": "condition",
-            "condition": {
-              "type": "location",
-              "filter": "underground"
-            },
-            "true": 3,
-            "false": 1
           },
-          "until": "start(regroup)"
-        }
+          {
+            "type": "modifyStrength",
+            "filter": "self",
+            "amount": {
+              "type": "condition",
+              "condition": {
+                "type": "location",
+                "filter": "underground"
+              },
+              "true": 3,
+              "false": 1
+            },
+            "until": "start(regroup)"
+          }
+        ]
       }
     ]
   },
@@ -265,7 +271,7 @@
     }
   },
   "31_25": {
-    "title": "Savage Worg",
+    "title": "Savage Warg",
     "culture": "gundabad",
     "cost": 3,
     "type": "possession",
