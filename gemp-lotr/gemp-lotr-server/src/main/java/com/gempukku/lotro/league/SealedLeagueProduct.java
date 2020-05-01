@@ -214,6 +214,9 @@ private void createHuntersBlock() {
         MutableCardCollection firstWeek = new DefaultCardCollection();
         firstWeek.addItem("(S)HU - Starter", 1);
         firstWeek.addItem("HU - Booster", 6);
+        firstWeek.addItem("12_70", 1);
+        firstWeek.addItem("12_88", 1);
+        firstWeek.addItem("12_145", 1);
         huntersBlock.add(firstWeek);
 
         MutableCardCollection secondWeek = new DefaultCardCollection();
