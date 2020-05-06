@@ -32,16 +32,16 @@ import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
 import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
 import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
+public class GempukkuHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private final static long SIX_MONTHS = 1000L * 60L * 60L * 24L * 30L * 6L;
-    private static Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
+    private static Logger _log = Logger.getLogger(GempukkuHttpRequestHandler.class);
     private static Logger _accesslog = Logger.getLogger("access");
 
     private Map<Type, Object> _objects;
     private UriRequestHandler _uriRequestHandler;
     private IpBanDAO _ipBanDAO;
 
-    public LotroHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
+    public GempukkuHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
         _ipBanDAO = (IpBanDAO) _objects.get(IpBanDAO.class);

@@ -29,12 +29,12 @@ import java.util.*;
 
 public class ChatRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private ChatServer _chatServer;
-    private LongPollingSystem _longPollingSystem;
+    private LongPollingSystem longPollingSystem;
 
-    public ChatRequestHandler(Map<Type, Object> context) {
+    public ChatRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
         _chatServer = extractObject(context, ChatServer.class);
-        _longPollingSystem = extractObject(context, LongPollingSystem.class);
+        this.longPollingSystem = longPollingSystem;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             } else {
                 ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
                 ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), admin, responseWriter);
-                _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+                longPollingSystem.processLongPollingResource(polledResource, pollableResource);
             }
         } catch (SubscriptionExpiredException exp) {
             throw new HttpProcessingException(410);

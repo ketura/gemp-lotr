@@ -37,13 +37,13 @@ import java.util.Set;
 
 public class GameRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private LotroServer _lotroServer;
+    private LongPollingSystem longPollingSystem;
     private Set<Phase> _autoPassDefault = new HashSet<Phase>();
-    private LongPollingSystem _longPollingSystem;
 
-    public GameRequestHandler(Map<Type, Object> context) {
+    public GameRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
         _lotroServer = extractObject(context, LotroServer.class);
-        _longPollingSystem = extractObject(context, LongPollingSystem.class);
+        this.longPollingSystem = longPollingSystem;
 
         _autoPassDefault.add(Phase.FELLOWSHIP);
         _autoPassDefault.add(Phase.MANEUVER);
@@ -93,7 +93,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
             GameCommunicationChannel pollableResource = gameMediator.getCommunicationChannel(resourceOwner, channelNumber);
             GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(pollableResource, channelNumber, gameMediator, resourceOwner, responseWriter);
-            _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
+            longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
         } catch (SubscriptionConflictException exp) {
             throw new HttpProcessingException(409);
         } catch (PrivateInformationException e) {

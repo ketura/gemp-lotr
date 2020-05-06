@@ -41,18 +41,18 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private HallServer _hallServer;
     private LeagueService _leagueService;
     private LotroCardBlueprintLibrary _library;
-    private LongPollingSystem _longPollingSystem;
     private LotroServer _lotroServer;
+    private LongPollingSystem longPollingSystem;
 
-    public HallRequestHandler(Map<Type, Object> context) {
+    public HallRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _hallServer = extractObject(context, HallServer.class);
         _leagueService = extractObject(context, LeagueService.class);
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
-        _longPollingSystem = extractObject(context, LongPollingSystem.class);
         _lotroServer = extractObject(context, LotroServer.class);
+        this.longPollingSystem = longPollingSystem;
     }
 
     @Override
@@ -304,7 +304,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         try {
             HallCommunicationChannel pollableResource = _hallServer.getCommunicationChannel(resourceOwner, channelNumber);
             HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(pollableResource, request, resourceOwner, responseWriter);
-            _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+            longPollingSystem.processLongPollingResource(polledResource, pollableResource);
         } catch (SubscriptionExpiredException exp) {
             responseWriter.writeError(410);
         } catch (SubscriptionConflictException exp) {

@@ -3,6 +3,7 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.polling.LongPollingSystem;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -38,19 +39,19 @@ public class RootUriRequestHandler implements UriRequestHandler {
 
     private Pattern originPattern;
 
-    public RootUriRequestHandler(Map<Type, Object> context) {
+    public RootUriRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         _webRequestHandler = new WebRequestHandler(ApplicationConfiguration.getProperty("web.path"));
         String originAllowedPattern = ApplicationConfiguration.getProperty("origin.allowed.pattern");
         originPattern = Pattern.compile(originAllowedPattern);
-        _hallRequestHandler = new HallRequestHandler(context);
+        _hallRequestHandler = new HallRequestHandler(context, longPollingSystem);
         _deckRequestHandler = new DeckRequestHandler(context);
         _loginRequestHandler = new LoginRequestHandler(context);
         _statusRequestHandler = new StatusRequestHandler(context);
         _adminRequestHandler = new AdminRequestHandler(context);
-        _chatRequestHandler = new ChatRequestHandler(context);
+        _chatRequestHandler = new ChatRequestHandler(context, longPollingSystem);
         _collectionRequestHandler = new CollectionRequestHandler(context);
         _deliveryRequestHandler = new DeliveryRequestHandler(context);
-        _gameRequestHandler = new GameRequestHandler(context);
+        _gameRequestHandler = new GameRequestHandler(context, longPollingSystem);
         _leagueRequestHandler = new LeagueRequestHandler(context);
         _merchantRequestHandler = new MerchantRequestHandler(context);
         _registerRequestHandler = new RegisterRequestHandler(context);

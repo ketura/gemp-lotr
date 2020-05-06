@@ -24,7 +24,9 @@ public class LotroAsyncServer {
 
         ServerBootstrap bootstrap = new ServerBootstrap(factory);
 
-        bootstrap.setPipelineFactory(new LotroServerPipelineFactory());
+        GempukkuServer gempukkuServer = new GempukkuServer();
+
+        bootstrap.setPipelineFactory(new GempukkuHttpPipelineFactory(gempukkuServer));
 
         bootstrap.setOption("child.tcpNoDelay", true);
         bootstrap.setOption("child.keepAlive", true);
