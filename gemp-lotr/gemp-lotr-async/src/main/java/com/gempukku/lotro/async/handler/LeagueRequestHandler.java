@@ -13,11 +13,11 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
-import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import io.netty.channel.Channel;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -46,19 +46,19 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getNonExpiredLeagues(request, responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             getLeagueInformation(request, uri.substring(1), responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
-            joinLeague(request, uri.substring(1), responseWriter, e);
+            joinLeague(request, uri.substring(1), responseWriter, remoteIp);
         } else {
             throw new HttpProcessingException(404);
         }
     }
 
-    private void joinLeague(HttpRequest request, String leagueType, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    private void joinLeague(HttpRequest request, String leagueType, ResponseWriter responseWriter, String remoteIp) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String participantId = getFormParameterSafely(postDecoder, "participantId");
 
@@ -68,7 +68,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (league == null)
             throw new HttpProcessingException(404);
 
-        if (!_leagueService.playerJoinsLeague(league, resourceOwner, ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress()))
+        if (!_leagueService.playerJoinsLeague(league, resourceOwner, remoteIp))
             throw new HttpProcessingException(409);
 
         responseWriter.writeXmlResponse(null);

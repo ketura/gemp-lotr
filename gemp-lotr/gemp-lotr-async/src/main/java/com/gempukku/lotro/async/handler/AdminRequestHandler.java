@@ -19,11 +19,10 @@ import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.*;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.TournamentService;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
-import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -67,7 +66,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("/clearCache") && request.getMethod() == HttpMethod.GET) {
             clearCache(request, responseWriter);
         } else if (uri.equals("/shutdown") && request.getMethod() == HttpMethod.GET) {

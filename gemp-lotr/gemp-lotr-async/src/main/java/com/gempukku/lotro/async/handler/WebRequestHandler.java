@@ -2,12 +2,10 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpHeaders;
 
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.IF_NONE_MATCH;
-
-import org.jboss.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpRequest;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -22,7 +20,7 @@ public class WebRequestHandler implements UriRequestHandler {
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals(""))
             uri = "index.html";
 
@@ -49,7 +47,7 @@ public class WebRequestHandler implements UriRequestHandler {
     }
 
     private boolean clientHasCurrentVersion(HttpRequest request, String etag) {
-        String ifNoneMatch = request.headers().get(IF_NONE_MATCH);
+        String ifNoneMatch = request.headers().get(HttpHeaderNames.IF_NONE_MATCH);
         if (ifNoneMatch != null) {
             String[] clientKnownVersions = ifNoneMatch.split(",");
             for (String clientKnownVersion : clientKnownVersions) {

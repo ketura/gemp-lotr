@@ -8,8 +8,6 @@ import com.gempukku.lotro.builder.ServerBuilder;
 import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.service.LoggedUserHolder;
-import com.gempukku.polling.LongPollingSystem;
-import org.jboss.netty.channel.ChannelHandler;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

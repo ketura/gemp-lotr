@@ -3,10 +3,9 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.game.Player;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -18,8 +17,8 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
+        if (uri.equals("") && request.method() == HttpMethod.POST) {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String login = getFormParameterSafely(postDecoder, "login");
             String password = getFormParameterSafely(postDecoder, "password");
@@ -31,7 +30,7 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
                     if (bannedUntil != null && bannedUntil.after(new Date()))
                         throw new HttpProcessingException(409);
                     else
-                        responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
+                        responseWriter.writeXmlResponse(null, logUserReturningHeaders(remoteIp, login));
                 } else {
                     throw new HttpProcessingException(403);
                 }

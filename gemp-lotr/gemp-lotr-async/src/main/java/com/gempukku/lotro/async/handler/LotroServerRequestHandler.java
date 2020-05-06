@@ -9,26 +9,24 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.service.LoggedUserHolder;
-import org.jboss.netty.channel.MessageEvent;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.cookie.Cookie;
+import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
+import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
+import io.netty.handler.codec.http.multipart.Attribute;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
-import org.jboss.netty.handler.codec.http.cookie.Cookie;
-import org.jboss.netty.handler.codec.http.cookie.CookieEncoder;
-import org.jboss.netty.handler.codec.http.cookie.DefaultCookie;
-import org.jboss.netty.handler.codec.http.cookie.ServerCookieDecoder;
-import org.jboss.netty.handler.codec.http.cookie.ServerCookieEncoder;
-import org.jboss.netty.handler.codec.http.multipart.Attribute;
-import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
-import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
 import java.util.*;
+
+import static io.netty.handler.codec.http.HttpHeaderNames.COOKIE;
+import static io.netty.handler.codec.http.HttpHeaderNames.SET_COOKIE;
 
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
@@ -113,7 +111,7 @@ public class LotroServerRequestHandler {
     }
 
     protected String getQueryParameterSafely(QueryStringDecoder queryStringDecoder, String parameterName) {
-        List<String> parameterValues = queryStringDecoder.getParameters().get(parameterName);
+        List<String> parameterValues = queryStringDecoder.parameters().get(parameterName);
         if (parameterValues != null && parameterValues.size() > 0)
             return parameterValues.get(0);
         else
@@ -166,10 +164,10 @@ public class LotroServerRequestHandler {
         return (T) value;
     }
 
-    protected Map<String, String> logUserReturningHeaders(MessageEvent e, String login) throws SQLException {
-        _playerDao.updateLastLoginIp(login, ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress());
+    protected Map<String, String> logUserReturningHeaders(String remoteIp, String login) throws SQLException {
+        _playerDao.updateLastLoginIp(login, remoteIp);
 
         String sessionId = _loggedUserHolder.logUser(login);
-        return Collections.singletonMap(SET_COOKIE, ServerCookieEncoder.STRICT.encode("loggedUser", sessionId));
+        return Collections.singletonMap(SET_COOKIE.toString(), ServerCookieEncoder.STRICT.encode("loggedUser", sessionId));
     }
 }

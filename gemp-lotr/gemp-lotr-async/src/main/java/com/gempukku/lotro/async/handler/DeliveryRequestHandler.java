@@ -6,9 +6,8 @@ import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
 import com.google.common.collect.Iterables;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -26,7 +25,7 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getDelivery(request, responseWriter);
         } else {

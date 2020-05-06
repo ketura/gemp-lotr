@@ -13,9 +13,8 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.tournament.Tournament;
 import com.gempukku.lotro.tournament.TournamentService;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -42,7 +41,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getCurrentTournaments(request, responseWriter);
         } else if (uri.equals("/history") && request.getMethod() == HttpMethod.GET) {

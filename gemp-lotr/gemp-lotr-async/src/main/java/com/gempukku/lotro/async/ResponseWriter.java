@@ -13,9 +13,9 @@ public interface ResponseWriter {
 
     public void writeHtmlResponse(String html);
 
-    public void writeByteResponse(byte[] bytes, Map<String, String> headers);
+    public void writeByteResponse(byte[] bytes, Map<? extends CharSequence, String> headers);
 
     public void writeXmlResponse(Document document);
 
-    public void writeXmlResponse(Document document, Map<String, String> addHeaders);
+    public void writeXmlResponse(Document document, Map<? extends CharSequence, String> addHeaders);
 }

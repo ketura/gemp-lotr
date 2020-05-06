@@ -6,10 +6,9 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -27,7 +26,7 @@ public class StatusRequestHandler extends LotroServerRequestHandler implements U
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             StringBuilder sb = new StringBuilder();
 

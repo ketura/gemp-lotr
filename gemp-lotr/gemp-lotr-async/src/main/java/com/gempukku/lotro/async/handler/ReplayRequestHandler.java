@@ -3,9 +3,9 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.game.GameRecorder;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.util.AsciiString;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
+import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 
 public class ReplayRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private GameRecorder _gameRecorder;
@@ -26,7 +26,7 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             String replayId = uri.substring(1);
 
@@ -55,7 +55,7 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
                 recordedGame.close();
             }
 
-            Map<String, String> headers = new HashMap<String, String>();
+            Map<AsciiString, String> headers = new HashMap<AsciiString, String>();
             headers.put(CONTENT_TYPE, "application/html; charset=UTF-8");
 
             responseWriter.writeByteResponse(baos.toByteArray(), headers);

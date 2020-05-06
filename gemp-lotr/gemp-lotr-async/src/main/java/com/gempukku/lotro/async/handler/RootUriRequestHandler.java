@@ -4,9 +4,7 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.polling.LongPollingSystem;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpMethod;
-import org.jboss.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.HttpRequest;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -65,15 +63,15 @@ public class RootUriRequestHandler implements UriRequestHandler {
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.startsWith(_webContextPath)) {
-            _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, e);
+            _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, remoteIp);
         } else if (uri.equals("/mtg-cards/database.json")) {
-            _mtgCardsRequestHandler.handleRequest(uri, request, context, responseWriter, e);
+            _mtgCardsRequestHandler.handleRequest(uri, request, context, responseWriter, remoteIp);
         } else if (uri.equals("/gemp-lotr")) {
             responseWriter.writeError(301, Collections.singletonMap("Location", "/gemp-lotr/"));
         } else if (uri.equals(_serverContextPath)) {
-            _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
+            _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, remoteIp);
         } else {
             String origin = request.headers().get("Origin");
             if (origin != null) {
@@ -83,39 +81,39 @@ public class RootUriRequestHandler implements UriRequestHandler {
 
             // These APIs are protected by same Origin protection
             if (uri.startsWith(_serverContextPath + "hall")) {
-                _hallRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
+                _hallRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "deck")) {
-                _deckRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
+                _deckRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "login")) {
-                _loginRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, e);
+                _loginRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "register")) {
-                _registerRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, e);
+                _registerRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "replay")) {
-                _replayRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 6), request, context, responseWriter, e);
+                _replayRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 6), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "gameHistory")) {
-                _gameHistoryRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 11), request, context, responseWriter, e);
+                _gameHistoryRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 11), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "stats")) {
-                _serverStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, e);
+                _serverStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "playerStats")) {
-                _playerStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 11), request, context, responseWriter, e);
+                _playerStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 11), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "admin")) {
-                _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, e);
+                _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 5), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "chat")) {
-                _chatRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
+                _chatRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "collection")) {
-                _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request, context, responseWriter, e);
+                _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "delivery")) {
-                _deliveryRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, e);
+                _deliveryRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "game")) {
-                _gameRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, e);
+                _gameRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 4), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "league")) {
-                _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 6), request, context, responseWriter, e);
+                _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 6), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "merchant")) {
-                _merchantRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, e);
+                _merchantRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 8), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "tournament")) {
-                _tournamentRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request, context, responseWriter, e);
+                _tournamentRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request, context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "soloDraft")) {
-                _soloDraftRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 9), request, context, responseWriter, e);
+                _soloDraftRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 9), request, context, responseWriter, remoteIp);
             } else {
                 throw new HttpProcessingException(404);
             }

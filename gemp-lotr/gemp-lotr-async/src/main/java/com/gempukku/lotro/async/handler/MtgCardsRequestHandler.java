@@ -4,17 +4,16 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.mtg.MtgCardServer;
 import com.gempukku.mtg.ProviderNotFoundException;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.HttpHeaders;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.util.AsciiString;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 
 public class MtgCardsRequestHandler implements UriRequestHandler {
     private MtgCardServer _mtgCardServer;
@@ -24,7 +23,7 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String provider = getQueryParameterSafely(queryDecoder, "provider");
         String updateMarker = getQueryParameterSafely(queryDecoder, "update");
@@ -39,8 +38,8 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
     private void processProviderListRequest(ResponseWriter responseWriter) {
         byte[] dataProvidersResponse = _mtgCardServer.getDataProvidersResponse();
 
-        Map<String, String> headers = new HashMap<String, String>();
-        headers.put(CONTENT_TYPE, "application/json; charset=UTF-8");
+        Map<AsciiString, String> headers = new HashMap<AsciiString, String>();
+        headers.put(HttpHeaderNames.CONTENT_TYPE, "application/json; charset=UTF-8");
 
         responseWriter.writeByteResponse(dataProvidersResponse, headers);
     }
@@ -53,9 +52,9 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
             else if (updateMarker != null && updateMarker.equals(String.valueOf(cardDatabaseHolder.getUpdateDate())))
                 throw new HttpProcessingException(304);
 
-            Map<String, String> headers = new HashMap<String, String>();
-            headers.put(CONTENT_TYPE, "application/json; charset=UTF-8");
-            headers.put(HttpHeaders.Names.ETAG, String.valueOf(cardDatabaseHolder.getUpdateDate()));
+            Map<AsciiString, String> headers = new HashMap<AsciiString, String>();
+            headers.put(HttpHeaderNames.CONTENT_TYPE, "application/json; charset=UTF-8");
+            headers.put(HttpHeaderNames.ETAG, String.valueOf(cardDatabaseHolder.getUpdateDate()));
 
             responseWriter.writeByteResponse(cardDatabaseHolder.getBytes(), headers);
         } catch (ProviderNotFoundException exp) {
@@ -64,7 +63,7 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
     }
 
     protected String getQueryParameterSafely(QueryStringDecoder queryStringDecoder, String parameterName) {
-        List<String> parameterValues = queryStringDecoder.getParameters().get(parameterName);
+        List<String> parameterValues = queryStringDecoder.parameters().get(parameterName);
         if (parameterValues != null && parameterValues.size() > 0)
             return parameterValues.get(0);
         else

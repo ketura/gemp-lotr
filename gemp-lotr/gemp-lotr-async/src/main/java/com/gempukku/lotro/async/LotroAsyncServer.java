@@ -1,35 +1,65 @@
 package com.gempukku.lotro.async;
 
+import com.gempukku.lotro.async.handler.RootUriRequestHandler;
 import com.gempukku.lotro.common.ApplicationConfiguration;
-import org.jboss.netty.bootstrap.ServerBootstrap;
-import org.jboss.netty.channel.ChannelFactory;
-import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import com.gempukku.polling.LongPollingSystem;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpContentCompressor;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 public class LotroAsyncServer {
-    public static void main(String[] server) {
-        ChannelFactory factory =
-                new NioServerSocketChannelFactory(
-                        new ThreadPoolExecutor(10, Integer.MAX_VALUE,
-                                60L, TimeUnit.SECONDS,
-                                new SynchronousQueue<Runnable>()),
-                        new ThreadPoolExecutor(30, Integer.MAX_VALUE,
-                                60L, TimeUnit.SECONDS,
-                                new SynchronousQueue<Runnable>()));
-
-
-        ServerBootstrap bootstrap = new ServerBootstrap(factory);
+    public static void main(String[] server) throws InterruptedException {
+        int httpPort = Integer.parseInt(ApplicationConfiguration.getProperty("port"));
 
         GempukkuServer gempukkuServer = new GempukkuServer();
 
-        bootstrap.setPipelineFactory(new GempukkuHttpPipelineFactory(gempukkuServer));
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-        bootstrap.setOption("child.tcpNoDelay", true);
-        bootstrap.setOption("child.keepAlive", true);
-        bootstrap.bind(new InetSocketAddress(Integer.parseInt(ApplicationConfiguration.getProperty("port"))));
+        try {
+            LongPollingSystem longPollingSystem = new LongPollingSystem();
+            longPollingSystem.start();
+
+            RootUriRequestHandler uriRequestHandler = new RootUriRequestHandler(gempukkuServer.getContext(), longPollingSystem);
+
+            ServerBootstrap b = new ServerBootstrap();
+            b.group(bossGroup, workerGroup)
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch)
+                                throws Exception {
+                            ChannelPipeline pipeline = ch.pipeline();
+                            pipeline.addLast(new HttpResponseEncoder());
+                            pipeline.addLast(new HttpRequestDecoder());
+                            pipeline.addLast(new HttpObjectAggregator(Short.MAX_VALUE));
+                            pipeline.addLast(new GempukkuHttpRequestHandler(gempukkuServer.getContext(),
+                                    uriRequestHandler));
+                        }
+                    })
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childOption(ChannelOption.TCP_NODELAY, true);
+
+            ChannelFuture bind = b.bind(httpPort);
+            bind.sync().channel().closeFuture().sync();
+        } finally {
+            workerGroup.shutdownGracefully();
+            bossGroup.shutdownGracefully();
+        }
     }
 }
