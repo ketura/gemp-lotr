@@ -4,6 +4,7 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.lang.reflect.Type;
@@ -74,8 +75,10 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
             String origin = request.getHeader("Origin");
-            if (origin == null || !originPattern.matcher(origin).matches())
-                throw new HttpProcessingException(403);
+            if (origin != null) {
+                if (!originPattern.matcher(origin).matches())
+                    throw new HttpProcessingException(403);
+            }
 
             // These APIs are protected by same Origin protection
             if (uri.startsWith(_serverContextPath + "hall")) {
