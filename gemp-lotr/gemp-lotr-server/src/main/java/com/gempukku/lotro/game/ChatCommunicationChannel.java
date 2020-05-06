@@ -14,9 +14,11 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
     private long _lastConsumed = System.currentTimeMillis();
     private volatile WaitingRequest _waitingRequest;
     private Set<String> ignoredUsers;
+    private boolean timesOut;
 
-    public ChatCommunicationChannel(Set<String> ignoredUsers) {
+    public ChatCommunicationChannel(Set<String> ignoredUsers, boolean timesOut) {
         this.ignoredUsers = ignoredUsers;
+        this.timesOut = timesOut;
     }
 
     @Override
@@ -26,7 +28,7 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
 
     @Override
     public synchronized boolean registerRequest(WaitingRequest waitingRequest) {
-        if (_messages.size()>0)
+        if (_messages.size() > 0)
             return true;
 
         _waitingRequest = waitingRequest;
@@ -39,8 +41,16 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
             _messages.add(message);
             if (_waitingRequest != null) {
                 _waitingRequest.processRequest();
-                _waitingRequest = null;
+                if (_waitingRequest.isOneShot())
+                    _waitingRequest = null;
             }
+        }
+    }
+
+    public synchronized void forcedRemoval() {
+        if (_waitingRequest != null) {
+            _waitingRequest.forciblyRemoved();
+            _waitingRequest = null;
         }
     }
 
@@ -60,7 +70,7 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
         _lastConsumed = System.currentTimeMillis();
     }
 
-    public synchronized long getLastAccessed() {
-        return _lastConsumed;
+    public synchronized boolean shouldTimeout(long currentTime, long inactivityPeriod) {
+        return timesOut && (currentTime > _lastConsumed + inactivityPeriod);
     }
 }

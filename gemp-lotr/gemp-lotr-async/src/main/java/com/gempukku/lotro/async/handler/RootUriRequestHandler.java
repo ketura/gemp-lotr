@@ -64,7 +64,9 @@ public class RootUriRequestHandler implements UriRequestHandler {
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.startsWith(_webContextPath)) {
+        if (uri.startsWith("/gemp-lotr-websocket")) {
+          // Ignore - will be processed by websocket handler
+        } else if (uri.startsWith(_webContextPath)) {
             _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, remoteIp);
         } else if (uri.equals("/mtg-cards/database.json")) {
             _mtgCardsRequestHandler.handleRequest(uri, request, context, responseWriter, remoteIp);

@@ -680,5 +680,8 @@ var GempLotrCommunication = Class.extend({
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
+    },
+    isContinuous:function() {
+        return true;
     }
 });

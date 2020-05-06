@@ -43,14 +43,16 @@ public class ChatRoomMediator {
         _chatCommandCallbacks.put(command.toLowerCase(), callback);
     }
 
-    public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException {
+    public List<ChatMessage> joinUser(String playerId, boolean timesOut, boolean admin) throws PrivateInformationException {
         _lock.writeLock().lock();
         try {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
                 throw new PrivateInformationException();
 
-            ChatCommunicationChannel value = new ChatCommunicationChannel(ignoreDAO.getIgnoredUsers(playerId));
-            _listeners.put(playerId, value);
+            ChatCommunicationChannel value = new ChatCommunicationChannel(ignoreDAO.getIgnoredUsers(playerId), timesOut);
+            ChatCommunicationChannel oldChannel = _listeners.put(playerId, value);
+            if (oldChannel != null)
+                oldChannel.forcedRemoval();
             _chatRoom.joinChatRoom(playerId, value);
             final List<ChatMessage> chatMessages = value.consumeMessages();
             if (welcomeMessage != null)
@@ -147,7 +149,7 @@ public class ChatRoomMediator {
             for (Map.Entry<String, ChatCommunicationChannel> playerListener : copy.entrySet()) {
                 String playerId = playerListener.getKey();
                 ChatCommunicationChannel listener = playerListener.getValue();
-                if (currentTime > listener.getLastAccessed() + _channelInactivityTimeoutPeriod) {
+                if (listener.shouldTimeout(currentTime, _channelInactivityTimeoutPeriod)) {
                     _chatRoom.partChatRoom(playerId);
                     _listeners.remove(playerId);
                 }

@@ -3,7 +3,9 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
+
 import static com.gempukku.lotro.game.state.GameEvent.Type.*;
+
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 import com.gempukku.polling.LongPollableResource;
@@ -42,7 +44,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public synchronized boolean registerRequest(WaitingRequest waitingRequest) {
-        if (_events.size()>0)
+        if (_events.size() > 0)
             return true;
 
         _waitingRequest = waitingRequest;
@@ -53,6 +55,14 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
         _events.add(event);
         if (_waitingRequest != null) {
             _waitingRequest.processRequest();
+            if (_waitingRequest.isOneShot())
+                _waitingRequest = null;
+        }
+    }
+
+    public synchronized void forcedRemoval() {
+        if (_waitingRequest != null) {
+            _waitingRequest.forciblyRemoved();
             _waitingRequest = null;
         }
     }
@@ -196,7 +206,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     public boolean hasGameEvents() {
         updateLastAccess();
-        return _events.size()>0;
+        return _events.size() > 0;
     }
 
     private void updateLastAccess() {

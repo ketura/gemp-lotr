@@ -52,6 +52,17 @@ public class LongPollingSystem {
         execute(request.getLongPollingResource());
     }
 
+    private void processForciblyRemoved(final ResourceWaitingRequest request) {
+        _waitingActions.remove(request);
+        _executorService.submit(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        request.getLongPollingResource().forciblyRemoved();
+                    }
+                });
+    }
+
     private void execute(final LongPollingResource resource) {
         _executorService.submit(
                 new Runnable() {
@@ -107,6 +118,11 @@ public class LongPollingSystem {
             processWaitingRequest(this);
         }
 
+        @Override
+        public void forciblyRemoved() {
+            processForciblyRemoved(this);
+        }
+
         public LongPollableResource getLongPollableResource() {
             return _longPollableResource;
         }
@@ -117,6 +133,11 @@ public class LongPollingSystem {
 
         public long getStart() {
             return _start;
+        }
+
+        @Override
+        public boolean isOneShot() {
+            return true;
         }
     }
 }

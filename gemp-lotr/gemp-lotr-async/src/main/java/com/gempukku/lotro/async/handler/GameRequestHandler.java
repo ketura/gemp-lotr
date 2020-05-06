@@ -145,6 +145,13 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
             }
         }
 
+        @Override
+        public void forciblyRemoved() {
+            if (!_processed) {
+                _responseWriter.writeError(409);
+                _processed = true;
+            }
+        }
     }
 
     private void cancel(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {

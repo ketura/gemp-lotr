@@ -14,6 +14,7 @@
 <script type="text/javascript" src="js/gemp-022/logging.js"></script>
 <script type="text/javascript" src="js/gemp-022/chat.js"></script>
 <script type="text/javascript" src="js/gemp-022/communication.js"></script>
+<script type="text/javascript" src="js/gemp-022/communication-websocket.js"></script>
 <script type="text/javascript" src="js/gemp-022/deliveryService.js"></script>
 <script type="text/javascript" src="js/gemp-022/commonUi.js"></script>
 <script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>

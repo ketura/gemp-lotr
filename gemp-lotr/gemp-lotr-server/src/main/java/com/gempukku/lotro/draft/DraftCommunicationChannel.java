@@ -46,7 +46,8 @@ public class DraftCommunicationChannel implements LongPollableResource {
         _changed = true;
         if (_waitingRequest != null) {
             _waitingRequest.processRequest();
-            _waitingRequest = null;
+            if (_waitingRequest.isOneShot())
+                _waitingRequest = null;
         }
     }
 
@@ -56,13 +57,13 @@ public class DraftCommunicationChannel implements LongPollableResource {
         CardCollection cardCollection = draftCardChoice.getCardCollection();
         if (cardCollection == null)
             return _cardChoiceOnClient != null;
-        return  !getSerialized(cardCollection).equals(_cardChoiceOnClient);
+        return !getSerialized(cardCollection).equals(_cardChoiceOnClient);
     }
 
     private String getSerialized(CardCollection cardCollection) {
         StringBuilder sb = new StringBuilder();
         for (CardCollection.Item collectionItem : cardCollection.getAll())
-            sb.append(collectionItem.getCount()+"x"+collectionItem.getBlueprintId()+"|");
+            sb.append(collectionItem.getCount() + "x" + collectionItem.getBlueprintId() + "|");
 
         return sb.toString();
     }

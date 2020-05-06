@@ -410,7 +410,9 @@ public class LotroGameMediator {
             _channelNextIndex++;
 
             GameCommunicationChannel participantCommunicationChannel = new GameCommunicationChannel(playerName, number);
-            _communicationChannels.put(playerName, participantCommunicationChannel);
+            GameCommunicationChannel oldChannel = _communicationChannels.put(playerName, participantCommunicationChannel);
+            if (oldChannel != null)
+                oldChannel.forcedRemoval();
 
             _lotroGame.addGameStateListener(playerName, participantCommunicationChannel);
 

@@ -355,6 +355,14 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 _processed = true;
             }
         }
+
+        @Override
+        public void forciblyRemoved() {
+            if (!_processed) {
+                _responseWriter.writeError(409);
+                _processed = true;
+            }
+        }
     }
 
     private class SerializeDraftVisitor implements DraftChannelVisitor {

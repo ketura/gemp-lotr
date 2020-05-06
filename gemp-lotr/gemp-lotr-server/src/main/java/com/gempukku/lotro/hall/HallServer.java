@@ -466,7 +466,10 @@ public class HallServer extends AbstractServer {
         try {
             HallCommunicationChannel channel = new HallCommunicationChannel(_nextChannelNumber++);
             channel.processCommunicationChannel(this, player, hallChannelVisitor);
-            _playerChannelCommunication.put(player, channel);
+            HallCommunicationChannel oldChannel = _playerChannelCommunication.put(player, channel);
+            if (oldChannel!=null) {
+                oldChannel.forcedRemoval();
+            }
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }

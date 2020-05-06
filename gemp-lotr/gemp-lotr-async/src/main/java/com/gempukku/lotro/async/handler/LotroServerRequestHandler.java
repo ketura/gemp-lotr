@@ -12,6 +12,7 @@ import com.gempukku.lotro.service.LoggedUserHolder;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.cookie.Cookie;
+import io.netty.handler.codec.http.cookie.DefaultCookie;
 import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
 import io.netty.handler.codec.http.multipart.Attribute;
@@ -164,10 +165,12 @@ public class LotroServerRequestHandler {
         return (T) value;
     }
 
-    protected Map<String, String> logUserReturningHeaders(String remoteIp, String login) throws SQLException {
+    protected Map<? extends CharSequence, String> logUserReturningHeaders(String remoteIp, String login) throws SQLException {
         _playerDao.updateLastLoginIp(login, remoteIp);
 
         String sessionId = _loggedUserHolder.logUser(login);
-        return Collections.singletonMap(SET_COOKIE.toString(), ServerCookieEncoder.STRICT.encode("loggedUser", sessionId));
+        Cookie cookie = new DefaultCookie("loggedUser", sessionId);
+        cookie.setPath("/");
+        return Collections.singletonMap(SET_COOKIE, ServerCookieEncoder.STRICT.encode(cookie));
     }
 }

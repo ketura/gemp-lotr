@@ -122,6 +122,14 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                 processed = true;
             }
         }
+
+        @Override
+        public void forciblyRemoved() {
+            if (!processed) {
+                responseWriter.writeError(409);
+                processed = true;
+            }
+        }
     }
 
     private void getMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
@@ -135,7 +143,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(404);
         try {
             final boolean admin = resourceOwner.getType().contains("a");
-            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), admin);
+            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), true, admin);
             Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
