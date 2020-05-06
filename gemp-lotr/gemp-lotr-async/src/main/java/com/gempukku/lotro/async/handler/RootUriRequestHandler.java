@@ -74,7 +74,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
-            String origin = request.getHeader("Origin");
+            String origin = request.headers().get("Origin");
             if (origin != null) {
                 if (!originPattern.matcher(origin).matches())
                     throw new HttpProcessingException(403);

@@ -227,12 +227,12 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
         if (headers != null) {
             for (Map.Entry<String, String> header : headers.entrySet())
-                response.setHeader(header.getKey(), header.getValue());
+                response.headers().set(header.getKey(), header.getValue());
         }
 
         if (keepAlive) {
             // Add 'Content-Length' header only for a keep-alive connection.
-            response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
+            response.headers().set(CONTENT_LENGTH, response.getContent().readableBytes());
         }
 
         ChannelFuture future = e.getChannel().write(response);
@@ -253,7 +253,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             if (headers != null) {
                 for (Map.Entry<String, String> header : headers.entrySet())
-                    response.setHeader(header.getKey(), header.getValue());
+                    response.headers().set(header.getKey(), header.getValue());
             }
 
             response.setContent(ChannelBuffers.copiedBuffer(bytes));
@@ -262,7 +262,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
-                response.setHeader(CONTENT_LENGTH, length);
+                response.headers().set(CONTENT_LENGTH, length);
             }
 
             // Write the response.
@@ -275,7 +275,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
-                response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
+                response.headers().set(CONTENT_LENGTH, response.getContent().readableBytes());
             }
 
             // Write the response.
@@ -298,7 +298,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             if (headers != null) {
                 for (Map.Entry<String, String> header : headers.entrySet())
-                    response.setHeader(header.getKey(), header.getValue());
+                    response.headers().set(header.getKey(), header.getValue());
             }
 
             int length = 0;
@@ -312,18 +312,18 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
                 String responseString = writer.toString();
                 response.setContent(ChannelBuffers.copiedBuffer(responseString, CharsetUtil.UTF_8));
-                response.setHeader(CONTENT_TYPE, "application/xml; charset=UTF-8");
+                response.headers().set(CONTENT_TYPE, "application/xml; charset=UTF-8");
 
                 length = responseString.length();
             } else {
                 response.setContent(ChannelBuffers.copiedBuffer("OK", CharsetUtil.UTF_8));
-                response.setHeader(CONTENT_TYPE, "text/plain");
+                response.headers().set(CONTENT_TYPE, "text/plain");
                 length = 2;
             }
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
-                response.setHeader(CONTENT_LENGTH, length);
+                response.headers().set(CONTENT_LENGTH, length);
             }
 
             // Write the response.
@@ -336,7 +336,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
-                response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
+                response.headers().set(CONTENT_LENGTH, response.getContent().readableBytes());
             }
 
             // Write the response.
@@ -359,13 +359,13 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
 
             response.setContent(ChannelBuffers.copiedBuffer(html, CharsetUtil.UTF_8));
-            response.setHeader(CONTENT_TYPE, "text/html; charset=UTF-8");
+            response.headers().set(CONTENT_TYPE, "text/html; charset=UTF-8");
 
             int length = html.length();
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
-                response.setHeader(CONTENT_LENGTH, length);
+                response.headers().set(CONTENT_LENGTH, length);
             }
 
             // Write the response.
@@ -378,7 +378,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
-                response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
+                response.headers().set(CONTENT_LENGTH, response.getContent().readableBytes());
             }
 
             // Write the response.

@@ -16,7 +16,12 @@ import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
 import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.*;
+import org.jboss.netty.handler.codec.http.HttpHeaders;
+import org.jboss.netty.handler.codec.http.HttpMethod;
+import org.jboss.netty.handler.codec.http.HttpRequest;
+import org.jboss.netty.handler.codec.http.QueryStringDecoder;
+import org.jboss.netty.handler.codec.http.cookie.Cookie;
+import org.jboss.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -221,13 +226,13 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private Set<Phase> getAutoPassPhases(HttpRequest request) {
-        CookieDecoder cookieDecoder = new CookieDecoder();
-        String cookieHeader = request.getHeader(HttpHeaders.Names.COOKIE);
+        ServerCookieDecoder cookieDecoder = ServerCookieDecoder.STRICT;
+        String cookieHeader = request.headers().get(HttpHeaders.Names.COOKIE);
         if (cookieHeader != null) {
             Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("autoPassPhases")) {
-                    final String[] phases = cookie.getValue().split("0");
+                if (cookie.name().equals("autoPassPhases")) {
+                    final String[] phases = cookie.value().split("0");
                     Set<Phase> result = new HashSet<Phase>();
                     for (String phase : phases)
                         result.add(Phase.valueOf(phase));
@@ -235,7 +240,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
                 }
             }
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("autoPass") && cookie.getValue().equals("false"))
+                if (cookie.name().equals("autoPass") && cookie.value().equals("false"))
                     return Collections.emptySet();
             }
         }

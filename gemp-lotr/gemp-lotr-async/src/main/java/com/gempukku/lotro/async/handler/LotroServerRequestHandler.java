@@ -10,9 +10,16 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.service.LoggedUserHolder;
 import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.*;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
+
+import org.jboss.netty.handler.codec.http.HttpRequest;
+import org.jboss.netty.handler.codec.http.QueryStringDecoder;
+import org.jboss.netty.handler.codec.http.cookie.Cookie;
+import org.jboss.netty.handler.codec.http.cookie.CookieEncoder;
+import org.jboss.netty.handler.codec.http.cookie.DefaultCookie;
+import org.jboss.netty.handler.codec.http.cookie.ServerCookieDecoder;
+import org.jboss.netty.handler.codec.http.cookie.ServerCookieEncoder;
 import org.jboss.netty.handler.codec.http.multipart.Attribute;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
@@ -62,13 +69,13 @@ public class LotroServerRequestHandler {
     }
 
     private String getLoggedUser(HttpRequest request) {
-        CookieDecoder cookieDecoder = new CookieDecoder();
-        String cookieHeader = request.getHeader(COOKIE);
+        ServerCookieDecoder cookieDecoder = ServerCookieDecoder.STRICT;
+        String cookieHeader = request.headers().get(COOKIE);
         if (cookieHeader != null) {
             Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("loggedUser")) {
-                    String value = cookie.getValue();
+                if (cookie.name().equals("loggedUser")) {
+                    String value = cookie.value();
                     if (value != null) {
                         return _loggedUserHolder.getLoggedUser(value);
                     }
@@ -162,10 +169,7 @@ public class LotroServerRequestHandler {
     protected Map<String, String> logUserReturningHeaders(MessageEvent e, String login) throws SQLException {
         _playerDao.updateLastLoginIp(login, ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress());
 
-        CookieEncoder cookieEncoder = new CookieEncoder(true);
-        for (Map.Entry<String, String> cookie : _loggedUserHolder.logUser(login).entrySet())
-            cookieEncoder.addCookie(cookie.getKey(), cookie.getValue());
-
-        return Collections.singletonMap(SET_COOKIE, cookieEncoder.encode());
+        String sessionId = _loggedUserHolder.logUser(login);
+        return Collections.singletonMap(SET_COOKIE, ServerCookieEncoder.STRICT.encode("loggedUser", sessionId));
     }
 }

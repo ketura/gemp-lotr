@@ -39,14 +39,12 @@ public class LoggedUserHolder {
         return null;
     }
 
-    public Map<String, String> logUser(String userName) {
+    public String logUser(String userName) {
         _readWriteLock.writeLock().lock();
         try {
-            Map<String, String> cookies = new HashMap<String, String>();
             String userValue = insertValueForUser(userName);
-            cookies.put("loggedUser", userValue);
             _lastAccess.put(userValue, System.currentTimeMillis());
-            return cookies;
+            return userValue;
         } finally {
             _readWriteLock.writeLock().unlock();
         }

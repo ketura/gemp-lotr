@@ -49,7 +49,7 @@ public class WebRequestHandler implements UriRequestHandler {
     }
 
     private boolean clientHasCurrentVersion(HttpRequest request, String etag) {
-        String ifNoneMatch = request.getHeader(IF_NONE_MATCH);
+        String ifNoneMatch = request.headers().get(IF_NONE_MATCH);
         if (ifNoneMatch != null) {
             String[] clientKnownVersions = ifNoneMatch.split(",");
             for (String clientKnownVersion : clientKnownVersions) {
