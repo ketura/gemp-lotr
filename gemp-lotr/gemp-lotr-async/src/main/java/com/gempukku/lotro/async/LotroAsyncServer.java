@@ -16,6 +16,7 @@ import io.netty.handler.codec.http.HttpContentCompressor;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
+import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
@@ -45,9 +46,9 @@ public class LotroAsyncServer {
                         public void initChannel(SocketChannel ch)
                                 throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new HttpResponseEncoder());
-                            pipeline.addLast(new HttpRequestDecoder());
+                            pipeline.addLast(new HttpServerCodec());
                             pipeline.addLast(new HttpObjectAggregator(Short.MAX_VALUE));
+                            pipeline.addLast(new HttpContentCompressor());
                             pipeline.addLast(new GempukkuHttpRequestHandler(gempukkuServer.getContext(),
                                     uriRequestHandler));
                         }
