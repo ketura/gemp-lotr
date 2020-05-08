@@ -7,6 +7,7 @@ import com.gempukku.lotro.async.poll.ChatServerMediator;
 import com.gempukku.lotro.chat.ChatRoom;
 import com.gempukku.lotro.chat.ChatRoomListener;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.chat.MessagesAndUsers;
 import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.Player;
@@ -93,11 +94,6 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
         }
     }
 
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
-    }
-
     private void processWebsocketConnected(ChannelHandlerContext ctx, String uri, HttpHeaders headers) throws HttpProcessingException, ParserConfigurationException, TransformerException {
         String urlAfterContext = uri.substring(websocketPath.length());
         if (urlAfterContext.startsWith("/chat/")) {
@@ -118,13 +114,14 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
                 admin = resourceOwner.getType().contains("a");
                 playerId = resourceOwner.getName();
 
+                Set<String> ignoredUsers = ignoreDao.getIgnoredUsers(playerId);
                 WebsocketChatRoomListener chatRoomListener = new WebsocketChatRoomListener(chatRoom, admin,
-                        ignoreDao.getIgnoredUsers(playerId), ctx);
-                Collection<String> usersInRoom = chatRoom.joinChatRoom(playerId, admin, chatRoomListener);
+                        ignoredUsers, ctx);
+                MessagesAndUsers messagesAndUsers = chatRoom.joinChatRoom(playerId, admin, chatRoomListener);
 
-                Document doc = XMLSerializeUtil.serializeChatRoomData(playerDao, room, chatRoomListener.getPendingMessages(), usersInRoom);
+                Document doc = XMLSerializeUtil.serializeChatRoomData(playerDao, room, messagesAndUsers.getChatMessages(),
+                        filterIgnoredUsers(ignoredUsers, messagesAndUsers.getUsers()));
                 writeXmlFrame(ctx, doc);
-                chatRoomListener.setProcess(true);
             } catch (PrivateInformationException exp) {
                 ctx.close();
             }
@@ -192,17 +189,24 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
             return null;
     }
 
+    private Collection<String> filterIgnoredUsers(Collection<String> ignoredUsers, Collection<String> users) {
+        List<String> result = new LinkedList<>();
+        for (String user : users) {
+            if (!ignoredUsers.contains(user))
+                result.add(user);
+        }
+        return result;
+    }
+
     private boolean isTest() {
         return Boolean.valueOf(System.getProperty("test"));
     }
 
     private class WebsocketChatRoomListener implements ChatRoomListener {
-        private boolean process;
         private ChatRoom chatRoom;
         private boolean admin;
         private Collection<String> ignoredUsers;
         private ChannelHandlerContext ctx;
-        private List<ChatMessage> pendingMessages = new LinkedList<>();
 
         public WebsocketChatRoomListener(ChatRoom chatRoom, boolean admin, Collection<String> ignoredUsers, ChannelHandlerContext ctx) {
             this.chatRoom = chatRoom;
@@ -213,25 +217,23 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
 
         @Override
         public void messageReceived(ChatMessage message) {
-            if (process) {
+            if (message.isForced() || !ignoredUsers.contains(message.getFrom())) {
                 try {
                     Document document = XMLSerializeUtil.serializeChatRoomData(playerDao, chatRoom.getName(), Collections.singleton(message),
-                            filterIgnoredUsers(chatRoom.getUsersInRoom(admin)));
+                            filterIgnoredUsers(ignoredUsers, chatRoom.getUsersInRoom(admin)));
                     writeXmlFrame(ctx, document);
                 } catch (Exception e) {
                     ctx.close();
                 }
-            } else {
-                pendingMessages.add(message);
             }
         }
 
         @Override
         public void userJoined(String userId) {
-            if (process) {
+            if (!ignoredUsers.contains(userId)) {
                 try {
                     Document document = XMLSerializeUtil.serializeChatRoomData(playerDao, chatRoom.getName(), Collections.emptySet(),
-                            filterIgnoredUsers(chatRoom.getUsersInRoom(admin)));
+                            filterIgnoredUsers(ignoredUsers, chatRoom.getUsersInRoom(admin)));
                     writeXmlFrame(ctx, document);
                 } catch (Exception e) {
                     ctx.close();
@@ -241,10 +243,10 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
 
         @Override
         public void userParted(String userId) {
-            if (process) {
+            if (!ignoredUsers.contains(userId)) {
                 try {
                     Document document = XMLSerializeUtil.serializeChatRoomData(playerDao, chatRoom.getName(), Collections.emptySet(),
-                            filterIgnoredUsers(chatRoom.getUsersInRoom(admin)));
+                            filterIgnoredUsers(ignoredUsers, chatRoom.getUsersInRoom(admin)));
                     writeXmlFrame(ctx, document);
                 } catch (Exception e) {
                     ctx.close();
@@ -255,23 +257,6 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
         @Override
         public void listenerPushedOut() {
             ctx.close();
-        }
-
-        public void setProcess(boolean process) {
-            this.process = process;
-        }
-
-        public List<ChatMessage> getPendingMessages() {
-            return pendingMessages;
-        }
-
-        private Collection<String> filterIgnoredUsers(Collection<String> users) {
-            List<String> result = new LinkedList<>();
-            for (String user : users) {
-                if (!ignoredUsers.contains(user))
-                    result.add(user);
-            }
-            return result;
         }
     }
 }

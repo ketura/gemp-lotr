@@ -7,6 +7,7 @@ import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoom;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.chat.MessagesAndUsers;
 import com.gempukku.lotro.db.IgnoreDAO;
 
 import java.util.*;
@@ -36,11 +37,10 @@ public class ChatServerMediator extends AbstractServer {
             if (chatRoom == null)
                 return null;
 
-            Collection<String> usersInRoom = chatRoom.joinChatRoom(playerId, admin, chatCommunicationChannel);
+            MessagesAndUsers messagesAndUsers = chatRoom.joinChatRoom(playerId, admin, chatCommunicationChannel);
             communicationChannels.putIfAbsent(room, new HashMap<>()).put(playerId, chatCommunicationChannel);
 
-            List<ChatMessage> messages = chatCommunicationChannel.consumeMessages();
-            return new MessagesAndUsers(messages, usersInRoom);
+            return messagesAndUsers;
         } finally {
             lock.writeLock().unlock();
         }

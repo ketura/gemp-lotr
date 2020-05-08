@@ -1,9 +1,8 @@
-package com.gempukku.lotro.async.poll;
+package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.chat.ChatMessage;
 
 import java.util.Collection;
-import java.util.List;
 
 public class MessagesAndUsers {
     private Collection<ChatMessage> chatMessages;

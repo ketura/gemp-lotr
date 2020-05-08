@@ -85,7 +85,7 @@ public class ChatRoom {
         }
     }
 
-    public Collection<String> joinChatRoom(String playerId, boolean admin, ChatRoomListener listener) throws PrivateInformationException {
+    public MessagesAndUsers joinChatRoom(String playerId, boolean admin, ChatRoomListener listener) throws PrivateInformationException {
         lock.writeLock().lock();
         try {
             if (!isAllowedPlayer(playerId, admin))
@@ -98,17 +98,16 @@ public class ChatRoom {
                 oldListener.chatRoomListener.listenerPushedOut();
             }
 
-            if (welcomeMessage != null)
-                listener.messageReceived(new ChatMessage(new Date(), "System", welcomeMessage, true));
-
-            for (ChatMessage lastMessage : lastMessages)
-                listener.messageReceived(lastMessage);
             if (!wasInRoom) {
                 for (Map.Entry<String, ChatRoomInfo> listeners : chatRoomListeners.entrySet())
                     listeners.getValue().chatRoomListener.userJoined(playerId);
             }
 
-            return getUsersInRoom(admin);
+            LinkedList<ChatMessage> messages = new LinkedList<>(lastMessages);
+            if (welcomeMessage != null)
+                messages.addFirst(new ChatMessage(new Date(), "System", welcomeMessage, true));
+
+            return new MessagesAndUsers(messages, getUsersInRoom(admin));
         } finally {
             lock.writeLock().unlock();
         }
