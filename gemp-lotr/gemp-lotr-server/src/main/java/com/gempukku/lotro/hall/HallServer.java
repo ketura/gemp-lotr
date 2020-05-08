@@ -92,6 +92,18 @@ public class HallServer extends AbstractServer {
 
         _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, true,
                 "You're now in the Game Hall, use /help to get a list of available commands");
+        _hallChat.addChatCommandCallback("shutdown",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        if (admin) {
+                            boolean shutdown = parameters.length() > 0 ? Boolean.valueOf(parameters) : true;
+                            setShutdown(shutdown);
+                        } else {
+                            throw new ChatCommandErrorException("Only administrator can ban shutdown server");
+                        }
+                    }
+                });
         _hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
                     @Override
@@ -467,7 +479,7 @@ public class HallServer extends AbstractServer {
             HallCommunicationChannel channel = new HallCommunicationChannel(_nextChannelNumber++);
             channel.processCommunicationChannel(this, player, hallChannelVisitor);
             HallCommunicationChannel oldChannel = _playerChannelCommunication.put(player, channel);
-            if (oldChannel!=null) {
+            if (oldChannel != null) {
                 oldChannel.forcedRemoval();
             }
         } finally {
