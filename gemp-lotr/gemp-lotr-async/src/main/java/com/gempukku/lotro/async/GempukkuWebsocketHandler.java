@@ -2,30 +2,25 @@ package com.gempukku.lotro.async;
 
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
-import com.gempukku.lotro.async.handler.ChatRequestHandler;
 import com.gempukku.lotro.chat.ChatMessage;
-import com.gempukku.lotro.chat.ChatRoomMediator;
+import com.gempukku.lotro.async.poll.ChatServerMediator;
+import com.gempukku.lotro.chat.ChatRoom;
+import com.gempukku.lotro.chat.ChatRoomListener;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.game.ChatCommunicationChannel;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.service.LoggedUserHolder;
-import com.gempukku.polling.WaitingRequest;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.HttpHeaders;
-import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -36,39 +31,38 @@ import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.util.Collection;
-import java.util.Comparator;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static io.netty.handler.codec.http.HttpHeaderNames.COOKIE;
 
 public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+    private final LoggedUserHolder loggedUserHolder;
+    private final PlayerDAO playerDao;
     private final ChatServer chatServer;
+    private final IgnoreDAO ignoreDao;
+
     private String websocketPath;
-    private Map<Type, Object> context;
 
     private String websocketType;
     private String websocketIdentifier;
     private String playerId;
     private boolean admin;
 
-    private final LoggedUserHolder loggedUserHolder;
-    private final PlayerDAO playerDao;
-
     public GempukkuWebsocketHandler(String websocketPath, Map<Type, Object> context) {
         this.websocketPath = websocketPath;
-        this.context = context;
         loggedUserHolder = (LoggedUserHolder) context.get(LoggedUserHolder.class);
         playerDao = (PlayerDAO) context.get(PlayerDAO.class);
+        ignoreDao = (IgnoreDAO) context.get(IgnoreDAO.class);
         chatServer = (ChatServer) context.get(ChatServer.class);
     }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof WebSocketServerProtocolHandler.HandshakeComplete) {
-            System.out.println("Hanshake completed");
             WebSocketServerProtocolHandler.HandshakeComplete handshake = (WebSocketServerProtocolHandler.HandshakeComplete) evt;
             String uri = handshake.requestUri();
             HttpHeaders headers = handshake.requestHeaders();
@@ -79,14 +73,29 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
-        if (websocketType!= null && websocketType.equals("chat")) {
-            ChatRoomMediator chatRoom = chatServer.getChatRoom(websocketIdentifier);
+        if (websocketType != null && websocketType.equals("chat")) {
+            ChatRoom chatRoom = chatServer.getChatRoom(websocketIdentifier);
             if (chatRoom != null) {
-                chatRoom.sendMessage(playerId, msg.text(), admin);
+                chatRoom.postMessage(playerId, msg.text(), admin);
             } else {
                 ctx.close();
             }
         }
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        if (websocketType != null && websocketType.equals("chat")) {
+            ChatRoom chatRoom = chatServer.getChatRoom(websocketIdentifier);
+            if (chatRoom != null) {
+                chatRoom.partChatRoom(playerId);
+            }
+        }
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
     }
 
     private void processWebsocketConnected(ChannelHandlerContext ctx, String uri, HttpHeaders headers) throws HttpProcessingException, ParserConfigurationException, TransformerException {
@@ -99,61 +108,24 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
 
             Player resourceOwner = getResourceOwnerSafely(headers, participantId);
 
-            ChatRoomMediator chatRoom = chatServer.getChatRoom(room);
+            ChatRoom chatRoom = chatServer.getChatRoom(room);
             if (chatRoom == null)
-                throw new HttpProcessingException(404);
+                ctx.close();
             try {
                 websocketType = "chat";
                 websocketIdentifier = room;
 
                 admin = resourceOwner.getType().contains("a");
                 playerId = resourceOwner.getName();
-                List<ChatMessage> chatMessages = chatRoom.joinUser(playerId, false, admin);
-                Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
 
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                WebsocketChatRoomListener chatRoomListener = new WebsocketChatRoomListener(chatRoom, admin,
+                        ignoreDao.getIgnoredUsers(playerId), ctx);
+                Collection<String> usersInRoom = chatRoom.joinChatRoom(playerId, admin, chatRoomListener);
 
-                Document doc = documentBuilder.newDocument();
-
-                serializeChatRoomData(room, chatMessages, usersInRoom, doc);
-
+                Document doc = XMLSerializeUtil.serializeChatRoomData(playerDao, room, chatRoomListener.getPendingMessages(), usersInRoom);
                 writeXmlFrame(ctx, doc);
-
-                ChatCommunicationChannel chatRoomListener = chatRoom.getChatRoomListener(playerId);
-                chatRoomListener.registerRequest(
-                        new WaitingRequest() {
-                            @Override
-                            public void processRequest() {
-                                try {
-                                    List<ChatMessage> chatMessages = chatRoom.getChatRoomListener(playerId).consumeMessages();
-
-                                    Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
-
-                                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-                                    Document doc = documentBuilder.newDocument();
-
-                                    serializeChatRoomData(room, chatMessages, usersInRoom, doc);
-
-                                    writeXmlFrame(ctx, doc);
-                                } catch (Exception exp) {
-                                    ctx.close();
-                                }
-                            }
-
-                            @Override
-                            public boolean isOneShot() {
-                                return false;
-                            }
-
-                            @Override
-                            public void forciblyRemoved() {
-                                ctx.close();
-                            }
-                        });
-            } catch (PrivateInformationException | SubscriptionExpiredException exp) {
+                chatRoomListener.setProcess(true);
+            } catch (PrivateInformationException exp) {
                 ctx.close();
             }
         } else {
@@ -172,43 +144,6 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
 
         ctx.write(new TextWebSocketFrame(writer.toString()));
         ctx.flush();
-    }
-
-
-    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Collection<String> usersInRoom, Document doc) {
-        Element chatElem = doc.createElement("chat");
-        chatElem.setAttribute("roomName", room);
-        doc.appendChild(chatElem);
-
-        for (ChatMessage chatMessage : chatMessages) {
-            Element message = doc.createElement("message");
-            message.setAttribute("from", chatMessage.getFrom());
-            message.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
-            message.appendChild(doc.createTextNode(chatMessage.getMessage()));
-            chatElem.appendChild(message);
-        }
-
-        Set<String> users = new TreeSet<String>(new CaseInsensitiveStringComparator());
-        for (String userInRoom : usersInRoom)
-            users.add(formatPlayerNameForChatList(userInRoom));
-
-        for (String userInRoom : users) {
-            Element user = doc.createElement("user");
-            user.appendChild(doc.createTextNode(userInRoom));
-            chatElem.appendChild(user);
-        }
-    }
-
-    private String formatPlayerNameForChatList(String userInRoom) {
-        final Player player = playerDao.getPlayer(userInRoom);
-        if (player != null) {
-            final String playerType = player.getType();
-            if (playerType.contains("a"))
-                return "* " + userInRoom;
-            else if (playerType.contains("l"))
-                return "+ " + userInRoom;
-        }
-        return userInRoom;
     }
 
     private String getLoggedUser(HttpHeaders headers) {
@@ -261,10 +196,82 @@ public class GempukkuWebsocketHandler extends SimpleChannelInboundHandler<TextWe
         return Boolean.valueOf(System.getProperty("test"));
     }
 
-    private class CaseInsensitiveStringComparator implements Comparator<String> {
+    private class WebsocketChatRoomListener implements ChatRoomListener {
+        private boolean process;
+        private ChatRoom chatRoom;
+        private boolean admin;
+        private Collection<String> ignoredUsers;
+        private ChannelHandlerContext ctx;
+        private List<ChatMessage> pendingMessages = new LinkedList<>();
+
+        public WebsocketChatRoomListener(ChatRoom chatRoom, boolean admin, Collection<String> ignoredUsers, ChannelHandlerContext ctx) {
+            this.chatRoom = chatRoom;
+            this.admin = admin;
+            this.ignoredUsers = ignoredUsers;
+            this.ctx = ctx;
+        }
+
         @Override
-        public int compare(String o1, String o2) {
-            return o1.toLowerCase().compareTo(o2.toLowerCase());
+        public void messageReceived(ChatMessage message) {
+            if (process) {
+                try {
+                    Document document = XMLSerializeUtil.serializeChatRoomData(playerDao, chatRoom.getName(), Collections.singleton(message),
+                            filterIgnoredUsers(chatRoom.getUsersInRoom(admin)));
+                    writeXmlFrame(ctx, document);
+                } catch (Exception e) {
+                    ctx.close();
+                }
+            } else {
+                pendingMessages.add(message);
+            }
+        }
+
+        @Override
+        public void userJoined(String userId) {
+            if (process) {
+                try {
+                    Document document = XMLSerializeUtil.serializeChatRoomData(playerDao, chatRoom.getName(), Collections.emptySet(),
+                            filterIgnoredUsers(chatRoom.getUsersInRoom(admin)));
+                    writeXmlFrame(ctx, document);
+                } catch (Exception e) {
+                    ctx.close();
+                }
+            }
+        }
+
+        @Override
+        public void userParted(String userId) {
+            if (process) {
+                try {
+                    Document document = XMLSerializeUtil.serializeChatRoomData(playerDao, chatRoom.getName(), Collections.emptySet(),
+                            filterIgnoredUsers(chatRoom.getUsersInRoom(admin)));
+                    writeXmlFrame(ctx, document);
+                } catch (Exception e) {
+                    ctx.close();
+                }
+            }
+        }
+
+        @Override
+        public void listenerPushedOut() {
+            ctx.close();
+        }
+
+        public void setProcess(boolean process) {
+            this.process = process;
+        }
+
+        public List<ChatMessage> getPendingMessages() {
+            return pendingMessages;
+        }
+
+        private Collection<String> filterIgnoredUsers(Collection<String> users) {
+            List<String> result = new LinkedList<>();
+            for (String user : users) {
+                if (!ignoredUsers.contains(user))
+                    result.add(user);
+            }
+            return result;
         }
     }
 }

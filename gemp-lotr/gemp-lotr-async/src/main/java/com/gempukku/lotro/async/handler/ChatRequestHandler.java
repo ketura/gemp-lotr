@@ -4,11 +4,11 @@ import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.async.poll.MessagesAndUsers;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatMessage;
-import com.gempukku.lotro.chat.ChatRoomMediator;
-import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.game.ChatCommunicationChannel;
+import com.gempukku.lotro.async.poll.ChatServerMediator;
+import com.gempukku.lotro.async.poll.ChatCommunicationChannel;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
@@ -26,46 +26,66 @@ import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.util.*;
 
+import static com.gempukku.lotro.async.XMLSerializeUtil.serializeChatRoomData;
+
 public class ChatRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private ChatServer _chatServer;
+    private ChatServerMediator chatServerMediator;
     private LongPollingSystem longPollingSystem;
 
     public ChatRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
-        _chatServer = extractObject(context, ChatServer.class);
+        this.chatServerMediator = (ChatServerMediator) context.get(ChatServerMediator.class);
         this.longPollingSystem = longPollingSystem;
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
-            getMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
-            postMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
+        if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
+            joinRoom(request, URLDecoder.decode(uri.substring(1)), responseWriter);
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.POST) {
+            updateMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
         } else {
             throw new HttpProcessingException(404);
         }
     }
 
-    private void postMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
+    private void joinRoom(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
+        String participantId = getQueryParameterSafely(queryDecoder, "participantId");
+
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        String playerName = resourceOwner.getName();
+
+        try {
+            final boolean admin = resourceOwner.getType().contains("a");
+            MessagesAndUsers messagesAndUsers = chatServerMediator.joinUser(room, playerName, admin);
+            if (messagesAndUsers == null)
+                throw new HttpProcessingException(404);
+
+            Document doc = serializeChatRoomData(_playerDao, room, messagesAndUsers.getChatMessages(), messagesAndUsers.getUsers());
+
+            responseWriter.writeXmlResponse(doc);
+        } catch (PrivateInformationException exp) {
+            throw new HttpProcessingException(403);
+        }
+    }
+
+    private void updateMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String message = getFormParameterSafely(postDecoder, "message");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
-        if (chatRoom == null)
-            throw new HttpProcessingException(404);
+        String playerName = resourceOwner.getName();
 
         try {
             final boolean admin = resourceOwner.getType().contains("a");
             if (message != null && message.trim().length() > 0) {
-                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), admin);
+                chatServerMediator.sendMessage(room, playerName, StringEscapeUtils.escapeHtml(message), admin);
                 responseWriter.writeXmlResponse(null);
             } else {
-                ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
-                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), admin, responseWriter);
+                ChatCommunicationChannel pollableResource = chatServerMediator.getChatRoomCommunicationChannel(room, playerName);
+                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatServerMediator, room, playerName, admin, responseWriter);
                 longPollingSystem.processLongPollingResource(polledResource, pollableResource);
             }
         } catch (SubscriptionExpiredException exp) {
@@ -78,14 +98,14 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class ChatUpdateLongPollingResource implements LongPollingResource {
-        private ChatRoomMediator chatRoom;
+        private ChatServerMediator chatRoom;
         private String room;
         private String playerId;
         private boolean admin;
         private ResponseWriter responseWriter;
         private boolean processed;
 
-        private ChatUpdateLongPollingResource(ChatRoomMediator chatRoom, String room, String playerId, boolean admin, ResponseWriter responseWriter) {
+        private ChatUpdateLongPollingResource(ChatServerMediator chatRoom, String room, String playerId, boolean admin, ResponseWriter responseWriter) {
             this.chatRoom = chatRoom;
             this.room = room;
             this.playerId = playerId;
@@ -102,16 +122,11 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         public synchronized void processIfNotProcessed() {
             if (!processed) {
                 try {
-                    List<ChatMessage> chatMessages = chatRoom.getChatRoomListener(playerId).consumeMessages();
+                    List<ChatMessage> chatMessages = chatRoom.getChatRoomCommunicationChannel(room, playerId).consumeMessages();
 
-                    Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
+                    Collection<String> usersInRoom = chatServerMediator.getUsersInRoom(room, playerId, admin);
 
-                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-                    Document doc = documentBuilder.newDocument();
-
-                    serializeChatRoomData(room, chatMessages, usersInRoom, doc);
+                    Document doc = serializeChatRoomData(_playerDao, room, chatMessages, usersInRoom);
 
                     responseWriter.writeXmlResponse(doc);
                 } catch (SubscriptionExpiredException exp) {
@@ -130,75 +145,5 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                 processed = true;
             }
         }
-    }
-
-    private void getMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
-        String participantId = getQueryParameterSafely(queryDecoder, "participantId");
-
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
-        if (chatRoom == null)
-            throw new HttpProcessingException(404);
-        try {
-            final boolean admin = resourceOwner.getType().contains("a");
-            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), true, admin);
-            Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
-
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            Document doc = documentBuilder.newDocument();
-
-            serializeChatRoomData(room, chatMessages, usersInRoom, doc);
-
-            responseWriter.writeXmlResponse(doc);
-        } catch (PrivateInformationException exp) {
-            throw new HttpProcessingException(403);
-        }
-    }
-
-    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Collection<String> usersInRoom, Document doc) {
-        Element chatElem = doc.createElement("chat");
-        chatElem.setAttribute("roomName", room);
-        doc.appendChild(chatElem);
-
-        for (ChatMessage chatMessage : chatMessages) {
-            Element message = doc.createElement("message");
-            message.setAttribute("from", chatMessage.getFrom());
-            message.setAttribute("date", String.valueOf(chatMessage.getWhen().getTime()));
-            message.appendChild(doc.createTextNode(chatMessage.getMessage()));
-            chatElem.appendChild(message);
-        }
-
-        Set<String> users = new TreeSet<String>(new CaseInsensitiveStringComparator());
-        for (String userInRoom : usersInRoom)
-            users.add(formatPlayerNameForChatList(userInRoom));
-
-        for (String userInRoom : users) {
-            Element user = doc.createElement("user");
-            user.appendChild(doc.createTextNode(userInRoom));
-            chatElem.appendChild(user);
-        }
-    }
-
-    private class CaseInsensitiveStringComparator implements Comparator<String> {
-        @Override
-        public int compare(String o1, String o2) {
-            return o1.toLowerCase().compareTo(o2.toLowerCase());
-        }
-    }
-
-    private String formatPlayerNameForChatList(String userInRoom) {
-        final Player player = _playerDao.getPlayer(userInRoom);
-        if (player != null) {
-            final String playerType = player.getType();
-            if (playerType.contains("a"))
-                return "* "+userInRoom;
-            else if (playerType.contains("l"))
-                return "+ "+userInRoom;
-        }
-        return userInRoom;
     }
 }

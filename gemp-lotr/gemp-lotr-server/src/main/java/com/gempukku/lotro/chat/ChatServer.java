@@ -1,68 +1,57 @@
 package com.gempukku.lotro.chat;
 
-import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.PrivateInformationException;
-import com.gempukku.lotro.db.IgnoreDAO;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ChatServer extends AbstractServer {
-    private IgnoreDAO ignoreDAO;
-    private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
+public class ChatServer {
+    private Map<String, ChatRoom> chatRooms = new ConcurrentHashMap<>();
 
-    public ChatServer(IgnoreDAO ignoreDAO) {
-        this.ignoreDAO = ignoreDAO;
-    }
-
-    public ChatRoomMediator createChatRoom(String name, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean allowIncognito, String welcomeMessage) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(ignoreDAO, name, muteJoinPartMessages, secondsTimeoutPeriod, allowIncognito, welcomeMessage);
+    public ChatRoom createChatRoom(String name, boolean allowIncognito, String welcomeMessage) {
+        ChatRoom chatRoom = new ChatRoom(name, allowIncognito, null, welcomeMessage);
         try {
-            chatRoom.sendMessage("System", "Welcome to room: " + name, true);
-        } catch (PrivateInformationException exp) {
+            chatRoom.postMessage("System", "Welcome to room: " + name, true);
+        } catch (PrivateInformationException e) {
             // Ignore, sent as admin
         } catch (ChatCommandErrorException e) {
             // Ignore, no command
         }
-        _chatRooms.put(name, chatRoom);
+        chatRooms.put(name, chatRoom);
         return chatRoom;
     }
 
-    public ChatRoomMediator createPrivateChatRoom(String name, boolean muteJoinPartMessages, Set<String> allowedUsers, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(ignoreDAO, name, muteJoinPartMessages, secondsTimeoutPeriod, allowedUsers, false);
+    public ChatRoom createPrivateChatRoom(String name, Set<String> allowedUsers) {
+        ChatRoom chatRoom = new ChatRoom(name, false, allowedUsers, null);
         try {
-            chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
-        } catch (PrivateInformationException exp) {
+            chatRoom.postMessage("System", "Welcome to private room: " + name, true);
+        } catch (PrivateInformationException e) {
             // Ignore, sent as admin
         } catch (ChatCommandErrorException e) {
             // Ignore, no command
         }
-        _chatRooms.put(name, chatRoom);
+        chatRooms.put(name, chatRoom);
         return chatRoom;
     }
 
     public void sendSystemMessageToAllChatRooms(String message) {
         try {
-            for (ChatRoomMediator chatRoomMediator : _chatRooms.values())
-                chatRoomMediator.sendMessage("System", message, true);
-        } catch (PrivateInformationException exp) {
+            for (ChatRoom chatRoom : chatRooms.values())
+                chatRoom.postMessage("System", message, true);
+        } catch (PrivateInformationException e) {
             // Ignore, sent as admin
         } catch (ChatCommandErrorException e) {
             // Ignore, no command
         }
     }
 
-    public ChatRoomMediator getChatRoom(String name) {
-        return _chatRooms.get(name);
+    public ChatRoom getChatRoom(String name) {
+        return chatRooms.get(name);
     }
 
     public void destroyChatRoom(String name) {
-        _chatRooms.remove(name);
-    }
-
-    protected void cleanup() {
-        for (ChatRoomMediator chatRoomMediator : _chatRooms.values())
-            chatRoomMediator.cleanup();
+        ChatRoom chatRoom = chatRooms.remove(name);
+        chatRoom.destroy();
     }
 }

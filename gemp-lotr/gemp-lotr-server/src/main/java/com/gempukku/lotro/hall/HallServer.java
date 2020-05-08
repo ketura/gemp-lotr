@@ -3,7 +3,7 @@ package com.gempukku.lotro.hall;
 import com.gempukku.lotro.*;
 import com.gempukku.lotro.chat.ChatCommandCallback;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
-import com.gempukku.lotro.chat.ChatRoomMediator;
+import com.gempukku.lotro.chat.ChatRoom;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.IgnoreDAO;
@@ -68,7 +68,7 @@ public class HallServer extends AbstractServer {
     private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
 
     private Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<String, TournamentQueue>();
-    private final ChatRoomMediator _hallChat;
+    private final ChatRoom hallChat;
     private final GameResultListener _notifyHallListeners = new NotifyHallListenersGameResultListener();
 
     public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
@@ -90,9 +90,9 @@ public class HallServer extends AbstractServer {
 
         tableHolder = new TableHolder(leagueService, ignoreDAO);
 
-        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, true,
+        hallChat = _chatServer.createChatRoom("Game Hall", true,
                 "You're now in the Game Hall, use /help to get a list of available commands");
-        _hallChat.addChatCommandCallback("shutdown",
+        hallChat.addChatCommandCallback("shutdown",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
@@ -104,7 +104,7 @@ public class HallServer extends AbstractServer {
                         }
                     }
                 });
-        _hallChat.addChatCommandCallback("ban",
+        hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
@@ -115,7 +115,7 @@ public class HallServer extends AbstractServer {
                         }
                     }
                 });
-        _hallChat.addChatCommandCallback("banIp",
+        hallChat.addChatCommandCallback("banIp",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
@@ -126,7 +126,7 @@ public class HallServer extends AbstractServer {
                         }
                     }
                 });
-        _hallChat.addChatCommandCallback("banIpRange",
+        hallChat.addChatCommandCallback("banIpRange",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
@@ -137,74 +137,74 @@ public class HallServer extends AbstractServer {
                         }
                     }
                 });
-        _hallChat.addChatCommandCallback("ignore",
+        hallChat.addChatCommandCallback("ignore",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (!from.equals(playerName) && ignoreDAO.addIgnoredUser(from, playerName)) {
-                                _hallChat.sendToUser(from, from, "/ignore " + playerName);
-                                _hallChat.sendToUser("System", from, "User " + playerName + " added to ignore list");
+                                hallChat.postToUser(from, from, "/ignore " + playerName);
+                                hallChat.postToUser("System", from, "User " + playerName + " added to ignore list");
                             }
                         }
                     }
                 });
-        _hallChat.addChatCommandCallback("unignore",
+        hallChat.addChatCommandCallback("unignore",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (ignoreDAO.removeIgnoredUser(from, playerName)) {
-                                _hallChat.sendToUser(from, from, "/unignore " + playerName);
-                                _hallChat.sendToUser("System", from, "User " + playerName + " removed from ignore list");
+                                hallChat.postToUser(from, from, "/unignore " + playerName);
+                                hallChat.postToUser("System", from, "User " + playerName + " removed from ignore list");
                             }
                         }
                     }
                 });
-        _hallChat.addChatCommandCallback("listIgnores",
+        hallChat.addChatCommandCallback("listIgnores",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(from);
-                        _hallChat.sendToUser(from, from, "/listIgnores");
-                        _hallChat.sendToUser("System", from, "Your ignores: " + Arrays.toString(ignoredUsers.toArray(new String[0])));
+                        hallChat.postToUser(from, from, "/listIgnores");
+                        hallChat.postToUser("System", from, "Your ignores: " + Arrays.toString(ignoredUsers.toArray(new String[0])));
                     }
                 });
-        _hallChat.addChatCommandCallback("incognito",
+        hallChat.addChatCommandCallback("incognito",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
-                        _hallChat.setIncognito(from, true);
-                        _hallChat.sendToUser(from, from, "/incognito");
-                        _hallChat.sendToUser("System", from, "You are now incognito (do not appear in user list)");
+                        hallChat.setUserIncognitoMode(from, true);
+                        hallChat.postToUser(from, from, "/incognito");
+                        hallChat.postToUser("System", from, "You are now incognito (do not appear in user list)");
                     }
                 });
-        _hallChat.addChatCommandCallback("endIncognito",
+        hallChat.addChatCommandCallback("endIncognito",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
-                        _hallChat.setIncognito(from, false);
-                        _hallChat.sendToUser(from, from, "/endIncognito");
-                        _hallChat.sendToUser("System", from, "You are no longer incognito");
+                        hallChat.setUserIncognitoMode(from, false);
+                        hallChat.postToUser(from, from, "/endIncognito");
+                        hallChat.postToUser("System", from, "You are no longer incognito");
                     }
                 });
-        _hallChat.addChatCommandCallback("help",
+        hallChat.addChatCommandCallback("help",
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
-                        _hallChat.sendToUser("System", from, "List of available commands:");
-                        _hallChat.sendToUser("System", from, "/ignore username - Adds user 'username' to list of your ignores");
-                        _hallChat.sendToUser("System", from, "/unignore username - Removes user 'username' from list of your ignores");
-                        _hallChat.sendToUser("System", from, "/listIgnores - Lists all your ignored users");
-                        _hallChat.sendToUser("System", from, "/incognito - Makes you incognito (not visible in user list)");
-                        _hallChat.sendToUser("System", from, "/endIncognito - Turns your visibility 'on' again");
+                        hallChat.postToUser("System", from, "List of available commands:");
+                        hallChat.postToUser("System", from, "/ignore username - Adds user 'username' to list of your ignores");
+                        hallChat.postToUser("System", from, "/unignore username - Removes user 'username' from list of your ignores");
+                        hallChat.postToUser("System", from, "/listIgnores - Lists all your ignored users");
+                        hallChat.postToUser("System", from, "/incognito - Makes you incognito (not visible in user list)");
+                        hallChat.postToUser("System", from, "/endIncognito - Turns your visibility 'on' again");
                         if (admin) {
-                            _hallChat.sendToUser("System", from, "Admin only commands:");
-                            _hallChat.sendToUser("System", from, "/ban username - Bans user 'username' permanently");
-                            _hallChat.sendToUser("System", from, "/banIp ip - Bans specified ip permanently");
-                            _hallChat.sendToUser("System", from, "/banIpRange ip - Bans ips with the specified prefix, ie. 10.10.10.");
+                            hallChat.postToUser("System", from, "Admin only commands:");
+                            hallChat.postToUser("System", from, "/ban username - Bans user 'username' permanently");
+                            hallChat.postToUser("System", from, "/banIp ip - Bans specified ip permanently");
+                            hallChat.postToUser("System", from, "/banIpRange ip - Bans ips with the specified prefix, ie. 10.10.10.");
                         }
                     }
                 });
@@ -786,7 +786,7 @@ public class HallServer extends AbstractServer {
         @Override
         public void broadcastMessage(String message) {
             try {
-                _hallChat.sendMessage("TournamentSystem", message, true);
+                hallChat.postMessage("TournamentSystem", message, true);
             } catch (PrivateInformationException exp) {
                 // Ignore, sent as admin
             } catch (ChatCommandErrorException e) {

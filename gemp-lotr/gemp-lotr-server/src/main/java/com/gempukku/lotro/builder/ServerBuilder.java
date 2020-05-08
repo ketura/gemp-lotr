@@ -89,8 +89,7 @@ public class ServerBuilder {
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, CardSets.class)));
 
-        objectMap.put(ChatServer.class, new ChatServer(
-                extract(objectMap, IgnoreDAO.class)));
+        objectMap.put(ChatServer.class, new ChatServer());
 
         objectMap.put(LotroServer.class,
                 new LotroServer(
@@ -130,7 +129,6 @@ public class ServerBuilder {
             extract(objectMap, MtgCardServer.class).startServer();
         extract(objectMap, HallServer.class).startServer();
         extract(objectMap, LotroServer.class).startServer();
-        extract(objectMap, ChatServer.class).startServer();
     }
 
     private static boolean isMtgEnabled() {
@@ -143,6 +141,5 @@ public class ServerBuilder {
             extract(objectMap, MtgCardServer.class).stopServer();
         extract(objectMap, HallServer.class).stopServer();
         extract(objectMap, LotroServer.class).stopServer();
-        extract(objectMap, ChatServer.class).stopServer();
     }
 }

@@ -3,31 +3,31 @@ package com.gempukku.lotro.chat;
 import java.util.Date;
 
 public class ChatMessage {
-    private Date _when;
-    private String _from;
-    private String _message;
-    private boolean fromAdmin;
+    private Date when;
+    private String from;
+    private String message;
+    private boolean forced;
 
-    public ChatMessage(Date when, String from, String message, boolean fromAdmin) {
-        _when = when;
-        _from = from;
-        _message = message;
-        this.fromAdmin = fromAdmin;
+    public ChatMessage(Date when, String from, String message, boolean forced) {
+        this.when = when;
+        this.from = from;
+        this.message = message;
+        this.forced = forced;
     }
 
     public String getFrom() {
-        return _from;
+        return from;
     }
 
     public String getMessage() {
-        return _message;
+        return message;
     }
 
     public Date getWhen() {
-        return _when;
+        return when;
     }
 
-    public boolean isFromAdmin() {
-        return fromAdmin;
+    public boolean isForced() {
+        return forced;
     }
 }

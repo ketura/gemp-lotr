@@ -41,8 +41,7 @@ public class HallCommunicationChannel implements LongPollableResource {
         _changed = true;
         if (_waitingRequest != null) {
             _waitingRequest.processRequest();
-            if (_waitingRequest.isOneShot())
-                _waitingRequest = null;
+            _waitingRequest = null;
         }
     }
 

@@ -134,10 +134,5 @@ public class LongPollingSystem {
         public long getStart() {
             return _start;
         }
-
-        @Override
-        public boolean isOneShot() {
-            return true;
-        }
     }
 }

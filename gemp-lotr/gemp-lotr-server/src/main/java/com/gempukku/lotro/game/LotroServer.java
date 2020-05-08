@@ -54,7 +54,7 @@ public class LotroServer extends AbstractServer {
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeathWarning
                         && !_gameDeathWarningsSent.contains(gameId)) {
                     try {
-                        _chatServer.getChatRoom(getChatRoomName(gameId)).sendMessage("System", "This game is already finished and will be shortly removed, please move to the Game Hall", true);
+                        _chatServer.getChatRoom(getChatRoomName(gameId)).postMessage("System", "This game is already finished and will be shortly removed, please move to the Game Hall", true);
                     } catch (PrivateInformationException exp) {
                         // Ignore, sent as admin
                     } catch (ChatCommandErrorException e) {
@@ -95,9 +95,9 @@ public class LotroServer extends AbstractServer {
                 Set<String> allowedUsers = new HashSet<String>();
                 for (LotroGameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
-                _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
+                _chatServer.createPrivateChatRoom(getChatRoomName(gameId), allowedUsers);
             } else
-                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, false, null);
+                _chatServer.createChatRoom(getChatRoomName(gameId), false, null);
 
             // Allow spectators for leagues, but not tournaments
             LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,
