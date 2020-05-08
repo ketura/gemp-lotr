@@ -105,7 +105,7 @@ public class ChatRoom {
 
             LinkedList<ChatMessage> messages = new LinkedList<>(lastMessages);
             if (welcomeMessage != null)
-                messages.addFirst(new ChatMessage(new Date(), "System", welcomeMessage, true));
+                messages.addLast(new ChatMessage(new Date(), "System", welcomeMessage, true));
 
             return new MessagesAndUsers(messages, getUsersInRoom(admin));
         } finally {

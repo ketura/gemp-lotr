@@ -1,9 +1,7 @@
 package com.gempukku.lotro.async;
 
 import com.gempukku.lotro.PrivateInformationException;
-import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.chat.ChatMessage;
-import com.gempukku.lotro.async.poll.ChatServerMediator;
 import com.gempukku.lotro.chat.ChatRoom;
 import com.gempukku.lotro.chat.ChatRoomListener;
 import com.gempukku.lotro.chat.ChatServer;
