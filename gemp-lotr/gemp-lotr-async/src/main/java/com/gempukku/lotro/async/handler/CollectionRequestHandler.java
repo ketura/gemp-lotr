@@ -36,6 +36,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     private LotroCardBlueprintLibrary _library;
     private LotroFormatLibrary _formatLibrary;
     private SortAndFilterCards _sortAndFilterCards;
+    private ImportCards _importCards;
 
     public CollectionRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -47,12 +48,15 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _sortAndFilterCards = new SortAndFilterCards();
+        _importCards = new ImportCards();
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getCollectionTypes(request, responseWriter);
+        } else if (uri.startsWith("/import/") && request.getMethod() == HttpMethod.GET) {
+            importCollection(request, responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             openPack(request, uri.substring(1), responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
@@ -60,6 +64,50 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         } else {
             throw new HttpProcessingException(404);
         }
+    }
+    
+    private void importCollection(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        String participantId = getQueryParameterSafely(queryDecoder, "participantId");
+        String rawDecklist = getQueryParameterSafely(queryDecoder, "decklist");
+
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        CardCollection collection = constructCollection(resourceOwner, "default");
+
+        if (collection == null)
+            throw new HttpProcessingException(404);
+
+        Iterable<CardCollection.Item> items = collection.getAll();
+        List<CardCollection.Item> importResult = _importCards.process(rawDecklist, items, _library);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element collectionElem = doc.createElement("collection");
+        collectionElem.setAttribute("count", String.valueOf(importResult.size()));
+        doc.appendChild(collectionElem);
+
+        for (int i = 0; i < importResult.size(); i++) {
+            CardCollection.Item item = importResult.get(i);
+            String blueprintId = item.getBlueprintId();
+            if (item.getType() == CardCollection.Item.Type.CARD) {
+                Element card = doc.createElement("card");
+                card.setAttribute("count", String.valueOf(item.getCount()));
+                card.setAttribute("blueprintId", blueprintId);
+                LotroCardBlueprint blueprint = _library.getLotroCardBlueprint(blueprintId);
+                appendCardSide(card, blueprint);
+                appendCardGroup(card, blueprint);
+                collectionElem.appendChild(card);
+            }
+        }
+
+        Map<String, String> headers = new HashMap<String, String>();
+        processDeliveryServiceNotification(request, headers);
+
+        responseWriter.writeXmlResponse(doc, headers);
     }
 
     private void getCollection(HttpRequest request, String collectionType, ResponseWriter responseWriter) throws Exception {
