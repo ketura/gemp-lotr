@@ -1,0 +1,111 @@
+version: "3.4"
+
+services:
+  build:
+    container_name: gemp_app
+    build: 
+      context: .
+      dockerfile: gemp_app.Dockerfile
+    image: gemp_app
+    expose:
+      - "80"
+      - "8080"
+    restart: always
+    ports:
+        # target means in the container
+      - target: 80
+        # published is what's on the host machine
+        published: 1337
+      #- "8080:108080"
+    volumes:
+       # - type: bind
+       #   source: X:/Projects/gemp-lotr/replays
+       #   target: /etc/gemp
+       - type: bind
+         source: X:/Projects/gemp-lotr/gemp-lotr/gemp-lotr-async/src/main/web
+         target: /etc/gemp-lotr/web
+       - type: bind
+         source: X:/Projects/gemp-lotr/gemp-lotr
+         target: /etc/gemp-lotr
+       - type: bind
+         source: X:/Projects/gemp-lotr/gemp-lotr/gemp-lotr-async/src/main/web
+         target: /var/www/localhost/htdocs/gemp-lotr #/etc/apache2/htdocs/gemp-lotr
+    networks:
+      gemp_net:
+        ipv4_address: 172.28.1.1
+    tty: true
+    #command: /usr/sbin/httpd -D FOREGROUND
+    command: nohup java -jar /etc/gemp-lotr/gemp-lotr-async/target/web.jar &
+
+
+  db:
+    #image: mariadb
+    container_name: gemp_db
+    build: 
+      context: ..
+      dockerfile: docker/gemp_db.Dockerfile
+    image: gemp_db
+    ports:
+        # target means in the container
+      - target: 3306
+        # published is what's on the host machine
+        published: 3307
+    restart: always
+    volumes:
+       - type: bind
+         source: X:/Projects/gemp-lotr/database
+         target: /var/lib/mysql
+    networks:
+      gemp_net:
+        ipv4_address: 172.28.1.2
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: gemp_db
+      MYSQL_USER: gempuser
+      MYSQL_PASSWORD: gemppassword
+      
+  
+  # web:
+  #   container_name: gemp_web
+  #   build: 
+  #     context: .
+  #     dockerfile: gemp_web.Dockerfile
+  #   image: gemp_web
+  #   expose:
+  #     - "80"
+  #     - "8080"
+  #   ports:
+  #       # target means in the container
+  #     - target: 80
+  #       # published is what's on the host machine
+  #       published: 1337
+  #     #- "8080:108080"
+  #   volumes:
+  #      - type: bind
+  #        source: X:/Projects/gemp-lotr/gemp-lotr/gemp-lotr-async/src/main/web
+  #        target: /usr/local/apache2/htdocs/gemp-lotr
+  #   networks:
+  #     gemp_net:
+  #       ipv4_address: 172.28.1.3
+  #   extra_hosts:
+  #     # by overridding localhost to go to the app container, we avoid issues with AJAX
+  #     - "localhost:172.28.1.1"
+      
+  # wiki:
+  #   container_name: lotr_wiki
+  #   image: mediawiki
+  #   ports:
+  #       # target means in the container
+  #     - target: 80
+  #       # published is what's on the host machine
+  #       published: 1338
+  #   volumes:
+  #      - type: bind
+  #        source: X:/Projects/gemp-lotr/gemp-lotr/docker/wiki
+  #        target: /usr/wiki
+networks:
+  gemp_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
