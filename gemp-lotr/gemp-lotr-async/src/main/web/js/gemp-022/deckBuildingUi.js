@@ -99,12 +99,12 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         var copyDeckBut = $("<button title='Copy deck to new'><span class='ui-icon ui-icon-copy'></span></button>").button();
         this.manageDecksDiv.append(copyDeckBut);
-
-        var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-suitcase'></span></button>").button();
-        this.manageDecksDiv.append(deckListBut);
         
         var importDeckBut = $("<button title='Import Deck'><span class='ui-icon ui-icon-arrowthickstop-1-s'></span></button>").button();
         this.manageDecksDiv.append(importDeckBut);
+
+        var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-suitcase'></span></button>").button();
+        this.manageDecksDiv.append(deckListBut);
 
         this.manageDecksDiv.append("<span id='editingDeck'>New deck</span>");
 
