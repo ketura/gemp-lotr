@@ -514,7 +514,7 @@
   "19_14": {
     "title": "Not Bound To His Fate",
     "culture": "gondor",
-    "cost": 3,
+    "cost": 2,
     "type": "condition",
     "strength": 1,
     "target": "culture(gondor),man",
