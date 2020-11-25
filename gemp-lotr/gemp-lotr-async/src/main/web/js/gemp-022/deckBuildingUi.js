@@ -40,6 +40,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     selectionDialog:null,
     selectionGroup:null,
     packSelectionId:null,
+    deckImportDialog:null,
 
     cardFilter:null,
 
@@ -98,6 +99,9 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         var copyDeckBut = $("<button title='Copy deck to new'><span class='ui-icon ui-icon-copy'></span></button>").button();
         this.manageDecksDiv.append(copyDeckBut);
+        
+        var importDeckBut = $("<button title='Import Deck'><span class='ui-icon ui-icon-arrowthickstop-1-s'></span></button>").button();
+        this.manageDecksDiv.append(importDeckBut);
 
         var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-suitcase'></span></button>").button();
         this.manageDecksDiv.append(deckListBut);
@@ -167,6 +171,12 @@ var GempLotrDeckBuildingUI = Class.extend({
         deckListBut.click(
                 function () {
                     that.loadDeckList();
+                });
+
+        importDeckBut.click(
+                function () {
+                    that.deckName = null;
+                    that.importDecklist();
                 });
 
         this.collectionDiv = $("#collectionDiv");
@@ -294,6 +304,107 @@ var GempLotrDeckBuildingUI = Class.extend({
                         }
                     }
                 });
+    },
+    
+    importDecklist:function () {
+        var that = this;
+        if (that.deckImportDialog == null) {
+            that.deckImportDialog = $('<div></div>').dialog({
+                closeOnEscape:true,
+                resizable:true,
+                title:"Import deck"
+            });
+        }
+        that.deckImportDialog.html("");
+        var deckImport = $("<textarea rows='5' cols='30' id='deckImport' decklist='decklist'></textarea>");
+        var getDecklistTextBut = $("<button title='Import'>Import</button>").button();
+
+        var importDialogDiv = $("<div></div>");
+        importDialogDiv.append(deckImport);
+        importDialogDiv.append(getDecklistTextBut);
+        that.deckImportDialog.append(importDialogDiv);
+
+        getDecklistTextBut.click(
+             function () {
+                var decklist = $('textarea[decklist="decklist"]').val()
+                that.parseDecklist(decklist);
+            }
+        );
+        that.deckImportDialog.dialog("open");
+    },
+    
+    parseDecklist:function(rawText) {
+        this.clearDeck();
+        var that = this;
+        var rawTextList = rawText.split("\n");
+        var formattedText = "";
+        for (var i = 0; i < rawTextList.length; i++) {
+            if (rawTextList[i] != "") {
+                var line = that.removeNotes(rawTextList[i]).toLowerCase();
+                line = line.replace(/[\*•]/g,"").replace(/’/g,"'")
+                        .replace(/starting|start|ring-bearer:|ring:/g,"")
+                formattedText = formattedText + line.trim() + "~";
+            }
+        }
+                
+        this.importDeckCollection(formattedText, function (xml) {
+            log(xml);
+
+            var cards = xml.documentElement.getElementsByTagName("card");
+            for (var i = 0; i < cards.length; i++) {
+                var cardElem = cards[i];
+                var blueprintId = cardElem.getAttribute("blueprintId");
+                var side = cardElem.getAttribute("side");
+                var group = cardElem.getAttribute("group");
+                if (group == "ringBearer") {
+                    that.addCardToContainer(blueprintId, "special", that.ringBearerDiv, false).addClass("cardInDeck");
+                    that.layoutSpecialGroups();
+                }
+                else if (group == "ring") {
+                    that.addCardToContainer(blueprintId, "special", that.ringDiv, false).addClass("cardInDeck");
+                    that.layoutSpecialGroups();
+                }
+                else {
+                    that.addCardToDeckAndLayout(blueprintId, side);
+                }
+            }
+            $("#editingDeck").text("Imported Deck (unsaved)");
+        });
+    },
+
+    removeNotes:function(line) {
+        var processedLine = line;
+        var hasNotes = false;
+        var start = line.indexOf("(");
+        var end = line.indexOf(")", start);
+        if (start < 0 && end < 0) {
+            start = line.indexOf("[");
+            end = line.indexOf("]", start);
+        }
+        if (start > 0) {
+            processedLine = line.slice(0,start)
+            if (end > 0) {
+                processedLine = processedLine + line.slice(end+1);
+            }
+        }
+        else if (end > 0) {
+            processedLine = line.slice(end+1);
+        }
+        if (processedLine.indexOf("(") > -1 || processedLine.indexOf(")") > -1 ||
+            processedLine.indexOf("[") > -1 || processedLine.indexOf("]") > -1) {
+                return this.removeNotes(processedLine);
+            }
+        return processedLine;
+    },
+
+    importDeckCollection:function (decklist, callback) {
+        this.comm.importCollection(decklist, function (xml) {
+            callback(xml);
+        }, {
+            "414":function () {
+                alert("Deck too large to import.");
+            }
+        });
     },
 
     loadDeckList:function () {
