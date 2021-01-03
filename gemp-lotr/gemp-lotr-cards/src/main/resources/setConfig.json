@@ -144,6 +144,7 @@
     "rarityFile": "/set40-rarity.txt",
     "originalSet": false,
     "merchantable": false,
-    "needsLoading": false
+    "needsLoading": false,
+    "playable": false
   }
 ]
