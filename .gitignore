@@ -10,6 +10,7 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
-database/
-replay/
-replays/
+database/*
+!database/.placeholder
+.idea/
+*.iml
