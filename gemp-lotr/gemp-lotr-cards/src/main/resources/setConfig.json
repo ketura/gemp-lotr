@@ -146,5 +146,14 @@
     "merchantable": false,
     "needsLoading": false,
     "playable": false
+  },
+  {
+    "setId": "21",
+    "setName": "PC FOTR Supplements",
+    "rarityFile": "/set21-rarity.txt",
+    "originalSet": false,
+    "merchantable": false,
+    "needsLoading": false,
+    "playable": true
   }
 ]

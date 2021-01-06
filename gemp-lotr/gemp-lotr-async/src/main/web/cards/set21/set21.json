@@ -1,0 +1,391 @@
+{
+  "21_1": {
+    "title": "Blue Mountain Dwarf",
+    "culture": "dwarven",
+    "type": "companion",
+    "race": "dwarf",
+    "cost": 2,
+    "strength": 6,
+    "vitality": 2
+  },
+  "21_2": {
+    "title": "Stand Together",
+    "culture": "gandalf",
+    "type": "event",
+    "keyword": "maneuver",
+    "cost": 3
+  },
+  "21_3": {
+    "title": "Thrice Worthy and Beloved Barliman",
+    "culture": "gandalf",
+    "type": "condition",
+    "cost": 0,
+    "strength": 1
+  },
+  "21_4": {
+    "title": "Gondorian Broadsword",
+    "culture": "gondor",
+    "type": "possession",
+    "possession": "hand weapon",
+    "cost": 2,
+    "strength": 2
+  },
+  "21_5": {
+    "title": "Relics of the Second Age",
+    "culture": "gondor",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_6": {
+    "title": "Thrown Sword",
+    "culture": "gondor",
+    "type": "event",
+    "keyword": "skirmish",
+    "cost": 1
+  },
+  "21_7": {
+    "title": "Lurtz",
+    "subtitle": "Weapon of Saruman",
+    "culture": "isengard",
+    "type": "minion",
+    "race": "uruk-hai",
+    "cost": 7,
+    "strength": 12,
+    "vitality": 3,
+    "site": 5
+  },
+  "21_8": {
+    "title": "Strength of Servitude",
+    "culture": "isengard",
+    "type": "event",
+    "keyword": "response",
+    "cost": 1
+  },
+  "21_9": {
+    "title": "Uruk Swarmer",
+    "culture": "isengard",
+    "type": "minion",
+    "race": "uruk-hai",
+    "cost": 3,
+    "strength": 6,
+    "vitality": 2,
+    "site": 5
+  },
+  "21_10": {
+    "title": "Goblin Bow",
+    "culture": "moria",
+    "type": "possession",
+    "possession": "ranged weapon",
+    "cost": 1,
+    "strength": 1,
+    "vitality": 1
+  },
+  "21_11": {
+    "title": "Goblin Warchief",
+    "subtitle": "Captain of the Underhall",
+    "culture": "moria",
+    "type": "minion",
+    "race": "orc",
+    "cost": 4,
+    "strength": 9,
+    "vitality": 2,
+    "site": 4
+  },
+  "21_12": {
+    "title": "No Hope of Escape That Way",
+    "culture": "moria",
+    "type": "event",
+    "keyword": "maneuver",
+    "cost": 1
+  },
+  "21_13": {
+    "title": "The Old Forest",
+    "culture": "wraith",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 0
+  },
+  "21_14": {
+    "title": "Old Man Willow",
+    "subtitle": "Heart of the Withywindle",
+    "culture": "wraith",
+    "type": "minion",
+    "race": "tree",
+    "cost": 3,
+    "strength": 2,
+    "vitality": 6,
+    "site": 2
+  },
+  "21_15": {
+    "title": "And in the Darkness Bind Them",
+    "culture": "sauron",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 0
+  },
+  "21_16": {
+    "title": "Gladden Ambush",
+    "culture": "sauron",
+    "type": "event",
+    "keyword": "maneuver",
+    "cost": 0
+  },
+  "21_17": {
+    "title": "Bilbo",
+    "subtitle": "One Hundred and Eleventy",
+    "culture": "shire",
+    "type": "ally",
+    "race": "hobbit",
+    "cost": 2,
+    "strength": 2,
+    "vitality": 3,
+    "allyHome": "fellowship,1"
+  },
+  "21_18": {
+    "title": "Hobbit Concealment",
+    "culture": "shire",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_19": {
+    "title": "Sam",
+    "subtitle": "Hobbit of Hobbiton",
+    "culture": "shire",
+    "type": "companion",
+    "race": "hobbit",
+    "cost": 2,
+    "strength": 3,
+    "vitality": 4,
+    "signet": "frodo"
+  },
+  "21_20": {
+    "title": "Walking Stick",
+    "culture": "shire",
+    "type": "possession",
+    "possession": "staff",
+    "strength": 0
+  },
+  "21_21": {
+    "title": "Barred the Gates",
+    "culture": "dwarven",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 0
+  },
+  "21_22": {
+    "title": "Light-shaft",
+    "culture": "dwarven",
+    "type": "event",
+    "keyword": "regroup",
+    "cost": 0
+  },
+  "21_23": {
+    "title": "Longbeard's Axe",
+    "culture": "dwarven",
+    "type": "possession",
+    "possession": "hand weapon",
+    "cost": 1,
+    "strength": 2
+  },
+  "21_24": {
+    "title": "Venturing Dwarf",
+    "culture": "dwarven",
+    "type": "companion",
+    "race": "dwarf",
+    "cost": 2,
+    "strength": 5,
+    "vitality": 3
+  },
+  "21_25": {
+    "title": "Dazzling Flash",
+    "culture": "gandalf",
+    "type": "event",
+    "keyword": "skirmish",
+    "cost": 1
+  },
+  "21_26": {
+    "title": "No Time for Wonder",
+    "culture": "gandalf",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_27": {
+    "title": "Dagger of Westernesse",
+    "culture": "gondor",
+    "type": "artifact",
+    "possession": "hand weapon",
+    "cost": 0,
+    "strength": 2
+  },
+  "21_28": {
+    "title": "Goblin Avengers",
+    "culture": "moria",
+    "type": "minion",
+    "race": "orc",
+    "cost": 7,
+    "strength": 13,
+    "vitality": 3,
+    "site": 4
+  },
+  "21_29": {
+    "title": "Goblin Warren",
+    "culture": "moria",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_30": {
+    "title": "Thither We Are Going Against My Wish",
+    "culture": "moria",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_31": {
+    "title": "Hollin Snarler",
+    "culture": "sauron",
+    "type": "minion",
+    "race": "warg",
+    "cost": 3,
+    "strength": 8,
+    "vitality": 2,
+    "site": 3
+  },
+  "21_32": {
+    "title": "The Hunt is Up!",
+    "culture": "sauron",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_33": {
+    "title": "Hunting Pack",
+    "culture": "sauron",
+    "type": "minion",
+    "race": "warg",
+    "cost": 5,
+    "strength": 11,
+    "vitality": 3,
+    "site": 5
+  },
+  "21_34": {
+    "title": "Pippin",
+    "subtitle": "Fool of a Took",
+    "culture": "shire",
+    "type": "companion",
+    "race": "hobbit",
+    "cost": 1,
+    "strength": 3,
+    "vitality": 4,
+    "signet": "gandalf"
+  },
+  "21_35": {
+    "title": "Deft Aid",
+    "culture": "elven",
+    "type": "condition",
+    "site": 1
+  },
+  "21_36": {
+    "title": "Elven Flet",
+    "culture": "elven",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 1
+  },
+  "21_37": {
+    "title": "In Imladris it Dwells",
+    "culture": "elven",
+    "type": "event",
+    "keyword": "fellowship",
+    "cost": 0
+  },
+  "21_38": {
+    "title": "Rivendell Sentry",
+    "culture": "elven",
+    "type": "ally",
+    "race": "elf",
+    "cost": 2,
+    "strength": 5,
+    "vitality": 2,
+    "allyHome": "fellowship,4"
+  },
+  "21_39": {
+    "title": "Arroch",
+    "culture": "gondor",
+    "type": "possession",
+    "possession": "mount",
+    "cost": 2,
+    "vitality": 1
+  },
+  "21_40": {
+    "title": "The Deeds of the Steward's House",
+    "culture": "gondor",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 2
+  },
+  "21_41": {
+    "title": "They Have a Cave Troll",
+    "culture": "gondor",
+    "type": "event",
+    "keyword": "maneuver",
+    "cost": 1
+  },
+  "21_42": {
+    "title": "Isengard Attendant",
+    "culture": "isengard",
+    "type": "minion",
+    "race": "orc",
+    "cost": 3,
+    "strength": 7,
+    "vitality": 2,
+    "site": 4
+  },
+  "21_43": {
+    "title": "Stirruk",
+    "culture": "isengard",
+    "type": "possession",
+    "possession": "hand weapon",
+    "cost": 1,
+    "strength": 3,
+    "vitality": 1
+  },
+  "21_44": {
+    "title": "Uruk Batch",
+    "culture": "isengard",
+    "type": "minion",
+    "race": "uruk-hai",
+    "cost": 3,
+    "strength": 7,
+    "vitality": 2,
+    "site": 5
+  },
+  "21_45": {
+    "title": "Influence of Shadow",
+    "culture": "sauron",
+    "type": "condition",
+    "keyword": "support area",
+    "cost": 0
+  },
+  "21_46": {
+    "title": "Tower Shaman",
+    "culture": "sauron",
+    "type": "minion",
+    "race": "orc",
+    "cost": 4,
+    "strength": 6,
+    "vitality": 3,
+    "site": 6
+  },
+  "21_47": {
+    "title": "Udun Scimitar",
+    "culture": "sauron",
+    "type": "possession",
+    "possession": "hand weapon",
+    "cost": 2,
+    "strength": 2
+  },
+}

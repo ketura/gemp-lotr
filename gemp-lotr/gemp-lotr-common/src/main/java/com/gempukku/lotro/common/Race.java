@@ -7,7 +7,10 @@ public enum Race implements Filterable {
     GOBLIN("Goblin"),
 	
 	//Additional Hobbit Draft races
-    DRAGON("Dragon"), EAGLE("Eagle"), BIRD("Bird");
+    DRAGON("Dragon"), EAGLE("Eagle"), BIRD("Bird"),
+
+    //PC Races
+    WARG("Warg");
 
     private String _humanReadable;
 
