@@ -27,7 +27,7 @@ gemp_app is slightly more complicated.  Gemp is a Java server, is built using Ma
 
 	4B- under db/environment, note all of the username/password fields.  If you are hosting this for something other than personal development, be sure to change all of these to something else.
 	
-	4C- note the two "published" ports: 1337 for the app, and 3307 for the db.  These are the ports that you will be accessing the site with (and the db if you connect with a database manager). If you are hosting this for something other than personal development, consider changing these to something else.  DO NOT change the "target" ports.
+	4C- note the two "published" ports: 17001 for the app, and 35001 for the db.  These are the ports that you will be accessing the site with (and the db if you connect with a database manager). If you are hosting this for something other than personal development, consider changing these to something else.  DO NOT change the "target" ports.
 	
 5- If you changed SQL credentials in step 4, navigate to gemp-lotr/gemp-lotr/gemp-lotr-commond/src/main/resources/ and open gemp-lotr.properties:
 	
@@ -64,7 +64,7 @@ You should see "Starting gemp_app....done" and "Starting gemp_db....done" at the
 		docker-compose down
 		docker-compose up -d
 	
-11- if all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  Open your browser of choice and navigate to http://localhost:1337/gemp-lotr/ .  (If you need a different port to be bound to, then repeat step 5 and edit the exposed port.)
+11- if all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  Open your browser of choice and navigate to http://localhost:17001/gemp-lotr/ .  (If you need a different port to be bound to, then repeat step 5 and edit the exposed port.)
 
 If you're presented with the home page, register a new user and log in. It's possible for the login page to present but login itself to fail if configured incorrectly, so don't celebrate until you see the (empty) lobby.  If you get that far, then congrats, you now have a working local version of Gemp.
 
