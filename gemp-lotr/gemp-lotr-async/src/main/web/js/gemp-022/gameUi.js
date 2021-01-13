@@ -43,8 +43,6 @@ var GempLotrGameUI = Class.extend({
     skirmishShadowGroup: null,
     skirmishFellowshipGroup: null,
 
-    extraActionsGroup: null,
-
     assignGroupDivs: null,
     shadowAssignGroups: null,
     freePeopleAssignGroups: null,
@@ -272,12 +270,9 @@ var GempLotrGameUI = Class.extend({
         this.supportPlayer = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "SUPPORT" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.extraActionsGroup = new NormalCardGroup($("#main"), function (card) {
-            return (card.zone == "EXTRA");
-        }, false);
         if (!this.spectatorMode) {
             this.hand = new NormalCardGroup($("#main"), function (card) {
-                return (card.zone == "HAND");
+                return (card.zone == "HAND") || (card.zone == "EXTRA");
             });
         }
 
@@ -956,7 +951,6 @@ var GempLotrGameUI = Class.extend({
                 width: specialUiWidth - padding,
                 height: height - padding * 4 - alertHeight - chatHeight
             });
-            this.extraActionsGroup.setBounds(padding * 2 + advPathWidth, padding + 160, specialUiWidth - padding, height - padding * 4 - alertHeight - chatHeight - 160);
             this.alertBox.css({
                 position: "absolute",
                 left: padding * 2 + advPathWidth,
@@ -1446,8 +1440,8 @@ var GempLotrGameUI = Class.extend({
                 if (card.zone == "EXTRA")
                     $(this).remove();
             });
-        if (this.extraActionsGroup != null)
-            this.extraActionsGroup.layoutCards();
+        if (this.hand != null)
+            this.hand.layoutCards();
     },
 
     integerDecision: function (decision) {
@@ -1866,7 +1860,7 @@ var GempLotrGameUI = Class.extend({
                     if (card.zone == "EXTRA")
                         $(this).remove();
                 });
-            that.extraActionsGroup.layoutCards();
+            that.hand.layoutCards();
             that.decisionFunction(id, "" + selectedCardIds);
         };
 
@@ -1915,7 +1909,7 @@ var GempLotrGameUI = Class.extend({
             }
 
             if (hasVirtual) {
-                that.extraActionsGroup.layoutCards();
+                that.hand.layoutCards();
             }
 
             that.selectionFunction = function (cardId, event) {
