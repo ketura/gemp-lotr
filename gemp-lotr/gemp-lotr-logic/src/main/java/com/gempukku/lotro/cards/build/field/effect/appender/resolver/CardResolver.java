@@ -22,8 +22,10 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class CardResolver {
     public static EffectAppender resolveStackedCards(String type, ValueSource countSource, FilterableSource stackedOn,
@@ -273,7 +275,17 @@ public class CardResolver {
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
-                    return actionContext.getSource().getZone() == Zone.DISCARD;
+                    int min = countSource.getMinimum(actionContext);
+
+                    Filterable filterable = Filters.any;
+                    if (choiceFilter != null)
+                        filterable = choiceFilter.getFilterable(actionContext);
+                    Filterable additionalFilterable = Filters.any;
+                    if (playabilityFilter != null)
+                        additionalFilterable = playabilityFilter.getFilterable(actionContext);
+
+                    Set<PhysicalCard> self = Collections.singleton(actionContext.getSource());
+                    return Filters.filter(self, actionContext.getGame(), Filters.zone(Zone.DISCARD), filterable, additionalFilterable).size() >= min;
                 }
 
                 @Override
@@ -296,15 +308,17 @@ public class CardResolver {
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
-                    if (playabilityFilter != null) {
-                        int min = countSource.getMinimum(null);
-                        String choicePlayerId = playerSource.getPlayer(actionContext);
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
-                        Filterable filter = playabilityFilter.getFilterable(actionContext);
-                        final LotroGame game = actionContext.getGame();
-                        return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, Filters.in(cardsFromMemory)).size() >= min;
-                    }
-                    return true;
+                    int min = countSource.getMinimum(null);
+                    String choicePlayerId = playerSource.getPlayer(actionContext);
+                    final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
+                    Filterable filterable = Filters.any;
+                    if (choiceFilter != null)
+                        filterable = choiceFilter.getFilterable(actionContext);
+                    Filterable additionalFilterable = Filters.any;
+                    if (playabilityFilter != null)
+                        additionalFilterable = playabilityFilter.getFilterable(actionContext);
+                    final LotroGame game = actionContext.getGame();
+                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, Filters.in(cardsFromMemory), filterable, additionalFilterable).size() >= min;
                 }
 
                 @Override
@@ -327,12 +341,15 @@ public class CardResolver {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            final Filterable filterable = filterableSource.getFilterable(actionContext);
+                            final Filterable filter = filterableSource.getFilterable(actionContext);
                             String choicePlayerId = playerSource.getPlayer(actionContext);
+                            Filterable filterable = Filters.any;
+                            if (choiceFilter != null)
+                                filterable = choiceFilter.getFilterable(actionContext);
                             Filterable additionalFilterable = Filters.any;
                             if (playabilityFilter != null)
                                 additionalFilterable = playabilityFilter.getFilterable(actionContext);
-                            actionContext.setCardMemory(memory, Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filterable, additionalFilterable));
+                            actionContext.setCardMemory(memory, Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, filterable, additionalFilterable));
                         }
                     };
                 }
@@ -350,13 +367,16 @@ public class CardResolver {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
                     int min = countSource.getMinimum(actionContext);
-                    final Filterable filterable = filterableSource.getFilterable(actionContext);
+                    final Filterable filter = filterableSource.getFilterable(actionContext);
                     String choicePlayerId = playerSource.getPlayer(actionContext);
+                    Filterable filterable = Filters.any;
+                    if (choiceFilter != null)
+                        filterable = choiceFilter.getFilterable(actionContext);
                     Filterable additionalFilterable = Filters.any;
                     if (playabilityFilter != null)
                         additionalFilterable = playabilityFilter.getFilterable(actionContext);
                     final LotroGame game = actionContext.getGame();
-                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filterable, additionalFilterable).size() >= min;
+                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, filterable, additionalFilterable).size() >= min;
                 }
 
                 @Override

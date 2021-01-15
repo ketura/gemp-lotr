@@ -803,7 +803,7 @@ public class Filters {
         };
     }
 
-    private static Filter zone(final Zone zone) {
+    public static Filter zone(final Zone zone) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
