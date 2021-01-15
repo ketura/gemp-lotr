@@ -683,6 +683,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canPlayCard(LotroGame game, String performingPlayer, PhysicalCard card) {
+        for (Modifier modifier : getModifiers(game, ModifierEffect.ACTION_MODIFIER))
+            if (!modifier.canPlayCard(game, performingPlayer, card))
+                return false;
+        return true;
+    }
+
+    @Override
     public boolean canHavePlayedOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target) {
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TARGET_MODIFIER, target))
             if (!modifier.canHavePlayedOn(game, playedCard, target))

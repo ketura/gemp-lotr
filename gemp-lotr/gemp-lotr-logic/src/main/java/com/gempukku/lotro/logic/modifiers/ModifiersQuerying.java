@@ -103,6 +103,8 @@ public interface ModifiersQuerying {
     // Playing actions
     public boolean canPlayAction(LotroGame game, String performingPlayer, Action action);
 
+    public boolean canPlayCard(LotroGame game, String performingPlayer, PhysicalCard card);
+
     public boolean canHavePlayedOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target);
 
     public boolean canHaveTransferredOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target);
