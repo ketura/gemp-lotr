@@ -277,15 +277,12 @@ public class CardResolver {
                 public boolean isPlayableInFull(ActionContext actionContext) {
                     int min = countSource.getMinimum(actionContext);
 
-                    Filterable filterable = Filters.any;
-                    if (choiceFilter != null)
-                        filterable = choiceFilter.getFilterable(actionContext);
                     Filterable additionalFilterable = Filters.any;
                     if (playabilityFilter != null)
                         additionalFilterable = playabilityFilter.getFilterable(actionContext);
 
                     Set<PhysicalCard> self = Collections.singleton(actionContext.getSource());
-                    return Filters.filter(self, actionContext.getGame(), Filters.zone(Zone.DISCARD), filterable, additionalFilterable).size() >= min;
+                    return Filters.filter(self, actionContext.getGame(), Filters.zone(Zone.DISCARD), additionalFilterable).size() >= min;
                 }
 
                 @Override
@@ -311,14 +308,11 @@ public class CardResolver {
                     int min = countSource.getMinimum(null);
                     String choicePlayerId = playerSource.getPlayer(actionContext);
                     final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
-                    Filterable filterable = Filters.any;
-                    if (choiceFilter != null)
-                        filterable = choiceFilter.getFilterable(actionContext);
                     Filterable additionalFilterable = Filters.any;
                     if (playabilityFilter != null)
                         additionalFilterable = playabilityFilter.getFilterable(actionContext);
                     final LotroGame game = actionContext.getGame();
-                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, Filters.in(cardsFromMemory), filterable, additionalFilterable).size() >= min;
+                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, Filters.in(cardsFromMemory), additionalFilterable).size() >= min;
                 }
 
                 @Override
@@ -337,6 +331,11 @@ public class CardResolver {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             return new DelayedAppender() {
                 @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    return true;
+                }
+
+                @Override
                 protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                     return new UnrespondableEffect() {
                         @Override
@@ -346,17 +345,9 @@ public class CardResolver {
                             Filterable filterable = Filters.any;
                             if (choiceFilter != null)
                                 filterable = choiceFilter.getFilterable(actionContext);
-                            Filterable additionalFilterable = Filters.any;
-                            if (playabilityFilter != null)
-                                additionalFilterable = playabilityFilter.getFilterable(actionContext);
-                            actionContext.setCardMemory(memory, Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, filterable, additionalFilterable));
+                            actionContext.setCardMemory(memory, Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, filterable));
                         }
                     };
-                }
-
-                @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    return true;
                 }
             };
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
@@ -369,14 +360,11 @@ public class CardResolver {
                     int min = countSource.getMinimum(actionContext);
                     final Filterable filter = filterableSource.getFilterable(actionContext);
                     String choicePlayerId = playerSource.getPlayer(actionContext);
-                    Filterable filterable = Filters.any;
-                    if (choiceFilter != null)
-                        filterable = choiceFilter.getFilterable(actionContext);
                     Filterable additionalFilterable = Filters.any;
                     if (playabilityFilter != null)
                         additionalFilterable = playabilityFilter.getFilterable(actionContext);
                     final LotroGame game = actionContext.getGame();
-                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, filterable, additionalFilterable).size() >= min;
+                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, filter, additionalFilterable).size() >= min;
                 }
 
                 @Override
