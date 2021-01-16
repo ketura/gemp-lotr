@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 public class CardResolver {
     public static EffectAppender resolveStackedCards(String type, ValueSource countSource, FilterableSource stackedOn,
@@ -41,25 +43,14 @@ public class CardResolver {
     public static EffectAppender resolveStackedCards(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, FilterableSource stackedOn,
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
-                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
-            return new DelayedAppender() {
+            Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = new Function<ActionContext, Iterable<? extends PhysicalCard>>() {
                 @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    return true;
-                }
-
-                @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
-                        }
-                    };
+                public Iterable<? extends PhysicalCard> apply(ActionContext actionContext) {
+                    final Filterable stackedOnFilter = stackedOn.getFilterable(actionContext);
+                    return Filters.filterActive(actionContext.getGame(), stackedOnFilter);
                 }
             };
+            return resolveMemoryCards(type, choiceFilter, playabilityFilter, countSource, memory, cardSource);
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -156,36 +147,15 @@ public class CardResolver {
                 }
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
-                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
-
             final PlayerSource handSource = PlayerResolver.resolvePlayer(handPlayer, environment);
-
-            return new DelayedAppender() {
+            Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = new Function<ActionContext, Iterable<? extends PhysicalCard>>() {
                 @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    if (additionalFilter != null) {
-                        int min = countSource.getMinimum(null);
-                        String handId = handSource.getPlayer(actionContext);
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
-                        Filterable filter = additionalFilter.getFilterable(actionContext);
-                        final LotroGame game = actionContext.getGame();
-                        return Filters.filter(game.getGameState().getHand(handId), game, filter, Filters.in(cardsFromMemory)).size() >= min;
-                    }
-                    return true;
-                }
-
-                @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
-                        }
-                    };
+                public Iterable<? extends PhysicalCard> apply(ActionContext actionContext) {
+                    String handPlayer = handSource.getPlayer(actionContext);
+                    return actionContext.getGame().getGameState().getHand(handPlayer);
                 }
             };
+            return resolveMemoryCards(type, additionalFilter, additionalFilter, countSource, memory, cardSource);
         } else if (type.startsWith("all(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -296,35 +266,13 @@ public class CardResolver {
                 }
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
-                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
-
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
 
-            return new DelayedAppender() {
-                @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    int min = countSource.getMinimum(null);
-                    String choicePlayerId = playerSource.getPlayer(actionContext);
-                    final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
-                    Filterable additionalFilterable = Filters.any;
-                    if (playabilityFilter != null)
-                        additionalFilterable = playabilityFilter.getFilterable(actionContext);
-                    final LotroGame game = actionContext.getGame();
-                    return Filters.filter(game.getGameState().getDiscard(choicePlayerId), game, Filters.in(cardsFromMemory), additionalFilterable).size() >= min;
-                }
-
-                @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
-                        }
-                    };
-                }
+            Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+                String choicePlayerId = playerSource.getPlayer(actionContext);
+                return actionContext.getGame().getGameState().getDiscard(choicePlayerId);
             };
+            return resolveMemoryCards(type, choiceFilter, playabilityFilter, countSource, memory, cardSource);
         } else if (type.startsWith("all(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -390,25 +338,12 @@ public class CardResolver {
 
     public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
-                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
-            return new DelayedAppender() {
-                @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    return true;
-                }
-
-                @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
-                        }
-                    };
-                }
+            final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
+            Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+                String playerId = playerSource.getPlayer(actionContext);
+                return actionContext.getGame().getGameState().getDeck(playerId);
             };
+            return resolveMemoryCards(type, choiceFilter, choiceFilter, countSource, memory, cardSource);
         } else if (type.startsWith("all(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -521,33 +456,9 @@ public class CardResolver {
                 }
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
-                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
-            return new DelayedAppender() {
-                @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    if (playabilityFilter != null) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
-                        for (PhysicalCard physicalCard : cardsFromMemory) {
-                            if (!PlayConditions.isActive(actionContext.getGame(), physicalCard, playabilityFilter.getFilterable(actionContext)))
-                                return false;
-                        }
-                    }
-
-                    return true;
-                }
-
-                @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
-                        }
-                    };
-                }
-            };
+            Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext ->
+                    Filters.filterActive(actionContext.getGame(), Filters.any);
+            return resolveMemoryCards(type, additionalFilter, playabilityFilter, countSource, memory, cardSource);
         } else if (type.startsWith("all(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -602,5 +513,40 @@ public class CardResolver {
             };
         }
         throw new InvalidCardDefinitionException("Unable to resolve card resolver of type: " + type);
+    }
+
+    private static DelayedAppender resolveMemoryCards(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter,
+                                                      ValueSource countSource, String memory,
+                                                      Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource) throws InvalidCardDefinitionException {
+        String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+        if (sourceMemory.contains("(") || sourceMemory.contains(")"))
+            throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
+
+        return new DelayedAppender() {
+            @Override
+            public boolean isPlayableInFull(ActionContext actionContext) {
+                int min = countSource.getMinimum(null);
+                return filterCards(actionContext, playabilityFilter).size() >= min;
+            }
+
+            @Override
+            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
+                return new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        actionContext.setCardMemory(memory, result);
+                    }
+                };
+            }
+
+            private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+                Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
+                Filterable additionalFilterable = Filters.any;
+                if (filter != null)
+                    additionalFilterable = filter.getFilterable(actionContext);
+                return Filters.filter(cardSource.apply(actionContext), actionContext.getGame(), Filters.in(cardsFromMemory), additionalFilterable);
+            }
+        };
     }
 }
