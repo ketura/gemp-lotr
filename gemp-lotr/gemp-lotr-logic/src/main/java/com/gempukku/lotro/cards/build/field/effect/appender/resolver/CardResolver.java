@@ -4,15 +4,12 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
@@ -23,10 +20,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 
 public class CardResolver {
@@ -58,6 +52,11 @@ public class CardResolver {
                     protected void cardsChosen(LotroGame game, Collection<PhysicalCard> stackedCards) {
                         actionContext.setCardMemory(memory, stackedCards);
                     }
+
+                    @Override
+                    public String getText(LotroGame game) {
+                        return choiceText;
+                    }
                 };
             };
 
@@ -72,12 +71,9 @@ public class CardResolver {
 
     public static EffectAppender resolveCardsInHand(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final PlayerSource handSource = PlayerResolver.resolvePlayer(handPlayer, environment);
-        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = new Function<ActionContext, Iterable<? extends PhysicalCard>>() {
-            @Override
-            public Iterable<? extends PhysicalCard> apply(ActionContext actionContext) {
-                String handPlayer = handSource.getPlayer(actionContext);
-                return actionContext.getGame().getGameState().getHand(handPlayer);
-            }
+        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+            String handPlayer1 = handSource.getPlayer(actionContext);
+            return actionContext.getGame().getGameState().getHand(handPlayer1);
         };
 
         if (type.startsWith("random(") && type.endsWith(")")) {
@@ -109,12 +105,18 @@ public class CardResolver {
         } else if (type.startsWith("all(") && type.endsWith(")")) {
             return resolveAllCards(type, additionalFilter, memory, environment, cardSource);
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
+            final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             ChoiceEffectSource effectSource = (possibleCards, action, actionContext, min, max) -> {
-                String handId = handSource.getPlayer(actionContext);
-                return new ChooseCardsFromHandEffect(handId, min, max, Filters.in(possibleCards)) {
+                String choicePlayerId = playerSource.getPlayer(actionContext);
+                return new ChooseCardsFromHandEffect(choicePlayerId, min, max, Filters.in(possibleCards)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);
+                    }
+
+                    @Override
+                    public String getText(LotroGame game) {
+                        return choiceText;
                     }
                 };
             };
@@ -154,6 +156,11 @@ public class CardResolver {
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);
                     }
+
+                    @Override
+                    public String getText(LotroGame game) {
+                        return choiceText;
+                    }
                 };
             };
 
@@ -180,6 +187,11 @@ public class CardResolver {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);
+                    }
+
+                    @Override
+                    public String getText(LotroGame game) {
+                        return choiceText;
                     }
                 };
             };
@@ -256,7 +268,7 @@ public class CardResolver {
 
     private static DelayedAppender resolveSelf(FilterableSource choiceFilter, FilterableSource playabilityFilter,
                                                ValueSource countSource, String memory,
-                                               Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource) throws InvalidCardDefinitionException {
+                                               Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource) {
         return new DelayedAppender() {
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
