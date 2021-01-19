@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
@@ -38,7 +39,7 @@ public class CardResolver {
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
             final Filterable stackedOnFilter = stackedOn.getFilterable(actionContext);
-            return Filters.filterActive(actionContext.getGame(), Filters.stackedOn(stackedOnFilter));
+            return Filters.filter(actionContext.getGame().getGameState().getAllCards(), actionContext.getGame(), Filters.stackedOn(stackedOnFilter));
         };
 
         if (type.startsWith("memory(") && type.endsWith(")")) {
@@ -107,18 +108,29 @@ public class CardResolver {
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             ChoiceEffectSource effectSource = (possibleCards, action, actionContext, min, max) -> {
+                String handId = handSource.getPlayer(actionContext);
                 String choicePlayerId = playerSource.getPlayer(actionContext);
-                return new ChooseCardsFromHandEffect(choicePlayerId, min, max, Filters.in(possibleCards)) {
-                    @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-                        actionContext.setCardMemory(memory, cards);
-                    }
+                if (handId.equals(choicePlayerId)) {
+                    return new ChooseCardsFromHandEffect(choicePlayerId, min, max, Filters.in(possibleCards)) {
+                        @Override
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                            actionContext.setCardMemory(memory, cards);
+                        }
 
-                    @Override
-                    public String getText(LotroGame game) {
-                        return choiceText;
-                    }
-                };
+                        @Override
+                        public String getText(LotroGame game) {
+                            return choiceText;
+                        }
+                    };
+                } else {
+                    List<? extends PhysicalCard> cardsInHand = actionContext.getGame().getGameState().getHand(handId);
+                    return new ChooseArbitraryCardsEffect(choicePlayerId, choiceText, cardsInHand, Filters.in(possibleCards), min, max, false) {
+                        @Override
+                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
+                            actionContext.setCardMemory(memory, selectedCards);
+                        }
+                    };
+                }
             };
 
             return resolveChoiceCards(type, additionalFilter, additionalFilter, countSource, environment, cardSource, effectSource);
@@ -307,8 +319,12 @@ public class CardResolver {
         return new DelayedAppender() {
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
-                int min = countSource.getMinimum(actionContext);
-                return filterCards(actionContext, playabilityFilter).size() >= min;
+                if (playabilityFilter != null) {
+                    int min = countSource.getMinimum(actionContext);
+                    return filterCards(actionContext, playabilityFilter).size() >= min;
+                } else {
+                    return true;
+                }
             }
 
             @Override
