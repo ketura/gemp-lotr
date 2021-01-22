@@ -34,7 +34,7 @@ public abstract class AbstractAtTest {
     protected static final String P2 = "player2";
 
     protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
-        return new PhysicalCardImpl(cardId++, blueprintId, owner, _library.getLotroCardBlueprint(blueprintId));
+        return (PhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _library, blueprintId);
     }
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {

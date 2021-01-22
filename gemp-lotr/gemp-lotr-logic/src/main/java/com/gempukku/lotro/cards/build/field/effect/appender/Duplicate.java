@@ -42,6 +42,11 @@ public class Duplicate implements EffectAppenderProducer {
             public boolean isPlayableInFull(ActionContext actionContext) {
                 return effectAppender.isPlayableInFull(actionContext);
             }
+
+            @Override
+            public boolean isPlayabilityCheckedForEffect() {
+                return effectAppender.isPlayabilityCheckedForEffect();
+            }
         };
     }
 }

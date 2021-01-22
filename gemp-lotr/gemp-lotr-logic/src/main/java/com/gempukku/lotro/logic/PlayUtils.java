@@ -104,6 +104,9 @@ public class PlayUtils {
         if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, card))
             return false;
 
+        if (!game.getModifiersQuerying().canPlayCard(game, card.getOwner(), card))
+            return false;
+
         // Check uniqueness
         if (!blueprint.skipUniquenessCheck() && !PlayConditions.checkUniqueness(game, card, ignoreCheckingDeadPile))
             return false;

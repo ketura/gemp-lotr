@@ -85,6 +85,8 @@ public interface Modifier {
 
     boolean canPlayAction(LotroGame game, String performingPlayer, Action action);
 
+    boolean canPlayCard(LotroGame game, String performingPlayer, PhysicalCard card);
+
     List<? extends Action> getExtraPhaseAction(LotroGame game, PhysicalCard card);
 
     List<? extends Action> getExtraPhaseActionFromStacked(LotroGame game, PhysicalCard card);

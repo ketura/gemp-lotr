@@ -42,7 +42,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putonring", new PutOnRing());
         effectAppenderProducers.put("takeoffring", new TakeOffRing());
         effectAppenderProducers.put("discardstackedcards", new DiscardStackedCards());
-        effectAppenderProducers.put("memorize", new Memorize());
+        effectAppenderProducers.put("memorize", new MemorizeActive());
         effectAppenderProducers.put("memorizenumber", new MemorizeNumber());
         effectAppenderProducers.put("preventwound", new PreventWound());
         effectAppenderProducers.put("preventexert", new PreventExert());

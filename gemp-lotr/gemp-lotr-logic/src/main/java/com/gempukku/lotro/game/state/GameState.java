@@ -554,6 +554,10 @@ public class GameState {
         return _allCards.get(cardId);
     }
 
+    public Iterable<? extends PhysicalCard> getAllCards() {
+        return Collections.unmodifiableCollection(_allCards.values());
+    }
+
     public List<? extends PhysicalCard> getHand(String playerId) {
         return Collections.unmodifiableList(_hands.get(playerId));
     }
