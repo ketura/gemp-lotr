@@ -83,7 +83,7 @@
     "culture": "gandalf",
     "cost": 1,
     "type": "ally",
-    "allyHome": "fellowship,3",
+    "allyHome": "fellowship,10",
     "race": "man",
     "strength": 2,
     "vitality": 2,
@@ -115,4 +115,49 @@
       ]
     }
   },
+  "21_10108": {
+    "title": "*No Stranger to the Shadows",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "condition",
+    "target": "ranger,not(hasAttached(name(No Stranger to the Shadows)))",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "site",
+        "amount": -1
+      }
+    }
+  },
+  "21_10109": {
+    "title": "One Whom Men Would Follow",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Aragorn))"
+      },
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(ally)",
+          "amount": 2,
+          "until": "start(regroup)",
+          "memorize": "exertedAlly"
+        },
+        {
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+          "filter": "memory(exertedAlly)",
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  
+  
 }
