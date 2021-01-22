@@ -384,9 +384,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean addsTwilightForCompanionMove(LotroGame game, PhysicalCard companion) {
-        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.MOVE_TWILIGHT_MODIFIER, companion))
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.MOVE_TWILIGHT_MODIFIER, companion)) {
+            if (hasKeyword(game, companion, Keyword.CONCEALED))
+                return false;
             if (!modifier.addsTwilightForCompanionMove(game, companion))
                 return false;
+        }
         return true;
     }
 
