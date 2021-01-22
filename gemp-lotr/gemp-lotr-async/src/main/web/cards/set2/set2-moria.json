@@ -150,7 +150,8 @@
         ],
         "effect": {
           "type": "playCardFromDiscard",
-          "filter": "choose(culture(moria),orc)"
+          "filter": "choose(culture(moria),orc)",
+          "removedTwilight": 2
         }
       }
     ]

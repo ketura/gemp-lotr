@@ -811,11 +811,12 @@
       "cost": {
         "type": "discardFromHand",
         "forced": false,
-        "count": 3
+        "count": 3,
+        "memorize": "discardedCards"
       },
       "effect": {
         "type": "playCardFromDiscard",
-        "filter": "choose(culture(moria),orc)"
+        "filter": "choose(culture(moria),orc,not(memory(discardedCards)))"
       }
     }
   },

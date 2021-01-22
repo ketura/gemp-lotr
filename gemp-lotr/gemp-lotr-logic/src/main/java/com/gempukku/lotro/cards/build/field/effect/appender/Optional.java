@@ -62,6 +62,15 @@ public class Optional implements EffectAppenderProducer {
 
                 return true;
             }
+
+            @Override
+            public boolean isPlayabilityCheckedForEffect() {
+                for (EffectAppender effectAppender : effectAppenders) {
+                    if (effectAppender.isPlayabilityCheckedForEffect())
+                        return true;
+                }
+                return false;
+            }
         };
     }
 }

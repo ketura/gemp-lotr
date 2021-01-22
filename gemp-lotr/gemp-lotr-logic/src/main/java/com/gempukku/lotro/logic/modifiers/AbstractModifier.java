@@ -209,6 +209,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canPlayCard(LotroGame game, String performingPlayer, PhysicalCard card) {
+        return true;
+    }
+
+    @Override
     public List<? extends Action> getExtraPhaseAction(LotroGame game, PhysicalCard card) {
         return null;
     }

@@ -74,12 +74,13 @@ public class Filters {
         return getCardsMatchingFilter.getPhysicalCards();
     }
 
-    public static Collection<PhysicalCard> filter(Collection<? extends PhysicalCard> cards, LotroGame game, Filterable... filters) {
+    public static Collection<PhysicalCard> filter(Iterable<? extends PhysicalCard> cards, LotroGame game, Filterable... filters) {
         Filter filter = Filters.and(filters);
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
-        for (PhysicalCard card : cards)
+        for (PhysicalCard card : cards) {
             if (filter.accepts(game, card))
                 result.add(card);
+        }
         return result;
     }
 
@@ -802,7 +803,7 @@ public class Filters {
         };
     }
 
-    private static Filter zone(final Zone zone) {
+    public static Filter zone(final Zone zone) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
