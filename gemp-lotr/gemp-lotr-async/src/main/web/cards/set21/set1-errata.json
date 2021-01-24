@@ -83,7 +83,7 @@
     "culture": "gandalf",
     "cost": 1,
     "type": "ally",
-    "allyHome": "fellowship,10",
+    "allyHome": "fellowship,1",
     "race": "man",
     "strength": 2,
     "vitality": 2,
@@ -120,44 +120,375 @@
     "culture": "gondor",
     "cost": 0,
     "type": "condition",
+    "keyword": [
+      "stealth"
+    ],
     "target": "ranger,not(hasAttached(name(No Stranger to the Shadows)))",
     "effects": {
       "type": "modifier",
       "modifier": {
-        "type": "modifyCost",
-        "filter": "site",
-        "amount": -1
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "concealed"
       }
     }
   },
-  "21_10109": {
-    "title": "One Whom Men Would Follow",
-    "culture": "gondor",
+  
+    "21_10139": {
+    "title": "Savagery To Match Their Numbers",
+    "culture": "isengard",
     "cost": 0,
     "type": "event",
-    "keyword": "maneuver",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Make an Uruk-hai strength +2",
+          "Make an Uruk-hai fierce until the regroup phase, and strength +4 (this skirmish)"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(uruk-hai)",
+            "amount": 2
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "count": 5,
+              "filter": "companion"
+            },
+            "effect": [
+              {
+                "type": "modifyStrength",
+                "filter": "choose(uruk-hai)",
+                "amount": 4,
+                "memorize": "chosenUrukHai"
+              },
+              {
+                "type": "addKeyword",
+                "filter": "memory(chosenUrukHai)",
+                "keyword": "fierce",
+                "until": "start(regroup)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  
+  "21_10195": {
+    "title": "*Relics of Moria",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "removedTwilight": 2,
+        "filter": "choose(culture(moria),possession)"
+      }
+    }
+  },
+  
+  "21_10234": {
+    "title": "*Úlairë Nertëa",
+    "subtitle": "Messenger of Dol Guldur",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "duplicate",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 4
+        },
+        "effect": {
+          "type": "optional",
+          "text": "Would you like to play minion from your discard?",
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(nazgul)"
+          }
+        }
+      }
+    }
+  },
+  
+  "21_10248": {
+    "title": "Forces of Mordor",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
     "effects": {
       "type": "event",
       "cost": {
         "type": "exert",
-        "filter": "choose(name(Aragorn))"
+        "filter": "choose(culture(sauron),minion)"
+      },
+      "cost": {
+        "type": "chooseHowManyToSpot",
+        "filter": "culture(sauron),minion",
+        "memorize": "spottedCount"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "culture(sauron),orc",
+        }
+      }
+    }
+  },
+  
+  "21_10311": {
+    "title": "*Sam",
+    "subtitle": "Son of Hamfast",
+    "culture": "shire",
+    "cost": 2,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 5,
+    "signet": "aragorn",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": [
+          {
+          "type": "spot",
+          "filter": "name(Frodo)"
+          },
+          {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+          }
+        ],
+        
+        "effect": {
+        "type": "preventable",
+        "text": "Would you like to discard a minion from hand (or place a Nazgul from hand on your draw deck) to prevent removing 2 burdens?",
+        "player": "shadowPlayer",
+        "cost": [
+          {
+            "type": "putcardsfromhandontopofdeck",
+            "filter": "choose(nazgul)"
+          },
+          {
+            "type": "discardFromHand",
+            "filter": "choose(minion)"
+          }
+        ],
+        "effect": {
+          "type": "removeBurdens",
+          "amount": 2
+          }
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "name(Frodo),ring bearer"
+        },
+        "effect": {
+          "type": "makeSelfRingBearer"
+        }
+      }
+    ]
+  },
+  
+  "21_10313": {
+    "title": "*Sting",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Frodo)",
+    "effects": {
+      "type": "activated",
+      "phase": [
+        "fellowship",
+        "regroup"
+      ],
+      "cost": {
+        "type": "exert",
+        "filter": "bearer"
       },
       "effect": [
         {
-          "type": "modifyStrength",
-          "filter": "choose(ally)",
-          "amount": 2,
-          "until": "start(regroup)",
-          "memorize": "exertedAlly"
+          "type": "revealrandomcardsfromhand",
+          "hand": "shadowPlayer",
+          "memorize": "revealedCards",
+          "amount":3
         },
         {
-          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
-          "filter": "memory(exertedAlly)",
-          "until": "start(regroup)"
+          "type": "addKeyword",
+          "filter": "choose(companion)",
+          "keyword": "concealed",
+          "until": "start(regroup)",
+          "amount": {
+            "type": "forEachMatchingInMemory",
+            "memory": "revealedCards",
+            "filter": "orc",
+            "limit": 1
+          }
         }
       ]
     }
   },
+
+  "21_10316": {
+    "title": "*A Talent for Not Being Seen",
+    "culture": "shire",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "stealth",
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(hobbit)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "site,choose(companion)",
+          "keyword": "concealed",
+          "until": "start(regroup)",
+          "condition": {
+              "type": "canSpot",
+              "count": 2,
+              "filter": "companion",
+          },
+        }
+      }
+    ]
+  },
+  
+  "21_2032": {
+    "side": "free_people",
+    "cost": 0,
+    "strength": 1,
+    "culture": "Gondor",
+    "possession": "Hand Weapon",
+    "title": "Flaming Brand",
+    "type": "possession",
+    "target": "ranger",
+    "effects": [
+      {
+        "type": "extrapossessionclass"
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effects":[
+          {
+            "type": "modifyStrength",
+            "filter": "bearer",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "bearer",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "21_2075": {
+    "title": "*Bill Ferny",
+    "subtitle": "Swarthy Sneering Fellow",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "minion",
+    "race": "Man",
+    "strength": 4,
+    "vitality": 1,
+    "site": 2,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "removeTwilight"
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "type": "removeKeyword",
+            "filter": "nazgul",
+            "keyword": "roaming"
+          }
+        },
+        {
+          "type": "trigger",
+          "trigger": {
+            "type": "condition",
+            "condition": [
+              {
+                "type": "location",
+                "filter": "underground"
+              }
+            ]
+          },
+          "effect": {
+            "type": "discard",
+            "filter": "self"
+          }
+        }
+      ]
+    }
+  },
+  
   
   
 }
