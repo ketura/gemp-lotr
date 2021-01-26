@@ -58,11 +58,10 @@ public class Elrond_LoRErrataTest
     }
 
     @Test
-    public void FellowshipActionExertsTwiceToDrawACard() throws DecisionResultInvalidException, CardNotFoundException
-    {
+    public void FellowshipActionExertsTwiceToDrawACard() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTest scenario = GetSimpleDeckScenario();
-        PhysicalCardImpl elrond = scenario.freepsCards.get("elrond");
+        PhysicalCardImpl elrond = scenario.GetFreepsCard("elrond");
         scenario.FreepsMoveCharToTable(elrond);
 
         scenario.StartGame();
@@ -79,14 +78,12 @@ public class Elrond_LoRErrataTest
         scenario.FreepsUseAction("Use Elrond");
 
         Assert.assertEquals(2, scenario.GetWoundsOn(elrond));
-        Assert.assertEquals(0, scenario.GetFreepsDeckCount());
         Assert.assertEquals(1, scenario.GetFreepsHandCount());
-
+        Assert.assertEquals(0, scenario.GetFreepsDeckCount());
     }
 
     @Test
-    public void CardCanPlayIfGandalfInPlay() throws DecisionResultInvalidException, CardNotFoundException
-    {
+    public void CardCanPlayIfGandalfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTest scenario = GetSimpleSpotScenario();
         scenario.FreepsMoveCardToHand("elrond");
@@ -102,8 +99,7 @@ public class Elrond_LoRErrataTest
     }
 
     @Test
-    public void CardCanPlayIfElfInPlay() throws DecisionResultInvalidException, CardNotFoundException
-    {
+    public void CardCanPlayIfElfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTest scenario = GetSimpleSpotScenario();
         scenario.FreepsMoveCardToHand("elrond");
@@ -119,8 +115,7 @@ public class Elrond_LoRErrataTest
     }
 
     @Test
-    public void AllyHealsCappedAt2() throws DecisionResultInvalidException, CardNotFoundException
-    {
+    public void AllyHealsCappedAt2() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTest scenario = GetHome3AllyScenario();
         scenario.FreepsMoveCharToTable("elrond");
