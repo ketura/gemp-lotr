@@ -29,8 +29,11 @@ services:
        - type: bind
          source: ../gemp-lotr-async/src/main/web
          target: /var/www/localhost/htdocs/gemp-lotr #/etc/apache2/htdocs/gemp-lotr
+       - type: bind
+         source: ../../logs
+         target: /logs
     networks:
-      gemp_net:
+      gemp_net_1:
         ipv4_address: ${APP_IP}
     tty: true
     #command: nohup java -jar /etc/gemp-lotr/gemp-lotr-async/target/web.jar &
@@ -55,13 +58,13 @@ services:
          source: ../../database
          target: /var/lib/mysql
     networks:
-      gemp_net:
+      gemp_net_1:
         ipv4_address: ${DB_IP}
       
   
 networks:
-  gemp_net:
+  gemp_net_1:
     ipam:
       driver: default
       config:
-        - subnet: 172.28.0.0/16
+        - subnet: 172.28.1.0/24
