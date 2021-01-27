@@ -12,6 +12,7 @@ buildNumber.properties
 
 database/*
 !database/.placeholder
-logs/
+logs/*
+!logs/.placeholder
 .idea/
 *.iml
