@@ -22,7 +22,7 @@
         "effect": {
           "type": "heal",
           "filter": "choose(ally,allyHome(fellowship,3))",
-          "count": 2
+          "count": "0-2"
         }
       },
       {
