@@ -14,5 +14,6 @@ database/*
 !database/.placeholder
 logs/*
 !logs/.placeholder
+**/logs
 .idea/
 *.iml
