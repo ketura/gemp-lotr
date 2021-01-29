@@ -52,7 +52,7 @@ public class HobbitDraftTest {
             int stage = 0;
 
             while (hobbitDraft.hasNextStage(seed, stage)) {
-                final Iterable<SoloDraft.DraftChoice> availableChoices = hobbitDraft.getAvailableChoices(seed, stage);
+                final Iterable<SoloDraft.DraftChoice> availableChoices = hobbitDraft.getAvailableChoices(seed, stage, null);
                 for (SoloDraft.DraftChoice availableChoice : availableChoices) {
                     final String blueprintId = availableChoice.getBlueprintId();
                     availableCards.merge(blueprintId, 1,

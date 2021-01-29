@@ -14,5 +14,9 @@
   {
     "type": "hobbit_draft",
     "location": "/draft/hobbitDraft.json"
+  },
+  {
+    "type": "hobbit_random_draft",
+    "location": "/draft/hobbitRandomDraft.json"
   }
 ]

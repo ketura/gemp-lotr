@@ -3,6 +3,8 @@ package com.gempukku.lotro.draft2;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.draft2.builder.CardCollectionProducer;
 import com.gempukku.lotro.draft2.builder.DraftChoiceBuilder;
+import com.gempukku.lotro.draft2.builder.DraftPoolBuilder;
+import com.gempukku.lotro.draft2.builder.DraftPoolProducer;
 import com.gempukku.lotro.draft2.builder.StartingPoolBuilder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -21,6 +23,7 @@ public class SoloDraftDefinitions {
     private static Logger _logger = Logger.getLogger(SoloDraftDefinitions.class);
     private Map<String, SoloDraft> draftTypes = new HashMap<String, SoloDraft>();
     private StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
+    private DraftPoolBuilder draftPoolBuilder = new DraftPoolBuilder();
     private DraftChoiceBuilder draftChoiceBuilder;
 
     public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
@@ -57,6 +60,11 @@ public class SoloDraftDefinitions {
                 if (startingPool != null)
                     cardCollectionProducer = startingPoolBuilder.buildCardCollectionProducer(startingPool);
 
+                DraftPoolProducer draftPoolProducer = null;
+                JSONArray draftPoolComponents = (JSONArray) object.get("draftPool");
+                if (draftPoolComponents != null)
+                    draftPoolProducer = draftPoolBuilder.buildDraftPoolProducer(draftPoolComponents);
+
                 List<DraftChoiceDefinition> draftChoiceDefinitions = new ArrayList<DraftChoiceDefinition>();
                 JSONArray choices = (JSONArray) object.get("choices");
                 Iterator<JSONObject> choicesIterator = choices.iterator();
@@ -69,7 +77,7 @@ public class SoloDraftDefinitions {
                 }
 
                 _logger.debug("Loaded draft definition: "+file);
-                return new DefaultSoloDraft(format, cardCollectionProducer, draftChoiceDefinitions);
+                return new DefaultSoloDraft(format, cardCollectionProducer, draftChoiceDefinitions, draftPoolProducer);
             } catch (ParseException exp) {
                 throw new RuntimeException("Problem loading solo draft " + file, exp);
             }

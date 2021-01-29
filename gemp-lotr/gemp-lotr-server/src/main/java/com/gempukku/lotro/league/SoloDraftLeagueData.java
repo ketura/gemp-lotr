@@ -17,6 +17,7 @@ public class SoloDraftLeagueData implements LeagueData {
     public static final int HIGH_ENOUGH_PRIME_NUMBER = 8963;
     private SoloDraft _draft;
     private CollectionType _collectionType;
+    private long _code;
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private LeaguePrizes _leaguePrizes;
     private LeagueSerieData _serie;
@@ -29,6 +30,7 @@ public class SoloDraftLeagueData implements LeagueData {
         int start = Integer.parseInt(params[1]);
         int serieDuration = Integer.parseInt(params[2]);
         int maxMatches = Integer.parseInt(params[3]);
+        _code = Long.parseLong(params[4]);
 
         _collectionType = new CollectionType(params[4], params[5]);
 
@@ -80,6 +82,7 @@ public class SoloDraftLeagueData implements LeagueData {
         extraInformation.put("finished", false);
         extraInformation.put("stage", 0);
         extraInformation.put("seed", seed);
+        extraInformation.put("draftPool", _draft.initializeDraftPool(seed, _code));
         return extraInformation;
     }
 

@@ -45,9 +45,13 @@ public class DraftChoiceBuilder {
         else if (choiceDefinitionType.equals("multipleCardPick"))
             return buildMultipleCardPickDraftChoiceDefinition(data);
         else if (choiceDefinitionType.equals("randomSwitch"))
-            return buildRandomSwitchDraftChoiceDeifinition(data);
+            return buildRandomSwitchDraftChoiceDefinition(data);
         else if (choiceDefinitionType.equals("filterPick"))
             return buildFilterPickDraftChoiceDefinition(data);
+        else if (choiceDefinitionType.equals("draftPoolFilterPick"))
+            return buildDraftPoolFilterPickDraftChoiceDefinition(data);
+        else if (choiceDefinitionType.equals("draftPoolFilterPluck"))
+            return buildDraftPoolFilterPluckDraftChoiceDefinition(data);
         else
             throw new RuntimeException("Unknown choiceDefinitionType: " + choiceDefinitionType);
     }
@@ -62,7 +66,7 @@ public class DraftChoiceBuilder {
 
         return new DraftChoiceDefinition() {
             @Override
-            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage) {
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
                 final List<CardCollection.Item> cards = getCards(seed, stage);
 
                 List<SoloDraft.DraftChoice> draftChoices = new ArrayList<SoloDraft.DraftChoice>(optionCount);
@@ -144,7 +148,7 @@ public class DraftChoiceBuilder {
 
         return new DraftChoiceDefinition() {
             @Override
-            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage) {
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
                 return draftChoices;
             }
 
@@ -171,7 +175,7 @@ public class DraftChoiceBuilder {
 
         return new DraftChoiceDefinition() {
             @Override
-            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage) {
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
                 final List<String> shuffledCards = getShuffledCards(seed, stage);
 
                 List<SoloDraft.DraftChoice> draftableCards = new ArrayList<SoloDraft.DraftChoice>(count);
@@ -223,8 +227,121 @@ public class DraftChoiceBuilder {
             }
         };
     }
+    
+    private DraftChoiceDefinition buildDraftPoolFilterPickDraftChoiceDefinition(JSONObject data) {
+        final int optionCount = ((Number) data.get("optionCount")).intValue();
+        String filter = (String) data.get("filter");
 
-    private DraftChoiceDefinition buildRandomSwitchDraftChoiceDeifinition(JSONObject data) {
+        return new DraftChoiceDefinition() {
+            @Override
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
+                
+                List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, draftPool.getAll(), _cardLibrary, _formatLibrary, _rarities);
+
+                final List<CardCollection.Item> cards = getCards(seed, stage, possibleCards);
+
+                List<SoloDraft.DraftChoice> draftChoices = new ArrayList<SoloDraft.DraftChoice>(optionCount);
+                for (int i = 0; i < Math.min(optionCount, possibleCards.size()); i++) {
+                    final int finalI = i;
+                    draftChoices.add(
+                            new SoloDraft.DraftChoice() {
+                                @Override
+                                public String getChoiceId() {
+                                    return cards.get(finalI).getBlueprintId();
+                                }
+
+                                @Override
+                                public String getBlueprintId() {
+                                    return cards.get(finalI).getBlueprintId();
+                                }
+
+                                @Override
+                                public String getChoiceUrl() {
+                                    return null;
+                                }
+                            });
+                }
+                return draftChoices;
+            }
+
+            @Override
+            public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage) {
+                DefaultCardCollection cardCollection = new DefaultCardCollection();
+                cardCollection.addItem(choiceId, 1);
+                return cardCollection;
+            }
+
+            private List<CardCollection.Item> getCards(long seed, int stage, List<CardCollection.Item> possibleCards) {
+                Random rnd = getRandom(seed, stage);
+                // Fixing some weird issue with Random
+                float thisFixesRandomnessForSomeReason = rnd.nextInt();
+                final List<CardCollection.Item> cards = possibleCards;
+                Collections.shuffle(cards, rnd);
+                return cards;
+            }
+        };
+    }
+    
+    private DraftChoiceDefinition buildDraftPoolFilterPluckDraftChoiceDefinition(JSONObject data) {
+        final int optionCount = ((Number) data.get("optionCount")).intValue();
+        String filter = (String) data.get("filter");
+
+        return new DraftChoiceDefinition() {
+            @Override
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
+                List<CardCollection.Item> fullDraftPool = new ArrayList<CardCollection.Item>();
+                for (CardCollection.Item item : draftPool.getAll())
+                    for (int i = 0; i < draftPool.getItemCount(item.getBlueprintId()); i++)
+                        fullDraftPool.add(item);
+
+                List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, fullDraftPool, _cardLibrary, _formatLibrary, _rarities);
+
+                final List<CardCollection.Item> cards = getCards(seed, stage, possibleCards);
+
+                List<SoloDraft.DraftChoice> draftChoices = new ArrayList<SoloDraft.DraftChoice>(optionCount);
+                for (int i = 0; i < Math.min(optionCount, possibleCards.size()); i++) {
+                    draftPool.removeItem(cards.get(i).getBlueprintId(),1);
+                    final int finalI = i;
+                    draftChoices.add(
+                            new SoloDraft.DraftChoice() {
+                                @Override
+                                public String getChoiceId() {
+                                    return cards.get(finalI).getBlueprintId();
+                                }
+
+                                @Override
+                                public String getBlueprintId() {
+                                    return cards.get(finalI).getBlueprintId();
+                                }
+
+                                @Override
+                                public String getChoiceUrl() {
+                                    return null;
+                                }
+                            });
+                }
+                return draftChoices;
+            }
+
+            @Override
+            public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage) {
+                DefaultCardCollection cardCollection = new DefaultCardCollection();
+                cardCollection.addItem(choiceId, 1);
+                return cardCollection;
+            }
+
+            private List<CardCollection.Item> getCards(long seed, int stage, List<CardCollection.Item> possibleCards) {
+                Random rnd = getRandom(seed, stage);
+                // Fixing some weird issue with Random
+                float thisFixesRandomnessForSomeReason = rnd.nextInt();
+                final List<CardCollection.Item> cards = possibleCards;
+                Collections.shuffle(cards, rnd);
+                return cards;
+            }
+        };
+    }
+
+    private DraftChoiceDefinition buildRandomSwitchDraftChoiceDefinition(JSONObject data) {
         JSONArray switchResult = (JSONArray) data.get("switchResult");
 
         final List<DraftChoiceDefinition> draftChoiceDefinitionList = new ArrayList<DraftChoiceDefinition>();
@@ -233,11 +350,11 @@ public class DraftChoiceBuilder {
 
         return new DraftChoiceDefinition() {
             @Override
-            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage) {
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
                 Random rnd = getRandom(seed, stage);
                 // Fixing some weird issue with Random
                 float thisFixesRandomnessForSomeReason = rnd.nextFloat();
-                return draftChoiceDefinitionList.get(rnd.nextInt(draftChoiceDefinitionList.size())).getDraftChoice(seed, stage);
+                return draftChoiceDefinitionList.get(rnd.nextInt(draftChoiceDefinitionList.size())).getDraftChoice(seed, stage, draftPool);
             }
 
             @Override
@@ -263,12 +380,12 @@ public class DraftChoiceBuilder {
 
         return new DraftChoiceDefinition() {
             @Override
-            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage) {
+            public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
                 Random rnd = getRandom(seed, stage);
                 float result = rnd.nextFloat();
                 for (Map.Entry<Float, DraftChoiceDefinition> weightEntry : draftChoiceDefinitionMap.entrySet()) {
                     if (result < weightEntry.getKey())
-                        return weightEntry.getValue().getDraftChoice(seed, stage);
+                        return weightEntry.getValue().getDraftChoice(seed, stage, draftPool);
                 }
 
                 return null;
