@@ -58,7 +58,7 @@
         "effect": {
           "type": "heal",
           "filter": "choose(ally,allyHome(fellowship,6))",
-          "count": 2
+          "count": "0-2"
         }
       },
       {
@@ -279,36 +279,18 @@
       {
         "type": "activated",
         "phase": "fellowship",
-        "cost": [
-          {
-          "type": "spot",
+        "condition": {
+          "type": "canSpot",
           "filter": "name(Frodo)"
-          },
-          {
+        },
+        "cost": {
           "type": "exert",
           "filter": "self",
           "times": 2
-          }
-        ],
-        
-        "effect": {
-        "type": "preventable",
-        "text": "Would you like to discard a minion from hand (or place a Nazgul from hand on your draw deck) to prevent removing 2 burdens?",
-        "player": "shadowPlayer",
-        "cost": [
-          {
-            "type": "putcardsfromhandontopofdeck",
-            "filter": "choose(nazgul)"
-          },
-          {
-            "type": "discardFromHand",
-            "filter": "choose(minion)"
-          }
-        ],
+        },
         "effect": {
           "type": "removeBurdens",
-          "amount": 2
-          }
+          "amount": 1
         }
       },
       {
@@ -347,8 +329,9 @@
         {
           "type": "revealrandomcardsfromhand",
           "hand": "shadowPlayer",
+          "forced": true,
           "memorize": "revealedCards",
-          "amount":3
+          "count":3
         },
         {
           "type": "addKeyword",
@@ -384,17 +367,19 @@
         }
       },
       {
-        "type": "modifier",
-        "modifier": {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(hobbit)"
+        },
+        "effect": {
           "type": "addKeyword",
-          "filter": "site,choose(companion)",
-          "keyword": "concealed",
-          "until": "start(regroup)",
-          "condition": {
-              "type": "canSpot",
-              "count": 2,
-              "filter": "companion",
-          },
+          "filter": "self",
+          "keyword": "defender+1",
+          "until": "start(regroup)"
         }
       }
     ]
@@ -416,7 +401,10 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
         "cost": [
           {
             "type": "memorize",
@@ -428,15 +416,15 @@
             "filter": "self"
           }
         ],
-        "effects":[
+        "effect":[
           {
             "type": "modifyStrength",
-            "filter": "bearer",
+            "filter": "memory(bearer)",
             "amount": 3
           },
           {
             "type": "addKeyword",
-            "filter": "bearer",
+            "filter": "memory(bearer)",
             "keyword": "damage+1"
           }
         ]
@@ -444,46 +432,40 @@
     ]
   },
   
-  "21_2075": {
-    "title": "*Bill Ferny",
-    "subtitle": "Swarthy Sneering Fellow",
-    "culture": "wraith",
-    "cost": 2,
-    "type": "minion",
-    "race": "Man",
-    "strength": 4,
-    "vitality": 1,
-    "site": 2,
+  "21_3042": {
+    "side": "free_people",
+    "cost": 0,
+    "culture": "Gondor",
+    "title": "*Horn of Boromir",
+    "type": "possession",
+    "target": "name(Boromir)",
     "effects": {
       "type": "activated",
-      "phase": "skirmish",
-      "cost": {
-        "type": "removeTwilight"
-      },
-      "effects": [
+      "phase": "assignment",
+      "cost": [
         {
-          "type": "modifier",
-          "modifier": {
-            "type": "removeKeyword",
-            "filter": "nazgul",
-            "keyword": "roaming"
-          }
+          "type": "exert",
+          "filter": "self"
         },
         {
-          "type": "trigger",
-          "trigger": {
-            "type": "condition",
-            "condition": [
-              {
-                "type": "location",
-                "filter": "underground"
-              }
-            ]
-          },
-          "effect": {
-            "type": "discard",
-            "filter": "self"
-          }
+          "type": "assignFpCharacterToSkirmish",
+          "player": "fp",
+          "fpCharacter": "self",
+          "against": "minion"
+        }
+      ],
+      "effect":[
+        {
+          "type": "modifyStrength",
+          "filter": "choose(ally,allyInCurrentRegion)",
+          "amount": 3,
+          "until": "start(regroup)",
+          "memorize": "summonedAlly"
+        },
+        {
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+          "filter": "memory(summonedAlly)",
+          "until": "start(regroup)"
         }
       ]
     }

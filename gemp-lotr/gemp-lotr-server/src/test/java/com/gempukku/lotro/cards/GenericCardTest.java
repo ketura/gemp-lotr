@@ -1,9 +1,12 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.at.AbstractAtTest;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -14,55 +17,40 @@ import static org.junit.Assert.assertEquals;
 
 public class GenericCardTest extends AbstractAtTest {
 
-    private int LastCardID;
+    private int LastCardID = 100;
 
+    //TODO: refactor this to not have different freeps/shadows collections
     public Map<String, PhysicalCardImpl> freepsCards = new HashMap<>();
     public Map<String, PhysicalCardImpl> shadowCards = new HashMap<>();
 
-    public GenericCardTest(Map<String, String> freepsIDs, Map<String, String> shadowIDs, Collection<String> freepsdeck, Collection<String> shadowdeck) throws CardNotFoundException, DecisionResultInvalidException {
+    public GenericCardTest(Map<String, String> freepsIDs, Map<String, String> shadowIDs) throws CardNotFoundException, DecisionResultInvalidException {
         super();
-        LastCardID = 100;
 
+        initializeSimplestGame();
 
         if(freepsIDs != null) {
             for(String name : freepsIDs.keySet()) {
                 String id = freepsIDs.get(name);
-                freepsCards.put(name, CreateCard(P1, id));
+                PhysicalCardImpl card = CreateCard(P1, id);
+                freepsCards.put(name, card);
+                FreepsMoveCardToDeck(card);
+                ShadowMoveCardToDeck(CreateCard(P2, id));
             }
         }
 
         if(shadowIDs != null) {
             for(String name : shadowIDs.keySet()) {
                 String id = shadowIDs.get(name);
-                shadowCards.put(name, CreateCard(P2, id));
+                PhysicalCardImpl card = CreateCard(P2, id);
+                shadowCards.put(name, card);
+                ShadowMoveCardToDeck(card);
+                FreepsMoveCardToDeck(CreateCard(P1, id));
             }
         }
-
-        Map<String, Collection<String>> deckCards = new HashMap<String, Collection<String>>();
-
-        if(freepsdeck == null) {
-            deckCards.put(P1, new ArrayList<String>());
-        }
-        else {
-            deckCards.put(P1, freepsdeck);
-        }
-
-        if(shadowdeck == null) {
-            deckCards.put(P2, new ArrayList<String>());
-        }
-        else {
-            deckCards.put(P2, shadowdeck);
-        }
-
-        Setup(deckCards);
     }
 
     public PhysicalCardImpl CreateCard(String playerID, String cardID) throws CardNotFoundException {
         return new PhysicalCardImpl(LastCardID++, cardID, playerID, _library.getLotroCardBlueprint(cardID));
-    }
-
-    public void Setup(Map<String, Collection<String>> deckCards) throws DecisionResultInvalidException {
-        initializeSimplestGame(deckCards);
     }
 
     public void StartGame() throws DecisionResultInvalidException {
@@ -90,6 +78,8 @@ public class GenericCardTest extends AbstractAtTest {
     public int ShadowGetWoundsOn(String cardName) { return GetWoundsOn(GetShadowCard(cardName)); }
     public int GetWoundsOn(PhysicalCardImpl card) { return _game.getGameState().getWounds(card); }
 
+    public int GetBurdens() { return _game.getGameState().getBurdens(); }
+
     public int GetFreepsHandCount() { return GetPlayerHandCount(P1); }
     public int GetShadowHandCount() { return GetPlayerHandCount(P2); }
     public int GetPlayerHandCount(String player)
@@ -110,7 +100,8 @@ public class GenericCardTest extends AbstractAtTest {
     public Boolean ShadowActionAvailable(String action) { return ActionAvailable(P2, action); }
     public Boolean ActionAvailable(String player, String action) {
         List<String> actions = GetAvailableActions(player);
-        return actions.stream().anyMatch(x -> x.startsWith(action));
+        String lowerAction = action.toLowerCase();
+        return actions.stream().anyMatch(x -> x.toLowerCase().startsWith(lowerAction));
     }
 
     public void FreepsMoveCardToHand(String cardName) { MoveCardToZone(P1, GetFreepsCard(cardName), Zone.HAND); }
@@ -134,31 +125,34 @@ public class GenericCardTest extends AbstractAtTest {
         MoveCardToZone(P2, card, Zone.SHADOW_CHARACTERS);
     }
 
-    public void FreepsMoveCardToZone(String cardID, Zone zone)
-    {
-        MoveCardToZone(P1, GetFreepsCard(cardID), zone);
-    }
-    public void ShadowMoveCardToZone(String cardID, Zone zone)
-    {
-        MoveCardToZone(P2, GetShadowCard(cardID), zone);
-    }
+    public void FreepsMoveCardToZone(String cardID, Zone zone) { MoveCardToZone(P1, GetFreepsCard(cardID), zone); }
+    public void FreepsMoveCardToZone(PhysicalCardImpl card, Zone zone) { MoveCardToZone(P1, card, zone); }
+    public void ShadowMoveCardToZone(String cardID, Zone zone) { MoveCardToZone(P2, GetShadowCard(cardID), zone); }
+    public void ShadowMoveCardToZone(PhysicalCardImpl card, Zone zone) { MoveCardToZone(P2, card, zone); }
     public void MoveCardToZone(String player, PhysicalCardImpl card, Zone zone) {
+        if(card.getZone() != null)
+        {
+            _game.getGameState().removeCardsFromZone(player, new ArrayList<PhysicalCard>() {{ add(card); }});
+        }
         _game.getGameState().addCardToZone(_game, card, zone);
     }
+
+
 
     public List<String> FreepsGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P1, paramName)); }
     public List<String> ShadowGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P2, paramName)); }
     public Object FreepsGetADParam(String paramName) { return GetAwaitingDecisionParam(P1, paramName); }
     public Object ShadowGetADParam(String paramName) { return GetAwaitingDecisionParam(P2, paramName); }
     public Object GetAwaitingDecisionParam(String playerID, String paramName) {
-        AwaitingDecision decision = _userFeedback.getAwaitingDecision(P1);
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
         return decision.getDecisionParameters().get(paramName);
     }
 
     public Map<String, Object> GetAwaitingDecisionParams(String playerID) {
-        AwaitingDecision decision = _userFeedback.getAwaitingDecision(P1);
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
         return decision.getDecisionParameters();
     }
+
 
     public void FreepsPlayCharFromHand(String cardName) throws DecisionResultInvalidException {
         PhysicalCardImpl card = GetFreepsCard(cardName);
@@ -178,7 +172,68 @@ public class GenericCardTest extends AbstractAtTest {
     }
     public void AddWoundToChar(PhysicalCardImpl card) { _game.getGameState().addWound(card); }
 
+    public int GetTwilight() { return _game.getGameState().getTwilightPool(); }
     public void SetTwilight(int amount) { _game.getGameState().setTwilight(amount); }
 
+    public PhysicalCardImpl GetRingBearer()
+    {
+        return (PhysicalCardImpl)_game.getGameState().getRingBearer(P1);
+    }
 
+    public void SkipToPhase(Phase target) throws DecisionResultInvalidException {
+        for(int attempts = 1; attempts <= 20; attempts++)
+        {
+            Phase current = _game.getGameState().getCurrentPhase();
+            if(current == target)
+                break;
+
+            SkipCurrentPhaseActions();
+
+            if(attempts == 20)
+            {
+                throw new DecisionResultInvalidException("Could not arrive at target '" + target + "' after 20 attempts!");
+            }
+        }
+    }
+
+    public void SkipCurrentPhaseActions() throws DecisionResultInvalidException {
+        Phase current = _game.getGameState().getCurrentPhase();
+
+        if(_userFeedback.getAwaitingDecision(P1) != null) {
+            playerDecided(P1, "");
+        }
+
+        if(_userFeedback.getAwaitingDecision(P2) != null) {
+            playerDecided(P2, "");
+        }
+    }
+
+
+    public void FreepsAssignToMinion(String name, String target) throws DecisionResultInvalidException { FreepsAssignToMinion(GetFreepsCard(name), GetShadowCard(target)); }
+    public void FreepsAssignToMinion(PhysicalCardImpl comp, PhysicalCardImpl minion) throws DecisionResultInvalidException {
+        playerDecided(P1, comp.getCardId() + " " + minion.getCardId());
+    }
+
+    public List<PhysicalCardImpl> FreepsGetAttachedCards(String name) { return GetAttachedCards(GetFreepsCard(name)); }
+    public List<PhysicalCardImpl> GetAttachedCards(PhysicalCardImpl card)
+    {
+        return (List<PhysicalCardImpl>)(List<?>)_game.getGameState().getAttachedCards(card);
+    }
+
+    public void FreepsResolveSkirmish(String name) throws DecisionResultInvalidException { FreepsResolveSkirmish(GetFreepsCard(name)); }
+    public void FreepsResolveSkirmish(PhysicalCardImpl comp) throws DecisionResultInvalidException {
+        playerDecided(P1, String.valueOf(comp.getCardId()));
+    }
+
+    public int FreepsGetStrength(String name) { return GetStrength(GetFreepsCard(name)); }
+    public int ShadowGetStrength(String name) { return GetStrength(GetShadowCard(name)); }
+    public int GetStrength(PhysicalCardImpl card)
+    {
+        return _game.getModifiersQuerying().getStrength(_game, card);
+    }
+
+    public boolean HasKeyword(PhysicalCardImpl card, Keyword keyword)
+    {
+        return _game.getModifiersQuerying().hasKeyword(_game, card, keyword);
+    }
 }

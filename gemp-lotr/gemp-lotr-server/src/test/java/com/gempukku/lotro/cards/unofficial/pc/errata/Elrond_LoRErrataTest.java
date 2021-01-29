@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.*;
@@ -23,8 +23,6 @@ public class Elrond_LoRErrataTest
                     put("elrond", "21_1040");
                     put("randomcard", "1_3");
                 }},
-                null,
-                null,
                 null
         );
     }
@@ -37,8 +35,6 @@ public class Elrond_LoRErrataTest
                     put("gandalf", "1_72");
                     put("arwen", "1_30");
                 }},
-                null,
-                null,
                 null
         );
     }
@@ -48,11 +44,11 @@ public class Elrond_LoRErrataTest
                 new HashMap<String, String>()
                 {{
                     put("elrond", "21_1040");
-                    put("ally1", "1_60");
-                    put("ally2", "1_27");
+                    put("allyHome3_1", "1_60");
+                    put("allyHome3_2", "1_27");
+                    put("allyHome6_1", "1_56");
+                    put("allyHome6_2", "1_57");
                 }},
-                null,
-                null,
                 null
         );
     }
@@ -60,78 +56,81 @@ public class Elrond_LoRErrataTest
     @Test
     public void FellowshipActionExertsTwiceToDrawACard() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scenario = GetSimpleDeckScenario();
-        PhysicalCardImpl elrond = scenario.GetFreepsCard("elrond");
-        scenario.FreepsMoveCharToTable(elrond);
+        GenericCardTest scn = GetSimpleDeckScenario();
+        PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
 
-        scenario.StartGame();
+        scn.FreepsMoveCharToTable(elrond);
 
-        scenario.FreepsMoveCardToDeck("randomcard");
+        scn.StartGame();
 
-        Assert.assertEquals(Phase.FELLOWSHIP, scenario.GetCurrentPhase());
-        Assert.assertTrue(scenario.FreepsActionAvailable("Use Elrond"));
+        assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
+        assertTrue(scn.FreepsActionAvailable("Use Elrond"));
 
-        Assert.assertEquals(0, scenario.GetWoundsOn(elrond));
-        Assert.assertEquals(0, scenario.GetFreepsHandCount());
-        Assert.assertEquals(1, scenario.GetFreepsDeckCount());
+        assertEquals(0, scn.GetWoundsOn(elrond));
+        assertEquals(0, scn.GetFreepsHandCount());
+        assertEquals(1, scn.GetFreepsDeckCount());
 
-        scenario.FreepsUseAction("Use Elrond");
+        scn.FreepsUseAction("Use Elrond");
 
-        Assert.assertEquals(2, scenario.GetWoundsOn(elrond));
-        Assert.assertEquals(1, scenario.GetFreepsHandCount());
-        Assert.assertEquals(0, scenario.GetFreepsDeckCount());
+        assertEquals(2, scn.GetWoundsOn(elrond));
+        assertEquals(1, scn.GetFreepsHandCount());
+        assertEquals(0, scn.GetFreepsDeckCount());
     }
 
     @Test
     public void CardCanPlayIfGandalfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scenario = GetSimpleSpotScenario();
-        scenario.FreepsMoveCardToHand("elrond");
-        scenario.FreepsMoveCardToHand("gandalf");
+        GenericCardTest scn = GetSimpleSpotScenario();
+        scn.FreepsMoveCardToHand("elrond");
+        scn.FreepsMoveCardToHand("gandalf");
 
-        scenario.StartGame();
+        scn.StartGame();
 
-        Assert.assertEquals(Phase.FELLOWSHIP, scenario.GetCurrentPhase());
-        Assert.assertFalse(scenario.FreepsActionAvailable("Play Elrond"));
+        assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
+        assertFalse(scn.FreepsActionAvailable("Play Elrond"));
 
-        scenario.FreepsPlayCharFromHand("gandalf");
-        Assert.assertTrue(scenario.FreepsActionAvailable("Play Elrond"));
+        scn.FreepsPlayCharFromHand("gandalf");
+        assertTrue(scn.FreepsActionAvailable("Play Elrond"));
     }
 
     @Test
     public void CardCanPlayIfElfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scenario = GetSimpleSpotScenario();
-        scenario.FreepsMoveCardToHand("elrond");
-        scenario.FreepsMoveCardToHand("arwen");
+        GenericCardTest scn = GetSimpleSpotScenario();
+        scn.FreepsMoveCardToHand("elrond");
+        scn.FreepsMoveCardToHand("arwen");
 
-        scenario.StartGame();
+        scn.StartGame();
 
-        Assert.assertEquals(Phase.FELLOWSHIP, scenario.GetCurrentPhase());
-        Assert.assertFalse(scenario.FreepsActionAvailable("Play Elrond"));
+        assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
+        assertFalse(scn.FreepsActionAvailable("Play Elrond"));
 
-        scenario.FreepsPlayCharFromHand("arwen");
-        Assert.assertTrue(scenario.FreepsActionAvailable("Play Elrond"));
+        scn.FreepsPlayCharFromHand("arwen");
+        assertTrue(scn.FreepsActionAvailable("Play Elrond"));
     }
 
     @Test
     public void AllyHealsCappedAt2() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scenario = GetHome3AllyScenario();
-        scenario.FreepsMoveCharToTable("elrond");
-        scenario.FreepsMoveCharToTable("ally1");
-        scenario.FreepsMoveCharToTable("ally2");
+        GenericCardTest scn = GetHome3AllyScenario();
+        scn.FreepsMoveCharToTable("elrond");
+        scn.FreepsMoveCharToTable("allyHome3_1");
+        scn.FreepsMoveCharToTable("allyHome3_2");
+        scn.FreepsMoveCharToTable("allyHome6_1");
+        scn.FreepsMoveCharToTable("allyHome6_2");
 
-        scenario.FreepsAddWoundsToChar("elrond", 1);
-        scenario.FreepsAddWoundsToChar("ally1", 1);
-        scenario.FreepsAddWoundsToChar("ally2", 1);
+        scn.FreepsAddWoundsToChar("elrond", 1);
+        scn.FreepsAddWoundsToChar("allyHome3_1", 1);
+        scn.FreepsAddWoundsToChar("allyHome3_2", 1);
+        scn.FreepsAddWoundsToChar("allyHome6_1", 1);
+        scn.FreepsAddWoundsToChar("allyHome6_2", 1);
 
-        scenario.StartGame();
+        scn.StartGame();
 
-        Assert.assertEquals(Phase.BETWEEN_TURNS, scenario.GetCurrentPhase());
+        assertEquals(Phase.BETWEEN_TURNS, scn.GetCurrentPhase());
 
-        Assert.assertEquals(3, scenario.FreepsGetADParamAsList("cardId").size());
-        Assert.assertEquals("0", scenario.FreepsGetADParam("min"));
-        Assert.assertEquals("2", scenario.FreepsGetADParam("max"));
+        assertEquals(3, scn.FreepsGetADParamAsList("cardId").size());
+        assertEquals("0", scn.FreepsGetADParam("min"));
+        assertEquals("2", scn.FreepsGetADParam("max"));
     }
 }
