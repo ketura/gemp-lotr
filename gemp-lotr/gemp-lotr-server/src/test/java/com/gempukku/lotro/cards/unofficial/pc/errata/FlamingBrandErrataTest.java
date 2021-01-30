@@ -25,9 +25,7 @@ public class FlamingBrandErrataTest
                     put("arwen", "1_30");
                     put("boromir", "1_97");
                     put("aragorn", "1_89");
-                }},
-                new HashMap<String, String>()
-                {{
+
                     put("nazgul", "1_229");
                     put("runner", "1_178");
                 }}

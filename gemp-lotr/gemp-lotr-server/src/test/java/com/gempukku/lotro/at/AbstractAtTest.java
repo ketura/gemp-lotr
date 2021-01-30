@@ -53,7 +53,7 @@ public abstract class AbstractAtTest {
         _userFeedback = new DefaultUserFeedback();
 
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
-        LotroFormat format = formatLibrary.getFormat("movie");
+        LotroFormat format = formatLibrary.getFormat("multipath");
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
         _userFeedback.setGame(_game);

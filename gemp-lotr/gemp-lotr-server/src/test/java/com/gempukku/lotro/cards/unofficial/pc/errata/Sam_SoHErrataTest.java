@@ -17,9 +17,7 @@ public class Sam_SoHErrataTest
                 new HashMap<String, String>()
                 {{
                     put("sam", "21_10311");
-                }},
-                new HashMap<String, String>()
-                {{
+
                     put("orc", "1_272");
                 }}
         );

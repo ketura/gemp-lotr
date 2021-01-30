@@ -18,8 +18,7 @@ public class Galadriel_LoLErrataTest
                 {{
                     put("galadriel", "21_1045");
                     put("elrond", "1_40");
-                }},
-                null
+                }}
         );
     }
 
@@ -32,8 +31,7 @@ public class Galadriel_LoLErrataTest
                     put("allyHome3_2", "1_27");
                     put("allyHome6_1", "1_56");
                     put("allyHome6_2", "1_57");
-                }},
-                null
+                }}
         );
     }
 

@@ -22,8 +22,7 @@ public class Elrond_LoRErrataTest
                 {{
                     put("elrond", "21_1040");
                     put("randomcard", "1_3");
-                }},
-                null
+                }}
         );
     }
 
@@ -34,8 +33,7 @@ public class Elrond_LoRErrataTest
                     put("elrond", "21_1040");
                     put("gandalf", "1_72");
                     put("arwen", "1_30");
-                }},
-                null
+                }}
         );
     }
 
@@ -48,8 +46,7 @@ public class Elrond_LoRErrataTest
                     put("allyHome3_2", "1_27");
                     put("allyHome6_1", "1_56");
                     put("allyHome6_2", "1_57");
-                }},
-                null
+                }}
         );
     }
 

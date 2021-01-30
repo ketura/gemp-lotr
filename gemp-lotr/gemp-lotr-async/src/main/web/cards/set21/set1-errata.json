@@ -442,19 +442,23 @@
     "effects": {
       "type": "activated",
       "phase": "assignment",
+      "condition": {
+        "type": "canSpot",
+        "filter": "bearer,notAssignedToSkirmish"
+      },
       "cost": [
         {
           "type": "exert",
-          "filter": "self"
-        },
+          "filter": "bearer"
+        }        
+      ],
+      "effect":[
         {
           "type": "assignFpCharacterToSkirmish",
           "player": "fp",
-          "fpCharacter": "self",
-          "against": "minion"
-        }
-      ],
-      "effect":[
+          "fpCharacter": "bearer",
+          "against": "choose(minion)"
+        },
         {
           "type": "modifyStrength",
           "filter": "choose(ally,allyInCurrentRegion)",
