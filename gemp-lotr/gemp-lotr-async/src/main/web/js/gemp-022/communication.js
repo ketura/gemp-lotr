@@ -369,19 +369,6 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    importCollection:function (decklist, callback, errorMap) {
-        $.ajax({
-            type:"GET",
-            url:this.url + "/collection/import/",
-            cache:false,
-            data:{
-                participantId:getUrlParam("participantId"),
-                decklist:decklist},
-            success:this.deliveryCheck(callback),
-            error:this.errorCheck(errorMap),
-            dataType:"xml"
-        });
-    },
     openPack:function (collectionType, pack, callback, errorMap) {
         $.ajax({
             type:"POST",
