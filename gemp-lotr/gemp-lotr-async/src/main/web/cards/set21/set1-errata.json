@@ -115,25 +115,7 @@
       ]
     }
   },
-  "21_10108": {
-    "title": "*No Stranger to the Shadows",
-    "culture": "gondor",
-    "cost": 0,
-    "type": "condition",
-    "keyword": [
-      "stealth"
-    ],
-    "target": "ranger,not(hasAttached(name(No Stranger to the Shadows)))",
-    "effects": {
-      "type": "modifier",
-      "modifier": {
-        "type": "addKeyword",
-        "filter": "bearer",
-        "keyword": "concealed"
-      }
-    }
-  },
-  
+
     "21_10139": {
     "title": "Savagery To Match Their Numbers",
     "culture": "isengard",
@@ -307,84 +289,6 @@
     ]
   },
   
-  "21_10313": {
-    "title": "*Sting",
-    "culture": "shire",
-    "cost": 1,
-    "type": "possession",
-    "possession": "hand weapon",
-    "strength": 2,
-    "target": "name(Frodo)",
-    "effects": {
-      "type": "activated",
-      "phase": [
-        "fellowship",
-        "regroup"
-      ],
-      "cost": {
-        "type": "exert",
-        "filter": "bearer"
-      },
-      "effect": [
-        {
-          "type": "revealrandomcardsfromhand",
-          "hand": "shadowPlayer",
-          "forced": true,
-          "memorize": "revealedCards",
-          "count":3
-        },
-        {
-          "type": "addKeyword",
-          "filter": "choose(companion)",
-          "keyword": "concealed",
-          "until": "start(regroup)",
-          "amount": {
-            "type": "forEachMatchingInMemory",
-            "memory": "revealedCards",
-            "filter": "orc",
-            "limit": 1
-          }
-        }
-      ]
-    }
-  },
-
-  "21_10316": {
-    "title": "*A Talent for Not Being Seen",
-    "culture": "shire",
-    "cost": 0,
-    "type": "condition",
-    "keyword": [
-      "stealth",
-      "support area"
-    ],
-    "effects": [
-      {
-        "type": "extraCost",
-        "cost": {
-          "type": "exert",
-          "filter": "choose(hobbit)"
-        }
-      },
-      {
-        "type": "trigger",
-        "trigger": {
-          "type": "moves"
-        },
-        "cost": {
-          "type": "exert",
-          "filter": "choose(hobbit)"
-        },
-        "effect": {
-          "type": "addKeyword",
-          "filter": "self",
-          "keyword": "defender+1",
-          "until": "start(regroup)"
-        }
-      }
-    ]
-  },
-  
   "21_2032": {
     "side": "free_people",
     "cost": 0,
@@ -532,4 +436,102 @@
     ]
   },
   
+
+  "21_10108": {
+    "title": "No Stranger to the Shadows",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "stealth"
+    ],
+    "target": "ranger,not(hasAttached(name(No Stranger to the Shadows)))",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "concealed"
+      }
+    }
+  },
+  
+  
+  "21_10313": {
+    "title": "*Sting",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Frodo)",
+    "effects": {
+      "type": "activated",
+      "phase": [
+        "fellowship",
+        "regroup"
+      ],
+      "cost": {
+        "type": "exert",
+        "filter": "bearer"
+      },
+      "effect": [
+        {
+          "type": "revealrandomcardsfromhand",
+          "hand": "shadowPlayer",
+          "forced": true,
+          "memorize": "revealedCards",
+          "count":3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "choose(companion)",
+          "keyword": "concealed",
+          "until": "start(regroup)",
+          "amount": {
+            "type": "forEachMatchingInMemory",
+            "memory": "revealedCards",
+            "filter": "orc",
+            "limit": 1
+          }
+        }
+      ]
+    }
+  },
+ 
+  "21_10316": {
+    "title": "*A Talent for Not Being Seen",
+    "culture": "shire",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "stealth",
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(hobbit)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(hobbit)"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "defender+1",
+          "until": "start(regroup)"
+        }
+      }
+    ]
+  },
 }

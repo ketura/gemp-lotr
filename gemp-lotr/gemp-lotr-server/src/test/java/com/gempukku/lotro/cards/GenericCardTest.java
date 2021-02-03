@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
@@ -98,6 +99,19 @@ public class GenericCardTest extends AbstractAtTest {
 
     public PhysicalCardImpl GetFreepsCard(String cardName) { return Cards.get(P1).get(cardName); }
     public PhysicalCardImpl GetShadowCard(String cardName) { return Cards.get(P2).get(cardName); }
+
+    public PhysicalCardImpl GetFreepsSite(int siteNum) { return GetSite(P1, siteNum); }
+    public PhysicalCardImpl GetShadowSite(int siteNum) { return GetSite(P2, siteNum); }
+    public PhysicalCardImpl GetSite(String playerID, int siteNum)
+    {
+        List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(playerID);
+//        for (PhysicalCardImpl card : advDeck) {
+//            if (card.getSiteNumber() == siteNum){
+//                return card;
+//            }
+//        }
+        return advDeck.stream().filter(x -> x.getBlueprint().getSiteNumber() == siteNum).findFirst().get();
+    }
 
     public List<String> FreepsGetAvailableActions() { return GetAvailableActions(P1); }
     public List<String> ShadowGetAvailableActions() { return GetAvailableActions(P2); }
@@ -315,4 +329,11 @@ public class GenericCardTest extends AbstractAtTest {
     {
         return _game.getModifiersQuerying().hasKeyword(_game, card, keyword);
     }
+
+
+    public void InsertAdHocModifier(Modifier mod)
+    {
+        _game.getModifiersEnvironment().addUntilEndOfTurnModifier(mod);
+    }
+
 }

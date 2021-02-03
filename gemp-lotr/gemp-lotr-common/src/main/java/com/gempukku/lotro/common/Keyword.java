@@ -33,7 +33,7 @@ public enum Keyword implements Filterable {
 	WISE("Wise", true), BURGLAR("Burglar", true),
 
     //PC Keywords
-    CONCEALED("Concealed", true);
+    CONCEALED("Concealed", true), EXPOSED("Exposed", true);
 
     private String _humanReadable;
     private boolean _infoDisplayable;
