@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.GenericCardTest;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -61,13 +60,13 @@ public class Elrond_LoRErrataTest
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsActionAvailable("Use Elrond"));
+        assertTrue(scn.FreepsCardActionAvailable(elrond));
 
         assertEquals(0, scn.GetWoundsOn(elrond));
         assertEquals(0, scn.GetFreepsHandCount());
         assertEquals(1, scn.GetFreepsDeckCount());
 
-        scn.FreepsUseAction("Use Elrond");
+        scn.FreepsUseCardAction(elrond);
 
         assertEquals(2, scn.GetWoundsOn(elrond));
         assertEquals(1, scn.GetFreepsHandCount());

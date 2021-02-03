@@ -47,13 +47,13 @@ public class Galadriel_LoLErrataTest
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsActionAvailable("Use Galadriel"));
+        assertTrue(scn.FreepsCardActionAvailable(galadriel));
 
         assertEquals(0, scn.GetWoundsOn(galadriel));
         assertEquals(1, scn.GetFreepsHandCount());
         assertEquals(0, scn.GetTwilight());
 
-        scn.FreepsUseAction("Use Galadriel");
+        scn.FreepsUseCardAction(galadriel);
 
         assertEquals(2, scn.GetWoundsOn(galadriel));
         assertEquals(0, scn.GetFreepsHandCount());

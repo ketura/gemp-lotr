@@ -35,12 +35,12 @@ public class Sam_SoHErrataTest
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsActionAvailable("Use Sam"));
+        assertTrue(scn.FreepsCardActionAvailable(sam));
 
         assertEquals(0, scn.GetWoundsOn(sam));
         assertEquals(1, scn.GetBurdens());
 
-        scn.FreepsUseAction("Use Sam");
+        scn.FreepsUseCardAction(sam);
 
         assertEquals(2, scn.GetWoundsOn(sam));
         assertEquals(0, scn.GetBurdens());

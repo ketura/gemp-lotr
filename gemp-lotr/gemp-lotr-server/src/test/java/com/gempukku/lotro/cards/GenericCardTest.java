@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.Assignment;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -109,8 +110,41 @@ public class GenericCardTest extends AbstractAtTest {
     public AwaitingDecision ShadowGetAwaitingDecision() { return GetAwaitingDecision(P2); }
     public AwaitingDecision GetAwaitingDecision(String playerID) { return _userFeedback.getAwaitingDecision(playerID); }
 
-    public void FreepsUseAction(String name) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, name)); }
-    public void ShadowUseAction(String name) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, name)); }
+    public Boolean FreepsActionAvailable(String action) { return ActionAvailable(P1, action); }
+    public Boolean FreepsCardActionAvailable(PhysicalCardImpl card) { return ActionAvailable(P1, "Use " + GameUtils.getFullName(card)); }
+    public Boolean FreepsCardPlayAvailable(PhysicalCardImpl card) { return ActionAvailable(P1, "Play " + GameUtils.getFullName(card)); }
+    public Boolean ShadowActionAvailable(String action) { return ActionAvailable(P2, action); }
+    public Boolean ShadowCardActionAvailable(PhysicalCardImpl card) { return ActionAvailable(P2, "Use " + GameUtils.getFullName(card)); }
+    public Boolean ShadowCardPlayAvailable(PhysicalCardImpl card) { return ActionAvailable(P2, "Play " + GameUtils.getFullName(card)); }
+    public Boolean ActionAvailable(String player, String action) {
+        List<String> actions = GetAvailableActions(player);
+        String lowerAction = action.toLowerCase();
+        return actions.stream().anyMatch(x -> x.toLowerCase().startsWith(lowerAction));
+    }
+
+    public List<String> FreepsGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P1, paramName)); }
+    public List<String> ShadowGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P2, paramName)); }
+    public Object FreepsGetADParam(String paramName) { return GetAwaitingDecisionParam(P1, paramName); }
+    public Object ShadowGetADParam(String paramName) { return GetAwaitingDecisionParam(P2, paramName); }
+    public Object GetAwaitingDecisionParam(String playerID, String paramName) {
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
+        return decision.getDecisionParameters().get(paramName);
+    }
+
+    public Map<String, Object> GetAwaitingDecisionParams(String playerID) {
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
+        return decision.getDecisionParameters();
+    }
+
+    public void FreepsUseCardAction(String name) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, name)); }
+    public void FreepsUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, "Use " + GameUtils.getFullName(card))); }
+    public void ShadowUseCardAction(String name) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, name)); }
+    public void ShadowUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, "Use " + GameUtils.getFullName(card))); }
+
+    public void FreepsPlayCard(String name) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, name)); }
+    public void FreepsPlayCard(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, "Play " + GameUtils.getFullName(card))); }
+    public void ShadowPlayCard(String name) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, name)); }
+    public void ShadowPlayCard(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, "Play " + GameUtils.getFullName(card))); }
 
     public int FreepsGetWoundsOn(String cardName) { return GetWoundsOn(GetFreepsCard(cardName)); }
     public int ShadowGetWoundsOn(String cardName) { return GetWoundsOn(GetShadowCard(cardName)); }
@@ -134,13 +168,7 @@ public class GenericCardTest extends AbstractAtTest {
 
     public Phase GetCurrentPhase() { return _game.getGameState().getCurrentPhase(); }
 
-    public Boolean FreepsActionAvailable(String action) { return ActionAvailable(P1, action); }
-    public Boolean ShadowActionAvailable(String action) { return ActionAvailable(P2, action); }
-    public Boolean ActionAvailable(String player, String action) {
-        List<String> actions = GetAvailableActions(player);
-        String lowerAction = action.toLowerCase();
-        return actions.stream().anyMatch(x -> x.toLowerCase().startsWith(lowerAction));
-    }
+
 
     public void FreepsMoveCardToHand(String cardName) { MoveCardToZone(P1, GetFreepsCard(cardName), Zone.HAND); }
     public void FreepsMoveCardToHand(PhysicalCardImpl card) { MoveCardToZone(P1, card, Zone.HAND); }
@@ -174,23 +202,6 @@ public class GenericCardTest extends AbstractAtTest {
         }
         _game.getGameState().addCardToZone(_game, card, zone);
     }
-
-
-
-    public List<String> FreepsGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P1, paramName)); }
-    public List<String> ShadowGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P2, paramName)); }
-    public Object FreepsGetADParam(String paramName) { return GetAwaitingDecisionParam(P1, paramName); }
-    public Object ShadowGetADParam(String paramName) { return GetAwaitingDecisionParam(P2, paramName); }
-    public Object GetAwaitingDecisionParam(String playerID, String paramName) {
-        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
-        return decision.getDecisionParameters().get(paramName);
-    }
-
-    public Map<String, Object> GetAwaitingDecisionParams(String playerID) {
-        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
-        return decision.getDecisionParameters();
-    }
-
 
     public void FreepsPlayCharFromHand(String cardName) throws DecisionResultInvalidException {
         PhysicalCardImpl card = GetFreepsCard(cardName);
@@ -235,12 +246,17 @@ public class GenericCardTest extends AbstractAtTest {
     }
 
     public void SkipCurrentPhaseActions() throws DecisionResultInvalidException {
-        Phase current = _game.getGameState().getCurrentPhase();
+        FreepsSkipCurrentPhaseAction();
+        ShadowSkipCurrentPhaseAction();
+    }
 
+    public void FreepsSkipCurrentPhaseAction() throws DecisionResultInvalidException {
         if(_userFeedback.getAwaitingDecision(P1) != null) {
             playerDecided(P1, "");
         }
+    }
 
+    public void ShadowSkipCurrentPhaseAction() throws DecisionResultInvalidException {
         if(_userFeedback.getAwaitingDecision(P2) != null) {
             playerDecided(P2, "");
         }
@@ -276,6 +292,11 @@ public class GenericCardTest extends AbstractAtTest {
     public void FreepsChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException {
         playerDecided(P1, String.valueOf(card.getCardId()));
     }
+    public void ShadowChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException {
+        playerDecided(P2, String.valueOf(card.getCardId()));
+    }
+    public boolean FreepsCanChooseCharacter(PhysicalCardImpl card) { return FreepsGetADParamAsList("cardId").contains(card.getCardId()); }
+    public boolean ShadowCanChooseCharacter(PhysicalCardImpl card) { return ShadowGetADParamAsList("cardId").contains(card.getCardId()); }
 
     public boolean IsCharAssigned(PhysicalCardImpl card) {
         List<Assignment> assigns = _game.getGameState().getAssignments();

@@ -475,6 +475,61 @@
     }
   },
   
-  
+  "21_3068": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 4,
+    "race": "Wizard",
+    "strength": 8,
+    "culture": "Isengard",
+    "vitality": 4,
+    "subtitle": "Keeper of Isengard",
+    "title": "*Saruman",
+    "type": "minion",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantbeassignedtoskirmish",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeWounds",
+          "filter": "self",
+          "condition": {
+            "type": "phase",
+            "phase": "archery"
+          }
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "uruk-hai"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 1
+        },
+        "effect": [
+          {
+            "type": "preventWound",
+            "filter": "choose(uruk-hai)",
+            "memorize": "uruk"
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(uruk)",
+            "keyword": "fierce"
+          }
+        ]
+      },
+    ]
+  },
   
 }

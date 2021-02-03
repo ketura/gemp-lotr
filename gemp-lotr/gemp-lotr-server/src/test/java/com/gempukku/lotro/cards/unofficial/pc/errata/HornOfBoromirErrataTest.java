@@ -67,10 +67,10 @@ public class HornOfBoromirErrataTest
 
         scn.StartGame();
 
-        assertFalse(scn.FreepsActionAvailable("Play Horn of Boromir"));
-        scn.FreepsUseAction("Play Boromir");
-        assertTrue(scn.FreepsActionAvailable("Play Horn of Boromir"));
-        scn.FreepsUseAction("Play Horn of Boromir");
+        assertFalse(scn.FreepsCardPlayAvailable(horn));
+        scn.FreepsPlayCard(boromir);
+        assertTrue(scn.FreepsCardPlayAvailable(horn));
+        scn.FreepsPlayCard(horn);
 
         Assert.assertEquals(Zone.ATTACHED, horn.getZone());
         Assert.assertEquals(boromir, horn.getAttachedTo());
@@ -96,18 +96,18 @@ public class HornOfBoromirErrataTest
 
         scn.StartGame();
 
-        scn.FreepsUseAction("Play Horn of Boromir");
+        scn.FreepsPlayCard(horn);
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        assertTrue(scn.FreepsActionAvailable("Use Horn of Boromir"));
-        scn.FreepsUseAction("Use Horn of Boromir");
+        assertTrue(scn.FreepsCardActionAvailable(horn));
+        scn.FreepsUseCardAction(horn);
         scn.FreepsChooseCard(runner1);
 
         assertEquals(1, scn.GetWoundsOn(boromir));
         assertEquals(11, scn.GetStrength(elrond));
         //Skip shadow player's action
         scn.SkipCurrentPhaseActions();
-        assertFalse(scn.FreepsActionAvailable("Use Horn of Boromir"));
+        assertFalse(scn.FreepsCardActionAvailable(horn));
         scn.SkipCurrentPhaseActions();
         assertTrue(scn.IsCharAssigned(boromir));
 
@@ -134,10 +134,10 @@ public class HornOfBoromirErrataTest
 
         scn.StartGame();
 
-        scn.FreepsUseAction("Play Horn of Boromir");
+        scn.FreepsPlayCard(horn);
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.FreepsUseAction("Use Horn of Boromir");
+        scn.FreepsUseCardAction(horn);
         scn.FreepsChooseCard(runner1);
 
         assertEquals(1, scn.GetWoundsOn(boromir));

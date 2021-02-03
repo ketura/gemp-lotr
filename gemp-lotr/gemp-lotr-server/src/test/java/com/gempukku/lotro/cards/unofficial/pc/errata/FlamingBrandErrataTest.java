@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
@@ -50,9 +49,9 @@ public class FlamingBrandErrataTest
         scn.StartGame();
 
 
-        assertTrue(scn.FreepsActionAvailable("Play Flaming Brand"));
+        assertTrue(scn.FreepsCardPlayAvailable(brand));
 
-        scn.FreepsUseAction("Play Flaming Brand");
+        scn.FreepsPlayCard(brand);
 
         //There are 3 companions in play, but only 2 rangers, so we should only see 2 options
         assertEquals(2, scn.FreepsGetADParamAsList("cardId").size());
@@ -74,9 +73,9 @@ public class FlamingBrandErrataTest
 
         scn.StartGame();
 
-        scn.FreepsUseAction("Play Flaming Brand");
-        assertTrue(scn.FreepsActionAvailable("Play Flaming Brand"));
-        scn.FreepsUseAction("Play Flaming Brand");
+        scn.FreepsPlayCard(brand);
+        assertTrue(scn.FreepsCardPlayAvailable(brand2));
+        scn.FreepsPlayCard(brand2);
 
         assertEquals(2, scn.GetAttachedCards(aragorn).size());
     }
@@ -100,7 +99,7 @@ public class FlamingBrandErrataTest
         scn.StartGame();
 
         assertEquals(8, scn.GetStrength(aragorn));
-        scn.FreepsUseAction("Play Flaming Brand");
+        scn.FreepsPlayCard(brand);
         assertEquals(9, scn.GetStrength(aragorn));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
@@ -122,10 +121,10 @@ public class FlamingBrandErrataTest
         scn.FreepsResolveSkirmish(aragorn);
 
         assertEquals(1, scn.FreepsGetAvailableActions().size());
-        assertTrue(scn.FreepsActionAvailable("Use Flaming Brand"));
+        assertTrue(scn.FreepsCardActionAvailable(brand));
 
         assertFalse(scn.HasKeyword(aragorn, Keyword.DAMAGE));
-        scn.FreepsUseAction("Use Flaming Brand");
+        scn.FreepsUseCardAction(brand);
         assertEquals(11, scn.GetStrength(aragorn));
         assertTrue(scn.HasKeyword(aragorn, Keyword.DAMAGE));
     }
