@@ -259,10 +259,9 @@ public class GenericCardTest extends AbstractAtTest {
     public int GetTwilight() { return _game.getGameState().getTwilightPool(); }
     public void SetTwilight(int amount) { _game.getGameState().setTwilight(amount); }
 
-    public PhysicalCardImpl GetRingBearer()
-    {
-        return (PhysicalCardImpl)_game.getGameState().getRingBearer(P1);
-    }
+    public PhysicalCardImpl GetRingBearer() { return (PhysicalCardImpl)_game.getGameState().getRingBearer(P1); }
+
+    public PhysicalCardImpl GetCurrentSite() { return (PhysicalCardImpl)_game.getGameState().getCurrentSite(); }
 
     public void SkipToPhase(Phase target) throws DecisionResultInvalidException {
         for(int attempts = 1; attempts <= 20; attempts++)
@@ -360,12 +359,10 @@ public class GenericCardTest extends AbstractAtTest {
         _game.getModifiersEnvironment().addUntilEndOfTurnModifier(mod);
     }
 
-    public void FreepsChooseToMove() throws DecisionResultInvalidException {
-        playerDecided(P1, "0");
-    }
+    public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
+    public void FreepsChooseToStay() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
 
-    public void FreepsChooseToStay() throws DecisionResultInvalidException {
-        playerDecided(P1, "1");
-    }
+    public void FreepsActivateOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
+    public void ShadowActivateOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, "0"); }
 
 }

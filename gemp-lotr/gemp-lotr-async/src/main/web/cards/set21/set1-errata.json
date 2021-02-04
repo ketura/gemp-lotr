@@ -536,4 +536,74 @@
       
     ]
   },
+  
+  "21_20121": 
+  {
+    "title": "*Gimli",
+    "subtitle": "Dwarf of the Mountain-race",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "frodo",
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifier",
+        
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "concealed",
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          }
+        },
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "movesTo",
+          "filter": "underground",
+          
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(another,companion)",
+          "keyword": "concealed",
+          "until": "start(regroup)"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "underground",
+          
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(another,companion)",
+          "keyword": "concealed",
+          "until": "start(regroup)"
+        }
+      }
+    ]
+  },
+  
+  
 }
