@@ -10,20 +10,20 @@
     "resistance": 6,
     "keyword": "damage+1",
     "effects": {
-        "type": "extraCost",
-        "cost":{
-          "type": "addBurdens",
-          "amount": {
-            "type": "condition",
-            "condition": {
-              "type": "canSpot",
-              "filter": "name(Bilbo)"
-            },
-            "true": 0,
-            "false": 1
-          }
+      "type": "extraCost",
+      "cost":{
+        "type": "addBurdens",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "name(Bilbo)"
+          },
+          "true": 0,
+          "false": 1
         }
-    }	
+      }
+    } 	
   },
   "21_2": {
     "title": "Stand Together",
@@ -134,11 +134,11 @@
       "type" : "event",
       "cost": {
         "type": "discard",
-        "filter": "choose(weapon,attachedTo(character,culture(gondor),man))"
+        "filter": "choose(hand weapon,attachedTo(character,culture(gondor),man))"
       },
       "effect": {
         "type": "wound",
-        "filter": "choose(or(orc,uruk-hai),inSkirmishAgainst(another,companion,not(ring bearer)))",
+        "filter": "choose(orc,uruk-hai,inSkirmishAgainst(another,companion,not(ring bearer)))",
         "times": 2
       }
     }
@@ -174,7 +174,18 @@
     "culture": "isengard",
     "type": "event",
     "keyword": "response",
-    "cost": 1
+    "cost": 1,
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "aboutToExert",
+        "filter": "your,uruk hai"
+      },
+      "effect": {
+        "type": "placeNoWoundForExert",
+        "filter": "choose(uruk-hai)"
+      }
+    }
   },
   "21_9": {
     "title": "Uruk Swarmer",
@@ -184,7 +195,30 @@
     "cost": 3,
     "strength": 6,
     "vitality": 2,
-    "site": 5
+    "site": 5,
+    "keyword" : "damage+1",
+    "effects" : {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "assignedToSkirmish",
+        "filter": "self",
+        "against": "companion"
+      },
+      "effect": [
+        {
+          "type": "playCardFromDiscard",
+          "filter": "choose(uruk-hai)",
+          "memorize": "playedUrukhai"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(playedUrukhai)",
+          "keyword": "fierce",
+          "until": "start(regroup)"
+        }
+      ]
+    }
   },
   "21_10": {
     "title": "Goblin Bow",
@@ -193,7 +227,38 @@
     "possession": "ranged weapon",
     "cost": 1,
     "strength": 1,
-    "vitality": 1
+    "vitality": 1,
+    "target": "culture(moria),orc",
+    "effects": [
+      {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+        },
+      "effect": {
+        "type": "discard",
+        "filter": "all(possession,not(self),attachedTo(bearer))"
+        }
+      },
+      {
+      "type": "modifier",
+      "modifier":  {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "archer"
+        }
+      },
+      {
+      "type": "modifier",
+      "modifier":
+        {
+          "type": "cantBear",
+          "filter": "bearer",
+          "cardFilter": "possession"
+        }
+      }      
+    ]
   },
   "21_11": {
     "title": "Goblin Warchief",
@@ -204,21 +269,97 @@
     "cost": 4,
     "strength": 9,
     "vitality": 2,
-    "site": 4
+    "site": 4,
+    "keyword": "fierce",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria),orc"
+    },
+    "effects": {
+      "type": "trigger",
+      "optional": true,      
+      "trigger":   {
+        "type": "played",
+        "filter": "self"
+      },
+      "cost": {          
+        "type": "revealBottomCardsOfDrawDeck",
+        "count": 4,
+        "memorize": "revealedCards"
+      },
+      "effect": [
+        {
+        "type": "playCardFromDrawDeck",
+        "filter": "all(memory(revealedCards),culture(moria),orc)"
+        },
+        {
+          "type": "discardCardsFromDrawDeck",
+          "filter": "all(memory(revealedCards),zone(deck))"
+        }
+      ]
+    }       
   },
   "21_12": {
     "title": "No Hope of Escape That Way",
     "culture": "moria",
     "type": "event",
     "keyword": "maneuver",
-    "cost": 1
+    "cost": 1,
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria),orc"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "returnToHand",
+        "filter": "choose(possession,attachedTo(companion,not(ring bearer)))"
+      }
+    }
   },
   "21_13": {
     "title": "The Old Forest",
     "culture": "wraith",
     "type": "condition",
     "keyword": "support area",
-    "cost": 0
+    "cost": 0,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+          "effect": {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(tree)"
+          }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "side(free people),not(name(Frodo)),maxTwilight(0)",
+          "count": 3
+        },
+        "cost": {
+          "type": "play",
+          "filter": "choose(minion,culture(wraith),unique)"
+        },
+        "effect": [
+          {
+          "type": "addTwilight",
+          "amount": 3
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
   },
   "21_14": {
     "title": "Old Man Willow",
@@ -229,20 +370,132 @@
     "cost": 3,
     "strength": 2,
     "vitality": 6,
-    "site": 2
+    "site": 2,
+    "effects" : [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "condition": {
+            "type": "location",
+            "filter": "not(forest)"
+          },
+          "keyword": "roaming"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "assignment"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": [
+          {
+          "type": "spot",
+          "filter": "choose(companion,hobbit,strengthLessThan(7))",
+          "memorize": "chosenHobbit"
+          },
+          {
+            "type": "addModifier",
+            "modifier": {
+              "type": "cantBeAssignedToSkirmishAgainst",
+              "side": "free people",
+              "fpCharacter": "memory(chosenHobbit)",
+              "minion": "any"
+            }
+          }
+        ]
+      }
+    ]
   },
   "21_15": {
     "title": "And in the Darkness Bind Them",
     "culture": "sauron",
     "type": "condition",
     "keyword": "support area",
-    "cost": 0
+    "cost": 0,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Discard a WRAITH card to make a SAURON orc strength +1",
+          "Discard a SAURON card to make a Nazgûl strength +1"
+        ],
+        "effects": [
+          {
+            "type": "costToEffect",
+            "cost": {
+              "type": "discardFromHand",
+              "forced": true,
+              "filter": "choose(culture(wraith))"
+            },
+            "effect": {
+              "type": "conditional",
+              "condition": {
+                "type": "perPhaseLimit",
+                "limit": 2
+              },
+              "effect": [
+                {
+                  "type": "incrementPerPhaseLimit",
+                  "limit": 2
+                },
+                {
+                  "type": "modifyStrength",
+                  "filter": "choose(culture(sauron),orc)",
+                  "amount": 1
+                }
+              ]
+            }
+            
+          },
+          {
+            "type": "costToEffect",
+            "cost": {
+              "type": "discardFromHand",
+              "forced": true,
+              "filter": "choose(culture(sauron))"
+            },
+            "effect": {
+              "type": "conditional",
+              "condition": {
+                "type": "perPhaseLimit",
+                "limit": 2
+              },
+              "effect": [
+                {
+                  "type": "incrementPerPhaseLimit",
+                  "limit": 2
+                },
+                {
+                  "type": "modifyStrength",
+                  "filter": "choose(nazgul)",
+                  "amount": 1
+                }
+              ]
+            }
+            
+          }
+        ]
+      }
+    }
   },
   "21_16": {
     "title": "Gladden Ambush",
     "culture": "sauron",
     "type": "event",
-    "keyword": "maneuver",
+    "keyword": [
+      "search",
+      "maneuver"
+    ],
     "cost": 0
   },
   "21_17": {
@@ -254,7 +507,22 @@
     "cost": 2,
     "strength": 2,
     "vitality": 3,
-    "allyHome": "fellowship,1"
+    "allyHome": [
+      "fellowship,1",
+      "fellowship,3"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "or(maneuver,regroup)",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "returnToHand",
+        "filter": "choose(hobbit,not(ring bearer))"
+      }
+    }
   },
   "21_18": {
     "title": "Hobbit Concealment",
@@ -501,5 +769,5 @@
     "possession": "hand weapon",
     "cost": 2,
     "strength": 2
-  },
+  }
 }
