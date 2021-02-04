@@ -35,7 +35,7 @@ public class RemoveKeyword implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, valueSource, memory, "you", "Choose cards to add keywork to", environment));
+                CardResolver.resolveCards(filter, valueSource, memory, "you", "Choose cards to remove keyword from", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
