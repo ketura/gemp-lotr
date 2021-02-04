@@ -77,32 +77,38 @@ public class Elrond_LoRErrataTest
     public void CardCanPlayIfGandalfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTest scn = GetSimpleSpotScenario();
-        scn.FreepsMoveCardToHand("elrond");
-        scn.FreepsMoveCardToHand("gandalf");
+        PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+        PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+
+        scn.FreepsMoveCardToHand(elrond);
+        scn.FreepsMoveCardToHand(gandalf);
 
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertFalse(scn.FreepsActionAvailable("Play Elrond"));
+        assertFalse(scn.FreepsCardPlayAvailable(elrond));
 
-        scn.FreepsPlayCharFromHand("gandalf");
-        assertTrue(scn.FreepsActionAvailable("Play Elrond"));
+        scn.FreepsPlayCard(gandalf);
+        assertTrue(scn.FreepsCardPlayAvailable(elrond));
     }
 
     @Test
     public void CardCanPlayIfElfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTest scn = GetSimpleSpotScenario();
-        scn.FreepsMoveCardToHand("elrond");
-        scn.FreepsMoveCardToHand("arwen");
+        PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+        PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
+
+        scn.FreepsMoveCardToHand(elrond);
+        scn.FreepsMoveCardToHand(arwen);
 
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertFalse(scn.FreepsActionAvailable("Play Elrond"));
+        assertFalse(scn.FreepsCardPlayAvailable(elrond));
 
-        scn.FreepsPlayCharFromHand("arwen");
-        assertTrue(scn.FreepsActionAvailable("Play Elrond"));
+        scn.FreepsPlayCard(arwen);
+        assertTrue(scn.FreepsCardPlayAvailable(elrond));
     }
 
     @Test

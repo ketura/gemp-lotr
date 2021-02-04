@@ -521,17 +521,19 @@
         "trigger": {
           "type": "moves"
         },
-        "cost": {
-          "type": "exert",
-          "filter": "choose(hobbit)"
+        "condition": {
+          "type": "canSpot",
+          "count": 2,
+          "filter": "hobbit,companion"
         },
         "effect": {
           "type": "addKeyword",
-          "filter": "self",
-          "keyword": "defender+1",
+          "filter": "choose(hobbit,companion)",
+          "keyword": "concealed",
           "until": "start(regroup)"
         }
       }
+      
     ]
   },
 }

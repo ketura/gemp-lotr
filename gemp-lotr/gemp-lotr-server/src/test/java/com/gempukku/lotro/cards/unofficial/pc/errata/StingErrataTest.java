@@ -11,7 +11,6 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -114,7 +113,7 @@ public class StingErrataTest
 
         PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
 
-        scn.FreepsMoveCharsToTable(sam, merry);
+        scn.FreepsMoveCharToTable(sam, merry);
         scn.AttachCard(sting, frodo);
 
         scn.ShadowMoveCardToHand(orc1);
@@ -154,7 +153,7 @@ public class StingErrataTest
 
         PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
 
-        scn.FreepsMoveCharsToTable(sam);
+        scn.FreepsMoveCharToTable(sam);
         scn.AttachCard(sting, frodo);
 
         scn.ShadowMoveCardToHand(orc1);
