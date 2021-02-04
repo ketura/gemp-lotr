@@ -136,6 +136,13 @@ public class GenericCardTest extends AbstractAtTest {
         return actions.stream().anyMatch(x -> x.toLowerCase().startsWith(lowerAction));
     }
 
+    public Boolean FreepsAnyActionsAvailable() { return AnyActionsAvailable(P1); }
+    public Boolean ShadowAnyActionsAvailable() { return AnyActionsAvailable(P2); }
+    public Boolean AnyActionsAvailable(String player) {
+        List<String> actions = GetAvailableActions(player);
+        return actions.size() > 0;
+    }
+
     public List<String> FreepsGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P1, paramName)); }
     public List<String> ShadowGetADParamAsList(String paramName) { return Arrays.asList((String[])GetAwaitingDecisionParam(P2, paramName)); }
     public Object FreepsGetADParam(String paramName) { return GetAwaitingDecisionParam(P1, paramName); }
@@ -186,8 +193,22 @@ public class GenericCardTest extends AbstractAtTest {
 
     public void FreepsMoveCardToHand(String cardName) { MoveCardToZone(P1, GetFreepsCard(cardName), Zone.HAND); }
     public void FreepsMoveCardToHand(PhysicalCardImpl card) { MoveCardToZone(P1, card, Zone.HAND); }
+    public void FreepsMoveCardsToHand(PhysicalCardImpl...cards) {
+        for(PhysicalCardImpl card : cards) {
+            FreepsMoveCardToHand(card);
+        }
+    }
     public void ShadowMoveCardToHand(String cardName) { MoveCardToZone(P2, GetShadowCard(cardName), Zone.HAND); }
     public void ShadowMoveCardToHand(PhysicalCardImpl card) { MoveCardToZone(P2, card, Zone.HAND); }
+
+    public void ShadowMoveCardsToHand(PhysicalCardImpl...cards) {
+        for(PhysicalCardImpl card : cards) {
+            ShadowMoveCardToHand(card);
+        }
+    }
+
+
+    public void AttachCard(PhysicalCardImpl card, PhysicalCardImpl bearer) { _game.getGameState().attachCard(_game, card, bearer); }
 
     public void FreepsMoveCardToDeck(String cardName) { MoveCardToZone(P1, GetFreepsCard(cardName), Zone.DECK); }
     public void FreepsMoveCardToDeck(PhysicalCardImpl card) { MoveCardToZone(P1, card, Zone.DECK); }
@@ -195,14 +216,18 @@ public class GenericCardTest extends AbstractAtTest {
     public void ShadowMoveCardToDeck(PhysicalCardImpl card) { MoveCardToZone(P2, card, Zone.DECK); }
 
     public void FreepsMoveCharToTable(String cardName) { MoveCardToZone(P1, GetFreepsCard(cardName), Zone.FREE_CHARACTERS); }
-    public void FreepsMoveCharToTable(PhysicalCardImpl card)
-    {
-        MoveCardToZone(P1, card, Zone.FREE_CHARACTERS);
+    public void FreepsMoveCharToTable(PhysicalCardImpl card) { MoveCardToZone(P1, card, Zone.FREE_CHARACTERS); }
+    public void FreepsMoveCharsToTable(PhysicalCardImpl...cards) {
+        for(PhysicalCardImpl card : cards) {
+            FreepsMoveCharToTable(card);
+        }
     }
     public void ShadowMoveCharToTable(String cardName) { MoveCardToZone(P2, GetShadowCard(cardName), Zone.SHADOW_CHARACTERS); }
-    public void ShadowMoveCharToTable(PhysicalCardImpl card)
-    {
-        MoveCardToZone(P2, card, Zone.SHADOW_CHARACTERS);
+    public void ShadowMoveCharToTable(PhysicalCardImpl card) { MoveCardToZone(P2, card, Zone.SHADOW_CHARACTERS); }
+    public void ShadowMoveCharsToTable(PhysicalCardImpl...cards) {
+        for(PhysicalCardImpl card : cards) {
+            ShadowMoveCharToTable(card);
+        }
     }
 
     public void FreepsMoveCardToZone(String cardID, Zone zone) { MoveCardToZone(P1, GetFreepsCard(cardID), zone); }
@@ -309,8 +334,8 @@ public class GenericCardTest extends AbstractAtTest {
     public void ShadowChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException {
         playerDecided(P2, String.valueOf(card.getCardId()));
     }
-    public boolean FreepsCanChooseCharacter(PhysicalCardImpl card) { return FreepsGetADParamAsList("cardId").contains(card.getCardId()); }
-    public boolean ShadowCanChooseCharacter(PhysicalCardImpl card) { return ShadowGetADParamAsList("cardId").contains(card.getCardId()); }
+    public boolean FreepsCanChooseCharacter(PhysicalCardImpl card) { return FreepsGetADParamAsList("cardId").contains(String.valueOf(card.getCardId())); }
+    public boolean ShadowCanChooseCharacter(PhysicalCardImpl card) { return ShadowGetADParamAsList("cardId").contains(String.valueOf(card.getCardId())); }
 
     public boolean IsCharAssigned(PhysicalCardImpl card) {
         List<Assignment> assigns = _game.getGameState().getAssignments();
@@ -334,6 +359,14 @@ public class GenericCardTest extends AbstractAtTest {
     public void InsertAdHocModifier(Modifier mod)
     {
         _game.getModifiersEnvironment().addUntilEndOfTurnModifier(mod);
+    }
+
+    public void FreepsChooseToMove() throws DecisionResultInvalidException {
+        playerDecided(P1, "0");
+    }
+
+    public void FreepsChooseToStay() throws DecisionResultInvalidException {
+        playerDecided(P1, "1");
     }
 
 }

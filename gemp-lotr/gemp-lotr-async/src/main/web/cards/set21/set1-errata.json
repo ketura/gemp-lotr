@@ -485,7 +485,7 @@
         },
         {
           "type": "addKeyword",
-          "filter": "choose(companion)",
+          "filter": "choose(companion,not(concealed))",
           "keyword": "concealed",
           "until": "start(regroup)",
           "amount": {
