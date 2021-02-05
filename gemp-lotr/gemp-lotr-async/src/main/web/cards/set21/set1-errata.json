@@ -606,4 +606,58 @@
   },
   
   
+  "21_3038": {
+    "side": "free_people",
+    "title": "*Aragorn",
+    "subtitle": "Heir to the White City",
+    "culture": "Gondor",
+    "type": "companion",
+    "race": "Man",
+    "cost": 4,
+    "strength": 8,
+    "vitality": 4,
+    "resistance": 6,
+    "signet": "frodo",
+    "keyword": [
+      "Ranger",
+      "concealed"
+    ],
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "moves"
+      },
+      "condition": {
+        "type": "phase",
+        "phase": "fellowship"
+      },
+      "effect": {
+        "type": "preventable",
+        "effect": {
+            "type": "addKeyword",
+            "filter": "choose(another,companion)",
+            "keyword": "concealed",
+            "until": "start(regroup)"
+        },
+        "text": "Would you like to discard a minion or reveal a tracker from hand to prevent a companion becoming concealed?",
+        "player": "shadowPlayer",
+        "cost": [
+          {
+            "type": "revealCardsFromHand",
+            "filter": "choose(tracker)",
+            "hand": "shadowPlayer",
+          },
+          {
+            "type": "discardFromHand",
+            "filter": "choose(minion)",
+            "forced": false,
+            "hand": "shadowPlayer",
+          }
+        ],
+      },
+    }
+
+  },
+  
 }

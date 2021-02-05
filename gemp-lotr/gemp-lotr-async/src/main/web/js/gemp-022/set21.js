@@ -61,5 +61,6 @@ var set21 = {
 	'21_2075': 'https://i.lotrtcgpc.net/errata/FOTR/22_75.jpg',
 	'21_3042': 'https://i.lotrtcgpc.net/errata/FOTR/23_42.jpg',
 	'21_3068': 'https://i.lotrtcgpc.net/errata/FOTR/23_68.jpg',
-	'21_20121': 'https://i.lotrtcgpc.net/errata/FOTR/22_121.jpg'
+	'21_20121': 'https://i.lotrtcgpc.net/errata/FOTR/22_121.jpg',
+	'21_3038': 'https://i.lotrtcgpc.net/errata/FOTR/23_38.jpg'
 }
