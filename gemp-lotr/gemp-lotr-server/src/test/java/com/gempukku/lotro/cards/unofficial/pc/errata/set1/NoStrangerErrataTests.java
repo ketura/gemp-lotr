@@ -1,13 +1,10 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
-import com.gempukku.lotro.cards.GenericCardTest;
-import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -16,10 +13,10 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class NoStrangerErrataTest
+public class NoStrangerErrataTests
 {
-    protected GenericCardTest GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("aragorn", "1_89");
@@ -35,7 +32,7 @@ public class NoStrangerErrataTest
     @Test
     public void NoStrangerHasStealth() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
 
@@ -45,7 +42,7 @@ public class NoStrangerErrataTest
     @Test
     public void NoStrangerCanOnlyPlayOnRanger() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
@@ -70,7 +67,7 @@ public class NoStrangerErrataTest
     @Test
     public void NoStrangerLimitOnePerBearer() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
@@ -96,7 +93,7 @@ public class NoStrangerErrataTest
     @Test
     public void NoStrangerAddsConcealed() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");

@@ -25,7 +25,6 @@ public class RevealCardsFromHand implements EffectAppenderProducer {
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         final ValueSource countSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
-        final PlayerSource handSource = PlayerResolver.resolvePlayer(hand, environment);
 
 
         MultiEffectAppender result = new MultiEffectAppender();

@@ -1,6 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set2;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -13,10 +13,10 @@ import java.util.HashMap;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
-public class FlamingBrandErrataTest
+public class FlamingBrandErrataTests
 {
-    protected GenericCardTest GetSimpleScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetSimpleScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("brand", "21_2032");
@@ -34,7 +34,7 @@ public class FlamingBrandErrataTest
     @Test
     public void CanBeBorneByRangers() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetSimpleScenario();
 
         PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
@@ -61,7 +61,7 @@ public class FlamingBrandErrataTest
     @Test
     public void CanBeBorneTwice() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetSimpleScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl brand = scn.GetFreepsCard("brand");
@@ -83,7 +83,7 @@ public class FlamingBrandErrataTest
     @Test
     public void SkirmishAbilityAvailableWhenSkirmishingNazgul() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetSimpleScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl brand = scn.GetFreepsCard("brand");

@@ -1,6 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -10,10 +10,10 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-public class Sam_SoHErrataTest
+public class Sam_SoHErrataTests
 {
-    protected GenericCardTest GetSimpleScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetSimpleScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("sam", "21_10311");
@@ -26,7 +26,7 @@ public class Sam_SoHErrataTest
     @Test
     public void FellowshipActionExertsTwiceToRemoveABurden() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetSimpleScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
@@ -50,7 +50,7 @@ public class Sam_SoHErrataTest
     @Test
     public void RBDeathMakesSamTheRB() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetSimpleScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");

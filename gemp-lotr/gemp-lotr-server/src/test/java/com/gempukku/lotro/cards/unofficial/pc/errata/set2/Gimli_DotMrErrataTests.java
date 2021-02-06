@@ -1,7 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set2;
 
-import com.gempukku.lotro.cards.GenericCardTest;
-import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -17,10 +16,10 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Gimli_DotMrErrataTest
+public class Gimli_DotMrErrataTests
 {
-    protected GenericCardTest GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("gimli", "21_20121");
@@ -31,7 +30,7 @@ public class Gimli_DotMrErrataTest
     @Test
     public void GimliHasDamage() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
 
@@ -42,7 +41,7 @@ public class Gimli_DotMrErrataTest
     @Test
     public void GimliHasConcealedOnlyWhileUnderground() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
         scn.FreepsMoveCharToTable(gimli);
@@ -61,7 +60,7 @@ public class Gimli_DotMrErrataTest
     @Test
     public void GimliAbilityTriggersMovingFromAndTo() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
@@ -75,7 +74,7 @@ public class Gimli_DotMrErrataTest
         scn.FreepsSkipCurrentPhaseAction();
 
         assertTrue(scn.FreepsActionAvailable("Optional"));
-        scn.FreepsActivateOptionalTrigger();
+        scn.FreepsAcceptOptionalTrigger();
         assertEquals(1, scn.GetWoundsOn(gimli));
         assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
 
@@ -86,7 +85,7 @@ public class Gimli_DotMrErrataTest
         scn.FreepsChooseToMove();
 
         assertTrue(scn.FreepsActionAvailable("Optional"));
-        scn.FreepsActivateOptionalTrigger();
+        scn.FreepsAcceptOptionalTrigger();
         assertEquals(2, scn.GetWoundsOn(gimli));
         assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
     }

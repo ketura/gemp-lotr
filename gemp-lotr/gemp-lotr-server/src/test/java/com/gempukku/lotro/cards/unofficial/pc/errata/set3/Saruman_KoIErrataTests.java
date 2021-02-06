@@ -1,6 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set3;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -14,10 +14,10 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Saruman_KoIErrataTest
+public class Saruman_KoIErrataTests
 {
-    protected GenericCardTest GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("legolas", "1_50");
@@ -35,7 +35,7 @@ public class Saruman_KoIErrataTest
     @Test
     public void SarumanWorks() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl legolas = scn.GetFreepsCard("legolas");
         PhysicalCardImpl tale = scn.GetFreepsCard("tale");

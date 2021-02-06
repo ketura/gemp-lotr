@@ -1,6 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set3;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -14,10 +14,10 @@ import java.util.HashMap;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
-public class HornOfBoromirErrataTest
+public class HornOfBoromirErrataTests
 {
-    protected GenericCardTest GetFOTRScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetFOTRScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("horn", "21_3042");
@@ -28,14 +28,14 @@ public class HornOfBoromirErrataTest
                     put("runner1", "1_178");
                     put("runner2", "1_178");
                 }},
-                GenericCardTest.FellowshipSites,
-                GenericCardTest.FOTRFrodo,
-                GenericCardTest.FOTRRing
+                GenericCardTestHelper.FellowshipSites,
+                GenericCardTestHelper.FOTRFrodo,
+                GenericCardTestHelper.FOTRRing
         );
     }
 
-    protected GenericCardTest GetMovieScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetMovieScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("horn", "21_3042");
@@ -52,7 +52,7 @@ public class HornOfBoromirErrataTest
     @Test
     public void CanBeBorneByBoromir() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetFOTRScenario();
+        GenericCardTestHelper scn = GetFOTRScenario();
 
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
@@ -79,7 +79,7 @@ public class HornOfBoromirErrataTest
     @Test
     public void AbilityExertsAndAssignsBoromir() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetFOTRScenario();
+        GenericCardTestHelper scn = GetFOTRScenario();
 
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
@@ -117,7 +117,7 @@ public class HornOfBoromirErrataTest
 
     @Test
     public void AbilityDoesNotPumpFarAwayAllies() throws DecisionResultInvalidException, CardNotFoundException {
-        GenericCardTest scn = GetMovieScenario();
+        GenericCardTestHelper scn = GetMovieScenario();
 
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");

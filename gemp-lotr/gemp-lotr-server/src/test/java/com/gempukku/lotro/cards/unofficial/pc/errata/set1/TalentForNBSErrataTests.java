@@ -1,12 +1,11 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -15,10 +14,10 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class TalentForNBSErrataTest
+public class TalentForNBSErrataTests
 {
-    protected GenericCardTest GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("talent", "21_10316");
@@ -32,7 +31,7 @@ public class TalentForNBSErrataTest
     @Test
     public void TalentHasStealth() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
@@ -43,7 +42,7 @@ public class TalentForNBSErrataTest
     @Test
     public void TalentExertsAHobbitOnPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
@@ -67,7 +66,7 @@ public class TalentForNBSErrataTest
     @Test
     public void TalentAbilityTriggersConcealedOnMove() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
@@ -105,7 +104,7 @@ public class TalentForNBSErrataTest
     @Test
     public void TalentOnlyTriggersWithTwoHobbitCompanions() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");

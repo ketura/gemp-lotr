@@ -626,7 +626,7 @@
       "type": "trigger",
       "optional": true,
       "trigger": {
-        "type": "moves"
+        "type": "movesfrom"
       },
       "condition": {
         "type": "phase",
@@ -640,21 +640,30 @@
             "keyword": "concealed",
             "until": "start(regroup)"
         },
-        "text": "Would you like to discard a minion or reveal a tracker from hand to prevent a companion becoming concealed?",
+        "text": "Would you like to discard a minion (or reveal a tracker) from hand to prevent a companion becoming concealed?",
         "player": "shadowPlayer",
-        "cost": [
-          {
-            "type": "revealCardsFromHand",
-            "filter": "choose(tracker)",
-            "hand": "shadowPlayer",
-          },
-          {
-            "type": "discardFromHand",
-            "filter": "choose(minion)",
-            "forced": false,
-            "hand": "shadowPlayer",
-          }
-        ],
+        "cost": {
+          "type": "choice",
+          "player": "shadowPlayer",
+          "texts": [
+            "Discard a minion from hand",
+            "Reveal a tracker from hand"
+          ],
+          "effects": [
+            {
+              "type": "revealCardsFromHand",
+              "filter": "choose(tracker)",
+              "hand": "shadowPlayer"
+            },
+            {
+              "type": "discardFromHand",
+              "filter": "choose(minion)",
+              "forced": false,
+              "hand": "shadowPlayer",
+            }
+          ]
+        }
+
       },
     }
 

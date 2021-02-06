@@ -1,6 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -12,11 +12,11 @@ import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 
-public class Elrond_LoRErrataTest
+public class Elrond_LoRErrataTests
 {
 
-    protected GenericCardTest GetSimpleDeckScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetSimpleDeckScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("elrond", "21_1040");
@@ -25,8 +25,8 @@ public class Elrond_LoRErrataTest
         );
     }
 
-    protected GenericCardTest GetSimpleSpotScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetSimpleSpotScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("elrond", "21_1040");
@@ -36,8 +36,8 @@ public class Elrond_LoRErrataTest
         );
     }
 
-    protected GenericCardTest GetHome3AllyScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetHome3AllyScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("elrond", "21_1040");
@@ -52,7 +52,7 @@ public class Elrond_LoRErrataTest
     @Test
     public void FellowshipActionExertsTwiceToDrawACard() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleDeckScenario();
+        GenericCardTestHelper scn = GetSimpleDeckScenario();
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
 
         scn.FreepsMoveCharToTable(elrond);
@@ -76,7 +76,7 @@ public class Elrond_LoRErrataTest
     @Test
     public void CardCanPlayIfGandalfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleSpotScenario();
+        GenericCardTestHelper scn = GetSimpleSpotScenario();
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
         PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
 
@@ -95,7 +95,7 @@ public class Elrond_LoRErrataTest
     @Test
     public void CardCanPlayIfElfInPlay() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetSimpleSpotScenario();
+        GenericCardTestHelper scn = GetSimpleSpotScenario();
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
         PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
 
@@ -114,7 +114,7 @@ public class Elrond_LoRErrataTest
     @Test
     public void AllyHealsCappedAt2() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetHome3AllyScenario();
+        GenericCardTestHelper scn = GetHome3AllyScenario();
         scn.FreepsMoveCharToTable("elrond");
         scn.FreepsMoveCharToTable("allyHome3_1");
         scn.FreepsMoveCharToTable("allyHome3_2");

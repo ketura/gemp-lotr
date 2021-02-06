@@ -1,6 +1,6 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
-import com.gempukku.lotro.cards.GenericCardTest;
+import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
@@ -16,10 +16,10 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class StingErrataTest
+public class StingErrataTests
 {
-    protected GenericCardTest GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTest(
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
                     put("sting", "21_10313");
@@ -40,7 +40,7 @@ public class StingErrataTest
     @Test
     public void StingCanOnlyBeBorneByFrodo() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
@@ -61,7 +61,7 @@ public class StingErrataTest
     @Test
     public void StingAbilityAvailableInBothFellowshipAndRegroup() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sting = scn.GetFreepsCard("sting");
@@ -79,7 +79,7 @@ public class StingErrataTest
 
     @Test
     public void StingAbilityExertsFrodoAndRevealsThreeCards() throws DecisionResultInvalidException, CardNotFoundException {
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sting = scn.GetFreepsCard("sting");
@@ -91,7 +91,7 @@ public class StingErrataTest
 
         scn.AttachCard(sting, frodo);
 
-        scn.ShadowMoveCardsToHand(orc1, orc2, orc3, scimitar1);
+        scn.ShadowMoveCardToHand(orc1, orc2, orc3, scimitar1);
 
         scn.StartGame();
 
@@ -104,7 +104,7 @@ public class StingErrataTest
 
     @Test
     public void StingAbilityMakesConcealedIfOrcRevealed() throws DecisionResultInvalidException, CardNotFoundException {
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sting = scn.GetFreepsCard("sting");
@@ -145,7 +145,7 @@ public class StingErrataTest
 
     @Test
     public void StingConcealedLastsUntilNextRegroup() throws DecisionResultInvalidException, CardNotFoundException {
-        GenericCardTest scn = GetScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sting = scn.GetFreepsCard("sting");
