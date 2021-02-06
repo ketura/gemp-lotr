@@ -72,8 +72,7 @@ public class HornOfBoromirErrataTests
         assertTrue(scn.FreepsCardPlayAvailable(horn));
         scn.FreepsPlayCard(horn);
 
-        Assert.assertEquals(Zone.ATTACHED, horn.getZone());
-        Assert.assertEquals(boromir, horn.getAttachedTo());
+        Assert.assertTrue(scn.IsAttachedTo(horn, boromir));
     }
 
     @Test

@@ -369,6 +369,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return assigns.stream().anyMatch(x -> x.getFellowshipCharacter() == card || x.getShadowCharacters().contains(card));
     }
 
+    public boolean IsAttachedTo(PhysicalCardImpl card, PhysicalCardImpl bearer) {
+        if(card.getZone() != Zone.ATTACHED) {
+            return false;
+        }
+
+        return bearer == card.getAttachedTo();
+    }
+
 
     public int FreepsGetStrength(String name) { return GetStrength(GetFreepsCard(name)); }
     public int ShadowGetStrength(String name) { return GetStrength(GetShadowCard(name)); }
@@ -396,18 +404,21 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void ShadowAcceptOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, "0"); }
     public void ShadowDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, "1"); }
 
-    public void FreepsAcceptMultipleChoiceOption(String option) throws DecisionResultInvalidException { AcceptMultipleChoiceOption(P1, option); }
-    public void ShadowAcceptMultipleChoiceOption(String option) throws DecisionResultInvalidException { AcceptMultipleChoiceOption(P2, option); }
-    public void AcceptMultipleChoiceOption(String playerID, String option) throws DecisionResultInvalidException {
-       List<String> choices = GetADParamAsList(playerID, "results");
-       for(String choice : choices){
-           if(choice.toLowerCase().contains(option.toLowerCase())) {
-               playerDecided(playerID, String.valueOf(choices.indexOf(choice)));
-               return;
-           }
-       }
-       //couldn't find an exact match, so maybe it's a direct index:
-       playerDecided(playerID, option);
+    public void FreepsChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P1, option); }
+    public void ShadowChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, option); }
+    public void ChooseMultipleChoiceOption(String playerID, String option) throws DecisionResultInvalidException { ChooseAction(playerID, "results", option); }
+    public void ChooseAction(String playerID, String paramName, String option) throws DecisionResultInvalidException {
+        List<String> choices = GetADParamAsList(playerID, paramName);
+        for(String choice : choices){
+            if(choice.toLowerCase().contains(option.toLowerCase())) {
+                playerDecided(playerID, String.valueOf(choices.indexOf(choice)));
+                return;
+            }
+        }
+        //couldn't find an exact match, so maybe it's a direct index:
+        playerDecided(playerID, option);
     }
+
+    public void FreepsResolveActionOrder(String option) throws DecisionResultInvalidException { ChooseAction(P1, "actionText", option); }
 
 }

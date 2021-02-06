@@ -174,7 +174,7 @@ public class Aragorn_HttWCErrataTests
         scn.ShadowAcceptOptionalTrigger();
         assertEquals(1, scn.GetShadowHandCount());
         assertTrue(scn.ShadowDecisionAvailable("Choose action to perform"));
-        scn.ShadowAcceptMultipleChoiceOption("Reveal a tracker");
+        scn.ShadowChooseMultipleChoiceOption("Reveal a tracker");
 
         assertFalse(scn.FreepsAnyDecisionsAvailable());
         assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));

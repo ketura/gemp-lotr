@@ -669,4 +669,56 @@
 
   },
   
+ 
+  "21_30106": {
+    "title": "*Bill the Pony",
+    "culture": "Shire",
+    "side": "free_people",
+    "cost": 0,
+    "type": "possession",
+    "possession": "Pony",
+    "target": "name(Sam)",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "bearer"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "concealed"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": [
+            {
+              "type": "location",
+              "filter": "underground"
+            },
+            {
+              "type": "canSpot",
+              "filter": "self,attachedTo(companion)"
+            }
+          ]
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ] 
+  },
+  
 }

@@ -55,6 +55,8 @@ public class FlamingBrandErrataTests
 
         //There are 3 companions in play, but only 2 rangers, so we should only see 2 options
         assertEquals(2, scn.FreepsGetADParamAsList("cardId").size());
+        scn.FreepsChooseCard(aragorn);
+        assertTrue(scn.IsAttachedTo(brand, aragorn));
 
     }
 
