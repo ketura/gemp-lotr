@@ -30,14 +30,14 @@ public class Aragorn_HttWCErrataTests
     }
 
     @Test
-    public void AragornHasRangerAndConcealed() throws DecisionResultInvalidException, CardNotFoundException {
+    public void AragornHasRanger() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
 
         assertTrue(scn.HasKeyword(aragorn, Keyword.RANGER));
-        assertTrue(scn.HasKeyword(aragorn, Keyword.CONCEALED));
+        assertFalse(scn.HasKeyword(aragorn, Keyword.CONCEALED));
     }
 
 
@@ -88,10 +88,12 @@ public class Aragorn_HttWCErrataTests
         scn.FreepsSkipCurrentPhaseAction();
 
         assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));
+        assertFalse(scn.HasKeyword(aragorn, Keyword.CONCEALED));
         assertTrue(scn.FreepsActionAvailable("Optional"));
         scn.FreepsAcceptOptionalTrigger();
         scn.FreepsChooseCard(frodo);
         assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
+        assertTrue(scn.HasKeyword(aragorn, Keyword.CONCEALED));
         //6 from playing aragorn/gimli, 1+1+1 for companions, 1 for the site (King's Tent), -2 for concealed
         assertEquals(8, scn.GetTwilight());
     }

@@ -58,7 +58,7 @@ public class Gimli_DotMrErrataTests
     }
 
     @Test
-    public void GimliAbilityTriggersMovingFromAndTo() throws DecisionResultInvalidException, CardNotFoundException {
+    public void GimliAbilityTriggersMovingToUnderground() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
@@ -84,8 +84,8 @@ public class Gimli_DotMrErrataTests
         assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));
         scn.FreepsChooseToMove();
 
-        assertTrue(scn.FreepsActionAvailable("Optional"));
-        scn.FreepsAcceptOptionalTrigger();
+        assertFalse(scn.FreepsActionAvailable("Optional"));
+        //scn.FreepsAcceptOptionalTrigger();
         assertEquals(2, scn.GetWoundsOn(gimli));
         assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
     }

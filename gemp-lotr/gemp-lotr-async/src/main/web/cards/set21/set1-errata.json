@@ -582,25 +582,6 @@
           "keyword": "concealed",
           "until": "start(regroup)"
         }
-      },
-      {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "movesFrom",
-          "filter": "underground",
-          
-        },
-        "cost": {
-          "type": "exert",
-          "filter": "self"
-        },
-        "effect": {
-          "type": "addKeyword",
-          "filter": "choose(another,companion)",
-          "keyword": "concealed",
-          "until": "start(regroup)"
-        }
       }
     ]
   },
@@ -614,13 +595,12 @@
     "type": "companion",
     "race": "Man",
     "cost": 4,
-    "strength": 8,
+    "strength": 7,
     "vitality": 4,
     "resistance": 6,
     "signet": "frodo",
     "keyword": [
       "Ranger",
-      "concealed"
     ],
     "effects": {
       "type": "trigger",
@@ -634,12 +614,20 @@
       },
       "effect": {
         "type": "preventable",
-        "effect": {
+        "effect": [
+          {
             "type": "addKeyword",
             "filter": "choose(another,companion)",
             "keyword": "concealed",
             "until": "start(regroup)"
-        },
+          },
+          {
+            "type": "addKeyword",
+            "filter": "self",
+            "keyword": "concealed",
+            "until": "start(regroup)"
+          },
+        ],
         "text": "Would you like to discard a minion (or reveal a tracker) from hand to prevent a companion becoming concealed?",
         "player": "shadowPlayer",
         "cost": {
