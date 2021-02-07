@@ -20,7 +20,7 @@ public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDec
         try {
             index = Integer.parseInt(result);
         } catch (NumberFormatException exp) {
-            throw new DecisionResultInvalidException("Unkown response number");
+            throw new DecisionResultInvalidException("Unknown response number");
         }
         validDecisionMade(index, _possibleResults[index]);
     }
