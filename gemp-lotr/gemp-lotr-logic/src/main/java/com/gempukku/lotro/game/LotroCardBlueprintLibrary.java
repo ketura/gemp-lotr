@@ -117,6 +117,9 @@ public class LotroCardBlueprintLibrary {
         } catch (ParseException exp) {
             logger.error("Failed to parse file " + file.getAbsolutePath(), exp);
         }
+        catch (Exception exp) {
+            logger.error("Unexpected error while parsing file " + file.getAbsolutePath(), exp);
+        }
         logger.debug("Loaded card file " + file.getName());
     }
 
