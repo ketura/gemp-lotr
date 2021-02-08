@@ -68,18 +68,9 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     
     private void importCollection(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
-        String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String rawDecklist = getQueryParameterSafely(queryDecoder, "decklist");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        CardCollection collection = constructCollection(resourceOwner, "default");
-
-        if (collection == null)
-            throw new HttpProcessingException(404);
-
-        Iterable<CardCollection.Item> items = collection.getAll();
-        List<CardCollection.Item> importResult = _importCards.process(rawDecklist, items, _library);
+        List<CardCollection.Item> importResult = _importCards.process(rawDecklist, _library);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
