@@ -31,7 +31,7 @@ public class CantBeOverwhelmedMultiplier implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, new ConstantEvaluator(1), "_temp", "you", "Choose characters that you want to make unable to be assigned to skirmish", environment));
+                CardResolver.resolveCards(filter, new ConstantEvaluator(1), "_temp", "you", "Choose characters to apply overwhelm multiplier on", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
