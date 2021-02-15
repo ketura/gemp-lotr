@@ -16,7 +16,7 @@ public class Galadriel_LoLErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("galadriel", "21_1045");
+                    put("galadriel", "51_1045");
                     put("elrond", "1_40");
                 }}
         );
@@ -26,7 +26,7 @@ public class Galadriel_LoLErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("galadriel", "21_1045");
+                    put("galadriel", "51_1045");
                     put("allyHome3_1", "1_60");
                     put("allyHome3_2", "1_27");
                     put("allyHome6_1", "1_56");

@@ -20,7 +20,7 @@ public class Aragorn_HttWCErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("aragorn", "21_3038");
+                    put("aragorn", "51_3038");
                     put("gimli", "1_13");
 
                     put("minion", "1_268");

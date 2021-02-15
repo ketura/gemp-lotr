@@ -24,7 +24,7 @@ public class Saruman_KoIErrataTests
                     put("tale", "1_66");
                     put("doubleshot", "1_38");
 
-                    put("saruman", "21_3068");
+                    put("saruman", "51_3068");
                     put("uruk1", "1_151");
                     put("uruk2", "1_151");
                 }}

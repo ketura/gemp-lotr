@@ -19,7 +19,7 @@ public class Elrond_LoRErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("elrond", "21_1040");
+                    put("elrond", "51_1040");
                     put("randomcard", "1_3");
                 }}
         );
@@ -29,7 +29,7 @@ public class Elrond_LoRErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("elrond", "21_1040");
+                    put("elrond", "51_1040");
                     put("gandalf", "1_72");
                     put("arwen", "1_30");
                 }}
@@ -40,7 +40,7 @@ public class Elrond_LoRErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("elrond", "21_1040");
+                    put("elrond", "51_1040");
                     put("allyHome3_1", "1_60");
                     put("allyHome3_2", "1_27");
                     put("allyHome6_1", "1_56");

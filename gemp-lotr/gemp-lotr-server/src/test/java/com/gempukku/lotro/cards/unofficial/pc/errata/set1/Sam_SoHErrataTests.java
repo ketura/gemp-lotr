@@ -16,7 +16,7 @@ public class Sam_SoHErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("sam", "21_10311");
+                    put("sam", "51_10311");
 
                     put("orc", "1_272");
                 }}

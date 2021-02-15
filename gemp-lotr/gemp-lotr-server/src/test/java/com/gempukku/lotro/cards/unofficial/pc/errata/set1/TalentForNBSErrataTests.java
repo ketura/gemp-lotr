@@ -20,7 +20,7 @@ public class TalentForNBSErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("talent", "21_10316");
+                    put("talent", "51_10316");
                     put("sam", "1_311");
                     put("gaffer", "1_291");
                     put("boromir", "1_97");

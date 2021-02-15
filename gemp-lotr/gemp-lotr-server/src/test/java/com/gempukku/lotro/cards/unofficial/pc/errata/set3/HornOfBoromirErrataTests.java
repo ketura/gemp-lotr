@@ -20,7 +20,7 @@ public class HornOfBoromirErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("horn", "21_3042");
+                    put("horn", "51_3042");
                     put("elrond", "1_40");
                     put("boromir", "1_97");
                     put("aragorn", "1_89");
@@ -38,7 +38,7 @@ public class HornOfBoromirErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("horn", "21_3042");
+                    put("horn", "51_3042");
                     put("elrond", "1_40");
                     put("boromir", "1_97");
                     put("aragorn", "1_89");
