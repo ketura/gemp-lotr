@@ -148,9 +148,18 @@
     "playable": false
   },
   {
-    "setId": "21",
+    "setId": "51",
+    "setName": "PC Errata",
+    "rarityFile": "/set51-rarity.txt",
+    "originalSet": false,
+    "merchantable": false,
+    "needsLoading": false,
+    "playable": true
+  },
+  {
+    "setId": "101",
     "setName": "PC FOTR Supplements",
-    "rarityFile": "/set21-rarity.txt",
+    "rarityFile": "/set101-rarity.txt",
     "originalSet": false,
     "merchantable": false,
     "needsLoading": false,

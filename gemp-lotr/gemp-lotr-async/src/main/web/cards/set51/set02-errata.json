@@ -1,0 +1,98 @@
+{
+   "21_2032": {
+    "side": "free_people",
+    "cost": 0,
+    "strength": 1,
+    "culture": "Gondor",
+    "possession": "Hand Weapon",
+    "title": "Flaming Brand",
+    "type": "possession",
+    "target": "ranger",
+    "effects": [
+      {
+        "type": "extrapossessionclass"
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "21_20121": {
+    "title": "*Gimli",
+    "subtitle": "Dwarf of the Mountain-race",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "frodo",
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifier",
+        
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "concealed",
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          }
+        },
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "movesTo",
+          "filter": "underground",
+          
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(another,companion)",
+          "keyword": "concealed",
+          "until": "start(regroup)"
+        }
+      }
+    ]
+  },
+  
+  
+}
