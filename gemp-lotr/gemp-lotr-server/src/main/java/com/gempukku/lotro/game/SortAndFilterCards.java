@@ -279,7 +279,7 @@ public class SortAndFilterCards {
         return true;
     }
 
-    private String replaceSpecialCharacters(String text) {
+    public static String replaceSpecialCharacters(String text) {
         return text
                 .replace('é', 'e')
                 .replace('ú', 'u')
