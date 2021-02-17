@@ -60,6 +60,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
     private void tradeInFoil(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
 
@@ -70,10 +71,14 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         } catch (MerchantException exp) {
             responseWriter.writeXmlResponse(marshalException(exp));
         }
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void sell(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
         int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
@@ -85,10 +90,14 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         } catch (MerchantException exp) {
             responseWriter.writeXmlResponse(marshalException(exp));
         }
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void buy(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
         int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
@@ -99,6 +108,9 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
             responseWriter.writeXmlResponse(marshalException(exp));
+        }
+        } finally {
+            postDecoder.destroy();
         }
     }
 

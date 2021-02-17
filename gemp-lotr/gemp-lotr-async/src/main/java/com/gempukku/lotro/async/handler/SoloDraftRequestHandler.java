@@ -115,6 +115,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
 
     private void makePick(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String selectedChoiceId = getFormParameterSafely(postDecoder, "choiceId");
 
@@ -197,6 +198,9 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         }
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void appendAvailablePics(Document doc, Element rootElem, Iterable<SoloDraft.DraftChoice> availablePics) {

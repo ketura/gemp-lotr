@@ -49,31 +49,35 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
     private void postMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String message = getFormParameterSafely(postDecoder, "message");
-
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
-        if (chatRoom == null)
-            throw new HttpProcessingException(404);
-
         try {
-            final boolean admin = resourceOwner.getType().contains("a");
-            if (message != null && message.trim().length() > 0) {
-                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), admin);
-                responseWriter.writeXmlResponse(null);
-            } else {
-                ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
-                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), admin, responseWriter);
-                longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String message = getFormParameterSafely(postDecoder, "message");
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
+            if (chatRoom == null)
+                throw new HttpProcessingException(404);
+
+            try {
+                final boolean admin = resourceOwner.getType().contains("a");
+                if (message != null && message.trim().length() > 0) {
+                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), admin);
+                    responseWriter.writeXmlResponse(null);
+                } else {
+                    ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
+                    ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), admin, responseWriter);
+                    longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+                }
+            } catch (SubscriptionExpiredException exp) {
+                throw new HttpProcessingException(410);
+            } catch (PrivateInformationException exp) {
+                throw new HttpProcessingException(403);
+            } catch (ChatCommandErrorException exp) {
+                throw new HttpProcessingException(400);
             }
-        } catch (SubscriptionExpiredException exp) {
-            throw new HttpProcessingException(410);
-        } catch (PrivateInformationException exp) {
-            throw new HttpProcessingException(403);
-        } catch (ChatCommandErrorException exp) {
-            throw new HttpProcessingException(400);
+        } finally {
+            postDecoder.destroy();
         }
     }
 
