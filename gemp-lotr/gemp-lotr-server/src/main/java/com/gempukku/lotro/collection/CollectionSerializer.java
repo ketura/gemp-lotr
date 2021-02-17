@@ -54,6 +54,7 @@ public class CollectionSerializer {
 
         loadSet("30");
         loadSet("31");
+        loadSet("32");
     }
 
     private void fillDoubleByteItems() throws IOException {

@@ -1,90 +1,5 @@
 {
   "31_44": {
-    "title": "Bilbo's Kitchen",
-    "cost": 0,
-    "type": "site",
-    "block": "hobbit",
-    "site": 1,
-    "effects": {
-      "type": "trigger",
-      "optional": true,
-      "condition": {
-        "type": "isSide",
-        "side": "free people"
-      },
-      "trigger": {
-        "type": "startOfPhase",
-        "phase": "fellowship"
-      },
-      "cost": {
-        "type": "exert",
-        "filter": "choose(companion)"
-      },
-      "effect": {
-        "type": "playCardFromDrawDeck",
-        "filter": "choose(culture(dwarven),follower)"
-      }
-    }
-  },
-  "31_45": {
-    "title": "Trollshaw Forest",
-    "cost": 2,
-    "type": "site",
-    "block": "hobbit",
-    "site": 2,
-    "keyword": "forest",
-    "effects": {
-      "type": "trigger",
-      "trigger": {
-        "type": "startOfPhase",
-        "phase": "maneuver"
-      },
-      "effect": {
-        "type":"forEachPlayer",
-        "effect": [
-          {
-            "type": "chooseYesOrNo",
-            "text": "Would you like to play a hand weapon?",
-            "memorize": "choice"
-          },
-          {
-            "type": "conditional",
-            "condition": {
-              "type": "memoryIs",
-              "memory": "choice",
-              "value": "yes"
-            },
-            "effect": {
-              "type": "playCardFromDrawDeck",
-              "filter": "choose(hand weapon)"
-            }
-          }
-        ]
-      }
-    }
-  },
-  "31_46": {
-    "title": "Rhudaur",
-    "cost": 1,
-    "type": "site",
-    "block": "hobbit",
-    "site": 3,
-    "keyword": "plains",
-    "effects": {
-      "type": "activated",
-      "phase": "shadow",
-      "limitPerTurn": 1,
-      "cost": {
-        "type": "exert",
-        "filter": "choose(your,fierce,minion)"
-      },
-      "effect": {
-        "type": "playCardFromDrawDeck",
-        "filter": "choose(condition)"
-      }
-    }
-  },
-  "31_47": {
     "title": "Beorn's House",
     "type": "site",
     "block": "hobbit",
@@ -128,7 +43,7 @@
       ]
     }
   },
-  "31_48": {
+  "31_45": {
     "title": "Underground Lake",
     "cost": 2,
     "type": "site",
@@ -157,44 +72,7 @@
       }
     }
   },
-  "31_49": {
-    "title": "Wooded Steep Cliff",
-    "cost": 3,
-    "type": "site",
-    "block": "hobbit",
-    "site": 4,
-    "keyword": [
-      "mountain",
-      "forest"
-    ],
-    "effects": {
-      "type": "trigger",
-      "trigger": {
-        "type": "movesTo",
-        "filter": "self"
-      },
-      "effect": {
-        "type": "choice",
-        "player": "fp",
-        "texts": [
-          "Exert Thorin",
-          "Exert 2 other companions"
-        ],
-        "effects": [
-          {
-            "type": "exert",
-            "filter": "choose(name(Thorin))"
-          },
-          {
-            "type": "exert",
-            "count": "2",
-            "filter": "choose(not(name(Thorin)),companion)"
-          }
-        ]
-      }
-    }
-  },
-  "31_50": {
+  "31_46": {
     "title": "Forest River",
     "type": "site",
     "block": "hobbit",
@@ -217,137 +95,7 @@
       }
     }
   },
-  "31_51": {
-    "title": "Old Forest Road",
-    "cost": 5,
-    "type": "site",
-    "block": "hobbit",
-    "site": 5,
-    "keyword": "forest",
-    "effects": {
-      "type": "trigger",
-      "optional": true,
-      "trigger": {
-        "type": "startOfPhase",
-        "phase": "shadow"
-      },
-      "condition": {
-        "type": "isSide",
-        "side": "shadow"
-      },
-      "cost": {
-        "type": "discard",
-        "filter": "choose(name(Gandalf))"
-      },
-      "effect": {
-        "type": "playCardFromDiscard",
-        "filter": "choose(minion)"
-      }
-    }
-  },
-  "31_52": {
-    "title": "Lake-Town",
-    "cost": 3,
-    "type": "site",
-    "block": "hobbit",
-    "site": 6,
-    "effects": [
-      {
-        "type": "modifier",
-        "modifier": {
-          "type": "modifyCost",
-          "condition": {
-            "type": "not",
-            "condition": {
-              "type": "hasInZoneData",
-              "filter": "self"
-            }
-          },
-          "filter": "orc",
-          "amount": -2
-        }
-      },
-      {
-        "type": "trigger",
-        "trigger": {
-          "type": "played",
-          "filter": "orc",
-          "memorize": "playedOrc"
-        },
-        "condition": {
-          "type": "not",
-          "condition": {
-            "type": "hasInZoneData",
-            "filter": "self"
-          }
-        },
-        "effect": {
-          "type": "appendCardIdsToWhileInZone",
-          "memory": "playedOrc"
-        }
-      },
-      {
-        "type": "trigger",
-        "trigger": {
-          "type": "endOfTurn"
-        },
-        "effect": {
-          "type": "resetWhileInZoneData"
-        }
-      }
-    ]
-  },
-  "31_53": {
-    "title": "Dale",
-    "cost": 6,
-    "type": "site",
-    "block": "hobbit",
-    "site": 7,
-    "keyword": "mountain",
-    "effects": {
-      "type": "activated",
-      "phase": "regroup",
-      "condition": [
-        {
-          "type": "canSpot",
-          "filter": "your,minion"
-        },
-        {
-          "type": "canSpot",
-          "count": 6,
-          "filter": "companion"
-        }
-      ],
-      "effect": {
-        "type": "addModifier",
-        "modifier": {
-          "type": "hasToMoveIfAble"
-        }
-      }
-    }
-  },
-  "31_54": {
-    "title": "Ravenhill",
-    "cost": 8,
-    "type": "site",
-    "block": "hobbit",
-    "site": 9,
-    "keyword": "mountain",
-    "effects": {
-      "type": "activated",
-      "phase": "maneuver",
-      "cost": {
-        "type": "removeFromTheGame",
-        "filter": "choose(your,minion)"
-      },
-      "effect": {
-        "type": "playCardFromDiscard",
-        "filter": "choose(minion)",
-        "cost": -2
-      }
-    }
-  },
-  "31_55": {
+  "31_47": {
     "title": "Thrór's Throne",
     "type": "site",
     "block": "hobbit",
