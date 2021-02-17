@@ -45,116 +45,80 @@ public class DbPlayerDAO implements PlayerDAO {
         if (player == null)
             return null;
 
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             String sql = _selectPlayer + " where password=?";
             if (player.getCreateIp() != null)
                 sql += " or create_ip=? or last_ip=?";
             if (player.getLastIp() != null)
                 sql += " or create_ip=? or last_ip=?";
 
-            PreparedStatement statement = conn.prepareStatement(sql);
-            try {
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
                 statement.setString(1, player.getPassword());
                 int nextParamIndex = 2;
                 if (player.getCreateIp() != null) {
                     statement.setString(nextParamIndex, player.getCreateIp());
-                    statement.setString(nextParamIndex+1, player.getCreateIp());
-                    nextParamIndex+=2;
+                    statement.setString(nextParamIndex + 1, player.getCreateIp());
+                    nextParamIndex += 2;
                 }
                 if (player.getLastIp() != null) {
                     statement.setString(nextParamIndex, player.getLastIp());
-                    statement.setString(nextParamIndex+1, player.getLastIp());
-                    nextParamIndex+=2;
+                    statement.setString(nextParamIndex + 1, player.getLastIp());
+                    nextParamIndex += 2;
                 }
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     List<Player> players = new LinkedList<Player>();
                     while (rs.next())
                         players.add(getPlayerFromResultSet(rs));
                     return players;
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public boolean banPlayerPermanently(String login) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set type='', banned_until=null where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set type='', banned_until=null where name=?")) {
                 statement.setString(1, login);
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public boolean banPlayerTemporarily(String login, long dateTo) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set banned_until=?, type='un' where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set banned_until=?, type='un' where name=?")) {
                 statement.setLong(1, dateTo);
                 statement.setString(2, login);
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public boolean unBanPlayer(String login) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set type='un', banned_until=null where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set type='un', banned_until=null where name=?")) {
                 statement.setString(1, login);
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public Player loginUser(String login, String password) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=? and password=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=? and password=?")) {
                 statement.setString(1, login);
                 statement.setString(2, encodePassword(password));
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         return getPlayerFromResultSet(rs);
                     } else
                         return null;
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
@@ -181,28 +145,20 @@ public class DbPlayerDAO implements PlayerDAO {
 
     @Override
     public void setLastReward(Player player, int currentReward) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=?")) {
                 statement.setInt(1, currentReward);
                 statement.setInt(2, player.getId());
                 statement.execute();
                 player.setLastLoginReward(currentReward);
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public synchronized boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=? and last_login_reward=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=? and last_login_reward=?")) {
                 statement.setInt(1, currentReward);
                 statement.setInt(2, player.getId());
                 statement.setInt(3, previousReward);
@@ -211,11 +167,7 @@ public class DbPlayerDAO implements PlayerDAO {
                     return true;
                 }
                 return false;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
@@ -225,21 +177,15 @@ public class DbPlayerDAO implements PlayerDAO {
         if (!result)
             return false;
 
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("insert into player (name, password, type, create_ip) values (?, ?, ?, ?)");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("insert into player (name, password, type, create_ip) values (?, ?, ?, ?)")) {
                 statement.setString(1, login);
                 statement.setString(2, encodePassword(password));
                 statement.setString(3, "u");
                 statement.setString(4, remoteAddr);
                 statement.execute();
                 return true;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
@@ -256,25 +202,16 @@ public class DbPlayerDAO implements PlayerDAO {
         if (lowerCase.startsWith("admin") || lowerCase.startsWith("guest") || lowerCase.startsWith("system") || lowerCase.startsWith("bye"))
             return false;
 
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("select id, name from player where LOWER(name)=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("select id, name from player where LOWER(name)=?")) {
                 statement.setString(1, lowerCase);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         return false;
                     } else
                         return true;
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
@@ -300,67 +237,43 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     private Player getPlayerFromDBById(int id) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where id=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where id=?")) {
                 statement.setInt(1, id);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         return getPlayerFromResultSet(rs);
                     } else {
                         return null;
                     }
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     private Player getPlayerFromDBByName(String playerName) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=?")) {
                 statement.setString(1, playerName);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         return getPlayerFromResultSet(rs);
                     } else {
                         return null;
                     }
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public void updateLastLoginIp(String login, String remoteAddr) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set last_ip=? where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set last_ip=? where name=?")) {
                 statement.setString(1, remoteAddr);
                 statement.setString(2, login);
                 statement.execute();
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 }
