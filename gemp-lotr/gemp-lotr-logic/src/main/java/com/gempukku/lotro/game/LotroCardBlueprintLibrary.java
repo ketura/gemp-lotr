@@ -63,7 +63,8 @@ public class LotroCardBlueprintLibrary {
                         if (!_blueprintMap.containsKey(blueprintId)) {
                             try {
                                 // Ensure it's loaded
-                                LotroCardBlueprint cardBlueprint = getLotroCardBlueprint(blueprintId);
+                                LotroCardBlueprint blueprint = getBlueprint(blueprintId);
+                                _blueprintMap.put(blueprintId, blueprint);
                             } catch (CardNotFoundException exp) {
                                 throw new RuntimeException("Unable to start the server, due to invalid (missing) card definition - " + blueprintId);
                             }
@@ -181,9 +182,7 @@ public class LotroCardBlueprintLibrary {
         if (_blueprintMap.containsKey(blueprintId))
             return _blueprintMap.get(blueprintId);
 
-        LotroCardBlueprint blueprint = getBlueprint(blueprintId);
-        _blueprintMap.put(blueprintId, blueprint);
-        return blueprint;
+        return getBlueprint(blueprintId);
     }
 
     public String stripBlueprintModifiers(String blueprintId) {
@@ -220,7 +219,7 @@ public class LotroCardBlueprintLibrary {
         String cardNumber = blueprintParts[1];
 
         for (String packageName : _packageNames) {
-            LotroCardBlueprint blueprint = null;
+            LotroCardBlueprint blueprint;
             try {
                 blueprint = tryLoadingFromPackage(packageName, setNumber, cardNumber);
             } catch (IllegalAccessException | InstantiationException e) {
