@@ -23,9 +23,10 @@ import java.util.Collection;
 public class PreventWound implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "memorize");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "all(any)");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -34,12 +35,12 @@ public class PreventWound implements EffectAppenderProducer {
                         (actionContext) -> {
                             final PreventableCardEffect preventableEffect = (PreventableCardEffect) actionContext.getEffect();
                             return Filters.in(preventableEffect.getAffectedCardsMinusPrevented(actionContext.getGame()));
-                        }, new ConstantEvaluator(1), "_temp", "you", "Choose characters to prevent effect to", environment));
+                        }, new ConstantEvaluator(1), memory, "you", "Choose characters to prevent effect to", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
+                        final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory(memory);
                         final PreventableCardEffect preventableEffect = (PreventableCardEffect) actionContext.getEffect();
 
                         return new PreventCardEffect(preventableEffect, Filters.in(cards));

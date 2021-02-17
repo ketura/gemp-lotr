@@ -199,6 +199,17 @@ public class FilterFactory {
                     int number = Integer.parseInt(parameterSplit[1]);
                     return (actionContext) -> Filters.isAllyHome(number, sitesBlock);
                 });
+        parameterFilters.put("allyInRegion",
+                (parameter, environment) -> {
+                    final String[] parameterSplit = parameter.split(",");
+                    final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameterSplit[0].toUpperCase().replace('_', ' '));
+                    int number = Integer.parseInt(parameterSplit[1]);
+                    return (actionContext) -> Filters.isAllyInRegion(number, sitesBlock);
+                });
+        parameterFilters.put("allyInCurrentRegion",
+                (parameter, environment) -> {
+                    return (actionContext) -> Filters.isAllyInCurrentRegion();
+                });
         parameterFilters.put("siteBlock",
                 (parameter, environment) -> {
                     final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameter.toUpperCase().replace(' ', '_'));

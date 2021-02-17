@@ -30,7 +30,10 @@ public enum Keyword implements Filterable {
     WARG_RIDER("Warg-rider", true), BESIEGER("Besieger", true), CORSAIR("Corsair", true),
 	
 	//Additional Hobbit Draft keywords
-	WISE("Wise", true), BURGLAR("Burglar", true);
+	WISE("Wise", true), BURGLAR("Burglar", true),
+
+    //PC Keywords
+    CONCEALED("Concealed", true), EXPOSED("Exposed", true);
 
     private String _humanReadable;
     private boolean _infoDisplayable;
