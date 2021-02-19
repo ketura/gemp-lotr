@@ -716,7 +716,7 @@
           },
           "effect": {
             "type": "removeTokens",
-            "filter": "any"
+            "filter": "choose(any)"
           }
         },
         {
