@@ -287,7 +287,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             String side;
             try {
                 side = _library.getLotroCardBlueprint(cardItem.getBlueprintId()).getSide().toString();
-            } catch (CardNotFoundException e) {
+            } catch (Exception e) {
                 side = "FREE_PEOPLE";
             }
             card.setAttribute("side", side);
