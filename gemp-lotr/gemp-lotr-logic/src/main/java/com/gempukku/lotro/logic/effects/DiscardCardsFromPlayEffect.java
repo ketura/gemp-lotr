@@ -33,7 +33,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     protected Filter getExtraAffectableFilter() {
         if (_source == null)
             return Filters.any;
-        return Filters.canBeDiscarded(_source);
+        return Filters.canBeDiscarded(_performingPlayer, _source);
     }
 
     public String getPerformingPlayer() {
