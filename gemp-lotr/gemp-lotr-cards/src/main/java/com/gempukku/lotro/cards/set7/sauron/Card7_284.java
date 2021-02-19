@@ -45,7 +45,8 @@ public class Card7_284 extends AbstractMinion {
             KilledResult killResult = threatWoundsEffect.getKillResult();
             if (killResult.getCause() == KillEffect.Cause.OVERWHELM
                     && Filters.filter(killResult.getKilledCards(), game, CardType.COMPANION).size() > 0
-                    && Filters.canSpot(game, Filters.inSkirmish, Culture.SAURON, Race.ORC)) {
+                    && Filters.canSpot(game, Filters.inSkirmish, Culture.SAURON, Race.ORC)
+                    && Filters.canSpot(game, Filters.ringBearer)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new RemoveThreatsEffect(self, 1));
