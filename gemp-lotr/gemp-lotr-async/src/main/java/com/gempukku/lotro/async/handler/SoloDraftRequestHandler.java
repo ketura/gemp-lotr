@@ -10,6 +10,7 @@ import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueService;
@@ -24,9 +25,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SoloDraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private CollectionsManager _collectionsManager;
@@ -81,9 +80,15 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         if (!finished) {
             int stage = ((Number) collection.getExtraInformation().get("stage")).intValue();
             long playerSeed = ((Number) collection.getExtraInformation().get("seed")).longValue();
+            List<String> draftPoolList = (List<String>) collection.getExtraInformation().get("draftPool");
+
+            DefaultCardCollection draftPool = new DefaultCardCollection();
+            if (draftPoolList != null)
+                for (String card : draftPoolList)
+                    draftPool.addItem(card, 1);
 
             SoloDraft soloDraft = soloDraftLeagueData.getSoloDraft();
-            availableChoices = soloDraft.getAvailableChoices(playerSeed, stage);
+            availableChoices = soloDraft.getAvailableChoices(playerSeed, stage, draftPool);
         } else {
             availableChoices = Collections.emptyList();
         }
@@ -110,6 +115,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
 
     private void makePick(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String selectedChoiceId = getFormParameterSafely(postDecoder, "choiceId");
 
@@ -136,9 +142,15 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
 
         int stage = ((Number) collection.getExtraInformation().get("stage")).intValue();
         long playerSeed = ((Number) collection.getExtraInformation().get("seed")).longValue();
+        List<String> draftPoolList = (List<String>) collection.getExtraInformation().get("draftPool");
+        DefaultCardCollection draftPool = new DefaultCardCollection();
+        
+        if (draftPoolList != null)
+            for (String card : draftPoolList)
+                draftPool.addItem(card, 1);
 
         SoloDraft soloDraft = soloDraftLeagueData.getSoloDraft();
-        Iterable<SoloDraft.DraftChoice> possibleChoices = soloDraft.getAvailableChoices(playerSeed, stage);
+        Iterable<SoloDraft.DraftChoice> possibleChoices = soloDraft.getAvailableChoices(playerSeed, stage, draftPool);
 
         SoloDraft.DraftChoice draftChoice = getSelectedDraftChoice(selectedChoiceId, possibleChoices);
         if (draftChoice == null)
@@ -150,6 +162,18 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         extraInformationChanges.put("stage", stage + 1);
         if (!hasNextStage)
             extraInformationChanges.put("finished", true);
+
+        if (draftPoolList != null) {
+            List<String> draftPoolListUpdate = new ArrayList<String>();
+            for (CardCollection.Item item : draftPool.getAll()) {
+                String blueprint = item.getBlueprintId();
+                for (int i = 0; i < draftPool.getItemCount(blueprint); i++)
+                    draftPoolListUpdate.add(blueprint);
+            }
+
+            if (draftPoolList != draftPoolListUpdate) 
+                extraInformationChanges.put("draftPool",draftPoolListUpdate);
+        }
 
         _collectionsManager.addItemsToPlayerCollection(false, "Draft pick", resourceOwner, collectionType, selectedCards.getAll(), extraInformationChanges);
 
@@ -169,11 +193,14 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         }
 
         if (hasNextStage) {
-            Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(playerSeed, stage + 1);
+            Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(playerSeed, stage + 1, draftPool);
             appendAvailablePics(doc, pickResultElem, availableChoices);
         }
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void appendAvailablePics(Document doc, Element rootElem, Iterable<SoloDraft.DraftChoice> availablePics) {

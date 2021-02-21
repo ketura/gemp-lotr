@@ -22,12 +22,10 @@ public class DbTransferDAO implements TransferDAO {
     public void addTransferFrom(String player, String reason, String collectionName, int currency, CardCollection items) {
         if (currency > 0 || items.getAll().iterator().hasNext()) {
             try {
-                Connection connection = _dbAccess.getDataSource().getConnection();
-                try {
+                try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                     String sql = "insert into transfer (notify, player, reason, name, currency, collection, transfer_date, direction) values (?, ?, ?, ?, ?, ?, ?, 'from')";
 
-                    PreparedStatement statement = connection.prepareStatement(sql);
-                    try {
+                    try (PreparedStatement statement = connection.prepareStatement(sql)) {
                         statement.setInt(1, 0);
                         statement.setString(2, player);
                         statement.setString(3, reason);
@@ -36,11 +34,7 @@ public class DbTransferDAO implements TransferDAO {
                         statement.setString(6, serializeCollection(items));
                         statement.setLong(7, System.currentTimeMillis());
                         statement.execute();
-                    } finally {
-                        statement.close();
                     }
-                } finally {
-                    connection.close();
                 }
             } catch (SQLException exp) {
                 throw new RuntimeException("Unable to add transfer from", exp);
@@ -52,12 +46,10 @@ public class DbTransferDAO implements TransferDAO {
     public void addTransferTo(boolean notifyPlayer, String player, String reason, String collectionName, int currency, CardCollection items) {
         if (currency > 0 || items.getAll().iterator().hasNext()) {
             try {
-                Connection connection = _dbAccess.getDataSource().getConnection();
-                try {
+                try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                     String sql = "insert into transfer (notify, player, reason, name, currency, collection, transfer_date, direction) values (?, ?, ?, ?, ?, ?, ?, 'to')";
 
-                    PreparedStatement statement = connection.prepareStatement(sql);
-                    try {
+                    try (PreparedStatement statement = connection.prepareStatement(sql)) {
                         statement.setInt(1, notifyPlayer ? 1 : 0);
                         statement.setString(2, player);
                         statement.setString(3, reason);
@@ -66,11 +58,7 @@ public class DbTransferDAO implements TransferDAO {
                         statement.setString(6, serializeCollection(items));
                         statement.setLong(7, System.currentTimeMillis());
                         statement.execute();
-                    } finally {
-                        statement.close();
                     }
-                } finally {
-                    connection.close();
                 }
             } catch (SQLException exp) {
                 throw new RuntimeException("Unable to add transfer to", exp);
@@ -81,27 +69,18 @@ public class DbTransferDAO implements TransferDAO {
     @Override
     public boolean hasUndeliveredPackages(String player) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 String sql = "select count(*) from transfer where player=? and notify=1";
 
-                PreparedStatement statement = connection.prepareStatement(sql);
-                try {
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, player);
-                    ResultSet resultSet = statement.executeQuery();
-                    try {
+                    try (ResultSet resultSet = statement.executeQuery()) {
                         if (resultSet.next())
                             return resultSet.getInt(1) > 0;
                         else
                             return false;
-                    } finally {
-                        resultSet.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to check if there are any undelivered packages", exp);
@@ -112,17 +91,14 @@ public class DbTransferDAO implements TransferDAO {
     @Override
     public synchronized Map<String, ? extends CardCollection> consumeUndeliveredPackages(String player) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 Map<String, DefaultCardCollection> result = new HashMap<String, DefaultCardCollection>();
 
                 String sql = "select name, currency, collection from transfer where player=? and notify=1";
 
-                PreparedStatement statement = connection.prepareStatement(sql);
-                try {
+                try (PreparedStatement statement = connection.prepareStatement(sql)){
                     statement.setString(1, player);
-                    ResultSet resultSet = statement.executeQuery();
-                    try {
+                    try (ResultSet resultSet = statement.executeQuery()) {
                         while (resultSet.next()) {
                             String name = resultSet.getString(1);
 
@@ -136,24 +112,15 @@ public class DbTransferDAO implements TransferDAO {
                                 cardCollection.addItem(item.getBlueprintId(), item.getCount());
                             result.put(name, cardCollection);
                         }
-                    } finally {
-                        resultSet.close();
                     }
-                } finally {
-                    statement.close();
                 }
 
                 sql = "update transfer set notify=0 where player=? and notify=1";
-                statement = connection.prepareStatement(sql);
-                try {
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, player);
                     statement.executeUpdate();
-                } finally {
-                    statement.close();
                 }
                 return result;
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to consume undelivered packages", exp);

@@ -213,7 +213,6 @@ var Card = Class.extend({
         img = set40[blueprintId];
         if (img != null)
             return img;
-        //Additional Hobbit Draft blueprints
         img = hobbit[blueprintId];
         if (img != null)
             return img;
@@ -275,13 +274,12 @@ var Card = Class.extend({
             return (cardNo >= 134 && cardNo <= 140);
         if (setNo == 20)
             return (cardNo >= 416 && cardNo <= 469);
-        //Additional Hobbit Draft sites
         if (setNo == 30)
-            return (cardNo >= 49 && cardNo <= 57);
+            return (cardNo >= 49 && cardNo <= 65);
         if (setNo == 31)
-            return (cardNo >= 44 && cardNo <= 55);
+            return (cardNo >= 44 && cardNo <= 47);
         if (setNo == 32)
-            return (cardNo >= 46 && cardNo <= 57);
+            return (cardNo >= 46 && cardNo <= 49);
         if (setNo == 33)
             return (cardNo >= 55 && cardNo <= 58);
         if (setNo == 40)
@@ -377,21 +375,17 @@ var Card = Class.extend({
         return false;
     },
 
-    pngErratas: {
-        "1": [3, 55, 113, 235, 318],
+    remadeErratas: {
+        "0": [7],
+        "1": [3, 12, 43, 46, 55, 113, 235, 318],
         "3": [48],
         "4": [236, 237],
         "18": [8, 12, 25, 35, 48, 50, 77, 78, 79, 80, 94, 97]
     },
 
     getErrata: function (setNo, cardNo) {
-        if (setNo == 0 && cardNo == 7)
-            return "/gemp-lotr/images/erratas/LOTR00007.jpg";
-        if (setNo == 1 && (cardNo == 12 || cardNo == 43 || cardNo == 46))
-            return "/gemp-lotr/images/erratas/LOTR010" + cardNo + ".jpg";
-
-        if (this.pngErratas["" + setNo] != null && $.inArray(cardNo, this.pngErratas["" + setNo]) != -1)
-            return "/gemp-lotr/images/erratas/LOTR" + this.formatCardNo(setNo, cardNo) + ".png";
+        if (this.remadeErratas["" + setNo] != null && $.inArray(cardNo, this.remadeErratas["" + setNo]) != -1)
+            return "/gemp-lotr/images/erratas/LOTR" + this.formatCardNo(setNo, cardNo) + ".jpg";
         return null;
     },
 

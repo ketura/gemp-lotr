@@ -665,6 +665,28 @@ public class Filters {
                 });
     }
 
+    public static Filter isAllyInRegion(final int regionNumber, final SitesBlock siteBlock) {
+        return Filters.and(
+                CardType.ALLY,
+                new Filter() {
+                    @Override
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return RuleUtils.isAllyInRegion(physicalCard, regionNumber, siteBlock);
+                    }
+                });
+    }
+
+    public static Filter isAllyInCurrentRegion() {
+        return Filters.and(
+                CardType.ALLY,
+                new Filter() {
+                    @Override
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return RuleUtils.isAllyInRegion(physicalCard, GameUtils.getRegion(game), game.getGameState().getCurrentSiteBlock());
+                    }
+                });
+    }
+
     public static final Filter allyAtHome = Filters.and(
             CardType.ALLY,
             new Filter() {
@@ -708,6 +730,8 @@ public class Filters {
             return GameUtils.getRegion(game) == GameUtils.getRegion(physicalCard.getSiteNumber());
         }
     };
+
+
 
     public static Filter siteNumber(final int siteNumber) {
         return siteNumberBetweenInclusive(siteNumber, siteNumber);

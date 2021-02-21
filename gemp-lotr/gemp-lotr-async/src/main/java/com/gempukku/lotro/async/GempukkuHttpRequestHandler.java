@@ -267,6 +267,8 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             HttpHeaders headers = new DefaultHttpHeaders();
             headers.set(CONTENT_TYPE, "text/html; charset=UTF-8");
 
+            if (html == null)
+                html = "";
             // Build the response object.
             FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(html.getBytes(CharsetUtil.UTF_8)), headers, EmptyHttpHeaders.INSTANCE);
             sendResponse(ctx, request, response);

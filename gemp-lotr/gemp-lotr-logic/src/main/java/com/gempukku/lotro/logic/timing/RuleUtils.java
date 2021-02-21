@@ -7,8 +7,10 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -186,4 +188,18 @@ public class RuleUtils {
                 return true;
         return false;
     }
+
+    public static boolean isAllyInRegion(PhysicalCard ally, int regionNumber, SitesBlock siteBlock) {
+        final SitesBlock allySiteBlock = ally.getBlueprint().getAllyHomeSiteBlock();
+        final int[] allyHomeSites = ally.getBlueprint().getAllyHomeSiteNumbers();
+        if (allySiteBlock != siteBlock)
+            return false;
+//        for (int number : allyHomeSites)
+//            if (regionNumber == GameUtils.getRegion(number))
+//                return true;
+//        return false;
+
+        return Arrays.stream(ally.getBlueprint().getAllyHomeSiteNumbers()).anyMatch(x -> regionNumber == GameUtils.getRegion(x));
+    }
+
 }
