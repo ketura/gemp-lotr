@@ -6,14 +6,13 @@ import com.gempukku.lotro.logic.GameUtils;
 import java.util.*;
 
 public class ImportCards {
-    //For a deck to be legal in a Pre-shadows format, it must contain one of these sites
-    private Set<String> fellowshipSiteCheck = new HashSet<>(Arrays.asList("Council Courtyard",
-            "Ford of Bruinen", "Frodo's Bedroom", "Rivendell Terrace", "Rivendell Valley", "Rivendell Waterfall",
-            "House of Elrond"));
-    private Set<String> towersSiteCheck = new HashSet<>(Arrays.asList("Derndingle", "Eastfold",
-            "Fangorn Forest", "Plains of Rohan Camp", "Rohirrim Village", "Uruk Camp", "Wold of Rohan"));
-    private Set<String> kingSiteCheck = new HashSet<>(Arrays.asList("King's Tent", "Rohirrim Camp",
-            "West Road"));
+    //For a deck to be legal in a pre-Shadows format, it must contain one of these sites
+    private Set<String> fellowshipSiteCheck = new HashSet<>(Arrays.asList("council courtyard",
+            "ford of bruinen", "frodo's bedroom", "rivendell terrace", "rivendell valley", "rivendell waterfall",
+            "house of elrond"));
+    private Set<String> towersSiteCheck = new HashSet<>(Arrays.asList("derndingle", "eastfold",
+            "fangorn forest", "plains of rohan camp", "rohirrim village", "uruk camp", "wold of rohan"));
+    private Set<String> kingSiteCheck = new HashSet<>(Arrays.asList("king's tent", "rohirrim camp", "west road"));
 
     public List<CardCollection.Item> process(String rawDecklist, LotroCardBlueprintLibrary cardLibrary) {
         List<CardCount> decklist = getDecklist(rawDecklist);
@@ -27,7 +26,9 @@ public class ImportCards {
                     LotroCardBlueprint blueprint = cardBlueprint.getValue();
                     if (isNotSiteOrSiteFromBlock(blueprint, sitesBlock)) {
                         if (exactNameMatch(blueprint, cardCount.getName())) {
-                            result.add(CardCollection.Item.createItem(id, cardCount.getCount()));
+                            for (int i = 0; i < cardCount.getCount(); i++) {
+                                result.add(CardCollection.Item.createItem(id, 1));
+                            }
                             break;
                         }
                     }

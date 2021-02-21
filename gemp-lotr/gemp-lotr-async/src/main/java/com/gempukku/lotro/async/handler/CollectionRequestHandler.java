@@ -86,7 +86,6 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             String blueprintId = item.getBlueprintId();
             if (item.getType() == CardCollection.Item.Type.CARD) {
                 Element card = doc.createElement("card");
-                card.setAttribute("count", String.valueOf(item.getCount()));
                 card.setAttribute("blueprintId", blueprintId);
                 LotroCardBlueprint blueprint = _library.getLotroCardBlueprint(blueprintId);
                 appendCardSide(card, blueprint);
