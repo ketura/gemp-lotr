@@ -232,6 +232,12 @@ var Card = Class.extend({
     },
 
     hasErrata: function () {
+        var separator = this.blueprintId.indexOf("_");
+        var setNo = parseInt(this.blueprintId.substr(0, separator));
+        
+        if(setNo == 51)
+            return true;
+        
         return this.errata;
     },
 
