@@ -361,11 +361,12 @@ var GempLotrDeckBuildingUI = Class.extend({
                     } else if (group == "ring") {
                         that.addCardToContainer(blueprintId, "special", that.ringDiv, false).addClass("cardInDeck");
                     } else {
-                        that.addCardToDeckAndLayout(blueprintId, side);
+                        that.addCardToDeckDontLayout(blueprintId, side);
                     }
                 }
             }
-            that.layoutSpecialGroups();
+            that.deckModified(true);
+            that.layoutDeck();
             $("#editingDeck").text("Imported Deck (unsaved)");
         });
     },
@@ -709,6 +710,18 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.selectionFunc = this.addCardToDeckAndLayout;
     },
 
+    addCardToDeckDontLayout:function (blueprintId, side) {
+        var that = this;
+        if (side == "FREE_PEOPLE") {
+            this.addCardToDeck(blueprintId, side);
+        } else if (side == "SHADOW") {
+            this.addCardToDeck(blueprintId, side);
+        } else if (side == null) {
+            var div = this.addCardToContainer(blueprintId, side, this.siteDiv, false)
+            div.addClass("cardInDeck");
+        }
+    },
+
     addCardToDeckAndLayout:function (blueprintId, side) {
         var that = this;
         if (side == "FREE_PEOPLE") {
@@ -948,7 +961,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringBearerGroup.layoutCards();
         this.ringGroup.layoutCards();
         this.siteGroup.layoutCards();
-
     },
 
     layoutDeck:function () {
