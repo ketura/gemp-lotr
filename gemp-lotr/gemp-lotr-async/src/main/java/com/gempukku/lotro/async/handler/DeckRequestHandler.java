@@ -61,6 +61,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
     private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String contents = getFormParameterSafely(postDecoder, "deckContents");
         
@@ -97,10 +98,14 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         sb.append(invalid);
 
         responseWriter.writeHtmlResponse(sb.toString());
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void deleteDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String deckName = getFormParameterSafely(postDecoder, "deckName");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -108,10 +113,14 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
 
         responseWriter.writeXmlResponse(null);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void renameDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String deckName = getFormParameterSafely(postDecoder, "deckName");
         String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
@@ -123,10 +132,14 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(404);
 
         responseWriter.writeXmlResponse(serializeDeck(deck));
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void saveDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String deckName = getFormParameterSafely(postDecoder, "deckName");
         String contents = getFormParameterSafely(postDecoder, "deckContents");
@@ -147,6 +160,9 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         doc.appendChild(deckElem);
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws Exception {

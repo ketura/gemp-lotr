@@ -70,6 +70,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
     private void updateGameState(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
         Integer decisionId = null;
@@ -99,6 +100,9 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(403);
         } catch (SubscriptionExpiredException e) {
             throw new HttpProcessingException(410);
+        }
+        } finally {
+            postDecoder.destroy();
         }
     }
 
@@ -149,6 +153,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
     private void cancel(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -159,10 +164,14 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         gameMediator.cancel(resourceOwner);
 
         responseWriter.writeXmlResponse(null);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void concede(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -174,6 +183,9 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         gameMediator.concede(resourceOwner);
 
         responseWriter.writeXmlResponse(null);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getCardInfo(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {

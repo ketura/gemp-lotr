@@ -392,7 +392,6 @@
         "cancelRingBearerSkirmish":true,
         "limited":true,
         "set":[30, 31, 32, 33],
-        "maximumSameName":100,
         "hall":false
     },
     {

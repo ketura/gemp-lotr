@@ -905,7 +905,7 @@
       }
     ]
   },
-  "32_58": {
+  "32_50": {
     "title": "Dissention",
     "culture": "smaug",
     "cost": 2,
@@ -943,7 +943,7 @@
       }
     ]
   },
-  "32_59": {
+  "32_51": {
     "title": "*Dragon's Malice",
     "culture": "smaug",
     "cost": 0,
@@ -996,7 +996,7 @@
       }
     ]
   },
-  "32_60": {
+  "32_52": {
     "title": "Smaug's Awakening",
     "culture": "smaug",
     "cost": 0,
@@ -1057,7 +1057,7 @@
       ]
     }
   },
-  "32_61": {
+  "32_53": {
     "title": "*Terrifying Legend",
     "culture": "smaug",
     "cost": 0,
@@ -1109,7 +1109,7 @@
       }
     ]
   },
-  "32_62": {
+  "32_54": {
     "title": "*Twisted Gold of Dragon",
     "culture": "smaug",
     "cost": 1,
@@ -1158,7 +1158,7 @@
       }
     ]
   },
-  "32_63": {
+  "32_55": {
     "title": "*Wrath of the Dragon",
     "culture": "smaug",
     "cost": 2,
@@ -1209,7 +1209,7 @@
       }
     ]
   },
-  "32_64": {
+  "32_56": {
     "title": "Dol Guldur Blade",
     "culture": "wraith",
     "cost": 0,
@@ -1256,7 +1256,7 @@
       }
     ]
   },
-  "32_65": {
+  "32_57": {
     "title": "The Great Enemy",
     "culture": "wraith",
     "cost": 1,
@@ -1281,7 +1281,7 @@
       ]
     }
   },
-  "32_66": {
+  "32_58": {
     "title": "*He Is Summoning His Servants",
     "culture": "wraith",
     "cost": 2,
@@ -1316,7 +1316,7 @@
       }
     ]
   },
-  "32_67": {
+  "32_59": {
     "title": "*Úlairë Attëa",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1356,7 +1356,7 @@
       }
     ]
   },
-  "32_68": {
+  "32_60": {
     "title": "*Úlairë Cantëa",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1385,7 +1385,7 @@
       }
     }
   },
-  "32_69": {
+  "32_61": {
     "title": "*Úlairë Enquëa",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1421,7 +1421,7 @@
       }
     ]
   },
-  "32_70": {
+  "32_62": {
     "title": "*Úlairë Lemenya",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1456,7 +1456,7 @@
       }
     ]
   },
-  "32_71": {
+  "32_63": {
     "title": "*Úlairë Nelya",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1480,7 +1480,7 @@
       }
     }
   },
-  "32_72": {
+  "32_64": {
     "title": "*Úlairë Nertëa",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1519,7 +1519,7 @@
       }
     ]
   },
-  "32_73": {
+  "32_65": {
     "title": "*Úlairë Otsëa",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1553,7 +1553,7 @@
       }
     ]
   },
-  "32_74": {
+  "32_66": {
     "title": "*Úlairë Toldëa",
     "subtitle": "Revived",
     "culture": "wraith",
@@ -1593,7 +1593,7 @@
       }
     ]
   },
-  "32_75": {
+  "32_67": {
     "title": "*The Witch-king",
     "subtitle": "Revived",
     "culture": "wraith",

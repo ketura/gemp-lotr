@@ -62,30 +62,38 @@ public class ImportCards {
     }
 
     private boolean isFromOfficialSet(String id) {
-        return Integer.parseInt(id.split("_")[0]) < 20;
+        try {
+            return Integer.parseInt(id.split("_")[0]) < 20;
+        } catch (NumberFormatException exp) {
+            return false;
+        }
     }
 
     private List<CardCount> getDecklist(String rawDecklist) {
+        int quantity;
+        String cardLine;
+
         List<CardCount> result = new ArrayList<>();
         for (String line : rawDecklist.split("~")) {
             if (line.length() == 0)
                 continue;
 
             line = line.toLowerCase();
-            int quantity;
-
-            String cardLine;
-            if (Character.isDigit(line.charAt(0))) {
-                quantity = Character.getNumericValue(line.charAt(0));
-                cardLine = line.substring(line.indexOf(" "));
-            } else if (Character.isDigit(line.charAt(line.length() - 1))) {
-                quantity = Character.getNumericValue(line.charAt(line.length() - 1));
-                cardLine = line.substring(0, line.indexOf(" ", line.length() - 3));
-            } else {
-                quantity = 1;
-                cardLine = line;
+            try {
+                if (Character.isDigit(line.charAt(0))) {
+                    quantity = Character.getNumericValue(line.charAt(0));
+                    cardLine = line.substring(line.indexOf(" "));
+                } else if (Character.isDigit(line.charAt(line.length() - 1))) {
+                    quantity = Character.getNumericValue(line.charAt(line.length() - 1));
+                    cardLine = line.substring(0, line.indexOf(" ", line.length() - 3));
+                } else {
+                    quantity = 1;
+                    cardLine = line;
+                }
+                result.add(new CardCount(SortAndFilterCards.replaceSpecialCharacters(cardLine).trim(), quantity));
+            } catch (Exception exp) {
+                // Ignore the card
             }
-            result.add(new CardCount(SortAndFilterCards.replaceSpecialCharacters(cardLine).trim(), quantity));
         }
         return result;
     }

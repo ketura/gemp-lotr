@@ -128,7 +128,7 @@
       "modifier": {
         "type": "modifyCost",
         "amount": -1,
-        "filter": "or(shield,armor,helm,hand weapon)"
+        "filter": "your,or(shield,armor,helm,hand weapon)"
       }
     }
   },

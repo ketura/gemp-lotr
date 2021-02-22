@@ -20,13 +20,10 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
     @Override
     public Collection<LeagueMatchResult> getLeagueMatches(String leagueId) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("select winner, loser, season_type from league_match where league_type=?");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("select winner, loser, season_type from league_match where league_type=?")) {
                     statement.setString(1, leagueId);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
                         while (rs.next()) {
                             String winner = rs.getString(1);
@@ -36,14 +33,8 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
                             result.add(new LeagueMatchResult(serie, winner, loser));
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -53,20 +44,14 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
     @Override
     public void addPlayedMatch(String leagueId, String serieId, String winner, String loser) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("insert into league_match (league_type, season_type, winner, loser) values (?, ?, ?, ?)");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("insert into league_match (league_type, season_type, winner, loser) values (?, ?, ?, ?)")) {
                     statement.setString(1, leagueId);
                     statement.setString(2, serieId);
                     statement.setString(3, winner);
                     statement.setString(4, loser);
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);

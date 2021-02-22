@@ -20,6 +20,7 @@ public class RegisterRequestHandler extends LotroServerRequestHandler implements
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            try {
             String login = getFormParameterSafely(postDecoder, "login");
             String password = getFormParameterSafely(postDecoder, "password");
             try {
@@ -31,7 +32,9 @@ public class RegisterRequestHandler extends LotroServerRequestHandler implements
             } catch (LoginInvalidException exp) {
                 throw new HttpProcessingException(400);
             }
-
+            } finally {
+                postDecoder.destroy();
+            }
         } else {
             throw new HttpProcessingException(404);
         }

@@ -110,32 +110,36 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String login = getFormParameterSafely(postDecoder, "login");
+        try {
+            String login = getFormParameterSafely(postDecoder, "login");
 
-        List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
-        if (similarPlayers == null)
-            throw new HttpProcessingException(404);
+            List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
+            if (similarPlayers == null)
+                throw new HttpProcessingException(404);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
-        Element players = doc.createElement("players");
+            Document doc = documentBuilder.newDocument();
+            Element players = doc.createElement("players");
 
-        for (Player similarPlayer : similarPlayers) {
-            Element playerElem = doc.createElement("player");
-            playerElem.setAttribute("id", String.valueOf(similarPlayer.getId()));
-            playerElem.setAttribute("name", similarPlayer.getName());
-            playerElem.setAttribute("password", similarPlayer.getPassword());
-            playerElem.setAttribute("status", getStatus(similarPlayer));
-            playerElem.setAttribute("createIp", similarPlayer.getCreateIp());
-            playerElem.setAttribute("loginIp", similarPlayer.getLastIp());
-            players.appendChild(playerElem);
+            for (Player similarPlayer : similarPlayers) {
+                Element playerElem = doc.createElement("player");
+                playerElem.setAttribute("id", String.valueOf(similarPlayer.getId()));
+                playerElem.setAttribute("name", similarPlayer.getName());
+                playerElem.setAttribute("password", similarPlayer.getPassword());
+                playerElem.setAttribute("status", getStatus(similarPlayer));
+                playerElem.setAttribute("createIp", similarPlayer.getCreateIp());
+                playerElem.setAttribute("loginIp", similarPlayer.getLastIp());
+                players.appendChild(playerElem);
+            }
+
+            doc.appendChild(players);
+
+            responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
         }
-
-        doc.appendChild(players);
-
-        responseWriter.writeXmlResponse(doc);
     }
 
     private String getStatus(Player similarPlayer) {
@@ -154,6 +158,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String login = getFormParameterSafely(postDecoder, "login");
 
         if (login==null)
@@ -163,12 +168,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             throw new HttpProcessingException(404);
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void banMultiple(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         List<String> logins = getFormParametersSafely(postDecoder, "login");
         if (logins == null)
             throw new HttpProcessingException(404);
@@ -179,12 +188,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void banUserTemp(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String login = getFormParameterSafely(postDecoder, "login");
         int duration = Integer.parseInt(getFormParameterSafely(postDecoder, "duration"));
 
@@ -192,24 +205,32 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             throw new HttpProcessingException(404);
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void unBanUser(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String login = getFormParameterSafely(postDecoder, "login");
 
         if (!_adminService.unBanUser(login))
             throw new HttpProcessingException(404);
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void addItemsToCollection(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String reason = getFormParameterSafely(postDecoder, "reason");
         String product = getFormParameterSafely(postDecoder, "product");
         String collectionType = getFormParameterSafely(postDecoder, "collectionType");
@@ -222,12 +243,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void addItems(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String players = getFormParameterSafely(postDecoder, "players");
         String product = getFormParameterSafely(postDecoder, "product");
         String collectionType = getFormParameterSafely(postDecoder, "collectionType");
@@ -243,6 +268,9 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private List<String> getItems(String values) {
@@ -281,6 +309,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String start = getFormParameterSafely(postDecoder, "start");
         String collectionType = getFormParameterSafely(postDecoder, "collectionType");
         String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
@@ -308,12 +337,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _leagueService.clearCache();
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void previewConstructedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String start = getFormParameterSafely(postDecoder, "start");
         String collectionType = getFormParameterSafely(postDecoder, "collectionType");
         String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
@@ -363,12 +396,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         doc.appendChild(leagueElem);
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void addSoloDraftLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String format = getFormParameterSafely(postDecoder, "format");
         String start = getFormParameterSafely(postDecoder, "start");
         String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
@@ -392,12 +429,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _leagueService.clearCache();
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void previewSoloDraftLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String format = getFormParameterSafely(postDecoder, "format");
         String start = getFormParameterSafely(postDecoder, "start");
         String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
@@ -445,12 +486,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         doc.appendChild(leagueElem);
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void addSealedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String format = getFormParameterSafely(postDecoder, "format");
         String start = getFormParameterSafely(postDecoder, "start");
         String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
@@ -471,12 +516,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _leagueService.clearCache();
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void previewSealedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String format = getFormParameterSafely(postDecoder, "format");
         String start = getFormParameterSafely(postDecoder, "start");
         String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
@@ -521,18 +570,24 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         doc.appendChild(leagueElem);
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-
+        try {
         String motd = getFormParameterSafely(postDecoder, "motd");
 
         _hallServer.setMOTD(motd);
 
         responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void shutdown(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {

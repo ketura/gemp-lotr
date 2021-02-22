@@ -21,13 +21,10 @@ public class DbCollectionDAO implements CollectionDAO {
     }
 
     public Map<Integer, CardCollection> getPlayerCollectionsByType(String type) throws SQLException, IOException {
-        Connection connection = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement("select player_id, collection from collection where type=?");
-            try {
+        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select player_id, collection from collection where type=?")) {
                 statement.setString(1, type);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     Map<Integer, CardCollection> playerCollections = new HashMap<Integer, CardCollection>();
                     while (rs.next()) {
                         int playerId = rs.getInt(1);
@@ -35,50 +32,32 @@ public class DbCollectionDAO implements CollectionDAO {
                         playerCollections.put(playerId, extractCollectionAndClose(blob));
                     }
                     return playerCollections;
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            connection.close();
         }
     }
 
     public CardCollection getPlayerCollection(int playerId, String type) throws SQLException, IOException {
-        Connection connection = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement("select collection from collection where player_id=? and type=?");
-            try {
+        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select collection from collection where player_id=? and type=?")) {
                 statement.setInt(1, playerId);
                 statement.setString(2, type);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         Blob blob = rs.getBlob(1);
                         return extractCollectionAndClose(blob);
                     } else {
                         return null;
                     }
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            connection.close();
         }
     }
 
     private CardCollection extractCollectionAndClose(Blob blob) throws SQLException, IOException {
         try {
-            InputStream inputStream = blob.getBinaryStream();
-            try {
+            try (InputStream inputStream = blob.getBinaryStream()) {
                 return _collectionSerializer.deserializeCollection(inputStream);
-            } finally {
-                inputStream.close();
             }
         } finally {
             blob.free();
@@ -88,16 +67,14 @@ public class DbCollectionDAO implements CollectionDAO {
     public void setPlayerCollection(int playerId, String type, CardCollection collection) throws SQLException, IOException {
         CardCollection oldCollection = getPlayerCollection(playerId, type);
 
-        Connection connection = _dbAccess.getDataSource().getConnection();
-        try {
+        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
             String sql;
             if (oldCollection == null)
                 sql = "insert into collection (collection, player_id, type) values (?, ?, ?)";
             else
                 sql = "update collection set collection=? where player_id=? and type=?";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
-            try {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 _collectionSerializer.serializeCollection(collection, baos);
 
@@ -105,11 +82,7 @@ public class DbCollectionDAO implements CollectionDAO {
                 statement.setInt(2, playerId);
                 statement.setString(3, type);
                 statement.execute();
-            } finally {
-                statement.close();
             }
-        } finally {
-            connection.close();
         }
     }
 }

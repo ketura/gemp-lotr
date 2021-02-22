@@ -60,6 +60,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
 
     private void joinLeague(HttpRequest request, String leagueType, ResponseWriter responseWriter, String remoteIp) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -72,6 +73,9 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
             throw new HttpProcessingException(409);
 
         responseWriter.writeXmlResponse(null);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getLeagueInformation(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {

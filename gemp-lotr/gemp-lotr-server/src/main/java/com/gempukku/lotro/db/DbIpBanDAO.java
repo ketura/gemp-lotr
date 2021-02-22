@@ -17,18 +17,12 @@ public class DbIpBanDAO implements IpBanDAO {
     @Override
     public void addIpBan(String ip) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("insert into ip_ban (ip, prefix) values (?, 0)");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("insert into ip_ban (ip, prefix) values (?, 0)")) {
                     statement.setString(1, ip);
 
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to add an IP ban", exp);
@@ -38,18 +32,11 @@ public class DbIpBanDAO implements IpBanDAO {
     @Override
     public void addIpPrefixBan(String ipPrefix) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("insert into ip_ban (ip, prefix) values (?, 1)");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("insert into ip_ban (ip, prefix) values (?, 1)")) {
                     statement.setString(1, ipPrefix);
-
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to add an IP prefix ban", exp);
@@ -59,12 +46,9 @@ public class DbIpBanDAO implements IpBanDAO {
     @Override
     public Set<String> getIpBans() {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select ip from ip_ban where prefix=0");
-                try {
-                    ResultSet rs = statement.executeQuery();
-                    try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select ip from ip_ban where prefix=0")) {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Set<String> result = new HashSet<String>();
                         while (rs.next()) {
                             String ip = rs.getString(1);
@@ -72,14 +56,8 @@ public class DbIpBanDAO implements IpBanDAO {
                             result.add(ip);
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of player games", exp);
@@ -89,12 +67,9 @@ public class DbIpBanDAO implements IpBanDAO {
     @Override
     public Set<String> getIpPrefixBans() {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select ip from ip_ban where prefix=1");
-                try {
-                    ResultSet rs = statement.executeQuery();
-                    try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select ip from ip_ban where prefix=1")) {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Set<String> result = new HashSet<String>();
                         while (rs.next()) {
                             String ip = rs.getString(1);
@@ -102,14 +77,8 @@ public class DbIpBanDAO implements IpBanDAO {
                             result.add(ip);
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of player games", exp);

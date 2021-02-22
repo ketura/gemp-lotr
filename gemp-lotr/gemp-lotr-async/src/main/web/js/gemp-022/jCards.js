@@ -213,7 +213,6 @@ var Card = Class.extend({
         img = set40[blueprintId];
         if (img != null)
             return img;
-        //Additional Hobbit Draft blueprints
         img = hobbit[blueprintId];
         if (img != null)
             return img;
@@ -284,13 +283,12 @@ var Card = Class.extend({
             return (cardNo >= 134 && cardNo <= 140);
         if (setNo == 20)
             return (cardNo >= 416 && cardNo <= 469);
-        //Additional Hobbit Draft sites
         if (setNo == 30)
-            return (cardNo >= 49 && cardNo <= 57);
+            return (cardNo >= 49 && cardNo <= 65);
         if (setNo == 31)
-            return (cardNo >= 44 && cardNo <= 55);
+            return (cardNo >= 44 && cardNo <= 47);
         if (setNo == 32)
-            return (cardNo >= 46 && cardNo <= 57);
+            return (cardNo >= 46 && cardNo <= 49);
         if (setNo == 33)
             return (cardNo >= 55 && cardNo <= 58);
         if (setNo == 40)

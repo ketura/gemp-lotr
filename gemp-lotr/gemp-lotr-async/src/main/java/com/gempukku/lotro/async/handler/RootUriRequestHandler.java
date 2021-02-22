@@ -32,7 +32,6 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private ServerStatsRequestHandler _serverStatsRequestHandler;
     private PlayerStatsRequestHandler _playerStatsRequestHandler;
     private TournamentRequestHandler _tournamentRequestHandler;
-    private MtgCardsRequestHandler _mtgCardsRequestHandler;
     private SoloDraftRequestHandler _soloDraftRequestHandler;
 
     private Pattern originPattern;
@@ -58,7 +57,6 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
         _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
         _tournamentRequestHandler = new TournamentRequestHandler(context);
-        _mtgCardsRequestHandler = new MtgCardsRequestHandler(context);
         _soloDraftRequestHandler = new SoloDraftRequestHandler(context);
     }
 
@@ -66,8 +64,6 @@ public class RootUriRequestHandler implements UriRequestHandler {
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.startsWith(_webContextPath)) {
             _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, remoteIp);
-        } else if (uri.equals("/mtg-cards/database.json")) {
-            _mtgCardsRequestHandler.handleRequest(uri, request, context, responseWriter, remoteIp);
         } else if (uri.equals("/gemp-lotr")) {
             responseWriter.writeError(301, Collections.singletonMap("Location", "/gemp-lotr/"));
         } else if (uri.equals(_serverContextPath)) {
