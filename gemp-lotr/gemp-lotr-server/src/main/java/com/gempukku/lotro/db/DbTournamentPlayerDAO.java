@@ -22,20 +22,14 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public void addPlayer(String tournamentId, String playerName, LotroDeck deck) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("insert into tournament_player (tournament_id, player, deck_name, deck) values (?, ?, ?, ?)");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("insert into tournament_player (tournament_id, player, deck_name, deck) values (?, ?, ?, ?)")) {
                     statement.setString(1, tournamentId);
                     statement.setString(2, playerName);
                     statement.setString(3, deck.getDeckName());
                     statement.setString(4, DeckSerialization.buildContentsFromDeck(deck));
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -45,20 +39,14 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public void updatePlayerDeck(String tournamentId, String playerName, LotroDeck deck) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("update tournament_player set deck_name = ?, deck = ? where tournament_id=? and player=?");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("update tournament_player set deck_name = ?, deck = ? where tournament_id=? and player=?")) {
                     statement.setString(1, deck.getDeckName());
                     statement.setString(2, DeckSerialization.buildContentsFromDeck(deck));
                     statement.setString(3, tournamentId);
                     statement.setString(4, playerName);
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -68,18 +56,12 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public void dropPlayer(String tournamentId, String playerName) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("update tournament_player set dropped=true where tournament_id=? and player=?");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("update tournament_player set dropped=true where tournament_id=? and player=?")) {
                     statement.setString(1, tournamentId);
                     statement.setString(2, playerName);
                     statement.executeUpdate();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -89,27 +71,18 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public Set<String> getPlayers(String tournamentId) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=?");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=?")) {
                     statement.setString(1, tournamentId);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Set<String> result = new HashSet<String>();
                         while (rs.next()) {
                             String player = rs.getString(1);
                             result.add(player);
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -119,13 +92,10 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public Map<String, LotroDeck> getPlayerDecks(String tournamentId) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select player, deck_name, deck from tournament_player where tournament_id=? and deck_name is not null");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select player, deck_name, deck from tournament_player where tournament_id=? and deck_name is not null")) {
                     statement.setString(1, tournamentId);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Map<String, LotroDeck> result = new HashMap<String, LotroDeck>();
                         while (rs.next()) {
                             String player = rs.getString(1);
@@ -135,14 +105,8 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                             result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents));
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -152,26 +116,17 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public Set<String> getDroppedPlayers(String tournamentId) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=? and dropped=true");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=? and dropped=true")) {
                     statement.setString(1, tournamentId);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Set<String> result = new HashSet<String>();
                         while (rs.next()) {
                             result.add(rs.getString(1));
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -181,26 +136,17 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     @Override
     public LotroDeck getPlayerDeck(String tournamentId, String playerName) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select deck_name, deck from tournament_player where tournament_id=? and player=?");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select deck_name, deck from tournament_player where tournament_id=? and player=?")) {
                     statement.setString(1, tournamentId);
                     statement.setString(2, playerName);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
                             return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2));
                         else
                             return null;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);

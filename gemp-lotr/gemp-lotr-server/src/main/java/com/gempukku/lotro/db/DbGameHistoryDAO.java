@@ -18,10 +18,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, Date startDate, Date endDate) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?,?)");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("insert into game_history (winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date) values (?,?,?,?,?,?,?,?,?,?,?,?)")) {
                     statement.setString(1, winner);
                     statement.setString(2, loser);
                     statement.setString(3, winReason);
@@ -36,11 +34,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                     statement.setLong(12, endDate.getTime());
 
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of player games", exp);
@@ -49,16 +43,13 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public List<GameHistoryEntry> getGameHistoryForPlayer(Player player, int start, int count) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?")) {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
                     statement.setInt(3, start);
                     statement.setInt(4, count);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         List<GameHistoryEntry> result = new LinkedList<GameHistoryEntry>();
                         while (rs.next()) {
                             String winner = rs.getString(1);
@@ -78,14 +69,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                             result.add(entry);
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of player games", exp);
@@ -94,26 +79,17 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public int getGameHistoryForPlayerCount(Player player) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where winner=? or loser=?");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where winner=? or loser=?")) {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
                             return rs.getInt(1);
                         else
                             return -1;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of player games", exp);
@@ -122,29 +98,20 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public int getActivePlayersCount(long from, long duration) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement(
-                        "select count(*) from (SELECT winner FROM game_history where end_date>=? and end_date<? union select loser from game_history where end_date>=? and end_date<?) as u");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(
+                        "select count(*) from (SELECT winner FROM game_history where end_date>=? and end_date<? union select loser from game_history where end_date>=? and end_date<?) as u")) {
                     statement.setLong(1, from);
                     statement.setLong(2, from + duration);
                     statement.setLong(3, from);
                     statement.setLong(4, from + duration);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
                             return rs.getInt(1);
                         else
                             return -1;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of active players", exp);
@@ -153,26 +120,17 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public int getGamesPlayedCount(long from, long duration) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date<?");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date<?")) {
                     statement.setLong(1, from);
                     statement.setLong(2, from + duration);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
                             return rs.getInt(1);
                         else
                             return -1;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of games played", exp);
@@ -181,27 +139,18 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public Map<String, Integer> getCasualGamesPlayedPerFormat(long from, long duration) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select count(*), format_name from game_history where (tournament is null or tournament like 'Casual %') and end_date>=? and end_date<? group by format_name");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("select count(*), format_name from game_history where (tournament is null or tournament like 'Casual %') and end_date>=? and end_date<? group by format_name")) {
                     statement.setLong(1, from);
                     statement.setLong(2, from + duration);
-                    ResultSet rs = statement.executeQuery();
                     Map<String, Integer> result = new HashMap<String, Integer>();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next()) {
                             result.put(rs.getString(2), rs.getInt(1));
                         }
-                    } finally {
-                        rs.close();
                     }
                     return result;
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of games played", exp);
@@ -210,30 +159,21 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement(
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(
                         "select deck_name, format_name, sum(win), sum(lose) from" +
                                 " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is null or tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')" +
                                 " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is null or tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')) as u" +
-                                " group by deck_name, format_name order by format_name, deck_name");
-                try {
+                                " group by deck_name, format_name order by format_name, deck_name")) {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
-                    ResultSet rs = statement.executeQuery();
                     List<PlayerStatistic> result = new LinkedList<PlayerStatistic>();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next())
                             result.add(new PlayerStatistic(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
-                    } finally {
-                        rs.close();
                     }
                     return result;
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of games played", exp);
@@ -243,17 +183,14 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
     @Override
     public List<GameHistoryEntry> getLastGames(String requestedFormatName, int count) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement(
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(
                         "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, " +
                                 "tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history " +
-                                "where format_name=? order by end_date desc limit ?");
-                try {
+                                "where format_name=? order by end_date desc limit ?")) {
                     statement.setString(1, requestedFormatName);
                     statement.setInt(2, count);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         List<GameHistoryEntry> result = new LinkedList<GameHistoryEntry>();
                         while (rs.next()) {
                             String winner = rs.getString(1);
@@ -273,14 +210,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                             result.add(entry);
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get list of games", exp);
@@ -289,30 +220,21 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement(
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(
                         "select deck_name, format_name, sum(win), sum(lose) from" +
                                 " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is not null and not tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')" +
                                 " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is not null and not tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')) as u" +
-                                " group by deck_name, format_name order by format_name, deck_name");
-                try {
+                                " group by deck_name, format_name order by format_name, deck_name")) {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
-                    ResultSet rs = statement.executeQuery();
                     List<PlayerStatistic> result = new LinkedList<PlayerStatistic>();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next())
                             result.add(new PlayerStatistic(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
-                    } finally {
-                        rs.close();
                     }
                     return result;
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get count of games played", exp);

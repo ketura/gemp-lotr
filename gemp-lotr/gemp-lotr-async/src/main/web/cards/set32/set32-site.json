@@ -1,5 +1,5 @@
 {
-  "32_50": {
+  "32_46": {
     "title": "Dol Guldur",
     "cost": 8,
     "type": "site",
@@ -28,7 +28,7 @@
       }
     }
   },
-  "32_53": {
+  "32_47": {
     "title": "Town Hall",
     "cost": 3,
     "type": "site",
@@ -49,7 +49,7 @@
       }
     }
   },
-  "32_55": {
+  "32_48": {
     "title": "Secret Door",
     "cost": 8,
     "type": "site",
@@ -69,7 +69,7 @@
       }
     }
   },
-  "32_56": {
+  "32_49": {
     "title": "Northern Slopes",
     "cost": 9,
     "type": "site",

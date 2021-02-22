@@ -168,6 +168,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
     private void openPack(HttpRequest request, String collectionType, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String selection = getFormParameterSafely(postDecoder, "selection");
         String packId = getFormParameterSafely(postDecoder, "pack");
@@ -205,6 +206,9 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         }
 
         responseWriter.writeXmlResponse(doc);
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getCollectionTypes(HttpRequest request, ResponseWriter responseWriter) throws Exception {

@@ -19,19 +19,13 @@ public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
 
     public void userJoinsLeague(String leagueId, Player player, String remoteAddr) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("insert into league_participation (league_type, player_name, join_ip) values (?,?,?)");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("insert into league_participation (league_type, player_name, join_ip) values (?,?,?)")) {
                     statement.setString(1, leagueId);
                     statement.setString(2, player.getName());
                     statement.setString(3, remoteAddr);
                     statement.execute();
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
@@ -40,25 +34,16 @@ public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
 
     public Collection<String> getUsersParticipating(String leagueId) {
         try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("select player_name from league_participation where league_type=?");
-                try {
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement("select player_name from league_participation where league_type=?")) {
                     statement.setString(1, leagueId);
-                    final ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         Set<String> result = new HashSet<String>();
                         while (rs.next())
                             result.add(rs.getString(1));
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException(exp);

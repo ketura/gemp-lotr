@@ -757,7 +757,7 @@
       }
     ]
   },
-  "31_56": {
+  "31_48": {
     "title": "*The Arkenstone",
     "subtitle": "King's Jewel",
     "culture": "smaug",
@@ -838,7 +838,7 @@
       }
     ]
   },
-  "31_57": {
+  "31_49": {
     "title": "*Crazy Cob",
     "culture": "spider",
     "cost": 3,
@@ -884,7 +884,7 @@
       ]
     }
   },
-  "31_58": {
+  "31_50": {
     "title": "*Enchanted River",
     "culture": "spider",
     "cost": 2,
@@ -936,7 +936,7 @@
       }
     ]
   },
-  "31_59": {
+  "31_51": {
     "title": "Fat Spider",
     "culture": "spider",
     "cost": 3,
@@ -968,7 +968,7 @@
       }
     ]
   },
-  "31_60": {
+  "31_52": {
     "title": "*Lazy Lob",
     "culture": "spider",
     "cost": 4,
@@ -1002,7 +1002,7 @@
       }
     ]
   },
-  "31_61": {
+  "31_53": {
     "title": "Old Tomnoddy",
     "culture": "spider",
     "cost": 4,
@@ -1030,7 +1030,7 @@
       }
     }
   },
-  "31_62": {
+  "31_54": {
     "title": "Spider Nest",
     "culture": "spider",
     "cost": 2,
@@ -1084,7 +1084,7 @@
       }
     }
   },
-  "31_63": {
+  "31_55": {
     "title": "Wicked Spider",
     "culture": "spider",
     "cost": 2,
@@ -1118,7 +1118,7 @@
       }
     }
   },
-  "31_64": {
+  "31_56": {
     "title": "*Bert",
     "subtitle": "Troll of Ettenmoors",
     "culture": "troll",
@@ -1160,7 +1160,7 @@
       }
     ]
   },
-  "31_65": {
+  "31_57": {
     "title": "Caught in a Sack",
     "culture": "troll",
     "cost": 0,
@@ -1214,7 +1214,7 @@
       }
     ]
   },
-  "31_66": {
+  "31_58": {
     "title": "*Tom",
     "subtitle": "Troll of Ettenmoors",
     "culture": "troll",
@@ -1256,7 +1256,7 @@
       }
     ]
   },
-  "31_67": {
+  "31_59": {
     "title": "*Troll Campfire",
     "culture": "troll",
     "cost": 2,
@@ -1280,7 +1280,7 @@
       }
     }
   },
-  "31_68": {
+  "31_60": {
     "title": "Troll Knife",
     "culture": "troll",
     "cost": 2,
@@ -1297,7 +1297,7 @@
       }
     }
   },
-  "31_69": {
+  "31_61": {
     "title": "*William",
     "subtitle": "Troll of Ettenmoors",
     "culture": "troll",
