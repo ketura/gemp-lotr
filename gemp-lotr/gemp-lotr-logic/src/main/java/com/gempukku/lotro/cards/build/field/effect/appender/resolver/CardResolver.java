@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -291,10 +292,22 @@ public class CardResolver {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
-                return new UnrespondableEffect() {
+                return new AbstractEffect() {
                     @Override
-                    protected void doPlayEffect(LotroGame game) {
+                    public boolean isPlayableInFull(LotroGame game) {
+                        int min = countSource.getMinimum(actionContext);
+                        return result.size() >= min;
+                    }
+
+                    @Override
+                    protected FullEffectResult playEffectReturningResult(LotroGame game) {
                         actionContext.setCardMemory(memory, result);
+                        int min = countSource.getMinimum(actionContext);
+                        if (result.size() >= min) {
+                            return new FullEffectResult(true);
+                        } else {
+                            return new FullEffectResult(false);
+                        }
                     }
                 };
             }
@@ -330,10 +343,22 @@ public class CardResolver {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
-                return new UnrespondableEffect() {
+                return new AbstractEffect() {
                     @Override
-                    protected void doPlayEffect(LotroGame game) {
+                    public boolean isPlayableInFull(LotroGame game) {
+                        int min = countSource.getMinimum(actionContext);
+                        return result.size() >= min;
+                    }
+
+                    @Override
+                    protected FullEffectResult playEffectReturningResult(LotroGame game) {
                         actionContext.setCardMemory(memory, result);
+                        int min = countSource.getMinimum(actionContext);
+                        if (result.size() >= min) {
+                            return new FullEffectResult(true);
+                        } else {
+                            return new FullEffectResult(false);
+                        }
                     }
                 };
             }
