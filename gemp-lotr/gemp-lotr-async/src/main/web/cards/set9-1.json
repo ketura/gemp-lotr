@@ -715,7 +715,8 @@
             "filter": "bearer"
           },
           "effect": {
-            "type": "removeTokens"
+            "type": "removeTokens",
+            "filter": "choose(any)"
           }
         },
         {
