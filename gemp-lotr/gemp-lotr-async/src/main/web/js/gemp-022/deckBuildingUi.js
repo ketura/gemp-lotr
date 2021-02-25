@@ -348,26 +348,25 @@ var GempLotrDeckBuildingUI = Class.extend({
         }
                 
         this.importDeckCollection(formattedText, function (xml) {
-            log(xml);
-
             var cards = xml.documentElement.getElementsByTagName("card");
             for (var i = 0; i < cards.length; i++) {
                 var cardElem = cards[i];
                 var blueprintId = cardElem.getAttribute("blueprintId");
                 var side = cardElem.getAttribute("side");
                 var group = cardElem.getAttribute("group");
-                if (group == "ringBearer") {
-                    that.addCardToContainer(blueprintId, "special", that.ringBearerDiv, false).addClass("cardInDeck");
-                    that.layoutSpecialGroups();
-                }
-                else if (group == "ring") {
-                    that.addCardToContainer(blueprintId, "special", that.ringDiv, false).addClass("cardInDeck");
-                    that.layoutSpecialGroups();
-                }
-                else {
-                    that.addCardToDeckAndLayout(blueprintId, side);
+                var cardCount = parseInt(cardElem.getAttribute("count"));
+                for (var j = 0; j < cardCount; j++) {
+                    if (group == "ringBearer") {
+                        that.addCardToContainer(blueprintId, "special", that.ringBearerDiv, false).addClass("cardInDeck");
+                    } else if (group == "ring") {
+                        that.addCardToContainer(blueprintId, "special", that.ringDiv, false).addClass("cardInDeck");
+                    } else {
+                        that.addCardToDeckDontLayout(blueprintId, side);
+                    }
                 }
             }
+            that.deckModified(true);
+            that.layoutDeck();
             $("#editingDeck").text("Imported Deck (unsaved)");
         });
     },
@@ -711,6 +710,18 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.selectionFunc = this.addCardToDeckAndLayout;
     },
 
+    addCardToDeckDontLayout:function (blueprintId, side) {
+        var that = this;
+        if (side == "FREE_PEOPLE") {
+            this.addCardToDeck(blueprintId, side);
+        } else if (side == "SHADOW") {
+            this.addCardToDeck(blueprintId, side);
+        } else if (side == null) {
+            var div = this.addCardToContainer(blueprintId, side, this.siteDiv, false)
+            div.addClass("cardInDeck");
+        }
+    },
+
     addCardToDeckAndLayout:function (blueprintId, side) {
         var that = this;
         if (side == "FREE_PEOPLE") {
@@ -950,7 +961,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.ringBearerGroup.layoutCards();
         this.ringGroup.layoutCards();
         this.siteGroup.layoutCards();
-
     },
 
     layoutDeck:function () {

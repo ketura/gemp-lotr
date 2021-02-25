@@ -16,11 +16,13 @@ import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -239,22 +241,43 @@ public class CardResolver {
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
-                    final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
-                    if (attachedTo == null)
-                        return false;
-                    if (playabilityFilter != null)
-                        return PlayConditions.isActive(actionContext.getGame(), attachedTo, playabilityFilter.getFilterable(actionContext));
-                    return true;
+                    int min = countSource.getMinimum(actionContext);
+                    return filterCards(actionContext, playabilityFilter).size() >= min;
                 }
 
                 @Override
                 protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    return new UnrespondableEffect() {
+                    Collection<PhysicalCard> result = filterCards(actionContext, additionalFilter);
+                    return new AbstractEffect() {
                         @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            actionContext.setCardMemory(memory, actionContext.getSource().getAttachedTo());
+                        public boolean isPlayableInFull(LotroGame game) {
+                            int min = countSource.getMinimum(actionContext);
+                            return result.size() >= min;
+                        }
+
+                        @Override
+                        protected FullEffectResult playEffectReturningResult(LotroGame game) {
+                            actionContext.setCardMemory(memory, result);
+                            int min = countSource.getMinimum(actionContext);
+                            if (result.size() >= min) {
+                                return new FullEffectResult(true);
+                            } else {
+                                return new FullEffectResult(false);
+                            }
                         }
                     };
+                }
+
+                private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+                    PhysicalCard source = actionContext.getSource();
+                    PhysicalCard attachedTo = source.getAttachedTo();
+                    if (attachedTo == null)
+                        return Collections.emptySet();
+                    
+                    Filterable additionalFilterable = Filters.any;
+                    if (filter != null)
+                        additionalFilterable = filter.getFilterable(actionContext);
+                    return Filters.filter(cardSource.apply(actionContext), actionContext.getGame(), attachedTo, additionalFilterable);
                 }
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
@@ -291,10 +314,22 @@ public class CardResolver {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
-                return new UnrespondableEffect() {
+                return new AbstractEffect() {
                     @Override
-                    protected void doPlayEffect(LotroGame game) {
+                    public boolean isPlayableInFull(LotroGame game) {
+                        int min = countSource.getMinimum(actionContext);
+                        return result.size() >= min;
+                    }
+
+                    @Override
+                    protected FullEffectResult playEffectReturningResult(LotroGame game) {
                         actionContext.setCardMemory(memory, result);
+                        int min = countSource.getMinimum(actionContext);
+                        if (result.size() >= min) {
+                            return new FullEffectResult(true);
+                        } else {
+                            return new FullEffectResult(false);
+                        }
                     }
                 };
             }
@@ -330,10 +365,22 @@ public class CardResolver {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
-                return new UnrespondableEffect() {
+                return new AbstractEffect() {
                     @Override
-                    protected void doPlayEffect(LotroGame game) {
+                    public boolean isPlayableInFull(LotroGame game) {
+                        int min = countSource.getMinimum(actionContext);
+                        return result.size() >= min;
+                    }
+
+                    @Override
+                    protected FullEffectResult playEffectReturningResult(LotroGame game) {
                         actionContext.setCardMemory(memory, result);
+                        int min = countSource.getMinimum(actionContext);
+                        if (result.size() >= min) {
+                            return new FullEffectResult(true);
+                        } else {
+                            return new FullEffectResult(false);
+                        }
                     }
                 };
             }

@@ -248,7 +248,7 @@ public class ValueResolver {
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext ->
-                        (Evaluator) (game, cardAffected) -> multiplier * Filters.filter(game.getGameState().getDeadPile(actionContext.getPerformingPlayer()),
+                        (Evaluator) (game, cardAffected) -> multiplier * Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()),
                                 game, filterableSource.getFilterable(actionContext)).size();
             } else if (type.equalsIgnoreCase("fromMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "multiplier", "limit");
