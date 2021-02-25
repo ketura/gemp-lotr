@@ -33,7 +33,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     protected Filter getExtraAffectableFilter() {
         if (_source == null)
             return Filters.any;
-        return Filters.canBeDiscarded(_source);
+        return Filters.canBeDiscarded(_performingPlayer, _source);
     }
 
     public String getPerformingPlayer() {
@@ -69,17 +69,13 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
         discardedCards.addAll(cards);
         toMoveFromZoneToDiscard.addAll(cards);
 
-        String sourcePlayer = null;
-        if (_source != null)
-            sourcePlayer = _source.getOwner();
-
-        gameState.removeCardsFromZone(sourcePlayer, toMoveFromZoneToDiscard);
+        gameState.removeCardsFromZone(_performingPlayer, toMoveFromZoneToDiscard);
 
         for (PhysicalCard card : toMoveFromZoneToDiscard)
             gameState.addCardToZone(game, card, Zone.DISCARD);
 
         if (_source != null && discardedCards.size() > 0)
-            game.getGameState().sendMessage(_source.getOwner() + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));
+            game.getGameState().sendMessage(_performingPlayer + " discards " + getAppendedNames(discardedCards) + " from play using " + GameUtils.getCardLink(_source));
 
         for (PhysicalCard discardedCard : discardedCards)
             game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(_source, getPerformingPlayer(), discardedCard));

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
@@ -135,6 +136,10 @@ public abstract class AbstractAtTest {
                     deck.addCard(extraCard);
         }
         decks.put(player, deck);
+    }
+
+    protected void moveCardToZone(PhysicalCardImpl card, Zone zone) {
+        _game.getGameState().addCardToZone(_game, card, zone);
     }
 
     protected void playerDecided(String player, String answer) throws DecisionResultInvalidException {
