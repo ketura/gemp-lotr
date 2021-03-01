@@ -8,31 +8,21 @@
     "target": "name(Boromir)",
     "effects": {
       "type": "activated",
-      "phase": "assignment",
-      "condition": {
-        "type": "canSpot",
-        "filter": "bearer,notAssignedToSkirmish"
-      },
+      "phase": "maneuver",
       "cost": [
         {
           "type": "exert",
-          "filter": "bearer"
+          "filter": "bearer",
+          "times": 1
+        },
+        {
+          "type": "exert",
+          "filter": "choose(ally)",
+          "memorize": "summonedAlly",
+          "times": 1
         }        
       ],
       "effect":[
-        {
-          "type": "assignFpCharacterToSkirmish",
-          "player": "fp",
-          "fpCharacter": "bearer",
-          "against": "choose(minion)"
-        },
-        {
-          "type": "modifyStrength",
-          "filter": "choose(ally,allyInCurrentRegion)",
-          "amount": 3,
-          "until": "start(regroup)",
-          "memorize": "summonedAlly"
-        },
         {
           "type": "allyCanParticipateInArcheryFireAndSkirmishes",
           "filter": "memory(summonedAlly)",
@@ -83,18 +73,25 @@
           "filter": "self",
           "times": 1
         },
-        "effect": [
-          {
-            "type": "preventWound",
-            "filter": "choose(uruk-hai)",
-            "memorize": "uruk"
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(uruk)",
-            "keyword": "fierce"
-          }
-        ]
+        "effect":
+        {
+          "type": "preventWound",
+          "filter": "choose(uruk-hai)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 1
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(uruk-hai)",
+          "keyword": "fierce"
+        }
       },
     ]
   },

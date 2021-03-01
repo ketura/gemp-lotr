@@ -76,7 +76,7 @@ public class HornOfBoromirErrataTests
     }
 
     @Test
-    public void AbilityExertsAndAssignsBoromir() throws DecisionResultInvalidException, CardNotFoundException {
+    public void AbilityExertsAndBoromirAndAllyToSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetFOTRScenario();
 
@@ -97,52 +97,22 @@ public class HornOfBoromirErrataTests
 
         scn.FreepsPlayCard(horn);
 
-        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipToPhase(Phase.MANEUVER);
         assertTrue(scn.FreepsCardActionAvailable(horn));
         scn.FreepsUseCardAction(horn);
-        scn.FreepsChooseCard(runner1);
 
         assertEquals(1, scn.GetWoundsOn(boromir));
-        assertEquals(11, scn.GetStrength(elrond));
-        //Skip shadow player's action
+        assertEquals(1, scn.GetWoundsOn(elrond));
+        //Base version pumps strength, ensure that's not the case here.
+        assertEquals(8, scn.GetStrength(elrond));
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+
         scn.SkipCurrentPhaseActions();
-        assertFalse(scn.FreepsCardActionAvailable(horn));
-        scn.SkipCurrentPhaseActions();
-        assertTrue(scn.IsCharAssigned(boromir));
 
         scn.FreepsAssignToMinion(elrond, runner2);
         assertTrue(scn.IsCharAssigned(elrond));
     }
 
-    @Test
-    public void AbilityDoesNotPumpFarAwayAllies() throws DecisionResultInvalidException, CardNotFoundException {
-        GenericCardTestHelper scn = GetMovieScenario();
 
-        PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
-        PhysicalCardImpl horn = scn.GetFreepsCard("horn");
-        PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
-        PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
-
-        scn.FreepsMoveCharToTable(elrond);
-        scn.FreepsMoveCharToTable(boromir);
-        scn.FreepsMoveCardToHand(horn);
-
-        scn.ShadowMoveCharToTable(runner1);
-        scn.ShadowMoveCharToTable(runner2);
-
-        scn.StartGame();
-
-        scn.FreepsPlayCard(horn);
-
-        scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.FreepsUseCardAction(horn);
-        scn.FreepsChooseCard(runner1);
-
-        assertEquals(1, scn.GetWoundsOn(boromir));
-        assertEquals(8, scn.GetStrength(elrond));
-        //Skip shadow player's action
-        scn.SkipCurrentPhaseActions();
-
-    }
 }

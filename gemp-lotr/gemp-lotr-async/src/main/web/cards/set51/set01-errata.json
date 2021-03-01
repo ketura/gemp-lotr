@@ -22,7 +22,7 @@
         "effect": {
           "type": "heal",
           "filter": "choose(ally,allyHome(fellowship,3))",
-          "count": "0-2"
+          "count": "0-3"
         }
       },
       {
@@ -31,7 +31,16 @@
         "cost": {
           "type": "exert",
           "filter": "self",
-          "times": 2
+          "times": {
+            "type": "condition",
+            "condition": {
+              "type": "canSpot",
+              "count": 2,
+              "filter": "not(self),culture(elven),ally"
+            },
+            "true": 1,
+            "false": 2
+          }
         },
         "effect": {
           "type": "drawCards"
@@ -261,15 +270,18 @@
       {
         "type": "activated",
         "phase": "fellowship",
-        "condition": {
-          "type": "canSpot",
-          "filter": "name(Frodo)"
-        },
-        "cost": {
-          "type": "exert",
-          "filter": "self",
-          "times": 2
-        },
+        "cost": [
+          {
+            "type": "exert",
+            "filter": "self",
+            "times": 1
+          },
+          {
+            "type": "exert",
+            "filter": "choose(another,companion)",
+            "times": 1
+          }
+        ],
         "effect": {
           "type": "removeBurdens",
           "amount": 1

@@ -42,7 +42,7 @@ public class Elrond_LoRErrataTests
                 {{
                     put("elrond", "51_1040");
                     put("allyHome3_1", "1_60");
-                    put("allyHome3_2", "1_27");
+                    put("allyHome3_2", "1_27"); // tharin
                     put("allyHome6_1", "1_56");
                     put("allyHome6_2", "1_57");
                 }}
@@ -50,7 +50,7 @@ public class Elrond_LoRErrataTests
     }
 
     @Test
-    public void FellowshipActionExertsTwiceToDrawACard() throws DecisionResultInvalidException, CardNotFoundException {
+    public void FellowshipActionExertsTwiceToDrawACardIfNoAllies() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetSimpleDeckScenario();
         PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
@@ -71,6 +71,32 @@ public class Elrond_LoRErrataTests
         assertEquals(2, scn.GetWoundsOn(elrond));
         assertEquals(1, scn.GetFreepsHandCount());
         assertEquals(0, scn.GetFreepsDeckCount());
+    }
+
+    @Test
+    public void FellowshipActionExertsOnceToDrawACardIf2Allies() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetHome3AllyScenario();
+        PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+        scn.FreepsMoveCharToTable("allyHome3_1");
+        scn.FreepsMoveCharToTable("allyHome6_1");
+
+        scn.FreepsMoveCharToTable(elrond);
+
+        scn.StartGame();
+
+        assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
+        assertTrue(scn.FreepsCardActionAvailable(elrond));
+
+        assertEquals(0, scn.GetWoundsOn(elrond));
+        assertEquals(0, scn.GetFreepsHandCount());
+        //assertEquals(2, scn.GetFreepsDeckCount());
+
+        scn.FreepsUseCardAction(elrond);
+
+        assertEquals(1, scn.GetWoundsOn(elrond));
+        assertEquals(1, scn.GetFreepsHandCount());
+        //assertEquals(1, scn.GetFreepsDeckCount());
     }
 
     @Test
@@ -112,7 +138,7 @@ public class Elrond_LoRErrataTests
     }
 
     @Test
-    public void AllyHealsCappedAt2() throws DecisionResultInvalidException, CardNotFoundException {
+    public void AllyHealsCappedAt3() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetHome3AllyScenario();
         scn.FreepsMoveCharToTable("elrond");
@@ -133,6 +159,6 @@ public class Elrond_LoRErrataTests
 
         assertEquals(3, scn.FreepsGetADParamAsList("cardId").size());
         assertEquals("0", scn.FreepsGetADParam("min"));
-        assertEquals("2", scn.FreepsGetADParam("max"));
+        assertEquals("3", scn.FreepsGetADParam("max"));
     }
 }
