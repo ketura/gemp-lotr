@@ -1,0 +1,450 @@
+{
+   "101_1001": {
+    "side": "free_people",
+    "culture": "Gondor",
+    "title": "*The Lords of Gondor Have Returned",
+    "type": "condition",
+    "cost": 2,
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1002": {
+    "side": "free_people",
+    "culture": "Gondor",
+    "title": "*I Will not Let the White City Fall",
+    "type": "condition",
+    "cost": 2,
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1003": {
+    "side": "free_people",
+    "culture": "Gondor",
+    "title": "*Boromir",
+    "subtitle": "The Redeemed",
+    "type": "companion",
+    "cost": 2,
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1004": {
+    "side": "free_people",
+    "culture": "Gondor",
+    "title": "*Loud and Clear It Sounds",
+    "type": "condition",
+    "cost": 1,
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1005": {
+    "side": "free_people",
+    "culture": "Gondor",
+    "title": "Remnant of Numenor",
+    "type": "condition",
+    "cost": 1,
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1006": {
+    "side": "shadow",
+    "culture": "Sauron",
+    "title": "*Great Wolf Chief",
+    "type": "minion",
+    "cost": 5,
+    "race": "warg",
+    "strength": 10,
+    "vitality": 3,
+    "site": 6,
+    "keyword": [
+      "tracker",
+      "fierce"
+    ],
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1007": {
+    "side": "shadow",
+    "culture": "Sauron",
+    "title": "Hollin Snarler",
+    "type": "minion",
+    "cost": 3,
+    "race": "warg",
+    "strength": 6,
+    "vitality": 3,
+    "site": 6,
+    "keyword": [
+      "tracker",
+      "fierce"
+    ],
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1008": {
+    "side": "shadow",
+    "culture": "Sauron",
+    "title": "Hound of Sauron",
+    "type": "minion",
+    "cost": 2,
+    "race": "warg",
+    "strength": 6,
+    "vitality": 2,
+    "site": 6,
+    "keyword": [
+      "tracker",
+      "fierce"
+    ],
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1009": {
+    "side": "shadow",
+    "culture": "Sauron",
+    "title": "*The Hunt is Up!",
+    "type": "condition",
+    "cost": 1,
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  "101_1010": {
+    "side": "shadow",
+    "culture": "Sauron",
+    "title": "I See You",
+    "type": "event",
+    "cost": 1,
+    "keyword": "assignment",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect":[
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer)",
+            "amount": 3
+          },
+          {
+            "type": "addKeyword",
+            "filter": "memory(bearer)",
+            "keyword": "damage+1"
+          }
+        ]
+      },
+    ]
+  },
+  
+  
+  
+}
