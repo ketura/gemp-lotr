@@ -22,7 +22,7 @@ public class StingErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("sting", "51_10313");
+                    put("sting", "51_313");
                     put("sam", "1_311");
                     put("merry", "1_302");
 

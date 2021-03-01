@@ -25,7 +25,7 @@ public class BillThePonyErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("bill", "51_30106");
+                    put("bill", "53_106");
                     put("sam", "1_311");
                 }}
         );

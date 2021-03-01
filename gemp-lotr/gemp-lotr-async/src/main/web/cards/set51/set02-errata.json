@@ -1,5 +1,5 @@
 {
-   "51_2032": {
+   "52_32": {
     "side": "free_people",
     "cost": 0,
     "strength": 1,
@@ -46,7 +46,7 @@
     ]
   },
   
-  "51_20121": {
+  "52_121": {
     "title": "*Gimli",
     "subtitle": "Dwarf of the Mountain-race",
     "culture": "dwarven",

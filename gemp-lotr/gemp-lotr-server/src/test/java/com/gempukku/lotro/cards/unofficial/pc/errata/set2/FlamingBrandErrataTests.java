@@ -19,8 +19,8 @@ public class FlamingBrandErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("brand", "51_2032");
-                    put("brand2", "51_2032");
+                    put("brand", "52_32");
+                    put("brand2", "52_32");
                     put("arwen", "1_30");
                     put("boromir", "1_97");
                     put("aragorn", "1_89");

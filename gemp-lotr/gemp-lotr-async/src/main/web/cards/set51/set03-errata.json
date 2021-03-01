@@ -1,5 +1,5 @@
 {
- "51_3042": {
+ "53_42": {
     "side": "free_people",
     "cost": 0,
     "culture": "Gondor",
@@ -32,7 +32,7 @@
     }
   },
   
-  "51_3068": {
+  "53_68": {
     "side": "shadow",
     "site": 4,
     "cost": 4,
@@ -96,7 +96,7 @@
     ]
   },
   
-  "51_3038": {
+  "53_38": {
     "side": "free_people",
     "title": "*Aragorn",
     "subtitle": "Heir to the White City",
@@ -166,7 +166,7 @@
   },
   
  
-  "51_30106": {
+  "53_106": {
     "title": "*Bill the Pony",
     "culture": "Shire",
     "side": "free_people",

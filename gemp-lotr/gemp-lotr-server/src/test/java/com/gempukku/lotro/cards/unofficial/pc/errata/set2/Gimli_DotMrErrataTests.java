@@ -22,7 +22,7 @@ public class Gimli_DotMrErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("gimli", "51_20121");
+                    put("gimli", "52_121");
                 }},
                 GenericCardTestHelper.FellowshipSites,
                 GenericCardTestHelper.FOTRFrodo,

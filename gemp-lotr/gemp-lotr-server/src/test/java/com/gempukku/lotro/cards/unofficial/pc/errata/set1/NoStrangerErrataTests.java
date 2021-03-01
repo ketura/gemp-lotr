@@ -22,8 +22,8 @@ public class NoStrangerErrataTests
                     put("aragorn", "1_89");
                     put("arwen", "1_30");
                     put("boromir", "1_97");
-                    put("nostranger", "51_10108");
-                    put("nostranger2", "51_10108");
+                    put("nostranger", "51_108");
+                    put("nostranger2", "51_108");
                 }}
         );
     }
