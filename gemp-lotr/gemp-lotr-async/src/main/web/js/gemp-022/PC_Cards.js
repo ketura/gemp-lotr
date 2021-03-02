@@ -50,11 +50,11 @@ var PCCards = {
 	'101_47': 'https://i.lotrtcgpc.net/sets/fotr_starters/playtest/101_47.jpg',
 	
 	// April 2021 Errata Batch
-	'51_40': 'https://i.lotrtcgpc.net/errata/FOTR/51_40.jpg',
+	'51_40': 'https://i.lotrtcgpc.net/errata/FOTR/51_040.jpg',
 	'51_311': 'https://i.lotrtcgpc.net/errata/FOTR/51_311.jpg',
-	'52_32': 'https://i.lotrtcgpc.net/errata/FOTR/52_32.jpg',
-	'53_42': 'https://i.lotrtcgpc.net/errata/FOTR/53_42.jpg',
-	'53_68': 'https://i.lotrtcgpc.net/errata/FOTR/53_68.jpg',
+	'52_32': 'https://i.lotrtcgpc.net/errata/FOTR/52_032.jpg',
+	'53_42': 'https://i.lotrtcgpc.net/errata/FOTR/53_042.jpg',
+	'53_68': 'https://i.lotrtcgpc.net/errata/FOTR/53_068.jpg',
 	
 	// May 2021 VPack1
 	'101_1001': 'https://i.lotrtcgpc.net/sets/vset1/vpack1/v1_001.jpg',
@@ -69,8 +69,8 @@ var PCCards = {
 	'101_1010': 'https://i.lotrtcgpc.net/sets/vset1/vpack1/v1_010.jpg',
 	
 	// Future Errata
-	'51_45': 'https://i.lotrtcgpc.net/errata/FOTR/51_45.jpg',
-	'51_80': 'https://i.lotrtcgpc.net/errata/FOTR/51_80.jpg',
+	'51_45': 'https://i.lotrtcgpc.net/errata/FOTR/51_045.jpg',
+	'51_80': 'https://i.lotrtcgpc.net/errata/FOTR/51_080.jpg',
 	'51_108': 'https://i.lotrtcgpc.net/errata/FOTR/51_108.jpg',
 	'51_139': 'https://i.lotrtcgpc.net/errata/FOTR/51_139.jpg',
 	'51_195': 'https://i.lotrtcgpc.net/errata/FOTR/51_195.jpg',
@@ -78,8 +78,8 @@ var PCCards = {
 	'51_248': 'https://i.lotrtcgpc.net/errata/FOTR/51_248.jpg',
 	'51_313': 'https://i.lotrtcgpc.net/errata/FOTR/51_313.jpg',
 	'51_316': 'https://i.lotrtcgpc.net/errata/FOTR/51_316.jpg',
-	'52_75': 'https://i.lotrtcgpc.net/errata/FOTR/52_75.jpg',
+	'52_75': 'https://i.lotrtcgpc.net/errata/FOTR/52_075.jpg',
 	'52_121': 'https://i.lotrtcgpc.net/errata/FOTR/52_121.jpg',
-	'53_38': 'https://i.lotrtcgpc.net/errata/FOTR/53_38.jpg',
+	'53_38': 'https://i.lotrtcgpc.net/errata/FOTR/53_038.jpg',
 	'53_106': 'https://i.lotrtcgpc.net/errata/FOTR/53_106.jpg',
 }
