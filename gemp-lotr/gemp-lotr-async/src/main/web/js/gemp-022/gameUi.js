@@ -1536,7 +1536,10 @@ var GempLotrGameUI = Class.extend({
                 this.smallDialog.append(but);
             }
             if (!this.replayMode)
+            {
                 this.smallDialog.dialog("option", "buttons", {});
+                this.PlaySound("awaitAction");
+            }
         }
 
         this.smallDialog.dialog("open");
@@ -1798,7 +1801,10 @@ var GempLotrGameUI = Class.extend({
 
         allowSelection();
         if (!this.replayMode)
+        {
             processButtons();
+            this.PlaySound("awaitAction");
+        }
 
         openSizeDialog(this.cardActionDialog);
         this.arbitraryDialogResize(false);
@@ -1940,9 +1946,17 @@ var GempLotrGameUI = Class.extend({
 
         allowSelection();
         if (!this.replayMode)
+        {
             processButtons();
+            this.PlaySound("awaitAction");
+        }
 
         $(':button').blur();
+    },
+    
+    PlaySound: function(soundObj) {
+        var myAudio = document.getElementById(soundObj);
+        myAudio.play();
     },
 
     createActionChoiceContextMenu: function (actions, event, selectActionFunction) {
@@ -2071,7 +2085,10 @@ var GempLotrGameUI = Class.extend({
 
         allowSelection();
         if (!this.replayMode)
+        {
             processButtons();
+            this.PlaySound("awaitAction");
+        }
 
         openSizeDialog(this.cardActionDialog);
         this.arbitraryDialogResize(false);
@@ -2151,7 +2168,10 @@ var GempLotrGameUI = Class.extend({
 
         allowSelection();
         if (!this.replayMode)
+        {
             processButtons();
+            this.PlaySound("awaitAction");
+        }
     },
 
     assignMinionsDecision: function (decision) {
@@ -2199,6 +2219,8 @@ var GempLotrGameUI = Class.extend({
                 that.clearSelection();
 
                 that.decisionFunction(id, "" + assignmentArray);
+                
+                this.PlaySound("awaitAction");
             });
         }
 

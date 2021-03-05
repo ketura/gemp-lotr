@@ -397,6 +397,11 @@ var GempLotrHallUI = Class.extend({
             .css({borderTopColor:"#000000", borderLeftColor:"#000000", borderBottomColor:"#000000", borderRightColor:"#000000"})
             .animate({borderTopColor:"#ffffff", borderLeftColor:"#ffffff", borderBottomColor:"#ffffff", borderRightColor:"#ffffff"}, "fast");
     },
+    
+    PlaySound: function(soundObj) {
+        var myAudio = document.getElementById(soundObj);
+        myAudio.play();
+    },
 
     processHall:function (xml) {
         var that = this;
@@ -678,12 +683,14 @@ var GempLotrHallUI = Class.extend({
                 window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
             }
             if (games.length > 0) {
-                var soundPlay = $("<embed src='/gemp-lotr/fanfare_x.wav' hidden='true' autostart='true' loop='false'>");
-                this.tablesDiv.append(soundPlay);
-                setTimeout(
-                    function() {
-                        soundPlay.remove();
-                    }, 5000);
+                // var soundPlay = $("<embed src='/gemp-lotr/fanfare_x.mp3' hidden='true' autostart='true' loop='false'>");
+                // this.tablesDiv.append(soundPlay);
+                // setTimeout(
+                //     function() {
+                //         soundPlay.remove();
+                //     }, 5000);
+                
+                this.PlaySound("gamestart");
             }
 
             if (!this.supportedFormatsInitialized) {
