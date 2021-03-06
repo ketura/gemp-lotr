@@ -1956,7 +1956,10 @@ var GempLotrGameUI = Class.extend({
     
     PlaySound: function(soundObj) {
         var myAudio = document.getElementById(soundObj);
-        myAudio.play();
+        if(!document.hasFocus() || document.hidden || document.msHidden || document.webkitHidden)
+        {
+            myAudio.play();    
+        }
     },
 
     createActionChoiceContextMenu: function (actions, event, selectActionFunction) {
