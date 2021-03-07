@@ -23,10 +23,7 @@ public class Gimli_DotMrErrataTests
                 new HashMap<String, String>()
                 {{
                     put("gimli", "52_121");
-                }},
-                GenericCardTestHelper.FellowshipSites,
-                GenericCardTestHelper.FOTRFrodo,
-                GenericCardTestHelper.FOTRRing
+                }}
         );
     }
 
@@ -42,7 +39,7 @@ public class Gimli_DotMrErrataTests
 
 
     @Test
-    public void GimliHasConcealedOnlyWhileUnderground() throws DecisionResultInvalidException, CardNotFoundException {
+    public void GimliRemovesTwilightWhenUnderground() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
@@ -51,46 +48,29 @@ public class Gimli_DotMrErrataTests
 
         scn.StartGame();
 
-        assertFalse(scn.HasKeyword(gimli, Keyword.CONCEALED));
-
         scn.InsertAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
 
         scn.FreepsSkipCurrentPhaseAction();
 
-        assertTrue(scn.HasKeyword(gimli, Keyword.CONCEALED));
+        // 2 for Frodo/Gimli, 1 for the site, -1 for Gimli's text
+        assertEquals(2, scn.GetTwilight());
     }
 
     @Test
-    public void GimliAbilityTriggersMovingToUnderground() throws DecisionResultInvalidException, CardNotFoundException {
+    public void GimliDoesNotRemoveTwilightWhenNotUnderground() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
-
         scn.FreepsMoveCharToTable(gimli);
 
         scn.StartGame();
 
-        scn.InsertAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
-
         scn.FreepsSkipCurrentPhaseAction();
 
-        assertTrue(scn.FreepsActionAvailable("Optional"));
-        scn.FreepsAcceptOptionalTrigger();
-        assertEquals(1, scn.GetWoundsOn(gimli));
-        assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
-
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));
-        scn.FreepsChooseToMove();
-
-        assertFalse(scn.FreepsActionAvailable("Optional"));
-        //scn.FreepsAcceptOptionalTrigger();
-        assertEquals(1, scn.GetWoundsOn(gimli));
-        assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));
+        // 2 for Frodo/Gimli, 1 for the site
+        assertEquals(3, scn.GetTwilight());
     }
+
 
 }

@@ -52,27 +52,9 @@ public class BillThePonyErrataTests
         Assert.assertTrue(scn.IsAttachedTo(bill, sam));
     }
 
-    @Test
-    public void BillHealsWhenPlayed() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
-
-        PhysicalCardImpl bill = scn.GetFreepsCard("bill");
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-
-        scn.FreepsMoveCardToHand(bill, sam);
-
-        scn.StartGame();
-
-        scn.FreepsPlayCard(sam);
-        scn.FreepsUseCardAction(sam);
-        assertEquals(1, scn.GetWoundsOn(sam));
-        scn.FreepsPlayCard(bill);
-        assertEquals(0, scn.GetWoundsOn(sam));
-    }
 
     @Test
-    public void BillGrantsConcealed() throws DecisionResultInvalidException, CardNotFoundException {
+    public void BillReducesTwilight() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetSimpleScenario();
 
@@ -85,8 +67,11 @@ public class BillThePonyErrataTests
 
         scn.FreepsPlayCard(sam);
         scn.FreepsPlayCard(bill);
-        assertTrue(scn.HasKeyword(sam, Keyword.CONCEALED));
+
+        // 2 for Frodo/Sam, 1 for the site, -1 for Bill
+        assertEquals(2, scn.GetTwilight());
     }
+
 
     @Test
     public void BillDiscardedWhenMovingToUnderground() throws DecisionResultInvalidException, CardNotFoundException {
@@ -106,32 +91,9 @@ public class BillThePonyErrataTests
         scn.FreepsPlayCard(bill);
 
         scn.FreepsSkipCurrentPhaseAction();
-        //Get a timing choice between resolving concealed or discarding bill
-        scn.FreepsResolveActionOrder("Concealed");
+
         assertFalse(scn.IsAttachedTo(bill, sam));
         assertEquals(Zone.DISCARD, bill.getZone());
     }
 
-    @Test
-    public void BillHealsWhenPlayedAtUnderground() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
-
-        PhysicalCardImpl bill = scn.GetFreepsCard("bill");
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-
-        scn.FreepsMoveCardToHand(bill, sam);
-
-        scn.InsertAdHocModifier(new KeywordModifier(null, CardType.SITE, Keyword.UNDERGROUND));
-
-        scn.StartGame();
-
-        scn.FreepsPlayCard(sam);
-        scn.FreepsUseCardAction(sam);
-        assertEquals(1, scn.GetWoundsOn(sam));
-        scn.FreepsPlayCard(bill);
-        assertEquals(0, scn.GetWoundsOn(sam));
-        assertFalse(scn.IsAttachedTo(bill, sam));
-        assertEquals(Zone.DISCARD, bill.getZone());
-    }
 }
