@@ -26,7 +26,6 @@ public class HornOfBoromirErrataTests
                     put("aragorn", "1_89");
 
                     put("runner1", "1_178");
-                    put("runner2", "1_178");
                 }},
                 GenericCardTestHelper.FellowshipSites,
                 GenericCardTestHelper.FOTRFrodo,
@@ -44,7 +43,6 @@ public class HornOfBoromirErrataTests
                     put("aragorn", "1_89");
 
                     put("runner1", "1_178");
-                    put("runner2", "1_178");
                 }}
         );
     }
@@ -76,7 +74,7 @@ public class HornOfBoromirErrataTests
     }
 
     @Test
-    public void AbilityExertsAndBoromirAndAllyToSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
+    public void AbilityExertsAndDiscardsToPermitAllyToSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetFOTRScenario();
 
@@ -84,14 +82,12 @@ public class HornOfBoromirErrataTests
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
         PhysicalCardImpl horn = scn.GetFreepsCard("horn");
         PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
-        PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
 
         scn.FreepsMoveCharToTable(elrond);
         scn.FreepsMoveCharToTable(boromir);
         scn.FreepsMoveCardToHand(horn);
 
         scn.ShadowMoveCharToTable(runner1);
-        scn.ShadowMoveCharToTable(runner2);
 
         scn.StartGame();
 
@@ -101,16 +97,16 @@ public class HornOfBoromirErrataTests
         assertTrue(scn.FreepsCardActionAvailable(horn));
         scn.FreepsUseCardAction(horn);
 
+        //discards
+        assertFalse(scn.IsAttachedTo(horn, boromir));
         assertEquals(1, scn.GetWoundsOn(boromir));
-        assertEquals(1, scn.GetWoundsOn(elrond));
-        //Base version pumps strength, ensure that's not the case here.
-        assertEquals(8, scn.GetStrength(elrond));
+        assertEquals(11, scn.GetStrength(elrond));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
 
         scn.SkipCurrentPhaseActions();
 
-        scn.FreepsAssignToMinion(elrond, runner2);
+        scn.FreepsAssignToMinion(elrond, runner1);
         assertTrue(scn.IsCharAssigned(elrond));
     }
 

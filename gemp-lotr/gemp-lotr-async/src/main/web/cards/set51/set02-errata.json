@@ -58,40 +58,14 @@
     "resistance": 6,
     "signet": "frodo",
     "keyword": "damage+1",
-    "effects": [
-      {
-        "type": "modifier",
-        
-        "modifier": {
-          "type": "addKeyword",
-          "filter": "self",
-          "keyword": "concealed",
-          "condition": {
-            "type": "location",
-            "filter": "underground"
-          }
-        },
-      },
-      {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "movesTo",
-          "filter": "underground",
-          
-        },
-        "cost": {
-          "type": "exert",
-          "filter": "self"
-        },
-        "effect": {
-          "type": "addKeyword",
-          "filter": "choose(another,companion)",
-          "keyword": "concealed",
-          "until": "start(regroup)"
-        }
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "underground,site",
+        "amount": -1
       }
-    ]
+    }
   },
   
   

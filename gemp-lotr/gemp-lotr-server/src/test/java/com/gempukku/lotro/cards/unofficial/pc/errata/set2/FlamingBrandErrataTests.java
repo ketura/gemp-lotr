@@ -129,5 +129,8 @@ public class FlamingBrandErrataTests
         scn.FreepsUseCardAction(brand);
         assertEquals(11, scn.GetStrength(aragorn));
         assertTrue(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+
+        //Brand is discarded
+        assertFalse(scn.IsAttachedTo(brand, aragorn));
     }
 }

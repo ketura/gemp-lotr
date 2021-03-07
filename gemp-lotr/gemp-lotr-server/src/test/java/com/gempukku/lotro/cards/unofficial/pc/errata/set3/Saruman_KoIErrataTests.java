@@ -65,7 +65,7 @@ public class Saruman_KoIErrataTests
 
         assertEquals(0, scn.GetWoundsOn(uruk1));
         assertEquals(1, scn.GetWoundsOn(saruman));
-        //Old version made them fierc, ensure that was removed
+        //Old version made them fierce, ensure that was removed
         assertFalse(scn.HasKeyword(uruk1, Keyword.FIERCE));
 
         //shadow has to skip archery actions

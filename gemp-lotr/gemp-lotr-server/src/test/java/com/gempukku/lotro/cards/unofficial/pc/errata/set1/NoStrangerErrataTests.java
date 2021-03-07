@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -30,13 +31,14 @@ public class NoStrangerErrataTests
 
 
     @Test
-    public void NoStrangerHasStealth() throws DecisionResultInvalidException, CardNotFoundException {
+    public void NoStrangerIsUniqueAndHasStealth() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
 
         assertTrue(scn.HasKeyword(nostranger, Keyword.STEALTH));
+        assertTrue(nostranger.getBlueprint().isUnique());
     }
 
     @Test
@@ -64,34 +66,9 @@ public class NoStrangerErrataTests
         assertEquals(2, scn.FreepsGetADParamAsList("cardId").size());
     }
 
-    @Test
-    public void NoStrangerLimitOnePerBearer() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
-
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
-        PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
-        PhysicalCardImpl nostranger2 = scn.GetFreepsCard("nostranger2");
-
-        scn.FreepsMoveCharToTable(aragorn);
-        scn.FreepsMoveCharToTable(arwen);
-        scn.FreepsMoveCardToHand(nostranger);
-        scn.FreepsMoveCardToHand(nostranger2);
-
-        scn.StartGame();
-
-        scn.FreepsPlayCard(nostranger);
-        scn.FreepsChooseCard(aragorn);
-        scn.FreepsPlayCard(nostranger2);
-
-        //No prompt means it was placed automatically on Arwen, with no choice between Arwen and Aragorn
-        assertFalse(scn.FreepsAnyActionsAvailable());
-
-    }
 
     @Test
-    public void NoStrangerAddsConcealed() throws DecisionResultInvalidException, CardNotFoundException {
+    public void NoStrangerReducesTwilight() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
@@ -105,6 +82,9 @@ public class NoStrangerErrataTests
 
         scn.FreepsPlayCard(nostranger);
 
-        scn.HasKeyword(aragorn, Keyword.CONCEALED);
+        scn.FreepsSkipCurrentPhaseAction();
+
+        // 2 for Frodo/Aragorn, 1 for the site, -1 for No Stranger
+        assertEquals(2, scn.GetTwilight());
     }
 }

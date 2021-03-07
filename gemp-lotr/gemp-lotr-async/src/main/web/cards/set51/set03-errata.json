@@ -113,7 +113,7 @@
     ],
     "effects": {
       "type": "trigger",
-      "optional": true,
+      "optional": false,
       "trigger": {
         "type": "movesfrom"
       },
@@ -122,46 +122,9 @@
         "phase": "fellowship"
       },
       "effect": {
-        "type": "preventable",
-        "effect": [
-          {
-            "type": "addKeyword",
-            "filter": "choose(another,companion)",
-            "keyword": "concealed",
-            "until": "start(regroup)"
-          },
-          {
-            "type": "addKeyword",
-            "filter": "self",
-            "keyword": "concealed",
-            "until": "start(regroup)"
-          },
-        ],
-        "text": "Would you like to discard a minion (or reveal a tracker) from hand to prevent a companion becoming concealed?",
-        "player": "shadowPlayer",
-        "cost": {
-          "type": "choice",
-          "player": "shadowPlayer",
-          "texts": [
-            "Discard a minion from hand",
-            "Reveal a tracker from hand"
-          ],
-          "effects": [
-            {
-              "type": "revealCardsFromHand",
-              "filter": "choose(tracker)",
-              "hand": "shadowPlayer"
-            },
-            {
-              "type": "discardFromHand",
-              "filter": "choose(minion)",
-              "forced": false,
-              "hand": "shadowPlayer",
-            }
-          ]
-        }
-
-      },
+        "type": "removeTwilight",
+        "amount": 1
+      }
     }
   },
   
@@ -176,22 +139,11 @@
     "target": "name(Sam)",
     "effects": [
       {
-        "type": "trigger",
-        "trigger": {
-          "type": "played",
-          "filter": "self"
-        },
-        "effect": {
-          "type": "heal",
-          "filter": "bearer"
-        }
-      },
-      {
         "type": "modifier",
         "modifier": {
-          "type": "addKeyword",
-          "filter": "bearer",
-          "keyword": "concealed"
+          "type": "modifyCost",
+          "filter": "site",
+          "amount": -1
         }
       },
       {

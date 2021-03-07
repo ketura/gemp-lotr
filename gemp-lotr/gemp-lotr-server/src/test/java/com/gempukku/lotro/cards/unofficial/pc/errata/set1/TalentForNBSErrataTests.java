@@ -3,9 +3,11 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -22,7 +24,8 @@ public class TalentForNBSErrataTests
                 {{
                     put("talent", "51_316");
                     put("sam", "1_311");
-                    put("gaffer", "1_291");
+                    put("merry", "1_302");
+                    put("pippin", "1_307");
                     put("boromir", "1_97");
                 }}
         );
@@ -38,92 +41,73 @@ public class TalentForNBSErrataTests
         assertTrue(scn.HasKeyword(talent, Keyword.STEALTH));
     }
 
-
     @Test
-    public void TalentExertsAHobbitOnPlay() throws DecisionResultInvalidException, CardNotFoundException {
+    public void TalentOnlyPlaysOnMerryOrPippin() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-        PhysicalCardImpl gaffer = scn.GetFreepsCard("gaffer");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+        PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
         PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
-        scn.FreepsMoveCharToTable(sam, gaffer, boromir);
+        scn.FreepsMoveCharToTable(sam);
+        scn.FreepsMoveCharToTable(merry);
+        scn.FreepsMoveCharToTable(pippin);
         scn.FreepsMoveCardToHand(talent);
 
         scn.StartGame();
 
         scn.FreepsPlayCard(talent);
-        //Frodo, Sam, Gaffer, but not Boromir
-        assertEquals(3, scn.FreepsCardChoiceCount());
 
-        scn.FreepsChooseCard(frodo);
-        assertEquals(1, scn.GetWoundsOn(frodo));
+        //There are 4 companions in play, but only 2 valid targets
+        assertEquals(2, scn.FreepsGetADParamAsList("cardId").size());
     }
 
+
     @Test
-    public void TalentAbilityTriggersConcealedOnMove() throws DecisionResultInvalidException, CardNotFoundException {
+    public void TalentReducesTwilightIfOnlyHobbits() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-        PhysicalCardImpl gaffer = scn.GetFreepsCard("gaffer");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
         PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
-        scn.FreepsMoveCharToTable(sam, gaffer, boromir);
+        scn.FreepsMoveCharToTable(merry);
         scn.FreepsMoveCardToHand(talent);
 
         scn.StartGame();
 
         scn.FreepsPlayCard(talent);
-        scn.FreepsChooseCard(frodo);
         scn.FreepsSkipCurrentPhaseAction();
 
-        //Sam and Frodo, but not Gaffer or Boromir
-        assertEquals(2, scn.FreepsCardChoiceCount());
-        scn.FreepsChooseCard(frodo);
-        assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
-
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-
-        scn.FreepsChooseToMove();
-        //Sam and Frodo, but not Gaffer or Boromir
-        assertEquals(2, scn.FreepsCardChoiceCount());
-        scn.FreepsChooseCard(sam);
-        assertEquals(Phase.SHADOW, scn.GetCurrentPhase());
-        assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));
-        assertTrue(scn.HasKeyword(sam, Keyword.CONCEALED));
+        // 2 for Frodo/Merry, 1 for the site, -1 for Talent
+        assertEquals(2, scn.GetTwilight());
 
     }
 
     @Test
-    public void TalentOnlyTriggersWithTwoHobbitCompanions() throws DecisionResultInvalidException, CardNotFoundException {
+    public void TalentDoesNotReduceIfNonHobbitCompanions() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-        PhysicalCardImpl gaffer = scn.GetFreepsCard("gaffer");
+        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
         PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
-        scn.FreepsMoveCharToTable(gaffer, boromir);
+        scn.FreepsMoveCharToTable(merry, boromir);
         scn.FreepsMoveCardToHand(talent);
 
         scn.StartGame();
 
         scn.FreepsPlayCard(talent);
-        scn.FreepsChooseCard(frodo);
         scn.FreepsSkipCurrentPhaseAction();
 
-        //neither gaffer nor boromir should permit the move trigger to choose a companion
-        assertEquals(Phase.SHADOW, scn.GetCurrentPhase());
-        assertFalse(scn.HasKeyword(frodo, Keyword.CONCEALED));
+        // 3 for Frodo/Merry/Boromir, 1 for the site, Talent does not trigger
+        assertEquals(4, scn.GetTwilight());
     }
 
 

@@ -78,7 +78,7 @@ public class StingErrataTests
     }
 
     @Test
-    public void StingAbilityExertsFrodoAndRevealsThreeCards() throws DecisionResultInvalidException, CardNotFoundException {
+    public void StingAbilityExertsFrodoAndRevealsTwoCards() throws DecisionResultInvalidException, CardNotFoundException {
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
@@ -97,13 +97,13 @@ public class StingErrataTests
 
         scn.FreepsUseCardAction(sting);
 
-        //Reveals 3 cards
-        assertEquals(3, scn.FreepsGetADParamAsList("blueprintId").size());
+        //Reveals 2 cards
+        assertEquals(2, scn.FreepsGetADParamAsList("blueprintId").size());
         assertEquals(1, scn.GetWoundsOn(frodo));
     }
 
     @Test
-    public void StingAbilityMakesConcealedIfOrcRevealed() throws DecisionResultInvalidException, CardNotFoundException {
+    public void StingAbilityRemovesTwilight() throws DecisionResultInvalidException, CardNotFoundException {
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
@@ -120,63 +120,28 @@ public class StingErrataTests
 
         scn.StartGame();
 
-        scn.FreepsUseCardAction(sting);
-
-        //Both players have revealed cards as an action to dismiss
-        scn.SkipCurrentPhaseActions();
-
-        assertTrue(scn.FreepsCanChooseCharacter(frodo));
-        assertTrue(scn.FreepsCanChooseCharacter(sam));
-        assertTrue(scn.FreepsCanChooseCharacter(merry));
-
-        scn.FreepsChooseCard(frodo);
-        assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
+        scn.SetTwilight(10);
 
         scn.FreepsUseCardAction(sting);
-        scn.SkipCurrentPhaseActions();
-        assertFalse(scn.FreepsCanChooseCharacter(frodo));
-        assertTrue(scn.FreepsCanChooseCharacter(sam));
-        assertTrue(scn.FreepsCanChooseCharacter(merry));
-
-        scn.FreepsChooseCard(sam);
-        assertTrue(scn.HasKeyword(sam, Keyword.CONCEALED));
-    }
-
-
-    @Test
-    public void StingConcealedLastsUntilNextRegroup() throws DecisionResultInvalidException, CardNotFoundException {
-        GenericCardTestHelper scn = GetScenario();
-
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-
-        PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
-
-        scn.FreepsMoveCharToTable(sam);
-        scn.AttachCard(sting, frodo);
-
-        scn.ShadowMoveCardToHand(orc1);
-
-        scn.StartGame();
-
-        scn.SkipToPhase(Phase.REGROUP);
-
-        scn.FreepsUseCardAction(sting);
-        scn.FreepsChooseCard(frodo);
-        //Both players have revealed cards as an action to dismiss
-        scn.SkipCurrentPhaseActions();
-
-        scn.FreepsChooseCard(frodo);
-        assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
-
-        scn.ShadowSkipCurrentPhaseAction();
+        //Both players need to dismiss the card reveal dialog.
         scn.FreepsSkipCurrentPhaseAction();
-        //shadow reconcile
         scn.ShadowSkipCurrentPhaseAction();
 
-        scn.FreepsChooseToMove();
+        // 10 twilight - 1 orc in the hand = 9 twilight
+        assertEquals(9, scn.GetTwilight());
 
-        assertTrue(scn.HasKeyword(frodo, Keyword.CONCEALED));
+        scn.FreepsUseCardAction(sting);
+        scn.FreepsSkipCurrentPhaseAction();
+        scn.ShadowSkipCurrentPhaseAction();
+        // 9 twilight - 1 orc in the hand = 8 twilight
+        assertEquals(8, scn.GetTwilight());
+
+        scn.FreepsUseCardAction(sting);
+        scn.FreepsSkipCurrentPhaseAction();
+        scn.ShadowSkipCurrentPhaseAction();
+        // limit of 2 should have been hit, so no twilight should be removed
+        assertEquals(8, scn.GetTwilight());
+
     }
+
 }
