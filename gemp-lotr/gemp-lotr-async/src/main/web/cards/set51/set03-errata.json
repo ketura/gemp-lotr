@@ -16,13 +16,19 @@
           "times": 1
         },
         {
-          "type": "exert",
-          "filter": "choose(ally)",
-          "memorize": "summonedAlly",
-          "times": 1
-        }        
+          "type": "discard",
+          "filter": "self",
+        },
+       
       ],
       "effect":[
+        {
+          "type": "modifyStrength",
+          "filter": "choose(ally)",
+          "amount": 3,
+          "until": "start(regroup)",
+          "memorize": "summonedAlly"
+        },
         {
           "type": "allyCanParticipateInArcheryFireAndSkirmishes",
           "filter": "memory(summonedAlly)",
