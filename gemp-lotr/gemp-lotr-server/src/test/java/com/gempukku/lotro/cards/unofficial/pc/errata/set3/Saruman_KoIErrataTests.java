@@ -110,5 +110,7 @@ public class Saruman_KoIErrataTests
         assertEquals(0, scn.GetWoundsOn(uruk1));
         assertEquals(1, scn.GetWoundsOn(saruman));
 
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        assertTrue(scn.HasKeyword(uruk1, Keyword.FIERCE));
     }
 }

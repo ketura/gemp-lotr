@@ -96,7 +96,8 @@
         "effect": {
           "type": "addKeyword",
           "filter": "choose(uruk-hai)",
-          "keyword": "fierce"
+          "keyword": "fierce",
+          "until": "start(regroup)"
         }
       },
     ]
