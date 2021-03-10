@@ -1,7 +1,73 @@
 {
- "53_42": {
+  "53_17": {
+    "title": "*Galadriel",
+    "subtitle": "Lady of the Golden Wood",
+    "culture": "elven",
+    "cost": 3,
+    "type": "ally",
+    "allyHome": "fellowship,6",
+    "race": "elf",
+    "strength": 3,
+    "vitality": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "another,elf"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "playNextSite",
+          "filter": "forest"
+        }
+      }
+    ]
+  },
+  "53_38": {
+    "title": "*Aragorn",
+    "subtitle": "Heir to the White City",
+    "culture": "Gondor",
+    "type": "companion",
+    "race": "Man",
+    "cost": 4,
+    "strength": 8,
+    "vitality": 4,
+    "resistance": 6,
+    "signet": "frodo",
+    "keyword": [
+      "Ranger"
+    ],
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "moves"
+      },
+      "condition": {
+        "type": "phase",
+        "phase": "fellowship"
+      },
+      "effect": {
+        "type": "removeTwilight",
+        "amount": 1
+      }
+    }
+  },
+  "53_42": {
     "side": "free_people",
-    "cost": 0,
+    "cost": 1,
     "culture": "Gondor",
     "title": "*Horn of Boromir",
     "type": "possession",
@@ -12,32 +78,76 @@
       "cost": [
         {
           "type": "exert",
-          "filter": "bearer",
-          "times": 1
+          "filter": "bearer"
         },
         {
           "type": "discard",
-          "filter": "self",
-        },
-       
+          "filter": "self"
+        }
       ],
-      "effect":[
+      "effect": [
         {
-          "type": "modifyStrength",
+          "type": "spot",
           "filter": "choose(ally)",
-          "amount": 3,
-          "until": "start(regroup)",
-          "memorize": "summonedAlly"
+          "memorize": "chosenAlly"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyStrength",
+            "filter": "memory(chosenAlly)",
+            "amount": 3,
+            "until": "start(regroup)"
+          }
         },
         {
           "type": "allyCanParticipateInArcheryFireAndSkirmishes",
-          "filter": "memory(summonedAlly)",
+          "filter": "memory(chosenAlly)",
           "until": "start(regroup)"
         }
       ]
     }
   },
-  
+  "53_67": {
+    "title": "*The Palantir of Orthanc",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "palantir",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(isengard),minion"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": [
+        {
+          "type": "removeTwilight",
+          "amount": 2
+        },
+        {
+          "type": "canSpot",
+          "count": 2,
+          "memorize": "culture(isengard),minion"
+        }
+      ],
+      "effect": [
+        {
+          "type": "revealRandomCardsFromHand",
+          "forced": true,
+          "hand": "fp",
+          "count": 1,
+          "memorize": "revealedCard"
+        },
+        {
+          "type": "putCardsFromHandOnTopOfDeck",
+          "filter": "choose(memory(revealedCard))"
+        }
+      ]
+    }
+  },
   "53_68": {
     "side": "shadow",
     "site": 4,
@@ -53,19 +163,33 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "cantbeassignedtoskirmish",
-          "filter": "self"
-        }
-      },
-      {
-        "type": "modifier",
-        "modifier": {
           "type": "cantTakeWounds",
           "filter": "self",
           "condition": {
             "type": "phase",
             "phase": "archery"
           }
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantbeassignedtoskirmish",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(uruk-hai)",
+          "keyword": "fierce",
+          "until": "start(regroup)"
         }
       },
       {
@@ -76,73 +200,25 @@
         },
         "cost": {
           "type": "exert",
-          "filter": "self",
-          "times": 1
+          "filter": "self"
         },
         "effect":
         {
           "type": "preventWound",
           "filter": "choose(uruk-hai)"
         }
-      },
-      {
-        "type": "activated",
-        "phase": "maneuver",
-        "cost": {
-          "type": "exert",
-          "filter": "self",
-          "times": 1
-        },
-        "effect": {
-          "type": "addKeyword",
-          "filter": "choose(uruk-hai)",
-          "keyword": "fierce",
-          "until": "start(regroup)"
-        }
-      },
+      }
     ]
   },
-  
-  "53_38": {
-    "side": "free_people",
-    "title": "*Aragorn",
-    "subtitle": "Heir to the White City",
-    "culture": "Gondor",
-    "type": "companion",
-    "race": "Man",
-    "cost": 4,
-    "strength": 8,
-    "vitality": 4,
-    "resistance": 6,
-    "signet": "frodo",
-    "keyword": [
-      "Ranger",
-    ],
-    "effects": {
-      "type": "trigger",
-      "optional": false,
-      "trigger": {
-        "type": "movesfrom"
-      },
-      "condition": {
-        "type": "phase",
-        "phase": "fellowship"
-      },
-      "effect": {
-        "type": "removeTwilight",
-        "amount": 1
-      }
-    }
-  },
-  
- 
   "53_106": {
     "title": "*Bill the Pony",
     "culture": "Shire",
     "side": "free_people",
     "cost": 0,
     "type": "possession",
-    "possession": "Pony",
+    "keyword": [
+      "stealth"
+    ],
     "target": "name(Sam)",
     "effects": [
       {
@@ -157,22 +233,62 @@
         "type": "trigger",
         "trigger": {
           "type": "condition",
-          "condition": [
-            {
-              "type": "location",
-              "filter": "underground"
-            },
-            {
-              "type": "canSpot",
-              "filter": "self,attachedTo(companion)"
-            }
-          ]
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          }
         },
         "effect": {
           "type": "discard",
           "filter": "self"
         }
       }
-    ] 
-  }, 
+    ]
+  },
+  "53_108": {
+    "title": "Frying Pan",
+    "culture": "Shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 1,
+    "target": "hobbit",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(orc,inSkirmishAgainst(bearer))"
+      }
+    }
+  },
+  "53_113": {
+    "title": "*The Shire Countryside",
+    "culture": "shire",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "culture(shire),companion"
+    },
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "removesBurden",
+        "filter": "not(hobbit)"
+      },
+      "effect": {
+        "type": "heal",
+        "count": "0-2",
+        "filter": "choose(companion)"
+      }
+    }
+  }
 }

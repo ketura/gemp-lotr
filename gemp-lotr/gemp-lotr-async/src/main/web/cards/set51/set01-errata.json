@@ -66,8 +66,8 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "choose(another,ally,allyHome(fellowship,6))",
-          "count": "0-2"
+          "filter": "choose(ally,allyHome(fellowship,6))",
+          "count": "0-3"
         }
       },
       {
@@ -92,7 +92,7 @@
     "culture": "gandalf",
     "cost": 1,
     "type": "ally",
-    "allyHome": "fellowship,1",
+    "allyHome": "fellowship,3",
     "race": "man",
     "strength": 2,
     "vitality": 2,
@@ -103,32 +103,90 @@
     "effects": {
       "type": "activated",
       "phase": "fellowship",
-      "cost": {
-        "type": "exert",
-        "filter": "self"
-      },
-      "effect": [
+      "cost": [
         {
-          "type": "discardFromHand",
-          "forced": false,
-          "count": "0-3",
-          "memorize": "discardedCards"
+          "type": "exert",
+          "filter": "self"
         },
         {
-          "type": "drawCards",
-          "count": {
-            "type": "forEachInMemory",
-            "memory": "discardedCards"
-          }
+          "type": "discardFromHand",
+          "forced": false
         }
-      ]
+      ],
+      "effect": {
+        "type": "drawCards"
+      }
     }
   },
-
+  "51_108": {
+    "title": "*No Stranger to the Shadows",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "stealth"
+    ],
+    "target": "ranger",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "site",
+        "amount": -1
+      }
+    }
+  },
+  "51_138": {
+    "title": "Saruman's Snows",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "spell",
+      "weather"
+    ],
+    "target": "site",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(isengard),minion)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantPlayPhaseEventsOrPhaseSpecialAbilities",
+          "condition": [
+            {
+              "type": "location",
+              "filter": "hasAttached(self)"
+            },
+            {
+              "type": "canSpot",
+              "filter": "culture(isengard),minion,inSkirmish"
+            }
+          ],
+          "phase": "skirmish"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
   "51_139": {
     "title": "Savagery To Match Their Numbers",
     "culture": "isengard",
-    "cost": 0,
+    "cost": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -137,7 +195,7 @@
         "type": "choice",
         "texts": [
           "Make an Uruk-hai strength +2",
-          "Make an Uruk-hai fierce until the regroup phase, and strength +4 (this skirmish)"
+          "Make an Uruk-hai strength +4, and fierce until the regroup phase"
         ],
         "effects": [
           {
@@ -171,7 +229,6 @@
       }
     }
   },
-  
   "51_195": {
     "title": "*Relics of Moria",
     "culture": "moria",
@@ -192,7 +249,6 @@
       }
     }
   },
-  
   "51_234": {
     "title": "*Úlairë Nertëa",
     "subtitle": "Messenger of Dol Guldur",
@@ -218,16 +274,15 @@
         },
         "effect": {
           "type": "optional",
-          "text": "Would you like to play minion from your discard?",
+          "text": "Would you like to play a wraith minion from your discard?",
           "effect": {
             "type": "playCardFromDiscard",
-            "filter": "choose(nazgul)"
+            "filter": "choose(culture(wraith),minion)"
           }
         }
       }
     }
   },
-  
   "51_248": {
     "title": "Forces of Mordor",
     "culture": "sauron",
@@ -240,21 +295,16 @@
         "type": "exert",
         "filter": "choose(culture(sauron),minion)"
       },
-      "cost": {
-        "type": "chooseHowManyToSpot",
-        "filter": "culture(sauron),minion",
-        "memorize": "spottedCount"
-      },
       "effect": {
         "type": "addTwilight",
         "amount": {
           "type": "forEachYouCanSpot",
           "filter": "culture(sauron),orc",
+          "limit": 3
         }
       }
     }
   },
-  
   "51_311": {
     "title": "*Sam",
     "subtitle": "Son of Hamfast",
@@ -273,13 +323,11 @@
         "cost": [
           {
             "type": "exert",
-            "filter": "self",
-            "times": 1
+            "filter": "self"
           },
           {
             "type": "exert",
-            "filter": "choose(another,companion)",
-            "times": 1
+            "filter": "choose(another,companion)"
           }
         ],
         "effect": {
@@ -300,32 +348,6 @@
       }
     ]
   },
-  
-
-  
-  
-  
-
-  "51_108": {
-    "title": "*No Stranger to the Shadows",
-    "culture": "gondor",
-    "cost": 0,
-    "type": "condition",
-    "keyword": [
-      "stealth"
-    ],
-    "target": "ranger,not(hasAttached(name(No Stranger to the Shadows)))",
-    "effects": {
-      "type": "modifier",
-      "modifier": {
-        "type": "modifyCost",
-        "filter": "site",
-        "amount": -1
-      }
-    }
-  },
-  
-  
   "51_313": {
     "title": "*Sting",
     "culture": "shire",
@@ -350,13 +372,13 @@
           "hand": "shadowPlayer",
           "forced": true,
           "memorize": "revealedCards",
-          "count":2
+          "count": 4
         },
         {
           "type": "removeTwilight",
           "amount": {
             "type": "cardPhaseLimit",
-            "limit":  2,
+            "limit": 2,
             "amount": {
               "type": "forEachMatchingInMemory",
               "memory": "revealedCards",
@@ -368,13 +390,12 @@
       ]
     }
   },
- 
   "51_316": {
-    "title": "*A Talent for Not Being Seen",
+    "title": "A Talent for Not Being Seen",
     "culture": "shire",
     "cost": 0,
     "type": "condition",
-    "target": "or(name(Merry),name(Pippin))",
+    "target": "or(name(Merry),name(Pippin)),not(hasAttached(name(A Talent for Not Being Seen)))",
     "keyword": [
       "stealth"
     ],
@@ -383,22 +404,8 @@
       "modifier": {
         "type": "modifyCost",
         "filter": "site",
-        "amount": {
-          "type": "condition",
-          "condition": {
-            "type": "cantSpot",
-            "filter": "companion,not(hobbit)"
-          },
-          "true": -1,
-          "false": 0
-        }
+        "amount": -1
       }
     }
-  },
-  
-  
-  
-  
-  
-  
+  }
 }

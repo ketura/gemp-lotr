@@ -1,7 +1,7 @@
 {
-   "52_32": {
+  "52_32": {
     "side": "free_people",
-    "cost": 0,
+    "cost": 1,
     "strength": 1,
     "culture": "Gondor",
     "possession": "Hand Weapon",
@@ -17,7 +17,7 @@
         "phase": "skirmish",
         "condition": {
           "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)"
         },
         "cost": [
           {
@@ -30,7 +30,7 @@
             "filter": "self"
           }
         ],
-        "effect":[
+        "effect": [
           {
             "type": "modifyStrength",
             "filter": "memory(bearer)",
@@ -42,10 +42,123 @@
             "keyword": "damage+1"
           }
         ]
-      },
+      }
     ]
   },
-  
+  "52_75": {
+    "title": "*Bill Ferny",
+    "subtitle": "Swarthy Sneering Fellow",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "minion",
+    "race": "man",
+    "strength": 4,
+    "vitality": 1,
+    "site": 2,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "removeKeyword",
+          "filter": "nazgul",
+          "keyword": "roaming"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeAssignedToSkirmishByFpPlayer",
+          "condition": {
+            "type": "canSpot",
+            "filter": "hobbit"
+          },
+          "filter": "self"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "52_101": {
+    "title": "*Filibert Bolger",
+    "subtitle": "Wily Rascal",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "allyHome": "fellowship,1",
+    "race": "hobbit",
+    "strength": 1,
+    "vitality": 2,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(hobbit,companion,not(ring bearer))",
+          "times": 2,
+          "memorize": "exertedHobbit"
+        }
+      ],
+      "effect": {
+        "type": "cancelSkirmish",
+        "filter": "memory(exertedHobbit),infierceskirmish"
+      }
+    }
+  },
+  "52_108": {
+    "title": "*O Elbereth! Gilthoniel!",
+    "culture": "shire",
+    "cost": 1,
+    "type": "condition",
+    "strength": 1,
+    "keyword": "tale",
+    "target": "ring bearer",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "memorize",
+          "filter": "bearer",
+          "memory": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Make the Ring-bearer strength +3 if skirmishing a Nazgul",
+          "Take off The One Ring"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "memory(bearer),inSkirmishAgainst(nazgul)",
+            "amount": 3
+          },
+          {
+            "type": "takeOffRing"
+          }
+        ]
+      }
+    }
+  },
   "52_121": {
     "title": "*Gimli",
     "subtitle": "Dwarf of the Mountain-race",
@@ -58,15 +171,27 @@
     "resistance": 6,
     "signet": "frodo",
     "keyword": "damage+1",
-    "effects": {
-      "type": "modifier",
-      "modifier": {
-        "type": "modifyCost",
-        "filter": "underground,site",
-        "amount": -1
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "underground,site",
+          "amount": -1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "amount": 1,
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          },
+          "filter": "self"
+        }
       }
-    }
-  },
-  
-  
+    ]
+  }
 }
