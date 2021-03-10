@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class FlamingBrandErrataTests
 {
-    protected GenericCardTestHelper GetSimpleScenario() throws CardNotFoundException, DecisionResultInvalidException {
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
@@ -32,9 +32,34 @@ public class FlamingBrandErrataTests
     }
 
     @Test
+    public void BrandStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: Flaming Brand
+         * Side: Free Peoples
+         * Culture: Gondor
+         * Twilight Cost: 1
+         * Type: Possession
+         * Subtype: Hand Weapon
+         * Errata Game Text: Bearer must be a ranger.  This weapon may be borne in addition to 1 other hand weapon.
+         * Skirmish: If bearer is skirmishing a Nazgul, discard this possession to make bearer strength +3 and damage +1.
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl brand = scn.GetFreepsCard("brand");
+
+        assertFalse(brand.getBlueprint().isUnique());
+        assertEquals(1, brand.getBlueprint().getTwilightCost());
+        assertEquals(1, brand.getBlueprint().getStrength());
+    }
+
+    @Test
     public void CanBeBorneByRangers() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
         PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
@@ -63,7 +88,7 @@ public class FlamingBrandErrataTests
     @Test
     public void CanBeBorneTwice() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl brand = scn.GetFreepsCard("brand");
@@ -85,7 +110,7 @@ public class FlamingBrandErrataTests
     @Test
     public void SkirmishAbilityAvailableWhenSkirmishingNazgul() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
         PhysicalCardImpl brand = scn.GetFreepsCard("brand");
@@ -106,7 +131,7 @@ public class FlamingBrandErrataTests
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.SkipCurrentPhaseActions();
-        scn.FreepsAssignToMinion(aragorn, runner);
+        scn.FreepsAssignToMinions(aragorn, runner);
         //skip assigning the nazgul
         scn.SkipCurrentPhaseActions();
 
@@ -119,7 +144,7 @@ public class FlamingBrandErrataTests
 
         //assignment for fierce skirmish
         scn.SkipCurrentPhaseActions();
-        scn.FreepsAssignToMinion(aragorn, nazgul);
+        scn.FreepsAssignToMinions(aragorn, nazgul);
         scn.FreepsResolveSkirmish(aragorn);
 
         assertEquals(1, scn.FreepsGetAvailableActions().size());

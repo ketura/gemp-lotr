@@ -1,9 +1,7 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set3;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -21,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 public class BillThePonyErrataTests
 {
-    protected GenericCardTestHelper GetSimpleScenario() throws CardNotFoundException, DecisionResultInvalidException {
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
@@ -32,9 +30,35 @@ public class BillThePonyErrataTests
     }
 
     @Test
+    public void BillStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Bill the Pony
+         * Side: Free Peoples
+         * Culture: Shire
+         * Twilight Cost: 0
+         * Type: Possession
+         * Subtype: Pony
+         * Errata Game Text: Stealth.  Bearer must be Sam.
+         * Each site's Shadow number is -1. Discard this possession when at an underground site.
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl bill = scn.GetFreepsCard("bill");
+
+        assertTrue(bill.getBlueprint().isUnique());
+        assertEquals(0, bill.getBlueprint().getTwilightCost());
+
+        assertTrue(scn.HasKeyword(bill, Keyword.STEALTH));
+    }
+
+    @Test
     public void BillCanBeBorneBySam() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl bill = scn.GetFreepsCard("bill");
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
@@ -56,7 +80,7 @@ public class BillThePonyErrataTests
     @Test
     public void BillReducesTwilight() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl bill = scn.GetFreepsCard("bill");
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");
@@ -76,7 +100,7 @@ public class BillThePonyErrataTests
     @Test
     public void BillDiscardedWhenMovingToUnderground() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
-        GenericCardTestHelper scn = GetSimpleScenario();
+        GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl bill = scn.GetFreepsCard("bill");
         PhysicalCardImpl sam = scn.GetFreepsCard("sam");

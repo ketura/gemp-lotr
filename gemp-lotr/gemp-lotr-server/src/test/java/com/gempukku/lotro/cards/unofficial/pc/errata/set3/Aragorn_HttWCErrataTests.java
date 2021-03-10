@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set3;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -35,6 +36,39 @@ public class Aragorn_HttWCErrataTests
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+
+
+    }
+
+    @Test
+    public void AragornStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Aragorn
+         * Subtitle: Heir to the White City
+         * Side: Free Peoples
+         * Culture: Gondor
+         * Twilight Cost: 4
+         * Type: Companion
+         * Subtype: Man
+         * Strength: 8
+         * Vitality: 4
+         * Signet: Frodo
+         * Errata Game Text: Ranger.  Each time the fellowship moves during the fellowship phase, remove (1).
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+
+        assertTrue(aragorn.getBlueprint().isUnique());
+        assertEquals(4, aragorn.getBlueprint().getTwilightCost());
+
+        assertEquals(8, aragorn.getBlueprint().getStrength());
+        assertEquals(4, aragorn.getBlueprint().getVitality());
+        assertEquals(Signet.FRODO, aragorn.getBlueprint().getSignet());
 
         assertTrue(scn.HasKeyword(aragorn, Keyword.RANGER));
     }

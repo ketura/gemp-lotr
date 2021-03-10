@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set3;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -29,6 +30,40 @@ public class Saruman_KoIErrataTests
                     put("uruk2", "1_151");
                 }}
         );
+    }
+
+    @Test
+    public void SarumanStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Saruman
+         * Subtitle: Keeper of Isengard
+         * Side: Shadow
+         * Culture: Isengard
+         * Twilight Cost: 4
+         * Type: Minion
+         * Subtype: Wizard
+         * Strength: 8
+         * Vitality: 4
+         * Home Site: 4
+         * Errata Game Text: Saruman may not take wounds during the archery phase and may not be assigned to a skirmish.
+         * Maneuver: Exert Saruman to make an Uruk-hai fierce until the regroup phase.
+         * Response: If an Uruk-hai is about to take a wound, exert Saruman to prevent that wound.
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl saruman = scn.GetFreepsCard("saruman");
+
+        assertTrue(saruman.getBlueprint().isUnique());
+        assertEquals(4, saruman.getBlueprint().getTwilightCost());
+
+        assertEquals(8, saruman.getBlueprint().getStrength());
+        assertEquals(4, saruman.getBlueprint().getVitality());
+        assertEquals(4, saruman.getBlueprint().getSiteNumber());
+
     }
 
     @Test

@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
@@ -31,14 +32,27 @@ public class NoStrangerErrataTests
 
 
     @Test
-    public void NoStrangerIsUniqueAndHasStealth() throws DecisionResultInvalidException, CardNotFoundException {
+    public void NoStrangerStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *No Stranger to the Shadows
+         * Side: Free Peoples
+         * Culture: Gondor
+         * Twilight Cost: 0
+         * Type: Condition
+         * Errata Game Text: At the start of each of your turns, heal up to 3 allies whose home is site 6.
+         * Fellowship: Exert Galadriel to play an Elf; that Elf's twilight cost is -1.
+         */
+
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
 
-        assertTrue(scn.HasKeyword(nostranger, Keyword.STEALTH));
         assertTrue(nostranger.getBlueprint().isUnique());
+        assertEquals(0, nostranger.getBlueprint().getTwilightCost());
+        assertTrue(scn.HasKeyword(nostranger, Keyword.STEALTH));
     }
 
     @Test

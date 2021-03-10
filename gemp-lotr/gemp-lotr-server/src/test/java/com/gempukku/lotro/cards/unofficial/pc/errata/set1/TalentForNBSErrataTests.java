@@ -32,11 +32,26 @@ public class TalentForNBSErrataTests
     }
 
     @Test
-    public void TalentHasStealth() throws DecisionResultInvalidException, CardNotFoundException {
+    public void TalentStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *A Talent for Not Being Seen
+         * Side: Free Peoples
+         * Culture: Shire
+         * Twilight Cost: 0
+         * Type: Condition
+         * Errata Game Text: Stealth.  Bearer must be Merry or Pippin.  Limit 1 per character.
+         * Each site's Shadow number is -1.
+         */
+
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl talent = scn.GetFreepsCard("talent");
+
+        assertTrue(talent.getBlueprint().isUnique());
+        assertEquals(0, talent.getBlueprint().getTwilightCost());
 
         assertTrue(scn.HasKeyword(talent, Keyword.STEALTH));
     }
