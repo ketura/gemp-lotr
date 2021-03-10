@@ -5,9 +5,12 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Galadriel_LoLErrataTests
@@ -33,6 +36,38 @@ public class Galadriel_LoLErrataTests
                     put("allyHome6_3", "1_34");
                 }}
         );
+    }
+
+    @Test
+    public void GaladrielStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Galadriel
+         * Subtitle: Lady of Light
+         * Side: Free Peoples
+         * Culture: Elven
+         * Twilight Cost: 3
+         * Type: Ally
+         * Subtype: Elf
+         * Home: 6
+         * Strength: 3
+         * Vitality: 3
+         * Errata Game Text: At the start of each of your turns, heal up to 3 allies whose home is site 6.
+         * Fellowship: Exert Galadriel to play an Elf; that Elf's twilight cost is -1.
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetSimplePlayScenario();
+
+        PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+
+        assertTrue(galadriel.getBlueprint().isUnique());
+        assertEquals(3, galadriel.getBlueprint().getTwilightCost());
+
+        assertEquals(3, galadriel.getBlueprint().getStrength());
+        assertEquals(3, galadriel.getBlueprint().getVitality());
+        assertEquals(6, Arrays.stream(galadriel.getBlueprint().getAllyHomeSiteNumbers()).findFirst().getAsInt());
     }
 
     @Test

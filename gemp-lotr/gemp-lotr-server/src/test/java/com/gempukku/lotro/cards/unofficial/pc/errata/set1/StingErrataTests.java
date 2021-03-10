@@ -36,6 +36,32 @@ public class StingErrataTests
         );
     }
 
+    @Test
+    public void StingStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Sting
+         * Side: Free Peoples
+         * Culture: Shire
+         * Twilight Cost: 1
+         * Strength: +2
+         * Type: Possession
+         * Subtype: Hand Weapon
+         * Errata Game Text: Bearer must be Frodo.
+         * Fellowship or Regroup: Exert Frodo to reveal 4 cards at random from an opponent's hand.  Remove (1) for each Orc revealed (limit (2)).
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
+
+        assertTrue(sting.getBlueprint().isUnique());
+        assertEquals(1, sting.getBlueprint().getTwilightCost());
+        assertEquals(2, sting.getBlueprint().getStrength());
+    }
+
 
     @Test
     public void StingCanOnlyBeBorneByFrodo() throws DecisionResultInvalidException, CardNotFoundException {

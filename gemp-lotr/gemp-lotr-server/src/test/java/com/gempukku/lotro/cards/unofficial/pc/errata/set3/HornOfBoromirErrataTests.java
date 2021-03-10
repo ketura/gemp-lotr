@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set3;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -43,8 +43,32 @@ public class HornOfBoromirErrataTests
                     put("aragorn", "1_89");
 
                     put("runner1", "1_178");
+                    put("runner2", "1_178");
                 }}
         );
+    }
+
+    @Test
+    public void HornStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Horn of Boromir
+         * Side: Free Peoples
+         * Culture: Gondor
+         * Twilight Cost: 1
+         * Type: Possession
+         * Errata Game Text: Bearer must be Boromir.
+         * Maneuver: Exert Boromir and discard this possession to spot an ally.  Until the regroup phase, that ally is strength +3 and participates in archery fire and skirmishes.
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetFOTRScenario();
+
+        PhysicalCardImpl horn = scn.GetFreepsCard("horn");
+
+        assertTrue(horn.getBlueprint().isUnique());
+        assertEquals(1, horn.getBlueprint().getTwilightCost());
     }
 
     @Test
@@ -106,8 +130,10 @@ public class HornOfBoromirErrataTests
 
         scn.SkipCurrentPhaseActions();
 
-        scn.FreepsAssignToMinion(elrond, runner1);
+        scn.FreepsAssignToMinions(elrond, runner1);
         assertTrue(scn.IsCharAssigned(elrond));
+        assertEquals(11, scn.GetStrength(elrond));
+        
     }
 
 

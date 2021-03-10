@@ -1,7 +1,7 @@
 {
  "53_42": {
     "side": "free_people",
-    "cost": 0,
+    "cost": 1,
     "culture": "Gondor",
     "title": "*Horn of Boromir",
     "type": "possession",
@@ -143,6 +143,9 @@
     "cost": 0,
     "type": "possession",
     "possession": "Pony",
+    "keyword": [
+      "stealth"
+    ],
     "target": "name(Sam)",
     "effects": [
       {

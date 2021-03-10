@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -47,6 +48,39 @@ public class Elrond_LoRErrataTests
                     put("allyHome6_2", "1_57");
                 }}
         );
+    }
+
+    @Test
+    public void ElrondStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Elrond
+         * Subtitle: Lord of Rivendell
+         * Side: Free Peoples
+         * Culture: Elven
+         * Twilight Cost: 4
+         * Type: Ally
+         * Subtype: Elf
+         * Home: 3
+         * Strength: 8
+         * Vitality: 4
+         * Errata Game Text: To play, spot Gandalf or an Elf.
+         * At the start of each of your turns, heal up to 3 allies whose home is site 3.
+         * Fellowship: Exert Elrond twice (or once if you can spot 2 other [elven] allies) to draw a card.
+         */
+
+        //Pre-game setup
+        GenericCardTestHelper scn = GetSimpleDeckScenario();
+
+        PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+
+        assertTrue(elrond.getBlueprint().isUnique());
+        assertEquals(4, elrond.getBlueprint().getTwilightCost());
+
+        assertEquals(8, elrond.getBlueprint().getStrength());
+        assertEquals(4, elrond.getBlueprint().getVitality());
+        assertEquals(3, Arrays.stream(elrond.getBlueprint().getAllyHomeSiteNumbers()).findFirst().getAsInt());
     }
 
     @Test

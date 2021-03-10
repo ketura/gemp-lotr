@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set2;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -28,11 +29,34 @@ public class Gimli_DotMrErrataTests
     }
 
     @Test
-    public void GimliHasDamage() throws DecisionResultInvalidException, CardNotFoundException {
+    public void GimliStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+
+        /**
+         * Set: 1E
+         * Title: *Gimli
+         * Subtitle: Dwarf of the Mountain-race
+         * Side: Free Peoples
+         * Culture: Dwarven
+         * Twilight Cost: 2
+         * Type: Companion
+         * Subtype: Dwarf
+         * Strength: 6
+         * Vitality: 3
+         * Signet: Frodo
+         * Errata Game Text: Damage +1.  Each underground site's Shadow number is -1.  While the fellowship is at an underground site, Gimli is strength +1.
+         */
+
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+
+        assertTrue(gimli.getBlueprint().isUnique());
+        assertEquals(2, gimli.getBlueprint().getTwilightCost());
+
+        assertEquals(6, gimli.getBlueprint().getStrength());
+        assertEquals(3, gimli.getBlueprint().getVitality());
+        assertEquals(Signet.FRODO, gimli.getBlueprint().getSignet());
 
         assertTrue(scn.HasKeyword(gimli, Keyword.DAMAGE));
     }

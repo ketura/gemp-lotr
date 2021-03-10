@@ -1,7 +1,7 @@
 {
    "52_32": {
     "side": "free_people",
-    "cost": 0,
+    "cost": 1,
     "strength": 1,
     "culture": "Gondor",
     "possession": "Hand Weapon",
