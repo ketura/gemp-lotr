@@ -67,12 +67,14 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "cantBeAssignedToSkirmishByFpPlayer",
+          "type": "cantBeAssignedToSkirmishAgainst",
           "condition": {
             "type": "canSpot",
             "filter": "hobbit"
           },
-          "filter": "self"
+          "minion": "self",
+          "fpCharacter": "any",
+          "side": "free people"
         }
       },
       {
@@ -148,9 +150,14 @@
         ],
         "effects": [
           {
-            "type": "modifyStrength",
-            "filter": "memory(bearer),inSkirmishAgainst(nazgul)",
-            "amount": 3
+            "type": "addmodifier",
+            "modifier": {
+              "type": "modifyStrength",
+              "filter": "memory(bearer),inSkirmishAgainst(nazgul)",
+              
+              "amount": 3
+            },
+            
           },
           {
             "type": "takeOffRing"

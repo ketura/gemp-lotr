@@ -104,7 +104,7 @@ public class StingErrataTests
     }
 
     @Test
-    public void StingAbilityExertsFrodoAndRevealsTwoCards() throws DecisionResultInvalidException, CardNotFoundException {
+    public void StingAbilityExertsFrodoAndRevealsFourCards() throws DecisionResultInvalidException, CardNotFoundException {
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl frodo = scn.GetRingBearer();
@@ -124,7 +124,7 @@ public class StingErrataTests
         scn.FreepsUseCardAction(sting);
 
         //Reveals 2 cards
-        assertEquals(2, scn.FreepsGetADParamAsList("blueprintId").size());
+        assertEquals(4, scn.FreepsGetADParamAsList("blueprintId").size());
         assertEquals(1, scn.GetWoundsOn(frodo));
     }
 

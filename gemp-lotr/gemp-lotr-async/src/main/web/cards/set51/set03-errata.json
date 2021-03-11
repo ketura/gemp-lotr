@@ -18,7 +18,7 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "another,elf"
+          "filter": "choose(another,elf)"
         }
       },
       {
@@ -97,8 +97,8 @@
             "type": "modifyStrength",
             "filter": "memory(chosenAlly)",
             "amount": 3,
-            "until": "start(regroup)"
-          }
+          },
+          "until": "start(regroup)"
         },
         {
           "type": "allyCanParticipateInArcheryFireAndSkirmishes",
@@ -126,13 +126,13 @@
         {
           "type": "removeTwilight",
           "amount": 2
-        },
-        {
-          "type": "canSpot",
-          "count": 2,
-          "memorize": "culture(isengard),minion"
         }
       ],
+      "condition": {
+          "type": "canSpot",
+          "filter": "culture(isengard),minion",
+          "count": 2,
+        },
       "effect": [
         {
           "type": "revealRandomCardsFromHand",

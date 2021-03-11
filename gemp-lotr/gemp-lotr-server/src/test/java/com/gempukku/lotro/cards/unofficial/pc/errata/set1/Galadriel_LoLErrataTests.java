@@ -97,7 +97,7 @@ public class Galadriel_LoLErrataTests
 
 
     @Test
-    public void AllyHealsCappedAt2() throws DecisionResultInvalidException, CardNotFoundException {
+    public void AllyHealsCappedAt3() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetHome6AllyScenario();
         scn.FreepsMoveCharToTable("galadriel");
@@ -116,9 +116,9 @@ public class Galadriel_LoLErrataTests
 
         assertEquals(Phase.BETWEEN_TURNS, scn.GetCurrentPhase());
 
-        //There are 5 total elf allies in play: 1 is home 3, and 1 is Galadriel herself.  The rest should be eligible.
-        assertEquals(3, scn.FreepsGetADParamAsList("cardId").size());
+        //There are 5 total elf allies in play: 1 is home 3.  The rest should be eligible.
+        assertEquals(4, scn.FreepsGetADParamAsList("cardId").size());
         assertEquals("0", scn.FreepsGetADParam("min"));
-        assertEquals("2", scn.FreepsGetADParam("max"));
+        assertEquals("3", scn.FreepsGetADParam("max"));
     }
 }

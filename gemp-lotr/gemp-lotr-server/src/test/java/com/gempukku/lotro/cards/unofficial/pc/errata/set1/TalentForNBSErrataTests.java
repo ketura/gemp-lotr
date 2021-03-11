@@ -36,7 +36,7 @@ public class TalentForNBSErrataTests
 
         /**
          * Set: 1E
-         * Title: *A Talent for Not Being Seen
+         * Title: A Talent for Not Being Seen
          * Side: Free Peoples
          * Culture: Shire
          * Twilight Cost: 0
@@ -50,7 +50,7 @@ public class TalentForNBSErrataTests
 
         PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
-        assertTrue(talent.getBlueprint().isUnique());
+        assertFalse(talent.getBlueprint().isUnique());
         assertEquals(0, talent.getBlueprint().getTwilightCost());
 
         assertTrue(scn.HasKeyword(talent, Keyword.STEALTH));
@@ -103,27 +103,6 @@ public class TalentForNBSErrataTests
 
     }
 
-    @Test
-    public void TalentDoesNotReduceIfNonHobbitCompanions() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
-
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
-        PhysicalCardImpl talent = scn.GetFreepsCard("talent");
-
-        scn.FreepsMoveCharToTable(merry, boromir);
-        scn.FreepsMoveCardToHand(talent);
-
-        scn.StartGame();
-
-        scn.FreepsPlayCard(talent);
-        scn.FreepsSkipCurrentPhaseAction();
-
-        // 3 for Frodo/Merry/Boromir, 1 for the site, Talent does not trigger
-        assertEquals(4, scn.GetTwilight());
-    }
 
 
 }
