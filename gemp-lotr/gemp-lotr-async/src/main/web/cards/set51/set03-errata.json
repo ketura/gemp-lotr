@@ -284,11 +284,21 @@
         "type": "removesBurden",
         "filter": "not(hobbit)"
       },
-      "effect": {
-        "type": "heal",
-        "count": "0-2",
-        "filter": "choose(companion)"
-      }
+      "condition": {
+        "type": "perPhaseLimit",
+        "limit": 1
+      },
+      "effect": [
+        {
+          "type": "incrementPerPhaseLimit",
+          "limit": 1
+        },
+        {
+          "type": "heal",
+          "count": "0-2",
+          "filter": "choose(companion)"
+        }
+      ]
     }
   }
 }
