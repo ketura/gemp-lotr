@@ -108,6 +108,14 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean removedBurden(LotroGame game, EffectResult effectResult, Filterable... sourceFilters) {
+        if (effectResult.getType() == EffectResult.Type.REMOVE_BURDEN) {
+            RemoveBurdenResult burdenResult = (RemoveBurdenResult) effectResult;
+            return (Filters.and(sourceFilters).accepts(game, burdenResult.getSource()));
+        }
+        return false;
+    }
+
     public static boolean addedThreat(LotroGame game, EffectResult effectResult, Filterable... sourceFilters) {
         if (effectResult.getType() == EffectResult.Type.ADD_THREAT) {
             AddThreatResult burdenResult = (AddThreatResult) effectResult;
