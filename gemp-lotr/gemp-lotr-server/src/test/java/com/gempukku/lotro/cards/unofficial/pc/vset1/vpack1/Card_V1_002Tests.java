@@ -22,7 +22,7 @@ public class Card_V1_002Tests
                 {{
                     put("aragorn", "1_89");
                     put("boromir", "1_97");
-                    put("whitecity", "101_002");
+                    put("whitecity", "101_2");
 
                     put("attea", "1_229");
                     put("cantea", "1_230");

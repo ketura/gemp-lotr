@@ -25,7 +25,7 @@ public class Card_V1_005Tests
                 {{
                     put("aragorn", "1_89");
                     put("boromir", "1_97");
-                    put("remnant", "101_005");
+                    put("remnant", "101_5");
 
                     put("inquisitor", "1_268");
                 }}

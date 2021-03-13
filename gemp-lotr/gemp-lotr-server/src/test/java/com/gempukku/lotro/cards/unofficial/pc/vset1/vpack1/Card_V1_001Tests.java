@@ -22,7 +22,7 @@ public class Card_V1_001Tests
                 {{
                     put("aragorn", "1_89");
                     put("boromir", "1_97");
-                    put("lords", "101_001");
+                    put("lords", "101_1");
 
                     put("runner1", "1_178");
                     put("runner2", "1_178");

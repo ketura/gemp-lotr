@@ -22,7 +22,7 @@ public class Card_V1_003Tests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("boromir", "101_003");
+                    put("boromir", "101_3");
                     put("sam", "1_311");
                     put("merry", "1_302");
                     put("pippin", "1_307");

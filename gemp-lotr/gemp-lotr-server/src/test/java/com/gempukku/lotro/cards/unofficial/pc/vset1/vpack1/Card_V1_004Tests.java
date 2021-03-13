@@ -24,7 +24,7 @@ public class Card_V1_004Tests
                 {{
                     put("aragorn", "1_89");
                     put("boromir", "1_97");
-                    put("loud", "101_004");
+                    put("loud", "101_4");
 
                     put("attea", "1_229");
                 }}

@@ -1,5 +1,5 @@
 {
-   "101_001": {
+   "101_1": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*The Lords of Gondor Have Returned",
@@ -41,7 +41,7 @@
     ]
   },
   
-  "101_002": {
+  "101_2": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*I Will Not Let the White City Fall",
@@ -78,7 +78,7 @@
     ]
   },
   
-  "101_003": {
+  "101_3": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*Boromir",
@@ -134,7 +134,7 @@
     ]
   },
   
-  "101_004": {
+  "101_4": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*Loud and Clear It Sounds",
@@ -173,7 +173,7 @@
     ]
   },
   
-  "101_005": {
+  "101_5": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "Remnant of Numenor",
@@ -204,7 +204,7 @@
     }
   },
   
-  "101_006": {
+  "101_6": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "*Great Wolf Chief",
@@ -253,7 +253,7 @@
     ]
   },
   
-  "101_007": {
+  "101_7": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "Hollin Snarler",
@@ -302,7 +302,7 @@
     ]
   },
   
-  "101_008": {
+  "101_8": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "Hound of Sauron",
@@ -351,7 +351,7 @@
     ]
   },
   
-  "101_009": {
+  "101_9": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "*The Hunt is Up!",
@@ -393,7 +393,7 @@
     ]
   },
   
-  "101_010": {
+  "101_10": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "I See You",
