@@ -72,6 +72,7 @@ var PCCards = {
 	'51_45': 'https://i.lotrtcgpc.net/errata/FOTR/51_045.jpg',
 	'51_80': 'https://i.lotrtcgpc.net/errata/FOTR/51_080.jpg',
 	'51_108': 'https://i.lotrtcgpc.net/errata/FOTR/51_108.jpg',
+	'51_138': 'https://i.lotrtcgpc.net/errata/FOTR/51_138.jpg',
 	'51_139': 'https://i.lotrtcgpc.net/errata/FOTR/51_139.jpg',
 	'51_195': 'https://i.lotrtcgpc.net/errata/FOTR/51_195.jpg',
 	'51_234': 'https://i.lotrtcgpc.net/errata/FOTR/51_234.jpg',
