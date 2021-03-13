@@ -191,13 +191,7 @@
     "keyword": "skirmish",
     "effects": {
       "type": "event",
-      "effect": {
-        "type": "choice",
-        "texts": [
-          "Make an Uruk-hai strength +2",
-          "Make an Uruk-hai strength +4, and fierce until the regroup phase"
-        ],
-        "effects": [
+      "effect": [
           {
             "type": "modifyStrength",
             "filter": "choose(uruk-hai)",
@@ -212,12 +206,6 @@
             },
             "effect": [
               {
-                "type": "modifyStrength",
-                "filter": "choose(uruk-hai)",
-                "amount": 4,
-                "memorize": "chosenUrukHai"
-              },
-              {
                 "type": "addKeyword",
                 "filter": "memory(chosenUrukHai)",
                 "keyword": "fierce",
@@ -226,7 +214,7 @@
             ]
           }
         ]
-      }
+
     }
   },
   "51_195": {
