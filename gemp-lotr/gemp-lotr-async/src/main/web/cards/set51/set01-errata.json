@@ -195,12 +195,13 @@
           {
             "type": "modifyStrength",
             "filter": "choose(uruk-hai)",
+            "memorize": "chosenUrukHai",
             "amount": 2
           },
           {
             "type": "conditional",
             "condition": {
-              "type": "canSpot",
+              "type": "chooseHowManyToSpot",
               "count": 5,
               "filter": "companion"
             },
