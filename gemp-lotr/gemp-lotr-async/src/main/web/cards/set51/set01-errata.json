@@ -201,7 +201,7 @@
           {
             "type": "conditional",
             "condition": {
-              "type": "chooseHowManyToSpot",
+              "type": "canSpot",
               "count": 5,
               "filter": "companion"
             },

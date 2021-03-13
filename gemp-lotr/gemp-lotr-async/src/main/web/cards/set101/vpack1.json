@@ -1,5 +1,5 @@
 {
-   "101_1001": {
+   "101_001": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*The Lords of Gondor Have Returned",
@@ -41,55 +41,50 @@
     ]
   },
   
-  "101_1002": {
+  "101_002": {
     "side": "free_people",
     "culture": "Gondor",
-    "title": "*I Will not Let the White City Fall",
+    "title": "*I Will Not Let the White City Fall",
     "type": "condition",
     "cost": 2,
     "keyword": "support area",
     "effects": [
       {
-        "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        "type": "trigger",
+        "trigger": {
+          "type": "losesSkirmish",
+          "filter": "name(Boromir)"
         },
-        "cost": [
-          {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
-          {
-            "type": "discard",
-            "filter": "self"
-          }
-        ],
-        "effect":[
-          {
-            "type": "modifyStrength",
-            "filter": "memory(bearer)",
-            "amount": 3
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(bearer)",
-            "keyword": "damage+1"
-          }
-        ]
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(name(Aragorn))",
+          "amount": 2,
+          "until": "start(regroup)"
+        },
       },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesSkirmish",
+          "filter": "name(Aragorn)"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(name(Boromir))",
+          "amount": 2,
+          "until": "start(regroup)"
+        },
+      }
     ]
   },
   
-  "101_1003": {
+  "101_003": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*Boromir",
     "subtitle": "The Redeemed",
     "type": "companion",
-    "cost": 2,
+    "cost": 3,
     "race": "man",
     "strength": 7,
     "vitality": 3,
@@ -97,40 +92,49 @@
     "signet": "aragorn",
     "effects": [
       {
-        "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
-        },
-        "cost": [
-          {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
-          {
-            "type": "discard",
-            "filter": "self"
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "defender+1",
+          "condition": {
+            "type": "canSpot",
+            "filter": "companion,culture(shire)",
+            "count": 2
           }
-        ],
-        "effect":[
-          {
-            "type": "modifyStrength",
-            "filter": "memory(bearer)",
-            "amount": 3
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(bearer)",
-            "keyword": "damage+1"
-          }
-        ]
+        }
       },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": 1,
+          "condition": {
+            "type": "canSpot",
+            "filter": "companion,culture(shire)",
+            "count": 4
+          }
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "damage+1",
+          "condition": {
+            "type": "canSpot",
+            "filter": "companion,culture(shire)",
+            "count": 4
+          }
+        }
+      },
+      
     ]
   },
   
-  "101_1004": {
+  "101_004": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "*Loud and Clear It Sounds",
@@ -139,82 +143,68 @@
     "keyword": "support area",
     "effects": [
       {
-        "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "assignedToSkirmish",
+          "filter": "companion,culture(shire)",
+          "side": "shadow",
+          "memorizeAssigned": "assignedHobbit",
+          "memorizeAgainst": "assignedMinion"
         },
         "cost": [
           {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
+            "type": "exert",
+            "count": 1,
+            "filter": "choose(companion,culture(gondor))",
+            "memorize": "newAssignee"
+          }, 
           {
             "type": "discard",
             "filter": "self"
           }
         ],
-        "effect":[
-          {
-            "type": "modifyStrength",
-            "filter": "memory(bearer)",
-            "amount": 3
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(bearer)",
-            "keyword": "damage+1"
-          }
-        ]
-      },
+        "effect": {
+          "type": "replaceInAssignment",
+          "filter": "memory(assignedHobbit)",
+          "with": "memory(newAssignee)"
+        }
+      }
     ]
   },
   
-  "101_1005": {
+  "101_005": {
     "side": "free_people",
     "culture": "Gondor",
     "title": "Remnant of Numenor",
     "type": "condition",
     "cost": 1,
     "keyword": "support area",
-    "effects": [
-      {
-        "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
-        },
-        "cost": [
-          {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
-          {
-            "type": "discard",
-            "filter": "self"
-          }
-        ],
-        "effect":[
-          {
-            "type": "modifyStrength",
-            "filter": "memory(bearer)",
-            "amount": 3
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(bearer)",
-            "keyword": "damage+1"
-          }
-        ]
+    "condition": {
+      "type": "canSpot",
+      "filter": "companion,culture(gondor)"
+    },
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "discardFromHand",
+        "filter": "any",
+        "player": "shadowPlayer"
       },
-    ]
+      "cost": {
+        "type": "addTwilight",
+        "amount": 1
+      },
+      "effect": {
+        "type": "shuffleCardsFromDiscardIntoDrawDeck",
+        "filter": "choose(culture(gondor))",
+        "count": 1
+      }
+    }
   },
   
-  "101_1006": {
+  "101_006": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "*Great Wolf Chief",
@@ -263,7 +253,7 @@
     ]
   },
   
-  "101_1007": {
+  "101_007": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "Hollin Snarler",
@@ -312,7 +302,7 @@
     ]
   },
   
-  "101_1008": {
+  "101_008": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "Hound of Sauron",
@@ -361,7 +351,7 @@
     ]
   },
   
-  "101_1009": {
+  "101_009": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "*The Hunt is Up!",
@@ -403,7 +393,7 @@
     ]
   },
   
-  "101_1010": {
+  "101_010": {
     "side": "shadow",
     "culture": "Sauron",
     "title": "I See You",

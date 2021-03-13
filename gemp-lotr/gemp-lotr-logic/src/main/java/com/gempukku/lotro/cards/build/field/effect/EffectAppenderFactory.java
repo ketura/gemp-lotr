@@ -29,6 +29,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("wound", new Wound());
         effectAppenderProducers.put("heal", new Heal());
         effectAppenderProducers.put("replaceinskirmish", new ReplaceInSkirmish());
+        effectAppenderProducers.put("replaceinassignment", new ReplaceInAssignment());
         effectAppenderProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         effectAppenderProducers.put("canttakewounds", new CantTakeWounds());
         effectAppenderProducers.put("choice", new Choice());

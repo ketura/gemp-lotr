@@ -270,6 +270,15 @@ public class GenericCardTestHelper extends AbstractAtTest {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.SUPPORT));
     }
 
+    public void FreepsMoveCardToDiscard(String cardName) { FreepsMoveCardToSupportArea(GetFreepsCard(cardName)); }
+    public void FreepsMoveCardToDiscard(PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
+    }
+    public void ShadowMoveCardToDiscard(String cardName) { ShadowMoveCardToSupportArea(GetShadowCard(cardName)); }
+    public void ShadowMoveCardToDiscard(PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
+    }
+
     public void MoveCardToZone(String player, PhysicalCardImpl card, Zone zone) {
         if(card.getZone() != null)
         {
@@ -408,6 +417,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     {
         _game.getModifiersEnvironment().addUntilEndOfTurnModifier(mod);
     }
+
+    public void FreepsChoose(String choice) throws DecisionResultInvalidException { playerDecided(P1, choice); }
+    public void ShadowChoose(String choice) throws DecisionResultInvalidException { playerDecided(P2, choice); }
 
     public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsChooseToStay() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
