@@ -180,6 +180,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return decision.getDecisionParameters();
     }
 
+    //public boolean HasItemIn
+
     public void FreepsUseCardAction(String name) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, name)); }
     public void FreepsUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, "Use " + GameUtils.getFullName(card))); }
     public void ShadowUseCardAction(String name) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, name)); }
@@ -326,11 +328,21 @@ public class GenericCardTestHelper extends AbstractAtTest {
     }
 
 
-    public void FreepsAssignToMinion(String name, String target) throws DecisionResultInvalidException { FreepsAssignToMinion(GetFreepsCard(name), GetShadowCard(target)); }
-    public void FreepsAssignToMinion(PhysicalCardImpl comp, PhysicalCardImpl minion) throws DecisionResultInvalidException {
-        playerDecided(P1, comp.getCardId() + " " + minion.getCardId());
+    public void FreepsAssignToMinions(PhysicalCardImpl comp, PhysicalCardImpl...minions) throws DecisionResultInvalidException { AssignToMinions(P1, comp, minions); }
+    public void ShadowAssignToMinions(PhysicalCardImpl comp, PhysicalCardImpl...minions) throws DecisionResultInvalidException { AssignToMinions(P2, comp, minions); }
+    public void AssignToMinions(String player, PhysicalCardImpl comp, PhysicalCardImpl...minions) throws DecisionResultInvalidException {
+        String result = comp.getCardId() + "";
+
+        for (PhysicalCardImpl minion : minions) {
+            result += " " + minion.getCardId();
+        }
+
+        playerDecided(player, result);
     }
-    public void FreepsAssignToMinions(PhysicalCardImpl[]... groups) throws DecisionResultInvalidException {
+
+    public void FreepsAssignToMinions(PhysicalCardImpl[]...groups) throws DecisionResultInvalidException { AssignToMinions(P1, groups); }
+    public void ShadowAssignToMinions(PhysicalCardImpl[]...groups) throws DecisionResultInvalidException { AssignToMinions(P2, groups); }
+    public void AssignToMinions(String player, PhysicalCardImpl[]...groups) throws DecisionResultInvalidException {
         String result = "";
 
         for (PhysicalCardImpl[] group : groups) {
@@ -342,8 +354,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
             result += ",";
         }
 
-        playerDecided(P1, result);
+        playerDecided(player, result);
     }
+
 
     public List<PhysicalCardImpl> FreepsGetAttachedCards(String name) { return GetAttachedCards(GetFreepsCard(name)); }
     public List<PhysicalCardImpl> GetAttachedCards(PhysicalCardImpl card) {
@@ -398,6 +411,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsChooseToStay() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
+
+    public boolean FreepsHasOptionalTriggerAvailable() throws DecisionResultInvalidException { return FreepsDecisionAvailable("Optional Response"); }
+    public boolean ShadowHasOptionalTriggerAvailable() throws DecisionResultInvalidException { return ShadowDecisionAvailable("Optional Response"); }
 
     public void FreepsAcceptOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
