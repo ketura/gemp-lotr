@@ -109,7 +109,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "self",
-          "amount": 1,
+          "amount": 2,
           "condition": {
             "type": "canSpot",
             "filter": "companion,culture(shire)",
@@ -220,36 +220,32 @@
     ],
     "effects": [
       {
-        "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
-        },
-        "cost": [
-          {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
-          {
-            "type": "discard",
-            "filter": "self"
+        "type": "modifier",
+        "modifier": {
+          "type": "ModifySiteNumber",
+          "filter": "self",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "stealth",
+            "multiplier": -1
           }
-        ],
-        "effect":[
-          {
-            "type": "modifyStrength",
-            "filter": "memory(bearer)",
-            "amount": 3
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(bearer)",
-            "keyword": "damage+1"
-          }
-        ]
+        }
       },
+      
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "another,culture(sauron),warg"
+        },
+        "effect": {
+          "type": "exert",
+          "player": "fp",
+          "filter": "choose(companion)",
+          "count": 1
+        }
+      }
     ]
   },
   
@@ -260,7 +256,7 @@
     "type": "minion",
     "cost": 3,
     "race": "warg",
-    "strength": 6,
+    "strength": 4,
     "vitality": 3,
     "site": 6,
     "keyword": [
@@ -269,36 +265,31 @@
     ],
     "effects": [
       {
-        "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
-        },
-        "cost": [
-          {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
-          {
-            "type": "discard",
-            "filter": "self"
+        "type": "modifier",
+        "modifier": {
+          "type": "ModifySiteNumber",
+          "filter": "self",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "stealth",
+            "multiplier": -1
           }
-        ],
-        "effect":[
-          {
-            "type": "modifyStrength",
-            "filter": "memory(bearer)",
-            "amount": 3
-          },
-          {
-            "type": "addKeyword",
-            "filter": "memory(bearer)",
-            "keyword": "damage+1"
-          }
-        ]
+        }
       },
+      
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "ModifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "or(stealth,and(companion,wounded))",
+            
+          }
+        }
+      },
+      
     ]
   },
   

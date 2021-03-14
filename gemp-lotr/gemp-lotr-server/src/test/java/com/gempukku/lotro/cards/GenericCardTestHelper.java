@@ -406,6 +406,11 @@ public class GenericCardTestHelper extends AbstractAtTest {
     {
         return _game.getModifiersQuerying().getStrength(_game, card);
     }
+    public int GetVitality(PhysicalCardImpl card)
+    {
+        return _game.getModifiersQuerying().getVitality(_game, card);
+    }
+    public int GetSiteNumber(PhysicalCardImpl card) { return _game.getModifiersQuerying().getMinionSiteNumber(_game, card); }
 
     public boolean HasKeyword(PhysicalCardImpl card, Keyword keyword)
     {
