@@ -88,7 +88,7 @@ public class Card_V1_003Tests
         scn.FreepsPlayCard(merry);
         scn.FreepsPlayCard(pippin);
         assertTrue(scn.HasKeyword(boromir, Keyword.DAMAGE));
-        //assertEquals(9, scn.GetStrength(boromir));
+        assertEquals(9, scn.GetStrength(boromir));
     }
 
 

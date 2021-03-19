@@ -192,7 +192,7 @@ public class Elrond_LoRErrataTests
         assertEquals(Phase.BETWEEN_TURNS, scn.GetCurrentPhase());
 
         assertEquals(3, scn.FreepsGetADParamAsList("cardId").size());
-        assertEquals("0", scn.FreepsGetADParam("min"));
-        assertEquals("3", scn.FreepsGetADParam("max"));
+        assertEquals("0", scn.FreepsGetADParam("min")[0]);
+        assertEquals("3", scn.FreepsGetADParam("max")[0]);
     }
 }

@@ -81,7 +81,7 @@ public class Card_V1_006Tests
         scn.StartGame();
 
         // 6 base, -2 for the 2 Nice Imitations on the table.
-        //assertEquals(4, scn.GetSiteNumber(chief));
+        assertEquals(4, scn.GetSiteNumber(chief));
     }
 
     @Test

@@ -168,8 +168,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public List<String> FreepsGetADParamAsList(String paramName) { return GetADParamAsList(P1, paramName); }
     public List<String> ShadowGetADParamAsList(String paramName) { return GetADParamAsList(P2, paramName); }
     public List<String> GetADParamAsList(String playerID, String paramName) { return Arrays.asList(GetAwaitingDecisionParam(playerID, paramName)); }
-    public Object FreepsGetADParam(String paramName) { return GetAwaitingDecisionParam(P1, paramName); }
-    public Object ShadowGetADParam(String paramName) { return GetAwaitingDecisionParam(P2, paramName); }
+    public String[] FreepsGetADParam(String paramName) { return GetAwaitingDecisionParam(P1, paramName); }
+    public String[] ShadowGetADParam(String paramName) { return GetAwaitingDecisionParam(P2, paramName); }
     public String[] GetAwaitingDecisionParam(String playerID, String paramName) {
         AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerID);
         return decision.getDecisionParameters().get(paramName);

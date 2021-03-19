@@ -79,7 +79,7 @@ public class Card_V1_007Tests
         scn.StartGame();
 
         // 6 base, -2 for the 2 Nice Imitations on the table.
-        //assertEquals(4, scn.GetSiteNumber(snarler));
+        assertEquals(4, scn.GetSiteNumber(snarler));
     }
 
     @Test
@@ -102,10 +102,8 @@ public class Card_V1_007Tests
         scn.AddWoundsToChar(frodo, 1);
         scn.FreepsSkipCurrentPhaseAction();
 
-        //assertEquals(1, scn.GetWoundsOn(frodo));
-
         // Base of 4, +2 for stealth cards, +1 for wounded frodo
-        //assertEquals(7, scn.GetStrength(snarler));
+        assertEquals(7, scn.GetStrength(snarler));
     }
 
 

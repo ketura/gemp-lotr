@@ -118,7 +118,7 @@ public class Galadriel_LoLErrataTests
 
         //There are 5 total elf allies in play: 1 is home 3.  The rest should be eligible.
         assertEquals(4, scn.FreepsGetADParamAsList("cardId").size());
-        assertEquals("0", scn.FreepsGetADParam("min"));
-        assertEquals("3", scn.FreepsGetADParam("max"));
+        assertEquals("0", scn.FreepsGetADParam("min")[0]);
+        assertEquals("3", scn.FreepsGetADParam("max")[0]);
     }
 }
