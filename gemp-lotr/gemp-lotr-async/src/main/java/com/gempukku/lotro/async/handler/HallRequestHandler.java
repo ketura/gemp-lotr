@@ -294,7 +294,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.signupUserForHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
             for (Map.Entry<String, LotroFormat> format : _formatLibrary.getHallFormats().entrySet()) {
                 //playtest formats are opt-in
-                if (format.getKey().startsWith("test") && !player.getType().contains("t"))
+                if (format.getKey().startsWith("test") && !player.getType().contains("p"))
                     continue;
 
                 Element formatElem = doc.createElement("format");
