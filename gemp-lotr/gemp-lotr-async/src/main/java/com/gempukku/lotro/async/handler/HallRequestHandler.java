@@ -286,11 +286,17 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             Document doc = documentBuilder.newDocument();
 
+            Player player = getResourceOwnerSafely(request, null);
+
             Element hall = doc.createElement("hall");
             hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode()).getCurrency()));
 
             _hallServer.signupUserForHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
             for (Map.Entry<String, LotroFormat> format : _formatLibrary.getHallFormats().entrySet()) {
+                //playtest formats are opt-in
+                if (format.getKey().startsWith("test") && !player.getType().contains("t"))
+                    continue;
+
                 Element formatElem = doc.createElement("format");
                 formatElem.setAttribute("type", format.getKey());
                 formatElem.appendChild(doc.createTextNode(format.getValue().getName()));

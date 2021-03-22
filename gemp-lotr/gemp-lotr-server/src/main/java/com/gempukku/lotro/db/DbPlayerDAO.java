@@ -107,6 +107,30 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
+    public boolean addPlayerFlag(String login, String flag) throws SQLException {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE player SET type = CONCAT(type, ?) WHERE name=? AND type NOT LIKE CONCAT('%', ?, '%');")) {
+                statement.setString(1, flag);
+                statement.setString(2, login);
+                statement.setString(3, flag);
+                return statement.executeUpdate() == 1;
+            }
+        }
+    }
+
+    @Override
+    public boolean removePlayerFlag(String login, String flag) throws SQLException {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE player SET type = REPLACE(type, ?, '') WHERE name=? AND type LIKE CONCAT('%', ?, '%');")) {
+                statement.setString(1, flag);
+                statement.setString(2, login);
+                statement.setString(3, flag);
+                return statement.executeUpdate() == 1;
+            }
+        }
+    }
+
+    @Override
     public Player loginUser(String login, String password) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=? and password=?")) {

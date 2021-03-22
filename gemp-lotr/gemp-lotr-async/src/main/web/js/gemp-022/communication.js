@@ -615,6 +615,33 @@ var GempLotrCommunication = Class.extend({
             dataType:"html"
         });
     },
+    
+    addTesterFlag:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/playtesting/addTesterFlag",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    removeTesterFlag:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/playtesting/removeTesterFlag",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
     getStatus:function (callback, errorMap) {
         $.ajax({
             type:"GET",
