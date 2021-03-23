@@ -115,3 +115,4 @@ var PCCards = {
 	
 	'85_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
 }
+}

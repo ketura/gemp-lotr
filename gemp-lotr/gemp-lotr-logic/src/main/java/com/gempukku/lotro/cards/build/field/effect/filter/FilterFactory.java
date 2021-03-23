@@ -41,6 +41,7 @@ public class FilterFactory {
         simpleFilters.put("unwounded", (actionContext) -> Filters.unwounded);
         simpleFilters.put("exhausted", (actionContext) -> Filters.exhausted);
         simpleFilters.put("inskirmish", (actionContext) -> Filters.inSkirmish);
+        simpleFilters.put("infierceskirmish", (actionContext) -> Filters.inFierceSkirmish);
         simpleFilters.put("inplay", (actionContext) -> Filters.inPlay);
         simpleFilters.put("notassignedtoskirmish",
                 (actionContext) -> Filters.notAssignedToSkirmish);
