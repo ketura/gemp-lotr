@@ -100,7 +100,7 @@
       "effect": {
         "type": "choice",
         "texts": [
-          "Make the Ring-bearer strength +3 if skirmishing a Nazgul",
+          "Make the Ring-bearer strength +4 if skirmishing a Nazgul",
           "Take off The One Ring"
         ],
         "effects": [
@@ -110,7 +110,7 @@
               "type": "modifyStrength",
               "filter": "memory(bearer),inSkirmishAgainst(nazgul)",
               
-              "amount": 3
+              "amount": 4
             },
             
           },
