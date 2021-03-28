@@ -9,11 +9,9 @@ import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.*;
@@ -25,6 +23,7 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import com.google.gson.Gson;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,11 +34,13 @@ import java.util.*;
 public class PlaytestRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
 
     private PlayerDAO _playerDAO;
+    private GameHistoryService _gameHistoryService;
+    private Gson JsonConvert = new Gson();
 
     public PlaytestRequestHandler(Map<Type, Object> context) {
         super(context);
         _playerDAO = extractObject(context, PlayerDAO.class);
-
+        _gameHistoryService = extractObject(context, GameHistoryService.class);
     }
 
     @Override
@@ -50,6 +51,8 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
             removeTesterFlag(request, responseWriter);
         } else if (uri.equals("/getTesterFlag") && request.getMethod() == HttpMethod.GET) {
             getTesterFlag(request, responseWriter);
+        } else if (uri.equals("/getRecentReplays") && request.getMethod() == HttpMethod.POST) {
+            getRecentReplays(request, responseWriter);
         } else {
             throw new HttpProcessingException(404);
         }
@@ -96,6 +99,22 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
             hasTester.setAttribute("result", String.valueOf(player.getType().contains("p")));
 
             responseWriter.writeXmlResponse(doc);
+
+        } finally {
+            postDecoder.destroy();
+        }
+    }
+
+    private void getRecentReplays(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+
+            String format = getFormParameterSafely(postDecoder, "format");
+            int count = Integer.parseInt(getFormParameterSafely(postDecoder, "count"));
+
+            final List<GameHistoryEntry> gameHistory = _gameHistoryService.getGameHistoryForFormat(format, count);
+
+            responseWriter.writeJsonResponse(JsonConvert.toJson(gameHistory));
 
         } finally {
             postDecoder.destroy();

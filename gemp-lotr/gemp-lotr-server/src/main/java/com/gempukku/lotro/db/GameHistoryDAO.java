@@ -14,6 +14,8 @@ public interface GameHistoryDAO {
 
     public int getGameHistoryForPlayerCount(Player player);
 
+    public List<GameHistoryEntry> getGameHistoryForFormat(String format, int count);
+
     public int getActivePlayersCount(long from, long duration);
 
     public int getGamesPlayedCount(long from, long duration);

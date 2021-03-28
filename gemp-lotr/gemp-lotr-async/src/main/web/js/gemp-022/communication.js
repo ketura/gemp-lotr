@@ -642,6 +642,21 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    getRecentReplays:function (format, count, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/playtesting/getRecentReplays",
+            cache:false,
+            data:{
+                format:format,
+                count:count
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
+    
     getStatus:function (callback, errorMap) {
         $.ajax({
             type:"GET",
