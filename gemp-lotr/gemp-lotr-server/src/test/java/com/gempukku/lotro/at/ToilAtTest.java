@@ -1,5 +1,6 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -331,5 +332,28 @@ public class ToilAtTest extends AbstractAtTest {
         assertEquals(1, _game.getGameState().getWounds(corpsOfHarad5));
         // It's 6 not 8, because of roaming penalty
         assertEquals(6, _game.getGameState().getTwilightPool());
+    }
+
+    @Test
+    public void berserkerTorchPlaysCorrectly() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl urukDominator = createCard(P2, "12_152");
+        PhysicalCardImpl berserkerTorch = createCard(P2, "12_136");
+
+        skipMulligans();
+
+        moveCardToZone(urukDominator, Zone.HAND);
+        moveCardToZone(berserkerTorch, Zone.HAND);
+
+        _game.getGameState().setTwilight(6);
+
+        playerDecided(P1, "");
+
+        playerDecided(P2, getCardActionId(P2, "Play"));
+        playerDecided(P2, getCardActionId(P2, "Play"));
+        assertEquals(Zone.ATTACHED, berserkerTorch.getZone());
+        assertEquals(1, _game.getGameState().getTokenCount(urukDominator, Token.WOUND));
+        assertEquals(0, _game.getGameState().getTwilightPool());
     }
 }
