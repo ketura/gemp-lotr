@@ -101,7 +101,8 @@
         },
         {
           "type": "putCardsFromHandOnTopOfDeck",
-          "filter": "choose(memory(revealedCard))"
+          "filter": "choose(memory(revealedCard))",
+          "player": "fp"
         }
       ]
     }
