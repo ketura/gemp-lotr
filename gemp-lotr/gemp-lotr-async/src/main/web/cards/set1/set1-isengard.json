@@ -391,7 +391,7 @@
         "type": "trigger",
         "trigger": {
           "type": "movesFrom",
-          "filter": "self"
+          "filter": "hasAttached(self)"
         },
         "effect": {
           "type": "exert",
