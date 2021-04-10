@@ -39,10 +39,10 @@
           {
             "type": "addKeyword",
             "filter": "memory(bearer)",
-            "keyword": "damage+1"
+            "keyword": "damage+2"
           }
         ]
       }
     ]
-  },
+  }
 }
