@@ -146,7 +146,7 @@
         "type": "choice",
         "texts": [
           "Make an Uruk-hai strength +2",
-          "Make an Uruk-hai strength +2 (and fierce until the regroup phase)"
+          "Make an Uruk-hai strength +3 (and fierce until the regroup phase)"
         ],
         "effects": [
           {
@@ -165,7 +165,7 @@
               {
                 "type": "modifyStrength",
                 "filter": "choose(uruk-hai)",
-                "amount": 2,
+                "amount": 3,
                 "memorize": "chosenUrukHai"
               },
               {
