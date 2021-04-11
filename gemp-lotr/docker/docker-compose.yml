@@ -38,6 +38,7 @@ services:
        - type: bind
          source: ../../replay
          target: /replay
+         target: /etc/gemp-lotr/replay
     networks:
       gemp_net_1:
         ipv4_address: ${APP_IP}
