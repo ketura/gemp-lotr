@@ -114,5 +114,10 @@ var PCCards = {
 	'83_188': 'https://i.lotrtcgpc.net/errata/xlist/63_188.jpg',
 	
 	'85_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
+	
+	/// Player's Council League Promos
+	// April 2021
+	'11_267': 'https://i.lotrtcgpc.net/promos/2021/04/PCPROMO_FA_11054.jpg',
+	'11_268': 'https://i.lotrtcgpc.net/promos/2021/04/PCPROMO_FA_11226.jpg',
 }
 
