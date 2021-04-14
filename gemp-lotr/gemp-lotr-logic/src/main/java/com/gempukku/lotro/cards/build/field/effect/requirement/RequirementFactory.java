@@ -44,6 +44,7 @@ public class RequirementFactory {
         requirementProducers.put("cardsinhandmorethan", new CardsInHandMoreThan());
         requirementProducers.put("cardsindeckcount", new CardsInDeckCount());
         requirementProducers.put("playedcardthisphase", new PlayedCardThisPhase());
+        requirementProducers.put("sarumanfirstsentenceactive", new SarumanFirstSentenceActive());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
