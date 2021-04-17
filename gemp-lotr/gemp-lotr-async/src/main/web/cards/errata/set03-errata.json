@@ -30,7 +30,7 @@
           "modifier": {
             "type": "modifyStrength",
             "filter": "memory(chosenAlly)",
-            "amount": 3,
+            "amount": 3
           },
           "until": "start(regroup)"
         },
@@ -42,7 +42,6 @@
       ]
     }
   },
-
   "53_68": {
     "side": "shadow",
     "site": 4,
@@ -60,17 +59,25 @@
         "modifier": {
           "type": "cantTakeWounds",
           "filter": "self",
-          "condition": {
-            "type": "phase",
-            "phase": "archery"
-          }
+          "condition": [
+            {
+              "type": "phase",
+              "phase": "archery"
+            },
+            {
+              "type": "sarumanfirstsentenceactive"
+            }
+          ]
         }
       },
       {
         "type": "modifier",
         "modifier": {
           "type": "cantbeassignedtoskirmish",
-          "filter": "self"
+          "filter": "self",
+          "condition": {
+            "type": "sarumanfirstsentenceactive"
+          }
         }
       },
       {
@@ -104,5 +111,5 @@
         }
       }
     ]
-  },
+  }
 }
