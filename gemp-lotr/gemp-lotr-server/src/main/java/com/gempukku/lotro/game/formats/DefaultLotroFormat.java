@@ -40,6 +40,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private List<Integer> _validSets = new ArrayList<Integer>();
     private List<String> _restrictedCardNames = new ArrayList<String>();
     private String _surveyUrl;
+    private boolean _isPlaytest;
 
     //Additional Hobbit Draft parameters
     private List<String> _limit2Cards = new ArrayList<String>();
@@ -49,7 +50,7 @@ public class DefaultLotroFormat implements LotroFormat {
                               LotroCardBlueprintLibrary library, String name, String surveyUrl,
                               SitesBlock siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
-                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites) {
+                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites, boolean playtest) {
         _adventure = adventure;
         _library = library;
         _name = name;
@@ -63,6 +64,7 @@ public class DefaultLotroFormat implements LotroFormat {
         _hasRuleOfFour = hasRuleOfFour;
         _winAtEndOfRegroup = winAtEndOfRegroup;
         _winOnControlling5Sites = winOnControlling5Sites;
+        _isPlaytest = playtest;
     }
 
     @Override
@@ -103,6 +105,11 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public boolean winOnControlling5Sites() {
         return _winOnControlling5Sites;
+    }
+
+    @Override
+    public boolean isPlaytest() {
+        return _isPlaytest;
     }
 
     @Override

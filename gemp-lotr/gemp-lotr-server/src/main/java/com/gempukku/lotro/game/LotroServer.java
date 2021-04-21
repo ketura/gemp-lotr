@@ -128,12 +128,13 @@ public class LotroServer extends AbstractServer {
 
             lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players.toString());
 
-            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat().getName(), tournamentName, deckNames);
+            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat(), tournamentName, deckNames);
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
                             final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
+
 
                             gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
                         }

@@ -21,11 +21,14 @@ var ChatBoxUI = Class.extend({
 
     lockChat:false,
     stopUpdates: false,
+    
+    dialogListener: null,
 
-    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton) {
+    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, displayChatListener) {
         var that = this;
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
+        this.dialogListener = displayChatListener,
         this.name = name;
         this.div = div;
         this.communication = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
@@ -149,6 +152,19 @@ var ChatBoxUI = Class.extend({
             this.chatTalkDiv.css({ position:"absolute", left:x + talkBoxPadding + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:width - 3 * talkBoxPadding - leftTextBoxPadding, height:this.talkBoxHeight });
         }
     },
+    
+    checkForEnd:function (message, msgClass) {
+        // if(msgClass != "systemMessage")
+        // {
+        //     return;
+        // }
+        
+        if(message.includes("Thank you for playtesting!")) {
+            if (this.dialogListener != null) {
+                this.dialogListener("Give us feedback!", message);
+            }
+        }
+    },
 
     appendMessage:function (message, msgClass) {
         if (msgClass == undefined)
@@ -166,6 +182,8 @@ var ChatBoxUI = Class.extend({
         }
         if (!this.lockChat)
             this.chatMessagesDiv.prop({ scrollTop:this.chatMessagesDiv.prop("scrollHeight") });
+        
+        this.checkForEnd(message, msgClass);
     },
 
     monthNames:["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

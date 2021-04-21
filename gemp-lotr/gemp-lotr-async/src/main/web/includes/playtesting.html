@@ -1,0 +1,69 @@
+<div style="width:max(800px, 50%); margin:auto; font-size: 125%">
+    <p>The <a href="https://lotrtcgpc.net">Player's Council</a> is dedicated to cleaning up the game's fossilized meta, and we aim to do so both through errata of broken (or underperforming) cards and the introduction of new cards compatible with existing formats.</p>
+    
+    <p>Although we spend weeks or months arguing the finer points of card balancing, there is no argument as powerful as the result of dedicated playtesting.  Once a card has been developed to the point of requiring playtesting, we release it here on Gemp and unlock it within special hidden playtesting formats.</p>
+    
+    <p>If you would like to help us do this by playing matches with these cards, then use the button below to enable the playtesting formats on your account!  If later you decide you no longer want to see how the sausage is made, then return to this screen and click the disable button instead.</p>
+    
+    <button id="btnEnableTesting" onclick="hall.AddTesterFlag()">Enable Playtesting</button>
+    <button id="btnDisableTesting" onclick="hall.RemoveTesterFlag()">Disable Playtesting</button>
+    
+    <p>After playing playtest games, you can leave feedback <a href="https://docs.google.com/forms/d/e/1FAIpQLSdKJrCmjoyUqDTusDcpNoWAmvkGdzQqTxWGpdNIFX9biCee-A/viewform?usp=pp_url">using this form here</a>.</p>
+    
+    <p>If you have any questions or would like to discuss our card design decisions in-depth, then feel free to join us <a href="https://lotrtcgpc.net/discord">on the PC Discord server</a>.</p>
+    
+    <br>
+    
+    Last 100 Playtest Replays:
+    
+    <div id="replays">
+        <table id="tblReplays" class="gameHistory">
+            <thead>
+                <tr>
+                    <th>Format</th>
+                    <th>Winner</th>
+                    <th>Loser</th>
+                    <th>Win Reason</th>
+                    <th>Loss Reason</th>
+                    <th>Winner Replay</th>
+                    <th>Loser Replay</th>
+                    <th>Started</th>
+                    <th>Ended</th>
+                </tr>
+            </thead>
+            
+        </table>
+    </div>
+    
+</div>
+
+<script>
+
+function drawTable(json) {
+
+    const template = {"<>":"tr","html": [
+        {"<>":"td","html":"${format_name}"},
+        {"<>":"td","html":"${winner}"},
+        {"<>":"td","html":"${loser}"},
+        {"<>":"td","html":"${win_reason}"},
+        {"<>":"td","html":"${lose_reason}"},
+        {"<>":"td","html":function() {
+            return "<a href=\"" + window.location.origin + "/gemp-lotr/game.html?replayId=" + this.winner + "$" + this.win_recording_id + "\">Replay link</a>"; 
+            }},
+        {"<>":"td","html":function() {
+            return "<a href=\"" + window.location.origin + "/gemp-lotr/game.html?replayId=" + this.loser + "$" + this.lose_recording_id + "\">Replay link</a>"; 
+            }},
+        {"<>":"td","html":function() { return new Date(this.start_date).toLocaleString('sv'); }},
+        {"<>":"td","html":function() { return new Date(this.end_date).toLocaleString('sv'); }},
+    ]};
+    
+           
+    $("#tblReplays").json2html(json,template);
+}
+
+
+hall.comm.getRecentReplays("PLAYTEST", 100, function(json){drawTable(json);}, hall.hallErrorMap());
+drawTable(); 
+
+</script>
+

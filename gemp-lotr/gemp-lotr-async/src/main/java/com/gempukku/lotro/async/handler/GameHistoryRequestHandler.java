@@ -54,27 +54,27 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
 
             for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
                 Element historyEntry = doc.createElement("historyEntry");
-                historyEntry.setAttribute("winner", gameHistoryEntry.getWinner());
-                historyEntry.setAttribute("loser", gameHistoryEntry.getLoser());
+                historyEntry.setAttribute("winner", gameHistoryEntry.winner);
+                historyEntry.setAttribute("loser", gameHistoryEntry.loser);
 
-                historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
-                historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
+                historyEntry.setAttribute("winReason", gameHistoryEntry.win_reason);
+                historyEntry.setAttribute("loseReason", gameHistoryEntry.lose_reason);
 
-                historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
-                String tournament = gameHistoryEntry.getTournament();
+                historyEntry.setAttribute("formatName", gameHistoryEntry.format_name);
+                String tournament = gameHistoryEntry.tournament;
                 if (tournament != null)
                     historyEntry.setAttribute("tournament", tournament);
 
-                if (gameHistoryEntry.getWinner().equals(resourceOwner.getName()) && gameHistoryEntry.getWinnerRecording() != null) {
-                    historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getWinnerRecording());
-                    historyEntry.setAttribute("deckName", gameHistoryEntry.getWinnerDeckName());
-                } else if (gameHistoryEntry.getLoser().equals(resourceOwner.getName()) && gameHistoryEntry.getLoserRecording() != null) {
-                    historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getLoserRecording());
-                    historyEntry.setAttribute("deckName", gameHistoryEntry.getLoserDeckName());
+                if (gameHistoryEntry.winner.equals(resourceOwner.getName()) && gameHistoryEntry.win_recording_id != null) {
+                    historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.win_recording_id);
+                    historyEntry.setAttribute("deckName", gameHistoryEntry.winner_deck_name);
+                } else if (gameHistoryEntry.loser.equals(resourceOwner.getName()) && gameHistoryEntry.lose_recording_id != null) {
+                    historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.lose_recording_id);
+                    historyEntry.setAttribute("deckName", gameHistoryEntry.loser_deck_name);
                 }
 
-                historyEntry.setAttribute("startTime", String.valueOf(gameHistoryEntry.getStartTime().getTime()));
-                historyEntry.setAttribute("endTime", String.valueOf(gameHistoryEntry.getEndTime().getTime()));
+                historyEntry.setAttribute("startTime", String.valueOf(gameHistoryEntry.GetStartDate().getTime()));
+                historyEntry.setAttribute("endTime", String.valueOf(gameHistoryEntry.GetEndDate().getTime()));
 
                 gameHistory.appendChild(historyEntry);
             }
@@ -94,22 +94,22 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
 
             for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
                 Element historyEntry = doc.createElement("historyEntry");
-                historyEntry.setAttribute("winner", gameHistoryEntry.getWinner());
-                historyEntry.setAttribute("loser", gameHistoryEntry.getLoser());
+                historyEntry.setAttribute("winner", gameHistoryEntry.winner);
+                historyEntry.setAttribute("loser", gameHistoryEntry.loser);
 
-                historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
-                historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
+                historyEntry.setAttribute("winReason", gameHistoryEntry.win_reason);
+                historyEntry.setAttribute("loseReason", gameHistoryEntry.lose_reason);
 
-                historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
+                historyEntry.setAttribute("formatName", gameHistoryEntry.format_name);
 
-                historyEntry.setAttribute("winnerRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.getWinner()+"$"+gameHistoryEntry.getWinnerRecording());
-                historyEntry.setAttribute("winnerDeckName", gameHistoryEntry.getWinnerDeckName());
+                historyEntry.setAttribute("winnerRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.winner+"$"+gameHistoryEntry.win_recording_id);
+                historyEntry.setAttribute("winnerDeckName", gameHistoryEntry.winner_deck_name);
 
-                historyEntry.setAttribute("loserRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.getLoser()+"$"+gameHistoryEntry.getLoserRecording());
-                historyEntry.setAttribute("loserDeckName", gameHistoryEntry.getLoserDeckName());
+                historyEntry.setAttribute("loserRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.loser+"$"+gameHistoryEntry.lose_recording_id);
+                historyEntry.setAttribute("loserDeckName", gameHistoryEntry.loser_deck_name);
 
-                historyEntry.setAttribute("startTime", dateFormat.format(new Date(gameHistoryEntry.getStartTime().getTime())));
-                historyEntry.setAttribute("endTime", dateFormat.format(new Date(gameHistoryEntry.getEndTime().getTime())));
+                historyEntry.setAttribute("startTime", dateFormat.format(new Date(gameHistoryEntry.GetStartDate().getTime())));
+                historyEntry.setAttribute("endTime", dateFormat.format(new Date(gameHistoryEntry.GetEndDate().getTime())));
 
                 gameHistory.appendChild(historyEntry);
             }
@@ -134,15 +134,15 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
-                String winnerLink = "http://www.gempukku.com/gemp-lotr/game.html?replayId=" + gameHistoryEntry.getWinner() + "$" + gameHistoryEntry.getWinnerRecording();
-                String loserLink = "http://www.gempukku.com/gemp-lotr/game.html?replayId=" + gameHistoryEntry.getLoser() + "$" + gameHistoryEntry.getLoserRecording();
+                String winnerLink = "http://www.gempukku.com/gemp-lotr/game.html?replayId=" + gameHistoryEntry.winner + "$" + gameHistoryEntry.win_recording_id;
+                String loserLink = "http://www.gempukku.com/gemp-lotr/game.html?replayId=" + gameHistoryEntry.loser + "$" + gameHistoryEntry.lose_recording_id;
 
                 sb.append("<tr>");
-                sb.append("<td rowspan='2'>" + dateFormat.format(new Date(gameHistoryEntry.getStartTime().getTime())) + "</td><td rowspan='2'>" + dateFormat.format(new Date(gameHistoryEntry.getEndTime().getTime())) + "</td>");
-                sb.append("<td>" + gameHistoryEntry.getWinner() + "</td><td>" + gameHistoryEntry.getWinReason() + "</td><td>" + gameHistoryEntry.getWinnerDeckName() + "</td><td><a target='_blank' href='" + winnerLink + "'>Replay</a></td>");
+                sb.append("<td rowspan='2'>" + dateFormat.format(new Date(gameHistoryEntry.GetStartDate().getTime())) + "</td><td rowspan='2'>" + dateFormat.format(new Date(gameHistoryEntry.GetEndDate().getTime())) + "</td>");
+                sb.append("<td>" + gameHistoryEntry.winner + "</td><td>" + gameHistoryEntry.win_reason + "</td><td>" + gameHistoryEntry.winner_deck_name + "</td><td><a target='_blank' href='" + winnerLink + "'>Replay</a></td>");
                 sb.append("</tr>");
                 sb.append("<tr>");
-                sb.append("<td>" + gameHistoryEntry.getLoser() + "</td><td>" + gameHistoryEntry.getLoseReason() + "</td><td>" + gameHistoryEntry.getLoserDeckName() + "</td><td><a target='_blank' href='" + loserLink + "'>Replay</a></td>");
+                sb.append("<td>" + gameHistoryEntry.loser + "</td><td>" + gameHistoryEntry.lose_reason + "</td><td>" + gameHistoryEntry.lose_reason + "</td><td><a target='_blank' href='" + loserLink + "'>Replay</a></td>");
                 sb.append("</tr>");
             }
 

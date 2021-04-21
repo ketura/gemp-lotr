@@ -402,6 +402,22 @@ var GempLotrHallUI = Class.extend({
         var myAudio = document.getElementById(soundObj);
         myAudio.play();
     },
+    
+    AddTesterFlag: function() {
+        var that = this;
+        
+        that.comm.addTesterFlag(function () {
+            window.location.reload(true);
+        });
+    },
+    
+    RemoveTesterFlag: function() {
+        var that = this;
+        
+        that.comm.removeTesterFlag(function () {
+            window.location.reload(true);
+        });
+    },
 
     processHall:function (xml) {
         var that = this;
@@ -698,7 +714,10 @@ var GempLotrHallUI = Class.extend({
                 for (var i = 0; i < formats.length; i++) {
                     var format = formats[i].childNodes[0].nodeValue;
                     var type = formats[i].getAttribute("type");
-                    this.supportedFormatsSelect.append("<option value='" + type + "'>" + format + "</option>");
+                    
+                    var item = "<option value='" + type + "'>" + format + "</option>"
+                    
+                    this.supportedFormatsSelect.append(item);
                 }
                 this.supportedFormatsInitialized = true;
             }

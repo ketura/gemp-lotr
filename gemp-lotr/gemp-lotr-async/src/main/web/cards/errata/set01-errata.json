@@ -67,13 +67,11 @@
         "cost": [
           {
             "type": "exert",
-            "filter": "self",
-            "times": 1
+            "filter": "self"
           },
           {
             "type": "exert",
-            "filter": "choose(another,companion)",
-            "times": 1
+            "filter": "choose(another,companion)"
           }
         ],
         "effect": {
@@ -94,10 +92,5 @@
       }
     ]
   },
-  
-
-  
-  
-  
   
 }

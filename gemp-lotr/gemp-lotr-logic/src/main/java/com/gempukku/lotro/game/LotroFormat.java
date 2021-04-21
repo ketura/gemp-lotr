@@ -18,6 +18,8 @@ public interface LotroFormat {
 
     public boolean winOnControlling5Sites();
 
+    public boolean isPlaytest();
+
     public String getName();
 
     public void validateCard(String cardId) throws DeckInvalidException;

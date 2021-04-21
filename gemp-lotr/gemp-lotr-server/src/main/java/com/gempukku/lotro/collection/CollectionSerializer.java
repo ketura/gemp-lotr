@@ -55,6 +55,10 @@ public class CollectionSerializer {
         loadSet("30");
         loadSet("31");
         loadSet("32");
+
+        //April 2021 PC Promos
+        _singleByteCountItems.add("11_267");
+        _singleByteCountItems.add("11_268");
     }
 
     private void fillDoubleByteItems() throws IOException {

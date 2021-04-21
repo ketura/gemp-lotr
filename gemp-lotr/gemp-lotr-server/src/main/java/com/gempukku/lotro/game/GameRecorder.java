@@ -49,7 +49,7 @@ public class GameRecorder {
         return new InflaterInputStream(new FileInputStream(file));
     }
 
-    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, final String formatName, final String tournament, final Map<String, String> deckNames) {
+    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, LotroFormat format, final String tournament, final Map<String, String> deckNames) {
         final Date startData = new Date();
         final Map<String, GameCommunicationChannel> recordingChannels = new HashMap<String, GameCommunicationChannel>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
@@ -58,17 +58,24 @@ public class GameRecorder {
             recordingChannels.put(playerId, recordChannel);
         }
 
-        return new GameRecordingInProgress() {
-            @Override
-            public void finishRecording(String winner, String winReason, String loser, String loseReason) {
-                Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
-                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, tournament, deckNames.get(winner), deckNames.get(loser), startData, new Date());
+        return (winner, winReason, loser, loseReason) -> {
+            Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
+            _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), format.getName(), tournament, deckNames.get(winner), deckNames.get(loser), startData, new Date());
+
+            if(format.isPlaytest())
+            {
+                String url = "https://docs.google.com/forms/d/e/1FAIpQLSdKJrCmjoyUqDTusDcpNoWAmvkGdzQqTxWGpdNIFX9biCee-A/viewform?usp=pp_url&entry.1592109986=";
+                String winnerURL = "https://play.lotrtcgpc.net/gemp-lotr/game.html%3FreplayId%3D" + winner + "$" + playerRecordingId.get(winner);
+                String loserURL = "https://play.lotrtcgpc.net/gemp-lotr/game.html%3FreplayId%3D" + loser + "$" + playerRecordingId.get(loser);
+                url += winnerURL + "%20" + loserURL;
+                lotroGame.sendMessageToPlayers("Thank you for playtesting!  If you have any feedback, bugs, or other issues to report about this match, <a href= '" + url + "'>please do so using this form.</a>");
             }
+
         };
     }
 
     public interface GameRecordingInProgress {
-        public void finishRecording(String winner, String winReason, String loser, String loseReason);
+        void finishRecording(String winner, String winReason, String loser, String loseReason);
     }
 
     private File getRecordingFile(String playerId, String gameId) {

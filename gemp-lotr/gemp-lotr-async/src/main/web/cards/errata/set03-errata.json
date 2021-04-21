@@ -1,0 +1,115 @@
+{
+  "53_42": {
+    "side": "free_people",
+    "cost": 0,
+    "culture": "Gondor",
+    "title": "*Horn of Boromir",
+    "type": "possession",
+    "target": "name(Boromir)",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": [
+        {
+          "type": "spot",
+          "filter": "choose(ally)",
+          "memorize": "chosenAlly"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyStrength",
+            "filter": "memory(chosenAlly)",
+            "amount": 3
+          },
+          "until": "start(regroup)"
+        },
+        {
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
+          "filter": "memory(chosenAlly)",
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  "53_68": {
+    "side": "shadow",
+    "site": 4,
+    "cost": 4,
+    "race": "Wizard",
+    "strength": 8,
+    "culture": "Isengard",
+    "vitality": 4,
+    "subtitle": "Keeper of Isengard",
+    "title": "*Saruman",
+    "type": "minion",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeWounds",
+          "filter": "self",
+          "condition": [
+            {
+              "type": "phase",
+              "phase": "archery"
+            },
+            {
+              "type": "sarumanfirstsentenceactive"
+            }
+          ]
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantbeassignedtoskirmish",
+          "filter": "self",
+          "condition": {
+            "type": "sarumanfirstsentenceactive"
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(uruk-hai)",
+          "keyword": "fierce",
+          "until": "start(regroup)"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "uruk-hai"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect":
+        {
+          "type": "preventWound",
+          "filter": "choose(uruk-hai)"
+        }
+      }
+    ]
+  }
+}

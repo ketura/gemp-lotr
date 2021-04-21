@@ -82,7 +82,7 @@
       "type": "responseEvent",
       "trigger": {
         "type": "played",
-        "filter": "your,uruk hai",
+        "filter": "your,uruk-hai",
         "memorize": "playedUrukHai"
       },
       "effect": {
@@ -391,7 +391,7 @@
         "type": "trigger",
         "trigger": {
           "type": "movesFrom",
-          "filter": "self"
+          "filter": "hasAttached(self)"
         },
         "effect": {
           "type": "exert",

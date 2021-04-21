@@ -1,7 +1,7 @@
 {
-   "52_32": {
+  "52_32": {
     "side": "free_people",
-    "cost": 0,
+    "cost": 1,
     "strength": 1,
     "culture": "Gondor",
     "possession": "Hand Weapon",
@@ -17,7 +17,7 @@
         "phase": "skirmish",
         "condition": {
           "type": "canSpot",
-          "filter": "bearer,inSkirmishAgainst(Nazgul)",
+          "filter": "bearer,inSkirmishAgainst(Nazgul)"
         },
         "cost": [
           {
@@ -30,7 +30,7 @@
             "filter": "self"
           }
         ],
-        "effect":[
+        "effect": [
           {
             "type": "modifyStrength",
             "filter": "memory(bearer)",
@@ -39,12 +39,10 @@
           {
             "type": "addKeyword",
             "filter": "memory(bearer)",
-            "keyword": "damage+1"
+            "keyword": "damage+2"
           }
         ]
-      },
+      }
     ]
-  },
-  
-  
+  }
 }

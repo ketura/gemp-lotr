@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_157 extends AbstractAttachable {
     public Card4_157() {
-        super(Side.SHADOW, CardType.CONDITION, 0, Culture.ISENGARD, null, "Leechraft");
+        super(Side.SHADOW, CardType.CONDITION, 0, Culture.ISENGARD, null, "Leechcraft");
         addKeyword(Keyword.SPELL);
     }
 

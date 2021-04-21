@@ -470,7 +470,7 @@
     ]
   },
   "32_37": {
-    "title": "Danger Wrapped In Shadow",
+    "title": "Danger Wrapped in Shadows",
     "culture": "sauron",
     "cost": 2,
     "type": "condition",
@@ -497,8 +497,7 @@
             },
             {
               "type": "playCardFromDiscard",
-              "filter": "choose(culture(sauron),not(and(response,event)))",
-              "removedTwilight": 2
+              "filter": "choose(culture(sauron),not(and(response,event)))"
             }
           ]
         }

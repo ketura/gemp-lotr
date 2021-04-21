@@ -2,6 +2,7 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.game.Player;
+import org.sql2o.Sql2o;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,38 +43,47 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
     }
 
     public List<GameHistoryEntry> getGameHistoryForPlayer(Player player, int start, int count) {
-        try {
-            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-                try (PreparedStatement statement = connection.prepareStatement("select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=? or loser=? order by end_date desc limit ?, ?")) {
-                    statement.setString(1, player.getName());
-                    statement.setString(2, player.getName());
-                    statement.setInt(3, start);
-                    statement.setInt(4, count);
-                    try (ResultSet rs = statement.executeQuery()) {
-                        List<GameHistoryEntry> result = new LinkedList<GameHistoryEntry>();
-                        while (rs.next()) {
-                            String winner = rs.getString(1);
-                            String loser = rs.getString(2);
-                            String winReason = rs.getString(3);
-                            String loseReason = rs.getString(4);
-                            String winRecordingId = rs.getString(5);
-                            String loseRecordingId = rs.getString(6);
-                            String formatName = rs.getString(7);
-                            String tournament = rs.getString(8);
-                            String winnerDeckName = rs.getString(9);
-                            String loserDeckName = rs.getString(10);
-                            Date startDate = new Date(rs.getLong(11));
-                            Date endDate = new Date(rs.getLong(12));
 
-                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, startDate, endDate);
-                            result.add(entry);
-                        }
-                        return result;
-                    }
-                }
+        try {
+
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=:playerName or loser=:playerName order by end_date desc limit :start, :count";
+                List<GameHistoryEntry> result = conn.createQuery(sql)
+                        .addParameter("playerName", player.getName())
+                        .addParameter("start", start)
+                        .addParameter("count", count)
+                        .executeAndFetch(GameHistoryEntry.class);
+
+                return result;
             }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get count of player games", exp);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve game history for player", ex);
+        }
+
+    }
+
+    @Override
+    public List<GameHistoryEntry> getGameHistoryForFormat(String format, int count)  {
+        try {
+
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = "SELECT winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date " +
+                        " FROM game_history " +
+                        " WHERE format_name LIKE :format" +
+                        " ORDER BY end_date DESC LIMIT :count";
+                List<GameHistoryEntry> result = conn.createQuery(sql)
+                        .addParameter("format", "%" + format + "%")
+                        .addParameter("count", count)
+                        .executeAndFetch(GameHistoryEntry.class);
+
+                return result;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve game history by format", ex);
         }
     }
 
@@ -182,39 +192,24 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
     @Override
     public List<GameHistoryEntry> getLastGames(String requestedFormatName, int count) {
-        try {
-            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-                try (PreparedStatement statement = connection.prepareStatement(
-                        "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, " +
-                                "tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history " +
-                                "where format_name=? order by end_date desc limit ?")) {
-                    statement.setString(1, requestedFormatName);
-                    statement.setInt(2, count);
-                    try (ResultSet rs = statement.executeQuery()) {
-                        List<GameHistoryEntry> result = new LinkedList<GameHistoryEntry>();
-                        while (rs.next()) {
-                            String winner = rs.getString(1);
-                            String loser = rs.getString(2);
-                            String winReason = rs.getString(3);
-                            String loseReason = rs.getString(4);
-                            String winRecordingId = rs.getString(5);
-                            String loseRecordingId = rs.getString(6);
-                            String formatName = rs.getString(7);
-                            String tournament = rs.getString(8);
-                            String winnerDeckName = rs.getString(9);
-                            String loserDeckName = rs.getString(10);
-                            Date startDate = new Date(rs.getLong(11));
-                            Date endDate = new Date(rs.getLong(12));
 
-                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, startDate, endDate);
-                            result.add(entry);
-                        }
-                        return result;
-                    }
-                }
+        try {
+
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, " +
+                        "tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history " +
+                        "where format_name=:formatName order by end_date desc limit :count";
+                List<GameHistoryEntry> result = conn.createQuery(sql)
+                        .addParameter("formatName", requestedFormatName)
+                        .addParameter("count", count)
+                        .executeAndFetch(GameHistoryEntry.class);
+
+                return result;
             }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get list of games", exp);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve last games", ex);
         }
     }
 
