@@ -50,8 +50,10 @@ public class FilterFactory {
                     final CharacterLostSkirmishResult lostSkirmish = (CharacterLostSkirmishResult) actionContext.getEffectResult();
                     return lostSkirmish.getLoser();
                 });
+        simpleFilters.put("ring bound",
+                (actionContext) -> Filters.ringBoundCompanion);
         simpleFilters.put("unbound",
-                (actionContext) -> Filters.not(Keyword.RING_BOUND));
+                (actionContext) -> Filters.unboundCompanion);
         simpleFilters.put("attachedtoinsameregion",
                 actionContext -> {
                     final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
