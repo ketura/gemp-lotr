@@ -67,6 +67,8 @@ public class FilterFactory {
                 (actionContext -> Filters.siteNumber(actionContext.getGame().getGameState().getCurrentSiteNumber())));
         simpleFilters.put("siteincurrentregion",
                 (actionContext) -> Filters.siteInCurrentRegion);
+        simpleFilters.put("siteinregion2",
+                (actionContext) -> Filters.and(CardType.SITE, Filters.region(2)));
         simpleFilters.put("idinstored",
                 (actionContext ->
                         new Filter() {
