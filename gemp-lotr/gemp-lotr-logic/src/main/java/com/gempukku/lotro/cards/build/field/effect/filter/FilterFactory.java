@@ -50,8 +50,10 @@ public class FilterFactory {
                     final CharacterLostSkirmishResult lostSkirmish = (CharacterLostSkirmishResult) actionContext.getEffectResult();
                     return lostSkirmish.getLoser();
                 });
+        simpleFilters.put("ring bound",
+                (actionContext) -> Filters.ringBoundCompanion);
         simpleFilters.put("unbound",
-                (actionContext) -> Filters.not(Keyword.RING_BOUND));
+                (actionContext) -> Filters.unboundCompanion);
         simpleFilters.put("attachedtoinsameregion",
                 actionContext -> {
                     final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
@@ -65,6 +67,8 @@ public class FilterFactory {
                 (actionContext -> Filters.siteNumber(actionContext.getGame().getGameState().getCurrentSiteNumber())));
         simpleFilters.put("siteincurrentregion",
                 (actionContext) -> Filters.siteInCurrentRegion);
+        simpleFilters.put("siteinregion2",
+                (actionContext) -> Filters.and(CardType.SITE, Filters.region(2)));
         simpleFilters.put("idinstored",
                 (actionContext ->
                         new Filter() {
