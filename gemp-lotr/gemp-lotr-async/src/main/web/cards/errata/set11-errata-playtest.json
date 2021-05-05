@@ -45,7 +45,7 @@
       },
       "effect": {
         "type": "transfer",
-        "filter": "choose(or(possession,condition)),attachedTo(character)",
+        "filter": "choose(or(possession,condition),attachedTo(character))",
         "where": "choose(any)",
         "checkTarget": true
       }

@@ -15,7 +15,7 @@
           "text": "Assign to Gandalf",
           "effect": {
             "type": "assignFpCharacterToSkirmish",
-            "fpCharacter": "choose(gandalf)",
+            "fpCharacter": "choose(name(gandalf))",
             "against": "self"
           }
         }
