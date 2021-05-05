@@ -8,14 +8,14 @@
     "effects": [
       {
         "type": "modifier",
-        "condition": {
-          "type": "haveInitiative",
-          "side": "free_people"
-        },
         "modifier": {
           "type": "addKeyword",
           "filter": "dwarf",
-          "keyword": "damage+1"
+          "keyword": "damage+1",
+          "condition": {
+            "type": "haveInitiative",
+            "side": "free_people"
+          }
         }
       },
       {

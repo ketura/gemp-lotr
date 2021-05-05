@@ -117,7 +117,7 @@
       "condition": [
         {
           "type": "canSpot",
-          "filter": "smeagol"
+          "filter": "name(smeagol)"
         },
         {
           "type": "canSpot",
