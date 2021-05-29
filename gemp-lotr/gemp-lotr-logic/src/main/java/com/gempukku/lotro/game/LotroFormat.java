@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LotroFormat {
     public boolean isOrderedSites();
@@ -39,6 +40,8 @@ public interface LotroFormat {
     public List<String> getLimit3Cards();
 
     public List<String> getRestrictedCardNames();
+
+    public Map<String,String> getErrataCardMap();
 
     public SitesBlock getSiteBlock();
 

@@ -1,0 +1,70 @@
+{
+  "57_49": {
+    "title": "*Steadfast Champion",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "condition",
+    "target": "name(gandalf)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addActivated",
+          "filter": "minion",
+          "phase": "assignment",
+          "text": "Assign to Gandalf",
+          "effect": {
+            "type": "assignFpCharacterToSkirmish",
+            "fpCharacter": "choose(name(gandalf))",
+            "against": "self"
+          }
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "regroup"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "choose(minion)"
+          },
+          {
+            "type": "heal",
+            "filter": "choose(companion)",
+            "times": 3
+          }
+        ]
+      }
+    ]
+  },
+  "57_96": {
+    "title": "Gondorian Captain",
+    "culture": "gondor",
+    "cost": 2,
+    "type": "companion",
+    "race": "man",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "knight",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "discard",
+        "filter": "choose(fortification)"
+      },
+      "effect": {
+        "type": "removeThreats"
+      }
+    }
+  }
+}
