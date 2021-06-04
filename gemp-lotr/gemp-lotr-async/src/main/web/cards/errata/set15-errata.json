@@ -1,0 +1,45 @@
+{
+  "65_64": {
+    "title": "*Madril",
+    "subtitle": "Defender of Osgiliath",
+    "culture": "gondor",
+    "cost": 2,
+    "type": "companion",
+    "race": "man",
+    "strength": 5,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": [
+      "Ranger",
+      "Hunter"
+    ],
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "canSpot",
+          "count": 2,
+          "filter": "culture(gondor),ranger"
+        },
+        "amount": -2
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "maneuver"
+        },
+        "condition": {
+          "type": "canSpotThreats"
+        },
+        "effect": {
+          "type": "modifySiteNumber",
+          "filter": "all(minion)",
+          "amount": 1,
+          "until": "start(regroup)"
+        }
+      }
+    ]
+  }
+}

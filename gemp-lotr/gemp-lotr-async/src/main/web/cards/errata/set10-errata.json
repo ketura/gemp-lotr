@@ -1,0 +1,112 @@
+{
+  "60_2": {
+    "title": "*Memories of Darkness",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    },
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "losesInitiative",
+        "side": "free people"
+      },
+      "condition": {
+        "type": "not",
+        "condition": {
+          "type": "phase",
+          "phase": "fellowship"
+        }
+      },
+      "effect": {
+        "type": "play",
+        "filter": "choose(culture(dwarven),or(condition,possession))"
+      }
+    }
+  },
+  "60_11": {
+    "title": "*Galadriel",
+    "subtitle": "Lady Redeemed",
+    "culture": "elven",
+    "cost": 3,
+    "type": "companion",
+    "race": "elf",
+    "strength": 3,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "phase",
+          "phase": "play starting fellowship"
+        },
+        "amount": -3
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "regroup"
+        },
+        "cost": {
+          "type": "discardFromHand",
+          "count": 1,
+          "forced": false,
+          "filter": "choose(culture(elven),event)"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(shadow),or(condition,possession))"
+        }
+      }
+    ]
+  },
+  "60_91": {
+    "title": "Mordor Fiend",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "condition": [
+        {
+          "type": "twilightPoolLessThan",
+          "amount": 4
+        },
+        {
+          "type": "not",
+          "condition": {
+            "type": "canSpot",
+            "filter": "not(self),minion"
+          }
+        }
+      ],
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "self,roaming"
+          },
+          "true": 5,
+          "false": 3
+        }
+      }
+    }
+  }
+}

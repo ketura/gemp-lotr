@@ -92,33 +92,32 @@ var PCCards = {
 	'53_106': 'https://i.lotrtcgpc.net/errata/xlist/53_106.jpg',
 	'53_108': 'https://i.lotrtcgpc.net/errata/xlist/53_108.jpg',
 	'53_113': 'https://i.lotrtcgpc.net/errata/xlist/53_113.jpg',
-	
+
+    '54_73': 'https://i.lotrtcgpc.net/errata/xlist/54_073.jpg',
+    '54_192': 'https://i.lotrtcgpc.net/errata/xlist/54_192.jpg',
+    '54_276': 'https://i.lotrtcgpc.net/errata/xlist/54_276.jpg',
+    '54_304': 'https://i.lotrtcgpc.net/errata/xlist/54_304.jpg',
+
+    '57_49': 'https://i.lotrtcgpc.net/errata/xlist/57_049.jpg',
+    '57_96': 'https://i.lotrtcgpc.net/errata/xlist/57_096.jpg',
+
+    '58_1': 'https://i.lotrtcgpc.net/errata/xlist/58_001.jpg',
+
+    '60_2': 'https://i.lotrtcgpc.net/errata/xlist/60_002.jpg',
+    '60_11': 'https://i.lotrtcgpc.net/errata/xlist/60_011.jpg',
+    '60_91': 'https://i.lotrtcgpc.net/errata/xlist/60_091.jpg',
+
+    '61_100': 'https://i.lotrtcgpc.net/errata/xlist/61_100.jpg',
+    '61_114': 'https://i.lotrtcgpc.net/errata/xlist/61_114.jpg',
+    '61_132': 'https://i.lotrtcgpc.net/errata/xlist/61_132.jpg',
+    '61_31': 'https://i.lotrtcgpc.net/errata/xlist/61_031.jpg',
+
+    '63_188': 'https://i.lotrtcgpc.net/errata/xlist/63_188.jpg',
+
+    '65_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
 	
 	// Future Errata
-	
-	'74_73': 'https://i.lotrtcgpc.net/errata/xlist/54_073.jpg',
-	'74_192': 'https://i.lotrtcgpc.net/errata/xlist/54_192.jpg',
-	'74_276': 'https://i.lotrtcgpc.net/errata/xlist/54_276.jpg',
-	'74_304': 'https://i.lotrtcgpc.net/errata/xlist/54_304.jpg',
-	
-	'77_49': 'https://i.lotrtcgpc.net/errata/xlist/57_049.jpg',
-	'77_96': 'https://i.lotrtcgpc.net/errata/xlist/57_096.jpg',
-	
-	'78_1': 'https://i.lotrtcgpc.net/errata/xlist/58_001.jpg',
-	
-	'80_2': 'https://i.lotrtcgpc.net/errata/xlist/60_002.jpg',
-	'80_11': 'https://i.lotrtcgpc.net/errata/xlist/60_011.jpg',
-	'80_91': 'https://i.lotrtcgpc.net/errata/xlist/60_091.jpg',
-	
-	'81_100': 'https://i.lotrtcgpc.net/errata/xlist/61_100.jpg',
-	'81_114': 'https://i.lotrtcgpc.net/errata/xlist/61_114.jpg',
-	'81_132': 'https://i.lotrtcgpc.net/errata/xlist/61_132.jpg',
-	'81_31': 'https://i.lotrtcgpc.net/errata/xlist/61_031.jpg',
-	
-	'83_188': 'https://i.lotrtcgpc.net/errata/xlist/63_188.jpg',
-	
-	'85_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
-	
+
 	/// Player's Council League Promos
 	// April 2021
 	'11_267': 'https://i.lotrtcgpc.net/promos/2021/04/PCPROMO_FA_11054.jpg',
