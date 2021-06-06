@@ -117,6 +117,18 @@ var PCCards = {
     '65_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
 	
 	// Future Errata
+    '71_7': 'https://i.lotrtcgpc.net/errata/xlist/71_007.jpg',
+    '71_11': 'https://i.lotrtcgpc.net/errata/xlist/71_011.jpg',
+    '71_12': 'https://i.lotrtcgpc.net/errata/xlist/71_012.jpg',
+    '71_53': 'https://i.lotrtcgpc.net/errata/xlist/71_053.jpg',
+    '71_55': 'https://i.lotrtcgpc.net/errata/xlist/71_055.jpg',
+    '71_254': 'https://i.lotrtcgpc.net/errata/xlist/71_254.jpg',
+    '71_282': 'https://i.lotrtcgpc.net/errata/xlist/71_282.jpg',
+    '72_6': 'https://i.lotrtcgpc.net/errata/xlist/72_6.jpg',
+    '72_7': 'https://i.lotrtcgpc.net/errata/xlist/72_7.jpg',
+    '72_55': 'https://i.lotrtcgpc.net/errata/xlist/72_55.jpg',
+    '73_54': 'https://i.lotrtcgpc.net/errata/xlist/73_54.jpg',
+    '73_120': 'https://i.lotrtcgpc.net/errata/xlist/73_120.jpg',
 
 	/// Player's Council League Promos
 	// April 2021

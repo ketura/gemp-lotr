@@ -1,2 +1,99 @@
 {
+  "2_6": {
+    "title": "*Fror",
+    "subtitle": "Gimli's Kinsman",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    },
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,inSkirmishAgainst(uruk-hai)",
+        "amount": 3
+      }
+    }
+  },
+  "2_7": {
+    "title": "*Gloin",
+    "subtitle": "Friend to Thorin",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "culture(dwarven),tale",
+          "limit": 4
+        }
+      }
+    }
+  },
+  "2_55": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Moria",
+    "title": "Dark Places",
+    "type": "condition",
+    "keyword": "Support Area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "unique,culture(moria),minion",
+          "amount": 1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "currentSite",
+          "keyword": "marsh"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "not(your),site"
+        },
+        "effect": [
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose opponent's site",
+            "filter": "choose(not(your),site)",
+            "memorize": "chosenSite"
+          },
+          {
+            "type": "playSite",
+            "block": "fellowship",
+            "number": {
+              "type": "siteNumberInMemory",
+              "memory": "chosenSite"
+            },
+            "filter": "or(marsh,underground)"
+          }
+        ]
+      }
+    ]
+  }
 }

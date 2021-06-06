@@ -44,6 +44,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("transferred", new Transferred());
         triggerCheckers.put("killed", new Killed());
         triggerCheckers.put("reconciles", new Reconciles());
+        triggerCheckers.put("usesspecialability", new UsesSpecialAbility());
     }
 
     public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
