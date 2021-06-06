@@ -1,5 +1,5 @@
 {
-  "2_6": {
+  "72_6": {
     "title": "*Fror",
     "subtitle": "Gimli's Kinsman",
     "culture": "dwarven",
@@ -22,7 +22,7 @@
       }
     }
   },
-  "2_7": {
+  "72_7": {
     "title": "*Gloin",
     "subtitle": "Friend to Thorin",
     "culture": "dwarven",
@@ -45,7 +45,7 @@
       }
     }
   },
-  "2_55": {
+  "72_55": {
     "side": "shadow",
     "cost": 1,
     "culture": "Moria",

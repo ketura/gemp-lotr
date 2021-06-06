@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -56,6 +55,8 @@ public class ModifierSourceFactory {
         modifierProducers.put("allycanparticipateinarcheryfireandskirmishes", new AllyCanParticipateInArcheryFireAndSkirmishes());
         modifierProducers.put("cantlookorrevealhand", new CantLookOrRevealHand());
         modifierProducers.put("cantbeassignedtoskirmish", new CantBeAssignedToSkirmish());
+        modifierProducers.put("shadowhasinitiative", new ShadowHasInitiative());
+
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

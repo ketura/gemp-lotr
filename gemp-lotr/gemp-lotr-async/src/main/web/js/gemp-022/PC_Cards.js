@@ -129,6 +129,10 @@ var PCCards = {
     '72_55': 'https://i.lotrtcgpc.net/errata/xlist/72_55.jpg',
     '73_54': 'https://i.lotrtcgpc.net/errata/xlist/73_54.jpg',
     '73_120': 'https://i.lotrtcgpc.net/errata/xlist/73_120.jpg',
+    '78_24': 'https://i.lotrtcgpc.net/errata/xlist/78_24.jpg',
+    '78_51': 'https://i.lotrtcgpc.net/errata/xlist/78_51.jpg',
+    '78_57': 'https://i.lotrtcgpc.net/errata/xlist/78_57.jpg',
+    '78_59': 'https://i.lotrtcgpc.net/errata/xlist/78_59.jpg',
 
 	/// Player's Council League Promos
 	// April 2021

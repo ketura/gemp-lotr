@@ -116,6 +116,28 @@ public class FilterFactory {
 
             return (actionContext) -> side;
         });
+        parameterFilters.put("hasToken", (parameter, environment) -> {
+            final Culture culture = Culture.valueOf(parameter.toUpperCase());
+            if (culture == null)
+                throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
+            final Token token = Token.findTokenForCulture(culture);
+            if (token == null)
+                throw new InvalidCardDefinitionException("Unable to find token for culture: " + parameter);
+
+            return (actionContext) -> Filters.hasToken(token);
+        });
+        parameterFilters.put("hasTokenCount", (parameter, environment) -> {
+            String[] parameterSplit = parameter.split(",", 2);
+            int count = Integer.parseInt(parameterSplit[0]);
+            final Culture culture = Culture.valueOf(parameterSplit[1].toUpperCase());
+            if (culture == null)
+                throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
+            final Token token = Token.findTokenForCulture(culture);
+            if (token == null)
+                throw new InvalidCardDefinitionException("Unable to find token for culture: " + parameter);
+
+            return (actionContext) -> Filters.hasToken(token, count);
+        });
         parameterFilters.put("hasAttached",
                 (parameter, environment) -> {
                     final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);

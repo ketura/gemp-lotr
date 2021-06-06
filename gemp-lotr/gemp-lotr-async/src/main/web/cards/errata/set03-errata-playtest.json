@@ -1,5 +1,5 @@
 {
-  "3_54": {
+  "73_54": {
     "title": "Hollowing of Isengard",
     "culture": "isengard",
     "cost": 2,
@@ -45,7 +45,7 @@
       }
     ]
   },
-  "3_120": {
+  "73_120": {
     "title": "Wastes of Emyn Muil",
     "cost": 9,
     "type": "site",
