@@ -1,5 +1,5 @@
 {
-  "1_7": {
+  "71_7": {
     "title": "Dwarf Guard",
     "culture": "dwarven",
     "cost": 1,
@@ -13,7 +13,7 @@
       "filter": "dwarf"
     }
   },
-  "1_11": {
+  "71_11": {
     "title": "*Farin",
     "subtitle": "Dwarven Emissary",
     "culture": "dwarven",
@@ -36,7 +36,7 @@
       }
     }
   },
-  "1_12": {
+  "71_12": {
     "title": "*Gimli",
     "subtitle": "Dwarf of Erebor",
     "culture": "dwarven",
@@ -69,7 +69,7 @@
       }
     }
   },
-  "1_53": {
+  "71_53": {
     "title": "Lorien Elf",
     "culture": "elven",
     "cost": 1,
@@ -83,7 +83,7 @@
       "filter": "elf"
     }
   },
-  "1_55": {
+  "71_55": {
     "title": "*The Mirror of Galadriel",
     "culture": "elven",
     "cost": 2,
@@ -127,7 +127,7 @@
       }
     ]
   },
-  "1_254": {
+  "71_254": {
     "title": "Mordor Enraged",
     "culture": "sauron",
     "cost": 0,
@@ -142,7 +142,8 @@
         }
       },
       {
-        "type": "activatedTrigger",
+        "type": "trigger",
+        "optional": true,
         "trigger": {
           "type": "usesspecialability",
           "filter": "side(free people)"
@@ -158,7 +159,7 @@
       }
     ]
   },
-  "1_282": {
+  "71_282": {
     "title": "The Weight of a Legacy",
     "culture": "sauron",
     "cost": 0,
