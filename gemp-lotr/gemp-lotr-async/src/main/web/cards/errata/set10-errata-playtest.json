@@ -1,2 +1,115 @@
 {
+  "80_8": {
+    "title": "*Cirdan",
+    "subtitle": "The Shipwright",
+    "culture": "Elven",
+    "cost": 4,
+    "type": "companion",
+    "race": "Elf",
+    "strength": 7,
+    "vitality": 4,
+    "resistance": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf",
+      "count": 2
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(minion,inSkirmishAgainst(self))",
+        "amount": {
+          "type": "forEachInDiscard",
+          "filter": "culture(elven),event",
+          "limit": 4,
+          "multiplier": -1
+        }
+      }
+    }
+  },
+  "80_17": {
+    "title": "Out of the High Airs",
+    "cost": 3,
+    "culture": "Gandalf",
+    "type": "event",
+    "keyword": "response",
+    "condition": {
+      "type": "phase",
+      "phase": "regroup"
+    },
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "moves"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(your,wizard)"
+      },
+      "effect": {
+        "type": "discard",
+        "count": "0-3",
+        "filter": "choose(minion)"
+      }
+    }
+  },
+  "80_32": {
+    "title": "*Fifth Level",
+    "culture": "Gondor",
+    "cost": 1,
+    "type": "condition",
+    "keyword": [
+      "Support Area",
+      "Fortification"
+    ],
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "fortification",
+            "multiplier": -1
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Exert 2 GONDOR Men",
+            "Spot 3 Knights"
+          ],
+          "effects": [
+            {
+              "type": "exert",
+              "filter": "choose(culture(gondor),man)",
+              "count": 2
+            },
+            {
+              "type": "spot",
+              "filter": "knight",
+              "count": 3,
+              "skipMemorize": true
+            }
+          ]
+        },
+        "effect": {
+          "type": "transfer",
+          "filter": "choose(self,zone(support))",
+          "where": "choose(minion)"
+        }
+      }
+    ]
+  }
 }

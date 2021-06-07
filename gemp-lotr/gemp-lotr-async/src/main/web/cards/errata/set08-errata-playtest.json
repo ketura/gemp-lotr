@@ -150,5 +150,59 @@
         ]
       }
     ]
+  },
+  "78_103": {
+    "title": "*Grond",
+    "subtitle": "Hammer of the Underworld",
+    "culture": "Sauron",
+    "cost": 3,
+    "type": "possession",
+    "keyword": [
+      "Support Area",
+      "Engine"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "play",
+          "filter": "choose(culture(sauron),minion)"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "sauron",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "regroup"
+        },
+        "cost": {
+          "type": "chooseandremovetokens",
+          "culture": "sauron",
+          "filter": "self",
+          "memorize": "numberOfTokens"
+        },
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "choose(side(free people),not(companion),minTwilight(memory(numberOfTokens)),maxTwilight(memory(numberOfTokens)))"
+          },
+          {
+            "type": "discard",
+            "filter": "choose(or(and(culture(sauron),minion),self))"
+          }
+        ]
+      }
+    ]
   }
 }
