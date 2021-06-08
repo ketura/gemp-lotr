@@ -91,6 +91,11 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
                 format.validateDeck(deck);
                 valid.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
             } catch (DeckInvalidException exp) {
+                if (!format.getErrataCardMap().isEmpty()) {
+                    LotroDeck deckWithErrata = format.applyErrata(deck);
+                    format.validateDeck(deckWithErrata);
+                    valid.append("<b>" + format.getName() + "</b>: <font color='yellow'>valid (with PC errata)</font><br/>");
+                }
                 invalid.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
             }
         }

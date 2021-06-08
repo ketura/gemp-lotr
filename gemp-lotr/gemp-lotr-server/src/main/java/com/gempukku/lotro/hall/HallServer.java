@@ -529,6 +529,7 @@ public class HallServer extends AbstractServer {
             throw new HallException("You don't have a deck registered yet");
 
         try {
+            lotroDeck = format.applyErrata(lotroDeck);
             lotroDeck = validateUserAndDeck(format, player, collectionType, lotroDeck);
         } catch (DeckInvalidException e) {
             throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
