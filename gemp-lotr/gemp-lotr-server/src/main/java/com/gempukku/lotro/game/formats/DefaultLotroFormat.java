@@ -238,6 +238,12 @@ public class DefaultLotroFormat implements LotroFormat {
                     throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(bannedBlueprintId)));
             }
 
+            // Errata
+            for (String originalBlueprintId : _errataCardMap.keySet()) {
+                if (originalBlueprintId.equals(blueprintId) || (allAlternates != null && allAlternates.contains(originalBlueprintId)))
+                    throw new DeckInvalidException("Deck contains non-errata of an errata'd card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(originalBlueprintId)));
+            }
+
         } catch (CardNotFoundException e) {
             // Ignore this card
         }
@@ -328,8 +334,12 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public LotroDeck applyErrata(LotroDeck deck) {
         LotroDeck deckWithErrata = new LotroDeck(deck.getDeckName());
-        deckWithErrata.setRingBearer(_errataCardMap.getOrDefault(deck.getRingBearer(), deck.getRingBearer()));
-        deckWithErrata.setRing(_errataCardMap.getOrDefault(deck.getRing(), deck.getRing()));
+        if (deck.getRingBearer() != null) {
+            deckWithErrata.setRingBearer(_errataCardMap.getOrDefault(deck.getRingBearer(), deck.getRingBearer()));
+        }
+        if (deck.getRing() != null) {
+            deckWithErrata.setRing(_errataCardMap.getOrDefault(deck.getRing(), deck.getRing()));
+        }
         for (String card : deck.getAdventureCards()) {
             deckWithErrata.addCard(_errataCardMap.getOrDefault(card, card));
         }
