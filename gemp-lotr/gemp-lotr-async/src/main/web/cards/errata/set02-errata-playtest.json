@@ -75,10 +75,9 @@
     }
   },
   "72_55": {
-    "side": "shadow",
-    "cost": 1,
-    "culture": "Moria",
     "title": "Dark Places",
+    "culture": "Moria",
+    "cost": 1,
     "type": "condition",
     "keyword": "Support Area",
     "effects": [
@@ -137,7 +136,7 @@
       "cost": [
         {
           "type": "exert",
-          "filter": "choose(dwarf)"
+          "filter": "choose(companion)"
         },
         {
           "type": "discardTopCardsFromDeck",
