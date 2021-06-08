@@ -10,6 +10,8 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
+import java.util.Collection;
+
 /**
  * Set: Siege of Gondor
  * Side: Free
@@ -34,8 +36,13 @@ public class Card8_003 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Race.DWARF, Keyword.DAMAGE) {
                     @Override
+                    protected void cardsToBeExertedCallback(Collection<PhysicalCard> characters) {
+                        int count = game.getModifiersQuerying().getKeywordCount(game, characters.iterator().next(), Keyword.DAMAGE);
+                        this.setIntToRemember(count);
+                    }
+                    @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        final int count = game.getModifiersQuerying().getKeywordCount(game, character, Keyword.DAMAGE);
+                        final int count = this.getIntToRemember();
                         action.appendEffect(
                                 new ChooseOpponentEffect(playerId) {
                                     @Override
