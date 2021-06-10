@@ -78,8 +78,10 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID_FROM_HAND);
             else
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID);
-            if (playedFromZone == Zone.DECK && !_skipShuffling)
+            if (playedFromZone == Zone.DECK && !_skipShuffling) {
+                game.getGameState().sendMessage(_permanentPlayed.getOwner() + " shuffles his or her deck");
                 game.getGameState().shuffleDeck(_permanentPlayed.getOwner());
+            }
         }
 
         if (!_discountResolved) {
