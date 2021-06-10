@@ -20,6 +20,43 @@
       }
     }
   },
+  "78_44": {
+    "title": "Sixth Level",
+    "culture": "Gondor",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "Support Area",
+      "Fortification"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "limitPerPhase": 1,
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert 2 GONDOR Men",
+          "Exert a GONDOR ranger"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "count": 2,
+            "filter": "choose(culture(gondor),man)"
+          },
+          {
+            "type": "exert",
+            "filter": "choose(culture(gondor),ranger)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(gondor),fortification)"
+      }
+    }
+  },
   "78_51": {
     "title": "*Castamir of Umbar",
     "culture": "Raider",
