@@ -50,7 +50,8 @@
       },
       "cost": {
         "type": "exert",
-        "filter": "choose(your,wizard)"
+        "filter": "choose(your,wizard)",
+        "times": 2
       },
       "effect": {
         "type": "discard",
