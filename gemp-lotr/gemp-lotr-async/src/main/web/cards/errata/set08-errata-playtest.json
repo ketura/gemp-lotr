@@ -241,5 +241,38 @@
         ]
       }
     ]
+  },
+  "78_107": {
+    "title": "Their Marching Companies",
+    "culture": "Sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "Support Area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "removeThreats"
+        },
+        "effect": {
+          "type": "stackCards",
+          "filter": "choose(your,culture(sauron),minion)",
+          "where": "choose(controlledsite)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeThreats"
+        },
+        "effect": {
+          "type": "playCardFromStacked",
+          "filter": "choose(culture(sauron),minion)",
+          "on": "controlledsite"
+        }
+      }
+    ]
   }
 }

@@ -138,6 +138,7 @@ var PCCards = {
     '78_57': 'https://i.lotrtcgpc.net/errata/xlist/78_057.jpg',
     '78_59': 'https://i.lotrtcgpc.net/errata/xlist/78_059.jpg',
     '78_103': 'https://i.lotrtcgpc.net/errata/xlist/78_103.jpg',
+    '78_107': 'https://i.lotrtcgpc.net/errata/xlist/78_107.jpg',
     '79_12': 'https://i.lotrtcgpc.net/errata/xlist/79_012.jpg',
     '79_14': 'https://i.lotrtcgpc.net/errata/xlist/79_014.jpg',
     '80_8': 'https://i.lotrtcgpc.net/errata/xlist/80_008.jpg',
