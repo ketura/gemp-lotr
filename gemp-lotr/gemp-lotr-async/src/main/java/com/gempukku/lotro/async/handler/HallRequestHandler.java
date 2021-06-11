@@ -255,7 +255,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
         if (!lotroFormat.getErrataCardMap().isEmpty()) {
             result.append("<li>Errata: ");
-            appendCards(result, new ArrayList<>(lotroFormat.getErrataCardMap().values()));
+            appendCards(result, new ArrayList<>(new LinkedHashSet<>(lotroFormat.getErrataCardMap().values())));
             result.append("</li>");
         }
         if (lotroFormat.getValidCards().size() > 0) {
