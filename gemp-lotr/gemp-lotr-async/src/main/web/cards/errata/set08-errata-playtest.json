@@ -247,6 +247,10 @@
     "cost": 1,
     "type": "condition",
     "keyword": "Support Area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
     "effects": [
       {
         "type": "activated",
