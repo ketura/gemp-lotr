@@ -8,7 +8,6 @@
     "keyword": "support area",
     "effects": {
       "type": "trigger",
-      "optional": true,
       "trigger": {
         "type": "takesWound",
         "filter": "companion,inSkirmishAgainst(culture(gollum),minion)",
@@ -16,7 +15,7 @@
       },
       "effect": {
         "type": "exert",
-        "filter": "choose(not(memory(woundedCompanion)),companion)"
+        "filter": "choose(companion)"
       }
     }
   },
