@@ -1,0 +1,84 @@
+{
+  "79_12": {
+    "title": "*Aiglos",
+    "culture": "elven",
+    "cost": 2,
+    "type": "artifact",
+    "possession": "hand weapon",
+    "vitality": 1,
+    "target": "elf,not(archer)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer,name(Gil-galad)",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "culture(elven),artifact",
+            "limit": 6
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "chooseHowManyToSpot",
+            "filter": "elf",
+            "memorize": "spottedElfCount"
+          },
+          {
+            "type": "duplicate",
+            "amount": {
+              "type": "fromMemory",
+              "memory": "spottedElfCount"
+            },
+            "effect": {
+              "type": "wound",
+              "filter": "choose(minion)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "79_14": {
+    "title": "*Galadriel",
+    "subtitle": "Bearer of Wisdom",
+    "culture": "elven",
+    "cost": 3,
+    "type": "companion",
+    "race": "elf",
+    "strength": 3,
+    "vitality": 3,
+    "resistance": 3,
+    "keyword": "can start with ring",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyResistance",
+          "filter": "self,hasAttached(or(artifact,name(The One Ring)))",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "culture(elven),companion"
+          }
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBear",
+          "filter": "self",
+          "cardFilter": "ranged weapon"
+        }
+      }
+    ]
+  }
+}

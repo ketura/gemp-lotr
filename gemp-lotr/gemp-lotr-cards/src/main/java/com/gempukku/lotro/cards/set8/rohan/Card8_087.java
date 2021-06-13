@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set8.rohan;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
@@ -49,6 +50,8 @@ public class Card8_087 extends AbstractCompanion {
                                     new PlayAnyNumberOfCardsFromDeckEffect(action, playerId, rohanPossessions));
                         }
                     });
+            action.appendEffect(
+                    new ShuffleDeckEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;

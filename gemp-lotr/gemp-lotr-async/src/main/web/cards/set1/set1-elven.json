@@ -865,7 +865,7 @@
     "vitality": 2,
     "effects": {
       "type": "copyCard",
-      "filter": "your,site,siteNumber(3)"
+      "filter": "your,site,siteNumber(3),siteBlock(fellowship)"
     }
   },
   "1_61": {
@@ -1026,7 +1026,7 @@
     "vitality": 2,
     "effects": {
       "type": "copyCard",
-      "filter": "your,site,siteNumber(6)"
+      "filter": "your,site,siteNumber(6),siteBlock(fellowship)"
     }
   },
   "1_68": {

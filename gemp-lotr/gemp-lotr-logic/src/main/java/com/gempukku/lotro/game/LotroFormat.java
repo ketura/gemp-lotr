@@ -27,6 +27,8 @@ public interface LotroFormat {
 
     public void validateDeck(LotroDeck deck) throws DeckInvalidException;
 
+    public LotroDeck applyErrata(LotroDeck deck);
+
     public List<Integer> getValidSets();
 
     public List<String> getBannedCards();

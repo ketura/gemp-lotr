@@ -100,6 +100,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("revealcards", new RevealCards());
         effectAppenderProducers.put("addtokens", new AddTokens());
         effectAppenderProducers.put("removetokens", new RemoveTokens());
+        effectAppenderProducers.put("chooseandremovetokens", new ChooseAndRemoveTokens());
         effectAppenderProducers.put("transfer", new Transfer());
         effectAppenderProducers.put("transfertosupport", new TransferToSupport());
         effectAppenderProducers.put("transferfromdiscard", new TransferFromDiscard());
