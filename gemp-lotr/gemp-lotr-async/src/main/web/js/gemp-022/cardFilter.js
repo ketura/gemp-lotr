@@ -168,9 +168,13 @@ var CardFilter = Class.extend({
             + "<option value='31'>31 - The Hobbit: Expansion 1</option>"
             + "<option value='32'>32 - The Hobbit: Expansion 2</option>"
             + "<option disabled>----------</option>"
+            + "<option value='70-89,151-200'>All Player's Council Playtest Cards</option>"
+            + "<option value='151'>PLAYTEST - FOTR+</option>"
             + "<option value='71-73'>PLAYTEST - Fellowship Block (PC)</option>"
             + "<option value='71-80'>PLAYTEST - Movie Block (PC)</option>"
             + "<option value='70-89'>PLAYTEST - Expanded (PC)</option>"
+            
+            
             + "</select>");
         this.nameInput = $("<input type='text' placeholder='Card name' value='' style='width: 110px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"

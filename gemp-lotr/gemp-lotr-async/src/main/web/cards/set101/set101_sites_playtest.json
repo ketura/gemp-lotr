@@ -1,0 +1,44 @@
+{
+  "151_93": {
+    "title": "Rivendell Gateway",
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "cost": 0,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(The Gaffer))"
+      }
+    }
+  },
+  
+  "151_94": {
+    "title": "Moria Crossroads",
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "cost": 2,
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(The Gaffer))"
+      }
+    }
+  },
+  
+}

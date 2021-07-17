@@ -1,0 +1,189 @@
+{
+	
+	
+	"151_46": {
+    "title": "Guided by One Purpose",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "your,culture(moria),weapon"
+        },
+        "effect": {
+          "type": "addTwilight"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "culture(moria),orc"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(culture(moria),orc)"
+        }
+      }
+    ]
+  },
+  
+  "151_47": {
+    "title": "*Terror at Its Coming",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "your,culture(moria),weapon"
+        },
+        "effect": {
+          "type": "addTwilight"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "culture(moria),orc"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(culture(moria),orc)"
+        }
+      }
+    ]
+  },
+  
+  "151_48": {
+    "title": "Thrashing Tentacle",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "creature",
+    "strength": 5,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "self,inSkirmish",
+        "keyword": "damage+2",
+        "condition": {
+          "type": "canSpot",
+          "filter": "another,culture(moria),orc,inSkirmish"
+        }
+      }
+    }
+  },
+  
+  "151_49": {
+    "title": "Out of Dark Waters",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "your,culture(moria),weapon"
+        },
+        "effect": {
+          "type": "addTwilight"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "culture(moria),orc"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(culture(moria),orc)"
+        }
+      }
+    ]
+  },
+  
+  "151_50": {
+    "title": "The Darkness Grew",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "your,culture(moria),weapon"
+        },
+        "effect": {
+          "type": "addTwilight"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "culture(moria),orc"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(culture(moria),orc)"
+        }
+      }
+    ]
+  },
+  
+  "151_51": {
+    "title": "Vile Tentacle",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "creature",
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "self,inSkirmish",
+        "keyword": "damage+2",
+        "condition": {
+          "type": "canSpot",
+          "filter": "another,culture(moria),orc,inSkirmish"
+        }
+      }
+    }
+  },
+}

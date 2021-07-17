@@ -1,0 +1,183 @@
+{
+	"151_1": {
+    "title": "*Hospitality of the Dwarves",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": [
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "orc",
+          "memorize": "playedOrc"
+        },
+        "effect": {
+          "type": "discardTopCardsFromDeck",
+          "forced": true,
+          "deck": "ownerFromMemory(playedOrc)"
+        }
+      }
+    ]
+  },
+  
+  "151_2": {
+    "title": "*Deepest Delvings",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": [
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "orc",
+          "memorize": "playedOrc"
+        },
+        "effect": {
+          "type": "discardTopCardsFromDeck",
+          "forced": true,
+          "deck": "ownerFromMemory(playedOrc)"
+        }
+      }
+    ]
+  },
+  
+  "151_3": {
+    "title": "*Gimli",
+    "subtitle": "Vengeful Naugrim",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "condition": {
+        "type": "twilightPoolLessThan",
+        "amount": 2
+      },
+      "cost": {
+        "type": "addTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "putCardsFromHandOnBottomOfDeck"
+      }
+    }
+  },
+  
+  "151_4": {
+    "title": "I Name You Elf-friend",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)",
+        "memorize": "exertedDwarf"
+      },
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "memory(exertedDwarf)",
+          "amount": 3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(exertedDwarf)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  
+  "151_5": {
+    "title": "One Dwarf in Moria",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)",
+        "memorize": "exertedDwarf"
+      },
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "memory(exertedDwarf)",
+          "amount": 3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(exertedDwarf)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  
+  "151_6": {
+    "title": "*So Bold and So Courteous",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "orc",
+          "memorize": "playedOrc"
+        },
+        "effect": {
+          "type": "discardTopCardsFromDeck",
+          "forced": true,
+          "deck": "ownerFromMemory(playedOrc)"
+        }
+      }
+    ]
+  },
+  
+}
