@@ -242,7 +242,7 @@
   
   
   {
-    "setId": "60",
+    "setId": "80",
     "setName": "PC MD Errata",
     "rarityFile": "/errata/set80-rarity.txt",
     "originalSet": false,
@@ -251,7 +251,7 @@
     "playable": true
   },
   {
-    "setId": "61",
+    "setId": "81",
     "setName": "PC Shadows Errata",
     "rarityFile": "/errata/set81-rarity.txt",
     "originalSet": false,
@@ -260,7 +260,7 @@
     "playable": true
   },
   {
-    "setId": "62",
+    "setId": "82",
     "setName": "PC BR Errata",
     "rarityFile": "/errata/set82-rarity.txt",
     "originalSet": false,
@@ -269,7 +269,7 @@
     "playable": true
   },
   {
-    "setId": "63",
+    "setId": "83",
     "setName": "PC Bloodlines Errata",
     "rarityFile": "/errata/set83-rarity.txt",
     "originalSet": false,
@@ -278,7 +278,7 @@
     "playable": true
   },
   {
-    "setId": "64",
+    "setId": "84",
     "setName": "PC EMM Errata",
     "rarityFile": "/errata/set84-rarity.txt",
     "originalSet": false,
@@ -287,7 +287,7 @@
     "playable": true
   },
   {
-    "setId": "65",
+    "setId": "85",
     "setName": "PC Hunters Errata",
     "rarityFile": "/errata/set85-rarity.txt",
     "originalSet": false,
@@ -296,7 +296,7 @@
     "playable": true
   },
   {
-    "setId": "66",
+    "setId": "86",
     "setName": "PC TWC Errata",
     "rarityFile": "/errata/set86-rarity.txt",
     "originalSet": false,
@@ -305,7 +305,7 @@
     "playable": true
   },
   {
-    "setId": "67",
+    "setId": "87",
     "setName": "PC RoS Errata",
     "rarityFile": "/errata/set87-rarity.txt",
     "originalSet": false,
@@ -314,7 +314,7 @@
     "playable": true
   },
   {
-    "setId": "68",
+    "setId": "88",
     "setName": "PC T&D Errata",
     "rarityFile": "/errata/set88-rarity.txt",
     "originalSet": false,
@@ -323,7 +323,7 @@
     "playable": true
   },
   {
-    "setId": "69",
+    "setId": "89",
     "setName": "PC AE Errata",
     "rarityFile": "/errata/set89-rarity.txt",
     "originalSet": false,
