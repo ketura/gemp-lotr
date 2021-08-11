@@ -202,11 +202,12 @@ tr.played {
 #userListColumn {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 #userList {
     flex-grow: 1;
-    overflow: auto;
+    overflow: scroll;
 }
 
 #toggleChatButt {
