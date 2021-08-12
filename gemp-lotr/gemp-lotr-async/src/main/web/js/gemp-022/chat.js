@@ -41,6 +41,20 @@ var ChatBoxUI = Class.extend({
         this.dialogListener = displayChatListener;
         this.name = name;
         this.div = div;
+        
+        //This needs to be done before the comm object is instantiated, as otherwise it's too slow for immediate errors
+
+        if(this.name == "Game Hall")
+        {
+            this.chatMessagesDiv = $("#chatMessages");
+        }
+        else
+        {
+            this.chatMessagesDiv = $("<div class='chatMessages'></div>");
+            this.div.append(this.chatMessagesDiv);
+        }
+
+        
         this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
             that.appendMessage("Unknown chat problem occured (error=" + xhr.status + ")", "warningMessage");
         });
@@ -52,7 +66,7 @@ var ChatBoxUI = Class.extend({
             
             if(this.name == "Game Hall")
             {
-                this.chatMessagesDiv = $("#chatMessages");
+                
                 
                 this.discordDiv = $("#discordChat");
                 this.comm.getPlayerInfo(function(json)
@@ -139,8 +153,7 @@ var ChatBoxUI = Class.extend({
             }
             else
             {
-                this.chatMessagesDiv = $("<div class='chatMessages'></div>");
-                this.div.append(this.chatMessagesDiv);
+                
         
                 this.chatTalkDiv = $("<input type='text' class='chatTalk'>");
 
@@ -239,14 +252,17 @@ var ChatBoxUI = Class.extend({
         {
             var talkBoxPadding = 3;
 
-           var userListWidth = 150;
-           if (this.chatListDiv == null)
+            var userListWidth = 150;
+            if (this.chatListDiv == null)
                userListWidth = 0;
 
-           if (this.chatListDiv != null)
+            if (this.chatListDiv != null)
                this.chatListDiv.css({ position:"absolute", left:x + width - userListWidth + "px", top:y + "px", width:userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
-           this.chatMessagesDiv.css({ position:"absolute", left:x + "px", top:y + "px", width:width - userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
-           if (this.chatTalkDiv != null) {
+           
+            if(this.chatMessagesDiv != null)
+                this.chatMessagesDiv.css({ position:"absolute", left:x + "px", top:y + "px", width:width - userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
+            
+            if (this.chatTalkDiv != null) {
                var leftTextBoxPadding = 0;
 
                if (this.hideSystemButton != null) {
@@ -259,7 +275,7 @@ var ChatBoxUI = Class.extend({
                }
 
                this.chatTalkDiv.css({ position:"absolute", left:x + talkBoxPadding + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:width - 3 * talkBoxPadding - leftTextBoxPadding, height:this.talkBoxHeight });
-           }
+            }
         }
 
         this.handleChatVisibility();       
