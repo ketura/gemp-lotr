@@ -292,7 +292,7 @@ var ChatBoxUI = Class.extend({
                 if(this.chatEmbed == null)
                 {
                     this.discordDiv.show();
-                    this.chatEmbed = $("<widgetbot server='699957633121255515' channel='873065954609881140' shard='https://e.widgetbot.co' width='100%' height='100%' username='" + this.userName + "'></widgetbot>");
+                    this.chatEmbed = $("<widgetbot server='699957633121255515' channel='873065954609881140' width='100%' height='100%' username='" + this.userName + "'></widgetbot>");
                     var script = $("<script src='https://cdn.jsdelivr.net/npm/@widgetbot/html-embed'></script>");
                     this.discordDiv.append(script);
                     this.discordDiv.append(this.chatEmbed);
