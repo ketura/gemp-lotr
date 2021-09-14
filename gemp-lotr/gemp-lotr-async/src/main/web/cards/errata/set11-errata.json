@@ -1,0 +1,108 @@
+{
+  "61_31": {
+    "title": "Final Account",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(culture(gandalf),wizard)"
+        },
+        {
+          "type": "discardFromHand",
+          "forced": false
+        }
+      ],
+      "effect": {
+        "type": "putCardsFromDiscardIntoHand",
+        "filter": "choose(side(shadow))"
+      }
+    }
+  },
+  "61_100": {
+    "title": "Strange-looking Men",
+    "culture": "men",
+    "cost": 4,
+    "type": "minion",
+    "race": "man",
+    "strength": 10,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "maneuver"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "transfer",
+        "filter": "choose(or(possession,condition),attachedTo(character))",
+        "where": "choose(any)",
+        "checkTarget": true
+      }
+    }
+  },
+  "61_114": {
+    "title": "*Demoralized",
+    "culture": "orc",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(orc),minion"
+    },
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "exerts",
+        "filter": "companion"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "companion",
+            "count": 6
+          },
+          "true": 2,
+          "false": 1
+        }
+      }
+    }
+  },
+  "61_132": {
+    "title": "Orkish Smith",
+    "culture": "orc",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "shuffleCardsFromDiscardIntoDrawDeck",
+        "filter": "choose(culture(orc),condition)",
+        "count": "0-2"
+      }
+    }
+  }
+}

@@ -1,129 +1,36 @@
 {
-  
-  "72_75": {
-    "title": "*Bill Ferny",
-    "subtitle": "Swarthy Sneering Fellow",
-    "culture": "wraith",
-    "cost": 2,
-    "type": "minion",
-    "race": "man",
-    "strength": 4,
-    "vitality": 1,
-    "site": 2,
-    "effects": [
-      {
-        "type": "modifier",
-        "modifier": {
-          "type": "removeKeyword",
-          "filter": "nazgul",
-          "keyword": "roaming"
-        }
-      },
-      {
-        "type": "modifier",
-        "modifier": {
-          "type": "cantBeAssignedToSkirmishAgainst",
-          "condition": {
-            "type": "canSpot",
-            "filter": "hobbit"
-          },
-          "minion": "self",
-          "fpCharacter": "any",
-          "side": "free people"
-        }
-      },
-      {
-        "type": "trigger",
-        "trigger": {
-          "type": "condition",
-          "condition": {
-            "type": "location",
-            "filter": "underground"
-          }
-        },
-        "effect": {
-          "type": "discard",
-          "filter": "self"
-        }
-      }
-    ]
-  },
-  "72_101": {
-    "title": "*Filibert Bolger",
-    "subtitle": "Wily Rascal",
-    "culture": "shire",
+  "72_1": {
+    "title": "Beneath the Mountains",
+    "culture": "dwarven",
     "cost": 1,
-    "type": "ally",
-    "allyHome": "fellowship,1",
-    "race": "hobbit",
-    "strength": 1,
-    "vitality": 2,
+    "type": "condition",
+    "keyword": [
+      "tale",
+      "support area"
+    ],
     "effects": {
       "type": "activated",
-      "phase": "skirmish",
+      "phase": "fellowship",
       "cost": [
         {
           "type": "exert",
-          "filter": "choose(hobbit,companion,not(ring bearer))",
-          "times": 2,
-          "memorize": "exertedHobbit"
-        }
-      ],
-      "effect": {
-        "type": "cancelSkirmish",
-        "filter": "memory(exertedHobbit),infierceskirmish"
-      }
-    }
-  },
-  "72_108": {
-    "title": "*O Elbereth! Gilthoniel!",
-    "culture": "shire",
-    "cost": 1,
-    "type": "condition",
-    "strength": 1,
-    "keyword": "tale",
-    "target": "ring bearer",
-    "effects": {
-      "type": "activated",
-      "phase": "skirmish",
-      "cost": [
-        {
-          "type": "memorize",
-          "filter": "bearer",
-          "memory": "bearer"
+          "filter": "choose(dwarf)"
         },
         {
-          "type": "discard",
-          "filter": "self"
+          "type": "discardTopCardsFromDeck",
+          "forced": false,
+          "count": 2
         }
       ],
       "effect": {
-        "type": "choice",
-        "texts": [
-          "Make the Ring-bearer strength +4 if skirmishing a Nazgul",
-          "Take off The One Ring"
-        ],
-        "effects": [
-          {
-            "type": "addmodifier",
-            "modifier": {
-              "type": "modifyStrength",
-              "filter": "memory(bearer),inSkirmishAgainst(nazgul)",
-              
-              "amount": 4
-            },
-            
-          },
-          {
-            "type": "takeOffRing"
-          }
-        ]
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(dwarven),weapon)"
       }
     }
   },
-  "72_121": {
-    "title": "*Gimli",
-    "subtitle": "Dwarf of the Mountain-race",
+  "72_6": {
+    "title": "*Fror",
+    "subtitle": "Gimli's Kinsman",
     "culture": "dwarven",
     "cost": 2,
     "type": "companion",
@@ -131,29 +38,143 @@
     "strength": 6,
     "vitality": 3,
     "resistance": 6,
-    "signet": "frodo",
-    "keyword": "damage+1",
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    },
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,inSkirmishAgainst(uruk-hai)",
+        "amount": 3
+      }
+    }
+  },
+  "72_7": {
+    "title": "*Gloin",
+    "subtitle": "Friend to Thorin",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "culture(dwarven),tale",
+          "limit": 4
+        }
+      }
+    }
+  },
+  "72_55": {
+    "title": "Dark Places",
+    "culture": "Moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "Support Area",
     "effects": [
       {
         "type": "modifier",
         "modifier": {
-          "type": "modifyCost",
-          "filter": "underground,site",
-          "amount": -1
+          "type": "modifyStrength",
+          "filter": "unique,culture(moria),minion",
+          "amount": 1
         }
       },
       {
         "type": "modifier",
         "modifier": {
+          "type": "addKeyword",
+          "filter": "currentSite",
+          "keyword": "marsh"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "not(your),site"
+        },
+        "effect": [
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose opponent's site",
+            "filter": "choose(not(your),site)",
+            "memorize": "chosenSite"
+          },
+          {
+            "type": "playSite",
+            "block": "fellowship",
+            "number": {
+              "type": "siteNumberInMemory",
+              "memory": "chosenSite"
+            },
+            "filter": "or(marsh,underground)"
+          }
+        ]
+      }
+    ]
+  },
+  "72_12": {
+    "title": "*Realm of Dwarrowdelf",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(companion)"
+        },
+        {
+          "type": "discardTopCardsFromDeck",
+          "forced": false,
+          "count": 2
+        }
+      ],
+      "effect": [
+        {
           "type": "modifyStrength",
-          "amount": 1,
+          "filter": "choose(dwarf)",
+          "memorize": "chosenDwarf",
+          "amount": {
+            "type": "cardAffectedLimitPerPhase",
+            "prefix": "str-",
+            "source": 1,
+            "limit": 3
+          }
+        },
+        {
+          "type": "conditional",
           "condition": {
             "type": "location",
             "filter": "underground"
           },
-          "filter": "self"
+          "effect": {
+            "type": "addKeyword",
+            "filter": "memory(chosenDwarf)",
+            "keyword": "damage",
+            "amount": {
+              "type": "cardAffectedLimitPerPhase",
+              "prefix": "dmg-",
+              "source": 1,
+              "limit": 3
+            }
+          }
         }
-      }
-    ]
+      ]
+    }
   }
 }

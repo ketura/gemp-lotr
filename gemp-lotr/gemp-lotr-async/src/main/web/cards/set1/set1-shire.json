@@ -275,7 +275,7 @@
     "effects": [
       {
         "type": "copyCard",
-        "filter": "your,site,siteNumber(1)"
+        "filter": "your,site,siteNumber(1),siteBlock(fellowship)"
       },
       {
         "type": "activated",

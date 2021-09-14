@@ -92,6 +92,10 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("siteNumber")) {
                 return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber();
+            } else if (type.equalsIgnoreCase("nextSiteNumber")) {
+                return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber() + 1;
+            } else if (type.equalsIgnoreCase("siteNumberAfterNext")) {
+                return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber() + 2;
             } else if (type.equalsIgnoreCase("siteNumberInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");

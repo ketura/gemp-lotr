@@ -12,10 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LotroFormatLibrary {
     private Map<String, LotroFormat> _allFormats = new HashMap<String, LotroFormat>();
@@ -95,6 +92,15 @@ public class LotroFormatLibrary {
                     if (restrictedCardNames != null) {
                         for (Object restrictedCardName : restrictedCardNames) {
                             format.addRestrictedCardName((String) restrictedCardName);
+                        }
+                    }
+
+                    JSONObject errataMap = (JSONObject) formatDef.get("errata");
+                    if (errataMap != null) {
+                        for (Object key : errataMap.keySet()) {
+                            String originalCardName = (String) key;
+                            String errataCardName = (String) errataMap.get(key);
+                            format.addCardErrata(originalCardName, errataCardName);
                         }
                     }
 

@@ -1,0 +1,38 @@
+{
+  "58_1": {
+    "title": "Aggression",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "dwarf",
+          "keyword": "damage+1",
+          "condition": {
+            "type": "haveInitiative",
+            "side": "free_people"
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "condition": {
+          "type": "canSpot",
+          "filter": "dwarf"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "drawCards"
+        }
+      }
+    ]
+  }
+}

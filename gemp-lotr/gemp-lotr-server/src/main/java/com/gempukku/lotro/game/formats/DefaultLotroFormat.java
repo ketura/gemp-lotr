@@ -13,13 +13,7 @@ import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultLotroFormat implements LotroFormat {
     private Adventure _adventure;
@@ -45,6 +39,7 @@ public class DefaultLotroFormat implements LotroFormat {
     //Additional Hobbit Draft parameters
     private List<String> _limit2Cards = new ArrayList<String>();
     private List<String> _limit3Cards = new ArrayList<String>();
+    private Map<String,String> _errataCardMap = new TreeMap<String,String>();
 
     public DefaultLotroFormat(Adventure adventure,
                               LotroCardBlueprintLibrary library, String name, String surveyUrl,
@@ -149,6 +144,11 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
+    public Map<String,String> getErrataCardMap() {
+        return Collections.unmodifiableMap(_errataCardMap);
+    }
+
+    @Override
     public SitesBlock getSiteBlock() {
         return _siteBlock;
     }
@@ -216,12 +216,16 @@ public class DefaultLotroFormat implements LotroFormat {
         _restrictedCardNames.add(cardName);
     }
 
+    public void addCardErrata(String baseBlueprintId, String errataBaseBlueprint) {
+        _errataCardMap.put(baseBlueprintId, errataBaseBlueprint);
+    }
+
     @Override
     public void validateCard(String blueprintId) throws DeckInvalidException {
         blueprintId = _library.getBaseBlueprintId(blueprintId);
         try {
             _library.getLotroCardBlueprint(blueprintId);
-            if (_validCards.contains(blueprintId))
+            if (_validCards.contains(blueprintId) || _errataCardMap.containsValue(blueprintId))
                 return;
 
             if (_validSets.size() > 0 && !isValidInSets(blueprintId))
@@ -233,6 +237,13 @@ public class DefaultLotroFormat implements LotroFormat {
                 if (bannedBlueprintId.equals(blueprintId) || (allAlternates != null && allAlternates.contains(bannedBlueprintId)))
                     throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(bannedBlueprintId)));
             }
+
+            // Errata
+            for (String originalBlueprintId : _errataCardMap.keySet()) {
+                if (originalBlueprintId.equals(blueprintId) || (allAlternates != null && allAlternates.contains(originalBlueprintId)))
+                    throw new DeckInvalidException("Deck contains non-errata of an errata'd card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(originalBlueprintId)));
+            }
+
         } catch (CardNotFoundException e) {
             // Ignore this card
         }
@@ -318,6 +329,24 @@ public class DefaultLotroFormat implements LotroFormat {
         } catch (IllegalArgumentException exp) {
             throw new DeckInvalidException("Deck contains unrecognizable card");
         }
+    }
+
+    @Override
+    public LotroDeck applyErrata(LotroDeck deck) {
+        LotroDeck deckWithErrata = new LotroDeck(deck.getDeckName());
+        if (deck.getRingBearer() != null) {
+            deckWithErrata.setRingBearer(_errataCardMap.getOrDefault(deck.getRingBearer(), deck.getRingBearer()));
+        }
+        if (deck.getRing() != null) {
+            deckWithErrata.setRing(_errataCardMap.getOrDefault(deck.getRing(), deck.getRing()));
+        }
+        for (String card : deck.getAdventureCards()) {
+            deckWithErrata.addCard(_errataCardMap.getOrDefault(card, card));
+        }
+        for (String site : deck.getSites()) {
+            deckWithErrata.addSite(_errataCardMap.getOrDefault(site, site));
+        }
+        return deckWithErrata;
     }
 
     private void validateDeckStructure(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {

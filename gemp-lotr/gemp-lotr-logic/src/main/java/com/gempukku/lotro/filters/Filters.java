@@ -1060,6 +1060,7 @@ public class Filters {
         };
     }
 
+    public static final Filter ringBoundCompanion = Filters.and(CardType.COMPANION, Keyword.RING_BOUND);
     public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Keyword.RING_BOUND));
     public static final Filter roamingMinion = Filters.and(CardType.MINION, Keyword.ROAMING);
     public static final Filter mounted = Filters.or(Filters.hasAttached(PossessionClass.MOUNT), Keyword.MOUNTED);

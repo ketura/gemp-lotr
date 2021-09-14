@@ -87,8 +87,10 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                 game.getGameState().addCardToZone(game, _cardToAttach, Zone.VOID_FROM_HAND);
             else
                 game.getGameState().addCardToZone(game, _cardToAttach, Zone.VOID);
-            if (playedFromZone == Zone.DECK)
+            if (playedFromZone == Zone.DECK) {
+                game.getGameState().sendMessage(_cardToAttach.getOwner() + " shuffles his or her deck");
                 game.getGameState().shuffleDeck(_cardToAttach.getOwner());
+            }
         }
 
         if (!_targetChosen) {

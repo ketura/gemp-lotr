@@ -1,0 +1,151 @@
+{
+  "54_73": {
+    "title": "*Legolas",
+    "subtitle": "Dauntless Hunter",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "keyword": "archer",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "filter": "side(shadow),or(event,condition)",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "unbound,hobbit",
+          "limit": 2
+        }
+      }
+    }
+  },
+  "54_192": {
+    "side": "shadow",
+    "site": 5,
+    "cost": 3,
+    "race": "Uruk-Hai",
+    "strength": 8,
+    "culture": "Isengard",
+    "vitality": 2,
+    "title": "Uruk Regular",
+    "type": "minion",
+    "keyword": "Damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "play",
+        "filter": "choose(uruk-hai)",
+        "cost": {
+          "type": "forEachYouCanSpot",
+          "filter": "not(self),uruk-hai",
+          "limit": 2,
+          "multiplier": -1
+        }
+      }
+    }
+  },
+  "54_276": {
+    "title": "*Fortress Never Fallen",
+    "culture": "rohan",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "culture(rohan),man"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "rohan",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": [
+          {
+            "type": "memorizeNumber",
+            "memory": "numberOfTokens",
+            "amount": {
+              "type": "forEachToken",
+              "culture": "rohan",
+              "filter": "self"
+            }
+          }
+        ],
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "choose(side(shadow),condition)",
+            "count": {
+              "type": "fromMemory",
+              "memory": "numberOfTokens",
+              "limit": 4
+            }
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
+  "54_304": {
+    "title": "Get On and Get Away",
+    "culture": "shire",
+    "cost": 0,
+    "type": "event",
+    "keyword": "fellowship",
+    "condition": {
+      "type": "or",
+      "condition": [
+        {
+          "type": "canSpot",
+          "filter": "name(smeagol)"
+        },
+        {
+          "type": "canSpot",
+          "filter": "ring bound,hobbit",
+          "count": 2
+        }
+      ]
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "addBurdens",
+        "amount": 2
+      },
+      "effect": [
+        {
+          "type": "playSite",
+          "number": {
+            "type": "nextSiteNumber"
+          }
+        },
+        {
+          "type": "playSite",
+          "number": {
+            "type": "siteNumberAfterNext"
+          }
+        }
+      ]
+    }
+  }
+}

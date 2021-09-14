@@ -50,8 +50,10 @@ public class FilterFactory {
                     final CharacterLostSkirmishResult lostSkirmish = (CharacterLostSkirmishResult) actionContext.getEffectResult();
                     return lostSkirmish.getLoser();
                 });
+        simpleFilters.put("ring bound",
+                (actionContext) -> Filters.ringBoundCompanion);
         simpleFilters.put("unbound",
-                (actionContext) -> Filters.not(Keyword.RING_BOUND));
+                (actionContext) -> Filters.unboundCompanion);
         simpleFilters.put("attachedtoinsameregion",
                 actionContext -> {
                     final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
@@ -65,6 +67,8 @@ public class FilterFactory {
                 (actionContext -> Filters.siteNumber(actionContext.getGame().getGameState().getCurrentSiteNumber())));
         simpleFilters.put("siteincurrentregion",
                 (actionContext) -> Filters.siteInCurrentRegion);
+        simpleFilters.put("siteinregion2",
+                (actionContext) -> Filters.and(CardType.SITE, Filters.region(2)));
         simpleFilters.put("idinstored",
                 (actionContext ->
                         new Filter() {
@@ -111,6 +115,28 @@ public class FilterFactory {
                 throw new InvalidCardDefinitionException("Unable to find side for: " + parameter);
 
             return (actionContext) -> side;
+        });
+        parameterFilters.put("hasToken", (parameter, environment) -> {
+            final Culture culture = Culture.valueOf(parameter.toUpperCase());
+            if (culture == null)
+                throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
+            final Token token = Token.findTokenForCulture(culture);
+            if (token == null)
+                throw new InvalidCardDefinitionException("Unable to find token for culture: " + parameter);
+
+            return (actionContext) -> Filters.hasToken(token);
+        });
+        parameterFilters.put("hasTokenCount", (parameter, environment) -> {
+            String[] parameterSplit = parameter.split(",", 2);
+            int count = Integer.parseInt(parameterSplit[0]);
+            final Culture culture = Culture.valueOf(parameterSplit[1].toUpperCase());
+            if (culture == null)
+                throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
+            final Token token = Token.findTokenForCulture(culture);
+            if (token == null)
+                throw new InvalidCardDefinitionException("Unable to find token for culture: " + parameter);
+
+            return (actionContext) -> Filters.hasToken(token, count);
         });
         parameterFilters.put("hasAttached",
                 (parameter, environment) -> {

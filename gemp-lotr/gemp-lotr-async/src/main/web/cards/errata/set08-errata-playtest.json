@@ -1,0 +1,281 @@
+{
+  "78_24": {
+    "title": "*Promise Keeping",
+    "side": "shadow",
+    "culture": "gollum",
+    "cost": 4,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "takesWound",
+        "filter": "companion,inSkirmishAgainst(culture(gollum),minion)",
+        "memorize": "woundedCompanion"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "choose(companion)"
+      }
+    }
+  },
+  "78_44": {
+    "title": "Sixth Level",
+    "culture": "Gondor",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "Support Area",
+      "Fortification"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "limitPerPhase": 1,
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert 2 GONDOR Men",
+          "Exert a GONDOR ranger"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "count": 2,
+            "filter": "choose(culture(gondor),man)"
+          },
+          {
+            "type": "exert",
+            "filter": "choose(culture(gondor),ranger)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(gondor),fortification)"
+      }
+    }
+  },
+  "78_51": {
+    "title": "*Castamir of Umbar",
+    "culture": "Raider",
+    "cost": 7,
+    "type": "minion",
+    "race": "Man",
+    "strength": 14,
+    "vitality": 4,
+    "site": 4,
+    "keyword": [
+      "Fierce",
+      "Corsair"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "self"
+        },
+        {
+          "type": "play",
+          "filter": "choose(corsair)"
+        }
+      ],
+      "effect": {
+        "type": "addTokens",
+        "culture": "raider",
+        "filter": "choose(hasToken(raider))",
+        "amount": 2
+      }
+    }
+  },
+  "78_57": {
+    "title": "Corsair Marauder",
+    "culture": "Raider",
+    "cost": 4,
+    "type": "minion",
+    "race": "Man",
+    "strength": 9,
+    "vitality": 2,
+    "site": 4,
+    "keyword": "Corsair",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "assignedToSkirmish",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "not(self),corsair"
+      },
+      "cost": {
+        "type": "discard",
+        "filter": "choose(possession)"
+      },
+      "effect": {
+        "type": "addTokens",
+        "culture": "raider",
+        "filter": "choose(hasToken(raider))",
+        "amount": 2
+      }
+    }
+  },
+  "78_59": {
+    "title": "Corsair War Galley",
+    "culture": "Raider",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "Support Area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "raider",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "shadowhasinitiative",
+          "condition": [
+            {
+              "type": "canSpot",
+              "filter": "self,hasTokenCount(6,raider)"
+            },
+            {
+              "type": "canSpot",
+              "filter": "culture(raider),man"
+            }
+          ]
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "memorizeNumber",
+          "memory": "numberOfTokens",
+          "amount": {
+            "type": "forEachToken",
+            "culture": "raider",
+            "filter": "self"
+          }
+        },
+        "effect": [
+          {
+            "type": "addTwilight",
+            "amount": {
+              "type": "fromMemory",
+              "memory": "numberOfTokens"
+            }
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
+  "78_103": {
+    "title": "*Grond",
+    "subtitle": "Hammer of the Underworld",
+    "culture": "Sauron",
+    "cost": 3,
+    "type": "possession",
+    "keyword": [
+      "Support Area",
+      "Engine"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "play",
+          "filter": "choose(culture(sauron),minion)"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "sauron",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "regroup"
+        },
+        "cost": {
+          "type": "chooseandremovetokens",
+          "culture": "sauron",
+          "filter": "self",
+          "memorize": "numberOfTokens"
+        },
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "choose(side(free people),not(companion),minTwilight(memory(numberOfTokens)),maxTwilight(memory(numberOfTokens)))"
+          },
+          {
+            "type": "discard",
+            "filter": "choose(or(and(culture(sauron),minion),self))"
+          }
+        ]
+      }
+    ]
+  },
+  "78_107": {
+    "title": "Their Marching Companies",
+    "culture": "Sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "Support Area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "removeThreats"
+        },
+        "effect": {
+          "type": "stackCards",
+          "filter": "choose(your,culture(sauron),minion)",
+          "where": "choose(controlledsite)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeThreats"
+        },
+        "effect": {
+          "type": "playCardFromStacked",
+          "filter": "choose(culture(sauron),minion)",
+          "on": "controlledsite"
+        }
+      }
+    ]
+  }
+}

@@ -16,6 +16,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -25,10 +26,11 @@ import java.util.List;
 public class Transfer implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "where");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "where", "checkTarget");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String where = FieldUtils.getString(effectObject.get("where"), "where");
+        final boolean checkTarget = FieldUtils.getBoolean(effectObject.get("checkTarget"), "checkTarget", false);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -44,6 +46,10 @@ public class Transfer implements EffectAppenderProducer {
                             // Can't be transferred to card it's already attached to
                             if (transferredCard.getAttachedTo() == physicalCard)
                                 return false;
+                            // Optionally check target against original target filter
+                            if (checkTarget && !RuleUtils.getFullValidTargetFilter(transferredCard.getOwner(), game, transferredCard).accepts(game, physicalCard))
+                                return false;
+
                             return actionContext.getGame().getModifiersQuerying().canHaveTransferredOn(game, transferredCard, physicalCard);
                         }, actionContext -> Filters.any,
                         ValueResolver.resolveEvaluator(1, environment), "_temp2", "you", "Choose cards to transfer to", environment));

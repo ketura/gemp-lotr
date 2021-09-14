@@ -30,9 +30,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HallRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private CollectionsManager _collectionManager;
@@ -253,6 +251,11 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 result.append(cardName);
                 first = false;
             }
+            result.append("</li>");
+        }
+        if (!lotroFormat.getErrataCardMap().isEmpty()) {
+            result.append("<li>Errata: ");
+            appendCards(result, new ArrayList<>(new LinkedHashSet<>(lotroFormat.getErrataCardMap().values())));
             result.append("</li>");
         }
         if (lotroFormat.getValidCards().size() > 0) {

@@ -1,0 +1,50 @@
+{
+  "74_46": {
+    "title": "*Ever My Heart Rises",
+    "culture": "Dwarven",
+    "cost": 3,
+    "type": "condition",
+    "keyword": [
+      "Support Area",
+      "Tale"
+    ],
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "stackTopCardsOfDrawDeck",
+          "count": 6,
+          "where": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "dwarf"
+          },
+          {
+            "type": "canSpot",
+            "filter": "self,hasStacked(side(free people))"
+          }
+        ],
+        "cost": {
+          "type": "discardTopCardsFromDeck",
+          "count": 1,
+          "forced": false
+        },
+        "effect": {
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(side(free people))",
+          "on": "self"
+        }
+      }
+    ]
+  }
+}

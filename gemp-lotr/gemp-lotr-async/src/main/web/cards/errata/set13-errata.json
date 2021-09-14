@@ -1,0 +1,33 @@
+{
+  "63_188": {
+    "title": "Courtyard Parapet",
+    "type": "site",
+    "block": "Shadows",
+    "cost": 0,
+    "keyword": "Dwelling",
+    "direction": "left",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesTo",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "location",
+          "filter": "siteinregion2"
+        },
+        "cost": {
+          "type": "discardFromHand",
+          "hand": "shadowPlayer",
+          "player": "shadowPlayer",
+          "forced": false,
+          "count": 2
+        },
+        "effect": {
+          "type": "addBurdens"
+        }
+      }
+    ]
+  }
+}
