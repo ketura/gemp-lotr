@@ -154,5 +154,8 @@ var PCCards = {
 	//August 2021
 	'1_366': 'https://i.lotrtcgpc.net/promos/2021/08/PCPROMO_FA_01298.jpg',
 	'1_367': 'https://i.lotrtcgpc.net/promos/2021/08/PCPROMO_FA_01349.jpg',
+	//September 2021
+	'9_53': 'https://i.lotrtcgpc.net/promos/2021/09/PCPROMO_FA_09033.jpg',
+	'10_123':'https://i.lotrtcgpc.net/promos/2021/09/PCPROMO_FA_10123.jpg',
 }
 
