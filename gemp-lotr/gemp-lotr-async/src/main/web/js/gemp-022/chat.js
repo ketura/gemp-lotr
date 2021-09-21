@@ -1,7 +1,8 @@
 var ChatBoxUI = Class.extend({
     name:null,
+    userName:null,
     div:null,
-    communication:null,
+    comm:null,
 
     chatMessagesDiv:null,
     chatTalkDiv:null,
@@ -23,48 +24,89 @@ var ChatBoxUI = Class.extend({
     stopUpdates: false,
     
     dialogListener: null,
+    
+    enableDiscord: false,
+    discordDiv:null,
+    discordWidget:null,
+    chatEmbed:null,
+    displayDiscord:true,
+    
+    toggleChatButton:null,
 
-    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, displayChatListener) {
+    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, displayChatListener, allowDiscord=false) {
         var that = this;
+             
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
-        this.dialogListener = displayChatListener,
+        this.dialogListener = displayChatListener;
         this.name = name;
         this.div = div;
-        this.communication = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
-            that.appendMessage("Unkown chat problem occured (error=" + xhr.status + ")", "warningMessage");
-        });
+        
+        //This needs to be done before the comm object is instantiated, as otherwise it's too slow for immediate errors
 
-        this.chatMessagesDiv = $("<div class='chatMessages'></div>");
-        this.div.append(this.chatMessagesDiv);
+        if(this.name == "Game Hall")
+        {
+            this.chatMessagesDiv = $("#chatMessages");
+        }
+        else
+        {
+            this.chatMessagesDiv = $("<div class='chatMessages'></div>");
+            this.div.append(this.chatMessagesDiv);
+        }
+
+        
+        this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
+            that.appendMessage("Unknown chat problem occured (error=" + xhr.status + ")", "warningMessage");
+        });
+        this.enableDiscord = allowDiscord;
+
+        
 
         if (this.name != null) {
-            this.chatTalkDiv = $("<input type='text' class='chatTalk'>");
+            
+            if(this.name == "Game Hall")
+            {
+                
+                
+                this.discordDiv = $("#discordChat");
+                this.comm.getPlayerInfo(function(json)
+                { 
+                    that.userName = json; 
+                }, this.chatErrorMap());
 
-            if (showHideSystemButton) {
-                this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
-                {icons:{
-                    primary:"ui-icon-zoomin"
-                }, text:false});
-                this.hideSystemButton.click(
-                        function () {
-                            if (that.isShowingMessageClass("systemMessage")) {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
-                                that.hideMessageClass("systemMessage");
-                            } else {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
-                                that.showMessageClass("systemMessage");
-                            }
-                        });
-                this.hideMessageClass("systemMessage");
-            }
+                this.chatTalkDiv = $("#chatTalk");
 
-            if (showLockButton) {
-                this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
-                {icons:{
-                    primary:"ui-icon-locked"
-                }, text:false});
-                this.lockButton.click(
+                this.hideSystemButton = $("#showSystemButton");
+                if (showHideSystemButton) {
+                    hideSystemButton.button({icons:{
+                         primary:"ui-icon-zoomin"
+                     }, text:false});
+
+                    this.hideSystemButton.click(
+                            function () {
+                                if (that.isShowingMessageClass("systemMessage")) {
+                                    $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
+                                    that.hideMessageClass("systemMessage");
+                                } else {
+                                    $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
+                                    that.showMessageClass("systemMessage");
+                                }
+                            });
+                    this.hideMessageClass("systemMessage");
+                }
+                else
+                {
+                    this.hideSystemButton.hide();
+                    this.hideSystemButton = null;
+                }
+
+                this.lockButton = $("#lockChatButton");
+                if (showLockButton) {
+                    this.lockButton.button({icons:{
+                         primary:"ui-icon-locked"
+                     }, text:false});
+                    
+                    this.lockButton.click(
                         function () {
                             if (that.lockChat) {
                                 $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
@@ -72,38 +114,115 @@ var ChatBoxUI = Class.extend({
                             } else {
                                 $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
                                 that.lockChat = true;
-                            }
-                        });
-            }
-
-            if (showList) {
-                this.chatListDiv = $("<div class='userList'></div>");
-                this.div.append(this.chatListDiv);
-            }
-            if (this.hideSystemButton != null)
-                this.div.append(this.hideSystemButton);
-            if (this.lockButton != null)
-                this.div.append(this.lockButton);
-            this.div.append(this.chatTalkDiv);
-
-            this.communication.startChat(this.name,
-                    function (xml) {
-                        that.processMessages(xml, true);
-                    }, this.chatErrorMap());
-
-            this.chatTalkDiv.bind("keypress", function (e) {
-                var code = (e.keyCode ? e.keyCode : e.which);
-                if (code == 13) {
-                    var value = $(this).val();
-                    if (value != "")
-                        that.sendMessage(value);
-                    $(this).val("");
+                        }
+                    });
                 }
-            });
+                else
+                {
+                    this.lockButton.hide();
+                    this.lockButton = null;
+                }
+
+                this.comm.startChat(this.name,
+                        function (xml) {
+                            that.processMessages(xml, true);
+                        }, this.chatErrorMap());
+
+                this.chatTalkDiv.bind("keypress", function (e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 13) {
+                        var value = $(this).val();
+                        if (value != "")
+                            that.sendMessage(value);
+                        $(this).val("");
+                    }
+                });
+
+                
+                if (showList) {
+                    this.chatListDiv = $("#userList");
+                    this.toggleChatButton = $("#toggleChatButt");
+
+                    this.toggleChatButton.button();
+                    this.toggleChatButton.click( function() {
+                        that.toggleChat();
+                    });
+                }
+                
+                this.setDiscordVisible(false);
+            }
+            else
+            {
+                
+        
+                this.chatTalkDiv = $("<input type='text' class='chatTalk'>");
+
+                if (showHideSystemButton) {
+                    this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
+                    {icons:{
+                        primary:"ui-icon-zoomin"
+                    }, text:false});
+                    this.hideSystemButton.click(
+                            function () {
+                                if (that.isShowingMessageClass("systemMessage")) {
+                                    $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
+                                    that.hideMessageClass("systemMessage");
+                                } else {
+                                    $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
+                                    that.showMessageClass("systemMessage");
+                                }
+                            });
+                    this.hideMessageClass("systemMessage");
+                }
+
+                if (showLockButton) {
+                    this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
+                    {icons:{
+                        primary:"ui-icon-locked"
+                    }, text:false});
+                    this.lockButton.click(
+                            function () {
+                                if (that.lockChat) {
+                                    $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
+                                    that.lockChat = false;
+                                } else {
+                                    $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
+                                    that.lockChat = true;
+                                }
+                            });
+                }
+
+                if (showList) {
+                    this.chatListDiv = $("<div class='userList'></div>");
+                    this.div.append(this.chatListDiv);
+                }
+                if (this.hideSystemButton != null)
+                    this.div.append(this.hideSystemButton);
+                if (this.lockButton != null)
+                    this.div.append(this.lockButton);
+                this.div.append(this.chatTalkDiv);
+
+                this.comm.startChat(this.name,
+                        function (xml) {
+                            that.processMessages(xml, true);
+                        }, this.chatErrorMap());
+
+                this.chatTalkDiv.bind("keypress", function (e) {
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 13) {
+                        var value = $(this).val();
+                        if (value != "")
+                            that.sendMessage(value);
+                        $(this).val("");
+                    }
+                });
+            }
+            
         } else {
             this.talkBoxHeight = 0;
         }
     },
+
 
     hideMessageClass:function (msgClass) {
         this.hiddenClasses.push(msgClass);
@@ -128,29 +247,104 @@ var ChatBoxUI = Class.extend({
     },
 
     setBounds:function (x, y, width, height) {
-        var talkBoxPadding = 3;
+        
+        if(this.name != "Game Hall")
+        {
+            var talkBoxPadding = 3;
 
-        var userListWidth = 150;
-        if (this.chatListDiv == null)
-            userListWidth = 0;
+            var userListWidth = 150;
+            if (this.chatListDiv == null)
+               userListWidth = 0;
 
-        if (this.chatListDiv != null)
-            this.chatListDiv.css({ position:"absolute", left:x + width - userListWidth + "px", top:y + "px", width:userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
-        this.chatMessagesDiv.css({ position:"absolute", left:x + "px", top:y + "px", width:width - userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
-        if (this.chatTalkDiv != null) {
-            var leftTextBoxPadding = 0;
+            if (this.chatListDiv != null)
+               this.chatListDiv.css({ position:"absolute", left:x + width - userListWidth + "px", top:y + "px", width:userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
+           
+            if(this.chatMessagesDiv != null)
+                this.chatMessagesDiv.css({ position:"absolute", left:x + "px", top:y + "px", width:width - userListWidth, height:height - this.talkBoxHeight - 3 * talkBoxPadding, overflow:"auto" });
+            
+            if (this.chatTalkDiv != null) {
+               var leftTextBoxPadding = 0;
 
-            if (this.hideSystemButton != null) {
-                this.hideSystemButton.css({position:"absolute", left:x + width - talkBoxPadding - this.talkBoxHeight + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:this.talkBoxHeight, height:this.talkBoxHeight});
-                leftTextBoxPadding += this.talkBoxHeight + talkBoxPadding;
+               if (this.hideSystemButton != null) {
+                   this.hideSystemButton.css({position:"absolute", left:x + width - talkBoxPadding - this.talkBoxHeight + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:this.talkBoxHeight, height:this.talkBoxHeight});
+                   leftTextBoxPadding += this.talkBoxHeight + talkBoxPadding;
+               }
+               if (this.lockButton != null) {
+                   this.lockButton.css({position:"absolute", left:x + width - talkBoxPadding - this.talkBoxHeight - leftTextBoxPadding + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:this.talkBoxHeight, height:this.talkBoxHeight});
+                   leftTextBoxPadding += this.talkBoxHeight + talkBoxPadding;
+               }
+
+               this.chatTalkDiv.css({ position:"absolute", left:x + talkBoxPadding + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:width - 3 * talkBoxPadding - leftTextBoxPadding, height:this.talkBoxHeight });
             }
-            if (this.lockButton != null) {
-                this.lockButton.css({position:"absolute", left:x + width - talkBoxPadding - this.talkBoxHeight - leftTextBoxPadding + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:this.talkBoxHeight, height:this.talkBoxHeight});
-                leftTextBoxPadding += this.talkBoxHeight + talkBoxPadding;
-            }
-
-            this.chatTalkDiv.css({ position:"absolute", left:x + talkBoxPadding + "px", top:y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width:width - 3 * talkBoxPadding - leftTextBoxPadding, height:this.talkBoxHeight });
         }
+
+        this.handleChatVisibility();       
+    },
+    
+    handleChatVisibility:function() {
+        
+        if(this.enableDiscord)
+        {
+            if(this.displayDiscord)
+            {
+                this.toggleChatButton.text("Switch to Legacy");
+                
+                if(this.chatEmbed == null)
+                {
+                    this.discordDiv.show();
+                    this.chatEmbed = $("<widgetbot server='699957633121255515' channel='873065954609881140' width='100%' height='100%' username='" + this.userName + "'></widgetbot>");
+                    var script = $("<script src='https://cdn.jsdelivr.net/npm/@widgetbot/html-embed'></script>");
+                    this.discordDiv.append(script);
+                    this.discordDiv.append(this.chatEmbed);
+                }
+            }
+            else
+            {
+                this.toggleChatButton.text("Switch to Discord");
+            } 
+        }
+        
+        if(this.enableDiscord && this.displayDiscord)
+        {
+            if(this.discordDiv != null)
+                this.discordDiv.show();
+            
+            if(this.chatMessagesDiv != null)
+                this.chatMessagesDiv.hide();
+            if(this.chatTalkDiv != null)
+                this.chatTalkDiv.hide();
+            if(this.hideSystemButton != null)
+                this.hideSystemButton.hide();
+            if(this.lockButton != null)
+                this.lockButton.hide();
+        }
+        else
+        {
+            if(this.discordDiv != null)
+                this.discordDiv.hide();
+            
+            if(this.chatMessagesDiv != null)
+                this.chatMessagesDiv.show();
+            if(this.chatTalkDiv != null)
+                this.chatTalkDiv.show();
+            if(this.hideSystemButton != null)
+                this.hideSystemButton.show();
+            if(this.lockButton != null)
+                this.lockButton.show(); 
+        }
+        
+    },
+    
+    toggleChat:function() {
+        this.setDiscordVisible(!this.displayDiscord);
+    },
+    
+    setDiscordVisible:function(visible)
+    {
+      this.displayDiscord = visible;
+      
+      this.handleChatVisibility();
+        
     },
     
     checkForEnd:function (message, msgClass) {
@@ -249,20 +443,25 @@ var ChatBoxUI = Class.extend({
     updateChatMessages:function () {
         var that = this;
 
-        this.communication.updateChat(this.name, function (xml) {
+        this.comm.updateChat(this.name, function (xml) {
             that.processMessages(xml, true);
         }, this.chatErrorMap());
     },
 
     sendMessage:function (message) {
         var that = this;
-        this.communication.sendChatMessage(this.name, message, this.chatErrorMap());
+        this.comm.sendChatMessage(this.name, message, this.chatErrorMap());
+        
+        //this.chatEmbed.emit("sendMessage", message);
     },
 
     chatMalfunction: function() {
         this.stopUpdates = true;
         this.chatTalkDiv.prop('disabled', true);
         this.chatTalkDiv.css({"background-color": "#ff9999"});
+        
+        this.discordDiv.prop('disabled', true);
+        this.discordDiv.css({"background-color": "#ff9999"});
     },
 
     chatErrorMap:function() {
@@ -289,5 +488,7 @@ var ChatBoxUI = Class.extend({
                 that.appendMessage("You have been inactive for too long and were removed from the chat room. Refresh the page if you wish to re-enter.", "warningMessage");
             }
         };
-    }
+    },
+    
+    
 });

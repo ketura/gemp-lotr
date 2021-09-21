@@ -173,3 +173,74 @@ table.tables td, table.tables th {
 tr.played {
     background-color: #990000;
 }
+
+#chat {
+    display: grid;
+    grid-template-columns: auto 150px;
+    position:relative;
+    width:100%;
+    height:100%;
+    grid-gap: 3px;
+    overflow: hidden;
+}
+
+#chatarea {
+    position:relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#chatMessages {
+    height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+#userListColumn {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+#userList {
+    flex-grow: 1;
+    overflow: scroll;
+}
+
+#toggleChatButt {
+    flex: none;
+    height: 25px;
+}
+
+#legacyChat {
+    
+    display: grid;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    grid-template-columns: auto;
+    grid-template-rows: auto 25px;
+}
+
+#legacyChatInput {
+    display: flex;
+}
+
+#chatTalk {
+    flex-grow: 1;
+}
+
+#discordChat {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+#widgetbot {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

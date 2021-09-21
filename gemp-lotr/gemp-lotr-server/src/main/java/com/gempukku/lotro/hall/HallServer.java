@@ -91,7 +91,7 @@ public class HallServer extends AbstractServer {
         tableHolder = new TableHolder(leagueService, ignoreDAO);
 
         _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, true,
-                "You're now in the Game Hall, use /help to get a list of available commands");
+                "You're now in the Game Hall, use /help to get a list of available commands.<br>Don't forget to check out the new Discord chat integration! Click the 'Switch to Discord' button in the lower right ---->");
         _hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
                     @Override

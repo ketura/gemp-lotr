@@ -229,5 +229,15 @@
 # Gemp-LotR promos
 gl_theOneRing,1_2
 #Player's Council League Promos
+#Aragorn, Strider
 11_267,11_54
+#The Witch-king, Captain of the Nine Riders
 11_268,11_226
+#Hobbit Stealth - 2021/08
+1_366,1_298
+#Bridge of Khazad-dum - 2021/08
+1_367,1_349
+#Isildur, Bearer of Heirlooms - 2021/09
+9_53,9_33
+#Shelob, Her Ladyship - 2021/09
+10_123,10_23

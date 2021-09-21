@@ -151,6 +151,12 @@ var PCCards = {
 	// April 2021
 	'11_267': 'https://i.lotrtcgpc.net/promos/2021/04/PCPROMO_FA_11054.jpg',
 	'11_268': 'https://i.lotrtcgpc.net/promos/2021/04/PCPROMO_FA_11226.jpg',
+	//August 2021
+	'1_366': 'https://i.lotrtcgpc.net/promos/2021/08/PCPROMO_FA_01298.jpg',
+	'1_367': 'https://i.lotrtcgpc.net/promos/2021/08/PCPROMO_FA_01349.jpg',
+	//September 2021
+	'9_53': 'https://i.lotrtcgpc.net/promos/2021/09/PCPROMO_FA_09033.jpg',
+	'10_123':'https://i.lotrtcgpc.net/promos/2021/09/PCPROMO_FA_10123.jpg',
 	
 	// Player's Council FOTR+
 	'151_1': 'https://i.lotrtcgpc.net/sets/vset1/vpack1/V1_001.jpg',
@@ -167,7 +173,6 @@ var PCCards = {
 	'151_51': 'https://i.lotrtcgpc.net/sets/vset1/vpack1/V1_051.jpg',
 	'151_93': 'https://i.lotrtcgpc.net/sets/vset1/vpack1/V1_093.jpg',
 	'151_94': 'https://i.lotrtcgpc.net/sets/vset1/vpack1/V1_094.jpg',
-	
 	
 }
 
