@@ -418,7 +418,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
     }
 
 
-    public void InsertAdHocModifier(Modifier mod)
+    public void ApplyAdHocModifier(Modifier mod)
     {
         _game.getModifiersEnvironment().addUntilEndOfTurnModifier(mod);
     }

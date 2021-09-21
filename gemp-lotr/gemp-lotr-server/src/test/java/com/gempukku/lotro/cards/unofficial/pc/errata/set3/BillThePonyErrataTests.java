@@ -107,7 +107,7 @@ public class BillThePonyErrataTests
 
         scn.FreepsMoveCardToHand(bill, sam);
 
-        scn.InsertAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
+        scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
 
         scn.StartGame();
 

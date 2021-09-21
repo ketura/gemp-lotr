@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set2;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -72,7 +71,7 @@ public class Gimli_DotMrErrataTests
 
         scn.StartGame();
 
-        scn.InsertAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
+        scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
 
         scn.FreepsSkipCurrentPhaseAction();
 
