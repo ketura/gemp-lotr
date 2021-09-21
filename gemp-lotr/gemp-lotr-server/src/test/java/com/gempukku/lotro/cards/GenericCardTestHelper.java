@@ -299,6 +299,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetTwilight() { return _game.getGameState().getTwilightPool(); }
     public void SetTwilight(int amount) { _game.getGameState().setTwilight(amount); }
 
+    public int GetMoveLimit() { return _game.getGameState().getMoveCount(); }
+
     public PhysicalCardImpl GetRingBearer() { return (PhysicalCardImpl)_game.getGameState().getRingBearer(P1); }
 
     public PhysicalCardImpl GetCurrentSite() { return (PhysicalCardImpl)_game.getGameState().getCurrentSite(); }
