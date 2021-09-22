@@ -238,6 +238,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
 
     public void AttachCard(PhysicalCardImpl card, PhysicalCardImpl bearer) { _game.getGameState().attachCard(_game, card, bearer); }
+    public void AttachCardsTo(PhysicalCardImpl holder, PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> _game.getGameState().attachCard(_game, card, holder));
+    }
 
     public void FreepsMoveCardToDeck(String...cardNames) {
         Arrays.stream(cardNames).forEach(cardName -> FreepsMoveCardToDeck(GetFreepsCard(cardName)));
@@ -270,14 +273,16 @@ public class GenericCardTestHelper extends AbstractAtTest {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.SUPPORT));
     }
 
-    public void FreepsMoveCardToDiscard(String cardName) { FreepsMoveCardToSupportArea(GetFreepsCard(cardName)); }
+    public void FreepsMoveCardToDiscard(String cardName) { FreepsMoveCardToDiscard(GetFreepsCard(cardName)); }
     public void FreepsMoveCardToDiscard(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
     }
-    public void ShadowMoveCardToDiscard(String cardName) { ShadowMoveCardToSupportArea(GetShadowCard(cardName)); }
+    public void ShadowMoveCardToDiscard(String cardName) { ShadowMoveCardToDiscard(GetShadowCard(cardName)); }
     public void ShadowMoveCardToDiscard(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
     }
+
+
 
     public void MoveCardToZone(String player, PhysicalCardImpl card, Zone zone) {
         if(card.getZone() != null)
@@ -427,6 +432,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void FreepsChoose(String choice) throws DecisionResultInvalidException { playerDecided(P1, choice); }
     public void ShadowChoose(String choice) throws DecisionResultInvalidException { playerDecided(P2, choice); }
+
 
     public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsChooseToStay() throws DecisionResultInvalidException { playerDecided(P1, "1"); }

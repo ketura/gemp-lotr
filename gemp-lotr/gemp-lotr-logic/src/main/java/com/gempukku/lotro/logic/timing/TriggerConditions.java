@@ -197,6 +197,12 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean forEachDiscardedFromDeck(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_DECK)
+            return Filters.and(filters).accepts(game, ((DiscardCardFromDeckResult) effectResult).getDiscardedCard());
+        return false;
+    }
+
     public static boolean forEachWounded(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_WOUNDED)
             return Filters.and(filters).accepts(game, ((WoundResult) effectResult).getWoundedCard());

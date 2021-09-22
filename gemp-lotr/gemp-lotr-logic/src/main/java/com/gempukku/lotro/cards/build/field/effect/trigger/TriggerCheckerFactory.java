@@ -37,6 +37,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("exerts", new Exerts());
         triggerCheckers.put("discarded", new Discarded());
         triggerCheckers.put("discardfromhand", new DiscardFromHand());
+        triggerCheckers.put("discardfromdeck", new DiscardFromDeck());
         triggerCheckers.put("putsonring", new PutsOnRing());
         triggerCheckers.put("addsburden", new AddsBurden());
         triggerCheckers.put("removesburden", new RemovesBurden());

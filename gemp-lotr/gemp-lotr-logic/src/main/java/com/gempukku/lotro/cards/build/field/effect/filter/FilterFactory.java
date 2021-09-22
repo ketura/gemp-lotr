@@ -37,6 +37,7 @@ public class FilterFactory {
         simpleFilters.put("character", (actionContext) -> Filters.character);
         simpleFilters.put("mounted", (actionContext) -> Filters.mounted);
         simpleFilters.put("weapon", (actionContext) -> Filters.weapon);
+        simpleFilters.put("item", (actionContext) -> Filters.item);
         simpleFilters.put("wounded", (actionContext) -> Filters.wounded);
         simpleFilters.put("unwounded", (actionContext) -> Filters.unwounded);
         simpleFilters.put("exhausted", (actionContext) -> Filters.exhausted);

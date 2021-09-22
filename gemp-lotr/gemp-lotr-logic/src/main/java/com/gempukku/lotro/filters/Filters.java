@@ -410,6 +410,7 @@ public class Filters {
     public static final Filter galadriel = Filters.name("Galadriel");
 
     public static final Filter weapon = Filters.or(PossessionClass.HAND_WEAPON, PossessionClass.RANGED_WEAPON);
+    public static final Filter item = Filters.or(CardType.ARTIFACT, CardType.POSSESSION);
     public static final Filter character = Filters.or(CardType.ALLY, CardType.COMPANION, CardType.MINION);
 
     public static final Filter ringBearer = new Filter() {

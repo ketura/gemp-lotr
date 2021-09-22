@@ -41,7 +41,7 @@ public class Card_V1_001Tests
 
         /**
          * Set: VSet1, VPack1
-         * Title: Hospitality of the Dwarves
+         * Title: *Hospitality of the Dwarves
          * Side: Free Peoples
          * Culture: Dwarven
          * Twilight Cost: 1

@@ -17,18 +17,18 @@
             "type": "location",
             "filter": "siteBlock(fellowship),or(siteNumber(4),siteNumber(5),siteNumber(6),siteNumber(7),siteNumber(8))"
           },
-          "filter": "dwarf,hasAttachedCount(2,or(possession,artifact))"
+          "filter": "dwarf,hasAttachedCount(2,or(item))"
         }
       },
       {
         "type": "trigger",
         "optional": true,
         "trigger": {
-          "type": "moves",
+          "type": "moves"
         },
         "condition": {
           "type": "canSpot",
-          "filter": "dwarf,hasAttachedCount(2,or(possession,artifact))"
+          "filter": "dwarf,hasAttachedCount(2,item)"
         },
         "effect": {
           "type": "drawCards",
@@ -48,23 +48,21 @@
     ],
     "effects": [
       {
-        "type": "extraCost",
-        "cost": {
-          "type": "exert",
-          "filter": "choose(dwarf)"
-        }
-      },
-      {
         "type": "trigger",
+        "optional": true,
         "trigger": {
-          "type": "played",
-          "filter": "orc",
-          "memorize": "playedOrc"
+          "type": "discardfromdeck",
+          "filter": "your,culture(dwarven)",
+          "memorize": "topcard"
+        },
+        "cost":{
+          "type": "addTwilight",
+          "amount": 2
         },
         "effect": {
-          "type": "discardTopCardsFromDeck",
-          "forced": true,
-          "deck": "ownerFromMemory(playedOrc)"
+          "type": "stackcardsfromdiscard",
+          "where": "self",
+          "filter": "memory(topcard)"
         }
       }
     ]
