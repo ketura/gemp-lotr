@@ -237,9 +237,12 @@ public class GenericCardTestHelper extends AbstractAtTest {
     }
 
 
-    public void AttachCard(PhysicalCardImpl card, PhysicalCardImpl bearer) { _game.getGameState().attachCard(_game, card, bearer); }
-    public void AttachCardsTo(PhysicalCardImpl holder, PhysicalCardImpl...cards) {
-        Arrays.stream(cards).forEach(card -> _game.getGameState().attachCard(_game, card, holder));
+    public void AttachCardsTo(PhysicalCardImpl bearer, PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> _game.getGameState().attachCard(_game, card, bearer));
+    }
+
+    public void StackCardsOn(PhysicalCardImpl on, PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> _game.getGameState().stackCard(_game, card, on));
     }
 
     public void FreepsMoveCardToDeck(String...cardNames) {
@@ -375,8 +378,15 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
 
     public List<PhysicalCardImpl> FreepsGetAttachedCards(String name) { return GetAttachedCards(GetFreepsCard(name)); }
+    public List<PhysicalCardImpl> ShadowGetAttachedCards(String name) { return GetAttachedCards(GetShadowCard(name)); }
     public List<PhysicalCardImpl> GetAttachedCards(PhysicalCardImpl card) {
         return (List<PhysicalCardImpl>)(List<?>)_game.getGameState().getAttachedCards(card);
+    }
+
+    public List<PhysicalCardImpl> FreepsGetStackedCards(String name) { return GetStackedCards(GetFreepsCard(name)); }
+    public List<PhysicalCardImpl> ShadowGetStackedCards(String name) { return GetStackedCards(GetShadowCard(name)); }
+    public List<PhysicalCardImpl> GetStackedCards(PhysicalCardImpl card) {
+        return (List<PhysicalCardImpl>)(List<?>)_game.getGameState().getStackedCards(card);
     }
 
     public void FreepsResolveSkirmish(String name) throws DecisionResultInvalidException { FreepsResolveSkirmish(GetFreepsCard(name)); }

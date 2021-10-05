@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardFromDeckResult;
-import com.gempukku.lotro.logic.timing.results.DiscardCardFromPlayResult;
 
 import java.util.Collection;
 import java.util.LinkedList;

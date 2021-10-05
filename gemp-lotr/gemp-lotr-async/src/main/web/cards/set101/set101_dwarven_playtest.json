@@ -57,12 +57,24 @@
         },
         "cost":{
           "type": "addTwilight",
-          "amount": 2
+          "amount": 1
         },
         "effect": {
           "type": "stackcardsfromdiscard",
           "where": "self",
           "filter": "memory(topcard)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        },
+        "effect": {
+          "type": "playCardFromStacked",
+          "on": "self"
         }
       }
     ]

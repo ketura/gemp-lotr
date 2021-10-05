@@ -28,7 +28,7 @@ public class PutStackedCardsIntoHand implements EffectAppenderProducer {
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(
-                CardResolver.resolveStackedCards(filter, valueSource, onFilterSource, "_temp", "you", "Choose cards to discard", environment));
+                CardResolver.resolveStackedCards(filter, valueSource, onFilterSource, "_temp", "you", "Choose cards to take into hand", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

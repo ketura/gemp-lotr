@@ -92,7 +92,7 @@ public class StingErrataTests
         PhysicalCardImpl frodo = scn.GetRingBearer();
         PhysicalCardImpl sting = scn.GetFreepsCard("sting");
 
-        scn.AttachCard(sting, frodo);
+        scn.AttachCardsTo(frodo, sting);
 
         scn.StartGame();
 
@@ -115,7 +115,7 @@ public class StingErrataTests
         PhysicalCardImpl orc3 = scn.GetShadowCard("orc3");
         PhysicalCardImpl scimitar1 = scn.GetShadowCard("scimitar1");
 
-        scn.AttachCard(sting, frodo);
+        scn.AttachCardsTo(frodo, sting);
 
         scn.ShadowMoveCardToHand(orc1, orc2, orc3, scimitar1);
 
@@ -140,7 +140,7 @@ public class StingErrataTests
         PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
 
         scn.FreepsMoveCharToTable(sam, merry);
-        scn.AttachCard(sting, frodo);
+        scn.AttachCardsTo(frodo, sting);
 
         scn.ShadowMoveCardToHand(orc1);
 

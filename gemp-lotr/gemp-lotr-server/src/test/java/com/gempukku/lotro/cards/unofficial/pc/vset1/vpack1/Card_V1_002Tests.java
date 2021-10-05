@@ -35,7 +35,7 @@ public class Card_V1_002Tests
 
 
     @Test
-    public void WhiteCityStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+    public void DeepestDelvingsStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
         /**
          * Set: VSet1, VPack1
@@ -52,35 +52,75 @@ public class Card_V1_002Tests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl whitecity = scn.GetFreepsCard("whitecity");
+        PhysicalCardImpl deep = scn.GetFreepsCard("deep");
 
-        assertTrue(scn.HasKeyword(whitecity, Keyword.SUPPORT_AREA));
-        assertEquals(2, whitecity.getBlueprint().getTwilightCost());
-        assertTrue(whitecity.getBlueprint().isUnique());
+        assertTrue(scn.HasKeyword(deep, Keyword.SUPPORT_AREA));
+        assertEquals(1, deep.getBlueprint().getTwilightCost());
+        assertTrue(deep.getBlueprint().isUnique());
     }
 
     @Test
-    public void topdecktest() throws DecisionResultInvalidException, CardNotFoundException {
+    public void DiscardingDwarvenCardFromDeckTriggersOptionalStack() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
         PhysicalCardImpl beneath = scn.GetFreepsCard("beneath");
         PhysicalCardImpl deep = scn.GetFreepsCard("deep");
+        PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+        PhysicalCardImpl axe = scn.GetFreepsCard("axe2");
         scn.FreepsMoveCardToSupportArea(beneath);
         scn.FreepsMoveCardToSupportArea(deep);
-        scn.FreepsMoveCharToTable("gimli");
+        scn.FreepsMoveCharToTable(gimli);
         scn.FreepsMoveCardToDiscard("axe");
 
         scn.StartGame();
 
         scn.FreepsUseCardAction(beneath);
 
-
-        scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
-
+        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+        scn.FreepsAcceptOptionalTrigger();
+        assertEquals(1, scn.GetTwilight());
+        assertEquals(deep, axe.getStackedOn());
 
     }
+
+    @Test
+    public void ManeuverAbilityExertsToTakeStackedCardIntoHand() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl deep = scn.GetFreepsCard("deep");
+        PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+        PhysicalCardImpl axe = scn.GetFreepsCard("axe");
+        PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
+
+        scn.FreepsMoveCardToSupportArea(deep);
+        scn.FreepsMoveCharToTable(gimli);
+
+
+        scn.ShadowMoveCharToTable("runner");
+
+        scn.StartGame();
+
+        scn.StackCardsOn(deep, axe, axe2);
+
+        scn.SkipToPhase(Phase.MANEUVER);
+
+        assertEquals(0, scn.GetWoundsOn(gimli));
+        assertEquals(0, scn.GetFreepsHandCount());
+        assertEquals(2, scn.GetStackedCards(deep).size());
+        assertTrue(scn.FreepsActionAvailable("Deepest"));
+
+        scn.FreepsUseCardAction(deep);
+
+        //assertTrue(scn.FreepsDecisionAvailable("Choose"));
+        //scn.FreepsChooseCard(axe);
+        assertEquals(1, scn.GetWoundsOn(gimli));
+        assertEquals(1, scn.GetFreepsHandCount());
+        assertEquals(1, scn.GetStackedCards(deep).size());
+    }
+
+
 
 
 }
