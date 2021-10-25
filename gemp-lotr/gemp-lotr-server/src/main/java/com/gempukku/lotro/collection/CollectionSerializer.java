@@ -67,6 +67,10 @@ public class CollectionSerializer {
         //September 2021 PC Promos
         _singleByteCountItems.add("9_53");
         _singleByteCountItems.add("10_123");
+        
+        //October 2021 PC Promos
+        _singleByteCountItems.add("1_368");
+        _singleByteCountItems.add("1_369");
     }
 
     private void fillDoubleByteItems() throws IOException {
