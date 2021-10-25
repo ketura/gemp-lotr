@@ -1,0 +1,201 @@
+{
+	"151_7": {
+    "title": "The Counsel of the Wise",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)",
+        "memorize": "exertedDwarf"
+      },
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "memory(exertedDwarf)",
+          "amount": 3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(exertedDwarf)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  
+  "151_8": {
+    "title": "I Was There",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)",
+        "memorize": "exertedDwarf"
+      },
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "memory(exertedDwarf)",
+          "amount": 3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(exertedDwarf)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  
+  "151_9": {
+    "title": "*Legolas",
+    "subtitle": "Swift and Deadly",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "condition": {
+        "type": "twilightPoolLessThan",
+        "amount": 2
+      },
+      "cost": {
+        "type": "addTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "putCardsFromHandOnBottomOfDeck"
+      }
+    }
+  },
+  
+  "151_10": {
+    "title": "*Let Fly the Darts of Lindon",
+    "culture": "elven",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "orc",
+          "memorize": "playedOrc"
+        },
+        "effect": {
+          "type": "discardTopCardsFromDeck",
+          "forced": true,
+          "deck": "ownerFromMemory(playedOrc)"
+        }
+      }
+    ]
+  },
+  
+  
+  "151_11": {
+    "title": "*Library of Rivendell",
+    "culture": "elven",
+    "cost": 2,
+    "type": "artifact",
+    "possession": "mount",
+    "strength": 2,
+    "target": "elf",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "on": "name(Arwen)",
+        "amount": -2
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer",
+          "condition": {
+            "type": "location",
+            "filter": "plains"
+          },
+          "amount": 2
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": [
+            {
+              "type": "location",
+              "filter": "underground"
+            },
+            {
+              "type": "canSpot",
+              "filter": "self,attachedTo(companion)"
+            }
+          ]
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  
+  "151_12": {
+    "title": "*Three Rings for the Elven Kings",
+    "culture": "elven",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "orc",
+          "memorize": "playedOrc"
+        },
+        "effect": {
+          "type": "discardTopCardsFromDeck",
+          "forced": true,
+          "deck": "ownerFromMemory(playedOrc)"
+        }
+      }
+    ]
+  },
+  
+}
