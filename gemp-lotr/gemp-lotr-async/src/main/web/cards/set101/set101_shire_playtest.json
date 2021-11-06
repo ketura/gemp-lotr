@@ -1,10 +1,17 @@
 {
 
-	"151_57": {
-		"title": "Bag End Study",
-		"culture": "",
-		"cost": 0,
-		"type": "site",
+	"151_50": {
+		"title": "*Merry",
+		"subtitle": "Of Buckland",
+		"culture": "shire",
+		"cost": 1,
+		"type": "companion",
+		"race": "hobbit",
+		"keyword": "damage+1",
+		"strength": 3,
+		"vitality": 4,
+		"signet": "frodo",
+		"resistance": 6,
 		"effects": [
 			{
 				"type": "modifier",
@@ -30,11 +37,17 @@
 	},
 
 
-	"151_58": {
-		"title": "Bree Overlook",
-		"culture": "",
+	"151_51": {
+		"title": "*Bilbo",
+		"subtitle": "Of Bag End",
+		"culture": "shire",
 		"cost": 2,
-		"type": "site",
+		"type": "ally",
+		"allyHome": 3,
+		"race": "hobbit",
+		"keyword": "damage+1",
+		"strength": 2,
+		"vitality": 3,
 		"effects": [
 			{
 				"type": "modifier",
@@ -60,11 +73,18 @@
 	},
 
 
-	"151_59": {
-		"title": "Rivendell Gateway",
-		"culture": "",
-		"cost": 0,
-		"type": "sanctuary",
+	"151_52": {
+		"title": "*Pippin",
+		"subtitle": "Of Tuckborough",
+		"culture": "shire",
+		"cost": 1,
+		"type": "companion",
+		"race": "hobbit",
+		"keyword": "damage+1",
+		"strength": 3,
+		"vitality": 4,
+		"signet": "frodo",
+		"resistance": 6,
 		"effects": [
 			{
 				"type": "modifier",
@@ -90,11 +110,18 @@
 	},
 
 
-	"151_60": {
-		"title": "Moria Crossroads",
-		"culture": "",
-		"cost": 3,
-		"type": "site",
+	"151_53": {
+		"title": "*Sam",
+		"subtitle": "Of Bagshot Row",
+		"culture": "shire",
+		"cost": 2,
+		"type": "companion",
+		"race": "hobbit",
+		"keyword": "damage+1",
+		"strength": 3,
+		"vitality": 4,
+		"signet": "frodo",
+		"resistance": 6,
 		"effects": [
 			{
 				"type": "modifier",
@@ -120,101 +147,65 @@
 	},
 
 
-	"151_61": {
-		"title": "Lorien Throne Room",
-		"culture": "",
-		"cost": 3,
-		"type": "sanctuary",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
+	"151_54": {
+		"title": "We May Yet",
+		"culture": "shire",
+		"cost": 1,
+		"type": "event",
+		"keyword": "skirmish",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
 			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
 				}
-			}
-		]
+			]
+		}
 	},
 
 
-	"151_62": {
-		"title": "Valley of the Anduin",
-		"culture": "",
-		"cost": 6,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
+	"151_55": {
+		"title": "We're Coming Too",
+		"culture": "shire",
+		"cost": 2,
+		"type": "event",
+		"keyword": "fellowship",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
 			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
 				}
-			}
-		]
+			]
+		}
 	},
 
 
-	"151_63": {
-		"title": "Nen Hithoel",
-		"culture": "",
-		"cost": 7,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_64": {
-		"title": "Henneth Anun Glade",
-		"culture": "",
-		"cost": 9,
-		"type": "site",
+	"151_56": {
+		"title": "*Griffo Boffin",
+		"subtitle": "Uncouth Fellow",
+		"culture": "shire",
+		"cost": 1,
+		"type": "ally",
+		"allyHome": 1,
+		"race": "hobbit",
+		"keyword": "damage+1",
+		"strength": 3,
+		"vitality": 2,
 		"effects": [
 			{
 				"type": "modifier",

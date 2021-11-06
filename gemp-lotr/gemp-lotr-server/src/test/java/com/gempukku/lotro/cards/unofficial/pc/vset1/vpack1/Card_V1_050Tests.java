@@ -15,14 +15,14 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_007Tests
+public class Card_V1_050Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_7");
+					put("card", "151_50");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -34,17 +34,20 @@ public class Card_V1_007Tests
 	// Uncomment both @Test markers below once this is ready to be used
 
 	//@Test
-	public void TheCounseloftheWiseStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void MerryStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
-		* Title: The Counsel of the Wise
+		* Title: *Merry, Of Buckland
 		* Side: Free Peoples
-		* Culture: elven
-		* Twilight Cost: 0
-		* Type: event
-		* Subtype: Fellowship
-		* Game Text: Add x to take an [elven] ally with a twilight cost of x into hand from your draw deck.
+		* Culture: shire
+		* Twilight Cost: 1
+		* Type: companion
+		* Subtype: Hobbit
+		* Strength: 3
+		* Vitality: 4
+		* Signet: Frodo
+		* Game Text: Assignment: Discard x [shire] tales to prevent a minion with a twilight cost of x from being assigned to skirmishes until the end of the skirmish phase. The shadow player may remove (x) to prevent this.
 		*/
 
 		//Pre-game setup
@@ -52,21 +55,21 @@ public class Card_V1_007Tests
 
 		PhysicalCardImpl card = scn.GetFreepsCard("card");
 
-		assertFalse(card.getBlueprint().isUnique());
+		assertTrue(card.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
+		assertEquals(1, card.getBlueprint().getTwilightCost());
+		assertEquals(3, card.getBlueprint().getStrength());
+		assertEquals(4, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
+		assertEquals(Signet.FRODO, card.getBlueprint().getSignet()); 
 		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
+		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	//@Test
-	public void TheCounseloftheWiseTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void MerryTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -76,6 +79,6 @@ public class Card_V1_007Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		assertEquals(1, scn.GetTwilight());
 	}
 }

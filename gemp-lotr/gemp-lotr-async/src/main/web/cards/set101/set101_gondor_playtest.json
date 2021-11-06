@@ -1,10 +1,17 @@
 {
 
-	"151_57": {
-		"title": "Bag End Study",
-		"culture": "",
-		"cost": 0,
-		"type": "site",
+	"151_19": {
+		"title": "*Aragorn",
+		"subtitle": "Estel",
+		"culture": "gondor",
+		"cost": 4,
+		"type": "companion",
+		"race": "man",
+		"keyword": "damage+1",
+		"strength": 8,
+		"vitality": 4,
+		"signet": "gandalf",
+		"resistance": 6,
 		"effects": [
 			{
 				"type": "modifier",
@@ -30,11 +37,49 @@
 	},
 
 
-	"151_58": {
-		"title": "Bree Overlook",
-		"culture": "",
+	"151_20": {
+		"title": "*Boromir",
+		"subtitle": "The Redeemed",
+		"culture": "gondor",
+		"cost": 3,
+		"type": "companion",
+		"race": "man",
+		"keyword": "damage+1",
+		"strength": 7,
+		"vitality": 3,
+		"signet": "aragorn",
+		"resistance": 6,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_21": {
+		"title": "*For The Sons Of Gondor Have Returned",
+		"culture": "gondor",
 		"cost": 2,
-		"type": "site",
+		"type": "condition",
+		"keyword": "support area",
 		"effects": [
 			{
 				"type": "modifier",
@@ -60,11 +105,14 @@
 	},
 
 
-	"151_59": {
-		"title": "Rivendell Gateway",
-		"culture": "",
-		"cost": 0,
-		"type": "sanctuary",
+	"151_22": {
+		"title": "Gilraen's Memorial",
+		"culture": "gondor",
+		"cost": 1,
+		"type": "artifact",
+		"possession": "Support Area",
+		"target": "name(Gimli)",
+		"keyword": "support area",
 		"effects": [
 			{
 				"type": "modifier",
@@ -90,11 +138,12 @@
 	},
 
 
-	"151_60": {
-		"title": "Moria Crossroads",
-		"culture": "",
-		"cost": 3,
-		"type": "site",
+	"151_23": {
+		"title": "*I Would Have Gone With You To The End",
+		"culture": "gondor",
+		"cost": 2,
+		"type": "condition",
+		"keyword": "support area",
 		"effects": [
 			{
 				"type": "modifier",
@@ -120,101 +169,13 @@
 	},
 
 
-	"151_61": {
-		"title": "Lorien Throne Room",
-		"culture": "",
-		"cost": 3,
-		"type": "sanctuary",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_62": {
-		"title": "Valley of the Anduin",
-		"culture": "",
-		"cost": 6,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_63": {
-		"title": "Nen Hithoel",
-		"culture": "",
-		"cost": 7,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_64": {
-		"title": "Henneth Anun Glade",
-		"culture": "",
-		"cost": 9,
-		"type": "site",
+	"151_24": {
+		"title": "*You Have My Sword",
+		"culture": "gondor",
+		"cost": 1,
+		"type": "condition",
+		"keyword": "support area",
+		"strength": 2,
 		"effects": [
 			{
 				"type": "modifier",

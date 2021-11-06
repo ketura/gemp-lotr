@@ -15,14 +15,14 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_007Tests
+public class Card_V1_033Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_7");
+					put("card", "151_33");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -34,17 +34,21 @@ public class Card_V1_007Tests
 	// Uncomment both @Test markers below once this is ready to be used
 
 	//@Test
-	public void TheCounseloftheWiseStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void ThrashingTentacleStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
-		* Title: The Counsel of the Wise
+		* Title: Thrashing Tentacle
 		* Side: Free Peoples
-		* Culture: elven
-		* Twilight Cost: 0
-		* Type: event
-		* Subtype: Fellowship
-		* Game Text: Add x to take an [elven] ally with a twilight cost of x into hand from your draw deck.
+		* Culture: moria
+		* Twilight Cost: 2
+		* Type: minion
+		* Subtype: Creature
+		* Strength: 5
+		* Vitality: 2
+		* Site Number: 4
+		* Game Text: Tentacle. This minion may not bear possessions and is discarded if not at a marsh.
+		* 	Shadow: Spot 3 [moria] creatures to play this minion from your discard pile.
 		*/
 
 		//Pre-game setup
@@ -54,19 +58,19 @@ public class Card_V1_007Tests
 
 		assertFalse(card.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
+		assertEquals(2, card.getBlueprint().getTwilightCost());
+		assertEquals(5, card.getBlueprint().getStrength());
+		assertEquals(2, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
+		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
+		assertEquals(Culture.MORIA, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	//@Test
-	public void TheCounseloftheWiseTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void ThrashingTentacleTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -76,6 +80,6 @@ public class Card_V1_007Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		assertEquals(2, scn.GetTwilight());
 	}
 }

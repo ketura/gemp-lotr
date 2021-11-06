@@ -15,14 +15,14 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_007Tests
+public class Card_V1_041Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_7");
+					put("card", "151_41");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -34,17 +34,18 @@ public class Card_V1_007Tests
 	// Uncomment both @Test markers below once this is ready to be used
 
 	//@Test
-	public void TheCounseloftheWiseStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void TheirEyesFellUponHimStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
-		* Title: The Counsel of the Wise
+		* Title: *Their Eyes Fell Upon Him
 		* Side: Free Peoples
-		* Culture: elven
-		* Twilight Cost: 0
-		* Type: event
-		* Subtype: Fellowship
-		* Game Text: Add x to take an [elven] ally with a twilight cost of x into hand from your draw deck.
+		* Culture: ringwraith
+		* Twilight Cost: 1
+		* Type: condition
+		* Subtype: Support Area
+		* Game Text: To play spot a twilight Nazgul.
+		* 	Each time the fellowship moves you may spot a wound on the ringbearer to draw a card (or draw 2 cards if the ringbearer is exhausted).
 		*/
 
 		//Pre-game setup
@@ -52,21 +53,21 @@ public class Card_V1_007Tests
 
 		PhysicalCardImpl card = scn.GetFreepsCard("card");
 
-		assertFalse(card.getBlueprint().isUnique());
+		assertTrue(card.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
+		assertEquals(1, card.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
 		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
+		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	//@Test
-	public void TheCounseloftheWiseTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void TheirEyesFellUponHimTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -76,6 +77,6 @@ public class Card_V1_007Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		assertEquals(1, scn.GetTwilight());
 	}
 }

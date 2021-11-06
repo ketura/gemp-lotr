@@ -17,7 +17,7 @@
             "type": "location",
             "filter": "siteBlock(fellowship),or(siteNumber(4),siteNumber(5),siteNumber(6),siteNumber(7),siteNumber(8))"
           },
-          "filter": "dwarf,hasAttachedCount(2,or(item))"
+          "filter": "dwarf,hasAttachedCount(2,item)"
         }
       },
       {
@@ -73,7 +73,8 @@
           "filter": "choose(dwarf)"
         },
         "effect": {
-          "type": "playCardFromStacked",
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(side(free people))",
           "on": "self"
         }
       }
@@ -90,23 +91,36 @@
     "strength": 6,
     "vitality": 3,
     "resistance": 6,
-    "signet": "aragorn",
+    "signet": "frodo",
     "keyword": "damage+1",
-    "effects": {
-      "type": "activated",
-      "phase": "fellowship",
-      "condition": {
-        "type": "twilightPoolLessThan",
-        "amount": 2
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "condition": {
+            "type": "canspot",
+            "count": 2,
+            "filter": "item,attachedTo(self)"
+          },
+          "amount": 2
+        }
       },
-      "cost": {
-        "type": "addTwilight",
-        "amount": 2
-      },
-      "effect": {
-        "type": "putCardsFromHandOnBottomOfDeck"
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "condition": {
+            "type": "canspot",
+            "count": 3,
+            "filter": "item,attachedTo(self)"
+          },
+          "keyword": "damage+1"
+        }
       }
-    }
+    ]
   },
   
   "151_4": {
@@ -119,19 +133,14 @@
       "type": "event",
       "cost": {
         "type": "exert",
-        "filter": "choose(dwarf)",
-        "memorize": "exertedDwarf"
+        "filter": "choose(elf)",
       },
       "effect": [
         {
           "type": "modifyStrength",
-          "filter": "memory(exertedDwarf)",
-          "amount": 3
-        },
-        {
-          "type": "addKeyword",
-          "filter": "memory(exertedDwarf)",
-          "keyword": "damage+1"
+          "filter": "choose(name(Gimli))",
+          "until": "start(regroup)",
+          "amount": 2
         }
       ]
     }
@@ -143,23 +152,18 @@
     "cost": 1,
     "type": "event",
     "keyword": "maneuver",
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf,hasAttachedCount(2,item)"
+    },
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "exert",
-        "filter": "choose(dwarf)",
-        "memorize": "exertedDwarf"
-      },
       "effect": [
         {
-          "type": "modifyStrength",
-          "filter": "memory(exertedDwarf)",
-          "amount": 3
-        },
-        {
           "type": "addKeyword",
-          "filter": "memory(exertedDwarf)",
-          "keyword": "damage+1"
+          "filter": "choose(dwarf,hasAttachedCount(2,item))",
+          "keyword": "defender+1",
+          "until": "start(regroup)"
         }
       ]
     }
@@ -173,28 +177,23 @@
     "keyword": [
       "support area"
     ],
-    "effects": [
-      {
-        "type": "extraCost",
-        "cost": {
-          "type": "exert",
-          "filter": "choose(dwarf)"
-        }
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "moves"
       },
-      {
-        "type": "trigger",
-        "trigger": {
-          "type": "played",
-          "filter": "orc",
-          "memorize": "playedOrc"
-        },
-        "effect": {
-          "type": "discardTopCardsFromDeck",
-          "forced": true,
-          "deck": "ownerFromMemory(playedOrc)"
-        }
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)",
+        "times": 1
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(name(Gimli))",
+        "times": 1
       }
-    ]
+    }
   },
   
 }

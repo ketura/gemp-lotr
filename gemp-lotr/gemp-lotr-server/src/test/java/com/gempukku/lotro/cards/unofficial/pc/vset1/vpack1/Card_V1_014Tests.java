@@ -15,14 +15,14 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_007Tests
+public class Card_V1_014Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_7");
+					put("card", "151_14");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -34,17 +34,22 @@ public class Card_V1_007Tests
 	// Uncomment both @Test markers below once this is ready to be used
 
 	//@Test
-	public void TheCounseloftheWiseStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void GwaihirStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
-		* Title: The Counsel of the Wise
+		* Title: *Gwaihir, King Of All Birds
 		* Side: Free Peoples
-		* Culture: elven
-		* Twilight Cost: 0
-		* Type: event
-		* Subtype: Fellowship
-		* Game Text: Add x to take an [elven] ally with a twilight cost of x into hand from your draw deck.
+		* Culture: gandalf
+		* Twilight Cost: 4
+		* Type: ally
+		* Subtype: Eagle
+		* Strength: 8
+		* Vitality: 4
+		* Site Number: 4
+		* Game Text: To play spot Gandalf.
+		* 	Each time you move to an opponents site you may heal a companion with the Gandalf signet.
+		* 	Regroup: Discard Gwaihir to make the move limit for this turn +1, the shadow player may take 2 shadow cards from their discard pile into hand.
 		*/
 
 		//Pre-game setup
@@ -52,21 +57,21 @@ public class Card_V1_007Tests
 
 		PhysicalCardImpl card = scn.GetFreepsCard("card");
 
-		assertFalse(card.getBlueprint().isUnique());
+		assertTrue(card.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
+		assertEquals(4, card.getBlueprint().getTwilightCost());
+		assertEquals(8, card.getBlueprint().getStrength());
+		assertEquals(4, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
+		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(CardType.ALLY, card.getBlueprint().getCardType());
+		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	//@Test
-	public void TheCounseloftheWiseTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void GwaihirTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -76,6 +81,6 @@ public class Card_V1_007Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		assertEquals(4, scn.GetTwilight());
 	}
 }

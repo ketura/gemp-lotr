@@ -89,26 +89,30 @@ public class Card_V1_002Tests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
+        PhysicalCardImpl beneath = scn.GetFreepsCard("beneath");
         PhysicalCardImpl deep = scn.GetFreepsCard("deep");
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
         PhysicalCardImpl axe = scn.GetFreepsCard("axe");
         PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
 
+        scn.FreepsMoveCardToSupportArea(beneath);
         scn.FreepsMoveCardToSupportArea(deep);
         scn.FreepsMoveCharToTable(gimli);
+        scn.FreepsMoveCardToDiscard("axe");
 
 
         scn.ShadowMoveCharToTable("runner");
 
         scn.StartGame();
 
-        scn.StackCardsOn(deep, axe, axe2);
+        scn.FreepsUseCardAction(beneath);
+        scn.FreepsAcceptOptionalTrigger();
 
         scn.SkipToPhase(Phase.MANEUVER);
 
         assertEquals(0, scn.GetWoundsOn(gimli));
         assertEquals(0, scn.GetFreepsHandCount());
-        assertEquals(2, scn.GetStackedCards(deep).size());
+        assertEquals(1, scn.GetStackedCards(deep).size());
         assertTrue(scn.FreepsActionAvailable("Deepest"));
 
         scn.FreepsUseCardAction(deep);

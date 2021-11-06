@@ -15,14 +15,14 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_007Tests
+public class Card_V1_034Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_7");
+					put("card", "151_34");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -34,17 +34,19 @@ public class Card_V1_007Tests
 	// Uncomment both @Test markers below once this is ready to be used
 
 	//@Test
-	public void TheCounseloftheWiseStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void OutofDarkWatersStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
-		* Title: The Counsel of the Wise
+		* Title: Out of Dark Waters
 		* Side: Free Peoples
-		* Culture: elven
+		* Culture: moria
 		* Twilight Cost: 0
-		* Type: event
-		* Subtype: Fellowship
-		* Game Text: Add x to take an [elven] ally with a twilight cost of x into hand from your draw deck.
+		* Type: condition
+		* Subtype: Support Area
+		* Game Text: Shadow: Remove (1) to stack a tentacle from hand here.
+		* 	Shadow: Remove (1) to play a tentacle from here as if from hand.
+		* 	Response: If this condition is about to be discarded, discard a tentacle stacked here to prevent that.  
 		*/
 
 		//Pre-game setup
@@ -60,13 +62,13 @@ public class Card_V1_007Tests
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
 		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
+		assertEquals(Culture.MORIA, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	//@Test
-	public void TheCounseloftheWiseTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void OutofDarkWatersTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 

@@ -1,12 +1,12 @@
+
 package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -18,89 +18,74 @@ import static org.junit.Assert.assertTrue;
 public class Card_V1_004Tests
 {
 
-    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
-                    put("aragorn", "1_89");
-                    put("boromir", "1_97");
-                    put("loud", "101_4");
+	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+		return new GenericCardTestHelper(
+				new HashMap<String, String>()
+				{{
+					put("friend", "151_4");
+					put("legolas", "1_50");
+					put("gimli", "1_13");
+					put("runner", "1_178");
+				}},
+				GenericCardTestHelper.FellowshipSites,
+				GenericCardTestHelper.FOTRFrodo,
+				GenericCardTestHelper.FOTRRing
+		);
+	}
 
-                    put("attea", "1_229");
-                }}
-        );
-    }
+	@Test
+	public void ElfriendStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
+		/**
+		* Set: V1
+		* Title: I Name You Elf-friend
+		* Side: Free Peoples
+		* Culture: dwarven
+		* Twilight Cost: 1
+		* Type: event
+		* Subtype: Maneuver
+		* Game Text: Exert an Elf to make Gimli strength +3 and damage +1 until the regroup phase.
+		*/
 
-    @Test
-    public void LoudAndClearStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-        /**
-         * Set: VSet1, VPack1
-         * Title: *Loud and Clear It Sounds
-         * Side: Free Peoples
-         * Culture: Gondor
-         * Twilight Cost: 1
-         * Type: Condition
-         * Subtype: Support Area
-         * Game Text: Each time the Shadow player assigns as minion to a [shire] companion, you may exert a [gondor] companion and discard this condition to assign that minion to that [gondor] companion instead.
-         */
+		PhysicalCardImpl friend = scn.GetFreepsCard("friend");
 
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+		assertFalse(friend.getBlueprint().isUnique());
+		assertEquals(1, friend.getBlueprint().getTwilightCost());
+		assertEquals(CardType.EVENT, friend.getBlueprint().getCardType());
+		assertEquals(Culture.DWARVEN, friend.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, friend.getBlueprint().getSide());
+	}
 
-        PhysicalCardImpl loud = scn.GetFreepsCard("loud");
+	@Test
+	public void ElfriendExertsElfToPumpGimli() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-        assertTrue(scn.HasKeyword(loud, Keyword.SUPPORT_AREA));
-        assertEquals(1, loud.getBlueprint().getTwilightCost());
-        assertTrue(loud.getBlueprint().isUnique());
-    }
+		PhysicalCardImpl friend = scn.GetFreepsCard("friend");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl legolas = scn.GetFreepsCard("legolas");
+		scn.FreepsMoveCardToHand(friend);
+		scn.FreepsMoveCharToTable(gimli, legolas);
 
-    @Test
-    public void LoudAndClearInterceptsShadowAssignment() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+		scn.ShadowMoveCharToTable("runner");
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
-        PhysicalCardImpl loud = scn.GetFreepsCard("loud");
+		scn.StartGame();
 
-        scn.FreepsMoveCharToTable(boromir, aragorn);
-        scn.FreepsMoveCardToSupportArea(loud);
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.FreepsActionAvailable("Name You"));
+		assertEquals(0, scn.GetWoundsOn(legolas));
+		assertEquals(6, scn.GetStrength(gimli));
+		scn.FreepsPlayCard(friend);
+		assertEquals(1, scn.GetWoundsOn(legolas));
+		assertEquals(8, scn.GetStrength(gimli));
 
-        PhysicalCardImpl attea = scn.GetShadowCard("attea");
-        scn.ShadowMoveCharToTable(attea);
+		scn.SkipToPhase(Phase.ARCHERY);
+		assertEquals(8, scn.GetStrength(gimli));
 
-        scn.StartGame();
-        scn.SkipToPhase(Phase.ASSIGNMENT);
-
-        //Assignment actions
-        scn.SkipCurrentPhaseActions();
-
-        //Skip standard assignment so shadow assigns
-        scn.FreepsSkipCurrentPhaseAction();
-
-        scn.ShadowAssignToMinions(frodo, attea);
-
-        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
-        scn.FreepsAcceptOptionalTrigger();
-        scn.FreepsChooseCard(boromir);
-
-        assertTrue(loud.getZone() == Zone.DISCARD);
-        assertTrue(scn.IsCharAssigned(boromir));
-        assertEquals(1, scn.GetWoundsOn(boromir));
-        assertFalse(scn.IsCharAssigned(frodo));
-
-        scn.FreepsResolveSkirmish(boromir);
-        scn.SkipCurrentPhaseActions();
-
-        //fierce skirmish
-        scn.SkipCurrentPhaseActions();
-        scn.FreepsAssignToMinions(frodo, attea);
-        //should only trigger if shadow assigns
-        assertFalse(scn.FreepsHasOptionalTriggerAvailable());
-    }
-
-
+		scn.SkipToPhase(Phase.REGROUP);
+		assertEquals(6, scn.GetStrength(gimli));
+	}
 }

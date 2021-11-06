@@ -434,6 +434,11 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return _game.getModifiersQuerying().hasKeyword(_game, card, keyword);
     }
 
+    public int GetKeywordCount(PhysicalCardImpl card, Keyword keyword)
+    {
+        return _game.getModifiersQuerying().getKeywordCount(_game, card, keyword);
+    }
+
 
     public void ApplyAdHocModifier(Modifier mod)
     {

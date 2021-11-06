@@ -1,0 +1,217 @@
+{
+
+	"151_37": {
+		"title": "Fell Voices Call",
+		"culture": "wraith",
+		"cost": 0,
+		"type": "event",
+		"keyword": "shadow",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
+			},
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
+				}
+			]
+		}
+	},
+
+
+	"151_38": {
+		"title": "*Harry Goatleaf",
+		"subtitle": "In Thrall To The Nine",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "minion",
+		"race": "man",
+		"keyword": "damage+1",
+		"strength": 3,
+		"vitality": 1,
+		"site": 2,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_39": {
+		"title": "Pale Crown",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "artifact",
+		"possession": "",
+		"target": "name(Gimli)",
+		"keyword": "support area",
+		"vitality": 1,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_40": {
+		"title": "Ringwraith In Twilight",
+		"culture": "wraith",
+		"cost": 4,
+		"type": "minion",
+		"race": "nazgul",
+		"keyword": "damage+1",
+		"strength": 9,
+		"vitality": 3,
+		"site": 3,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_41": {
+		"title": "*Their Eyes Fell Upon Him",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "condition",
+		"keyword": "support area",
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_42": {
+		"title": "*Walks In Twilight",
+		"culture": "wraith",
+		"cost": 2,
+		"type": "condition",
+		"keyword": "support area",
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_43": {
+		"title": "White Faces Burned",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "event",
+		"keyword": "skirmish",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
+			},
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
+				}
+			]
+		}
+	},
+
+}

@@ -1,40 +1,15 @@
 {
 
-	"151_57": {
-		"title": "Bag End Study",
-		"culture": "",
-		"cost": 0,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_58": {
-		"title": "Bree Overlook",
-		"culture": "",
+	"151_25": {
+		"title": "Crebain",
+		"culture": "isengard",
 		"cost": 2,
-		"type": "site",
+		"type": "minion",
+		"race": "crow",
+		"keyword": "damage+1",
+		"strength": 4,
+		"vitality": 2,
+		"site": 4,
 		"effects": [
 			{
 				"type": "modifier",
@@ -60,11 +35,106 @@
 	},
 
 
-	"151_59": {
-		"title": "Rivendell Gateway",
-		"culture": "",
+	"151_26": {
+		"title": "Crows of Isengard",
+		"culture": "isengard",
+		"cost": 3,
+		"type": "minion",
+		"race": "crow",
+		"keyword": "damage+1",
+		"strength": 5,
+		"vitality": 3,
+		"site": 4,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_27": {
+		"title": "*Frostbite",
+		"culture": "isengard",
+		"cost": 1,
+		"type": "condition",
+		"keyword": "support area",
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_28": {
+		"title": "Just A Whisp Of Cloud",
+		"culture": "isengard",
 		"cost": 0,
-		"type": "sanctuary",
+		"type": "event",
+		"keyword": "regroup",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
+			},
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
+				}
+			]
+		}
+	},
+
+
+	"151_29": {
+		"title": "*A Murder Of Crows",
+		"culture": "isengard",
+		"cost": 5,
+		"type": "minion",
+		"race": "crow",
+		"keyword": "damage+1",
+		"strength": 7,
+		"vitality": 4,
+		"site": 4,
 		"effects": [
 			{
 				"type": "modifier",
@@ -90,131 +160,17 @@
 	},
 
 
-	"151_60": {
-		"title": "Moria Crossroads",
-		"culture": "",
-		"cost": 3,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_61": {
-		"title": "Lorien Throne Room",
-		"culture": "",
-		"cost": 3,
-		"type": "sanctuary",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_62": {
-		"title": "Valley of the Anduin",
-		"culture": "",
-		"cost": 6,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_63": {
-		"title": "Nen Hithoel",
-		"culture": "",
-		"cost": 7,
-		"type": "site",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_64": {
-		"title": "Henneth Anun Glade",
-		"culture": "",
-		"cost": 9,
-		"type": "site",
+	"151_30": {
+		"title": "*Saruman",
+		"subtitle": "Fell Voice On The Air",
+		"culture": "isengard",
+		"cost": 4,
+		"type": "minion",
+		"race": "wizard",
+		"keyword": "damage+1",
+		"strength": 8,
+		"vitality": 4,
+		"site": 4,
 		"effects": [
 			{
 				"type": "modifier",

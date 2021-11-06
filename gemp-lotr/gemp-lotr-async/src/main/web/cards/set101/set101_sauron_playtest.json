@@ -1,35 +1,11 @@
 {
 
-	"151_7": {
-		"title": "The Counsel of the Wise",
-		"culture": "elven",
-		"cost": 0,
-		"type": "event",
-		"keyword": "fellowship",
-"effects": {
-			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
-	},
-
-
-	"151_8": {
-		"title": "I Was There",
-		"culture": "elven",
+	"151_44": {
+		"title": "Fell To It's Power",
+		"culture": "sauron",
 		"cost": 1,
 		"type": "event",
-		"keyword": "skirmish",
+		"keyword": "regroup",
 "effects": {
 			"type": "event",
 			"cost": {
@@ -48,46 +24,9 @@
 	},
 
 
-	"151_9": {
-		"title": "*Legolas",
-		"subtitle": "Swift and Deadly",
-		"culture": "elven",
-		"cost": 2,
-		"type": "companion",
-		"race": "elf",
-		"keyword": "damage+1",
-		"strength": 6,
-		"vitality": 3,
-		"signet": "aragorn",
-		"resistance": 6,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_10": {
-		"title": "*Let Fly the Darts of Lindon",
-		"culture": "elven",
+	"151_45": {
+		"title": "Gaze Of The Eye",
+		"culture": "sauron",
 		"cost": 1,
 		"type": "condition",
 		"keyword": "support area",
@@ -116,12 +55,11 @@
 	},
 
 
-	"151_11": {
-		"title": "*Library of Rivendell",
-		"culture": "elven",
-		"cost": 2,
-		"type": "artifact",
-		"target": "name(Gimli)",
+	"151_46": {
+		"title": "I See You",
+		"culture": "sauron",
+		"cost": 0,
+		"type": "condition",
 		"keyword": "support area",
 		"effects": [
 			{
@@ -148,9 +86,68 @@
 	},
 
 
-	"151_12": {
-		"title": "*Three Rings for the Elven Kings",
-		"culture": "elven",
+	"151_47": {
+		"title": "It Betrayed Isildur",
+		"culture": "sauron",
+		"cost": 1,
+		"type": "event",
+		"keyword": "regroup",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
+			},
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
+				}
+			]
+		}
+	},
+
+
+	"151_48": {
+		"title": "Orc Ambush Troop",
+		"culture": "sauron",
+		"cost": 3,
+		"type": "minion",
+		"race": "orc",
+		"keyword": "damage+1",
+		"strength": 8,
+		"vitality": 2,
+		"site": 6,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_49": {
+		"title": "*A Shadow of the Past",
+		"culture": "sauron",
 		"cost": 1,
 		"type": "condition",
 		"keyword": "support area",

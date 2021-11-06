@@ -1,64 +1,16 @@
 {
 
-	"151_7": {
-		"title": "The Counsel of the Wise",
-		"culture": "elven",
-		"cost": 0,
-		"type": "event",
-		"keyword": "fellowship",
-"effects": {
-			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
-	},
-
-
-	"151_8": {
-		"title": "I Was There",
-		"culture": "elven",
-		"cost": 1,
-		"type": "event",
-		"keyword": "skirmish",
-"effects": {
-			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
-	},
-
-
-	"151_9": {
-		"title": "*Legolas",
-		"subtitle": "Swift and Deadly",
-		"culture": "elven",
-		"cost": 2,
+	"151_13": {
+		"title": "*Gandalf",
+		"subtitle": "Olorin",
+		"culture": "gandalf",
+		"cost": 4,
 		"type": "companion",
-		"race": "elf",
+		"race": "wizard",
 		"keyword": "damage+1",
 		"strength": 6,
-		"vitality": 3,
-		"signet": "aragorn",
+		"vitality": 4,
+		"signet": "gandalf",
 		"resistance": 6,
 		"effects": [
 			{
@@ -85,9 +37,45 @@
 	},
 
 
-	"151_10": {
-		"title": "*Let Fly the Darts of Lindon",
-		"culture": "elven",
+	"151_14": {
+		"title": "*Gwaihir",
+		"subtitle": "King Of All Birds",
+		"culture": "gandalf",
+		"cost": 4,
+		"type": "ally",
+		"allyHome": 4,
+		"race": "eagle",
+		"keyword": "damage+1",
+		"strength": 8,
+		"vitality": 4,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "winsSkirmish",
+					"filter": "dwarf"
+				},
+				"effect": {
+					"type": "wound",
+					"filter": "choose(orc)"
+				}
+			}
+		]
+	},
+
+
+	"151_15": {
+		"title": "*Lament For Gandalf",
+		"culture": "gandalf",
 		"cost": 1,
 		"type": "condition",
 		"keyword": "support area",
@@ -116,41 +104,57 @@
 	},
 
 
-	"151_11": {
-		"title": "*Library of Rivendell",
-		"culture": "elven",
-		"cost": 2,
-		"type": "artifact",
-		"target": "name(Gimli)",
-		"keyword": "support area",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
+	"151_16": {
+		"title": "My Heart Tells Me",
+		"culture": "gandalf",
+		"cost": 1,
+		"type": "event",
+		"keyword": "response",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
 			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
 				}
-			}
-		]
+			]
+		}
 	},
 
 
-	"151_12": {
-		"title": "*Three Rings for the Elven Kings",
-		"culture": "elven",
+	"151_17": {
+		"title": "Two Eyes, As Long\As I Can Spare Them",
+		"culture": "gandalf",
+		"cost": 3,
+		"type": "event",
+		"keyword": "fellowship",
+"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
+			},
+			"effect": [
+				{
+					"type": "modifyStrength",
+					"filter": "choose(name(Gimli))",
+					"until": "start(regroup)",
+					"amount": 2
+				}
+			]
+		}
+	},
+
+
+	"151_18": {
+		"title": "The White Council",
+		"culture": "gandalf",
 		"cost": 1,
 		"type": "condition",
 		"keyword": "support area",

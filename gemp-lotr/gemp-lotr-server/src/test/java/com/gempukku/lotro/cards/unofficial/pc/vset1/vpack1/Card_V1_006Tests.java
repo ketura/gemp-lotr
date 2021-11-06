@@ -1,113 +1,95 @@
+
 package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_006Tests
 {
 
-    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
-                    put("stealth1", "2_106");
-                    put("stealth2", "2_106");
+	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+		return new GenericCardTestHelper(
+				new HashMap<String, String>()
+				{{
+					put("bold", "151_6");
+					put("legolas", "1_50");
+					put("gimli", "1_13");
+				}},
+				GenericCardTestHelper.FellowshipSites,
+				GenericCardTestHelper.FOTRFrodo,
+				GenericCardTestHelper.FOTRRing
+		);
+	}
 
-                    put("chief", "101_6");
-                    put("snarler", "101_7");
+	@Test
+	public void SoBoldStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
-                }}
-        );
-    }
+		/**
+		* Set: V1
+		* Title: *So Bold and So Courteous
+		* Side: Free Peoples
+		* Culture: dwarven
+		* Twilight Cost: 0
+		* Type: condition
+		* Subtype: Support Area
+		* Game Text: Each time the fellowship moves you may exert an Elf to heal Gimli.
+		*/
 
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-    @Test
-    public void ChiefStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+		PhysicalCardImpl bold = scn.GetFreepsCard("bold");
 
-        /**
-         * Set: VSet1, VPack1
-         * Title: *Great Wolf Chief
-         * Side: Shadow
-         * Culture: Sauron
-         * Twilight Cost: 5
-         * Type: Minion
-         * Subtype: Warg
-         * Strength: 10
-         * Vitality: 3
-         * Home Site: 6
-         * Game Text: Tracker.  Fierce.  The site number of this minion is -1 for each stealth card you can spot.
-         * Each time you play another [sauron] Warg, you may make the Free Peoples player exert a companion.
-         */
+		assertTrue(bold.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(bold, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(0, bold.getBlueprint().getTwilightCost());
+		assertEquals(CardType.CONDITION, bold.getBlueprint().getCardType());
+		assertEquals(Culture.DWARVEN, bold.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, bold.getBlueprint().getSide());
+	}
 
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+	@Test
+	public void SoBoldOffersHealEachMove() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl chief = scn.GetFreepsCard("chief");
+		PhysicalCardImpl bold = scn.GetFreepsCard("bold");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl legolas = scn.GetFreepsCard("legolas");
+		scn.FreepsMoveCardToHand(bold);
+		scn.FreepsMoveCharToTable(gimli, legolas);
 
-        assertTrue(chief.getBlueprint().isUnique());
-        assertEquals(5, chief.getBlueprint().getTwilightCost());
-        assertEquals(10, chief.getBlueprint().getStrength());
-        assertEquals(3, chief.getBlueprint().getVitality());
-        assertEquals(6, chief.getBlueprint().getSiteNumber());
-        assertTrue(scn.HasKeyword(chief, Keyword.TRACKER));
-        assertTrue(scn.HasKeyword(chief, Keyword.FIERCE));
-    }
+		scn.StartGame();
+		scn.FreepsPlayCard(bold);
+		scn.AddWoundsToChar(gimli, 2);
 
-    @Test
-    public void ChiefSiteNumberReducedForEachStealthCard() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+		scn.SkipCurrentPhaseActions();
 
-        PhysicalCardImpl stealth1 = scn.GetFreepsCard("stealth1");
-        PhysicalCardImpl stealth2 = scn.GetFreepsCard("stealth2");
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		assertEquals(0, scn.GetWoundsOn(legolas));
+		assertEquals(2, scn.GetWoundsOn(gimli));
 
-        scn.FreepsMoveCardToSupportArea(stealth1, stealth2);
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(1, scn.GetWoundsOn(legolas));
+		assertEquals(1, scn.GetWoundsOn(gimli));
 
-        PhysicalCardImpl chief = scn.GetShadowCard("chief");
-
-        scn.ShadowMoveCharToTable(chief);
-
-        scn.StartGame();
-
-        // 6 base, -2 for the 2 Nice Imitations on the table.
-        assertEquals(4, scn.GetSiteNumber(chief));
-    }
-
-    @Test
-    public void ChiefExertsACompanionWhenEachWargPlayed() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
-
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-
-        PhysicalCardImpl chief = scn.GetShadowCard("chief");
-        PhysicalCardImpl snarler = scn.GetShadowCard("snarler");
-
-        scn.ShadowMoveCharToTable(chief);
-        scn.ShadowMoveCardToHand(snarler);
-
-        scn.StartGame();
-
-        scn.SetTwilight(10);
-        scn.FreepsSkipCurrentPhaseAction();
-
-        scn.ShadowPlayCard(snarler);
-        assertTrue(scn.ShadowHasOptionalTriggerAvailable());
-        scn.ShadowAcceptOptionalTrigger();
-
-        assertEquals(1, scn.GetWoundsOn(frodo));
-    }
-
-
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsChooseToMove();
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(2, scn.GetWoundsOn(legolas));
+		assertEquals(0, scn.GetWoundsOn(gimli));
+	}
 }
