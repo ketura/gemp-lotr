@@ -43,18 +43,12 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("target", new TargetFieldProcessor());
         fieldProcessors.put("condition", new RequirementFieldProcessor());
         fieldProcessors.put("allyhome", new AllyHomeFieldProcessor());
-        fieldProcessors.put("text", new FieldProcessor() {
-            @Override
-            public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-                // Ignore
-            }
-        });
-        fieldProcessors.put("quote", new FieldProcessor() {
-            @Override
-            public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-                // Ignore
-            }
-        });
+
+        fieldProcessors.put("text", new NullProcessor());
+        fieldProcessors.put("gametext", new NullProcessor());
+        fieldProcessors.put("lore", new NullProcessor());
+        fieldProcessors.put("promotext", new NullProcessor());
+        fieldProcessors.put("quote", new NullProcessor());
     }
 
     public LotroCardBlueprint buildFromJson(JSONObject json) throws InvalidCardDefinitionException {
@@ -99,5 +93,12 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
     @Override
     public ModifierSourceFactory getModifierSourceFactory() {
         return modifierSourceFactory;
+    }
+
+    private static class NullProcessor implements FieldProcessor {
+        @Override
+        public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+            // Ignore
+        }
     }
 }
