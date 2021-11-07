@@ -5,8 +5,8 @@
 		"culture": "wraith",
 		"cost": 0,
 		"type": "event",
-		"keyword": "shadow",
-"effects": {
+		"keyword": ["shadow"],
+		"effects": {
 			"type": "event",
 			"cost": {
 				"type": "exert",
@@ -31,7 +31,7 @@
 		"cost": 1,
 		"type": "minion",
 		"race": "man",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 3,
 		"vitality": 1,
 		"site": 2,
@@ -65,9 +65,8 @@
 		"culture": "wraith",
 		"cost": 1,
 		"type": "artifact",
-		"possession": "",
 		"target": "name(Gimli)",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"vitality": 1,
 		"effects": [
 			{
@@ -100,7 +99,7 @@
 		"cost": 4,
 		"type": "minion",
 		"race": "nazgul",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 9,
 		"vitality": 3,
 		"site": 3,
@@ -134,7 +133,7 @@
 		"culture": "wraith",
 		"cost": 1,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -165,7 +164,7 @@
 		"culture": "wraith",
 		"cost": 2,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -196,8 +195,8 @@
 		"culture": "wraith",
 		"cost": 1,
 		"type": "event",
-		"keyword": "skirmish",
-"effects": {
+		"keyword": ["skirmish"],
+		"effects": {
 			"type": "event",
 			"cost": {
 				"type": "exert",

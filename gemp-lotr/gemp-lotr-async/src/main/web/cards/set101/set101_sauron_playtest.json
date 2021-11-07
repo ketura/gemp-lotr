@@ -5,8 +5,8 @@
 		"culture": "sauron",
 		"cost": 1,
 		"type": "event",
-		"keyword": "regroup",
-"effects": {
+		"keyword": ["regroup"],
+		"effects": {
 			"type": "event",
 			"cost": {
 				"type": "exert",
@@ -29,7 +29,7 @@
 		"culture": "sauron",
 		"cost": 1,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -60,7 +60,7 @@
 		"culture": "sauron",
 		"cost": 0,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -91,8 +91,8 @@
 		"culture": "sauron",
 		"cost": 1,
 		"type": "event",
-		"keyword": "regroup",
-"effects": {
+		"keyword": ["regroup"],
+		"effects": {
 			"type": "event",
 			"cost": {
 				"type": "exert",
@@ -116,7 +116,7 @@
 		"cost": 3,
 		"type": "minion",
 		"race": "orc",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 8,
 		"vitality": 2,
 		"site": 6,
@@ -150,7 +150,7 @@
 		"culture": "sauron",
 		"cost": 1,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",

@@ -7,7 +7,7 @@
 		"cost": 1,
 		"type": "companion",
 		"race": "hobbit",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 3,
 		"vitality": 4,
 		"signet": "frodo",
@@ -43,9 +43,9 @@
 		"culture": "shire",
 		"cost": 2,
 		"type": "ally",
-		"allyHome": 3,
+		"allyHome": "fellowship,3",
 		"race": "hobbit",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 2,
 		"vitality": 3,
 		"effects": [
@@ -80,7 +80,7 @@
 		"cost": 1,
 		"type": "companion",
 		"race": "hobbit",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 3,
 		"vitality": 4,
 		"signet": "frodo",
@@ -117,7 +117,7 @@
 		"cost": 2,
 		"type": "companion",
 		"race": "hobbit",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 3,
 		"vitality": 4,
 		"signet": "frodo",
@@ -152,8 +152,8 @@
 		"culture": "shire",
 		"cost": 1,
 		"type": "event",
-		"keyword": "skirmish",
-"effects": {
+		"keyword": ["skirmish"],
+		"effects": {
 			"type": "event",
 			"cost": {
 				"type": "exert",
@@ -176,8 +176,8 @@
 		"culture": "shire",
 		"cost": 2,
 		"type": "event",
-		"keyword": "fellowship",
-"effects": {
+		"keyword": ["fellowship"],
+		"effects": {
 			"type": "event",
 			"cost": {
 				"type": "exert",
@@ -201,9 +201,9 @@
 		"culture": "shire",
 		"cost": 1,
 		"type": "ally",
-		"allyHome": 1,
+		"allyHome": "fellowship,1",
 		"race": "hobbit",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 3,
 		"vitality": 2,
 		"effects": [

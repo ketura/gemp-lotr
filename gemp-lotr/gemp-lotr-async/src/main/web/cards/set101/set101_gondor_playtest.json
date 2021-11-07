@@ -7,7 +7,7 @@
 		"cost": 4,
 		"type": "companion",
 		"race": "man",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 8,
 		"vitality": 4,
 		"signet": "gandalf",
@@ -44,7 +44,7 @@
 		"cost": 3,
 		"type": "companion",
 		"race": "man",
-		"keyword": "damage+1",
+		"keyword": ["damage+1"],
 		"strength": 7,
 		"vitality": 3,
 		"signet": "aragorn",
@@ -79,7 +79,7 @@
 		"culture": "gondor",
 		"cost": 2,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -110,9 +110,8 @@
 		"culture": "gondor",
 		"cost": 1,
 		"type": "artifact",
-		"possession": "Support Area",
 		"target": "name(Gimli)",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -143,7 +142,7 @@
 		"culture": "gondor",
 		"cost": 2,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"effects": [
 			{
 				"type": "modifier",
@@ -174,7 +173,7 @@
 		"culture": "gondor",
 		"cost": 1,
 		"type": "condition",
-		"keyword": "support area",
+		"keyword": ["support area"],
 		"strength": 2,
 		"effects": [
 			{

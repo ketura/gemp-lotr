@@ -2,9 +2,11 @@
 
 	"151_57": {
 		"title": "Bag End Study",
-		"culture": "",
 		"cost": 0,
 		"type": "site",
+		"site": 1,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -32,9 +34,11 @@
 
 	"151_58": {
 		"title": "Bree Overlook",
-		"culture": "",
 		"cost": 2,
 		"type": "site",
+		"site": 2,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -62,9 +66,11 @@
 
 	"151_59": {
 		"title": "Rivendell Gateway",
-		"culture": "",
 		"cost": 0,
-		"type": "sanctuary",
+		"type": "site",
+		"site": 3,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -92,9 +98,11 @@
 
 	"151_60": {
 		"title": "Moria Crossroads",
-		"culture": "",
 		"cost": 3,
 		"type": "site",
+		"site": 4,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -122,9 +130,11 @@
 
 	"151_61": {
 		"title": "Lorien Throne Room",
-		"culture": "",
 		"cost": 3,
-		"type": "sanctuary",
+		"type": "site",
+		"site": 6,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -152,9 +162,11 @@
 
 	"151_62": {
 		"title": "Valley of the Anduin",
-		"culture": "",
 		"cost": 6,
 		"type": "site",
+		"site": 7,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -182,9 +194,11 @@
 
 	"151_63": {
 		"title": "Nen Hithoel",
-		"culture": "",
 		"cost": 7,
 		"type": "site",
+		"site": 8,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
@@ -212,9 +226,11 @@
 
 	"151_64": {
 		"title": "Henneth Anun Glade",
-		"culture": "",
 		"cost": 9,
 		"type": "site",
+		"site": 9,
+		"block": "fellowship",
+		"direction": "left",
 		"effects": [
 			{
 				"type": "modifier",
