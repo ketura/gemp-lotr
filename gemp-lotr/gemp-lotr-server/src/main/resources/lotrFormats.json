@@ -1,5 +1,11 @@
 [
     {
+      "name":"Debug",
+      "code":"debug",
+      "sites": "SPECIAL",
+      "maximumSameName":100,
+    },
+    {
         "name":"Fellowship block",
         "code":"fotr_block",
         "sites":"FELLOWSHIP",
