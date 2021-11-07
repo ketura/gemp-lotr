@@ -126,25 +126,33 @@
     "keyword": ["support area"],
     "effects": [
       {
-        "type": "modifier",
-        "modifier": {
-          "type": "addKeyword",
-          "filter": "dwarf",
-          "keyword": "damage+1"
-        }
-      },
-      {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "winsSkirmish",
-          "filter": "dwarf"
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 1
         },
         "effect": {
-          "type": "wound",
-          "filter": "choose(orc)"
+          "type": "choice",
+          "texts": [
+            "Remove (1) to stack a tentacle from hand here.",
+            "Remove (1) to play a tentacle stacked here"
+          ],
+          "effects": [
+            {
+              "type": "stackCardsFromHand",
+              "filter": "choose(tentacle)",
+              "where": "self"
+            },
+            {
+              "type": "playCardFromStacked",
+              "filter": "choose(tentacle)",
+              "on": "self"
+            }
+          ]
         }
-      }
+      },
+      
     ]
   },
 
@@ -157,25 +165,28 @@
     "keyword": ["support area"],
     "effects": [
       {
-        "type": "modifier",
-        "modifier": {
-          "type": "addKeyword",
-          "filter": "dwarf",
-          "keyword": "damage+1"
+        "type": "activated",
+        "phase": "shadow",
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Stack a [moria] item here.",
+            "Spot The Balrog to take a [moria] item here into hand."
+          ],
+          "effects": [
+            {
+              "type": "stackCardsFromHand",
+              "filter": "choose(culture(moria),item)",
+              "where": "self"
+            },
+            {
+              "type": "putStackedCardsIntoHand",
+              "filter": "choose(culture(moria),item)",
+              "on": "self"
+            }
+          ]
         }
       },
-      {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "winsSkirmish",
-          "filter": "dwarf"
-        },
-        "effect": {
-          "type": "wound",
-          "filter": "choose(orc)"
-        }
-      }
     ]
   },
 
@@ -186,7 +197,7 @@
     "cost": 3,
     "type": "minion",
     "race": "creature",
-    "keyword": ["damage+1"],
+    "keyword": ["tentacle"],
     "strength": 7,
     "vitality": 2,
     "site": 4,
@@ -194,23 +205,39 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "addKeyword",
-          "filter": "dwarf",
-          "keyword": "damage+1"
+          "type": "cantBear",
+          "filter": "self",
+          "cardFilter": "possession"
         }
       },
       {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "winsSkirmish",
-          "filter": "dwarf"
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "condition": {
+            "type": "location",
+            "filter": "not(marsh)"
+          },
+          "amount": -4
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(culture(moria))"
         },
         "effect": {
-          "type": "wound",
-          "filter": "choose(orc)"
+          "type": "addKeyword",
+          "filter": "choose(currentSite)",
+          "keyword": "marsh",
+          "until": "start(regroup)"
         }
-      }
+      },
+      
     ]
   },
 

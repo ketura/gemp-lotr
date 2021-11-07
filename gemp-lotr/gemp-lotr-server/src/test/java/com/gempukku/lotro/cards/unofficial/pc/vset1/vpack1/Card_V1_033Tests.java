@@ -26,6 +26,9 @@ public class Card_V1_033Tests
 				{{
 					put("ttent", "151_33");
 					put("spear", "1_182");
+					put("ftentacle1", "2_58");
+					put("ftentacle2", "2_58");
+					put("ftentacle3", "2_58");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -100,5 +103,38 @@ public class Card_V1_033Tests
 		scn.ShadowPlayCard(ttent);
 
 		assertEquals(1, scn.GetShadowDiscardCount());
+	}
+
+	@Test
+	public void ThrashingTentaclePlaysFromDiscardIfThreeCreatures() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl ttent = scn.GetShadowCard("ttent");
+		scn.ShadowMoveCardToHand(ttent);
+
+		PhysicalCardImpl ftentacle1 = scn.GetShadowCard("ftentacle1");
+		PhysicalCardImpl ftentacle2 = scn.GetShadowCard("ftentacle2");
+		PhysicalCardImpl ftentacle3 = scn.GetShadowCard("ftentacle3");
+		scn.ShadowMoveCardToHand(ftentacle1, ftentacle2, ftentacle3);
+		scn.ShadowMoveCardToDiscard(ttent);
+
+		scn.StartGame();
+		scn.SetTwilight(16);
+		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.MARSH));
+		scn.FreepsSkipCurrentPhaseAction();
+
+		scn.ShadowPlayCard(ftentacle1);
+		scn.ShadowDeclineOptionalTrigger();
+		scn.ShadowPlayCard(ftentacle2);
+		scn.ShadowDeclineOptionalTrigger();
+
+		assertFalse(scn.ShadowActionAvailable("Thrashing Tentacle"));
+		scn.ShadowPlayCard(ftentacle3);
+		scn.ShadowDeclineOptionalTrigger();
+
+		assertTrue(scn.ShadowActionAvailable("Thrashing Tentacle"));
+		scn.ShadowUseCardAction(ttent);
+		assertEquals(0, scn.GetShadowDiscardCount());
 	}
 }

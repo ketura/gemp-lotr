@@ -3,9 +3,11 @@ package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
@@ -22,8 +24,8 @@ public class Card_V1_036Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_36");
-					// put other cards in here as needed for the test case
+					put("vile", "151_36");
+					put("spear", "1_182");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +33,7 @@ public class Card_V1_036Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void VileTentacleStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -47,39 +47,90 @@ public class Card_V1_036Tests
 		* Strength: 7
 		* Vitality: 2
 		* Site Number: 4
-		* Game Text: Tentacle. This minion may not bear possessions and is discarded if not at a marsh.
-		* 	 Shadow: Discard this minion from hand to make the current site gain <b>marsh</b> until the fellowship moves.
+		* Game Text: Tentacle. This minion may not bear possessions and is strength -4 while not at a marsh.
+		 * Shadow: Discard a [moria] card from hand to make the current site gain <b>marsh</b> until the regroup phase.
 		*/
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl vile = scn.GetFreepsCard("vile");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(3, card.getBlueprint().getTwilightCost());
-		assertEquals(7, card.getBlueprint().getStrength());
-		assertEquals(2, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
-		assertEquals(Culture.MORIA, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(vile.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(vile, Keyword.TENTACLE)); // test for keywords as needed
+		assertEquals(3, vile.getBlueprint().getTwilightCost());
+		assertEquals(7, vile.getBlueprint().getStrength());
+		assertEquals(2, vile.getBlueprint().getVitality());
+		assertEquals(4, vile.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(CardType.MINION, vile.getBlueprint().getCardType());
+		assertEquals(Race.CREATURE, vile.getBlueprint().getRace());
+		assertEquals(Culture.MORIA, vile.getBlueprint().getCulture());
+		assertEquals(Side.SHADOW, vile.getBlueprint().getSide());
 	}
 
-	//@Test
-	public void VileTentacleTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void VileTentacleCannotBearPossessions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl vile = scn.GetShadowCard("vile");
+		PhysicalCardImpl spear = scn.GetShadowCard("spear");
+		scn.ShadowMoveCardToHand(vile, spear);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(3);
+		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.MARSH));
+		scn.FreepsSkipCurrentPhaseAction();
+		scn.ShadowPlayCard(vile);
 
-		assertEquals(3, scn.GetTwilight());
+		assertFalse(scn.ShadowActionAvailable("Goblin Spear"));
+	}
+
+	@Test
+	public void VileTentacleDoesNotSelfDiscardAtAMarsh() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl vile = scn.GetShadowCard("vile");
+		scn.ShadowMoveCardToHand(vile);
+
+		scn.StartGame();
+		scn.SetTwilight(5);
+		scn.FreepsSkipCurrentPhaseAction();
+		scn.ShadowPlayCard(vile);
+
+		assertEquals(0, scn.GetShadowDiscardCount());
+	}
+
+	@Test
+	public void VileTentacleHandDiscardToAddMarsh() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl vile = scn.GetShadowCard("vile");
+		PhysicalCardImpl spear = scn.GetShadowCard("spear");
+		scn.ShadowMoveCardToHand(vile, spear);
+
+		scn.StartGame();
+		scn.SetTwilight(5);
+		scn.FreepsSkipCurrentPhaseAction();
+		scn.ShadowPlayCard(vile);
+
+		assertTrue(scn.ShadowActionAvailable("Vile Tentacle"));
+
+		assertEquals(3, scn.GetStrength(vile));
+		assertEquals(0, scn.GetShadowDiscardCount());
+		assertEquals(1, scn.GetShadowHandCount());
+		assertFalse(scn.HasKeyword(scn.GetCurrentSite(), Keyword.MARSH));
+		scn.ShadowUseCardAction(vile);
+
+		assertEquals(7, scn.GetStrength(vile));
+		assertEquals(1, scn.GetShadowDiscardCount());
+		assertEquals(0, scn.GetShadowHandCount());
+		assertTrue(scn.HasKeyword(scn.GetCurrentSite(), Keyword.MARSH));
+
+		scn.SkipToPhase(Phase.REGROUP);
+		assertEquals(3, scn.GetStrength(vile));
+		assertFalse(scn.HasKeyword(scn.GetCurrentSite(), Keyword.MARSH));
 	}
 }
