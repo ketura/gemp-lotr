@@ -3,9 +3,11 @@ package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
@@ -22,8 +24,8 @@ public class Card_V1_033Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_33");
-					// put other cards in here as needed for the test case
+					put("ttent", "151_33");
+					put("spear", "1_182");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +33,7 @@ public class Card_V1_033Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void ThrashingTentacleStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -54,32 +54,51 @@ public class Card_V1_033Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl ttent = scn.GetFreepsCard("ttent");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(5, card.getBlueprint().getStrength());
-		assertEquals(2, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
-		assertEquals(Culture.MORIA, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(ttent.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(ttent, Keyword.TENTACLE)); // test for keywords as needed
+		assertEquals(2, ttent.getBlueprint().getTwilightCost());
+		assertEquals(5, ttent.getBlueprint().getStrength());
+		assertEquals(2, ttent.getBlueprint().getVitality());
+		assertEquals(4, ttent.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(CardType.MINION, ttent.getBlueprint().getCardType());
+		assertEquals(Race.CREATURE, ttent.getBlueprint().getRace());
+		assertEquals(Culture.MORIA, ttent.getBlueprint().getCulture());
+		assertEquals(Side.SHADOW, ttent.getBlueprint().getSide());
 	}
 
-	//@Test
-	public void ThrashingTentacleTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void ThrashingTentacleCannotBearPossessions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl ttent = scn.GetShadowCard("ttent");
+		PhysicalCardImpl spear = scn.GetShadowCard("spear");
+		scn.ShadowMoveCardToHand(ttent, spear);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(3);
+		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.MARSH));
+		scn.FreepsSkipCurrentPhaseAction();
+		scn.ShadowPlayCard(ttent);
 
-		assertEquals(2, scn.GetTwilight());
+		assertFalse(scn.ShadowActionAvailable("Goblin Spear"));
+	}
+
+	@Test
+	public void ThrashingTentacleSelfDiscardsIfNotAtAMarsh() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl ttent = scn.GetShadowCard("ttent");
+		scn.ShadowMoveCardToHand(ttent);
+
+		scn.StartGame();
+		scn.SetTwilight(2);
+		scn.FreepsSkipCurrentPhaseAction();
+		scn.ShadowPlayCard(ttent);
+
+		assertEquals(1, scn.GetShadowDiscardCount());
 	}
 }

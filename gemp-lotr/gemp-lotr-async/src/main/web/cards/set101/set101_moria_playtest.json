@@ -7,27 +7,38 @@
 		"type": "condition",
 		"keyword": "support area",
 		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsskirmish",
+          "filter": "your,tentacle",
+          "memorize": "winner"
+        },
+        "effect": {
+          "type": "stackcards",
+          "where": "self",
+          "filter": "memory(winner)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,hasStackedCount(4,tentacle)"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "assignFpCharacterToSkirmish",
+          "fpCharacter": "choose(ringbearer)",
+          "against": "choose(culture(moria),creature)"
+        }
+      }
+    ]
 	},
 
 
@@ -39,24 +50,19 @@
 		"keyword": "support area",
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
 				"type": "trigger",
 				"optional": true,
 				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
+					"type": "moves"
 				},
+        "cost": {
+          "type": "revealCardsFromHand",
+          "filter": "choose(name(The Balrog))"
+        },
 				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
+          "type": "addTwilight",
+          "amount": 2
+        }
 			}
 		]
 	},
@@ -68,129 +74,144 @@
 		"cost": 2,
 		"type": "minion",
 		"race": "creature",
-		"keyword": "damage+1",
+		"keyword": ["tentacle"],
 		"strength": 5,
 		"vitality": 2,
 		"site": 4,
 		"effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBear",
+          "filter": "self",
+          "cardFilter": "possession"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "not(marsh)"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+        "type": "activatedInDiscard",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(moria),creature",
+          "count": 3
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "self"
+        }
+      },
 		]
 	},
 
 
 	"151_34": {
-		"title": "Out of Dark Waters",
-		"culture": "moria",
-		"cost": 0,
-		"type": "condition",
-		"keyword": "support area",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
+    "title": "Out of Dark Waters",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": ["support area"],
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "dwarf",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "dwarf"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(orc)"
+        }
+      }
+    ]
+  },
 
 
-	"151_35": {
-		"title": "The Darkness Grew",
-		"culture": "moria",
-		"cost": 1,
-		"type": "condition",
-		"keyword": "support area",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
+  "151_35": {
+    "title": "The Darkness Grew",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": ["support area"],
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "dwarf",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "dwarf"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(orc)"
+        }
+      }
+    ]
+  },
 
 
-	"151_36": {
-		"title": "Vile Tentacle",
-		"culture": "moria",
-		"cost": 3,
-		"type": "minion",
-		"race": "creature",
-		"keyword": "damage+1",
-		"strength": 7,
-		"vitality": 2,
-		"site": 4,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
+  "151_36": {
+    "title": "Vile Tentacle",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "creature",
+    "keyword": ["damage+1"],
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "dwarf",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "dwarf"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(orc)"
+        }
+      }
+    ]
+  },
 
 }

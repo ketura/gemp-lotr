@@ -66,6 +66,7 @@ public class Card_V1_003Tests
 		assertEquals(Signet.FRODO, gimli.getBlueprint().getSignet());
 		assertEquals(CardType.COMPANION, gimli.getBlueprint().getCardType());
 		assertEquals(Culture.DWARVEN, gimli.getBlueprint().getCulture());
+		assertEquals(Race.DWARF, gimli.getBlueprint().getRace());
 		assertEquals(Side.FREE_PEOPLE, gimli.getBlueprint().getSide());
 	}
 

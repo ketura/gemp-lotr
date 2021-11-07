@@ -131,6 +131,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public Boolean DecisionAvailable(String playerID, String text)
     {
         AwaitingDecision ad = GetAwaitingDecision(playerID);
+        if(ad == null)
+            return false;
         String lowerText = text.toLowerCase();
         return ad.getText().toLowerCase().contains(lowerText);
     }
@@ -143,6 +145,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public Boolean ShadowCardPlayAvailable(PhysicalCardImpl card) { return ActionAvailable(P2, "Play " + GameUtils.getFullName(card)); }
     public Boolean ActionAvailable(String player, String action) {
         List<String> actions = GetAvailableActions(player);
+        if(actions == null)
+            return false;
         String lowerAction = action.toLowerCase();
         return actions.stream().anyMatch(x -> x.toLowerCase().contains(lowerAction));
     }
@@ -456,9 +460,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public boolean ShadowHasOptionalTriggerAvailable() throws DecisionResultInvalidException { return ShadowDecisionAvailable("Optional Response"); }
 
     public void FreepsAcceptOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
-    public void FreepsDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
+    public void FreepsDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, ""); }
     public void ShadowAcceptOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, "0"); }
-    public void ShadowDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, "1"); }
+    public void ShadowDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, ""); }
 
     public void FreepsChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P1, option); }
     public void ShadowChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, option); }

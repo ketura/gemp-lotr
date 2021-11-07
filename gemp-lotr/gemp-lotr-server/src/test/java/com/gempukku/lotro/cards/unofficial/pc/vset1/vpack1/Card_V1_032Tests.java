@@ -22,8 +22,8 @@ public class Card_V1_032Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_32");
-					// put other cards in here as needed for the test case
+					put("terror", "151_32");
+					put("balrog", "2_51");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,10 +31,8 @@ public class Card_V1_032Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
-	public void TerroratItsComingStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void TerrorStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
@@ -50,32 +48,48 @@ public class Card_V1_032Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl terror = scn.GetFreepsCard("terror");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		assertEquals(Culture.MORIA, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertTrue(terror.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(terror, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(0, terror.getBlueprint().getTwilightCost());
+		assertEquals(CardType.CONDITION, terror.getBlueprint().getCardType());
+		assertEquals(Culture.MORIA, terror.getBlueprint().getCulture());
+		assertEquals(Side.SHADOW, terror.getBlueprint().getSide());
 	}
 
-	//@Test
-	public void TerroratItsComingTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void TerrorDoesNothingIfNoBalrog() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl terror = scn.GetShadowCard("terror");
+		scn.ShadowMoveCardToSupportArea(terror);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.FreepsSkipCurrentPhaseAction();
+
+		assertFalse(scn.ShadowHasOptionalTriggerAvailable());
+	}
+
+	@Test
+	public void TerrorAddsTwilightDuringEachMoveIfBalrogPresent() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl terror = scn.GetShadowCard("terror");
+		PhysicalCardImpl balrog = scn.GetShadowCard("balrog");
+		scn.ShadowMoveCardToSupportArea(terror);
+		scn.ShadowMoveCardToHand(balrog);
+
+		scn.StartGame();
+		scn.FreepsSkipCurrentPhaseAction();
 
 		assertEquals(0, scn.GetTwilight());
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+		scn.FreepsSkipCurrentPhaseAction();
+		// 2 for the site, 1 for companions, 2 for Terror
+		assertEquals(5, scn.GetTwilight());
 	}
 }
