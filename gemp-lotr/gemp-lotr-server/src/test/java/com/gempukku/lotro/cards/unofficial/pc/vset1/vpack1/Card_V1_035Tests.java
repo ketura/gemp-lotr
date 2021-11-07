@@ -22,8 +22,10 @@ public class Card_V1_035Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_35");
-					// put other cards in here as needed for the test case
+					put("darkness", "151_35");
+					put("balrog", "2_51");
+					put("whip", "2_74");
+					put("spear", "1_182");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,10 +33,8 @@ public class Card_V1_035Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
-	public void TheDarknessGrewStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void DarknessStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
@@ -51,31 +51,40 @@ public class Card_V1_035Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl darkness = scn.GetFreepsCard("darkness");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		assertEquals(Culture.MORIA, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(darkness.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(darkness, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, darkness.getBlueprint().getTwilightCost());
+		assertEquals(CardType.CONDITION, darkness.getBlueprint().getCardType());
+		assertEquals(Culture.MORIA, darkness.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, darkness.getBlueprint().getSide());
 	}
 
-	//@Test
+	@Test
 	public void TheDarknessGrewTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl darkness = scn.GetShadowCard("darkness");
+		PhysicalCardImpl balrog = scn.GetShadowCard("balrog");
+		PhysicalCardImpl whip = scn.GetShadowCard("whip");
+		PhysicalCardImpl spear = scn.GetShadowCard("spear");
+		scn.ShadowMoveCardToHand(darkness, balrog, whip, spear);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(17);
+		scn.FreepsSkipCurrentPhaseAction();
+
+		scn.ShadowPlayCard(darkness);
+		assertTrue(scn.ShadowActionAvailable("Darkness Grew"));
+		scn.ShadowUseCardAction(darkness);
+		scn.ShadowChooseCard(whip);
+		scn.ShadowUseCardAction(darkness);
+
+		scn.ShadowPlayCard(balrog);
+
+		scn.ShadowUseCardAction(darkness);
 
 		assertEquals(1, scn.GetTwilight());
 	}
