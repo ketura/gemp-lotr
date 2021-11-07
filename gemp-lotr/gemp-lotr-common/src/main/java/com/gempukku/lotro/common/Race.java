@@ -10,7 +10,7 @@ public enum Race implements Filterable {
     DRAGON("Dragon"), EAGLE("Eagle"), BIRD("Bird"),
 
     //PC Races
-    WARG("Warg");
+    CROW("Crow"), WARG("Warg");
 
     private String _humanReadable;
 
