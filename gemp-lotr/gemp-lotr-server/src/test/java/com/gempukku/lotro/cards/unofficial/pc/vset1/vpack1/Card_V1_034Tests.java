@@ -114,14 +114,18 @@ public class Card_V1_034Tests
 		PhysicalCardImpl ftentacle1 = scn.GetShadowCard("ftentacle1");
 		PhysicalCardImpl ftentacle2 = scn.GetShadowCard("ftentacle2");
 		scn.ShadowMoveCardToSupportArea(darkwaters);
-		scn.StackCardsOn(darkwaters, ftentacle1, ftentacle2);
+		//scn.ShadowMoveCardToHand(ftentacle1, ftentacle2);
 
 		scn.StartGame();
+		scn.StackCardsOn(darkwaters, ftentacle1, ftentacle2);
 
 		scn.FreepsUseCardAction(song);
 		scn.FreepsChooseCard(darkwaters);
 		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
-
+		scn.ShadowAcceptOptionalTrigger();
+		scn.ShadowChooseCard(ftentacle1);
+		assertEquals(Zone.DISCARD, ftentacle1.getZone());
+		assertEquals(Zone.SUPPORT, darkwaters);
 
 	}
 }

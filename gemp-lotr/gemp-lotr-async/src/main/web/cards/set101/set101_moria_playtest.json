@@ -156,10 +156,14 @@
           "type": "abouttodiscard",
           "filter": "self"
         },
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,hasStackedCount(1,tentacle)"
+        },
         "cost": {
           "type": "discardstackedcards",
-          "on": "self",
-          "filter": "choose(tentacle)",
+          "on": "any",
+          "filter": "choose(any)",
           "count": 1
         },
         "effect": {
@@ -181,26 +185,33 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "effect":{
-          "type": "stackCardsFromHand",
-          "filter": "choose(culture(moria),item)",
-          "where": "self"
-        },
-      },
-      {
-        "type": "activated",
-        "phase": "shadow",
-        "condition": {
-          "type": "canSpot",
-          "filter": "name(The Balrog)"
-        },
         "effect": {
-          "type": "putStackedCardsIntoHand",
-          
-          "filter": "choose(culture(moria),item)",
-          "on": "self"
+          "type": "choice",
+          "texts": [
+            "Stack a [Moria] item here.",
+            "Take a [Moria] item stacked here into hand."
+          ],
+          "effects": [
+            {
+              "type": "stackCardsFromHand",
+              "filter": "choose(culture(moria),item)",
+              "where": "self"
+            },
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "canSpot",
+                "filter": "name(The Balrog)"
+              },
+              "effect": {
+                "type": "putStackedCardsIntoHand",
+                "filter": "choose(culture(moria),item)",
+                "on": "self"
+              }
+            }
+          ]
         }
-      },
+      }
     ]
   },
 
