@@ -162,8 +162,8 @@
         },
         "cost": {
           "type": "discardstackedcards",
-          "on": "any",
-          "filter": "choose(any)",
+          "on": "self",
+          "filter": "choose(tentacle)",
           "count": 1
         },
         "effect": {
