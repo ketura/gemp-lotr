@@ -14,7 +14,7 @@ public class AboutToDiscardFromPlay implements TriggerCheckerProducer {
         FieldUtils.validateAllowedFields(value, "source", "filter");
 
         String source = FieldUtils.getString(value.get("source"), "source", "any");
-        String filter = FieldUtils.getString(value.get("filter"), "source");
+        String filter = FieldUtils.getString(value.get("filter"), "filter");
 
         final FilterableSource sourceFilter = environment.getFilterFactory().generateFilter(source, environment);
         final FilterableSource affectedFilter = environment.getFilterFactory().generateFilter(filter, environment);

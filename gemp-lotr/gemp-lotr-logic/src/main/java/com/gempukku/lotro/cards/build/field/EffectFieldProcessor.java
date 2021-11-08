@@ -16,23 +16,23 @@ public class EffectFieldProcessor implements FieldProcessor {
     private Map<String, EffectProcessor> effectProcessors = new HashMap<>();
 
     public EffectFieldProcessor() {
-        effectProcessors.put("trigger", new TriggerEffectProcessor());
-        effectProcessors.put("inhandtrigger", new InHandTriggerEffectProcessor());
-        effectProcessors.put("activatedtrigger", new ActivatedTriggerEffectProcessor());
-        effectProcessors.put("killedtrigger", new KilledTriggerEffectProcessor());
-        effectProcessors.put("discardedfromplaytrigger", new DiscardedFromPlayTriggerEffectProcessor());
         effectProcessors.put("activated", new ActivatedEffectProcessor());
         effectProcessors.put("activatedindiscard", new ActivatedInDiscardEffectProcessor());
-        effectProcessors.put("event", new EventEffectProcessor());
-        effectProcessors.put("responseevent", new ResponseEventEffectProcessor());
-        effectProcessors.put("modifyowncost", new ModifyOwnCost());
-        effectProcessors.put("extracost", new ExtraCost());
+        effectProcessors.put("activatedtrigger", new ActivatedTriggerEffectProcessor());
         effectProcessors.put("aidcost", new AidCost());
-        effectProcessors.put("modifier", new Modifier());
-        effectProcessors.put("extrapossessionclass", new ExtraPossessionClassEffectProcessor());
-        effectProcessors.put("discount", new PotentialDiscount());
-        effectProcessors.put("playedinotherphase", new PlayedInOtherPhase());
         effectProcessors.put("copycard", new CopyCard());
+        effectProcessors.put("discardedfromplaytrigger", new DiscardedFromPlayTriggerEffectProcessor());
+        effectProcessors.put("discount", new PotentialDiscount());
+        effectProcessors.put("event", new EventEffectProcessor());
+        effectProcessors.put("extracost", new ExtraCost());
+        effectProcessors.put("extrapossessionclass", new ExtraPossessionClassEffectProcessor());
+        effectProcessors.put("inhandtrigger", new InHandTriggerEffectProcessor());
+        effectProcessors.put("killedtrigger", new KilledTriggerEffectProcessor());
+        effectProcessors.put("modifier", new Modifier());
+        effectProcessors.put("modifyowncost", new ModifyOwnCost());
+        effectProcessors.put("playedinotherphase", new PlayedInOtherPhase());
+        effectProcessors.put("responseevent", new ResponseEventEffectProcessor());
+        effectProcessors.put("trigger", new TriggerEffectProcessor());
     }
 
     @Override
