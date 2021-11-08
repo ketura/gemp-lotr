@@ -27,6 +27,7 @@ public class Card_V1_034Tests
 					put("darkwaters", "151_34");
 					put("ftentacle1", "2_58");
 					put("ftentacle2", "2_58");
+					put("song", "3_5");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -60,7 +61,7 @@ public class Card_V1_034Tests
 		assertEquals(0, darkwaters.getBlueprint().getTwilightCost());
 		assertEquals(CardType.CONDITION, darkwaters.getBlueprint().getCardType());
 		assertEquals(Culture.MORIA, darkwaters.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, darkwaters.getBlueprint().getSide());
+		assertEquals(Side.SHADOW, darkwaters.getBlueprint().getSide());
 	}
 
 	@Test
@@ -82,12 +83,45 @@ public class Card_V1_034Tests
 
 		assertTrue(scn.ShadowActionAvailable("Dark Waters"));
 		assertEquals(7, scn.GetTwilight());
+		assertEquals(0, scn.GetStackedCards(darkwaters).size());
 		scn.ShadowUseCardAction(darkwaters);
 		scn.ShadowChooseCard(ftentacle1);
 
 		assertEquals(6, scn.GetTwilight());
+		assertEquals(1, scn.GetStackedCards(darkwaters).size());
 		assertTrue(scn.ShadowActionAvailable("Dark Waters"));
 		scn.ShadowUseCardAction(darkwaters);
+		assertEquals(5, scn.GetTwilight());
+		assertEquals(2, scn.GetStackedCards(darkwaters).size());
+
+
+		//for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
+		assertTrue(scn.ShadowActionAvailable("Dark Waters"));
 		scn.ShadowUseCardAction(darkwaters);
+		assertEquals(1, scn.GetStackedCards(darkwaters).size());
+	}
+
+
+	@Test
+	public void DarkWatersCanBurnAStackedTentacleToPreventSelfDiscard() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl song = scn.GetFreepsCard("song");
+		scn.FreepsMoveCardToSupportArea(song);
+
+		PhysicalCardImpl darkwaters = scn.GetShadowCard("darkwaters");
+		PhysicalCardImpl ftentacle1 = scn.GetShadowCard("ftentacle1");
+		PhysicalCardImpl ftentacle2 = scn.GetShadowCard("ftentacle2");
+		scn.ShadowMoveCardToSupportArea(darkwaters);
+		scn.StackCardsOn(darkwaters, ftentacle1, ftentacle2);
+
+		scn.StartGame();
+
+		scn.FreepsUseCardAction(song);
+		scn.FreepsChooseCard(darkwaters);
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+
+
 	}
 }

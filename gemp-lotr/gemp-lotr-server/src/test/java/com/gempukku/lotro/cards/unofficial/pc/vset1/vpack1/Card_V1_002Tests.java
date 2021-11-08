@@ -117,11 +117,12 @@ public class Card_V1_002Tests
 
         scn.FreepsUseCardAction(deep);
 
-        //assertTrue(scn.FreepsDecisionAvailable("Choose"));
-        //scn.FreepsChooseCard(axe);
+        //for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
         assertEquals(1, scn.GetWoundsOn(gimli));
         assertEquals(1, scn.GetFreepsHandCount());
         assertEquals(1, scn.GetStackedCards(deep).size());
+
+        //for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
     }
 
 

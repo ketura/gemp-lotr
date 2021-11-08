@@ -8,17 +8,15 @@
 		"keyword": "support area",
 		"effects": [
       {
-        "type": "trigger",
-        "optional": true,
+        "type": "activatedTrigger",
         "trigger": {
           "type": "winsskirmish",
-          "filter": "your,tentacle",
-          "memorize": "winner"
+          "filter": "your,tentacle,inSkirmish",
         },
         "effect": {
-          "type": "stackcards",
-          "where": "self",
-          "filter": "memory(winner)"
+          "type": "stackCards",
+          "filter": "choose(your,tentacle,inSkirmish)",
+          "where": "self"
         }
       },
       {
@@ -152,7 +150,23 @@
           ]
         }
       },
-      
+      {
+        "type": "activatedtrigger",
+        "trigger": {
+          "type": "abouttodiscard",
+          "filter": "self"
+        },
+        "cost": {
+          "type": "discardstackedcards",
+          "on": "self",
+          "filter": "choose(tentacle)",
+          "count": 1
+        },
+        "effect": {
+          "type": "preventDiscard",
+          "filter": "self"
+        }
+      }
     ]
   },
 
@@ -167,24 +181,24 @@
       {
         "type": "activated",
         "phase": "shadow",
+        "effect":{
+          "type": "stackCardsFromHand",
+          "filter": "choose(culture(moria),item)",
+          "where": "self"
+        },
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(The Balrog)"
+        },
         "effect": {
-          "type": "choice",
-          "texts": [
-            "Stack a [moria] item here.",
-            "Spot The Balrog to take a [moria] item here into hand."
-          ],
-          "effects": [
-            {
-              "type": "stackCardsFromHand",
-              "filter": "choose(culture(moria),item)",
-              "where": "self"
-            },
-            {
-              "type": "putStackedCardsIntoHand",
-              "filter": "choose(culture(moria),item)",
-              "on": "self"
-            }
-          ]
+          "type": "putStackedCardsIntoHand",
+          
+          "filter": "choose(culture(moria),item)",
+          "on": "self"
         }
       },
     ]

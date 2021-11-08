@@ -58,11 +58,11 @@ public class Card_V1_035Tests
 		assertEquals(1, darkness.getBlueprint().getTwilightCost());
 		assertEquals(CardType.CONDITION, darkness.getBlueprint().getCardType());
 		assertEquals(Culture.MORIA, darkness.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, darkness.getBlueprint().getSide());
+		assertEquals(Side.SHADOW, darkness.getBlueprint().getSide());
 	}
 
 	@Test
-	public void TheDarknessGrewTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void TheDarknessGrewStacksAndRetrievesItems() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -78,14 +78,19 @@ public class Card_V1_035Tests
 
 		scn.ShadowPlayCard(darkness);
 		assertTrue(scn.ShadowActionAvailable("Darkness Grew"));
+		assertEquals(0, scn.GetStackedCards(darkness).size());
 		scn.ShadowUseCardAction(darkness);
 		scn.ShadowChooseCard(whip);
+		assertEquals(1, scn.GetStackedCards(darkness).size());
 		scn.ShadowUseCardAction(darkness);
+		assertEquals(2, scn.GetStackedCards(darkness).size());
+		assertFalse(scn.ShadowActionAvailable("Darkness Grew"));
 
+		//for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
 		scn.ShadowPlayCard(balrog);
-
+		assertTrue(scn.ShadowActionAvailable("Darkness Grew"));
 		scn.ShadowUseCardAction(darkness);
+		assertEquals(1, scn.GetStackedCards(darkness).size());
 
-		assertEquals(1, scn.GetTwilight());
 	}
 }
