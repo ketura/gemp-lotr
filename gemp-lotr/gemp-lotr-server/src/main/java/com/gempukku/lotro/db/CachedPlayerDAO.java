@@ -78,7 +78,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     public Set<String> getBannedUsernames() throws SQLException {
         if(_bannedUsernames.isEmpty())
             _bannedUsernames = _delegate.getBannedUsernames();
-        return _bannedUsernames;
+        return new HashSet<>(_bannedUsernames);
     }
 
     @Override
