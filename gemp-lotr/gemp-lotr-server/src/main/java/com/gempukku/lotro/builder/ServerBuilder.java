@@ -89,7 +89,8 @@ public class ServerBuilder {
                         extract(objectMap, CardSets.class)));
 
         objectMap.put(ChatServer.class, new ChatServer(
-                extract(objectMap, IgnoreDAO.class)));
+                extract(objectMap, IgnoreDAO.class),
+                extract(objectMap, PlayerDAO.class)));
 
         objectMap.put(LotroServer.class,
                 new LotroServer(
