@@ -4,6 +4,7 @@ import com.gempukku.lotro.game.Player;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 public interface PlayerDAO {
     public Player getPlayer(int id);
@@ -20,6 +21,7 @@ public interface PlayerDAO {
     public boolean removePlayerFlag(String login, String flag) throws SQLException;
 
     public List<Player> findSimilarAccounts(String login) throws SQLException;
+    public Set<String> getBannedUsernames() throws SQLException;
 
     public Player loginUser(String login, String password) throws SQLException;
 
