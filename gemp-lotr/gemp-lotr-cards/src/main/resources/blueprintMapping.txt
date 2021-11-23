@@ -245,3 +245,7 @@ gl_theOneRing,1_2
 1_368,1_83
 #Lurtz, Servant of Isengard - 2021/10
 1_369,1_127
+#Galadriel, Bearer of Wisdom - 2021/11
+9_54,9_14
+#Great Hill Troll - 2021/11
+8_123,8_102
