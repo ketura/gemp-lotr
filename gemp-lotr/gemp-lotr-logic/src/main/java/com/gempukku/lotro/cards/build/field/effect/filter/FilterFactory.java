@@ -294,8 +294,13 @@ public class FilterFactory {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
                         String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
                         return actionContext -> {
-                            final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
-                            return Filters.maxPrintedTwilightCost(value);
+                            try{
+                                final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                                return Filters.maxPrintedTwilightCost(value);
+                            }
+                            catch(IllegalArgumentException ex) {
+                                return Filters.maxPrintedTwilightCost(100);
+                            }
                         };
                     } else {
                         final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, environment);
@@ -310,8 +315,13 @@ public class FilterFactory {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
                         String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
                         return actionContext -> {
-                            final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
-                            return Filters.minPrintedTwilightCost(value);
+                            try {
+                                final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                                return Filters.minPrintedTwilightCost(value);
+                            }
+                            catch(IllegalArgumentException ex) {
+                                return Filters.maxPrintedTwilightCost(0);
+                            }
                         };
                     } else {
                         final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, environment);
