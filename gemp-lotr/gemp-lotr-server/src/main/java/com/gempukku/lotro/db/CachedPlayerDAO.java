@@ -5,14 +5,13 @@ import com.gempukku.lotro.game.Player;
 import org.apache.commons.collections.map.LRUMap;
 
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CachedPlayerDAO implements PlayerDAO, Cached {
     private PlayerDAO _delegate;
     private Map<Integer, Player> _playerById = Collections.synchronizedMap(new LRUMap(500));
     private Map<String, Player> _playerByName = Collections.synchronizedMap(new LRUMap(500));
+    private Set<String> _bannedUsernames = new HashSet<>();
 
     public CachedPlayerDAO(PlayerDAO delegate) {
         _delegate = delegate;
@@ -22,6 +21,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     public void clearCache() {
         _playerById.clear();
         _playerByName.clear();
+        _bannedUsernames.clear();
     }
 
     @Override
@@ -72,6 +72,13 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     @Override
     public List<Player> findSimilarAccounts(String login) throws SQLException {
         return _delegate.findSimilarAccounts(login);
+    }
+
+    @Override
+    public Set<String> getBannedUsernames() throws SQLException {
+        if(_bannedUsernames.isEmpty())
+            _bannedUsernames = _delegate.getBannedUsernames();
+        return new HashSet<>(_bannedUsernames);
     }
 
     @Override
