@@ -29,9 +29,9 @@
           "over": 4
         },
         "effect": {
-                "type": "exert",
-                "player": "fp",
-                "filter": "choose(companion)",
+          "type": "exert",
+          "player": "fp",
+          "filter": "choose(companion)",
         }
       }
     }
@@ -638,6 +638,10 @@
         "trigger": {
           "type": "played",
           "filter": "side(free people),regroup,event"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "regroup"
         },
         "cost": {
           "type": "exert",
