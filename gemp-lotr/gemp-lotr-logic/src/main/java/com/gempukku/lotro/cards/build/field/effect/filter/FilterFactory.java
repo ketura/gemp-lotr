@@ -9,6 +9,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.SingleMemoryEvaluator;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
 import java.util.*;
@@ -318,6 +320,28 @@ public class FilterFactory {
                             return Filters.minPrintedTwilightCost(value);
                         };
                     }
+                });
+        parameterFilters.put("lowestStrength",
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
+                    return actionContext -> {
+                        final Filterable sourceFilterable = filterableSource.getFilterable(actionContext);
+                        return Filters.and(
+                            sourceFilterable, Filters.strengthEqual(
+                                new SingleMemoryEvaluator(
+                                    new Evaluator() {
+                                        @Override
+                                        public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                            int minStrength = Integer.MAX_VALUE;
+                                            for (PhysicalCard card : Filters.filterActive(game, sourceFilterable))
+                                                minStrength = Math.min(minStrength, game.getModifiersQuerying().getStrength(game, card));
+                                            return minStrength;
+                                        }
+                                    }
+                                )
+                            )
+                        );
+                    };
                 });
         parameterFilters.put("assignableToSkirmishAgainst",
                 (parameter, environment) -> {

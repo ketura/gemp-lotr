@@ -748,6 +748,9 @@
           "type": "reconciles",
           "player": "you"
         },
+        "condition": {
+          "type": "sarumanfirstsentenceactive"
+        },
         "effect": {
           "type": "drawCards",
           "count": 2
@@ -803,21 +806,26 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "modifyCost",
-          "filter": "name(Thorin)",
-          "amount": -2
+          "type": "cantBeDiscarded",
+          "condition": [
+            {
+              "type": "canSpot",
+              "filter": "culture(dwarven),follower",
+              "count": 2
+            },
+            {
+              "type": "sarumanfirstsentenceactive"
+            }
+          ],
+          "filter": "self"
         }
       },
       {
         "type": "modifier",
         "modifier": {
-          "type": "cantBeDiscarded",
-          "condition": {
-            "type": "canSpot",
-            "filter": "culture(dwarven),follower",
-            "count": 2
-          },
-          "filter": "self"
+          "type": "modifyCost",
+          "filter": "name(Thorin)",
+          "amount": -2
         }
       },
       {
@@ -858,6 +866,9 @@
         "trigger": {
           "type": "played",
           "filter": "your,culture(gandalf),event"
+        },
+        "condition": {
+          "type": "sarumanfirstsentenceactive"
         },
         "effect": {
           "type": "wound",
@@ -907,6 +918,9 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeDiscarded",
+          "condition": {
+            "type": "sarumanfirstsentenceactive"
+          },
           "filter": "self"
         }
       },

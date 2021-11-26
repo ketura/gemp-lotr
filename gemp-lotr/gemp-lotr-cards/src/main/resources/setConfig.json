@@ -135,8 +135,7 @@
     "rarityFile": "/set33-rarity.txt",
     "originalSet": false,
     "merchantable": false,
-    "needsLoading": false,
-    "playable": false
+    "needsLoading": false
   },
   {
     "setId": "40",
