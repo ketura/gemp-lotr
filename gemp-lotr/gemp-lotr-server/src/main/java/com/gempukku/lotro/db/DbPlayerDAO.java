@@ -7,9 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DbPlayerDAO implements PlayerDAO {
     private final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
@@ -72,6 +70,26 @@ public class DbPlayerDAO implements PlayerDAO {
                     return players;
                 }
             }
+        }
+    }
+
+    @Override
+    public Set<String> getBannedUsernames() throws SQLException {
+        try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("SELECT name FROM player WHERE type = '' ORDER BY ID DESC LIMIT 50")) {
+
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        TreeSet<String> users = new TreeSet<String>();
+                        while (resultSet.next()) {
+                            users.add(resultSet.getString(1));
+                        }
+                        return users;
+                    }
+                }
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get banned users", exp);
         }
     }
 
