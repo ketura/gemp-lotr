@@ -524,7 +524,7 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "choose(name(Balin))"
+          "filter": "choose(culture(elven),ally)"
         }
       },
       {
