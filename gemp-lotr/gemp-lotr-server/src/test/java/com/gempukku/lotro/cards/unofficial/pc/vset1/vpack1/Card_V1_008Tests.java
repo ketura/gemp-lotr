@@ -17,13 +17,17 @@ import static org.junit.Assert.assertTrue;
 
 public class Card_V1_008Tests
 {
-
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_8");
-					// put other cards in here as needed for the test case
+					put("there", "151_8");
+					put("arwen", "1_30");
+					put("aragorn", "1_89");
+					put("tale", "1_66");
+					put("saga", "1_114");
+
+					put("orc1", "1_191");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +35,7 @@ public class Card_V1_008Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void IWasThereStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -44,38 +46,105 @@ public class Card_V1_008Tests
 		* Twilight Cost: 1
 		* Type: event
 		* Subtype: Skirmish
-		* Game Text: Discard an [elven] tale to wound a minion skirmishing an elf.
+		* Game Text: Spot a minion skirmishing an Elf and discard an [elven] tale to wound that minion.
 		*/
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl there = scn.GetFreepsCard("there");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(there.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(there, Keyword.TALE)); // test for keywords as needed
+		assertEquals(1, there.getBlueprint().getTwilightCost());
+		assertEquals(CardType.EVENT, there.getBlueprint().getCardType());
+		assertEquals(Culture.ELVEN, there.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, there.getBlueprint().getSide());
 	}
 
-	//@Test
-	public void IWasThereTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void IWasThereDoesNotTriggerIfNoSkirmishingElves() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl there = scn.GetFreepsCard("there");
+		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl tale = scn.GetFreepsCard("tale");
+		PhysicalCardImpl saga = scn.GetFreepsCard("saga");
+		scn.FreepsMoveCardToHand(there, arwen, aragorn, tale, saga);
+
+		PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
+		scn.ShadowMoveCharToTable(orc1);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.FreepsPlayCard(arwen);
+		scn.FreepsPlayCard(aragorn);
+		scn.FreepsPlayCard(saga);
+		scn.FreepsPlayCard(tale);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsAssignToMinions(aragorn, orc1);
+		assertEquals(Zone.HAND, there.getZone());
+		scn.FreepsResolveSkirmish(aragorn);
+		assertFalse(scn.FreepsActionAvailable("I Was There"));
+	}
+
+	@Test
+	public void IWasThereDoesNotTriggerIfNoElvenTales() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl there = scn.GetFreepsCard("there");
+		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl saga = scn.GetFreepsCard("saga");
+		scn.FreepsMoveCardToHand(there, arwen, aragorn, saga);
+
+		PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
+		scn.ShadowMoveCharToTable(orc1);
+
+		scn.StartGame();
+		scn.FreepsPlayCard(arwen);
+		scn.FreepsPlayCard(aragorn);
+		scn.FreepsPlayCard(saga);
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsAssignToMinions(arwen, orc1);
+		assertEquals(Zone.HAND, there.getZone());
+		scn.FreepsResolveSkirmish(arwen);
+		assertFalse(scn.FreepsActionAvailable("I Was There"));
+	}
+
+	@Test
+	public void IWasThereTriggersIfElvenTaleAndElfSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl there = scn.GetFreepsCard("there");
+		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
+		PhysicalCardImpl tale = scn.GetFreepsCard("tale");
+		scn.FreepsMoveCardToHand(there, arwen, tale);
+
+		PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
+		scn.ShadowMoveCharToTable(orc1);
+
+		scn.StartGame();
+		scn.FreepsPlayCard(arwen);
+		scn.FreepsPlayCard(tale);
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsAssignToMinions(arwen, orc1);
+		assertEquals(Zone.HAND, there.getZone());
+		scn.FreepsResolveSkirmish(arwen);
+		assertTrue(scn.FreepsActionAvailable("I Was There"));
+		assertEquals(0, scn.GetWoundsOn(orc1));
+		scn.FreepsPlayCard(there);
+		// Tale of Gil-galad should now be in the discard pile as a cost
+		assertEquals(Zone.DISCARD, tale.getZone());
+		assertEquals(1, scn.GetWoundsOn(orc1));
 	}
 }

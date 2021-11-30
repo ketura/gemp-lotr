@@ -216,6 +216,18 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return _game.getGameState().getDeck(player).size();
     }
 
+    public PhysicalCardImpl GetFreepsBottomOfDeck() { return GetPlayerBottomOfDeck(P1); }
+    public PhysicalCardImpl GetShadowBottomOfDeck() { return GetPlayerBottomOfDeck(P2); }
+    public PhysicalCardImpl GetPlayerBottomOfDeck(String player)
+    {
+        List deck = _game.getGameState().getDeck(player);
+        return (PhysicalCardImpl) deck.get(deck.size() - 1);
+    }
+
+    public PhysicalCardImpl GetFreepsTopOfDeck() { return GetPlayerTopOfDeck(P1); }
+    public PhysicalCardImpl GetShadowTopOfDeck() { return GetPlayerTopOfDeck(P2); }
+    public PhysicalCardImpl GetPlayerTopOfDeck(String player) { return (PhysicalCardImpl) _game.getGameState().getDeck(player).get(0); }
+
     public int GetFreepsDiscardCount() { return GetPlayerDiscardCount(P1); }
     public int GetShadowDiscardCount() { return GetPlayerDiscardCount(P2); }
     public int GetPlayerDiscardCount(String player)
@@ -404,8 +416,37 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public boolean FreepsCanChooseCharacter(PhysicalCardImpl card) { return FreepsGetCardChoices().contains(String.valueOf(card.getCardId())); }
     public boolean ShadowCanChooseCharacter(PhysicalCardImpl card) { return ShadowGetCardChoices().contains(String.valueOf(card.getCardId())); }
 
-    public int FreepsCardChoiceCount() { return FreepsGetCardChoices().size(); }
-    public int ShadowCardChoiceCount() { return ShadowGetCardChoices().size(); }
+    public int GetFreepsCardChoiceCount() { return FreepsGetCardChoices().size(); }
+    public int GetShadowCardChoiceCount() { return ShadowGetCardChoices().size(); }
+
+    public void FreepsChooseCardBPFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardBPFromSelection(P1, card);}
+    public void ShadowChooseCardBPFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardBPFromSelection(P2, card);}
+
+    public void ChooseCardBPFromSelection(String player, PhysicalCardImpl card) throws DecisionResultInvalidException {
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(player);
+
+        String[] ids = GetAwaitingDecisionParam(player,"blueprintId");
+        for(int i = 0; i < ids.length; i++)
+        {
+            String id = ids[i];
+            if(id == card.getBlueprintId())
+            {
+                // I have no idea why the spacing is required, but the BP parser skips to the fourth position
+                playerDecided(player, "    " + i);
+                return;
+            }
+        }
+
+        playerDecided(player, card.getBlueprintId());
+    }
+
+    public void FreepsChooseCardIDFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardIDFromSelection(P1, card);}
+    public void ShadowChooseCardIDFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardIDFromSelection(P2, card);}
+
+    public void ChooseCardIDFromSelection(String player, PhysicalCardImpl card) throws DecisionResultInvalidException {
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(player);
+        playerDecided(player, "" + card.getCardId());
+    }
 
     public boolean IsCharAssigned(PhysicalCardImpl card) {
         List<Assignment> assigns = _game.getGameState().getAssignments();
@@ -464,6 +505,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void ShadowAcceptOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, "0"); }
     public void ShadowDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P2, ""); }
 
+    public void FreepsChooseYes() throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P1, "Yes"); }
+    public void ShadowChooseYes() throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, "Yes"); }
+    public void FreepsChooseNo() throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P1, "No"); }
+    public void ShadowChooseNo() throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, "No"); }
     public void FreepsChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P1, option); }
     public void ShadowChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, option); }
     public void ChooseMultipleChoiceOption(String playerID, String option) throws DecisionResultInvalidException { ChooseAction(playerID, "results", option); }
