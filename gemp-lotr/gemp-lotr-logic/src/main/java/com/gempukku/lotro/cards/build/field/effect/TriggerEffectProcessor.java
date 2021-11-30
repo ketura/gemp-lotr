@@ -12,8 +12,9 @@ import org.json.simple.JSONObject;
 public class TriggerEffectProcessor implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "trigger", "optional", "condition", "cost", "effect");
+        FieldUtils.validateAllowedFields(value, "trigger", "optional", "condition", "cost", "effect", "text");
 
+        final String text = FieldUtils.getString(value.get("text"), "text", "");
         final JSONObject[] triggerArray = FieldUtils.getObjectArray(value.get("trigger"), "trigger");
         if (triggerArray.length == 0)
             throw new InvalidCardDefinitionException("Trigger effect without trigger definition");
@@ -24,6 +25,9 @@ public class TriggerEffectProcessor implements EffectProcessor {
             final boolean before = triggerChecker.isBefore();
 
             DefaultActionSource triggerActionSource = new DefaultActionSource();
+            if(text != "") {
+                triggerActionSource.setText(text);
+            }
             triggerActionSource.addPlayRequirement(triggerChecker);
             EffectUtils.processRequirementsCostsAndEffects(value, environment, triggerActionSource);
 

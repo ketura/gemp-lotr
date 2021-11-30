@@ -320,7 +320,7 @@ public class FilterFactory {
                                 return Filters.minPrintedTwilightCost(value);
                             }
                             catch(IllegalArgumentException ex) {
-                                return Filters.maxPrintedTwilightCost(0);
+                                return Filters.minPrintedTwilightCost(0);
                             }
                         };
                     } else {

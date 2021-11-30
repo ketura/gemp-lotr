@@ -27,7 +27,7 @@ public class PutCardsFromDeckIntoHand implements EffectAppenderProducer {
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
-        final boolean shuffle = FieldUtils.getBoolean(effectObject.get("shuffle"), "shuffle", false);
+        final boolean shuffle = FieldUtils.getBoolean(effectObject.get("shuffle"), "shuffle", true);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
