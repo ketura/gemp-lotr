@@ -129,6 +129,7 @@ var CardFilter = Class.extend({
             + "<option value='standard'>Standard</option>"
             + "<option value='expanded'>Expanded</option>"
             + "<option value='pc_expanded'>Expanded (PC)</option>"
+            + "<option value='french'>French Format</option>"
             + "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
             + "<option value='hobbit_tcb'> The Hobbit: The Clouds Burst</option>"
             + "<option disabled>----------</option>"
