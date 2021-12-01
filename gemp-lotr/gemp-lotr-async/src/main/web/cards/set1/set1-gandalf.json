@@ -406,7 +406,8 @@
         {
           "type": "putCardsFromDeckIntoHand",
           "count": 2,
-          "filter": "choose(memory(cardsOnTop))"
+          "filter": "choose(memory(cardsOnTop))",
+          "shuffle": false
         },
         {
           "type": "discardCardsFromDrawDeck",
@@ -445,7 +446,8 @@
         {
           "type": "putCardsFromDeckIntoHand",
           "count": 1,
-          "filter": "choose(memory(cardsOnTop))"
+          "filter": "choose(memory(cardsOnTop))",
+          "shuffle": false
         },
         {
           "type": "discardCardsFromDrawDeck",

@@ -446,7 +446,8 @@
         },
         {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "all(memory(revealedCards),culture(wraith))"
+          "filter": "all(memory(revealedCards),culture(wraith))",
+          "shuffle": false
         },
         {
           "type": "discardCardsFromDrawDeck",
