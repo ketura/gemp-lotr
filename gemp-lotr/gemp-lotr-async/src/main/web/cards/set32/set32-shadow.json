@@ -49,7 +49,7 @@
     ]
   },
   "32_26": {
-    "title": "*War of Gold",
+    "title": "*War for Gold",
     "culture": "mirkwood",
     "cost": 2,
     "type": "condition",
@@ -588,10 +588,10 @@
           {
             "type": "preventable",
             "player": "fp",
-            "text": "Would you like to exert {wiseCharacter} twice to prevent putting them in prison",
+            "text": "Would you like to exert a Wise character twice to prevent putting {wiseCharacter} in prison",
             "cost": {
               "type": "exert",
-              "filter": "choose(memory(wiseCharacter))",
+              "filter": "choose(wise,character)",
               "times": 2
             },
             "effect": {
