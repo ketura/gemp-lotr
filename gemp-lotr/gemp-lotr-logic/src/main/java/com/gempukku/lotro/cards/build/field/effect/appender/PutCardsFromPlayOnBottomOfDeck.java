@@ -32,7 +32,7 @@ public class PutCardsFromPlayOnBottomOfDeck implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, player, "Choose cards in play", environment));
+                CardResolver.resolveCards(filter, valueSource, "_temp", player, "Choose cards in play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

@@ -12,13 +12,17 @@
         "type": "startOfPhase",
         "phase": "fellowship"
       },
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
       "cost": {
         "type": "addTwilight",
         "amount": 2
       },
       "effect": {
         "type": "putCardsFromDeckIntoHand",
-        "filter": "choose(culture(shire))"
+        "filter": "choose(or(culture(gandalf),culture(shire)))"
       }
     }
   },
@@ -35,6 +39,10 @@
       "trigger": {
         "type": "startOfPhase",
         "phase": "fellowship"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
       },
       "effect": {
         "type": "playCardFromDrawDeck",
@@ -77,56 +85,82 @@
       "effect": [
         {
           "type": "chooseYesOrNo",
+          "player": "fp",
           "text": "Would you like to transfer a Dwarven follower to a Dwarven companion for free?",
           "memorize": "choice"
         },
         {
-          "type": "conditional",
-          "condition": {
-            "type": "memoryIs",
-            "memory": "choice",
-            "value": "yes"
-          },
-          "effect": [
+          "type": "choice",
+          "player": "fp",
+          "texts": [
+            "This is just a hack to allow this card to break the rules"
+          ],
+          "effects": [
             {
-              "type": "transfer",
-              "filter": "choose(culture(dwarven),follower,zone(support))",
-              "where": "choose(culture(dwarven),companion)"
-            },
-            {
-              "type": "duplicate",
-              "amount": {
-                "type": "forEachYouCanSpot",
-                "filter": "follower,culture(dwarven),zone(support)",
+              "type": "conditional",
+              "condition": {
+                "type": "memoryIs",
+                "memory": "choice",
+                "value": "yes"
               },
-              "effect": {
-                "type": "conditional",
-                "condition": {
-                  "type": "memoryIs",
-                  "memory": "choice",
-                  "value": "yes"
+              "effect": [
+                {
+                  "type": "transfer",
+                  "filter": "choose(culture(dwarven),follower)",
+                  "where": "choose(culture(dwarven),companion)",
+                  "memorizeTransferred": "transferredFollowers"
                 },
-                "effect": [
-                  {
-                    "type": "chooseYesOrNo",
-                    "text": "Would you like to transfer another follower for free?",
-                    "memorize": "choice"
+                {
+                  "type": "duplicate",
+                  "amount": {
+                    "type": "forEachYouCanSpot",
+                    "filter": "follower,culture(dwarven),not(memory(transferredFollowers))",
                   },
-                  {
+                  "effect": {
                     "type": "conditional",
                     "condition": {
                       "type": "memoryIs",
                       "memory": "choice",
                       "value": "yes"
                     },
-                    "effect": {
-                      "type": "transfer",
-                      "filter": "choose(culture(dwarven),follower,zone(support))",
-                      "where": "choose(culture(dwarven),companion)"
-                    }
+                    "effect": [
+                      {
+                        "type": "chooseYesOrNo",
+                        "text": "Would you like to transfer another follower for free?",
+                        "memorize": "choice"
+                      },
+                      {
+                        "type": "conditional",
+                        "condition": {
+                          "type": "memoryIs",
+                          "memory": "choice",
+                          "value": "yes"
+                        },
+                        "effect": [
+                          {
+                            "type": "transfer",
+                            "filter": "choose(culture(dwarven),follower,not(memory(transferredFollowers)))",
+                            "where": "choose(culture(dwarven),companion)",
+                            "memorizeTransferred": "anotherTransferredFollower"
+                          },
+                          {
+                            "type": "memorize",
+                            "filter": "or(memory(transferredFollowers),memory(anotherTransferredFollower))",
+                            "memory": "transferredFollowers"
+                          }
+                        ]
+                      }
+                    ]
                   }
-                ]
-              }
+                },
+                {
+                  "type": "addModifier",
+                  "modifier": {
+                    "type": "cantBeTransferred",
+                    "filter": "memory(transferredFollowers)"
+                  }
+                }
+              ]
             }
           ]
         }

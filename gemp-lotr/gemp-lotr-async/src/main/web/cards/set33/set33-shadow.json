@@ -220,7 +220,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cancelStrengthBonusTo",
-          "filter": "companion,culture(dwarven),inSkirmishAgainst(self)",
+          "filter": "companion,culture(dwarven)",
           "from": "weapon"
         }
       }
@@ -311,6 +311,10 @@
           "type": "endOfPhase",
           "phase": "shadow"
         },
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(gundabad),orc"
+        },
         "effect": {
           "type": "heal",
           "filter": "choose(culture(gundabad),orc)"
@@ -319,28 +323,51 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "condition": {
-          "type": "location",
-          "filter": "forest"
-        },
+        "condition": [
+          {
+            "type": "location",
+            "filter": "forest"
+          },
+          {
+            "type": "canSpot",
+            "filter": "culture(gundabad),orc"
+          }
+        ],
         "effect": [
           {
             "type": "chooseActiveCards",
-            "filter": "choose(culture(gundabad),orc,assignableToSkirmishAgainst(name(Bilbo)))",
             "text": "Choose minion to assign to Bilbo",
+            "filter": "choose(culture(gundabad),orc,assignableToSkirmishAgainst(name(Bilbo)))",
             "memorize": "chosenMinion"
+          },
+          {
+            "type": "optional",
+            "player": "fp",
+            "text": "Would you like to add a doubt to assign {chosenMinion} to a companion?",
+            "effect": [
+              {
+                "type": "addBurdens"
+              },
+              {
+                "type": "assignFpCharacterToSkirmish",
+                "player": "fp",
+                "fpCharacter": "choose(companion)",
+                "against": "choose(memory(chosenMinion))"
+              }
+            ]
           },
           {
             "type": "preventable",
             "player": "fp",
-            "text": "Would you like to add a doubt to assign {chosenMinion} to a companion?",
+            "text": "assignFpCharacterToSkirmish doesn't work here for some reason, so this cost registers as unable to be attempted and the effect assigns the minion if the FP passed on the optional above",
             "cost": [
               {
                 "type": "addBurdens"
               },
               {
                 "type": "assignFpCharacterToSkirmish",
-                "fpCharacter": "choose(companion,notAssignedToSkirmish)",
+                "player": "shadowPlayer",
+                "fpCharacter": "choose(companion)",
                 "against": "choose(memory(chosenMinion))"
               }
             ],
@@ -397,17 +424,6 @@
     "keyword": "support area",
     "effects": [
       {
-        "type": "trigger",
-        "trigger": {
-          "type": "aboutToDiscard",
-          "filter": "self"
-        },
-        "effect": {
-          "type": "putStackedCardsIntoHand",
-          "on": "self"
-        }
-      },
-      {
         "type": "activated",
         "phase": "regroup",
         "cost": [
@@ -425,6 +441,46 @@
           "filter": "choose(lowestStrength(culture(dwarven),companion))",
           "where": "self"
         }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "aboutToDiscard",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "memorizeStacked",
+            "on": "self",
+            "memory": "jailedCards"
+          },
+          {
+            "type": "addTrigger",
+            "trigger": {
+              "type": "discarded",
+              "filter": "self"
+            },
+            "effect": [
+              {
+                "type": "choice",
+                "player": "fp",
+                "texts": [
+                  "The Free Peoples player takes stacked cards into hand"
+                ],
+                "effects": [
+                  {
+                    "type": "putCardsFromDiscardIntoHand",
+                    "filter": "choose(memory(jailedCards))",
+                    "count": {
+                      "type": "forEachInMemory",
+                      "memory": "jailedCards"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -446,9 +502,13 @@
           "type": "modifyStrength",
           "filter": "choose(minion)",
           "amount": {
-            "type": "forEachYouCanSpot",
-            "filter": "culture(elven)",
-            "limit": 3
+            "type": "cardAffectedLimitPerPhase",
+            "limit": 3,
+            "source": {
+              "type": "forEachYouCanSpot",
+              "filter": "culture(elven)",
+              "limit": 3
+            }
           }
         }
       },
@@ -515,6 +575,7 @@
         "trigger": {
           "type": "aboutToDiscard",
           "filter": "another,condition,or(culture(gundabad),culture(mirkwood))",
+          "source": "side(free people)"
         },
         "cost": {
           "type": "discard",
@@ -533,7 +594,41 @@
     "cost": 1,
     "type": "possession",
     "vitality": 1,
-    "target": "or(troll,giant)"
+    "target": "or(troll,giant)",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "chooseANumber",
+          "from": 0,
+          "to": 3,
+          "memorize": "chosenNumber"
+        },
+        {
+          "type": "revealRandomCardsFromHand",
+          "forced": false,
+          "count": {
+            "type": "fromMemory",     
+            "memory": "chosenNumber"
+          },
+          "memorize": "revealedCards"
+        },
+        {
+          "type": "modifyArcheryTotal",
+          "side": "shadow",
+          "amount": {
+            "type": "forEachMatchingInMemory",
+            "memory": "revealedCards",
+            "filter": "side(shadow)"
+          }
+        }
+      ]
+    }
   },
   "33_36": {
     "title": "Bridging Troll",
@@ -588,9 +683,17 @@
           "memorize": "revealedCard"
         },
         {
+          "type": "memorizeNumber",
+          "memory": "cardTwilight",
+          "amount": {
+            "type": "twilightCostInMemory",
+            "memory": "revealedCard"
+          }
+        }
+        {
           "type": "discard",
           "player": "fp",
-          "filter": "choose(side(free people),minTwilight(memory(revealedCard)),maxTwilight(memory(revealedCard)),not(companion))"
+          "filter": "choose(side(free people),minTwilight(memory(cardTwilight)),maxTwilight(memory(cardTwilight)),not(companion))"
         }
       ]
     }
@@ -667,11 +770,11 @@
   "33_40": {
     "title": "Goblin Bow",
     "culture": "moria",
-    "cost": 1,
+    "cost": 0,
     "type": "possession",
     "possession": "ranged weapon",
     "vitality": 1,
-    "target": "orc",
+    "target": "culture(moria),orc",
     "effects": [
       {
         "type": "modifier",
@@ -703,10 +806,7 @@
           "type": "playCardFromDiscard",
           "filter": "choose(culture(moria),archer)"
         },
-        "condition": {
-          "type": "perTurnLimit",
-          "limit": 1
-        }
+          "limitPerTurn": 1
       }
     ]
   },
@@ -738,7 +838,7 @@
     "culture": "moria",
     "cost": 5,
     "type": "minion",
-    "race": "dragon",
+    "race": "giant",
     "strength": 11,
     "vitality": 3,
     "site": 4,
@@ -807,7 +907,7 @@
     "culture": "moria",
     "cost": 7,
     "type": "minion",
-    "race": "dragon",
+    "race": "giant",
     "strength": 14,
     "vitality": 4,
     "site": 4,
@@ -839,6 +939,7 @@
           {
             "type": "revealrandomcardsfromhand",
             "forced": false,
+            "hand": "fp",
             "memorize": "revealedCard",
           },
           {
@@ -909,7 +1010,7 @@
         "effect": {
           "type": "preventable",
           "player": "fp",
-          "text": "Would you like to prevent adding a doubt to prevent wound to character skirmishing The Great Goblin?",
+          "text": "Would you like to add a doubt to prevent a wound to the character skirmishing The Great Goblin?",
           "cost": {
             "type": "addBurdens"
           },
@@ -965,7 +1066,7 @@
         "phase": "shadow"
       },
       "effect": {
-        "type": "putCardsFromDeckIntoHand",
+        "type": "putCardsFromDiscardIntoHand",
         "filter": "choose(or(culture(gundabad),culture(sauron)),event)"
       }
     }
@@ -1002,9 +1103,12 @@
         "effect": {
           "type": "drawCards",
           "count": {
-            "type": "forEachYouCanSpot",
-            "filter": "ally",
-            "limit": 3
+            "type": "cardPhaseLimit",
+            "limit": 3,
+            "amount": {
+              "type": "forEachYouCanSpot",
+              "filter": "ally"
+            }
           }
         }
       }
@@ -1042,9 +1146,13 @@
         "effect": {
           "type": "drawCards",
           "count": {
-            "type": "forEachYouCanSpot",
-            "filter": "unique,minion",
-            "limit": 3
+            "type": "cardPhaseLimit",
+            "limit": 3,
+            "amount": {
+              "type": "forEachYouCanSpot",
+              "filter": "unique,minion",
+              "limit": 3
+            }
           }
         }
       }
@@ -1180,6 +1288,7 @@
         },
         {
           "type": "optional",
+          "player": "fp",
           "text": "Would you like to take a Dwarven or Shire event into hand from discard?",
           "effect": {
             "type": "putCardsFromDiscardIntoHand",

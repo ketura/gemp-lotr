@@ -175,14 +175,10 @@
           "culture": "dwarven",
           "filter": "self"
         },
+        "limitPerPhase": 1,
         "effect": {
           "type": "putCardsFromDiscardIntoHand",
-          "filter": "choose(culture(dwarven),event,maxTwilight(1),minTwilight(1))",
-          "count": {
-            "type": "cardPhaseLimit",
-            "limit":  1,
-            "amount": 1
-          }
+          "filter": "choose(culture(dwarven),event,minTwilight(1),maxTwilight(1))",
         }
       }
     ]
@@ -215,7 +211,8 @@
         },
         "effect": {
           "type": "putCardsFromHandOnBottomOfDeck"
-        }
+        },
+        "limitPerTurn": 1
       }
     ]
   },
@@ -821,7 +818,7 @@
     }
   },
   "33_53": {
-    "title": "*Master Worryword",
+    "title": "*Master Worrywort",
     "subtitle": "Hobbit Farmer",
     "culture": "shire",
     "cost": 1,

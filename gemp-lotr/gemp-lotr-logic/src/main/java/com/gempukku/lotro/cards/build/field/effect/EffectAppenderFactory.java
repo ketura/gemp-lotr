@@ -34,10 +34,11 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choice", new Choice());
         effectAppenderProducers.put("chooseactivecards", new ChooseActiveCards());
         effectAppenderProducers.put("chooseakeyword", new ChooseAKeyword());
+        effectAppenderProducers.put("chooseanumber", new ChooseANumber());
+        effectAppenderProducers.put("choosearace", new ChooseARace());
         effectAppenderProducers.put("chooseandaddtwilight", new ChooseAndAddTwilight());
         effectAppenderProducers.put("chooseandremovetokens", new ChooseAndRemoveTokens());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
-        effectAppenderProducers.put("choosearace", new ChooseARace());
         effectAppenderProducers.put("choosecardsfromdiscard", new ChooseCardsFromDiscard());
         effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
@@ -72,6 +73,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
         effectAppenderProducers.put("memorize", new MemorizeActive());
         effectAppenderProducers.put("memorizenumber", new MemorizeNumber());
+        effectAppenderProducers.put("memorizestacked", new MemorizeStacked());
         effectAppenderProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         effectAppenderProducers.put("modifysitenumber", new ModifySiteNumber());
         effectAppenderProducers.put("modifystrength", new ModifyStrength());
