@@ -60,7 +60,7 @@
       "type": "event",
       "effect": {
         "type": "modifyStrength",
-        "filter": "choose(dwarf)",
+        "filter": "choose(dwarf,character)",
         "memorize": "chosenDwarf",
         "amount": {
           "type": "condition",
@@ -1145,8 +1145,8 @@
           "filter": "self",
           "amount": {
             "type": "cardAffectedLimitPerPhase",
-            "limit": 2,
-            "source": 2
+            "limit": 3,
+            "source": 3
           }
         }
       }
