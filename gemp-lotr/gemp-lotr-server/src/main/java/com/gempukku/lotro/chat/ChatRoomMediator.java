@@ -90,8 +90,10 @@ public class ChatRoomMediator {
     }
 
     public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException, ChatCommandErrorException {
-        if (processIfKnownCommand(playerId, message, admin))
+        if (message.startsWith("/")) {
+            processIfKnownCommand(playerId, message.substring(1), admin);
             return;
+        }
 
         _lock.writeLock().lock();
         try {
@@ -123,26 +125,23 @@ public class ChatRoomMediator {
         }
     }
 
-    private boolean processIfKnownCommand(String playerId, String message, boolean admin) throws ChatCommandErrorException {
-        if (message.startsWith("/")) {
-            // Maybe it's a known command
-            String commandString = message.substring(1);
-            int spaceIndex = commandString.indexOf(" ");
-            String commandName;
-            String commandParameters="";
-            if (spaceIndex>-1) {
-                commandName = commandString.substring(0, spaceIndex);
-                commandParameters = commandString.substring(spaceIndex+1);
-            } else {
-                commandName = commandString;
-            }
-            final ChatCommandCallback callbackForCommand = _chatCommandCallbacks.get(commandName.toLowerCase());
-            if (callbackForCommand != null) {
-                callbackForCommand.commandReceived(playerId, commandParameters, admin);
-                return true;
-            }
+    private void processIfKnownCommand(String playerId, String commandString, boolean admin) throws ChatCommandErrorException {
+        int spaceIndex = commandString.indexOf(" ");
+        String commandName;
+        String commandParameters="";
+        if (spaceIndex>-1) {
+            commandName = commandString.substring(0, spaceIndex);
+            commandParameters = commandString.substring(spaceIndex+1);
+        } else {
+            commandName = commandString;
         }
-        return false;
+        final ChatCommandCallback callbackForCommand = _chatCommandCallbacks.get(commandName.toLowerCase());
+        if (callbackForCommand != null) {
+            callbackForCommand.commandReceived(playerId, commandParameters, admin);
+        } else {
+            ChatCommandCallback callbackForNoCommand = _chatCommandCallbacks.get("nocommand");
+            callbackForNoCommand.commandReceived(playerId, commandString, false);
+        }
     }
 
     public void cleanup() {

@@ -90,7 +90,7 @@ public class HallServer extends AbstractServer {
 
         tableHolder = new TableHolder(leagueService, ignoreDAO);
 
-        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, true,
+        _hallChat = _chatServer.createChatRoom("Game Hall", true, 300, true,
                 "You're now in the Game Hall, use /help to get a list of available commands.<br>Don't forget to check out the new Discord chat integration! Click the 'Switch to Discord' button in the lower right ---->");
         _hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
@@ -132,9 +132,33 @@ public class HallServer extends AbstractServer {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (!from.equals(playerName) && ignoreDAO.addIgnoredUser(from, playerName)) {
-                                _hallChat.sendToUser(from, from, "/ignore " + playerName);
                                 _hallChat.sendToUser("System", from, "User " + playerName + " added to ignore list");
+                            } else if (from.equals(playerName)) {
+                                _hallChat.sendToUser(from, from, "You don't have any friends. Nobody likes you.");
+                                _hallChat.sendToUser(from, from, "Not listening. Not listening!");
+                                _hallChat.sendToUser(from, from, "You're a liar and a thief.");
+                                _hallChat.sendToUser(from, from, "Nope.");
+                                _hallChat.sendToUser(from, from, "Murderer!");
+                                _hallChat.sendToUser(from, from, "Go away. Go away!");
+                                _hallChat.sendToUser(from, from, "Hahahaha!");
+                                _hallChat.sendToUser(from, from, "I hate you, I hate you.");
+                                _hallChat.sendToUser(from, from, "Where would you be without me? Gollum, Gollum. I saved us. It was me. We survived because of me!");
+                                _hallChat.sendToUser(from, from, "Not anymore.");
+                                _hallChat.sendToUser(from, from, "What did you say?");
+                                _hallChat.sendToUser(from, from, "Master looks after us now. We don't need you.");
+                                _hallChat.sendToUser(from, from, "What?");
+                                _hallChat.sendToUser(from, from, "Leave now and never come back.");
+                                _hallChat.sendToUser(from, from, "No!");
+                                _hallChat.sendToUser(from, from, "Leave now and never come back!");
+                                _hallChat.sendToUser(from, from, "Argh!");
+                                _hallChat.sendToUser(from, from, "Leave NOW and NEVER COME BACK!");
+                                _hallChat.sendToUser(from, from, "...");
+                                _hallChat.sendToUser(from, from, "We... We told him to go away! And away he goes, preciouss! Gone, gone, gone! Smeagol is free!");
+                            } else {
+                                _hallChat.sendToUser("System", from, "User " + playerName + " is already on your ignore list");
                             }
+                        } else {
+                            _hallChat.sendToUser("System", from, playerName + " is not a valid username");
                         }
                     }
                 });
@@ -145,9 +169,12 @@ public class HallServer extends AbstractServer {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (ignoreDAO.removeIgnoredUser(from, playerName)) {
-                                _hallChat.sendToUser(from, from, "/unignore " + playerName);
                                 _hallChat.sendToUser("System", from, "User " + playerName + " removed from ignore list");
+                            } else {
+                                _hallChat.sendToUser("System", from, "User " + playerName + " wasn't on your ignore list. Try ignoring them first.");
                             }
+                        } else {
+                            _hallChat.sendToUser("System", from, playerName + " is not a valid username");
                         }
                     }
                 });
@@ -156,7 +183,6 @@ public class HallServer extends AbstractServer {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(from);
-                        _hallChat.sendToUser(from, from, "/listIgnores");
                         _hallChat.sendToUser("System", from, "Your ignores: " + Arrays.toString(ignoredUsers.toArray(new String[0])));
                     }
                 });
@@ -165,7 +191,6 @@ public class HallServer extends AbstractServer {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         _hallChat.setIncognito(from, true);
-                        _hallChat.sendToUser(from, from, "/incognito");
                         _hallChat.sendToUser("System", from, "You are now incognito (do not appear in user list)");
                     }
                 });
@@ -174,7 +199,6 @@ public class HallServer extends AbstractServer {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         _hallChat.setIncognito(from, false);
-                        _hallChat.sendToUser(from, from, "/endIncognito");
                         _hallChat.sendToUser("System", from, "You are no longer incognito");
                     }
                 });
@@ -194,6 +218,13 @@ public class HallServer extends AbstractServer {
                             _hallChat.sendToUser("System", from, "/banIp ip - Bans specified ip permanently");
                             _hallChat.sendToUser("System", from, "/banIpRange ip - Bans ips with the specified prefix, ie. 10.10.10.");
                         }
+                    }
+                });
+        _hallChat.addChatCommandCallback("nocommand",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        _hallChat.sendToUser("System", from, "\"" + parameters + "\" is not a recognized command.");
                     }
                 });
 
