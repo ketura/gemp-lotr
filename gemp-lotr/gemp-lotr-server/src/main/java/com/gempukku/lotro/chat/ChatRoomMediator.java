@@ -3,15 +3,18 @@ package com.gempukku.lotro.chat;
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.db.IgnoreDAO;
+import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.ChatCommunicationChannel;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ChatRoomMediator {
     private IgnoreDAO ignoreDAO;
+    private PlayerDAO playerDAO;
     private Logger _logger;
     private ChatRoom _chatRoom;
 
@@ -25,14 +28,15 @@ public class ChatRoomMediator {
     private Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<String, ChatCommandCallback>();
     private String welcomeMessage;
 
-    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean allowIncognito, String welcomeMessage) {
-        this(ignoreDAO, roomName, muteJoinPartMessages, secondsTimeoutPeriod, null, allowIncognito);
+    public ChatRoomMediator(IgnoreDAO ignoreDAO, PlayerDAO playerDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean allowIncognito, String welcomeMessage) {
+        this(ignoreDAO, playerDAO, roomName, muteJoinPartMessages, secondsTimeoutPeriod, null, allowIncognito);
         this.welcomeMessage = welcomeMessage;
     }
 
-    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers,
+    public ChatRoomMediator(IgnoreDAO ignoreDAO, PlayerDAO playerDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers,
                             boolean allowIncognito) {
         this.ignoreDAO = ignoreDAO;
+        this.playerDAO = playerDAO;
         _logger = Logger.getLogger("chat."+roomName);
         _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
@@ -43,13 +47,15 @@ public class ChatRoomMediator {
         _chatCommandCallbacks.put(command.toLowerCase(), callback);
     }
 
-    public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException {
+    public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException, SQLException {
         _lock.writeLock().lock();
         try {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
                 throw new PrivateInformationException();
 
-            ChatCommunicationChannel value = new ChatCommunicationChannel(ignoreDAO.getIgnoredUsers(playerId));
+            Set<String> usersToIgnore = playerDAO.getBannedUsernames();
+            usersToIgnore.addAll(ignoreDAO.getIgnoredUsers(playerId));
+            ChatCommunicationChannel value = new ChatCommunicationChannel(usersToIgnore);
             _listeners.put(playerId, value);
             _chatRoom.joinChatRoom(playerId, value);
             final List<ChatMessage> chatMessages = value.consumeMessages();
@@ -84,8 +90,10 @@ public class ChatRoomMediator {
     }
 
     public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException, ChatCommandErrorException {
-        if (processIfKnownCommand(playerId, message, admin))
+        if (message.startsWith("/")) {
+            processIfKnownCommand(playerId, message.substring(1), admin);
             return;
+        }
 
         _lock.writeLock().lock();
         try {
@@ -117,26 +125,23 @@ public class ChatRoomMediator {
         }
     }
 
-    private boolean processIfKnownCommand(String playerId, String message, boolean admin) throws ChatCommandErrorException {
-        if (message.startsWith("/")) {
-            // Maybe it's a known command
-            String commandString = message.substring(1);
-            int spaceIndex = commandString.indexOf(" ");
-            String commandName;
-            String commandParameters="";
-            if (spaceIndex>-1) {
-                commandName = commandString.substring(0, spaceIndex);
-                commandParameters = commandString.substring(spaceIndex+1);
-            } else {
-                commandName = commandString;
-            }
-            final ChatCommandCallback callbackForCommand = _chatCommandCallbacks.get(commandName.toLowerCase());
-            if (callbackForCommand != null) {
-                callbackForCommand.commandReceived(playerId, commandParameters, admin);
-                return true;
-            }
+    private void processIfKnownCommand(String playerId, String commandString, boolean admin) throws ChatCommandErrorException {
+        int spaceIndex = commandString.indexOf(" ");
+        String commandName;
+        String commandParameters="";
+        if (spaceIndex>-1) {
+            commandName = commandString.substring(0, spaceIndex);
+            commandParameters = commandString.substring(spaceIndex+1);
+        } else {
+            commandName = commandString;
         }
-        return false;
+        final ChatCommandCallback callbackForCommand = _chatCommandCallbacks.get(commandName.toLowerCase());
+        if (callbackForCommand != null) {
+            callbackForCommand.commandReceived(playerId, commandParameters, admin);
+        } else {
+            ChatCommandCallback callbackForNoCommand = _chatCommandCallbacks.get("nocommand");
+            callbackForNoCommand.commandReceived(playerId, commandString, false);
+        }
     }
 
     public void cleanup() {

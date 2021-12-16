@@ -157,7 +157,13 @@ var PCCards = {
 	//September 2021
 	'9_53': 'https://i.lotrtcgpc.net/promos/2021/09/PCPROMO_FA_09033.jpg',
 	'10_123':'https://i.lotrtcgpc.net/promos/2021/09/PCPROMO_FA_10123.jpg',
-	
+	//October 2021
+	'1_368':'https://i.lotrtcgpc.net/promos/2021/10/PCPROMO_FA_01083.jpg',
+	'1_369':'https://i.lotrtcgpc.net/promos/2021/10/PCPROMO_FA_01127.jpg',
+	//November 2021
+	'8_123':'https://i.lotrtcgpc.net/promos/2021/11/PCPROMO_FA_08102.jpg',
+	'9_54':'https://i.lotrtcgpc.net/promos/2021/11/PCPROMO_FA_09014.jpg',
+
 	// Player's Council VSet1 'A Shadow of the Past'
 	'151_1':  'https://i.lotrtcgpc.net/sets/vset1/V1_001.jpg',
 	'151_2':  'https://i.lotrtcgpc.net/sets/vset1/V1_002.jpg',
@@ -223,5 +229,6 @@ var PCCards = {
 	//'151_62': 'https://i.lotrtcgpc.net/sets/vset1/V1_062.jpg',
 	//'151_63': 'https://i.lotrtcgpc.net/sets/vset1/V1_063.jpg',
 	//'151_64': 'https://i.lotrtcgpc.net/sets/vset1/V1_064.jpg',
+
 }
 

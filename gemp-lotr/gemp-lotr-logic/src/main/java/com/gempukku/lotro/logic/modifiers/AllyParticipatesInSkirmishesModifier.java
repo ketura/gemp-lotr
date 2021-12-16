@@ -4,14 +4,19 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class AllyParticipatesInSkirmishesModifier extends AbstractModifier {
     private PhysicalCard _source;
 
-    public AllyParticipatesInSkirmishesModifier(PhysicalCard source, Filterable affectFilter) {
-        super(source, "Can participate in skirmishes", affectFilter, ModifierEffect.PRESENCE_MODIFIER);
+    public AllyParticipatesInSkirmishesModifier(PhysicalCard source, Filterable... affectFilters) {
+        this(source, null, affectFilters);
+    }
+
+    public AllyParticipatesInSkirmishesModifier(PhysicalCard source, Condition condition, Filterable... affectFilters) {
+        super(source, "Can participate in skirmishes", Filters.and(affectFilters), condition, ModifierEffect.PRESENCE_MODIFIER);
         _source = source;
     }
 

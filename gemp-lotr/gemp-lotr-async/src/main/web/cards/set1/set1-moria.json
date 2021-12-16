@@ -197,7 +197,7 @@
       "type": "event",
       "effect": {
         "type": "assignFpCharacterToSkirmish",
-        "fpCharacter": "choose(exhausted,not(ring bearer))",
+        "fpCharacter": "choose(exhausted,companion,not(ring bearer))",
         "against": "choose(culture(moria),orc)"
       }
     }

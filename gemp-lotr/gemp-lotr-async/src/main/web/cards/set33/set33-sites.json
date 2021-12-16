@@ -4,7 +4,27 @@
     "cost": 0,
     "type": "site",
     "block": "hobbit",
-    "site": 1
+    "site": 1,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "fellowship"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "cost": {
+        "type": "addTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "putCardsFromDeckIntoHand",
+        "filter": "choose(or(culture(gandalf),culture(shire)))"
+      }
+    }
   },
   "33_56": {
     "title": "Great East Road",
@@ -12,14 +32,39 @@
     "type": "site",
     "block": "hobbit",
     "site": 2,
-    "keyword": "forest"
+    "keyword": "forest",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "fellowship"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(or(possession,artifact))"
+      }
+    }
   },
   "33_57": {
     "title": "The Last Homely House",
     "cost": 1,
     "type": "site",
     "block": "hobbit",
-    "site": 3
+    "site": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "limitPerTurn": 1,
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(ally,allyHome(hobbit,3))",
+      }
+    }
   },
   "33_58": {
     "title": "Front Gate of Erebor",
@@ -30,6 +75,96 @@
     "keyword": [
       "mountain",
       "river"
-    ]
+    ],
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "maneuver"
+      },
+      "effect": [
+        {
+          "type": "chooseYesOrNo",
+          "player": "fp",
+          "text": "Would you like to transfer a Dwarven follower to a Dwarven companion for free?",
+          "memorize": "choice"
+        },
+        {
+          "type": "choice",
+          "player": "fp",
+          "texts": [
+            "This is just a hack to allow this card to break the rules"
+          ],
+          "effects": [
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "memoryIs",
+                "memory": "choice",
+                "value": "yes"
+              },
+              "effect": [
+                {
+                  "type": "transfer",
+                  "filter": "choose(culture(dwarven),follower)",
+                  "where": "choose(culture(dwarven),companion)",
+                  "memorizeTransferred": "transferredFollowers"
+                },
+                {
+                  "type": "duplicate",
+                  "amount": {
+                    "type": "forEachYouCanSpot",
+                    "filter": "follower,culture(dwarven),not(memory(transferredFollowers))",
+                  },
+                  "effect": {
+                    "type": "conditional",
+                    "condition": {
+                      "type": "memoryIs",
+                      "memory": "choice",
+                      "value": "yes"
+                    },
+                    "effect": [
+                      {
+                        "type": "chooseYesOrNo",
+                        "text": "Would you like to transfer another follower for free?",
+                        "memorize": "choice"
+                      },
+                      {
+                        "type": "conditional",
+                        "condition": {
+                          "type": "memoryIs",
+                          "memory": "choice",
+                          "value": "yes"
+                        },
+                        "effect": [
+                          {
+                            "type": "transfer",
+                            "filter": "choose(culture(dwarven),follower,not(memory(transferredFollowers)))",
+                            "where": "choose(culture(dwarven),companion)",
+                            "memorizeTransferred": "anotherTransferredFollower"
+                          },
+                          {
+                            "type": "memorize",
+                            "filter": "or(memory(transferredFollowers),memory(anotherTransferredFollower))",
+                            "memory": "transferredFollowers"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "addModifier",
+                  "modifier": {
+                    "type": "cantBeTransferred",
+                    "filter": "memory(transferredFollowers)"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }

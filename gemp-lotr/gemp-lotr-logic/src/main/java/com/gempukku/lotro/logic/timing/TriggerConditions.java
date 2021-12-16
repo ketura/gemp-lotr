@@ -118,8 +118,8 @@ public class TriggerConditions {
 
     public static boolean addedThreat(LotroGame game, EffectResult effectResult, Filterable... sourceFilters) {
         if (effectResult.getType() == EffectResult.Type.ADD_THREAT) {
-            AddThreatResult burdenResult = (AddThreatResult) effectResult;
-            return (Filters.and(sourceFilters).accepts(game, burdenResult.getSource()));
+            AddThreatResult threatResult = (AddThreatResult) effectResult;
+            return (Filters.and(sourceFilters).accepts(game, threatResult.getSource()));
         }
         return false;
     }
@@ -202,6 +202,16 @@ public class TriggerConditions {
             return Filters.and(filters).accepts(game, ((DiscardCardFromDeckResult) effectResult).getDiscardedCard());
         return false;
     }
+    
+    public static boolean forEachDiscardedFromHandBy(LotroGame game, EffectResult effectResult, Filterable discardedBy, Filterable... discarded) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_HAND) {
+            DiscardCardFromHandResult discardResult = (DiscardCardFromHandResult) effectResult;
+            if (discardResult.getSource() != null 
+                    && Filters.and(discardedBy).accepts(game, discardResult.getSource()))
+                return Filters.and(discarded).accepts(game, discardResult.getDiscardedCard());
+        }
+        return false;
+    }
 
     public static boolean forEachWounded(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_WOUNDED)
@@ -218,6 +228,16 @@ public class TriggerConditions {
     public static boolean forEachExerted(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_EXERTED)
             return Filters.and(filters).accepts(game, ((ExertResult) effectResult).getExertedCard());
+        return false;
+    }
+
+    public static boolean forEachExertedBy(LotroGame game, EffectResult effectResult, Filterable exertedBy, Filterable... exerted) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_EXERTED) {
+            ExertResult exertResult = (ExertResult) effectResult;
+            if (exertResult.getAction().getActionSource() != null
+                    && Filters.and(exertedBy).accepts(game, exertResult.getAction().getActionSource()))
+                return Filters.and(exerted).accepts(game, exertResult.getExertedCard());
+        }
         return false;
     }
 

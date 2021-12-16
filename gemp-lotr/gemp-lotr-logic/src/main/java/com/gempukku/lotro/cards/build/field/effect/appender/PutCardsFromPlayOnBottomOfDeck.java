@@ -11,7 +11,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.PutCardFromHandOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromPlayOnBottomOfDeckEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
@@ -20,26 +20,19 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PutCardsFromHandOnBottomOfDeck implements EffectAppenderProducer {
+public class PutCardsFromPlayOnBottomOfDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "player", "optional", "filter", "count");
+        FieldUtils.validateAllowedFields(effectObject, "player", "filter", "count");
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
-        final boolean optional = FieldUtils.getBoolean(effectObject.get("optional"), "optional", false);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
-        final ValueSource count = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
-
-        ValueSource valueSource;
-        if (optional)
-            valueSource = ValueResolver.resolveEvaluator("0-" + count, environment);
-        else
-            valueSource = count;
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, player, "Choose cards from hand", environment));
+                CardResolver.resolveCards(filter, valueSource, "_temp", player, "Choose cards in play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
@@ -47,7 +40,7 @@ public class PutCardsFromHandOnBottomOfDeck implements EffectAppenderProducer {
                         final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
                         List<Effect> result = new LinkedList<>();
                         for (PhysicalCard card : cards) {
-                            result.add(new PutCardFromHandOnBottomOfDeckEffect(card));
+                            result.add(new PutCardFromPlayOnBottomOfDeckEffect(card));
                         }
                         return result;
                     }

@@ -7,7 +7,7 @@ public enum Race implements Filterable {
     GOBLIN("Goblin"),
 	
 	//Additional Hobbit Draft races
-    DRAGON("Dragon"), EAGLE("Eagle"), BIRD("Bird"),
+    DRAGON("Dragon"), EAGLE("Eagle"), BIRD("Bird"), GIANT("Giant"),
 
     //PC Races
     CROW("Crow"), WARG("Warg");
