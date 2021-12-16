@@ -55,6 +55,7 @@ public class CollectionSerializer {
         loadSet("30");
         loadSet("31");
         loadSet("32");
+        loadSet("33");
 
         //April 2021 PC Promos
         _singleByteCountItems.add("11_267");

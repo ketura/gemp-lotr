@@ -60,7 +60,7 @@
       "type": "event",
       "effect": {
         "type": "modifyStrength",
-        "filter": "choose(dwarf)",
+        "filter": "choose(dwarf,character)",
         "memorize": "chosenDwarf",
         "amount": {
           "type": "condition",
@@ -748,6 +748,9 @@
           "type": "reconciles",
           "player": "you"
         },
+        "condition": {
+          "type": "sarumanfirstsentenceactive"
+        },
         "effect": {
           "type": "drawCards",
           "count": 2
@@ -803,21 +806,26 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "modifyCost",
-          "filter": "name(Thorin)",
-          "amount": -2
+          "type": "cantBeDiscarded",
+          "condition": [
+            {
+              "type": "canSpot",
+              "filter": "culture(dwarven),follower",
+              "count": 2
+            },
+            {
+              "type": "sarumanfirstsentenceactive"
+            }
+          ],
+          "filter": "self"
         }
       },
       {
         "type": "modifier",
         "modifier": {
-          "type": "cantBeDiscarded",
-          "condition": {
-            "type": "canSpot",
-            "filter": "culture(dwarven),follower",
-            "count": 2
-          },
-          "filter": "self"
+          "type": "modifyCost",
+          "filter": "name(Thorin)",
+          "amount": -2
         }
       },
       {
@@ -858,6 +866,9 @@
         "trigger": {
           "type": "played",
           "filter": "your,culture(gandalf),event"
+        },
+        "condition": {
+          "type": "sarumanfirstsentenceactive"
         },
         "effect": {
           "type": "wound",
@@ -907,6 +918,9 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeDiscarded",
+          "condition": {
+            "type": "sarumanfirstsentenceactive"
+          },
           "filter": "self"
         }
       },
@@ -1034,31 +1048,56 @@
         "type": "trigger",
         "optional": true,
         "trigger": {
-          "type": "winsSkirmish",
-          "filter": "self"
+          "type": "played",
+          "filter": "culture(dwarven),fellowship,event"
         },
-        "effect": [
-          {
-            "type": "drawCards",
-            "count": 3
+        "effect": {
+          "type": "drawCards",
+          "count": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(culture(dwarven),follower)"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "condition",
+            "condition": {
+              "type": "canSpot",
+              "filter": "name(Gollum)"
+            },
+            "true": 2,
+            "false": 1
           },
-          {
-            "type": "discardFromHand",
-            "forced": false,
-            "count": 2
-          }
-        ]
+          "until": "start(regroup)"
+        }
       },
       {
         "type": "activated",
         "phase": "skirmish",
         "cost": {
-          "type": "addBurdens",
-          "amount": 2
+          "type": "discard",
+          "filter": "choose(culture(dwarven),follower)"
         },
         "effect": {
-          "type": "cancelSkirmish",
-          "filter": "name(Gollum)"
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "condition",
+            "condition": {
+              "type": "canSpot",
+              "filter": "name(Gollum)"
+            },
+            "true": 2,
+            "false": 1
+          },
+          "until": "start(regroup)"
         }
       }
     ]
@@ -1066,6 +1105,56 @@
   "30_44": {
     "title": "*Bilbo",
     "subtitle": "Collector of Treasures",
+    "culture": "shire",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 8,
+    "keyword": [
+      "burglar",
+      "can start with ring"
+    ],
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "discardFromHandBy",
+          "by": "follower"
+        },
+        "effect": {
+          "type": "drawCards",
+          "count": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,inSkirmishAgainst(or(name(Smaug),name(Gollum)))"
+        },
+        "cost": {
+          "type": "addBurdens",
+          "amount": 1
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "cardAffectedLimitPerPhase",
+            "limit": 3,
+            "source": 3
+          }
+        }
+      }
+    ]
+  },
+  "30_45": {
+    "title": "*Bilbo",
+    "subtitle": "Master in Riddles",
     "culture": "shire",
     "cost": 0,
     "type": "companion",
@@ -1090,66 +1179,16 @@
         "type": "trigger",
         "optional": true,
         "trigger": {
-          "type": "winsSkirmish",
-          "filter": "self"
+          "type": "heals",
+          "filter": "companion"
         },
-        "effect": {
-          "type": "putCardsFromDeckIntoHand",
-          "filter": "choose(side(free people),artifact)"
-        }
-      }
-    ]
-  },
-  "30_45": {
-    "title": "*Bilbo",
-    "subtitle": "Master in Riddles",
-    "culture": "shire",
-    "cost": 0,
-    "type": "companion",
-    "race": "hobbit",
-    "strength": 3,
-    "vitality": 4,
-    "resistance": 8,
-    "keyword": [
-      "burglar",
-      "can start with ring"
-    ],
-    "effects": [
-      {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "winsSkirmish",
-          "filter": "self"
-        },
-        "effect": {
-          "type": "drawCards",
-          "count": 3
-        }
-      },
-      {
-        "type": "activated",
-        "phase": "skirmish",
         "condition": {
-          "type": "perPhaseLimit",
-          "limit": 2
+          "type": "canSpot",
+          "filter": "minion"
         },
-        "cost": {
-          "type": "discardFromHand",
-          "forced": false,
-          "count": 2
-        },
-        "effect": [
-          {
-            "type": "incrementPerPhaseLimit",
-            "limit": 2
-          },
-          {
-            "type": "modifyStrength",
-            "filter": "choose(name(Gollum))",
-            "amount": -2
-          }
-        ]
+        "effect": {
+          "type": "drawCards"
+        }
       }
     ]
   },
@@ -1172,29 +1211,29 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeOverwhelmedMultiplier",
-          "filter": "self,inSkirmishAgainst(name(Gollum))",
+          "filter": "self,inSkirmishAgainst(or(name(Smaug),name(Gollum)))",
           "multiplier": 3
         }
       },
       {
-        "type": "activatedTrigger",
-        "trigger": {
-          "type": "winsSkirmish",
-          "filter": "self"
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "play",
+          "filter": "choose(culture(dwarven),skirmish,event)"
         },
-        "condition": {
-          "type": "perTurnLimit",
-          "limit": 1
-        },
-        "effect": [
-          {
-            "type": "incrementPerTurnLimit",
-            "limit": 1
-          },
-          {
-            "type": "reconcileHand"
+        "effect": {
+          "type": "drawCards",
+          "count": {
+            "type": "condition",
+            "condition": {
+              "type": "canSpot",
+              "filter": "self,inSkirmish"
+            },
+            "true": 4,
+            "false": 2
           }
-        ]
+        }
       }
     ]
   },

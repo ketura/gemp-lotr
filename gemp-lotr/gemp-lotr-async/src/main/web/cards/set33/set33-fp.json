@@ -7,6 +7,50 @@
     "keyword": [
       "support area",
       "fortification"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(dwarven),companion)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "name(Balin)",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(7-8)"
+          },
+          "amount": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "location",
+          "filter": "siteNumber(8)"
+        },
+        "cost": [
+          {
+            "type": "exert",
+            "filter": "choose(name(Balin))"
+          },
+          {
+            "type": "discard",
+            "filter": "choose(culture(dwarven),fortification)"
+          }
+        ],
+        "effect": {
+          "type": "wound",
+          "filter": "choose(minion)",
+          "times": 2
+        }
+      }
     ]
   },
   "33_2": {
@@ -17,8 +61,19 @@
     "keyword": "fellowship",
     "effects": {
       "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(name(Bilbo))"
+        },
+        {
+          "type": "addBurdens",
+          "amount": 1
+        }
+      ],
       "effect": {
-        "type": "removeBurdens"
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(culture(dwarven),or(possession,follower))"
       }
     }
   },
@@ -29,7 +84,33 @@
     "type": "possession",
     "possession": "armor",
     "vitality": 1,
-    "target": "name(Balin)"
+    "target": "name(Balin)",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "name(Bilbo)"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(name(Balin))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Balin))"
+        },
+        "effect": {
+          "type": "putCardsFromDeckIntoHand",
+          "filter": "choose(culture(dwarven),skirmish,event)"
+        }
+      }
+    ]
   },
   "33_4": {
     "title": "Blunt the Knives!",
@@ -40,7 +121,26 @@
     "effects": {
       "type": "event",
       "effect": {
-        "type": "removeBurdens"
+        "type": "choice",
+        "texts": [
+          "Draw 2 cards",
+          "Play Balin from your draw deck",
+          "Place 2 cards from discard beneath your deck"
+        ],
+        "effects": [
+          {
+            "type": "drawCards",
+            "count": 2
+          },
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(Balin))"
+          },
+          {
+            "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+            "count": 2
+          }
+        ]
       }
     }
   },
@@ -49,14 +149,72 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "keyword": "support area"
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "or(name(bifur),name(bofur),name(bombur))"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "dwarven",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": [
+          "fellowship",
+          "regroup"
+        ],
+        "cost": {
+          "type": "removeTokens",
+          "culture": "dwarven",
+          "filter": "self"
+        },
+        "limitPerPhase": 1,
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(culture(dwarven),event,minTwilight(1),maxTwilight(1))",
+        }
+      }
+    ]
   },
   "33_6": {
     "title": "*Dwarven Ponies",
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "keyword": "support area"
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "or(name(bifur),name(bofur),name(bombur))"
+        },
+        "effect": {
+          "type": "drawCards",
+          "count": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "addTwilight",
+          "amount": 2
+        },
+        "effect": {
+          "type": "putCardsFromHandOnBottomOfDeck"
+        },
+        "limitPerTurn": 1
+      }
+    ]
   },
   "33_7": {
     "title": "Dwarven Warhammer",
@@ -65,19 +223,69 @@
     "type": "possession",
     "possession": "hand weapon",
     "strength": 2,
-    "target": "culture(dwarven),companion"
+    "target": "culture(dwarven),companion",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "discardFromHand",
+        "count": 2,
+        "forced": false
+      },
+      "effect": {
+        "type": "transfer",
+        "filter": "choose(culture(dwarven),follower,zone(support))",
+        "where": "choose(bearer)"
+      }
+    }
   },
   "33_8": {
     "title": "Eager to Brawl",
     "culture": "dwarven",
     "cost": 1,
     "type": "event",
-    "keyword": "fellowship",
-    "effects": {
-      "type": "event",
-      "effect": {
-        "type": "removeBurdens"
+    "keyword": "response",
+    "condition": [
+      {
+        "type": "canSpot",
+        "filter": "culture(dwarven),follower"
+      },
+      {
+        "type": "phase",
+        "phase": "regroup"
       }
+    ],
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "moves"
+      },
+      "cost": {
+        "type": "spot",
+        "filter": "choose(culture(dwarven),follower)",
+        "memorize": "spottedFollower"
+      },
+      "effect": [
+        {
+          "type": "addTwilight",
+          "amount": {
+            "type": "twilightCostInMemory",
+            "memory": "spottedFollower"
+          }
+        },
+        {
+          "type": "discard", 
+          "filter": "choose(minion,not(name(Smaug)))",
+          "count": {
+            "type": "range",
+            "from": 0,
+            "to": {
+              "type": "twilightCostInMemory",
+              "memory": "spottedFollower"
+            }
+          }
+        }
+      ]
     }
   },
   "33_9": {
@@ -88,6 +296,37 @@
     "keyword": [
       "support area",
       "fortification"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "culture(dwarven),follower"
+    },
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "culture(dwarven),companion,hasAttached(follower)",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(7-8)"
+          },
+          "amount": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(culture(dwarven),fortification)"
+        },
+        "effect": {
+          "type": "drawCards",
+          "count": 2
+        }
+      }
     ]
   },
   "33_10": {
@@ -95,14 +334,84 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "keyword": "support area"
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "exertedBy",
+          "filter": "name(Balin)",
+          "by": "culture(dwarven),event"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(name(Balin))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Balin))"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(culture(dwarven),companion)",
+          "amount": {
+            "type": "multiply",
+            "multiplier": 1,
+            "source": {
+              "type": "cardAffectedLimitPerPhase",
+              "limit": 4,
+              "source": {
+                "type": "forEachInDiscard",
+                "filter": "event,skirmish,maxTwilight(0)"
+              }
+            }
+          }
+        }
+      }
+    ]
   },
   "33_11": {
     "title": "*Ori's Slingshot",
     "culture": "dwarven",
     "cost": 0,
     "type": "possession",
-    "keyword": "support area"
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "optional",
+          "text": "Would you like to play Ori from your draw deck?",
+          "effect": {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(Ori))"
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "archery",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(name(Ori))"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(minion)",
+          "amount": -3,
+          "until": "start(regroup)"
+        }
+      }
+    ]
   },
   "33_12": {
     "title": "*Thror",
@@ -112,7 +421,33 @@
     "type": "companion",
     "race": "dwarf",
     "strength": 7,
-    "vitality": 5
+    "vitality": 5,
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "effect": {
+          "type": "kill",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "kill",
+          "count": 2,
+          "filter": "choose(culture(dwarven),companion)"
+        },
+        "effect": {
+          "type": "putCardsFromDeckIntoHand",
+          "count": 3,
+          "filter": "choose(culture(dwarven))"
+        }
+      }
+    ]
   },
   "33_13": {
     "title": "*Hadafang",
@@ -121,7 +456,51 @@
     "type": "artifact",
     "possession": "hand weapon",
     "strength": 2,
-    "target": "name(elrond)"
+    "target": "name(elrond)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "allyCanParticipateInSkirmishes",
+          "filter": "hasAttached(self)",
+          "condition": [
+            {
+              "type": "location",
+              "filter": "siteNumber(5)"
+            },
+            {
+              "type": "cantSpot",
+              "filter": "name(Gandalf)"
+            }
+          ]
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Play from your draw deck",
+            "Play from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(name(Glamdring))"
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(name(Glamdring))"
+            }
+          ]
+        }
+      }
+    ]
   },
   "33_14": {
     "title": "*Lindir",
@@ -132,7 +511,33 @@
     "allyHome": "hobbit,3",
     "race": "elf",
     "strength": 5,
-    "vitality": 4
+    "vitality": 4,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "moves"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(culture(elven),ally)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(or(and(culture(elven),event),name(Lore of Imladris)))"
+        }
+      }
+    ]
   },
   "33_15": {
     "title": "Moon-letters",
@@ -142,8 +547,49 @@
     "keyword": "fellowship",
     "effects": {
       "type": "event",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert a Dwarf companion",
+          "Spot a Dwarven possession"
+        ],
+        "effects": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "cantSpot",
+              "filter": "culture(dwarven),possession"
+            },
+            "effect": {
+              "type": "exert",
+              "filter": "choose(dwarf,companion)"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "filter": "culture(dwarven),possession"
+            }
+          }
+        ]
+      },
       "effect": {
-        "type": "removeBurdens"
+        "type": "choice",
+        "texts": [
+          "Take from your draw deck",
+          "Take from your discard pile"
+        ],
+        "effects": [
+          {
+            "type": "putCardsFromDiscardIntoHand",
+            "filter": "choose(or(culture(elven),culture(mirkwood)))"
+          },
+          {
+            "type": "putCardsFromDeckIntoHand",
+            "filter": "choose(or(culture(elven),culture(mirkwood)))"
+          }
+        ]
       }
     }
   },
@@ -156,7 +602,23 @@
     "race": "elf",
     "strength": 6,
     "vitality": 3,
-    "keyword": "archer"
+    "keyword": "archer",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "heals",
+        "filter": "companion"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(orc)"
+      }
+    }
   },
   "33_17": {
     "title": "*Vilya",
@@ -164,8 +626,36 @@
     "cost": 0,
     "type": "artifact",
     "possession": "ring",
-    "vitality": 0,
-    "target": "name(elrond)"
+    "vitality": 1,
+    "target": "name(elrond)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeDiscarded",
+          "filter": "name(Gandalf)"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "heals",
+          "filter": "companion",
+          "memorize": "healedCompanion"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "maneuver"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "memory(healedCompanion)",
+          "amount": 2,
+          "until": "start(regroup)"
+        }
+      }
+    ]
   },
   "33_18": {
     "title": "Wise Advice",
@@ -173,11 +663,22 @@
     "cost": 2,
     "type": "event",
     "keyword": "fellowship",
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Elrond)"
+    },
     "effects": {
       "type": "event",
-      "effect": {
-        "type": "removeBurdens"
-      }
+      "effect": [
+        {
+          "type": "drawCards",
+          "count": 4
+        },
+        {
+          "type": "putCardsFromHandOnBottomOfDeck",
+          "count": 2
+        }
+      ]
     }
   },
   "33_19": {
@@ -189,14 +690,69 @@
     "allyHome": "hobbit,1",
     "race": "man",
     "strength": 1,
-    "vitality": 2
+    "vitality": 2,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "canttakewounds",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(side(free people),event)"
+        }
+      }
+    ]
   },
   "33_20": {
     "title": "Burning Fir Cones",
     "culture": "gandalf",
     "cost": 1,
     "type": "possession",
-    "keyword": "support area"
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "condition": {
+        "type": "canSpot",
+        "filter": "name(Gandalf)"
+      },
+      "cost": {
+        "type": "addTwilight",
+        "amount": 3
+      },
+      "effect": [
+        {
+          "type": "revealHand",
+          "memorize": "cardsInHand"
+        },
+        {
+          "type": "duplicate",
+          "amount": {
+            "type": "forEachMatchingInMemory",
+            "memory": "cardsInHand",
+            "filter": "side(free people),skirmish,event"
+          },
+          "effect": {
+            "type": "wound",
+            "filter": "choose(minion)"
+          }
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ]
+    }
   },
   "33_21": {
     "title": "No Finer Blade",
@@ -207,7 +763,27 @@
     "effects": {
       "type": "event",
       "effect": {
-        "type": "removeBurdens"
+        "type": "choice",
+        "texts": [
+          "Make companion strength +3",
+          "Play Glamdring from draw deck",
+          "Play Glamdring from discard"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(companion,hasAttached(and(artifact,hand weapon)))",
+            "amount": 3
+          },
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(Glamdring))"
+          },
+          {
+            "type": "playCardFromDiscard",
+            "filter": "choose(name(Glamdring))"
+          }
+        ]
       }
     }
   },
@@ -218,10 +794,31 @@
     "type": "possession",
     "possession": "mount",
     "strength": 1,
-    "target": "name(bilbo)"
+    "target": "name(bilbo)",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "condition": {
+        "type": "canSpot",
+        "filter": "minion,assignedToSkirmish(name(Bilbo))"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Bilbo))"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(dwarven),companion)",
+        "amount": {
+          "type": "cardAffectedLimitPerPhase",
+          "limit": 2,
+          "source": 2
+        }
+      }
+    }
   },
   "33_53": {
-    "title": "*Master Worryword",
+    "title": "*Master Worrywort",
     "subtitle": "Hobbit Farmer",
     "culture": "shire",
     "cost": 1,
@@ -229,7 +826,34 @@
     "allyHome": "hobbit,1",
     "race": "hobbit",
     "strength": 2,
-    "vitality": 3
+    "vitality": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "name(Bilbo)"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(character,or(culture(dwarven),culture(shire)))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "play",
+          "filter": "choose(skirmish,event)"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(inSkirmishAgainst(name(Bilbo)),not(name(Gollum)))",
+          "amount": -2
+        }
+      }
+    ]
   },
   "33_54": {
     "title": "*There and Back Again",
@@ -237,6 +861,22 @@
     "cost": 1,
     "type": "possession",
     "resistance": 1,
-    "target": "name(bilbo)"
+    "target": "name(bilbo)",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "condition": {
+        "type": "canSpot",
+        "filter": "name(Bilbo),inSkirmish"
+      },
+      "cost": {
+        "type": "addBurdens"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(dwarven),skirmish,event)"
+      },
+      "limitPerPhase": 1,
+    }
   }
 }
