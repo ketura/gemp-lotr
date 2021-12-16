@@ -163,7 +163,7 @@ public class Card_V1_012Tests
 		scn.FreepsSkipCurrentPhaseAction();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
-		scn.FreepsAcceptOptionalTrigger();R
+		scn.FreepsAcceptOptionalTrigger();
 
 	}
 }
