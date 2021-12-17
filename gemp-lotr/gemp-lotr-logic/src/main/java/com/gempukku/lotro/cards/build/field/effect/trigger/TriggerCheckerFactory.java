@@ -45,6 +45,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("revealcardfromtopofdrawdeck", new RevealCardFromTopOfDrawDeck());
         triggerCheckers.put("startofphase", new StartOfPhase());
         triggerCheckers.put("startofturn", new StartOfTurn());
+        triggerCheckers.put("takesoffring", new TakesOffRing());
         triggerCheckers.put("takeswound", new TakesWound());
         triggerCheckers.put("transferred", new Transferred());
         triggerCheckers.put("usesspecialability", new UsesSpecialAbility());

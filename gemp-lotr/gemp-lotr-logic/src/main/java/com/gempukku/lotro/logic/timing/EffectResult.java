@@ -57,7 +57,9 @@ public abstract class EffectResult {
 
         REPLACE_SITE, TAKE_CONTROL_OF_SITE,
 
-        FINISHED_PLAYING_FELLOWSHIP
+        FINISHED_PLAYING_FELLOWSHIP,
+
+        TAKE_OFF_THE_ONE_RING
     }
 
     private Type _type;
