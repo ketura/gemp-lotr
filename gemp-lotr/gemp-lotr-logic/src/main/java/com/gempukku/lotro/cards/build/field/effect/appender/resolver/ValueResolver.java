@@ -338,7 +338,19 @@ public class ValueResolver {
                     }
                     return result;
                 };
-            } else if (type.equalsIgnoreCase("subtract")) {
+            } else if (type.equalsIgnoreCase("strengthFromMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory");
+                final String memory = FieldUtils.getString(object.get("memory"), "memory");
+
+                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                    int result = 0;
+                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                        result += game.getModifiersQuerying().getStrength(game, physicalCard);
+                    }
+                    return result;
+                };
+            }
+            else if (type.equalsIgnoreCase("subtract")) {
                 FieldUtils.validateAllowedFields(object, "firstNumber", "secondNumber");
                 final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), 0, environment);
                 final ValueSource secondNumber = ValueResolver.resolveEvaluator(object.get("secondNumber"), 0, environment);

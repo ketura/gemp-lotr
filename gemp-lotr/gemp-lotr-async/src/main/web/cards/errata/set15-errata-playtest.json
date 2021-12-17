@@ -1,2 +1,40 @@
 {
+	"85_62": {
+    "side": "free_people",
+    "cost": 1,
+    "strength": 2,
+    "culture": "Gondor",
+    "possession": "Hand Weapon",
+    "title": "Ithilien Blade",
+    "type": "possession",
+    "target": "culture(gondor),man",
+    "effects": [
+    	{
+	      "type": "modifier",
+	      "modifier": {
+	        "type": "modifystrength",
+	        "filter": "self",
+	        "condition": {
+	          "type": "canSpot",
+	          "filter": "roaming,minion"
+	        },
+	        "amount": 1
+	      }
+	    },
+    	{
+	      "type": "activated",
+	      "phase": "maneuver",
+	      "cost": {
+	        "type": "exert",
+	        "filter": "bearer",
+	        "times": 2
+	      },
+	      "effect": {
+          "type": "wound",
+          "filter": "choose(minion,roaming)",
+          "times": 2
+        }
+	    }
+	  ]
+  },
 }
