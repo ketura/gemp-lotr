@@ -1,233 +1,271 @@
 {
-
-	"151_50": {
-		"title": "*Merry",
-		"subtitle": "Of Buckland",
-		"culture": "shire",
-		"cost": 1,
-		"type": "companion",
-		"race": "hobbit",
-		"keyword": ["damage+1"],
-		"strength": 3,
-		"vitality": 4,
-		"signet": "frodo",
-		"resistance": 6,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_51": {
-		"title": "*Bilbo",
-		"subtitle": "Of Bag End",
-		"culture": "shire",
-		"cost": 2,
-		"type": "ally",
-		"allyHome": "fellowship,3",
-		"race": "hobbit",
-		"keyword": ["damage+1"],
-		"strength": 2,
-		"vitality": 3,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_52": {
-		"title": "*Pippin",
-		"subtitle": "Of Tuckborough",
-		"culture": "shire",
-		"cost": 1,
-		"type": "companion",
-		"race": "hobbit",
-		"keyword": ["damage+1"],
-		"strength": 3,
-		"vitality": 4,
-		"signet": "frodo",
-		"resistance": 6,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_53": {
-		"title": "*Sam",
-		"subtitle": "Of Bagshot Row",
-		"culture": "shire",
-		"cost": 2,
-		"type": "companion",
-		"race": "hobbit",
-		"keyword": ["damage+1"],
-		"strength": 3,
-		"vitality": 4,
-		"signet": "frodo",
-		"resistance": 6,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_54": {
-		"title": "We May Yet",
-		"culture": "shire",
-		"cost": 1,
-		"type": "event",
-		"keyword": ["skirmish"],
-		"effects": {
-			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
-	},
-
-
-	"151_55": {
-		"title": "We're Coming Too",
-		"culture": "shire",
-		"cost": 2,
-		"type": "event",
-		"keyword": ["fellowship"],
-		"effects": {
-			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
-	},
-
-
-	"151_56": {
-		"title": "*Griffo Boffin",
-		"subtitle": "Uncouth Fellow",
-		"culture": "shire",
-		"cost": 1,
-		"type": "ally",
-		"allyHome": "fellowship,1",
-		"race": "hobbit",
-		"keyword": ["damage+1"],
-		"strength": 3,
-		"vitality": 2,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
+  "151_50": {
+    "title": "*Bilbo",
+    "subtitle": "Of Bag End",
+    "culture": "shire",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "fellowship,3",
+    "race": "hobbit",
+    "strength": 2,
+    "vitality": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "moves"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(companion,signet(frodo))",
+          "amount": 1,
+          "until": "start(regroup)"
+        }
+      }
+    ]
+  },
+  "151_51": {
+    "title": "*Griffo Boffin",
+    "subtitle": "Uncouth Fellow",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "allyHome": "fellowship,1",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 2,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "culture(shire),ally"
+        },
+        "cost": {
+          "type": "addTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "drawCards",
+          "count": 1
+        }
+      }
+    ]
+  },
+  "151_52": {
+    "title": "*Merry",
+    "subtitle": "Of Buckland",
+    "culture": "shire",
+    "cost": 1,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "signet": "frodo",
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "cost": [
+          {
+            "type": "discard",
+            "filter": "choose(culture(dwarven),follower)",
+            "count": "1-100",
+            "memorize": "discardedTales"
+          },
+          {
+            "type": "memorizeNumber",
+            "memory": "numberOfTalesDiscarded",
+            "amount": {
+              "type": "forEachInMemory",
+              "memory": "discardedTales"
+            }
+          },
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose minion",
+            "filter": "choose(minion)",
+            "memorize": "chosenMinion"
+          }
+        ],
+        "effect": {
+          "type": "preventable",
+          "player": "shadowPlayer",
+          "text": "Would you like to remove {numberOfTalesDiscarded} twilight to allow {chosenMinion} to skirmish?",
+          "cost": {
+            "type": "removeTwilight",
+            "amount": {
+              "type": "forEachInMemory",
+              "memory": "discardedTales"
+            }
+          },
+          "effect": {
+            "type": "addModifier",
+            "modifier": {
+              "type": "cantBeAssignedToSkirmishAgainst",
+              "fpCharacter": "any",
+              "minion": "memory(chosenMinion)"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "151_53": {
+    "title": "*Pippin",
+    "subtitle": "Of Tuckborough",
+    "culture": "shire",
+    "cost": 1,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "signet": "frodo",
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "cantBeOverwhelmedMultiplier",
+            "filter": "choose(culture(shire),companion)",
+            "memorize": "shireCompanion"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "filter": "companion,signet(frodo)",
+              "count": 3
+            },
+            "effect": {
+              "type": "modifyStrength",
+              "filter": "choose(memory(shireCompanion))",  
+              "amount": 1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "151_54": {
+    "title": "*Sam",
+    "subtitle": "Of Bagshot Row",
+    "culture": "shire",
+    "cost": 2,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "signet": "frodo",
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "companion,signet(frodo)",
+          "memorize": "winner"
+        },
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Exert Sam",
+            "Add a burden"
+          ],
+          "effects": [
+            {
+              "type": "exert",
+              "filter": "self"
+            },
+            {
+              "type": "addBurdens",
+              "amount": 1
+            }
+          ]
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(memory(winner))"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "name(Frodo),ring bearer"
+        },
+        "effect": {
+          "type": "makeSelfRingBearer"
+        }
+      }
+    ]
+  },
+  "151_55": {
+    "title": "We May Yet",
+    "culture": "shire",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(companion,signet(frodo))",
+        "memorize": "exertedCompanion"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(memory(exertedCompanion))",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion,signet(frodo)",
+          "limit": 4
+        }
+      }
+    }
+  },
+  "151_56": {
+    "title": "We're Coming Too",
+    "culture": "shire",
+    "cost": 2,
+    "type": "event",
+    "keyword": "fellowship",
+    "condition": [
+      {
+        "type": "canSpot",
+        "filter": "name(Merry)"
+      },
+      {
+        "type": "canSpot",
+        "filter": "name(Pippin)"
+      }
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)",
+      },
+      "effect": {
+        "type": "heal",
+        "count": "2",
+        "filter": "choose(companion,signet(frodo))"
+      }
+    }
+  }
 }
