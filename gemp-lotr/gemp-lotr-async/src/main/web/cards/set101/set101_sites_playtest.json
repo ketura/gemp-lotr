@@ -1,258 +1,226 @@
 {
-
-	"151_57": {
-		"title": "Bag End Study",
-		"cost": 0,
-		"type": "site",
-		"site": 1,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_58": {
-		"title": "Bree Overlook",
-		"cost": 2,
-		"type": "site",
-		"site": 2,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_59": {
-		"title": "Rivendell Gateway",
-		"cost": 0,
-		"type": "site",
-		"site": 3,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_60": {
-		"title": "Moria Crossroads",
-		"cost": 3,
-		"type": "site",
-		"site": 4,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_61": {
-		"title": "Lorien Throne Room",
-		"cost": 3,
-		"type": "site",
-		"site": 6,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_62": {
-		"title": "Valley of the Anduin",
-		"cost": 6,
-		"type": "site",
-		"site": 7,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_63": {
-		"title": "Nen Hithoel",
-		"cost": 7,
-		"type": "site",
-		"site": 8,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_64": {
-		"title": "Henneth Anun Glade",
-		"cost": 9,
-		"type": "site",
-		"site": 9,
-		"block": "fellowship",
-		"direction": "left",
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
+  "151_57": {
+    "title": "Bag End Study",
+    "cost": 0,
+    "type": "site",
+    "site": 1,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "movesFrom",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(culture(shire),condition)"
+      }
+    }
+  },
+  "151_58": {
+    "title": "Bree Overlook",
+    "cost": 2,
+    "type": "site",
+    "site": 2,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(gandalf),ally)"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(minion)"
+      }
+    }
+  },
+  "151_59": {
+    "title": "Rivendell Gateway",
+    "cost": 0,
+    "type": "site",
+    "site": 3,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "condition",
+        "condition": {
+          "type": "can spot 4 FP cultures (workaround is for each culture over 3; limit 1)"
+        }
+      },
+      "condition": {
+        "type": "perTurnLimit",
+        "limit": 1
+      },
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": 1
+          },
+          "until": "endOfTurn"
+        }
+      ]
+    }
+  },
+  "151_60": {
+    "title": "Moria Crossroads",
+    "cost": 3,
+    "type": "site",
+    "site": 4,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "skirmishes can't be canceled",
+        "condition": {
+          "type": "canSpot",
+          "filter": "unique,culture(moria),minion"
+        }
+      }
+    }
+  },
+  "151_61": {
+    "title": "Lorien Throne Room",
+    "cost": 3,
+    "type": "site",
+    "site": 6,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "your,culture(elven)"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(elven),ally)"
+      },
+      "effect": {
+        "type": "removeTwilight"
+      }
+    }
+  },
+  "151_62": {
+    "title": "Valley of the Anduin",
+    "cost": 6,
+    "type": "site",
+    "site": 7,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cantPlayCards",
+        "condition": {
+          "type": "canSpot",
+          "filter": "companion",
+          "count": 6
+        },
+        "filter": "stealth,event",
+      }
+    }
+  },
+  "151_63": {
+    "title": "Nen Hithoel",
+    "cost": 7,
+    "type": "site",
+    "site": 8,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "shadow"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 5
+        }
+      }
+    }
+  },
+  "151_64": {
+    "title": "Henneth Anun Glade",
+    "cost": 9,
+    "type": "site",
+    "site": 9,
+    "block": "fellowship",
+    "direction": "left",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": [
+            {
+              "type": "canSpot",
+              "filter": "unwounded,companion"
+            },
+            {
+              "type": "not",
+              "condition": {
+                "type": "hasInZoneData",
+                "filter": "self"
+              }
+            }
+          ],
+          "filter": "minion",
+          "amount": -3
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "minion",
+          "memorize": "playedMinion"
+        },
+        "condition": {
+          "type": "not",
+          "condition": {
+            "type": "hasInZoneData",
+            "filter": "self"
+          }
+        },
+        "effect": {
+          "type": "appendCardIdsToWhileInZone",
+          "memory": "playedMinion"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfPhase",
+          "phase": "shadow"
+        },
+        "effect": {
+          "type": "resetWhileInZoneData"
+        }
+      }
+    ]
+  }
 }

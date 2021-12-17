@@ -1,202 +1,238 @@
 {
-
-	"151_19": {
-		"title": "*Aragorn",
-		"subtitle": "Estel",
-		"culture": "gondor",
-		"cost": 4,
-		"type": "companion",
-		"race": "man",
-		"keyword": ["damage+1"],
-		"strength": 8,
-		"vitality": 4,
-		"signet": "gandalf",
-		"resistance": 6,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_20": {
-		"title": "*Boromir",
-		"subtitle": "The Redeemed",
-		"culture": "gondor",
-		"cost": 3,
-		"type": "companion",
-		"race": "man",
-		"keyword": ["damage+1"],
-		"strength": 7,
-		"vitality": 3,
-		"signet": "aragorn",
-		"resistance": 6,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_21": {
-		"title": "*For The Sons Of Gondor Have Returned",
-		"culture": "gondor",
-		"cost": 2,
-		"type": "condition",
-		"keyword": ["support area"],
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_22": {
-		"title": "Gilraen's Memorial",
-		"culture": "gondor",
-		"cost": 1,
-		"type": "artifact",
-		"target": "name(Gimli)",
-		"keyword": ["support area"],
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_23": {
-		"title": "*I Would Have Gone With You To The End",
-		"culture": "gondor",
-		"cost": 2,
-		"type": "condition",
-		"keyword": ["support area"],
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
-
-	"151_24": {
-		"title": "*You Have My Sword",
-		"culture": "gondor",
-		"cost": 1,
-		"type": "condition",
-		"keyword": ["support area"],
-		"strength": 2,
-		"effects": [
-			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
-		]
-	},
-
+  "151_19": {
+    "title": "*Aragorn",
+    "subtitle": "Estel",
+    "culture": "gondor",
+    "cost": 4,
+    "type": "companion",
+    "race": "man",
+    "strength": 8,
+    "vitality": 4,
+    "signet": "gandalf",
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "putCardsFromDeckIntoHand",
+          "filter": "choose(culture(elven),ally,maxTwilight(2))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(culture(elven),skirmish,event)"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "151_20": {
+    "title": "*Boromir",
+    "subtitle": "Redeemed",
+    "culture": "gondor",
+    "cost": 3,
+    "type": "companion",
+    "race": "man",
+    "strength": 5,
+    "vitality": 3,
+    "signet": "aragorn",
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "name(Boromir)",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "minion,inSkirmishAgainst(name(Boromir))",
+            "multiplier": 2
+          }
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "assignment"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(another,companion,signet(aragorn))"
+        },
+        "effect": {
+          "type": "addModifier",
+          "modifier": {
+            "type": "addKeyword",
+            "filter": "name(Boromir)",
+            "keyword": "defender+1",
+          }
+        }
+      }
+    ]
+  },
+  "151_21": {
+    "title": "*The Sons of Gondor Have Returned",
+    "culture": "gondor",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "canSpot",
+            "filter": "minion,assignedToSkirmish(name(Boromir))",
+            "count": 2
+          },
+          "filter": "name(Aragorn)",
+          "amount": 3
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "canSpot",
+            "filter": "minion,assignedToSkirmish(name(Aragorn))",
+            "count": 2
+          },
+          "filter": "name(Boromir)",
+          "amount": 3
+        }
+      }
+    ]
+  },
+  "151_22": {
+    "title": "*Gilraen's Memorial",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "companion,signet(aragorn)",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(companion,signet(aragorn))"
+        }
+      }
+    ]
+  },
+  "151_23": {
+    "title": "*I Would Have Gone With You to the End",
+    "culture": "gondor",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "your,skirmish,event"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "companion,inSkirmish,signet(aragorn)"
+        },
+        "effect": {
+          "type": "splaceholder for function to stack the played event here"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": [
+          {
+            "type": "chooseANumber",
+            "from": 0,
+            "to": 3,
+            "memorize": "chosenNumber"
+          },
+          {
+            "type": "discardStackedCards",
+            "count": {
+              "type": "fromMemory",     
+              "memory": "chosenNumber"
+            },
+            "on": "self",
+            "memorize": "discardedFromStack"
+          }
+        ],
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(companion,signet(aragorn))",
+          "amount": {
+            "type": "fromMemory",
+            "memory": "chosenNumber",
+            "limit": 3
+          }
+        }
+      }
+    ]
+  },
+  "151_24": {
+    "title": "*You Have My Sword",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "condition",
+    "target": "companion,signet(aragorn),not(name(Aragorn))",
+    "strength": 2,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Exert Aragorn",
+          "Discard this condition"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(name(Aragorn))"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    }
+  }
 }
