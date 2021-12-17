@@ -163,17 +163,30 @@
           "type": "played",
           "filter": "your,skirmish,event"
         },
-        "condition": {
-          "type": "canSpot",
-          "filter": "companion,inSkirmish,signet(aragorn)"
-        },
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "companion,inSkirmish,signet(aragorn)"
+          },
+          {
+            "type": "canSpot",
+            "filter": "name(Aragorn)"
+          }
+        ],
         "effect": {
-          "type": "splaceholder for function to stack the played event here"
+          "type": "stackPlayedEvent",
+          "where": "self"
         }
-      },
+      },        
       {
         "type": "activated",
         "phase": "skirmish",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "name(Aragorn)"
+          }
+        ],
         "cost": [
           {
             "type": "chooseANumber",

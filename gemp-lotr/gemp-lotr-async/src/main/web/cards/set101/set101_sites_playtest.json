@@ -51,7 +51,11 @@
       "trigger": {
         "type": "condition",
         "condition": {
-          "type": "can spot 4 FP cultures (workaround is for each culture over 3; limit 1)"
+          "type": "not",
+          "condition": {
+            "type": "cantspotfpcultures",
+            "amount": 4
+          }
         }
       },
       "condition": {
