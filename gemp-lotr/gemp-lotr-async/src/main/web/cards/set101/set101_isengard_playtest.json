@@ -6,34 +6,44 @@
 		"cost": 2,
 		"type": "minion",
 		"race": "crow",
-		"keyword": ["damage+1"],
 		"strength": 4,
 		"vitality": 2,
 		"site": 4,
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
+				"type": "inhandtrigger",
+				"trigger": {
+					"type": "activated",
+					"filter": "companion"
+				},
+				"condition": {
+          "type": "canSpot",
+          "filter": "culture(isengard)",
+        },
+				"effect": {
+					"type": "play",
+					"filter": "self",
+					"cost": -1
 				}
 			},
 			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+	      "type": "activated",
+	      "phase": "shadow",
+	      "condition": {
+          "type": "canSpot",
+          "filter": "another,minion,culture(isengard)",
+        },
+	      "cost": {
+	        "type": "exert",
+	        "filter": "self"
+	      },
+	      "effect": {
+	        "type": "drawcards",
+	        "count": 1
+	      }
+	    }
 		]
 	},
-
 
 	"151_26": {
 		"title": "Crows of Isengard",
@@ -41,31 +51,41 @@
 		"cost": 3,
 		"type": "minion",
 		"race": "crow",
-		"keyword": ["damage+1"],
 		"strength": 5,
 		"vitality": 3,
 		"site": 4,
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "cost": {
+	        "type": "exert",
+	        "filter": "self"
+	      },
+        "effect": {
+	        "type": "drawcards",
+	        "count": 1
+	      }
+      },
+			{
+				"type": "inhandtrigger",
+				"trigger": {
+					"type": "played",
+					"filter": "event,side(free people)"
+				},
+				"condition": {
+          "type": "canSpot",
+          "filter": "culture(isengard)",
+        },
+				"effect": {
+					"type": "play",
+					"filter": "self",
+					"cost": -1
 				}
 			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
 		]
 	},
 
@@ -78,48 +98,70 @@
 		"keyword": ["support area"],
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+        "type": "trigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "hasAttached(weather,condition)"
+        },
+        "effect":  {
+	        "type": "addTwilight",
+	        "amount": 3
+	      },
+      },
 		]
 	},
 
 
 	"151_28": {
-		"title": "Just A Whisp Of Cloud",
+		"title": "Just A Wisp Of Cloud",
 		"culture": "isengard",
 		"cost": 0,
 		"type": "event",
-		"keyword": ["regroup"],
+		"keyword": ["regroup","spell","weather"],
 		"effects": {
 			"type": "event",
 			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
+        "type": "chooseHowManyToSpot",
+        "filter": "Crow",
+        "memorize": "crowCount"
+      },
 			"effect": [
 				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
+          "type": "chooseActiveCards",
+          "filter": "choose(Crow)",
+          "text": "Choose {crowCount} Crows to discard",
+          "count": {
+	          "type": "fromMemory",
+	          "memory": "crowCount"
+	        },
+          "memorize": "chosenCrows"
+        },
+        {
+	        "type": "choice",
+	        "player": "fp",
+	        "texts": [
+	          "Exert {crowCount} companions",
+	          "Make the move limit -1"
+	        ],
+	        "effects": [
+	          {
+	            "type": "exert",
+	            "filter": "choose(companion)",
+	            "count": {
+			          "type": "fromMemory",
+			          "memory": "crowCount"
+			        },
+	          },
+	          {
+              "type": "addModifier",
+              "modifier": {
+                "type": "modifyMoveLimit",
+                "amount": -1
+              },
+              "until": "endOfTurn"
+            }
+	        ]
+	      }
 			]
 		}
 	},
@@ -131,34 +173,47 @@
 		"cost": 5,
 		"type": "minion",
 		"race": "crow",
-		"keyword": ["damage+1"],
 		"strength": 7,
 		"vitality": 4,
 		"site": 4,
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
+				"type": "inhandtrigger",
+				"trigger": {
+					"type": "played",
+					"filter": "character,side(free people)",
+					"memorize": "playedChar"
+				},
+				"condition": {
+          "type": "canSpot",
+          "filter": "culture(isengard)",
+        },
+				"effect": {
+					"type": "play",
+					"filter": "self",
+					"cost": {
+						"type": "multiply",
+		        "multiplier": -1,
+		        "source": {
+							"type": "twilightCostInMemory",
+							"memory": "playedChar"
+						}
+					}
 				}
 			},
 			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+	      "type": "modifier",
+	      "modifier": {
+	        "type": "modifyStrength",
+	        "filter": "self",
+	        "amount": {
+	          "type": "forEachCultureOver",
+	          "filter": "side(free people)"
+	        }
+	      }
+	    }
 		]
 	},
-
 
 	"151_30": {
 		"title": "*Saruman",
@@ -167,31 +222,63 @@
 		"cost": 4,
 		"type": "minion",
 		"race": "wizard",
-		"keyword": ["damage+1"],
 		"strength": 8,
 		"vitality": 4,
 		"site": 4,
 		"effects": [
 			{
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeWounds",
+          "filter": "self",
+          "condition": [
+            {
+              "type": "phase",
+              "phase": "archery"
+            },
+            {
+              "type": "sarumanfirstsentenceactive"
+            }
+          ]
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantbeassignedtoskirmish",
+          "filter": "self",
+          "condition": {
+            "type": "sarumanfirstsentenceactive"
+          }
+        }
+      },
+			{
 				"type": "modifier",
 				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
+					"type": "modifystrength",
+					"filter": "culture(isengard),minion",
+					"amount": 2,
+					"condition": {
+	          "type": "canSpot",
+	          "filter": "weather,condition,attachedTo(site)"
+	        },
 				}
 			},
 			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+        "type": "activatedtrigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "site,hasAttached(weather,condition)"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "all(companion)"
+        }
+      }
 		]
 	},
 
