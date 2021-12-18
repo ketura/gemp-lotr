@@ -50,37 +50,41 @@
 
 	"151_9": {
 		"title": "*Legolas",
-		"subtitle": "Swift and Deadly",
+		"subtitle": "Keen-eyed",
 		"culture": "elven",
 		"cost": 2,
 		"type": "companion",
 		"race": "elf",
-		"keyword": ["damage+1"],
+		"keyword": ["archer"],
 		"strength": 6,
 		"vitality": 3,
 		"signet": "aragorn",
 		"resistance": 6,
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+	      "type": "activated",
+	      "phase": "archery",
+	      "cost": {
+	        "type": "reduceArcheryTotal",
+	        "side": "free people",
+	        "memorize": "reducedBy"
+	      },
+	      "effect": {
+	        "type": "modifyStrength",
+	        "filter": "self",
+	        "amount": {
+	        	"type": "fromMemory",
+	        	"memory": "reducedBy"
+	        }
+	      }
+	    },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantUseSpecialAbilities",
+          "filter": "side(free People)"
+        }
+      }
 		]
 	},
 

@@ -32,8 +32,7 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "startofphase",
-          "phase": "assignment"
+          "type": "freeplayerstartedassigning"
         },
         "effect": [
           {
