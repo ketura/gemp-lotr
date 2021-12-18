@@ -201,41 +201,41 @@ var PCCards = {
 	
 	// Christmas 2021 Errata
 
-	'71_7': 'https://i.lotrtcgpc.net/errata/balancing/71_7.jpg',
-	'71_11': 'https://i.lotrtcgpc.net/errata/balancing/71_11.jpg',
-	'71_12': 'https://i.lotrtcgpc.net/errata/balancing/71_12.jpg',
-	'71_53': 'https://i.lotrtcgpc.net/errata/balancing/71_53.jpg',
-	'71_55': 'https://i.lotrtcgpc.net/errata/balancing/71_55.jpg',
+	'71_7': 'https://i.lotrtcgpc.net/errata/balancing/71_007.jpg',
+	'71_11': 'https://i.lotrtcgpc.net/errata/balancing/71_011.jpg',
+	'71_12': 'https://i.lotrtcgpc.net/errata/balancing/71_012.jpg',
+	'71_53': 'https://i.lotrtcgpc.net/errata/balancing/71_053.jpg',
+	'71_55': 'https://i.lotrtcgpc.net/errata/balancing/71_055.jpg',
 	'71_254': 'https://i.lotrtcgpc.net/errata/balancing/71_254.jpg',
 	'71_282': 'https://i.lotrtcgpc.net/errata/balancing/71_282.jpg',
 	
-	'72_6': 'https://i.lotrtcgpc.net/errata/balancing/72_6.jpg',
-	'72_7': 'https://i.lotrtcgpc.net/errata/balancing/72_7.jpg',
+	'72_6': 'https://i.lotrtcgpc.net/errata/balancing/72_006.jpg',
+	'72_7': 'https://i.lotrtcgpc.net/errata/balancing/72_007.jpg',
 	
 	'73_120': 'https://i.lotrtcgpc.net/errata/balancing/73_120.jpg',
 	
 	'77_359': 'https://i.lotrtcgpc.net/errata/balancing/77_359.jpg',
 	
-	'78_24': 'https://i.lotrtcgpc.net/errata/balancing/78_24.jpg',
-	'78_51': 'https://i.lotrtcgpc.net/errata/balancing/78_51.jpg',
-	'78_57': 'https://i.lotrtcgpc.net/errata/balancing/78_57.jpg',
-	'78_59': 'https://i.lotrtcgpc.net/errata/balancing/78_59.jpg',
+	'78_24': 'https://i.lotrtcgpc.net/errata/balancing/78_024.jpg',
+	'78_51': 'https://i.lotrtcgpc.net/errata/balancing/78_051.jpg',
+	'78_57': 'https://i.lotrtcgpc.net/errata/balancing/78_057.jpg',
+	'78_59': 'https://i.lotrtcgpc.net/errata/balancing/78_059.jpg',
 	'78_103': 'https://i.lotrtcgpc.net/errata/balancing/78_103.jpg',
 	
-	'80_8': 'https://i.lotrtcgpc.net/errata/balancing/80_8.jpg',
-	'80_17': 'https://i.lotrtcgpc.net/errata/balancing/80_17.jpg',
+	'80_8': 'https://i.lotrtcgpc.net/errata/balancing/80_008.jpg',
+	'80_17': 'https://i.lotrtcgpc.net/errata/balancing/80_017.jpg',
 	
-	'85_15': 'https://i.lotrtcgpc.net/errata/balancing/85_15.jpg',
-	'85_62': 'https://i.lotrtcgpc.net/errata/balancing/85_62.jpg',
+	'85_15': 'https://i.lotrtcgpc.net/errata/balancing/85_015.jpg',
+	'85_62': 'https://i.lotrtcgpc.net/errata/balancing/85_062.jpg',
 	
-	'88_12': 'https://i.lotrtcgpc.net/errata/balancing/88_12.jpg',
-	'88_29': 'https://i.lotrtcgpc.net/errata/balancing/88_29.jpg',
-	'88_50': 'https://i.lotrtcgpc.net/errata/balancing/88_50.jpg',
-	'88_79': 'https://i.lotrtcgpc.net/errata/balancing/88_79.jpg',
-	'88_96': 'https://i.lotrtcgpc.net/errata/balancing/88_96.jpg',
+	'88_12': 'https://i.lotrtcgpc.net/errata/balancing/88_012.jpg',
+	'88_29': 'https://i.lotrtcgpc.net/errata/balancing/88_029.jpg',
+	'88_50': 'https://i.lotrtcgpc.net/errata/balancing/88_050.jpg',
+	'88_79': 'https://i.lotrtcgpc.net/errata/balancing/88_079.jpg',
+	'88_96': 'https://i.lotrtcgpc.net/errata/balancing/88_096.jpg',
 	'88_112': 'https://i.lotrtcgpc.net/errata/balancing/88_112.jpg',
 	
-	'89_38': 'https://i.lotrtcgpc.net/errata/balancing/89_38.jpg',
+	'89_38': 'https://i.lotrtcgpc.net/errata/balancing/89_038.jpg',
 
 }
 
