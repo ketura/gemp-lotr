@@ -106,6 +106,7 @@
 		"cost": 4,
 		"type": "minion",
 		"race": "nazgul",
+		"keyword": ["twilight"],
 		"strength": 9,
 		"vitality": 3,
 		"site": 3,

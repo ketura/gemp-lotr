@@ -11,7 +11,7 @@
       "optional": true,
       "trigger": {
         "type": "movesFrom",
-        "filter": "self"
+        "filter": "name(Bag End Study)"
       },
       "effect": {
         "type": "playCardFromDrawDeck",
