@@ -1,26 +1,5 @@
 {
-
 	"151_7": {
-		"title": "The Counsel of the Wise",
-		"culture": "elven",
-		"cost": 0,
-		"type": "event",
-		"keyword": ["fellowship"],
-		"effects": {
-			"type": "event",
-			"cost": {
-				"type": "chooseAndAddTwilight",
-				"memorize": "allyCost"
-			},
-			"effect": {
-				"type": "putcardsfromdeckintohand",
-				"filter": "choose(culture(elven),ally,maxTwilight(memory(allyCost)))",
-			}
-		}
-	},
-
-
-	"151_8": {
 		"title": "I Was There",
 		"culture": "elven",
 		"cost": 1,
@@ -46,6 +25,57 @@
 			]
 		}
 	},
+	
+	"151_8": {
+    "title": "*Lament for Gandalf",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+    	{
+    		"type": "trigger",
+    		"optional": true,
+	      "trigger": {
+	        "type": "startOfPhase",
+	        "phase": "regroup"
+	      },
+	      "effect": {
+	        "type": "stackCardsFromHand",
+	        "filter": "choose(culture(gandalf))",
+	        "where": "self"
+	      },
+	    },
+	    {
+	      "type": "activatedTrigger",
+	      "trigger": {
+	        "type": "killed",
+	        "filter": "name(gandalf)"
+	      },
+	      "cost": {
+          "type": "exert",
+          "filter": "choose(and(or(companion,and(culture(elven),ally)),not(exhausted)))",
+          "memorize": "exertedTargets",
+          "count": {
+            "type": "range",
+            "from": 0,
+            "to": {
+              "type": "forEachYouCanSpot",
+              "filter": "and(or(companion,and(culture(elven),ally)),not(exhausted))"
+            }
+          }
+        },
+	      "effect": {
+          "type": "putstackedcardsintohand",
+          "on": "self",
+          "count": {
+	          "type": "forEachInMemory",
+	          "memory": "exertedTargets"
+	        }
+        },
+	    }
+	  ]
+  },
 
 
 	"151_9": {

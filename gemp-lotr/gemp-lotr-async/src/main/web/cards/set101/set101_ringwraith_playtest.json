@@ -13,14 +13,22 @@
 				"filter": "choose(elf)",
 			},
 			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
+      	{
+	        "type": "play",
+	        "filter": "choose(nazgul)",	
+	        "memorize": "playedNazgul"		        
+      	},
+      	{
+          "type": "optional",
+          "text": "Would you like to play a [wraith] possession on that Nazgul from your discard pile?",
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(culture(wraith),possession)",
+            "on": "memory(playedNazgul)"
+          }
+        }
+      ]
+    }
 	},
 
 
@@ -31,31 +39,26 @@
 		"cost": 1,
 		"type": "minion",
 		"race": "man",
-		"keyword": ["damage+1"],
 		"strength": 3,
 		"vitality": 1,
 		"site": 2,
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
+			  "type": "modifier",
+			  "modifier": {
+			    "type": "modifyCost",
+			    "filter": "nazgul",
+			    "amount": -1
+			  }
 			},
 			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeAssignedToSkirmishAgainst",
+          "fpCharacter": "companion,strengthLessThan(5)",
+          "minion": "self"
+        }
+      }
 		]
 	},
 
@@ -65,8 +68,8 @@
 		"culture": "wraith",
 		"cost": 1,
 		"type": "artifact",
-		"target": "name(Gimli)",
-		"keyword": ["support area"],
+		"possession": "helm",
+		"target": "twilight,nazgul",
 		"vitality": 1,
 		"effects": [
 			{
@@ -78,15 +81,19 @@
 				}
 			},
 			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
+				"type": "activated",
+				"phase": "skirmish",
+
+				"condition": {
+					"type": "canspot",
+					"filter": "ring bearer,exhausted"
+				},
+				"cost": {
+					"type": "exert",
+					"filter": "bearer"
 				},
 				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
+					"type": "putonring"
 				}
 			}
 		]
@@ -99,62 +106,65 @@
 		"cost": 4,
 		"type": "minion",
 		"race": "nazgul",
-		"keyword": ["damage+1"],
 		"strength": 9,
 		"vitality": 3,
 		"site": 3,
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+	      "type": "modifier",
+	      "modifier": {
+	        "type": "modifyStrength",
+	        "filter": "self",
+	        "amount": {
+	          "type": "forEachWound",
+	          "filter": "ring bearer",
+	          "multiplier": 1
+	        }
+	      }
+	    }
 		]
 	},
 
 
 	"151_41": {
-		"title": "*Their Eyes Fell Upon Him",
+		"title": "Their Eyes Fell Upon Him",
 		"culture": "wraith",
 		"cost": 1,
 		"type": "condition",
 		"keyword": ["support area"],
+		"condition": {
+      "type": "canSpot",
+      "filter": "twilight,nazgul"
+    },
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+        "type": "trigger",
+        "trigger": {
+          "type": "moves",
+        },
+        "condition": {
+          "type": "canspotwounds",
+          "filter": "ring bearer",
+          "amount": 1
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "canSpot",
+            "filter": "exhausted,ring bearer"
+          },
+          "effect": [
+            {
+		          "type": "drawCards",
+		          "count": 2
+		        }
+            {
+		          "type": "drawCards",
+		          "count": 1
+		        }
+          ]
+        }
+      }
 		]
 	},
 
@@ -167,25 +177,21 @@
 		"keyword": ["support area"],
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
-				}
-			},
-			{
-				"type": "trigger",
-				"optional": true,
-				"trigger": {
-					"type": "winsSkirmish",
-					"filter": "dwarf"
-				},
-				"effect": {
-					"type": "wound",
-					"filter": "choose(orc)"
-				}
-			}
+        "type": "trigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "twilight,nazgul"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "bearer"
+        },
+        "effect": {
+          "type": "shufflecardsfromdiscardintodrawdeck",
+          "filter": "choose(culture(wraith))",
+          "count": 1
+        }
+      }
 		]
 	},
 
@@ -197,20 +203,34 @@
 		"type": "event",
 		"keyword": ["skirmish"],
 		"effects": {
-			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-				{
-					"type": "modifyStrength",
-					"filter": "choose(name(Gimli))",
-					"until": "start(regroup)",
-					"amount": 2
-				}
-			]
-		}
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(twilight,nazgul)",
+          "memorize": "chosenNazzy",
+          "amount": {
+            "type": "forEachWound",
+            "filter": "ring bearer",
+            "multiplier": 1
+          }
+         
+        },
+        {
+        	"type": "conditional",
+          "condition": {
+            "type": "memorymatches",
+            "memory": "chosenNazzy",
+            "filter": "name(The Witch-king)"
+          },
+          "effect": {
+	          "type": "addKeyword",
+	          "filter": "memory(chosenNazzy)",
+	          "keyword": "damage+1"
+	        }
+	      }
+      ]
+    }
 	},
 
 }

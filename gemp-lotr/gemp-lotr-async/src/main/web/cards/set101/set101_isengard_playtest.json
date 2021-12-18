@@ -123,7 +123,8 @@
 			"cost": {
         "type": "chooseHowManyToSpot",
         "filter": "Crow",
-        "memorize": "crowCount"
+        "memorize": "crowCount",
+        "text": "Choose how many Crows to discard"
       },
 			"effect": [
 				{
