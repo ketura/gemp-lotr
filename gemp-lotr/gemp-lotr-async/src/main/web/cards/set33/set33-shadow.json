@@ -689,7 +689,7 @@
             "type": "twilightCostInMemory",
             "memory": "revealedCard"
           }
-        }
+        },
         {
           "type": "discard",
           "player": "fp",

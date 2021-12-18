@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.results.DiscardCardFromDeckResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -60,6 +61,9 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
                 gameState.sendMessage(_playerId + " discards top cards from his or her deck - " + getAppendedNames(cardsDiscarded));
                 cardsDiscardedCallback(cardsDiscarded);
             }
+
+            for (PhysicalCard discardedCard : cardsDiscarded)//PhysicalCard source, PhysicalCard card, String handPlayerId, boolean forced
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardFromDeckResult(_source, discardedCard, _forced));
 
             return new FullEffectResult(_count == cardsDiscarded.size());
         }

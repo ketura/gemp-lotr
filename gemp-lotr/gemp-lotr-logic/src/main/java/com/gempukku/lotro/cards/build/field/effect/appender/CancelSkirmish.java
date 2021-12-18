@@ -38,6 +38,7 @@ public class CancelSkirmish implements EffectAppenderProducer {
                 return game.getGameState().getSkirmish() != null
                         && !game.getGameState().getSkirmish().isCancelled()
                         && (Filters.countActive(game, Filters.and(involving, Filters.inSkirmish)) > 0)
+                        && game.getModifiersQuerying().canCancelSkirmish(game, game.getGameState().getSkirmish().getFellowshipCharacter())
                         && (game.getFormat().canCancelRingBearerSkirmish() || Filters.countActive(game, Filters.ringBearer, Filters.inSkirmish) == 0);
             }
         };

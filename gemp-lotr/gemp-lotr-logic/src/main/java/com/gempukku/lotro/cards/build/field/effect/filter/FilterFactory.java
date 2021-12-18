@@ -30,6 +30,7 @@ public class FilterFactory {
             appendFilter(value);
 
         simpleFilters.put("ring bearer", (actionContext) -> Filters.ringBearer);
+        simpleFilters.put("ringbearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("any", (actionContext) -> Filters.any);
         simpleFilters.put("self", (actionContext) -> actionContext.getSource());
         simpleFilters.put("another", (actionContext) -> Filters.not(actionContext.getSource()));
@@ -39,6 +40,7 @@ public class FilterFactory {
         simpleFilters.put("character", (actionContext) -> Filters.character);
         simpleFilters.put("mounted", (actionContext) -> Filters.mounted);
         simpleFilters.put("weapon", (actionContext) -> Filters.weapon);
+        simpleFilters.put("item", (actionContext) -> Filters.item);
         simpleFilters.put("wounded", (actionContext) -> Filters.wounded);
         simpleFilters.put("unwounded", (actionContext) -> Filters.unwounded);
         simpleFilters.put("exhausted", (actionContext) -> Filters.exhausted);
@@ -296,8 +298,13 @@ public class FilterFactory {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
                         String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
                         return actionContext -> {
-                            final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
-                            return Filters.maxPrintedTwilightCost(value);
+                            try{
+                                final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                                return Filters.maxPrintedTwilightCost(value);
+                            }
+                            catch(IllegalArgumentException ex) {
+                                return Filters.maxPrintedTwilightCost(100);
+                            }
                         };
                     } else {
                         final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, environment);
@@ -312,8 +319,13 @@ public class FilterFactory {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
                         String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
                         return actionContext -> {
-                            final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
-                            return Filters.minPrintedTwilightCost(value);
+                            try {
+                                final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                                return Filters.minPrintedTwilightCost(value);
+                            }
+                            catch(IllegalArgumentException ex) {
+                                return Filters.minPrintedTwilightCost(0);
+                            }
                         };
                     } else {
                         final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, environment);

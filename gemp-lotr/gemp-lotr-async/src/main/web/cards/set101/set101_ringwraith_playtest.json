@@ -1,0 +1,237 @@
+{
+
+	"151_37": {
+		"title": "Fell Voices Call",
+		"culture": "wraith",
+		"cost": 0,
+		"type": "event",
+		"keyword": ["shadow"],
+		"effects": {
+			"type": "event",
+			"cost": {
+				"type": "exert",
+				"filter": "choose(elf)",
+			},
+			"effect": [
+      	{
+	        "type": "play",
+	        "filter": "choose(nazgul)",	
+	        "memorize": "playedNazgul"		        
+      	},
+      	{
+          "type": "optional",
+          "text": "Would you like to play a [wraith] possession on that Nazgul from your discard pile?",
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(culture(wraith),possession)",
+            "on": "memory(playedNazgul)"
+          }
+        }
+      ]
+    }
+	},
+
+
+	"151_38": {
+		"title": "*Harry Goatleaf",
+		"subtitle": "In Thrall To The Nine",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "minion",
+		"race": "man",
+		"strength": 3,
+		"vitality": 1,
+		"site": 2,
+		"effects": [
+			{
+			  "type": "modifier",
+			  "modifier": {
+			    "type": "modifyCost",
+			    "filter": "nazgul",
+			    "amount": -1
+			  }
+			},
+			{
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeAssignedToSkirmishAgainst",
+          "fpCharacter": "companion,strengthLessThan(5)",
+          "minion": "self"
+        }
+      }
+		]
+	},
+
+
+	"151_39": {
+		"title": "Pale Crown",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "artifact",
+		"possession": "helm",
+		"target": "twilight,nazgul",
+		"vitality": 1,
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "addKeyword",
+					"filter": "dwarf",
+					"keyword": "damage+1"
+				}
+			},
+			{
+				"type": "activated",
+				"phase": "skirmish",
+
+				"condition": {
+					"type": "canspot",
+					"filter": "ring bearer,exhausted"
+				},
+				"cost": {
+					"type": "exert",
+					"filter": "bearer"
+				},
+				"effect": {
+					"type": "putonring"
+				}
+			}
+		]
+	},
+
+
+	"151_40": {
+		"title": "Ringwraith In Twilight",
+		"culture": "wraith",
+		"cost": 4,
+		"type": "minion",
+		"race": "nazgul",
+		"keyword": ["twilight"],
+		"strength": 9,
+		"vitality": 3,
+		"site": 3,
+		"effects": [
+			{
+	      "type": "modifier",
+	      "modifier": {
+	        "type": "modifyStrength",
+	        "filter": "self",
+	        "amount": {
+	          "type": "forEachWound",
+	          "filter": "ring bearer",
+	          "multiplier": 1
+	        }
+	      }
+	    }
+		]
+	},
+
+
+	"151_41": {
+		"title": "Their Eyes Fell Upon Him",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "condition",
+		"keyword": ["support area"],
+		"condition": {
+      "type": "canSpot",
+      "filter": "twilight,nazgul"
+    },
+		"effects": [
+			{
+        "type": "trigger",
+        "trigger": {
+          "type": "moves",
+        },
+        "condition": {
+          "type": "canspotwounds",
+          "filter": "ring bearer",
+          "amount": 1
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "canSpot",
+            "filter": "exhausted,ring bearer"
+          },
+          "effect": [
+            {
+		          "type": "drawCards",
+		          "count": 2
+		        }
+            {
+		          "type": "drawCards",
+		          "count": 1
+		        }
+          ]
+        }
+      }
+		]
+	},
+
+
+	"151_42": {
+		"title": "*Walks In Twilight",
+		"culture": "wraith",
+		"cost": 2,
+		"type": "condition",
+		"keyword": ["support area"],
+		"effects": [
+			{
+        "type": "trigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "twilight,nazgul"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "bearer"
+        },
+        "effect": {
+          "type": "shufflecardsfromdiscardintodrawdeck",
+          "filter": "choose(culture(wraith))",
+          "count": 1
+        }
+      }
+		]
+	},
+
+
+	"151_43": {
+		"title": "White Faces Burned",
+		"culture": "wraith",
+		"cost": 1,
+		"type": "event",
+		"keyword": ["skirmish"],
+		"effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(twilight,nazgul)",
+          "memorize": "chosenNazzy",
+          "amount": {
+            "type": "forEachWound",
+            "filter": "ring bearer",
+            "multiplier": 1
+          }
+         
+        },
+        {
+        	"type": "conditional",
+          "condition": {
+            "type": "memorymatches",
+            "memory": "chosenNazzy",
+            "filter": "name(The Witch-king)"
+          },
+          "effect": {
+	          "type": "addKeyword",
+	          "filter": "memory(chosenNazzy)",
+	          "keyword": "damage+1"
+	        }
+	      }
+      ]
+    }
+	},
+
+}

@@ -20,106 +20,112 @@ public class Card_V1_002Tests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("aragorn", "1_89");
-                    put("boromir", "1_97");
-                    put("whitecity", "101_2");
+                    put("gimli", "1_13");
+                    put("axe", "1_9");
+                    put("axe2", "1_9");
+                    put("deep", "151_2");
+                    put("beneath", "2_1");
 
-                    put("attea", "1_229");
-                    put("cantea", "1_230");
+                    put("runner", "1_178");
+                    put("plunder", "1_193");
+
                 }}
         );
     }
 
 
     @Test
-    public void WhiteCityStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+    public void DeepestDelvingsStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
         /**
          * Set: VSet1, VPack1
-         * Title: *I Will Not Let the White City Fall
+         * Title: *Deepest Delvings
          * Side: Free Peoples
-         * Culture: Gondor
-         * Twilight Cost: 2
+         * Culture: Dwarven
+         * Twilight Cost: 1
          * Type: Condition
          * Subtype: Support Area
-         * Game Text: Each time Boromir loses a skirmish, make Aragorn strength +2 until the regroup phase.
-         * Each time Aragorn loses a skirmish, make Boromir strength +2 until the regroup phase.
+         * Game Text: Each time you discard a [dwarven] card from the top of your deck you may add (1) to stack that card here.
+         *  Maneuver: Exert a dwarf to take a card stacked here into hand.
          */
 
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl whitecity = scn.GetFreepsCard("whitecity");
+        PhysicalCardImpl deep = scn.GetFreepsCard("deep");
 
-        assertTrue(scn.HasKeyword(whitecity, Keyword.SUPPORT_AREA));
-        assertEquals(2, whitecity.getBlueprint().getTwilightCost());
-        assertTrue(whitecity.getBlueprint().isUnique());
+        assertTrue(scn.HasKeyword(deep, Keyword.SUPPORT_AREA));
+        assertEquals(1, deep.getBlueprint().getTwilightCost());
+        assertTrue(deep.getBlueprint().isUnique());
     }
 
     @Test
-    public void OneIsBuffedWhenOtherLosesSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
+    public void DiscardingDwarvenCardFromDeckTriggersOptionalStack() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
-        PhysicalCardImpl whitecity = scn.GetFreepsCard("whitecity");
-
-        scn.FreepsMoveCharToTable(aragorn);
-        scn.FreepsMoveCharToTable(boromir);
-        scn.FreepsMoveCardToHand(whitecity);
-
-        PhysicalCardImpl cantea = scn.GetShadowCard("cantea");
-        PhysicalCardImpl attea = scn.GetShadowCard("attea");
-        scn.ShadowMoveCharToTable(cantea, attea);
+        PhysicalCardImpl beneath = scn.GetFreepsCard("beneath");
+        PhysicalCardImpl deep = scn.GetFreepsCard("deep");
+        PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+        PhysicalCardImpl axe = scn.GetFreepsCard("axe2");
+        scn.FreepsMoveCardToSupportArea(beneath);
+        scn.FreepsMoveCardToSupportArea(deep);
+        scn.FreepsMoveCharToTable(gimli);
+        scn.FreepsMoveCardToDiscard("axe");
 
         scn.StartGame();
-        scn.FreepsPlayCard(whitecity);
-        scn.SkipToPhase(Phase.ASSIGNMENT);
 
-        assertEquals(7, scn.GetStrength(boromir));
-        assertEquals(8, scn.GetStrength(aragorn));
+        scn.FreepsUseCardAction(beneath);
 
-        scn.SkipCurrentPhaseActions();
+        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+        scn.FreepsAcceptOptionalTrigger();
+        assertEquals(1, scn.GetTwilight());
+        assertEquals(deep, axe.getStackedOn());
 
-        //Standard assignment
-        scn.FreepsAssignToMinions(new PhysicalCardImpl[] { aragorn, cantea}, new PhysicalCardImpl[] { boromir, attea});
-
-        scn.FreepsResolveSkirmish(aragorn);
-        scn.SkipCurrentPhaseActions();
-        scn.FreepsAcceptOptionalTrigger(); //Have to resolve the skirmish and the condition trigger
-        // 14 > 8, Aragorn lost, Boromir should be buffed
-        assertEquals(9, scn.GetStrength(boromir));
-        assertEquals(8, scn.GetStrength(aragorn));
-
-        scn.FreepsResolveSkirmish(boromir);
-        scn.SkipCurrentPhaseActions();
-        scn.FreepsAcceptOptionalTrigger(); //Have to resolve the skirmish and the condition trigger
-        // 12 > 9, Boromir lost, Aragorn should be buffed
-        assertEquals(9, scn.GetStrength(boromir));
-        assertEquals(10, scn.GetStrength(aragorn));
-
-        //Fierce assignment
-        scn.FreepsSkipCurrentPhaseAction();
-        scn.ShadowSkipCurrentPhaseAction();
-
-        scn.FreepsAssignToMinions(new PhysicalCardImpl[] { aragorn, cantea}, new PhysicalCardImpl[] { boromir, attea});
-        scn.FreepsResolveSkirmish(boromir);
-        scn.SkipCurrentPhaseActions();
-        scn.FreepsAcceptOptionalTrigger(); //Have to resolve the skirmish and the condition trigger
-        // 10 > 9, Boromir lost again, Aragorn should be buffed again
-        assertEquals(9, scn.GetStrength(boromir));
-        assertEquals(12, scn.GetStrength(aragorn));
-
-        scn.FreepsResolveSkirmish(aragorn);
-        //Aragorn now wins his skirmish, so there's no loss trigger to evaluate
-
-        scn.SkipToPhase(Phase.REGROUP);
-
-        //strength should be back to normal
-        assertEquals(7, scn.GetStrength(boromir));
-        assertEquals(8, scn.GetStrength(aragorn));
     }
+
+    @Test
+    public void ManeuverAbilityExertsToTakeStackedCardIntoHand() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl beneath = scn.GetFreepsCard("beneath");
+        PhysicalCardImpl deep = scn.GetFreepsCard("deep");
+        PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+        PhysicalCardImpl axe = scn.GetFreepsCard("axe");
+        PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
+
+        scn.FreepsMoveCardToSupportArea(beneath);
+        scn.FreepsMoveCardToSupportArea(deep);
+        scn.FreepsMoveCharToTable(gimli);
+        scn.FreepsMoveCardToDiscard("axe");
+
+
+        scn.ShadowMoveCharToTable("runner");
+
+        scn.StartGame();
+
+        scn.FreepsUseCardAction(beneath);
+        scn.FreepsAcceptOptionalTrigger();
+
+        scn.SkipToPhase(Phase.MANEUVER);
+
+        assertEquals(0, scn.GetWoundsOn(gimli));
+        assertEquals(0, scn.GetFreepsHandCount());
+        assertEquals(1, scn.GetStackedCards(deep).size());
+        assertTrue(scn.FreepsActionAvailable("Deepest"));
+
+        scn.FreepsUseCardAction(deep);
+
+        //for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
+        assertEquals(1, scn.GetWoundsOn(gimli));
+        assertEquals(1, scn.GetFreepsHandCount());
+        assertEquals(1, scn.GetStackedCards(deep).size());
+
+        //for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
+    }
+
+
 
 
 }

@@ -57,6 +57,8 @@ public interface Modifier {
 
     int getOverwhelmMultiplier(LotroGame game, PhysicalCard physicalCard);
 
+    boolean canCancelSkirmish(LotroGame game, PhysicalCard physicalCard);
+
     boolean canTakeWounds(LotroGame game, Collection<PhysicalCard> woundSources, PhysicalCard physicalCard, int woundsAlreadyTakenInPhase, int woundsToTake);
 
     boolean canTakeWoundsFromLosingSkirmish(LotroGame game, PhysicalCard physicalCard, Set<PhysicalCard> winners);

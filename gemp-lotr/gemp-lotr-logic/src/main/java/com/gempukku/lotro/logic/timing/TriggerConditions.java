@@ -197,6 +197,12 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean forEachDiscardedFromDeck(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_DECK)
+            return Filters.and(filters).accepts(game, ((DiscardCardFromDeckResult) effectResult).getDiscardedCard());
+        return false;
+    }
+    
     public static boolean forEachDiscardedFromHandBy(LotroGame game, EffectResult effectResult, Filterable discardedBy, Filterable... discarded) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_HAND) {
             DiscardCardFromHandResult discardResult = (DiscardCardFromHandResult) effectResult;
@@ -452,4 +458,9 @@ public class TriggerConditions {
         }
         return false;
     }
+
+    public static boolean freePlayerStartedAssigning(LotroGame game, EffectResult effectResult) {
+        return effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING;
+    }
+
 }

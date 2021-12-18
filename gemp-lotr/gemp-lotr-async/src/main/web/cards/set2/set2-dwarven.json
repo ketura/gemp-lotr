@@ -8,19 +8,48 @@
       "tale",
       "support area"
     ],
-    "effects": {
-      "type": "activated",
-      "phase": "fellowship",
-      "cost": {
-        "type": "discardTopCardsFromDeck",
-        "forced": false,
-        "count": 3
+    "effects": [
+      {
+        "type": "activated",
+        "text": "Discard 3 cards from the top of your draw deck to play a [dwarven] weapon from discard.",
+        "phase": "fellowship",
+        "cost": {
+          "type": "discardTopCardsFromDeck",
+          "forced": false,
+          "count": 3
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(dwarven),weapon)"
+        }
       },
-      "effect": {
-        "type": "playCardFromDiscard",
-        "filter": "choose(culture(dwarven),weapon)"
+      {
+        "type": "activated",
+        "text": "Discard cards from the top of your deck to no effect.",
+        "phase": "fellowship",
+        "effect": [
+          {
+            "type": "chooseANumber",
+            "from": 0,
+            "to": 99,
+            "text": "Choose how many times to discard 3 cards from draw deck",
+            "memorize": "chosenNumber"
+          },
+          {
+            "type": "discardTopCardsFromDeck",
+            "forced": false,
+            "count": {
+              "type": "multiply",
+              "multiplier": 3,
+              "source": {
+                "type": "fromMemory",     
+                "memory": "chosenNumber"
+              },
+            }
+          }
+        ],
       }
-    }
+    ]
   },
   "2_2": {
     "title": "Disquiet of Our People",

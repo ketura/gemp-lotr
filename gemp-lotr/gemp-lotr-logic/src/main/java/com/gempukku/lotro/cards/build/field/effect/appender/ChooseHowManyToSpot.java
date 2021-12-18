@@ -19,10 +19,11 @@ import org.json.simple.JSONObject;
 public class ChooseHowManyToSpot implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "memorize");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "memorize", "text");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
+        final String text = FieldUtils.getString(effectObject.get("text"), "text", "Choose how many to spot");
 
         if (memorize == null)
             throw new InvalidCardDefinitionException("ChooseHowManyToSpot requires a field to memorize the value");
@@ -35,7 +36,7 @@ public class ChooseHowManyToSpot implements EffectAppenderProducer {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 final int count = Filters.countSpottable(actionContext.getGame(), filterable);
                 return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
-                        new IntegerAwaitingDecision(1, "Choose how many to spot", 0, count, count) {
+                        new IntegerAwaitingDecision(1, text, 0, count, count) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 final int spotCount = getValidatedResult(result);

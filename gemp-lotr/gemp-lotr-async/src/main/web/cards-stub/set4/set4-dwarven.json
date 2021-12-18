@@ -78,17 +78,6 @@
     "type": "event",
     "keyword": "Regroup"
   },
-  "4_46": {
-    "side": "free_people",
-    "cost": 3,
-    "culture": "Dwarven",
-    "title": "*Ever My Heart Rises",
-    "type": "condition",
-    "keyword": [
-      "Support Area",
-      "Tale"
-    ]
-  },
   "4_57": {
     "side": "free_people",
     "cost": 0,

@@ -467,7 +467,8 @@
         },
         {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "all(memory(cardsOnTop),culture(shire))"
+          "filter": "all(memory(cardsOnTop),culture(shire))",
+          "shuffle": false
         },
         {
           "type": "discardCardsFromDrawDeck",

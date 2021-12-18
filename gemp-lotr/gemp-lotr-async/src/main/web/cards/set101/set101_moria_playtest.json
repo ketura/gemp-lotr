@@ -1,0 +1,269 @@
+{
+
+	"151_31": {
+		"title": "Guided by One Purpose",
+		"culture": "moria",
+		"cost": 0,
+		"type": "condition",
+		"keyword": "support area",
+		"effects": [
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "winsskirmish",
+          "filter": "your,tentacle,inSkirmish",
+        },
+        "effect": {
+          "type": "stackCards",
+          "filter": "choose(your,tentacle,inSkirmish)",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,hasStackedCount(4,tentacle)"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "assignFpCharacterToSkirmish",
+          "fpCharacter": "choose(ringbearer)",
+          "against": "choose(culture(moria),creature)"
+        }
+      }
+    ]
+	},
+
+
+	"151_32": {
+		"title": "*Terror at Its Coming",
+		"culture": "moria",
+		"cost": 0,
+		"type": "condition",
+		"keyword": "support area",
+		"effects": [
+			{
+				"type": "trigger",
+				"optional": true,
+				"trigger": {
+					"type": "moves"
+				},
+        "cost": {
+          "type": "revealCardsFromHand",
+          "filter": "choose(name(The Balrog))"
+        },
+				"effect": {
+          "type": "addTwilight",
+          "amount": 2
+        }
+			}
+		]
+	},
+
+
+	"151_33": {
+		"title": "Thrashing Tentacle",
+		"culture": "moria",
+		"cost": 2,
+		"type": "minion",
+		"race": "creature",
+		"keyword": ["tentacle"],
+		"strength": 5,
+		"vitality": 2,
+		"site": 4,
+		"effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBear",
+          "filter": "self",
+          "cardFilter": "possession"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "not(marsh)"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
+			{
+        "type": "activatedInDiscard",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(moria),creature",
+          "count": 3
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "self"
+        }
+      },
+		]
+	},
+
+
+	"151_34": {
+    "title": "Out of Dark Waters",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": ["support area"],
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Remove (1) to stack a tentacle from hand here.",
+            "Remove (1) to play a tentacle stacked here"
+          ],
+          "effects": [
+            {
+              "type": "stackCardsFromHand",
+              "filter": "choose(tentacle)",
+              "where": "self"
+            },
+            {
+              "type": "playCardFromStacked",
+              "filter": "choose(tentacle)",
+              "on": "self"
+            }
+          ]
+        }
+      },
+      {
+        "type": "activatedtrigger",
+        "trigger": {
+          "type": "abouttodiscard",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,hasStackedCount(1,tentacle)"
+        },
+        "cost": {
+          "type": "discardstackedcards",
+          "on": "self",
+          "filter": "choose(tentacle)",
+          "count": 1
+        },
+        "effect": {
+          "type": "preventDiscard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+
+
+  "151_35": {
+    "title": "The Darkness Grew",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": ["support area"],
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Stack a [Moria] item here.",
+            "Take a [Moria] item stacked here into hand."
+          ],
+          "effects": [
+            {
+              "type": "stackCardsFromHand",
+              "filter": "choose(culture(moria),item)",
+              "where": "self"
+            },
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "canSpot",
+                "filter": "name(The Balrog)"
+              },
+              "effect": {
+                "type": "putStackedCardsIntoHand",
+                "filter": "choose(culture(moria),item)",
+                "on": "self"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+
+  "151_36": {
+    "title": "Vile Tentacle",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "creature",
+    "keyword": ["tentacle"],
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBear",
+          "filter": "self",
+          "cardFilter": "possession"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "condition": {
+            "type": "location",
+            "filter": "not(marsh)"
+          },
+          "amount": -4
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(culture(moria))"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(currentSite)",
+          "keyword": "marsh",
+          "until": "start(regroup)"
+        }
+      },
+      
+    ]
+  },
+
+}

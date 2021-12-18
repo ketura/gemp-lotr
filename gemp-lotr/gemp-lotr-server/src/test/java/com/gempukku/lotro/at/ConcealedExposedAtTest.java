@@ -37,7 +37,7 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
 
         scn.StartGame();
 
-        scn.InsertAdHocModifier(new KeywordModifier(aragorn, aragorn, Keyword.CONCEALED));
+        scn.ApplyAdHocModifier(new KeywordModifier(aragorn, aragorn, Keyword.CONCEALED));
 
         assertEquals(0, scn.GetTwilight());
         scn.FreepsSkipCurrentPhaseAction();
@@ -59,7 +59,7 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         scn.StartGame();
 
         scn.FreepsPlayCard(aragorn);
-        scn.InsertAdHocModifier(new KeywordModifier(aragorn, aragorn, Keyword.CONCEALED));
+        scn.ApplyAdHocModifier(new KeywordModifier(aragorn, aragorn, Keyword.CONCEALED));
 
         //4 from playing aragorn
         assertEquals(4, scn.GetTwilight());
@@ -83,7 +83,7 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         scn.StartGame();
 
         scn.FreepsPlayCard(aragorn);
-        scn.InsertAdHocModifier(new KeywordModifier(aragorn, Keyword.RANGER, Keyword.CONCEALED));
+        scn.ApplyAdHocModifier(new KeywordModifier(aragorn, Keyword.RANGER, Keyword.CONCEALED));
 
 
         //4 from playing aragorn
@@ -106,9 +106,9 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         scn.StartGame();
 
         scn.FreepsPlayCard(aragorn);
-        scn.InsertAdHocModifier(new KeywordModifier(aragorn, Keyword.RANGER, Keyword.CONCEALED));
+        scn.ApplyAdHocModifier(new KeywordModifier(aragorn, Keyword.RANGER, Keyword.CONCEALED));
 
-        scn.InsertAdHocModifier(new KeywordModifier(null, CardType.SITE, Keyword.EXPOSED));
+        scn.ApplyAdHocModifier(new KeywordModifier(null, CardType.SITE, Keyword.EXPOSED));
 
         //4 from playing aragorn
         assertEquals(4, scn.GetTwilight());

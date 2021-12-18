@@ -88,6 +88,8 @@ public interface ModifiersQuerying {
     // Assignments
     public boolean canBeAssignedToSkirmish(LotroGame game, Side playerSide, PhysicalCard card);
 
+    boolean canCancelSkirmish(LotroGame game, PhysicalCard card);
+
     public boolean isUnhastyCompanionAllowedToParticipateInSkirmishes(LotroGame game, PhysicalCard card);
 
     public boolean isAllyAllowedToParticipateInArcheryFire(LotroGame game, PhysicalCard card);

@@ -139,6 +139,9 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canCancelSkirmish(LotroGame game, PhysicalCard physicalCard) { return true; }
+
+    @Override
     public boolean canTakeWounds(LotroGame game, Collection<PhysicalCard> woundSources, PhysicalCard physicalCard, int woundsAlreadyTaken, int woundsToTake) {
         return true;
     }

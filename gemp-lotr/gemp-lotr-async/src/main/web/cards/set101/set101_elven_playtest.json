@@ -1,0 +1,265 @@
+{
+	"151_7": {
+		"title": "I Was There",
+		"culture": "elven",
+		"cost": 1,
+		"type": "event",
+		"keyword": ["skirmish", "tale"],
+		"condition": {
+			"type": "canSpot",
+			"filter": "elf,inskirmish"
+		},
+		"effects": {
+			"type": "event",
+			
+			"cost": {
+				"type": "discard",
+				"filter": "choose(your,culture(elven),tale)",
+			},
+			"effect": [
+				{
+					"type": "wound",
+					"filter": "choose(minion,inSkirmishAgainst(elf))",
+					"count": 1
+				}
+			]
+		}
+	},
+	
+	"151_8": {
+    "title": "*Lament for Gandalf",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+    	{
+    		"type": "trigger",
+    		"optional": true,
+	      "trigger": {
+	        "type": "startOfPhase",
+	        "phase": "regroup"
+	      },
+	      "effect": {
+	        "type": "stackCardsFromHand",
+	        "filter": "choose(culture(gandalf))",
+	        "where": "self"
+	      },
+	    },
+	    {
+	      "type": "activatedTrigger",
+	      "trigger": {
+	        "type": "killed",
+	        "filter": "name(gandalf)"
+	      },
+	      "cost": {
+          "type": "exert",
+          "filter": "choose(and(or(companion,and(culture(elven),ally)),not(exhausted)))",
+          "memorize": "exertedTargets",
+          "count": {
+            "type": "range",
+            "from": 0,
+            "to": {
+              "type": "forEachYouCanSpot",
+              "filter": "and(or(companion,and(culture(elven),ally)),not(exhausted))"
+            }
+          }
+        },
+	      "effect": {
+          "type": "putstackedcardsintohand",
+          "on": "self",
+          "count": {
+	          "type": "forEachInMemory",
+	          "memory": "exertedTargets"
+	        }
+        },
+	    }
+	  ]
+  },
+
+
+	"151_9": {
+		"title": "*Legolas",
+		"subtitle": "Keen-eyed",
+		"culture": "elven",
+		"cost": 2,
+		"type": "companion",
+		"race": "elf",
+		"keyword": ["archer"],
+		"strength": 6,
+		"vitality": 3,
+		"signet": "aragorn",
+		"resistance": 6,
+		"effects": [
+			{
+	      "type": "activated",
+	      "phase": "archery",
+	      "cost": {
+	        "type": "reduceArcheryTotal",
+	        "side": "free people",
+	        "memorize": "reducedBy"
+	      },
+	      "effect": {
+	        "type": "modifyStrength",
+	        "filter": "self",
+	        "amount": {
+	        	"type": "fromMemory",
+	        	"memory": "reducedBy"
+	        }
+	      }
+	    },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantUseSpecialAbilities",
+          "filter": "side(free People)"
+        }
+      }
+		]
+	},
+
+
+	"151_10": {
+		"title": "*Let Fly the Darts of Lindon",
+		"culture": "elven",
+		"cost": 1,
+		"type": "condition",
+		"keyword": ["tale"],
+		"target": "elf,companion",
+		"effects": {
+			"type": "activated",
+			"phase": "archery",
+			"cost": [
+				{
+					"type": "exert",
+					"filter": "bearer",
+					"count": 1
+				},
+				{
+					"type": "spot",
+					"filter": "choose(minion)",
+					"memorize": "untarget"
+				},
+			],
+			"effect": {
+				"type": "preventable",
+				"effect": {
+					"type": "addModifier",
+					"modifier": {
+						"type": "cantTakeWounds",
+						"filter": "memory(untarget)",
+						"condition": {
+							"type": "phase",
+							"phase": "archery"
+						}
+					},
+					"until": "start(regroup)"
+				},
+				"text": "Would you like to remove (2) to prevent a minion taking no archery wounds?",
+				"player": "shadowPlayer",
+				"cost": {
+					"type": "removeTwilight",
+					"amount": 2
+				},
+			}
+		}
+	},
+
+
+	"151_11": {
+		"title": "*Library of Rivendell",
+		"culture": "elven",
+		"cost": 2,
+		"type": "artifact",
+		"keyword": ["support area"],
+		"condition": {
+			"type": "or",
+			"condition": [
+        {
+          "type": "canSpot",
+          "filter": "name(Elrond)"
+        },
+        {
+          "type": "canSpot",
+          "filter": "elf",
+          "count": 3
+        }
+      ]
+		},
+		"effects": [
+			{
+				"type": "modifier",
+				"modifier": {
+					"type": "modifyStrength",
+					"filter": "companion,hasAttached(culture(elven),tale)",
+					"amount": 1
+				}
+			},
+			{
+	      "type": "activated",
+	      "phase": "skirmish",
+	      "cost": {
+	        "type": "discard",
+	        "filter": "choose(culture(elven),tale)"
+	      },
+	      "effect": {
+	        "type": "modifyStrength",
+	        "filter": "choose(culture(elven),companion)",
+	        "amount": 1
+	      }
+	    }
+		]
+	},
+
+
+	"151_12": {
+		"title": "*Three Rings for the Elven Kings",
+		"culture": "elven",
+		"cost": 1,
+		"type": "condition",
+		"keyword": ["support area", "tale"],
+		"effects": [
+			{
+        "type": "trigger",
+        "optional": true,
+        "text": "Would you like to spot 1 [elven] or [gandalf] ring to place a card from hand beneath your draw deck and draw a card?",
+        "trigger": {
+          "type": "moves"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "or(culture(elven),culture(gandalf)),ring",
+          "count": 1
+        },
+        "effect": [
+	        {
+	          "type": "putCardsFromHandOnBottomOfDeck",
+	          "filter": "choose(any)"
+	        },
+	        {
+		        "type": "drawCards",
+		        "count": 1
+		      }
+      	]
+      },
+			{
+        "type": "trigger",
+        "optional": true,
+        "text": "Would you like to spot 3 [elven] or [gandalf] rings to heal a companion?",
+        "trigger": {
+          "type": "moves"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "or(culture(elven),culture(gandalf)),ring",
+          "count": 3
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(companion)"
+        },
+      }
+		]
+	},
+
+}

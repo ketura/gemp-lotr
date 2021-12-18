@@ -19,43 +19,6 @@
       }
     }
   },
-  "78_44": {
-    "title": "Sixth Level",
-    "culture": "Gondor",
-    "cost": 2,
-    "type": "condition",
-    "keyword": [
-      "Support Area",
-      "Fortification"
-    ],
-    "effects": {
-      "type": "activated",
-      "phase": "regroup",
-      "limitPerPhase": 1,
-      "cost": {
-        "type": "choice",
-        "texts": [
-          "Exert 2 GONDOR Men",
-          "Exert a GONDOR ranger"
-        ],
-        "effects": [
-          {
-            "type": "exert",
-            "count": 2,
-            "filter": "choose(culture(gondor),man)"
-          },
-          {
-            "type": "exert",
-            "filter": "choose(culture(gondor),ranger)"
-          }
-        ]
-      },
-      "effect": {
-        "type": "playCardFromDiscard",
-        "filter": "choose(culture(gondor),fortification)"
-      }
-    }
-  },
   "78_51": {
     "title": "*Castamir of Umbar",
     "culture": "Raider",
@@ -69,26 +32,40 @@
       "Fierce",
       "Corsair"
     ],
-    "effects": {
-      "type": "activated",
-      "phase": "shadow",
-      "cost": [
-        {
-          "type": "exert",
-          "filter": "self"
-        },
-        {
-          "type": "play",
-          "filter": "choose(corsair)"
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "forEachWound",
+            "filter": "self",
+            "multiplier": 1
+          }
         }
-      ],
-      "effect": {
-        "type": "addTokens",
-        "culture": "raider",
-        "filter": "choose(hasToken(raider))",
-        "amount": 2
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": [
+          {
+            "type": "exert",
+            "filter": "self"
+          },
+          {
+            "type": "play",
+            "filter": "choose(corsair)"
+          }
+        ],
+        "effect": {
+          "type": "addTokens",
+          "culture": "raider",
+          "filter": "choose(hasToken(raider))",
+          "amount": 2
+        }
       }
-    }
+    ]
   },
   "78_57": {
     "title": "Corsair Marauder",
@@ -204,7 +181,7 @@
     "effects": [
       {
         "type": "activated",
-        "phase": "fellowship",
+        "phase": "shadow",
         "cost": {
           "type": "play",
           "filter": "choose(culture(sauron),minion)"
@@ -216,66 +193,40 @@
         }
       },
       {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "startOfPhase",
-          "phase": "regroup"
-        },
-        "cost": {
-          "type": "chooseandremovetokens",
-          "culture": "sauron",
-          "filter": "self",
-          "memorize": "numberOfTokens"
-        },
-        "effect": [
+        "type": "activated",
+        "phase": "regroup",
+        "cost": [
           {
-            "type": "discard",
-            "filter": "choose(side(free people),not(companion),minTwilight(memory(numberOfTokens)),maxTwilight(memory(numberOfTokens)))"
+            "type": "chooseandremovetokens",
+            "culture": "sauron",
+            "filter": "self",
+            "memorize": "numberOfTokens"
           },
           {
             "type": "discard",
-            "filter": "choose(or(and(culture(sauron),minion),self))"
+            "filter": "choose(and(culture(sauron),minion))"
+          }
+        ],
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "choose(side(free people),not(companion),minTwilight(memory(numberOfTokens)),maxTwilight(memory(numberOfTokens)))",
+            "memorize": "discardedCard"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memorymatches",
+              "memory": "discardedCard",
+              "filter": "not(zone(SUPPORT))"
+            },
+            "effect": {
+              "type": "discard",
+              "filter": "self"
+            }
           }
         ]
       }
     ]
   },
-  "78_107": {
-    "title": "Their Marching Companies",
-    "culture": "Sauron",
-    "cost": 1,
-    "type": "condition",
-    "keyword": "Support Area",
-    "condition": {
-      "type": "canSpot",
-      "filter": "culture(sauron),minion"
-    },
-    "effects": [
-      {
-        "type": "activated",
-        "phase": "regroup",
-        "cost": {
-          "type": "removeThreats"
-        },
-        "effect": {
-          "type": "stackCards",
-          "filter": "choose(your,culture(sauron),minion)",
-          "where": "choose(controlledsite)"
-        }
-      },
-      {
-        "type": "activated",
-        "phase": "shadow",
-        "cost": {
-          "type": "removeThreats"
-        },
-        "effect": {
-          "type": "playCardFromStacked",
-          "filter": "choose(culture(sauron),minion)",
-          "on": "controlledsite"
-        }
-      }
-    ]
-  }
 }

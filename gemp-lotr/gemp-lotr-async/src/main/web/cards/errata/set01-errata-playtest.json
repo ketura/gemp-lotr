@@ -115,7 +115,7 @@
             "type": "revealRandomCardsFromHand",
             "forced": true,
             "hand": "fp",
-            "count": 4,
+            "count": 3,
             "memorize": "revealedCards"
           },
           {
@@ -143,7 +143,6 @@
       },
       {
         "type": "trigger",
-        "optional": true,
         "trigger": {
           "type": "usesspecialability",
           "filter": "side(free people)"

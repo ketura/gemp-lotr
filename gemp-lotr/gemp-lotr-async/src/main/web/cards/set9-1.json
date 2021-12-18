@@ -271,7 +271,8 @@
           },
           {
             "type": "putCardsFromDeckIntoHand",
-            "filter": "all(memory(revealedCards),side(free people))"
+            "filter": "all(memory(revealedCards),side(free people))",
+            "shuffle": false
           },
           {
             "type": "discardCardsFromDrawDeck",
@@ -866,7 +867,8 @@
               "text": "Would you like to take the revealed card into your hand?",
               "effect": {
                 "type": "putCardsFromDeckIntoHand",
-                "filter": "memory(revealedCards)"
+                "filter": "memory(revealedCards)",
+                "shuffle": false
               }
             }
           }

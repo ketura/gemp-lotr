@@ -1,13 +1,12 @@
+
 package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import org.junit.Assert;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -19,108 +18,89 @@ import static org.junit.Assert.assertTrue;
 public class Card_V1_005Tests
 {
 
-    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-        return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
-                    put("aragorn", "1_89");
-                    put("boromir", "1_97");
-                    put("remnant", "101_5");
+	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+		return new GenericCardTestHelper(
+				new HashMap<String, String>()
+				{{
+					put("onedwarf", "151_5");
+					put("gimli", "1_13");
+					put("guard", "1_7");
+					put("handaxe1", "2_10");
+					put("handaxe2", "2_10");
+					put("runner", "1_178");
+				}},
+				GenericCardTestHelper.FellowshipSites,
+				GenericCardTestHelper.FOTRFrodo,
+				GenericCardTestHelper.FOTRRing
+		);
+	}
 
-                    put("inquisitor", "1_268");
-                }}
-        );
-    }
+	@Test
+	public void OneDwarfStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
+		/**
+		* Set: V1
+		* Title: One Dwarf in Moria
+		* Side: Free Peoples
+		* Culture: dwarven
+		* Twilight Cost: 1
+		* Type: event
+		* Subtype: Maneuver
+		* Game Text: Spot a Dwarf bearing 2 possessions to make that Dwarf defender +1 until the regroup phase. 
+		*/
 
-    @Test
-    public void RemnantStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-        /**
-         * Set: VSet1, VPack1
-         * Title: *Remnant of Numenor
-         * Side: Free Peoples
-         * Culture: Gondor
-         * Twilight Cost: 1
-         * Type: Condition
-         * Subtype: Support Area
-         * Game Text: To play, spot a [gondor] companion.
-         * Each time a card is discarded from your hand by a Shadow card, you may add (1) to shuffle a [gondor] card from your discard pile into your draw deck.
-         */
+		PhysicalCardImpl onedwarf = scn.GetFreepsCard("onedwarf");
 
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+		assertFalse(onedwarf.getBlueprint().isUnique());
+		assertEquals(1, onedwarf.getBlueprint().getTwilightCost());
+		assertEquals(CardType.EVENT, onedwarf.getBlueprint().getCardType());
+		assertEquals(Culture.DWARVEN, onedwarf.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, onedwarf.getBlueprint().getSide());
+	}
 
-        PhysicalCardImpl remnant = scn.GetFreepsCard("remnant");
+	@Test
+	public void OneDwarfAppliesDefender() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-        assertTrue(scn.HasKeyword(remnant, Keyword.SUPPORT_AREA));
-        assertEquals(1, remnant.getBlueprint().getTwilightCost());
-    }
+		PhysicalCardImpl onedwarf = scn.GetFreepsCard("onedwarf");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCardToHand(onedwarf);
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsMoveCharToTable("guard");
+		scn.AttachCardsTo(gimli, scn.GetFreepsCard("handaxe1"), scn.GetFreepsCard("handaxe2"));
 
-    @Test
-    public void RemnantSpotsAGondorCompanionToPlay() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl remnant = scn.GetFreepsCard("remnant");
+		scn.ShadowMoveCharToTable("runner");
 
-        scn.FreepsMoveCardToHand(aragorn, remnant);
+		scn.StartGame();
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.FreepsActionAvailable("One Dwarf"));
 
-        scn.StartGame();
+		assertEquals(0, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
+		scn.FreepsPlayCard(onedwarf);
+		assertEquals(1, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
+	}
 
-        assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        Assert.assertFalse(scn.FreepsCardPlayAvailable(remnant));
+	@Test
+	public void OneDwarfCantBePlayedIfNoDwarvesWithItems() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-        scn.FreepsPlayCard(aragorn);
-        assertTrue(scn.FreepsCardPlayAvailable(remnant));
-    }
+		PhysicalCardImpl onedwarf = scn.GetFreepsCard("onedwarf");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCardToHand(onedwarf);
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsMoveCharToTable("guard");
+		scn.AttachCardsTo(gimli, scn.GetFreepsCard("handaxe1"));
 
-    @Test
-    public void RemnantTriggersOnShadowDiscardFromHand() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+		scn.ShadowMoveCharToTable("runner");
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
-        PhysicalCardImpl remnant = scn.GetFreepsCard("remnant");
+		scn.StartGame();
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertFalse(scn.FreepsActionAvailable("One Dwarf"));
 
-        scn.FreepsMoveCardToDiscard(boromir);
-        scn.FreepsMoveCardToHand(aragorn);
-        scn.FreepsMoveCardToSupportArea(remnant);
-
-        PhysicalCardImpl inquisitor = scn.GetShadowCard("inquisitor");
-        scn.ShadowMoveCardToHand(inquisitor);
-
-        scn.StartGame();
-
-        scn.SetTwilight(10);
-
-        scn.FreepsSkipCurrentPhaseAction();
-
-        assertEquals(1, scn.GetFreepsHandCount());
-        assertEquals(1, scn.GetFreepsDeckCount()); //the orc is also in the deck
-        assertEquals(1, scn.GetFreepsDiscardCount());
-
-        scn.ShadowPlayCard(inquisitor);
-        scn.ShadowAcceptOptionalTrigger();
-
-        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
-        scn.FreepsAcceptOptionalTrigger();
-
-       //scn.FreepsGetADParamAsList()
-
-        scn.FreepsChoose("temp0");
-
-        //Card from hand was discarded, one of the two cards in the discard was shuffled in with the orc
-        assertEquals(0, scn.GetFreepsHandCount());
-        assertEquals(2, scn.GetFreepsDeckCount());
-        assertEquals(1, scn.GetFreepsDiscardCount());
-
-        // 10 starting + 2 for moving - 5 for the orc + 1 for Remnant triggering
-        assertEquals(8, scn.GetTwilight());
-
-    }
-
-
+	}
 }

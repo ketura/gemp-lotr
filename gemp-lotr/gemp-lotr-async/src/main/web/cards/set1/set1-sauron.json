@@ -108,7 +108,8 @@
         },
         {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "all(memory(revealedCards),culture(sauron))"
+          "filter": "all(memory(revealedCards),culture(sauron))",
+          "shuffle": false
         },
         {
           "type": "discardCardsFromDrawDeck",

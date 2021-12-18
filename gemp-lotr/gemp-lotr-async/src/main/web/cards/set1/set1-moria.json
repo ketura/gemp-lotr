@@ -181,7 +181,8 @@
         },
         {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "memory(revealedCards)"
+          "filter": "memory(revealedCards)",
+          "shuffle": false
         }
       ]
     }
@@ -912,7 +913,8 @@
         },
         {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "all(memory(revealedCards),culture(moria),orc)"
+          "filter": "all(memory(revealedCards),culture(moria),orc)",
+          "shuffle": false
         },
         {
           "type": "discardCardsFromDrawDeck",

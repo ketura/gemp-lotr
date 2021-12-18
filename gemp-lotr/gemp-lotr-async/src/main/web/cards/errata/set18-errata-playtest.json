@@ -1,0 +1,238 @@
+{
+	"88_12": {
+    "side": "free_people",
+    "cost": 5,
+    "race": "Elf",
+    "strength": 9,
+    "culture": "Elven",
+    "vitality": 4,
+    "subtitle": "High King of the Noldor",
+    "title": "*Gil-galad",
+    "type": "companion",
+    "resistance": 7,
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf,companion",
+      "count":2
+    },
+    "effects": [
+    	{
+	      "type": "activated",
+	      "phase": "maneuver",
+	      "cost": {
+	        "type": "removetokens",
+	        "count": 1,
+          "culture": "elven"
+	      },
+	      "effect": {
+          "type": "putcardsfromdiscardintohand",
+          "filter": "choose(culture(elven),condition)",
+          "count": 1
+        }
+	    },
+	    {
+	      "type": "activated",
+	      "phase": "regroup",
+	      "cost": {
+	        "type": "addthreats",
+	        "amount": 2
+	      },
+	      "effect": {
+          "type": "putcardsfromdiscardintohand",
+          "filter": "choose(culture(elven),event)",
+          "count": 1
+        }
+	    }
+	  ]
+  },
+  "88_29": {
+    "side": "shadow",
+    "cost": 1,
+    "culture": "Gollum",
+    "title": "*Deceit",
+    "type": "condition",
+    "keyword": "Support Area",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "abouttodiscard",
+        "source": "side(free people)",
+        "filter": "your,culture(gollum),another,condition"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "preventdiscard",
+        "filter": "choose(your,culture(gollum),another,condition)",
+      }
+    }
+  },
+  "88_50": {
+    "side": "free_people",
+    "cost": 3,
+    "culture": "Gondor",
+    "title": "*The Faithful Stone",
+    "type": "condition",
+    "keyword": [
+      "Support Area",
+      "Tale"
+    ],
+    "effects": [
+    	{
+	      "type": "trigger",
+	      "trigger": {
+	        "type": "played",
+	        "filter": "minion,not(culture(wraith))"
+	      },
+	      "condition": {
+	        "type": "canSpot",
+	        "filter": "man"
+	      },
+	      "effect": {
+	        "type": "addtokens",
+	        "amount": 1,
+          "culture": "gondor",
+          "filter": "self"
+	      }
+	    },
+	    {
+	      "type": "activated",
+	      "phase": "maneuver",
+	      "cost": {
+	        "type": "removetokens",
+	        "count": 1,
+          "culture": "gondor",
+          "filter": "self"
+	      },
+	      "effect": {
+          "type": "preventable",
+          "player": "shadowPlayer",
+          "text": "Would you like to add (2) to allow your minion to skirmish?",
+          "cost": {
+						"type": "removeTwilight",
+						"amount": 2
+					},
+  	      "effect": {
+            "type": "cantBeAssignedToSkirmish",
+            "filter": "choose(minion)"
+          }
+        }
+	    },
+    ]
+  },
+  
+  "88_79": {
+    "side": "shadow",
+    "cost": 2,
+    "culture": "Orc",
+    "title": "Frenzy of Arrows",
+    "type": "event",
+    "keyword": "Archery",
+    "effects": {
+      "type": "event",
+      "effect": [
+      	{
+	        "type": "addKeyword",
+	        "filter": "choose(culture(orc),orc)",
+	        "keyword": "archer",
+	        "until": "start(regroup)",
+	        "count": 2
+	      },
+	      {
+          "type": "modifyArcheryTotal",
+          "side": "shadow",
+          "amount": {
+	          "type": "forEachYouCanSpot",
+	          "filter": "follower"
+	        }
+        }
+	    ]
+    }
+  },
+  
+  "18_96": {
+    "side": "free_people",
+    "cost": 0,
+    "culture": "Rohan",
+    "title": "*Erkenbrand's Horn",
+    "type": "possession",
+    "target": "culture(rohan),man",
+    "effects":[
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "bearer",
+          "times": 1
+        },
+        "effect": {
+          "type": "playcardfromdrawdeck",
+          "filter": "choose(follower,culture(rohan))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(your,follower)"
+        },
+        "effect": {
+          "type": "playcardfromdrawdeck",
+          "filter": "choose(follower,culture(rohan))"
+        }
+      }
+    ]
+  },
+  
+  "18_112": {
+    "side": "free_people",
+    "cost": 0,
+    "culture": "Shire",
+    "title": "Scouring of the Shire",
+    "type": "condition",
+    "keyword": [
+      "Support Area",
+      "Tale"
+    ],
+    "effects":[
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "self,hasTokenCount(3,shire)"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "abouttodiscard",
+          "source": "side(shadow)",
+          "filter": "culture(shire),or(condition,possession)"
+        },
+        "cost": {
+          "type": "addtokens",
+          "amount": 1,
+          "culture": "shire",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventdiscard",
+          "filter": "choose(culture(shire),or(condition,possession))",
+        }
+      }
+    ]
+  },
+  
+  
+}

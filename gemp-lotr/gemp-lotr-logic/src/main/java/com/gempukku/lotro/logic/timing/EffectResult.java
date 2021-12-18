@@ -15,6 +15,7 @@ public abstract class EffectResult {
         FOR_EACH_RETURNED_TO_HAND,
 
         FOR_EACH_DISCARDED_FROM_HAND,
+        FOR_EACH_DISCARDED_FROM_DECK,
 
         FREE_PEOPLE_PLAYER_STARTS_ASSIGNING,
         SKIRMISH_ABOUT_TO_END,
@@ -56,7 +57,9 @@ public abstract class EffectResult {
 
         REPLACE_SITE, TAKE_CONTROL_OF_SITE,
 
-        FINISHED_PLAYING_FELLOWSHIP
+        FINISHED_PLAYING_FELLOWSHIP,
+
+        TAKE_OFF_THE_ONE_RING
     }
 
     private Type _type;
