@@ -57,6 +57,7 @@
 		"effects": [
 			{
         "type": "trigger",
+        "optional":true,
         "trigger": {
           "type": "played",
           "filter": "self"
