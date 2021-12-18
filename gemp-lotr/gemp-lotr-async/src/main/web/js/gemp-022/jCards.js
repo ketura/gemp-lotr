@@ -300,7 +300,7 @@ var Card = Class.extend({
         if (setNo == 77 || setNo == 97)
             return (cardNo == 359);
         if (setNo == 101 || setNo == 151)
-            return (cardNo >= 93 && cardNo <= 94);
+            return (cardNo >= 57 && cardNo <= 64);
 
         return false;
     },

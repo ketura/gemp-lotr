@@ -1,4 +1,38 @@
 {
+	"85_15": {
+    "side": "free_people",
+    "cost": 1,
+    "culture": "Elven",
+    "title": "Focus",
+    "type": "condition",
+    "keyword": "Support Area",
+    "effects": [
+    	{
+        "type": "trigger",
+        "trigger": {
+          "type": "winsskirmish",
+          "filter": "name(legolas)"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(or(and(culture(dwarven),Dwarf,hunter),and(culture(gondor),man,hunter)))"
+        }
+      },
+      {
+	      "type": "activated",
+	      "phase": "skirmish",
+	      "cost": {
+	        "type": "discard",
+	        "filter": "self",
+	      },
+	      "effect": {
+	        "type": "modifyStrength",
+	        "filter": "choose(culture(elven),elf)",
+	        "amount": 2
+	      }
+	    }
+    ]
+  },
 	"85_62": {
     "side": "free_people",
     "cost": 1,
