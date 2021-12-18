@@ -28,6 +28,15 @@ public class CollectionSerializer {
     }
 
     private void fillSingleByteItems() throws IOException {
+
+        /*
+
+        DO NOT add things to the middle of this function. Everything new needs added to the end, even if it
+        breaks the symmetry of how its sorted.  Otherwise the old serialized data will fail to line up with
+        new serialized data, and it will break existing trophies and collections.
+
+         */
+
         loadSet("1");
         loadSet("2");
         loadSet("3");
