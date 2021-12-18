@@ -17,6 +17,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("abouttoexert", new AboutToExert());
         triggerCheckers.put("abouttoheal", new AboutToHeal());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
+        triggerCheckers.put("activated", new ActivatedTriggerCheckerProducer());
         triggerCheckers.put("addsburden", new AddsBurden());
         triggerCheckers.put("addsthreat", new AddsThreat());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
@@ -30,6 +31,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("endofturn", new EndOfTurn());
         triggerCheckers.put("exertedby", new ExertedBy());
         triggerCheckers.put("exerts", new Exerts());
+        triggerCheckers.put("freeplayerstartedassigning", new FreePlayerStartedAssigning());
         triggerCheckers.put("heals", new Heals());
         triggerCheckers.put("killed", new Killed());
         triggerCheckers.put("losesinitiative", new LosesInitiative());

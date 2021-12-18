@@ -30,6 +30,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantbeexerted", new CantBeExerted());
         modifierProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         modifierProducers.put("cantbetransferred", new CantBeTransferred());
+        modifierProducers.put("cantcancelskirmish", new CantCancelSkirmish());
         modifierProducers.put("cantdiscardcardsfromhandortopofdrawdeck", new CantDiscardCardsFromHandOrTopOfDrawDeck());
         modifierProducers.put("cantheal", new CantHeal());
         modifierProducers.put("cantlookorrevealhand", new CantLookOrRevealHand());

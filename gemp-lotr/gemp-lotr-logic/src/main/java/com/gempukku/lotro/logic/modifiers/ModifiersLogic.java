@@ -692,6 +692,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canCancelSkirmish(LotroGame game, PhysicalCard card) {
+        for (Modifier modifier : getModifiers(game, ModifierEffect.CANCEL_SKIRMISH_MODIFIER))
+            if (!modifier.canCancelSkirmish(game, card))
+                return false;
+        return true;
+    }
+
+    @Override
     public boolean canHavePlayedOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target) {
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TARGET_MODIFIER, target))
             if (!modifier.canHavePlayedOn(game, playedCard, target))

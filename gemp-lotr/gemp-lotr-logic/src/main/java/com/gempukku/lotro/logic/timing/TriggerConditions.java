@@ -458,4 +458,9 @@ public class TriggerConditions {
         }
         return false;
     }
+
+    public static boolean freePlayerStartedAssigning(LotroGame game, EffectResult effectResult) {
+        return effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING;
+    }
+
 }
