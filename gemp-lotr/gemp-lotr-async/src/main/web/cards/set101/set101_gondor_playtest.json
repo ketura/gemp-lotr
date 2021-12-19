@@ -185,31 +185,30 @@
           {
             "type": "canSpot",
             "filter": "name(Aragorn)"
-          }
-        ],
-        "cost": [
-          {
-            "type": "chooseANumber",
-            "from": 0,
-            "to": 3,
-            "memorize": "chosenNumber"
           },
           {
-            "type": "discardStackedCards",
-            "count": {
-              "type": "fromMemory",     
-              "memory": "chosenNumber"
-            },
-            "on": "self",
-            "memorize": "discardedFromStack"
+            "type": "canSpot",
+            "filter": "self,hasStacked(any)"
           }
         ],
+        "cost": {
+          "type": "discardStackedCards",
+          "count": {
+            "type": "range",
+            "from": 1,
+            "to": {
+              "type": "countStacked",
+              "on": "self"
+            }
+          },
+          "memorize": "discardedCards"
+        },
         "effect": {
           "type": "modifyStrength",
           "filter": "choose(companion,signet(aragorn))",
           "amount": {
-            "type": "fromMemory",
-            "memory": "chosenNumber",
+            "type": "forEachInMemory",
+            "memory": "discardedCards",
             "limit": 3
           }
         }

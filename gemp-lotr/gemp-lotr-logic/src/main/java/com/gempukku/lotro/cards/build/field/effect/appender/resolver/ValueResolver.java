@@ -106,11 +106,12 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object);
                 return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
-                FieldUtils.validateAllowedFields(object, "memory");
+                FieldUtils.validateAllowedFields(object, "memory", "limit");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 return (actionContext) -> {
                     final int count = actionContext.getCardsFromMemory(memory).size();
-                    return new ConstantEvaluator(count);
+                    return new ConstantEvaluator(Math.min(limit, count));
                 };
             } else if (type.equalsIgnoreCase("forEachMatchingInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "filter", "limit");
