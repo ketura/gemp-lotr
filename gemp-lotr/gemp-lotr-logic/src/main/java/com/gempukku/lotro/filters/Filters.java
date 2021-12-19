@@ -754,6 +754,12 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                if(physicalCard.getBlueprint().getCardType() == CardType.MINION)
+                {
+                    int sitenum = game.getModifiersQuerying().getMinionSiteNumber(game, physicalCard);
+                    return sitenum >= minSiteNumber && sitenum <= maxSiteNumber;
+                }
+
                 return (physicalCard.getSiteNumber()!=null)
                         && (physicalCard.getSiteNumber()>=minSiteNumber) && (physicalCard.getSiteNumber()<=maxSiteNumber);
             }
