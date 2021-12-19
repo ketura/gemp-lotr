@@ -132,7 +132,7 @@
         "type": "extraCost",
         "cost": {
           "type": "exert",
-          "filter": "name(aragorn)"
+          "filter": "choose(name(aragorn))"
         }
       },
       {
