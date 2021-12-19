@@ -135,7 +135,7 @@
           "filter": "companion",
           "count": 6
         },
-        "filter": "stealth,event",
+        "filter": "event",
       }
     }
   },
@@ -162,7 +162,7 @@
         "count": {
           "type": "forEachYouCanSpot",
           "filter": "companion",
-          "over": 5
+          "over": 4
         }
       }
     }

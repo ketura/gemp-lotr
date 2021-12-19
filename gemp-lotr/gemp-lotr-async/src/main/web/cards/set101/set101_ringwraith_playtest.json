@@ -181,11 +181,11 @@
         "type": "trigger",
         "trigger": {
           "type": "winsSkirmish",
-          "filter": "twilight,nazgul"
+          "filter": "and(twilight,nazgul)"
         },
         "cost": {
           "type": "exert",
-          "filter": "bearer"
+          "filter": "choose(twilight,nazgul)"
         },
         "effect": {
           "type": "shufflecardsfromdiscardintodrawdeck",

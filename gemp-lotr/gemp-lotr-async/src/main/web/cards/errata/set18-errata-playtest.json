@@ -19,14 +19,14 @@
     	{
 	      "type": "activated",
 	      "phase": "maneuver",
-	      "cost": {
-	        "type": "removetokens",
-	        "count": 1,
-          "culture": "elven"
-	      },
+	      
+        "cost": {
+          "type": "addthreats",
+          "amount": 1
+        },
 	      "effect": {
           "type": "putcardsfromdiscardintohand",
-          "filter": "choose(culture(elven),condition)",
+          "filter": "choose(culture(elven),event,skirmish)",
           "count": 1
         }
 	    },
@@ -34,12 +34,13 @@
 	      "type": "activated",
 	      "phase": "regroup",
 	      "cost": {
-	        "type": "addthreats",
-	        "amount": 2
-	      },
+          "type": "removetokens",
+          "count": 1,
+          "culture": "elven"
+        },
 	      "effect": {
           "type": "putcardsfromdiscardintohand",
-          "filter": "choose(culture(elven),event)",
+          "filter": "choose(culture(elven),condition)",
           "count": 1
         }
 	    }
