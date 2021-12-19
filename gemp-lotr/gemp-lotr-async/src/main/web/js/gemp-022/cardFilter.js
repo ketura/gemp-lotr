@@ -172,9 +172,9 @@ var CardFilter = Class.extend({
             + "<option disabled>----------</option>"
             + "<option value='70-89,151-200'>All Player's Council Playtest Cards</option>"
             + "<option value='151'>PLAYTEST - Shadow of the Past (PC)</option>"
-            + "<option value='71-73'>PLAYTEST - Fellowship Block (PC)</option>"
-            + "<option value='71-80'>PLAYTEST - Movie Block (PC)</option>"
-            + "<option value='70-89'>PLAYTEST - Expanded (PC)</option>"
+            + "<option value='61-73,151'>PLAYTEST - Fellowship Block (PC)</option>"
+            + "<option value='61-80,151'>PLAYTEST - Movie Block (PC)</option>"
+            + "<option value='60-89,151'>PLAYTEST - Expanded (PC)</option>"
             
             
             + "</select>");
