@@ -156,6 +156,7 @@
           "type": "conditional",
           "condition": {
             "type": "memoryMatches",
+            "memory": "playedSite",
             "filter": "underground"
           },
           "effect": {
