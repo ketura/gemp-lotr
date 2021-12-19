@@ -129,6 +129,13 @@
     "keyword": "support area",
     "effects": [
       {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "name(aragorn)"
+        }
+      },
+      {
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
