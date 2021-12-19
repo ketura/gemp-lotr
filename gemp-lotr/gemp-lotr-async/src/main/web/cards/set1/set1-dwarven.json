@@ -408,10 +408,27 @@
       },
       "effect": [
         {
-          "type": "revealTopCardsOfDrawDeck",
-          "count": 3,
-          "memorize": "revealedCards"
-        },
+          "type": "choice",
+          "texts": [
+            "Reveal top 3 cards of your deck."
+            "Reveal top 3 cards of your opponent's deck."
+          ],
+          "effects": [
+            {
+              "type": "revealTopCardsOfDrawDeck",
+              "count": 3,
+              "memorize": "revealedCards",
+              "deck": "you"
+            },
+            {
+              "type": "revealTopCardsOfDrawDeck",
+              "count": 3,
+              "memorize": "revealedCards",
+              "deck": "shadowPlayer"
+            }
+          ]
+        }
+        
         {
           "type": "optional",
           "text": "Would you like to discard 1 Shadow card revealed?",
