@@ -80,8 +80,8 @@
             "type": "addKeyword",
             "filter": "name(Boromir)",
             "keyword": "defender+1",
-            "until": "start(regroup)"
-          }
+          },
+          "until": "start(regroup)"
         }
       }
     ]
