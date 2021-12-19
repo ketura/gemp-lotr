@@ -99,22 +99,25 @@
 	        "side": "free people",
 	        "memorize": "reducedBy"
 	      },
-	      "effect": {
-	        "type": "modifyStrength",
-	        "filter": "self",
-	        "amount": {
-	        	"type": "fromMemory",
-	        	"memory": "reducedBy"
-	        }
-	      }
+	      "effect": [
+	      	{
+		        "type": "modifyStrength",
+		        "filter": "self",
+		        "amount": {
+		        	"type": "fromMemory",
+		        	"memory": "reducedBy"
+		        }
+		      },
+		      {
+		        "type": "addmodifier",
+		        "modifier": {
+		          "type": "cantUseSpecialAbilities",
+		          "filter": "side(free People)"
+		        },
+		        "until": "start(assignment)"
+		      }
+		    ]
 	    },
-      {
-        "type": "modifier",
-        "modifier": {
-          "type": "cantUseSpecialAbilities",
-          "filter": "side(free People)"
-        }
-      }
 		]
 	},
 
