@@ -106,7 +106,8 @@
 		        "amount": {
 		        	"type": "fromMemory",
 		        	"memory": "reducedBy"
-		        }
+		        },
+		        "until":"start(regroup)"
 		      },
 		      {
 		        "type": "addmodifier",
