@@ -30,7 +30,6 @@
             "amount": {
               "type": "forEachInDiscard",
               "filter": "culture(elven),event",
-              "limit": 4,
               "multiplier": -1
             }
           },
