@@ -249,3 +249,26 @@ gl_theOneRing,1_2
 9_54,9_14
 #Great Hill Troll - 2021/11
 8_123,8_102
+# Christmas 2021
+#Holiday Boromir, Son of Denethor
+1_370,1_97
+#Holiday Aragorn, Ranger of the North
+1_371,1_89
+#Legolas, Greenleaf MW
+1_372,1_50
+#Goblin Armory MW
+1_373,1_173
+#Durin III, Dwarven Lord MW
+9_55,9_3
+#Eowyn, Lady of Ithilien MW
+10_124,10_72
+#Halbarad, Ranger of the North MW
+14_16,14_9
+#Gandalf, Leader of the Company MW
+11_269,11_33
+#Hobbit Sword FA
+1_374,1_299
+#Anduril, Flame of the West FA
+7_366,7_79
+#Pavice FA
+11_270,11_94

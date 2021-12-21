@@ -86,6 +86,20 @@ public class CollectionSerializer {
         _singleByteCountItems.add("9_54");
 
         loadSet("33");
+
+        //Holiday 2021 Promos
+        _singleByteCountItems.add("1_370");
+        _singleByteCountItems.add("1_371");
+        _singleByteCountItems.add("1_372");
+        _singleByteCountItems.add("1_373");
+        _singleByteCountItems.add("9_55");
+        _singleByteCountItems.add("10_124");
+        _singleByteCountItems.add("14_16");
+        _singleByteCountItems.add("11_269");
+        _singleByteCountItems.add("1_374");
+        _singleByteCountItems.add("7_366");
+        _singleByteCountItems.add("11_270");
+
     }
 
     private void fillDoubleByteItems() throws IOException {

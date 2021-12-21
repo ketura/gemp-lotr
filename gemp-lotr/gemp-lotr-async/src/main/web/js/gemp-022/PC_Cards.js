@@ -237,6 +237,31 @@ var PCCards = {
 	'88_112': 'https://i.lotrtcgpc.net/errata/balancing/88_112.jpg',
 	
 	'89_38': 'https://i.lotrtcgpc.net/errata/balancing/89_038.jpg',
+	
+	// Christmas 2021 Promos
+	
+	//Holiday Boromir, Son of Denethor
+	'1_370':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_01097.jpg',
+	//Holiday Aragorn, Ranger of the North
+	'1_371':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_01089.jpg',
+	//Legolas, Greenleaf MW
+	'1_372':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_01050.jpg',
+	//Goblin Armory MW
+	'1_373':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_01173.jpg',
+	//Durin III, Dwarven Lord MW
+	'9_55':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_09003.jpg',
+	//Eowyn, Lady of Ithilien MW
+	'10_124':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_10072.jpg',
+	//Halbarad, Ranger of the North MW
+	'14_16':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_14009.jpg',
+	//Gandalf, Leader of the Company MW
+	'11_269':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_MW_11033.jpg',
+	//Hobbit Sword FA
+	'1_374':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_FA_01299.jpg',
+	//Anduril, Flame of the West FA
+	'7_366':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_FA_07079.jpg',
+	//Pavice FA
+	'11_270':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_FA_11094.jpg',
 
 }
 
