@@ -229,4 +229,50 @@
       }
     ]
   },
+  "78_102": {
+    "side": "shadow",
+    "site": 5,
+    "cost": 9,
+    "race": "Troll",
+    "strength": 16,
+    "culture": "Sauron",
+    "vitality": 4,
+    "title": "Great Hill Troll",
+    "type": "minion",
+    "keyword": [
+      "Fierce",
+      "Besieger"
+    ],
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "controlledsite"
+        },
+      },
+      {
+        "type": "trigger",
+        "optional":true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "condition": [
+          {
+            "type": "location",
+            "filter": "siteNumber(5-9),siteBlock(king)"
+          },
+          {
+            "type": "canspot",
+            "filter": "engine"
+          }
+        ],
+        "effect": {
+          "type": "discard",
+          "filter": "choose(condition,side(free people))"
+        }
+      }
+    ]
+  },
 }
