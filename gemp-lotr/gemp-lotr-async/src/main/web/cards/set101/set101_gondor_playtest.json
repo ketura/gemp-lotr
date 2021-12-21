@@ -230,6 +230,10 @@
     "type": "condition",
     "target": "companion,signet(aragorn),not(name(Aragorn))",
     "strength": 2,
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(aragorn)"
+    },
     "effects": {
       "type": "trigger",
       "trigger": {
