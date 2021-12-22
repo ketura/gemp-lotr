@@ -800,7 +800,7 @@
     "effects": {
       "type": "trigger",
       "trigger": {
-        "type": "assignedToSkirmish",
+        "type": "assignedAgainst",
         "filter": "self",
         "against": "companion",
         "memorizeAgainst": "assignedAgainst"

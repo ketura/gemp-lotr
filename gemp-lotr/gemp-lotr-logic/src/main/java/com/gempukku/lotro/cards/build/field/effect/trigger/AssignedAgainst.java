@@ -11,16 +11,19 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 import org.json.simple.JSONObject;
 
-public class AssignedToSkirmish implements TriggerCheckerProducer {
+public class AssignedAgainst implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "side", "memorize");
+        FieldUtils.validateAllowedFields(value, "filter", "side", "against", "memorizeAgainst", "memorizeAssigned");
 
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
-        final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
+        final String against = FieldUtils.getString(value.get("against"), "against", "any");
+        final String memorizeAssigned = FieldUtils.getString(value.get("memorizeAssigned"), "memorizeAssigned");
+        final String memorizeAgainst = FieldUtils.getString(value.get("memorizeAgainst"), "memorizeAgainst");
         final Side side = FieldUtils.getEnum(Side.class, value.get("side"), "side");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+        final FilterableSource againstSource = environment.getFilterFactory().generateFilter(against, environment);
 
         return new TriggerChecker() {
             @Override
@@ -31,10 +34,16 @@ public class AssignedToSkirmish implements TriggerCheckerProducer {
             @Override
             public boolean accepts(ActionContext actionContext) {
                 final Filterable assignedFilterable = filterableSource.getFilterable(actionContext);
-                final boolean result = TriggerConditions.assignedToSkirmish(actionContext.getGame(), actionContext.getEffectResult(), side, assignedFilterable);
-                if (result && memorize != null) {
+                final Filterable againstFilterable = againstSource.getFilterable(actionContext);
+                final boolean result = TriggerConditions.assignedAgainst(actionContext.getGame(), actionContext.getEffectResult(), side,
+                        againstFilterable, assignedFilterable);
+                if (result && memorizeAgainst != null) {
                     AssignAgainstResult assignmentResult = (AssignAgainstResult) actionContext.getEffectResult();
-                    actionContext.setCardMemory(memorize, assignmentResult.getAssignedCard());
+                    actionContext.setCardMemory(memorizeAgainst, assignmentResult.getAgainst());
+                }
+                if (result && memorizeAssigned != null) {
+                    AssignAgainstResult assignmentResult = (AssignAgainstResult) actionContext.getEffectResult();
+                    actionContext.setCardMemory(memorizeAssigned, assignmentResult.getAssignedCard());
                 }
                 return result;
             }

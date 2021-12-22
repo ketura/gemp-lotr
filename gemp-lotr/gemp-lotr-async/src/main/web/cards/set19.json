@@ -1459,7 +1459,7 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "assignedToSkirmish",
+          "type": "assignedAgainst",
           "filter": "self",
           "memorizeAgainst": "against"
         },
