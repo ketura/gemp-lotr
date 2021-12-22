@@ -201,6 +201,7 @@
         ],
         "cost": {
           "type": "discardStackedCards",
+          "on": "self",
           "count": {
             "type": "range",
             "from": 1,
