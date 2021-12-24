@@ -52,7 +52,7 @@
       "type": "trigger",
       "optional": true,
       "trigger": {
-        "type": "assignedToSkirmish",
+        "type": "assignedAgainst",
         "side": "free people",
         "filter": "self",
         "against": "companion",
@@ -86,7 +86,7 @@
       "type": "trigger",
       "optional": true,
       "trigger": {
-        "type": "assignedToSkirmish",
+        "type": "assignedAgainst",
         "side": "free people",
         "filter": "self",
         "against": "companion"
@@ -118,7 +118,7 @@
       "type": "trigger",
       "optional": true,
       "trigger": {
-        "type": "assignedToSkirmish",
+        "type": "assignedAgainst",
         "side": "free people",
         "filter": "self",
         "against": "companion"

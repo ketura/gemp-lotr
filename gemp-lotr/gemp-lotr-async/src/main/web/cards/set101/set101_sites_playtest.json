@@ -84,6 +84,7 @@
     "type": "site",
     "site": 4,
     "block": "fellowship",
+    "keyword": "underground",
     "direction": "left",
     "effects": {
       "type": "modifier",
@@ -102,6 +103,7 @@
     "type": "site",
     "site": 6,
     "block": "fellowship",
+    "keyword": "forest",
     "direction": "left",
     "effects": {
       "type": "trigger",
@@ -125,6 +127,7 @@
     "type": "site",
     "site": 7,
     "block": "fellowship",
+    "keyword": "river",
     "direction": "left",
     "effects": {
       "type": "modifier",
@@ -145,6 +148,7 @@
     "type": "site",
     "site": 8,
     "block": "fellowship",
+    "keyword": "river",
     "direction": "left",
     "effects": {
       "type": "trigger",
@@ -173,6 +177,7 @@
     "type": "site",
     "site": 9,
     "block": "fellowship",
+    "keyword": "forest",
     "direction": "left",
     "effects": [
       {

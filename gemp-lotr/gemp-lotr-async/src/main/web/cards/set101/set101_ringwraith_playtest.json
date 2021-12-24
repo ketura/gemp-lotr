@@ -179,6 +179,7 @@
 		"effects": [
 			{
         "type": "trigger",
+        "optional": true,
         "trigger": {
           "type": "winsSkirmish",
           "filter": "and(twilight,nazgul)"

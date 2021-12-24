@@ -32,7 +32,7 @@
 
 
 	"151_45": {
-		"title": "Gaze Of The Eye",
+		"title": "*Gaze Of The Eye",
 		"culture": "sauron",
 		"cost": 1,
 		"type": "condition",
@@ -42,7 +42,7 @@
 			"type": "activatedTrigger",
 				"trigger": {
 					"type": "abouttodiscard",
-					"filter": "culture(sauron),condition"
+					"filter": "another,culture(sauron),condition"
 				},
 				"cost": {
 					"type": "removeburdens",

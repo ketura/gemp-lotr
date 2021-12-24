@@ -20,6 +20,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("activated", new ActivatedTriggerCheckerProducer());
         triggerCheckers.put("addsburden", new AddsBurden());
         triggerCheckers.put("addsthreat", new AddsThreat());
+        triggerCheckers.put("assignedagainst", new AssignedAgainst());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
         triggerCheckers.put("cancelledskirmish", new CancelledSkirmish());
         triggerCheckers.put("condition", new ConditionTrigger());

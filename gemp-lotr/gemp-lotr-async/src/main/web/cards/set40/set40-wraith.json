@@ -554,7 +554,7 @@
     "effects": {
       "type": "responseEvent",
       "trigger": {
-        "type": "assignedToSkirmish",
+        "type": "assignedAgainst",
         "side": "free people",
         "filter": "hobbit",
         "against": "nazgul",

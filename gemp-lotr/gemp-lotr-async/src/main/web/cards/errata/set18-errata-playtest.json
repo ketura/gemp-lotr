@@ -103,7 +103,7 @@
 	      "phase": "maneuver",
 	      "cost": {
 	        "type": "removetokens",
-	        "count": 1,
+	        "count": 3,
           "culture": "gondor",
           "filter": "self"
 	      },
@@ -117,7 +117,8 @@
 					},
   	      "effect": {
             "type": "cantBeAssignedToSkirmish",
-            "filter": "choose(minion)"
+            "filter": "choose(minion)",
+            "until": "start(regroup)"
           }
         }
 	    },
