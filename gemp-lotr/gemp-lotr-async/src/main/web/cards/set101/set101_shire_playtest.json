@@ -257,10 +257,6 @@
     ],
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "exert",
-        "filter": "choose(elf)",
-      },
       "effect": {
         "type": "heal",
         "count": "2",

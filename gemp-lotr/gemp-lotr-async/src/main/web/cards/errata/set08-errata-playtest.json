@@ -174,10 +174,6 @@
       "Support Area",
       "Engine"
     ],
-    "condition": {
-      "type": "canSpot",
-      "filter": "culture(sauron),minion"
-    },
     "effects": [
       {
         "type": "activated",
