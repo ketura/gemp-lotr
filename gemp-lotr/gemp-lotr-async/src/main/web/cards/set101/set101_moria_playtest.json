@@ -219,7 +219,7 @@
   "151_36": {
     "title": "Vile Tentacle",
     "culture": "moria",
-    "cost": 3,
+    "cost": 2,
     "type": "minion",
     "race": "creature",
     "keyword": ["tentacle"],

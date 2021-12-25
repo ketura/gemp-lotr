@@ -201,26 +201,32 @@
           {
             "type": "discard",
             "filter": "choose(and(culture(sauron),minion))"
-          }
+          },
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose a card for GROND to SMASH",
+            "filter": "choose(side(free people),not(companion),minTwilight(memory(numberOfTokens)),maxTwilight(memory(numberOfTokens)))",
+            "memorize": "chosenCard"
+          },
         ],
         "effect": [
-          {
-            "type": "discard",
-            "filter": "choose(side(free people),not(companion),minTwilight(memory(numberOfTokens)),maxTwilight(memory(numberOfTokens)))",
-            "memorize": "discardedCard"
-          },
           {
             "type": "conditional",
             "condition": {
               "type": "memorymatches",
-              "memory": "discardedCard",
+              "memory": "chosenCard",
               "filter": "not(zone(SUPPORT))"
             },
             "effect": {
               "type": "discard",
               "filter": "self"
             }
-          }
+          },
+          {
+            "type": "discard",
+            "filter": "memory(chosenCard)"
+          },
+          
         ]
       }
     ]
@@ -242,10 +248,12 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "amount": {
-          "type": "forEachYouCanSpot",
-          "filter": "controlledsite"
+        "condition": {
+          "type": "canSpot",
+          "filter": "engine",
+          "count": 4
         },
+        "amount": -4
       },
       {
         "type": "trigger",
@@ -257,13 +265,13 @@
         "condition": [
           {
             "type": "location",
-            "filter": "siteNumber(5-9),siteBlock(king)"
-          },
-          {
-            "type": "canspot",
-            "filter": "engine"
+            "filter": "siteNumber(5-9)"
           }
         ],
+        "cost": {
+          "type": "discard",
+          "filter": "choose(engine)"
+        },
         "effect": {
           "type": "discard",
           "filter": "choose(condition,side(free people))"

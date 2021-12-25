@@ -8,26 +8,11 @@
 		"keyword": ["shadow"],
 		"effects": {
 			"type": "event",
-			"cost": {
-				"type": "exert",
-				"filter": "choose(elf)",
-			},
-			"effect": [
-      	{
-	        "type": "play",
-	        "filter": "choose(nazgul)",	
-	        "memorize": "playedNazgul"		        
-      	},
-      	{
-          "type": "optional",
-          "text": "Would you like to play a [wraith] possession on that Nazgul from your discard pile?",
-          "effect": {
-            "type": "playCardFromDiscard",
-            "filter": "choose(culture(wraith),possession)",
-            "on": "memory(playedNazgul)"
-          }
-        }
-      ]
+			"effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(wraith),item)",
+        "on": "memory(playedNazgul)"
+      },
     }
 	},
 

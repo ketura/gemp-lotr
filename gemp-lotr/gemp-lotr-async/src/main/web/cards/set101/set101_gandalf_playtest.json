@@ -60,25 +60,30 @@
             "count": 3
           },
           "filter": "name(Gandalf)",
-          "amount": {
-            "type": "condition",
-            "condition": [
-              {
-                "type": "canSpot",
-                "filter": "name(Elrond)"
-              },
-              {
-                "type": "canSpot",
-                "filter": "name(Galadriel)"
-              },
-              {
-                "type": "canSpot",
-                "filter": "name(Celeborn)"
-              }
-            ],
-            "true": 4,
-            "false": 2
-          }
+          "amount": 2
+        }
+      },
+      
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": [
+            {
+              "type": "canSpot",
+              "filter": "name(Elrond)"
+            },
+            {
+              "type": "canSpot",
+              "filter": "name(Galadriel)"
+            },
+            {
+              "type": "canSpot",
+              "filter": "name(Celeborn)"
+            }
+          ],
+          "filter": "name(Gandalf)",
+          "amount": 2
         }
       }
     ]
@@ -93,6 +98,12 @@
     "race": "eagle",
     "strength": 8,
     "vitality": 2,
+    "condition": [
+      {
+        "type": "canSpot",
+        "filter": "name(Gandalf)"
+      }
+    ],
     "effects": [
       {
         "type": "trigger",
@@ -139,19 +150,29 @@
     "title": "My Heart Tells Me",
     "culture": "gandalf",
     "cost": 1,
-    "type": "event",
-    "keyword": "response",
-    "condition": {
-      "type": "canSpot",
-      "filter": "name(Gandalf)"
-    },
+    "type": "condition",
+    "keyword": "support area",
     "effects": {
-      "type": "responseEvent",
+      "type": "activatedtrigger",
       "trigger": {
         "type": "aboutToTakeWound",
         "filter": "minion"
       },
+      "condition": [
+      	{
+		      "type": "canSpot",
+		      "filter": "name(Gandalf)"
+		    },
+		    {
+	        "type": "perTurnLimit",
+	        "limit": 1
+	      },
+	    ],
       "effect": [
+      	{
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
         {
           "type": "preventWound",
           "filter": "choose(minion)"
