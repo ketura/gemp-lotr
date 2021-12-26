@@ -194,7 +194,7 @@
     "side": "free_people",
     "cost": 0,
     "culture": "Shire",
-    "title": "Scouring of the Shire",
+    "title": "*Scouring of the Shire",
     "type": "condition",
     "keyword": [
       "Support Area",

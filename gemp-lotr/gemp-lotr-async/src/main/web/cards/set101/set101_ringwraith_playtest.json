@@ -10,8 +10,7 @@
 			"type": "event",
 			"effect": {
         "type": "playCardFromDiscard",
-        "filter": "choose(culture(wraith),item)",
-        "on": "memory(playedNazgul)"
+        "filter": "choose(culture(wraith),item)"
       },
     }
 	},
