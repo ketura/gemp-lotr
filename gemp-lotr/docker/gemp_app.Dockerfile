@@ -1,7 +1,7 @@
 FROM alpine
 
 RUN apk update; \
-	apk update --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing; \
+	apk update --allow-untrusted --repository=https://dl-cdn.alpinelinux.org/alpine/latest-stable/community; \
 	apk add --no-cache procps; \
 	apk add --no-cache net-tools; \
 	apk add --no-cache iputils; \
@@ -14,7 +14,9 @@ RUN apk update; \
 	apk add --no-cache binutils; \
 	apk add --no-cache freetype; \
 	apk add --no-cache fontconfig; \
-	apk add --no-cache openjdk14-jdk --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing; 
+	apk add --no-cache git; \
+	apk add --no-cache nano; \
+	apk add --no-cache openjdk14-jdk --allow-untrusted --repository=https://dl-cdn.alpinelinux.org/alpine/latest-stable/community; 
 		
 		
 		
@@ -39,7 +41,7 @@ ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 # Enables the JRE remote debugging; perhaps comment this out in a production build
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+#ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
 
 
 #####################################################################
