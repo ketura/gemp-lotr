@@ -107,7 +107,7 @@ var CardFilter = Class.extend({
 
         this.fullFilterDiv = $("<div></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
-            + "<option value='0-32'>All Sets</option>"
+            + "<option value='0-33'>All Sets</option>"
             + "<option value='0-19'>Official Sets</option>"
             + "<option value='30-33'>The Hobbit Sets</option>"
             + "<option value='50-89'>Player's Council Errata</option>"
