@@ -114,14 +114,14 @@
           {
             "type": "revealRandomCardsFromHand",
             "forced": true,
-            "hand": "fp",
+            "hand": "shadowPlayer",
             "count": 3,
             "memorize": "revealedCards"
           },
           {
             "type": "putCardsFromHandOnTopOfDeck",
             "filter": "choose(memory(revealedCards))",
-            "player": "fp"
+            "player": "shadowPlayer"
           }
         ]
       }

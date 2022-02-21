@@ -147,7 +147,7 @@
     ]
   },
   "151_16": {
-    "title": "My Heart Tells Me",
+    "title": "*My Heart Tells Me",
     "culture": "gandalf",
     "cost": 1,
     "type": "condition",
@@ -233,19 +233,32 @@
       {
         "type": "activated",
         "phase": "skirmish",
+        "condition": {
+	        "type": "perPhaseLimit",
+	        "limit": 3
+	      },
         "cost": {
           "type": "exert",
           "filter": "choose(name(Gandalf))"
         },
-        "effect": {
-          "type": "modifyStrength",
-          "filter": "choose(or(culture(gandalf),culture(elven)),companion)",
-          "amount": {
-            "type": "forEachYouCanSpot",
-            "filter": "culture(elven),ally",
-            "limit": 3
-          }
-        }
+        "effect": [
+        	{
+	          "type": "modifyStrength",
+	          "filter": "choose(or(culture(gandalf),culture(elven)),companion)",
+	          "amount": {
+	            "type": "forEachYouCanSpot",
+	            "filter": "culture(elven),ally",
+	            "limit": 3
+	          }
+	        },
+	        {
+          "type": "incrementPerPhaseLimit",
+	          "limit": {
+	            "type": "forEachYouCanSpot",
+	            "filter": "culture(elven),ally",
+	          }
+	        },
+	      ]
       }
     ]
   }

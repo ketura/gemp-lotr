@@ -37,7 +37,7 @@
             "type": "conditional",
             "condition": {
               "type": "memorymatches",
-              "memory": "discardedCard",
+              "memory": "chosenMinion",
               "filter": "strengthLessThan(7)"
             },
             "effect": {

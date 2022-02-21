@@ -67,7 +67,7 @@
   },
   "53_42": {
     "side": "free_people",
-    "cost": 0,
+    "cost": 1,
     "culture": "Gondor",
     "title": "*Horn of Boromir",
     "type": "possession",
@@ -157,7 +157,9 @@
           "type": "addKeyword",
           "filter": "choose(uruk-hai)",
           "keyword": "fierce",
-          "until": "start(regroup)"
+          "until": "start(regroup)",
+          "memorize": "chosenUruk",
+          
         }
       },
       {
@@ -291,7 +293,7 @@
       "optional": true,
       "trigger": {
         "type": "removesBurden",
-        "filter": "not(hobbit)"
+        "filter": "your,not(hobbit)"
       },
       "condition": {
         "type": "perPhaseLimit",
