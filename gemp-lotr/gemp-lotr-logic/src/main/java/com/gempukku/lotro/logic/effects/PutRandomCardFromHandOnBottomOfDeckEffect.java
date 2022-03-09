@@ -37,7 +37,7 @@ public class PutRandomCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
             GameState gameState = game.getGameState();
             final List<PhysicalCard> randomCards = GameUtils.getRandomCards(gameState.getHand(_playerId), 1);
             for (PhysicalCard randomCard : randomCards) {
-                gameState.sendMessage(randomCard.getOwner() + " puts a card at random from hand on bottom of his or her deck");
+                gameState.sendMessage(randomCard.getOwner() + " puts a card at random from hand on bottom of their deck");
                 gameState.removeCardsFromZone(randomCard.getOwner(), Collections.singleton(randomCard));
                 gameState.putCardOnBottomOfDeck(randomCard);
                 putCardFromHandOnBottomOfDeckCallback(randomCard);

@@ -42,7 +42,7 @@ public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
             GameState gameState = game.getGameState();
             gameState.removeCardsFromZone(physicalCards[0].getOwner(), Arrays.asList(physicalCards));
             for (PhysicalCard physicalCard : physicalCards) {
-                gameState.sendMessage(physicalCard.getOwner() + " puts a card from hand on bottom of his or her deck");
+                gameState.sendMessage(physicalCard.getOwner() + " puts a card from hand on bottom of their deck");
                 gameState.putCardOnBottomOfDeck(physicalCard);
             }
 

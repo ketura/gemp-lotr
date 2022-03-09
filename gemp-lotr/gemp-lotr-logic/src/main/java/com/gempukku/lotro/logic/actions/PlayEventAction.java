@@ -79,7 +79,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
                 game.getGameState().addCardToZone(game, _eventPlayed, Zone.VOID);
 
             if (playedFromZone == Zone.DECK) {
-                game.getGameState().sendMessage(_eventPlayed.getOwner() + " shuffles his or her deck");
+                game.getGameState().sendMessage(_eventPlayed.getOwner() + " shuffles their deck");
                 game.getGameState().shuffleDeck(_eventPlayed.getOwner());
             }
 

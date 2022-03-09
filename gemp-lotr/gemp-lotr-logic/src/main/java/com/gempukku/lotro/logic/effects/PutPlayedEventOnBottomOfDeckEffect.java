@@ -34,7 +34,7 @@ public class PutPlayedEventOnBottomOfDeckEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            game.getGameState().sendMessage(card.getOwner() + " puts " + GameUtils.getCardLink(card) + " on bottom of his/her deck");
+            game.getGameState().sendMessage(card.getOwner() + " puts " + GameUtils.getCardLink(card) + " on bottom of their deck");
             game.getGameState().removeCardsFromZone(card.getOwner(), Collections.singletonList(card));
             game.getGameState().putCardOnBottomOfDeck(card);
             return new FullEffectResult(true);

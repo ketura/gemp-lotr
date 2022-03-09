@@ -38,7 +38,7 @@ public class PutCardFromDiscardIntoHandEffect extends AbstractEffect {
         if ((!game.getFormat().hasRuleOfFour() || game.getModifiersQuerying().canDrawCardAndIncrementForRuleOfFour(game, _card.getOwner()))
                 && _card.getZone() == Zone.DISCARD) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_card.getOwner() + " puts " + GameUtils.getCardLink(_card) + " from discard into his or her hand");
+            gameState.sendMessage(_card.getOwner() + " puts " + GameUtils.getCardLink(_card) + " from discard into their hand");
             gameState.removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             gameState.addCardToZone(game, _card, Zone.HAND);
             game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_card.getOwner()));

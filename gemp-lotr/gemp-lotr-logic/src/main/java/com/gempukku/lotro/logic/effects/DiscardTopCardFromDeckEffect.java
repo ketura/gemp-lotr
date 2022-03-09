@@ -58,7 +58,7 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
                 }
             }
             if (cardsDiscarded.size() > 0) {
-                gameState.sendMessage(_playerId + " discards top cards from his or her deck - " + getAppendedNames(cardsDiscarded));
+                gameState.sendMessage(_playerId + " discards top cards from their deck - " + getAppendedNames(cardsDiscarded));
                 cardsDiscardedCallback(cardsDiscarded);
             }
 

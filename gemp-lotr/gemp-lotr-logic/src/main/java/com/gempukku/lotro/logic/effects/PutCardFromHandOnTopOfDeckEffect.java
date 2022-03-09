@@ -36,7 +36,7 @@ public class PutCardFromHandOnTopOfDeckEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on top of his or her deck");
+            gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on top of their deck");
             gameState.removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnTopOfDeck(_physicalCard);
             return new FullEffectResult(true);
