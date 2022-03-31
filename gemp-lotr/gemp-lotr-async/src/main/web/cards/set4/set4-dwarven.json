@@ -46,6 +46,12 @@
         "type": "activated",
         "text": "Discard cards from the top of your deck to no effect.",
         "phase": "fellowship",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "dwarf"
+          }
+        ],
         "effect": [
           {
             "type": "chooseANumber",
