@@ -2,11 +2,11 @@ var cardCache = {};
 var cardScale = 357 / 497;
 var fixedImages = {
     // "Forth the Three Hunters!" cards, separate special images
-    "15_204": "https://lotrtcgwiki.com/images/LOTR15060D.jpg",
-    "15_205": "https://lotrtcgwiki.com/images/LOTR15060E.jpg",
-    "15_206": "https://lotrtcgwiki.com/images/LOTR15060G.jpg",
+    "15_204": "https://i.lotrtcgpc.net/decipher/LOTR15060D.jpg",
+    "15_205": "https://i.lotrtcgpc.net/decipher/LOTR15060E.jpg",
+    "15_206": "https://i.lotrtcgpc.net/decipher/LOTR15060G.jpg",
     // Holidays Gandalf
-    "15_207": "https://lotrtcgwiki.com/images/LOTR15029H.jpg",
+    "15_207": "https://i.lotrtcgpc.net/decipher/LOTR15029H.jpg",
     // Gemp-LotR promos
     "gl_theOneRing": "/gemp-lotr/images/cards/gl_theOneRing.png"
 };
@@ -336,7 +336,7 @@ var Card = Class.extend({
         var imageUrl = this.getUrlByBlueprintId(this.blueprintId, true);
         var afterLastSlash = imageUrl.lastIndexOf("/") + 1;
         var countAfterLastSlash = imageUrl.length - 4 - afterLastSlash;
-        return "http://lotrtcgwiki.com/wiki/" + imageUrl.substr(afterLastSlash, countAfterLastSlash);
+        return "http://wiki.lotrtcgpc.net/wiki/" + imageUrl.substr(afterLastSlash, countAfterLastSlash);
     },
 
     hasWikiInfo: function () {
@@ -367,7 +367,7 @@ var Card = Class.extend({
     },
 
     getMainLocation: function (setNo, cardNo) {
-        return "https://lotrtcgwiki.com/images/";
+        return "https://i.lotrtcgpc.net/decipher/";
     },
 
     getMasterworksOffset: function (setNo) {
