@@ -211,6 +211,7 @@ var PCCards = {
 	
 	'52_6': 'https://i.lotrtcgpc.net/errata/balancing/52_006.jpg',
 	'52_7': 'https://i.lotrtcgpc.net/errata/balancing/52_007.jpg',
+	'52_55': 'https://i.lotrtcgpc.net/errata/balancing/52_007.jpg',
 	
 	'53_120': 'https://i.lotrtcgpc.net/errata/balancing/53_120.jpg',
 	
@@ -219,7 +220,7 @@ var PCCards = {
 	'58_24': 'https://i.lotrtcgpc.net/errata/balancing/58_024.jpg',
 	'58_51': 'https://i.lotrtcgpc.net/errata/balancing/58_051.jpg',
 	'58_57': 'https://i.lotrtcgpc.net/errata/balancing/58_057.jpg',
-	'58_79': 'https://i.lotrtcgpc.net/errata/balancing/58_079.jpg',
+	'58_59': 'https://i.lotrtcgpc.net/errata/balancing/58_059.jpg',
 	'58_102': 'https://i.lotrtcgpc.net/errata/balancing/58_102.jpg',
 	'58_103': 'https://i.lotrtcgpc.net/errata/balancing/58_103.jpg',
 	
@@ -232,7 +233,7 @@ var PCCards = {
 	'68_12': 'https://i.lotrtcgpc.net/errata/balancing/68_012.jpg',
 	'68_29': 'https://i.lotrtcgpc.net/errata/balancing/68_029.jpg',
 	'68_50': 'https://i.lotrtcgpc.net/errata/balancing/68_050.jpg',
-	'68_59': 'https://i.lotrtcgpc.net/errata/balancing/68_059.jpg',
+	'68_79': 'https://i.lotrtcgpc.net/errata/balancing/68_079.jpg',
 	'68_96': 'https://i.lotrtcgpc.net/errata/balancing/68_096.jpg',
 	'68_112': 'https://i.lotrtcgpc.net/errata/balancing/68_112.jpg',
 	
