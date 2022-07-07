@@ -219,7 +219,7 @@ var PCCards = {
 	'58_24': 'https://i.lotrtcgpc.net/errata/balancing/58_024.jpg',
 	'58_51': 'https://i.lotrtcgpc.net/errata/balancing/58_051.jpg',
 	'58_57': 'https://i.lotrtcgpc.net/errata/balancing/58_057.jpg',
-	'58_59': 'https://i.lotrtcgpc.net/errata/balancing/58_059.jpg',
+	'58_79': 'https://i.lotrtcgpc.net/errata/balancing/58_079.jpg',
 	'58_102': 'https://i.lotrtcgpc.net/errata/balancing/58_102.jpg',
 	'58_103': 'https://i.lotrtcgpc.net/errata/balancing/58_103.jpg',
 	
