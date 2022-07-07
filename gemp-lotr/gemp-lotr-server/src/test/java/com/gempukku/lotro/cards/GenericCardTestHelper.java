@@ -320,6 +320,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
+    public void AddBurdens(int count) {
+        _game.getGameState().addBurdens(count);
+    }
+
+    public void RemoveBurdens(int count) {
+        _game.getGameState().removeBurdens(count);
+    }
+
     public int GetTwilight() { return _game.getGameState().getTwilightPool(); }
     public void SetTwilight(int amount) { _game.getGameState().setTwilight(amount); }
 
@@ -491,7 +499,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     }
 
     public void FreepsChoose(String choice) throws DecisionResultInvalidException { playerDecided(P1, choice); }
+    public void FreepsChoose(String...choices) throws DecisionResultInvalidException { playerDecided(P1, String.join(",", choices)); }
     public void ShadowChoose(String choice) throws DecisionResultInvalidException { playerDecided(P2, choice); }
+    public void ShadowChoose(String...choices) throws DecisionResultInvalidException { playerDecided(P2, String.join(",", choices)); }
 
 
     public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }

@@ -29,22 +29,10 @@
     "vitality": 4,
     "site": 4,
     "keyword": [
-      "Fierce",
+      "Enduring",
       "Corsair"
     ],
     "effects": [
-      {
-        "type": "modifier",
-        "modifier": {
-          "type": "modifyStrength",
-          "filter": "self",
-          "amount": {
-            "type": "forEachWound",
-            "filter": "self",
-            "multiplier": 1
-          }
-        }
-      },
       {
         "type": "activated",
         "phase": "shadow",
@@ -127,7 +115,7 @@
           "condition": [
             {
               "type": "canSpot",
-              "filter": "self,hasTokenCount(6,raider)"
+              "filter": "self,hasTokenCount(4,raider)"
             },
             {
               "type": "canSpot",
