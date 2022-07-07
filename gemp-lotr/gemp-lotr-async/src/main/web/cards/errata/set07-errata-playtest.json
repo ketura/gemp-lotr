@@ -1,29 +1,3 @@
 {
-  "77_359": {
-    "title": "Northern Ithilien",
-    "type": "site",
-    "block": "King",
-    "cost": 8,
-    "site": 8,
-    "direction": "right",
-    "effects": {
-      "type": "activated",
-      "phase": "shadow",
-      "limitPerPhase": 1,
-      "cost": [
-        {
-          "type": "removeThreats",
-          "amount": 2
-        },
-        {
-          "type": "playCardFromDiscard",
-          "filter": "choose(name(Gollum))"
-        }
-      ],
-      "effect": {
-        "type": "addBurdens",
-        "amount": 2
-      }
-    }
-  }
+  
 }

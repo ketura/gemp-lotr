@@ -21,7 +21,7 @@ public class Card_19_038_ErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("nertea", "89_38");
+                    put("nertea", "69_38");
                     put("boromir", "1_96");
                     put("aragorn", "1_89");
                     put("arwen", "1_30");

@@ -1,3 +1,79 @@
 {
-	
+	"69_38": {
+    "title": "*Úlairë Nertëa",
+    "subtitle": "Dark Horseman",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "chooseARace",
+            "memorize": "chosenRace"
+          },
+          {
+            "type": "storeWhileInZone",
+            "memory": "chosenRace"
+          }
+        ]
+      },
+      
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "freeplayerstartedassigning"
+        },
+        "effect": [
+          {
+	          "type": "chooseYesOrNo",
+	          "player": "fp",
+	          "text": "Would you like to add a burden to be able to assign Ulaire Nertea to a {chosenRace}?",
+	          "memorize": "choice"
+	        },
+	        {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryIs",
+              "memory": "choice",
+              "value": "no"
+            },
+            "effect": {
+			        "type": "addmodifier",
+			        "until": "start(skirmish)",
+			        "modifier": {
+			          "type": "cantBeAssignedToSkirmishAgainst",
+			          "side": "free people",
+			          "fpCharacter": "companion,race(stored)",
+			          "minion": "self",
+			          
+			        }
+			      }
+			    },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryIs",
+              "memory": "choice",
+              "value": "yes"
+            },
+            "effect": {
+              "type": "addBurdens",
+              "amount": 1
+            }
+          }
+        ]
+      },
+    ]
+  },
 }

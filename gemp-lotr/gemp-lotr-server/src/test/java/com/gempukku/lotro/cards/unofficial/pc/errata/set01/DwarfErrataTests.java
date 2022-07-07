@@ -18,11 +18,11 @@ public class DwarfErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("guard", "71_7");
-                    put("farin", "71_11");
-                    put("elf", "71_53");
-                    put("fror", "72_6");
-                    put("gloin", "72_7");
+                    put("guard", "51_7");
+                    put("farin", "51_11");
+                    put("elf", "51_53");
+                    put("fror", "52_6");
+                    put("gloin", "52_7");
                 }}
         );
     }

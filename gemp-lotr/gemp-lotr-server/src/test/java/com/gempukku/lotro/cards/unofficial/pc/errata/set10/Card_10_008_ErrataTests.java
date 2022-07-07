@@ -21,7 +21,7 @@ public class Card_10_008_ErrataTests
         return new GenericCardTestHelper(
                 new HashMap<String, String>()
                 {{
-                    put("cirdan", "80_8");
+                    put("cirdan", "60_8");
                     put("event1", "1_37");
                     put("event2", "1_37");
                     put("event3", "1_37");

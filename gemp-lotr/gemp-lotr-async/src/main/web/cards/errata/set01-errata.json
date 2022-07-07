@@ -1,4 +1,74 @@
 {
+  "51_7": {
+    "title": "Dwarf Guard",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 5,
+    "vitality": 2,
+    "resistance": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    }
+  },
+  "51_11": {
+    "title": "*Farin",
+    "subtitle": "Dwarven Emissary",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    },
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,inSkirmishAgainst(orc)",
+        "amount": 2
+      }
+    }
+  },
+  "51_12": {
+    "title": "*Gimli",
+    "subtitle": "Dwarf of Erebor",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "condition": {
+        "type": "twilightPoolLessThan",
+        "amount": 2
+      },
+      "cost": [
+        {
+          "type": "addTwilight",
+          "amount": 2
+        },
+        {
+          "type": "putCardsFromHandOnBottomOfDeck"
+        }
+      ],
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
   "51_40": {
     "title": "*Elrond",
     "subtitle": "Lord of Rivendell",
@@ -83,6 +153,64 @@
           "filter": "choose(elf)",
           "cost": -1
         }
+      }
+    ]
+  },
+  "51_53": {
+    "title": "Lorien Elf",
+    "culture": "elven",
+    "cost": 1,
+    "type": "companion",
+    "race": "elf",
+    "strength": 5,
+    "vitality": 2,
+    "resistance": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    }
+  },
+  "51_55": {
+    "title": "*The Mirror of Galadriel",
+    "culture": "elven",
+    "cost": 2,
+    "type": "possession",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "elf,ally,allyHome(fellowship,6)",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "cardsInHandMoreThan",
+          "player": "shadowPlayer",
+          "count": 6
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Galadriel))"
+        },
+        "effect": [
+          {
+            "type": "revealRandomCardsFromHand",
+            "forced": true,
+            "hand": "shadowPlayer",
+            "count": 3,
+            "memorize": "revealedCards"
+          },
+          {
+            "type": "putCardsFromHandOnTopOfDeck",
+            "filter": "choose(memory(revealedCards))",
+            "player": "shadowPlayer"
+          }
+        ]
       }
     ]
   },
@@ -305,6 +433,68 @@
       }
     }
   },
+  "51_254": {
+    "title": "Mordor Enraged",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "target": "archer,companion",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "usesspecialability",
+          "filter": "side(free people)"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "archery"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "bearer"
+        }
+      }
+    ]
+  },
+  "51_282": {
+    "title": "The Weight of a Legacy",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "strength": -1,
+    "target": "culture(gondor),companion,not(hasAttached(name(The Weight of a Legacy)))",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "canSpot",
+            "count": 2,
+            "filter": "tale"
+          },
+          "filter": "bearer",
+          "amount": -2
+        }
+      }
+    ]
+  },
+  
   "51_311": {
     "title": "*Sam",
     "subtitle": "Son of Hamfast",
@@ -407,5 +597,9 @@
         "amount": -1
       }
     }
-  }
+  },
+  
+  
+  
+  
 }
