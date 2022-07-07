@@ -272,12 +272,12 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
-          "type": "canSpot",
-          "filter": "engine",
-          "count": 4
-        },
-        "amount": -4
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "and(engine,culture(sauron))",
+          "multiplier": -1,
+          "limit": 5
+        }
       },
       {
         "type": "trigger",
