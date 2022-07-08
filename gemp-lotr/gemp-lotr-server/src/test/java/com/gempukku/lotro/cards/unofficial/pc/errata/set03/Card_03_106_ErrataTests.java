@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class BillThePonyErrataTests
+public class Card_03_106_ErrataTests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(

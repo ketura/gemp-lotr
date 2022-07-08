@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.official.set1;
+package com.gempukku.lotro.cards.official.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Phase;

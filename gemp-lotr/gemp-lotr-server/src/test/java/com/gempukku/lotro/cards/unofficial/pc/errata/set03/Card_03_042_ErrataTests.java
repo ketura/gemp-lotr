@@ -13,7 +13,7 @@ import java.util.HashMap;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
-public class HornOfBoromirErrataTests
+public class Card_03_042_ErrataTests
 {
     protected GenericCardTestHelper GetFOTRScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(

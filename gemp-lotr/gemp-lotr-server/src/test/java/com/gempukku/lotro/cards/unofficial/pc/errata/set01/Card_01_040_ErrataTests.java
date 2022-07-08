@@ -12,7 +12,7 @@ import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 
-public class Elrond_LoRErrataTests
+public class Card_01_040_ErrataTests
 {
 
     protected GenericCardTestHelper GetSimpleDeckScenario() throws CardNotFoundException, DecisionResultInvalidException {

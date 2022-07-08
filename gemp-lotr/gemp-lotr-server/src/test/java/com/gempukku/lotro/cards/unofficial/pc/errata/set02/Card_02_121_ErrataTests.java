@@ -16,7 +16,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Gimli_DotMrErrataTests
+public class Card_02_121_ErrataTests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(

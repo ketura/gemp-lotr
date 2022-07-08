@@ -13,7 +13,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Galadriel_LoLErrataTests
+public class Card_01_045_ErrataTests
 {
     protected GenericCardTestHelper GetSimplePlayScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(

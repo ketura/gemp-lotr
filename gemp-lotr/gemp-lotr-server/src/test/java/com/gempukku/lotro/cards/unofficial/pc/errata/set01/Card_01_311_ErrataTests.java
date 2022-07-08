@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-public class Sam_SoHErrataTests
+public class Card_01_311_ErrataTests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
