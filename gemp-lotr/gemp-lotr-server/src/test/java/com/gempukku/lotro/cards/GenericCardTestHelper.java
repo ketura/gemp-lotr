@@ -34,7 +34,20 @@ public class GenericCardTestHelper extends AbstractAtTest {
         put("site9", "1_360");
     }};
 
+    public static final HashMap<String, String> KingSites = new HashMap<String, String>() {{
+        put("site1", "7_330");
+        put("site2", "7_335");
+        put("site3", "8_117");
+        put("site4", "7_342");
+        put("site5", "7_345");
+        put("site6", "7_350");
+        put("site7", "8_120");
+        put("site8", "10_120");
+        put("site9", "7_360");
+    }};
+
     public static final String FOTRFrodo = "1_290";
+    public static final String GimliRB = "9_4";
     public static final String FOTRRing = "1_2";
 
 
