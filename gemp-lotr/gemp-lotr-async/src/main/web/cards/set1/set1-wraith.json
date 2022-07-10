@@ -140,10 +140,16 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "self,zone(support)"
-        },
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "self,zone(support)"
+          },
+          {
+            "type": "canSpot",
+            "filter": "character,inSkirmishAgainst(nazgul)"
+          },
+      ],
         "effect": {
           "type": "transfer",
           "filter": "choose(self,zone(support))",
