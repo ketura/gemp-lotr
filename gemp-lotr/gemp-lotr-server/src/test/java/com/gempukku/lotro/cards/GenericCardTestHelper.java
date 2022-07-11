@@ -333,6 +333,15 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
+    public void FreepsRemoveWoundsFromChar(String cardName, int count) { RemoveWoundsFromChar(GetFreepsCard(cardName), count); }
+    public void ShadowRemoveWoundsFromChar(String cardName, int count) { RemoveWoundsFromChar(GetShadowCard(cardName), count); }
+    public void RemoveWoundsFromChar(PhysicalCardImpl card, int count) {
+        for(int i = 0; i < count; i++)
+        {
+            _game.getGameState().removeWound(card);
+        }
+    }
+
     public void AddBurdens(int count) {
         _game.getGameState().addBurdens(count);
     }
@@ -434,6 +443,22 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void ShadowChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException {
         playerDecided(P2, String.valueOf(card.getCardId()));
     }
+
+    public void FreepsChooseCards(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCards(P1, cards); }
+    public void ShadowChooseCards(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCards(P2, cards); }
+    public void ChooseCards(String player, PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+        String[] ids = new String[cards.length];
+
+        for(int i = 0; i < cards.length; i++)
+        {
+            ids[i] = String.valueOf(cards[i].getCardId());
+        }
+
+        playerDecided(player, String.join(",", ids));
+    }
+
+
+
     public boolean FreepsCanChooseCharacter(PhysicalCardImpl card) { return FreepsGetCardChoices().contains(String.valueOf(card.getCardId())); }
     public boolean ShadowCanChooseCharacter(PhysicalCardImpl card) { return ShadowGetCardChoices().contains(String.valueOf(card.getCardId())); }
 
