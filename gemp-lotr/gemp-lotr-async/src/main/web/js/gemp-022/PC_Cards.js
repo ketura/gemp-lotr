@@ -268,6 +268,6 @@ var PCCards = {
 	// The Balrog, Demon of Might FA
 	'19_41':'https://i.lotrtcgpc.net/promos/2022/07/PCPROMO_FA_19018.jpg',
 	// Aragorn's Bow, Ranger's Longbow MW
-	'15_208''https://i.lotrtcgpc.net/promos/2022/07/PCPROMO_MW_15056.jpg',
+	'15_208':'https://i.lotrtcgpc.net/promos/2022/07/PCPROMO_MW_15056.jpg',
 }
 
