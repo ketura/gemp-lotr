@@ -40,9 +40,9 @@ public class Card7_106 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.FORTIFICATION));
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

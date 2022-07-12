@@ -1,0 +1,54 @@
+{
+  "17_140": {
+    "title": "*Úlairë Enquëa",
+    "subtitle": "Duplicitous Lieutenant",
+    "side": "shadow",
+    "culture": "Wraith",
+    "type": "minion",
+    "race": "Nazgul",
+    "cost": 6,
+    "strength": 11,
+    "vitality": 4,
+    "site": 3,
+    "keyword": "Fierce",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "heals",
+          "filter": "companion",
+          "side": "free people"
+        },
+        "effect": {
+          "type": "addburdens",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "times": 2,
+          "filter": "self"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(condition,side(free people))",
+          "count": {
+            "type":"condition",
+            "condition": {
+              "type": "canSpot",
+              "filter": "condition,side(free people)",
+              "count": 5
+            },
+            "true": 2,
+            "false": 1
+          }
+        }
+      },
+    ]
+  },
+  
+}

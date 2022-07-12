@@ -30,7 +30,7 @@ public class Card18_136 extends AbstractShadowsSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.character));
+                    new HealCharactersEffect(self, null, Filters.character));
             return Collections.singletonList(action);
         }
         return null;

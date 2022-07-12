@@ -47,7 +47,7 @@ public class Card5_094 extends AbstractPermanent {
                                             new StrengthModifier(self, Filters.sameCard(card), 3)));
                             if (atPlains)
                                 action.appendEffect(
-                                        new HealCharactersEffect(self, card));
+                                        new HealCharactersEffect(self, self.getOwner(), card));
                         }
                     });
             return Collections.singletonList(action);

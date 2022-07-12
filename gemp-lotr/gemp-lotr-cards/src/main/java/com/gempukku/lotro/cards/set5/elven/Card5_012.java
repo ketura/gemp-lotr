@@ -42,7 +42,7 @@ public class Card5_012 extends AbstractAttachableFPPossession {
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.wounded)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, self.getAttachedTo()));
+                    new HealCharactersEffect(self, self.getOwner(), self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

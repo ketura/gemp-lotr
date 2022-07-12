@@ -35,7 +35,7 @@ public class Card7_352 extends AbstractSite {
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Race.HOBBIT, CardType.COMPANION));
+                    new HealCharactersEffect(self, null, Race.HOBBIT, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

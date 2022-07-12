@@ -46,7 +46,7 @@ public class Card13_154 extends AbstractPermanent {
                         protected void forEachCardChosenToHealCallback(PhysicalCard character) {
                             if (character.getBlueprint().getTitle().equals("Sam"))
                                 action.appendEffect(
-                                        new HealCharactersEffect(self, character));
+                                        new HealCharactersEffect(self, self.getOwner(), character));
                         }
                     });
             return Collections.singletonList(action);

@@ -46,7 +46,7 @@ public class Card12_166 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachHealed(game, effectResult, Filters.hasAttached(self))) {
+        if (TriggerConditions.forEachHealed(game, effectResult, null, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddBurdenEffect(self.getOwner(), self, 1));

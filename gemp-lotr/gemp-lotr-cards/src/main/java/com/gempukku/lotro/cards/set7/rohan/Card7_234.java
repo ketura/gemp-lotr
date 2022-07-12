@@ -38,7 +38,7 @@ public class Card7_234 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
         action.appendEffect(
-                new HealCharactersEffect(self, Culture.ROHAN, CardType.ALLY));
+                new HealCharactersEffect(self, self.getOwner(), Culture.ROHAN, CardType.ALLY));
         return action;
     }
 }

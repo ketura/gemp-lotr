@@ -35,7 +35,7 @@ public class Card7_351 extends AbstractSite {
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Culture.GONDOR, CardType.COMPANION));
+                    new HealCharactersEffect(self, null, Culture.GONDOR, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

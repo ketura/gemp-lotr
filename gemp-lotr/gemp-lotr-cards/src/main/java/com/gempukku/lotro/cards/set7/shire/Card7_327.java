@@ -45,7 +45,7 @@ public class Card7_327 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

@@ -51,9 +51,9 @@ public class Card13_060 extends AbstractPermanent {
                 action.appendEffect(
                         new PreventCardEffect((PreventableCardEffect) effect, faramir));
                 action.appendEffect(
-                        new HealCharactersEffect(self, faramir));
+                        new HealCharactersEffect(self, self.getOwner(), faramir));
                 action.appendEffect(
-                        new HealCharactersEffect(self, faramir));
+                        new HealCharactersEffect(self, self.getOwner(), faramir));
             }
             return Collections.singletonList(action);
         }

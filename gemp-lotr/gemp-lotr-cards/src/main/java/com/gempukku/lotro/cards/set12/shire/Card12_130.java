@@ -36,7 +36,7 @@ public class Card12_130 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new HealCharactersEffect(self, Race.HOBBIT));
+                    new HealCharactersEffect(self, self.getOwner(), Race.HOBBIT));
             return Collections.singletonList(action);
         }
         return null;

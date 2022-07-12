@@ -71,9 +71,9 @@ public class Card5_056 extends AbstractMinion {
         if (TriggerConditions.moves(game, effectResult)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Culture.ISENGARD, Race.ORC));
+                    new HealCharactersEffect(self, self.getOwner(), Culture.ISENGARD, Race.ORC));
             action.appendEffect(
-                    new HealCharactersEffect(self, Culture.ISENGARD, Race.ORC));
+                    new HealCharactersEffect(self, self.getOwner(), Culture.ISENGARD, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;

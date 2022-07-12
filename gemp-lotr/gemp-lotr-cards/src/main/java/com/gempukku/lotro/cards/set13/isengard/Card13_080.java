@@ -35,7 +35,7 @@ public class Card13_080 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.forEachHealed(game, effectResult, Race.WIZARD)
+        if (TriggerConditions.forEachHealed(game, effectResult, null, Race.WIZARD)
                 && self.getZone() != Zone.SHADOW_CHARACTERS) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

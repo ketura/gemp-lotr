@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.HealResult;
@@ -14,10 +15,11 @@ import org.json.simple.JSONObject;
 public class Heals implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "memorize");
+        FieldUtils.validateAllowedFields(value, "filter", "side", "memorize");
 
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
+        final Side side = FieldUtils.getEnum(Side.class, value.get("side"), "side");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
@@ -30,7 +32,7 @@ public class Heals implements TriggerCheckerProducer {
             @Override
             public boolean accepts(ActionContext actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
-                final boolean result = TriggerConditions.forEachHealed(actionContext.getGame(), actionContext.getEffectResult(), filterable);
+                final boolean result = TriggerConditions.forEachHealed(actionContext.getGame(), actionContext.getEffectResult(), side, filterable);
                 if (result && memorize != null) {
                     final PhysicalCard healedCard = ((HealResult) actionContext.getEffectResult()).getHealedCard();
                     actionContext.setCardMemory(memorize, healedCard);

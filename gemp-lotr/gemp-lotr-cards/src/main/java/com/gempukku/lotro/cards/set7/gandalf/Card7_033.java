@@ -45,7 +45,7 @@ public class Card7_033 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
-                                new HealCharactersEffect(self, card.getBlueprint().getCulture(), CardType.COMPANION));
+                                new HealCharactersEffect(self, self.getOwner(), card.getBlueprint().getCulture(), CardType.COMPANION));
                     }
                 });
         return action;

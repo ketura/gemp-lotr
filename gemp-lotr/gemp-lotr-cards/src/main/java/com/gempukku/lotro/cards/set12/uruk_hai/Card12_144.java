@@ -53,7 +53,7 @@ public class Card12_144 extends AbstractMinion {
         if (TriggerConditions.forEachKilled(game, effectResult, CardType.COMPANION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

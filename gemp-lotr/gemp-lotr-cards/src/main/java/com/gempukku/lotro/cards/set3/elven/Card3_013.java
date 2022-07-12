@@ -50,7 +50,7 @@ public class Card3_013 extends AbstractAlly {
                                                     final int heals = getValidatedResult(result);
                                                     for (int i=0; i<heals; i++)
                                                         action.appendEffect(
-                                                                new HealCharactersEffect(self, card));
+                                                                new HealCharactersEffect(self, self.getOwner(), card));
                                                 }
                                             }));
                         }

@@ -36,7 +36,7 @@ public class Card7_089 extends AbstractEvent {
         action.appendCost(
                 new AddThreatsEffect(playerId, self, 3));
         action.appendEffect(
-                new HealCharactersEffect(self, Culture.GONDOR, CardType.COMPANION));
+                new HealCharactersEffect(self, self.getOwner(), Culture.GONDOR, CardType.COMPANION));
         return action;
     }
 }

@@ -63,7 +63,7 @@ public class Card13_189 extends AbstractShadowsSite {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
                             action.appendEffect(
-                                    new HealCharactersEffect(self, Filters.in(companionsToHeal)));
+                                    new HealCharactersEffect(self, self.getOwner(), Filters.in(companionsToHeal)));
                         }
                     });
             return Collections.singletonList(action);

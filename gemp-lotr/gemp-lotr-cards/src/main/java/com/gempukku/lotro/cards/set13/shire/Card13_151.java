@@ -50,10 +50,10 @@ public class Card13_151 extends AbstractFollower {
         if (TriggerConditions.transferredCard(game, effectResult, self, null, Filters.and(Culture.SHIRE, CardType.COMPANION))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.hasAttached(self)));
+                    new HealCharactersEffect(self, self.getOwner(), Filters.hasAttached(self)));
             if (PlayConditions.location(game, Keyword.DWELLING))
                 action.appendEffect(
-                        new HealCharactersEffect(self, Filters.hasAttached(self)));
+                        new HealCharactersEffect(self, self.getOwner(), Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

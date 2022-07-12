@@ -52,7 +52,7 @@ public class Card5_031 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndAssignMinionToCompanionEffect(action, playerId, self, CardType.MINION, Filters.hasAttached(Culture.GONDOR, Keyword.FORTIFICATION)));
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

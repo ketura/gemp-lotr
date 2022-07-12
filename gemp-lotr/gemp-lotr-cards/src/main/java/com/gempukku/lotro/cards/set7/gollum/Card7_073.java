@@ -38,7 +38,7 @@ public class Card7_073 extends AbstractEvent {
                         new CancelSkirmishEffect(smeagol));
             } else {
                 action.appendEffect(
-                        new HealCharactersEffect(self, smeagol));
+                        new HealCharactersEffect(self, self.getOwner(), smeagol));
             }
         }
         return action;

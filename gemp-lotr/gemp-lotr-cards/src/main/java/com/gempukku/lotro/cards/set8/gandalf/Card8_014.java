@@ -32,7 +32,7 @@ public class Card8_014 extends AbstractEvent {
         if (currentSite.getBlueprint().getSiteBlock() == SitesBlock.KING
                 && currentSite.getSiteNumber() >= 1 && currentSite.getSiteNumber() <= 5) {
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.gandalf));
+                    new HealCharactersEffect(self, self.getOwner(), Filters.gandalf));
         } else {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Race.HOBBIT) {

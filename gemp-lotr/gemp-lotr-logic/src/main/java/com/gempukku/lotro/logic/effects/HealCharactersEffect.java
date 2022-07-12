@@ -15,15 +15,18 @@ import java.util.Collection;
 
 public class HealCharactersEffect extends AbstractPreventableCardEffect {
     private PhysicalCard _source;
+    private String _performingPlayer;
 
-    public HealCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
+    public HealCharactersEffect(PhysicalCard source, String performingPlayer, PhysicalCard... cards) {
         super(cards);
         _source = source;
+        _performingPlayer = performingPlayer;
     }
 
-    public HealCharactersEffect(PhysicalCard source, Filterable... filter) {
+    public HealCharactersEffect(PhysicalCard source, String performingPlayer, Filterable... filter) {
         super(filter);
         _source = source;
+        _performingPlayer = performingPlayer;
     }
 
     @Override
@@ -57,7 +60,7 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " heals " + getAppendedNames(cardsToHeal));
             for (PhysicalCard cardToHeal : cardsToHeal) {
                 game.getGameState().removeWound(cardToHeal);
-                game.getActionsEnvironment().emitEffectResult(new HealResult(cardToHeal));
+                game.getActionsEnvironment().emitEffectResult(new HealResult(cardToHeal, _source, _performingPlayer));
             }
         }
     }

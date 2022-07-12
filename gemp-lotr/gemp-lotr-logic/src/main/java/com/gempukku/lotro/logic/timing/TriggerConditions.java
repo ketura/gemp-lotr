@@ -219,10 +219,18 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean forEachHealed(LotroGame game, EffectResult effectResult, Filterable... filters) {
-        if (effectResult.getType() == EffectResult.Type.FOR_EACH_HEALED)
+    public static boolean forEachHealed(LotroGame game, EffectResult effectResult, Side side, Filterable... filters) {
+        if (effectResult.getType() != EffectResult.Type.FOR_EACH_HEALED)
+            return false;
+
+        HealResult healResult = (HealResult)effectResult;
+        String fpPlayer = game.getGameState().getCurrentPlayerId();
+        if (side == null ||(side == Side.FREE_PEOPLE && fpPlayer.equals(healResult.getPerformingPlayer()))
+                || (side == Side.SHADOW && !fpPlayer.equals(healResult.getPerformingPlayer())))
             return Filters.and(filters).accepts(game, ((HealResult) effectResult).getHealedCard());
-        return false;
+        else
+            return false;
+
     }
 
     public static boolean forEachExerted(LotroGame game, EffectResult effectResult, Filterable... filters) {

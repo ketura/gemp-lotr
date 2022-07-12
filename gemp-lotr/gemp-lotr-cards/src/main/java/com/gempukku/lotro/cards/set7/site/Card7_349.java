@@ -35,7 +35,7 @@ public class Card7_349 extends AbstractSite {
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Culture.DWARVEN, CardType.COMPANION));
+                    new HealCharactersEffect(self, null, Culture.DWARVEN, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

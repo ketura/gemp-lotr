@@ -50,7 +50,7 @@ public class Card5_122 extends AbstractCompanion {
                         }
                     });
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

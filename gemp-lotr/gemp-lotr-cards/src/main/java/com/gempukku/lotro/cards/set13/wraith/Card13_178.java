@@ -42,7 +42,7 @@ public class Card13_178 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard companion) {
                         action.appendCost(
-                                new HealCharactersEffect(self, companion));
+                                new HealCharactersEffect(self, self.getOwner(), companion));
                         action.appendEffect(
                                 new AddBurdenEffect(self.getOwner(), self, 1));
 
@@ -51,7 +51,7 @@ public class Card13_178 extends AbstractEvent {
                             for (int i = 0; i < wounds; i++) {
                                 SubAction subAction = new SubAction(action);
                                 subAction.appendCost(
-                                        new HealCharactersEffect(self, companion));
+                                        new HealCharactersEffect(self, self.getOwner(), companion));
                                 subAction.appendEffect(
                                         new AddBurdenEffect(self.getOwner(), self, 1));
                                 action.appendEffect(

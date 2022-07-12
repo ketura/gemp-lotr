@@ -46,7 +46,7 @@ public class Card7_091 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.ROHAN, Race.MAN));
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {

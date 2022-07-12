@@ -48,7 +48,7 @@ public class Heal implements EffectAppenderProducer {
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         List<Effect> result = new LinkedList<>();
                         for (int i = 0; i < healTimes; i++) {
-                            result.add(new HealCharactersEffect(actionContext.getSource(), cardsFromMemory.toArray(new PhysicalCard[0])));
+                            result.add(new HealCharactersEffect(actionContext.getSource(), action.getPerformingPlayer(), cardsFromMemory.toArray(new PhysicalCard[0])));
                         }
                         return result;
                     }

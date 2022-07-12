@@ -33,7 +33,7 @@ public class Card11_249 extends AbstractShadowsSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.minResistance(5)));
+                    new HealCharactersEffect(self, null, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.minResistance(5)));
             action.appendEffect(
                     new ExertCharactersEffect(action, self, Filters.character, Filters.not(Filters.or(CardType.COMPANION, CardType.ALLY), Filters.minResistance(5))));
             return Collections.singletonList(action);

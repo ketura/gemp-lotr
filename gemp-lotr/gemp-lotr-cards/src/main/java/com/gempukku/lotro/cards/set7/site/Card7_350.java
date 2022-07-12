@@ -35,7 +35,7 @@ public class Card7_350 extends AbstractSite {
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Culture.ELVEN, CardType.COMPANION));
+                    new HealCharactersEffect(self, null, Culture.ELVEN, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

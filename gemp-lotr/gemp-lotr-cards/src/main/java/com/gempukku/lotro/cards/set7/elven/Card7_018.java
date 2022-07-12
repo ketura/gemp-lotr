@@ -39,7 +39,7 @@ public class Card7_018 extends AbstractAttachableFPPossession {
                 && Filters.countActive(game, Filters.hasAttached(self), Filters.inSkirmish) > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.hasAttached(self)));
+                    new HealCharactersEffect(self, self.getOwner(), Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

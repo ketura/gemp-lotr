@@ -64,11 +64,11 @@ public class Card13_010 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ELVEN, 1, Filters.any));
             action.appendEffect(
-                    new HealCharactersEffect(self, self.getAttachedTo()));
+                    new HealCharactersEffect(self, self.getOwner(), self.getAttachedTo()));
             if (PlayConditions.canSpot(game, self.getAttachedTo(), Filters.inSkirmish)
                     && game.getGameState().isFierceSkirmishes())
                 action.appendEffect(
-                        new ChooseAndHealCharactersEffect(action, playerId, Race.ELF, Filters.not(self.getAttachedTo())));
+                        new ChooseAndHealCharactersEffect(action, self.getOwner(), Race.ELF, Filters.not(self.getAttachedTo())));
             return Collections.singletonList(action);
         }
         return null;

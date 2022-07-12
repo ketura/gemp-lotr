@@ -61,7 +61,7 @@ public class Card10_040 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndWoundCharactersEffect(action, playerId, 2, 2, Filters.not(self), Culture.RAIDER, Race.MAN));
             action.appendEffect(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             return Collections.singletonList(action);
         }
         return null;

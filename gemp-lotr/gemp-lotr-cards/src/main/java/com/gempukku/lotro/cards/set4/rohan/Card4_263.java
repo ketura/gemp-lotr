@@ -46,7 +46,7 @@ public class Card4_263 extends AbstractAttachableFPPossession {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, self.getAttachedTo()));
+                    new HealCharactersEffect(self, self.getOwner(), self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

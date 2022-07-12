@@ -47,7 +47,7 @@ public class HealByDiscardRule {
                                                 }
                                             });
 
-                                    action.appendEffect(new HealCharactersEffect(card, active));
+                                    action.appendEffect(new HealCharactersEffect(card, card.getOwner(), active));
                                     result.add(action);
                                 }
                             }

@@ -47,7 +47,7 @@ public class Card10_068 extends AbstractMinion {
                 && PlayConditions.canHeal(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new HealCharactersEffect(self, self));
+                    new HealCharactersEffect(self, self.getOwner(), self));
             action.appendEffect(
                     new AddBurdenEffect(playerId, self, 1));
             return Collections.singletonList(action);

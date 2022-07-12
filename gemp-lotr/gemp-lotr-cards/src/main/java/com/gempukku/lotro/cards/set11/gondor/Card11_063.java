@@ -28,7 +28,7 @@ public class Card11_063 extends AbstractEvent {
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new HealCharactersEffect(self, Culture.GONDOR, CardType.COMPANION, Filters.minResistance(5)));
+                new HealCharactersEffect(self, self.getOwner(), Culture.GONDOR, CardType.COMPANION, Filters.minResistance(5)));
         return action;
     }
 }

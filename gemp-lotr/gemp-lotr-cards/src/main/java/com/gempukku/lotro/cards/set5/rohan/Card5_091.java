@@ -48,7 +48,7 @@ public class Card5_091 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new HealCharactersEffect(self, self.getAttachedTo()));
+                    new HealCharactersEffect(self, self.getOwner(), self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

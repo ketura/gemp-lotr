@@ -58,7 +58,7 @@ public class Card11_023 extends AbstractAttachableFPPossession {
                     action.appendCost(
                             new IncrementPhaseLimitEffect(self, 1));
                     action.appendEffect(
-                            new HealCharactersEffect(self, self.getAttachedTo()));
+                            new HealCharactersEffect(self, self.getOwner(), self.getAttachedTo()));
                     return Collections.singletonList(action);
                 }
             }

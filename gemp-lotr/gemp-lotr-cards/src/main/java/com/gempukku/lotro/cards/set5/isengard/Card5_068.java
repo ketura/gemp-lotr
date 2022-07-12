@@ -40,7 +40,7 @@ public class Card5_068 extends AbstractEvent {
                                         new StrengthModifier(self, Filters.sameCard(card), 2)));
                         if (isMounted)
                             action.appendEffect(
-                                    new HealCharactersEffect(self, card));
+                                    new HealCharactersEffect(self, self.getOwner(), card));
                     }
                 });
         return action;

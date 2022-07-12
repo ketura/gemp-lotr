@@ -40,7 +40,7 @@ public class Card8_046 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
-                    new HealCharactersEffect(self, self.getAttachedTo()));
+                    new HealCharactersEffect(self, self.getOwner(), self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;
