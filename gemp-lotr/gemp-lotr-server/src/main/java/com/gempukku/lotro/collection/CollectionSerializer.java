@@ -99,6 +99,11 @@ public class CollectionSerializer {
         _singleByteCountItems.add("1_374");
         _singleByteCountItems.add("7_366");
         _singleByteCountItems.add("11_270");
+        
+        //July 2022 PC Promos
+        _singleByteCountItems.add("19_41");
+        _singleByteCountItems.add("15_208");
+        
 
     }
 

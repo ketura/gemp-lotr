@@ -272,3 +272,7 @@ gl_theOneRing,1_2
 7_366,7_79
 #Pavice FA
 11_270,11_94
+#The Balrog, Demon of Might FA
+19_41,19_18
+#Aragorn's Bow, Ranger's Longbow MW
+15_208,15_56

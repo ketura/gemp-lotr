@@ -263,6 +263,11 @@ var PCCards = {
 	'7_366':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_FA_07079.jpg',
 	//Pavice FA
 	'11_270':'https://i.lotrtcgpc.net/promos/2021/12/PCPROMO_FA_11094.jpg',
-
+	
+	//July Weekend League Promos
+	// The Balrog, Demon of Might FA
+	'19_41':'https://i.lotrtcgpc.net/promos/2022/07/PCPROMO_FA_19018.jpg',
+	// Aragorn's Bow, Ranger's Longbow MW
+	'15_208''https://i.lotrtcgpc.net/promos/2022/07/PCPROMO_MW_15056.jpg',
 }
 
