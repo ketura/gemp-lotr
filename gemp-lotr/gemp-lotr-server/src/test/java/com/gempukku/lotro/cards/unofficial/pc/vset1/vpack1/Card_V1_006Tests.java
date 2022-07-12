@@ -60,7 +60,7 @@ public class Card_V1_006Tests
 	}
 
 	@Test
-	public void SoBoldOffersHealEachMove() throws DecisionResultInvalidException, CardNotFoundException {
+	public void SoBoldOffersDefenderEachMove() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -72,24 +72,24 @@ public class Card_V1_006Tests
 
 		scn.StartGame();
 		scn.FreepsPlayCard(bold);
-		scn.AddWoundsToChar(gimli, 2);
 
 		scn.SkipCurrentPhaseActions();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		assertEquals(0, scn.GetWoundsOn(legolas));
-		assertEquals(2, scn.GetWoundsOn(gimli));
+		assertEquals(0, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
 
 		scn.FreepsAcceptOptionalTrigger();
 		assertEquals(1, scn.GetWoundsOn(legolas));
-		assertEquals(1, scn.GetWoundsOn(gimli));
+		assertEquals(1, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.SkipCurrentPhaseActions();
+		assertEquals(0, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
 		scn.FreepsChooseToMove();
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
 		assertEquals(2, scn.GetWoundsOn(legolas));
-		assertEquals(0, scn.GetWoundsOn(gimli));
+		assertEquals(1, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
 	}
 }

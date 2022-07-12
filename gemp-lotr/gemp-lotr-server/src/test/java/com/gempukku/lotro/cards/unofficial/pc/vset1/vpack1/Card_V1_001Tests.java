@@ -1,11 +1,12 @@
 package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
@@ -28,6 +29,8 @@ public class Card_V1_001Tests
                     put("handaxe1", "2_10");
                     put("handaxe2", "2_10");
                     put("handaxe3", "2_10");
+
+                    put("troop", "1_143");
                 }},
                 GenericCardTestHelper.FellowshipSites,
                 GenericCardTestHelper.FOTRFrodo,
@@ -47,8 +50,9 @@ public class Card_V1_001Tests
          * Twilight Cost: 1
          * Type: Condition
          * Subtype: Support Area
-         * Game Text: At sites 4 through 8, each [dwarf] companion bearing more than 1 possession is strength +1.
-         * Each time the fellowship moves you may spot a [dwarf] companion bearing more than one possession to draw a card.
+         * Game Text: Maneuver: If the fellowship is at any sites 4 through 8, make each Dwarf lose all damage bonuses
+         * until the regroup phase, and each Dwarf bearing 2 or more items takes no more than 1 wound per phase until the
+         * regroup phase.
          */
 
         //Pre-game setup
@@ -56,129 +60,15 @@ public class Card_V1_001Tests
 
         PhysicalCardImpl hosp = scn.GetFreepsCard("hosp");
 
-        assertTrue(scn.HasKeyword(hosp, Keyword.SUPPORT_AREA));
+        assertFalse(hosp.getBlueprint().isUnique());
         assertEquals(1, hosp.getBlueprint().getTwilightCost());
-        assertTrue(hosp.getBlueprint().isUnique());
+        assertEquals(CardType.CONDITION, hosp.getBlueprint().getCardType());
+        assertEquals(Culture.DWARVEN, hosp.getBlueprint().getCulture());
+        assertTrue(scn.HasKeyword(hosp, Keyword.SUPPORT_AREA));
     }
 
     @Test
-    public void StrengthBuffWhenAt4To8AndBearing2PlusItems() throws DecisionResultInvalidException, CardNotFoundException {
-        //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
-
-        PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
-        PhysicalCardImpl farin = scn.GetFreepsCard("farin");
-        PhysicalCardImpl hosp = scn.GetFreepsCard("hosp");
-
-        PhysicalCardImpl handaxe1 = scn.GetFreepsCard("handaxe1");
-        PhysicalCardImpl handaxe2 = scn.GetFreepsCard("handaxe2");
-        PhysicalCardImpl handaxe3 = scn.GetFreepsCard("handaxe3");
-
-        scn.FreepsMoveCharToTable(gimli);
-        scn.FreepsMoveCharToTable(farin);
-        scn.FreepsMoveCardToHand(hosp);
-        scn.FreepsMoveCardToHand(handaxe1);
-        scn.FreepsMoveCardToHand(handaxe2);
-        scn.FreepsMoveCardToHand(handaxe3);
-
-        scn.StartGame();
-        scn.FreepsPlayCard(hosp);
-
-        // Putting two hand axes on Gimli and one on Farin
-        scn.FreepsPlayCard(handaxe1);
-        scn.FreepsChooseCard(gimli);
-        scn.FreepsPlayCard(handaxe2);
-        scn.FreepsChooseCard(gimli);
-        scn.FreepsPlayCard(handaxe3);
-        //last axe goes on Farin automatically
-
-        // 6 base strength + 1 axe + 1 axe
-        assertEquals(8, scn.GetStrength(gimli));
-        // 5 base strength + 1 axe
-        assertEquals(6, scn.GetStrength(farin));
-
-        //Cheat our way to unlimited moves
-        scn.ApplyAdHocModifier(new MoveLimitModifier(null, 8));
-
-        // Move to site 2
-        scn.SkipToPhase(Phase.REGROUP);
-
-        // Move to site 3
-        scn.SkipCurrentPhaseActions();
-        scn.FreepsChooseToMove();
-        //THe other effect of Hospitality can be ignored
-        scn.FreepsAcceptOptionalTrigger();
-
-        assertEquals(8, scn.GetStrength(gimli));
-        assertEquals(6, scn.GetStrength(farin));
-
-
-        // Move to site 4
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsChooseToMove();
-        scn.FreepsAcceptOptionalTrigger();
-
-        // 6 base strength + 1 axe + 1 axe + 1 Hospitality
-        assertEquals(9, scn.GetStrength(gimli));
-        // 6 base strength + 1 axe + 1 axe + 0 Hospitality
-        assertEquals(6, scn.GetStrength(farin));
-
-        // Move to site 5
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsChooseToMove();
-        scn.FreepsAcceptOptionalTrigger();
-
-        assertEquals(9, scn.GetStrength(gimli));
-        assertEquals(6, scn.GetStrength(farin));
-
-        // Move to site 6
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsChooseToMove();
-        scn.FreepsAcceptOptionalTrigger();
-
-        assertEquals(9, scn.GetStrength(gimli));
-        assertEquals(6, scn.GetStrength(farin));
-
-        // Move to site 7
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsChooseToMove();
-        scn.FreepsAcceptOptionalTrigger();
-
-        assertEquals(9, scn.GetStrength(gimli));
-        assertEquals(6, scn.GetStrength(farin));
-
-        // Move to site 8
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsChooseToMove();
-        scn.FreepsAcceptOptionalTrigger();
-
-        assertEquals(9, scn.GetStrength(gimli));
-        assertEquals(6, scn.GetStrength(farin));
-
-        // Move to site 9
-        scn.SkipToPhase(Phase.REGROUP);
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsChooseToMove();
-        scn.FreepsAcceptOptionalTrigger();
-
-        //lose the hospitality
-        assertEquals(8, scn.GetStrength(gimli));
-        assertEquals(6, scn.GetStrength(farin));
-    }
-
-    @Test
-    public void DrawsCardWhenBearing2PlusItems() throws DecisionResultInvalidException, CardNotFoundException {
+    public void AbilityOnlyActivatesAtSites4To8() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
@@ -189,40 +79,118 @@ public class Card_V1_001Tests
         PhysicalCardImpl handaxe2 = scn.GetFreepsCard("handaxe2");
 
         scn.FreepsMoveCharToTable(gimli);
-        scn.FreepsMoveCardToHand(hosp);
+        scn.FreepsMoveCardToSupportArea(hosp);
         scn.FreepsMoveCardToHand(handaxe1);
         scn.FreepsMoveCardToHand(handaxe2);
 
+        PhysicalCardImpl troop = scn.GetShadowCard("troop");
+        scn.ShadowMoveCharToTable(troop);
+
+        //Max out the move limit so we don't have to juggle play back and forth
+        scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
+
         scn.StartGame();
-        scn.FreepsPlayCard(hosp);
 
         // Putting two hand axes on Gimli
         scn.FreepsPlayCard(handaxe1);
         scn.FreepsPlayCard(handaxe2);
 
-        //one farin, one axe in the deck
-        assertEquals(2, scn.GetFreepsDeckCount());
-        assertEquals(0, scn.GetFreepsHandCount());
+        //Site 2
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertFalse(scn.FreepsCardActionAvailable(hosp));
 
-        scn.FreepsSkipCurrentPhaseAction();
-        scn.FreepsAcceptOptionalTrigger();
-
-        assertEquals(1, scn.GetFreepsDeckCount());
-        assertEquals(1, scn.GetFreepsHandCount());
-
-        scn.SkipToPhase(Phase.REGROUP);
-
-        scn.FreepsMoveCardToDiscard(handaxe1);
-        assertEquals(1, scn.GetAttachedCards(gimli).size());
-
-        // Move to site 3
+        scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.SkipCurrentPhaseActions();
+        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+
+        scn.SkipCurrentPhaseActions(); //in regroup
         scn.FreepsChooseToMove();
 
-        //Should not have drawn a card with only 1 possession on gimli
-        assertEquals(1, scn.GetFreepsDeckCount());
-        assertEquals(1, scn.GetFreepsHandCount());
-        assertFalse(scn.FreepsAnyDecisionsAvailable());
+        //Site 3
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertFalse(scn.FreepsCardActionAvailable(hosp));
 
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipCurrentPhaseActions();
+        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+
+        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.FreepsChooseToMove();
+
+        //Site 4
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertTrue(scn.FreepsCardActionAvailable(hosp));
+        scn.FreepsUseCardAction(hosp);
+        assertFalse(scn.HasKeyword(gimli, Keyword.DAMAGE));
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipCurrentPhaseActions();
+        scn.FreepsAssignToMinions(gimli, troop);
+        scn.FreepsResolveSkirmish(gimli);
+        scn.SkipCurrentPhaseActions(); // passes skirmish actions
+
+        assertEquals(1, scn.GetWoundsOn(gimli));
+
+        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.FreepsChooseToMove();
+
+        //Site 5
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertTrue(scn.FreepsCardActionAvailable(hosp));
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipCurrentPhaseActions();
+        scn.FreepsAssignToMinions(gimli, troop);
+        scn.FreepsResolveSkirmish(gimli);
+        scn.SkipCurrentPhaseActions(); // passes skirmish actions
+
+        //Without the wound protection, gimli dies with 2 wounds this round
+        assertEquals(Zone.DEAD, gimli.getZone());
+
+        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.FreepsChooseToMove();
+
+        //Site 6
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertTrue(scn.FreepsCardActionAvailable(hosp));
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipCurrentPhaseActions();
+        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+
+        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.FreepsChooseToMove();
+
+        //Site 7
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertTrue(scn.FreepsCardActionAvailable(hosp));
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipCurrentPhaseActions();
+        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+
+        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.FreepsChooseToMove();
+
+        //Site 8
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertTrue(scn.FreepsCardActionAvailable(hosp));
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.SkipCurrentPhaseActions();
+        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+
+        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.FreepsChooseToMove();
+
+        //Site 5
+        scn.SkipToPhase(Phase.MANEUVER);
+        assertFalse(scn.FreepsCardActionAvailable(hosp));
     }
 }

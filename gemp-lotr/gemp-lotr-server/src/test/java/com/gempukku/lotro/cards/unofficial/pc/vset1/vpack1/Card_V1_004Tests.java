@@ -55,12 +55,13 @@ public class Card_V1_004Tests
 		assertFalse(friend.getBlueprint().isUnique());
 		assertEquals(1, friend.getBlueprint().getTwilightCost());
 		assertEquals(CardType.EVENT, friend.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(friend, Keyword.MANEUVER));
 		assertEquals(Culture.DWARVEN, friend.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, friend.getBlueprint().getSide());
 	}
 
 	@Test
-	public void ElfriendExertsElfToPumpGimli() throws DecisionResultInvalidException, CardNotFoundException {
+	public void ElfriendExertsElfToPumpADwarf() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -80,12 +81,15 @@ public class Card_V1_004Tests
 		assertEquals(6, scn.GetStrength(gimli));
 		scn.FreepsPlayCard(friend);
 		assertEquals(1, scn.GetWoundsOn(legolas));
-		assertEquals(8, scn.GetStrength(gimli));
+		assertEquals(9, scn.GetStrength(gimli));
+		assertEquals(2, scn.GetKeywordCount(gimli, Keyword.DAMAGE));
 
 		scn.SkipToPhase(Phase.ARCHERY);
-		assertEquals(8, scn.GetStrength(gimli));
+		assertEquals(9, scn.GetStrength(gimli));
+		assertEquals(2, scn.GetKeywordCount(gimli, Keyword.DAMAGE));
 
 		scn.SkipToPhase(Phase.REGROUP);
 		assertEquals(6, scn.GetStrength(gimli));
+		assertEquals(1, scn.GetKeywordCount(gimli, Keyword.DAMAGE));
 	}
 }

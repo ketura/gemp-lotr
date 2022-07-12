@@ -111,6 +111,15 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public PhysicalCardImpl GetFreepsCard(String cardName) { return Cards.get(P1).get(cardName); }
     public PhysicalCardImpl GetShadowCard(String cardName) { return Cards.get(P2).get(cardName); }
+    public PhysicalCardImpl GetFreepsCardByID(String id) { return GetCardByID(P1, Integer.parseInt(id)); }
+    public PhysicalCardImpl GetFreepsCardByID(int id) { return GetCardByID(P1, id); }
+    public PhysicalCardImpl GetShadowCardByID(String id) { return GetCardByID(P2, Integer.parseInt(id)); }
+    public PhysicalCardImpl GetShadowCardByID(int id) { return GetCardByID(P2, id); }
+    public PhysicalCardImpl GetCardByID(String player, int id) {
+        return Cards.get(player).values().stream()
+                .filter(x -> x.getCardId() == id)
+                .findFirst().orElse(null);
+    }
 
     public PhysicalCardImpl GetFreepsSite(int siteNum) { return GetSite(P1, siteNum); }
     public PhysicalCardImpl GetShadowSite(int siteNum) { return GetSite(P2, siteNum); }
@@ -265,7 +274,12 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
-
+    public void FreepsAttachCardsTo(PhysicalCardImpl bearer, String...names) {
+        Arrays.stream(names).forEach(name -> AttachCardsTo(bearer, GetFreepsCard(name)));
+    }
+    public void ShadowAttachCardsTo(PhysicalCardImpl bearer, String...names) {
+        Arrays.stream(names).forEach(name -> AttachCardsTo(bearer, GetShadowCard(name)));
+    }
     public void AttachCardsTo(PhysicalCardImpl bearer, PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> _game.getGameState().attachCard(_game, card, bearer));
     }
@@ -287,14 +301,19 @@ public class GenericCardTestHelper extends AbstractAtTest {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DECK));
     }
 
-    public void FreepsMoveCharToTable(String cardName) { FreepsMoveCharToTable(GetFreepsCard(cardName)); }
+    public void FreepsMoveCharToTable(String...names) {
+        Arrays.stream(names).forEach(name -> FreepsMoveCharToTable(GetFreepsCard(name)));
+    }
     public void FreepsMoveCharToTable(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.FREE_CHARACTERS));
     }
-    public void ShadowMoveCharToTable(String cardName) { FreepsMoveCharToTable(GetShadowCard(cardName)); }
+    public void ShadowMoveCharToTable(String...names) {
+        Arrays.stream(names).forEach(name -> ShadowMoveCharToTable(GetShadowCard(name)));
+    }
     public void ShadowMoveCharToTable(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P2, card, Zone.SHADOW_CHARACTERS));
     }
+
 
     public void FreepsMoveCardToSupportArea(String cardName) { FreepsMoveCardToSupportArea(GetFreepsCard(cardName)); }
     public void FreepsMoveCardToSupportArea(PhysicalCardImpl...cards) {

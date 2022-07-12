@@ -1,6 +1,6 @@
 {
 	"151_1": {
-    "title": "*Hospitality of the Dwarves",
+    "title": "Hospitality of the Dwarves",
     "culture": "dwarven",
     "cost": 1,
     "type": "condition",
@@ -9,32 +9,65 @@
     ],
     "effects": [
       {
-        "type": "modifier",
-        "modifier": {
-          "type": "modifyStrength",
-          "amount": 1,
-          "condition": {
-            "type": "location",
-            "filter": "siteBlock(fellowship),or(siteNumber(4),siteNumber(5),siteNumber(6),siteNumber(7),siteNumber(8))"
-          },
-          "filter": "dwarf,hasAttachedCount(2,item)"
-        }
-      },
-      {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "moves"
-        },
+        "type": "activated",
+        "phase": "maneuver",
         "condition": {
-          "type": "canSpot",
-          "filter": "dwarf,hasAttachedCount(2,item)"
+          "type": "location",
+          "filter": "or(siteNumber(4),siteNumber(5),siteNumber(6),siteNumber(7),siteNumber(8))"
         },
-        "effect": {
-          "type": "drawCards",
-          "count": 1
-        }
-      }
+        "effect": [
+          {
+            "type": "addmodifier",
+            "modifier": {
+              "type": "removeKeyword",
+              "filter": "dwarf",
+              "keyword": "damage"
+            },
+            "until": "start(regroup)"
+          },
+          {
+            "type": "addmodifier",
+            "modifier": {
+              "type": "cantTakeMoreWoundsThan",
+              "amount": 1,
+              "filter": "dwarf,hasAttachedCount(2,item)",
+              "phase": "maneuver"
+            },
+            "until": "start(archery)"
+          },
+          {
+            "type": "addmodifier",
+            "modifier": {
+              "type": "cantTakeMoreWoundsThan",
+              "amount": 1,
+              "filter": "dwarf,hasAttachedCount(2,item)",
+              "phase": "archery"
+            },
+            "until": "start(assignment)"
+          },
+          {
+            "type": "addmodifier",
+            "modifier": {
+              "type": "cantTakeMoreWoundsThan",
+              "amount": 1,
+              "filter": "dwarf,hasAttachedCount(2,item)",
+              "phase": "assignment"
+            },
+            "until": "start(regroup)"
+          },
+          {
+            "type": "addmodifier",
+            "modifier": {
+              "type": "cantTakeMoreWoundsThan",
+              "amount": 1,
+              "filter": "dwarf,hasAttachedCount(2,item)",
+              "phase": "skirmish"
+            },
+            "until": "start(regroup)"
+          },
+        ]
+      },
+      
     ]
   },
   
@@ -74,7 +107,7 @@
         },
         "effect": {
           "type": "putStackedCardsIntoHand",
-          "filter": "choose(side(free people))",
+          "filter": "choose(any)",
           "on": "self"
         }
       }
@@ -138,9 +171,16 @@
       "effect": [
         {
           "type": "modifyStrength",
-          "filter": "choose(name(Gimli))",
+          "filter": "choose(dwarf)",
           "until": "start(regroup)",
-          "amount": 2
+          "memorize": "chosenDwarf",
+          "amount": 3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(chosenDwarf)",
+          "keyword": "damage+1",
+          "until": "start(regroup)"
         }
       ]
     }
@@ -160,10 +200,38 @@
       "type": "event",
       "effect": [
         {
-          "type": "addKeyword",
+          "type": "heal",
           "filter": "choose(dwarf,hasAttachedCount(2,item))",
-          "keyword": "defender+1",
-          "until": "start(regroup)"
+          "times": 1,
+          "memorize": "healedDwarf"
+        },
+        {
+          "type": "memorizenumber",
+          "memory": "originalItemCount",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "item,attachedTo(memory(healedDwarf))"
+          }
+        },
+        {
+          "type": "returntohand",
+          "filter": "choose(item,attachedTo(memory(healedDwarf)))",
+          "count": "0-50"
+        },
+        {
+          "type": "wound",
+          "filter": "choose(minion)",
+          "count": {
+            "type": "subtract",
+            "firstNumber": {
+              "type": "fromMemory",
+              "memory": "originalItemCount"
+            },
+            "secondNumber": {
+              "type": "forEachYouCanSpot",
+              "filter": "item,attachedTo(memory(healedDwarf))"
+            }
+          }
         }
       ]
     }
@@ -189,9 +257,10 @@
         "times": 1
       },
       "effect": {
-        "type": "heal",
-        "filter": "choose(name(Gimli))",
-        "times": 1
+        "type": "addKeyword",
+        "filter": "choose(dwarf)",
+        "keyword": "defender+1",
+        "until": "start(regroup)"
       }
     }
   },

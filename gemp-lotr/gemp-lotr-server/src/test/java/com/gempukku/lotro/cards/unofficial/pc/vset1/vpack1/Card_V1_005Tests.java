@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -27,11 +28,17 @@ public class Card_V1_005Tests
 					put("guard", "1_7");
 					put("handaxe1", "2_10");
 					put("handaxe2", "2_10");
+					put("armor", "1_8");
+					put("bracers", "2_3");
+					put("ring", "9_6");
+
 					put("runner", "1_178");
-				}},
-				GenericCardTestHelper.FellowshipSites,
-				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
+					put("runner2", "1_178");
+					put("runner3", "1_178");
+					put("runner4", "1_178");
+					put("runner5", "1_178");
+					put("runner6", "1_178");
+				}}
 		);
 	}
 
@@ -54,15 +61,15 @@ public class Card_V1_005Tests
 
 		PhysicalCardImpl onedwarf = scn.GetFreepsCard("onedwarf");
 
-		assertFalse(onedwarf.getBlueprint().isUnique());
 		assertEquals(1, onedwarf.getBlueprint().getTwilightCost());
 		assertEquals(CardType.EVENT, onedwarf.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(onedwarf, Keyword.MANEUVER));
 		assertEquals(Culture.DWARVEN, onedwarf.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, onedwarf.getBlueprint().getSide());
 	}
 
 	@Test
-	public void OneDwarfAppliesDefender() throws DecisionResultInvalidException, CardNotFoundException {
+	public void OneDwarfHeals() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -76,16 +83,57 @@ public class Card_V1_005Tests
 		scn.ShadowMoveCharToTable("runner");
 
 		scn.StartGame();
+		scn.AddWoundsToChar(gimli, 2);
 		scn.SkipToPhase(Phase.MANEUVER);
 		assertTrue(scn.FreepsActionAvailable("One Dwarf"));
 
-		assertEquals(0, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
+		assertEquals(2, scn.GetWoundsOn(gimli));
 		scn.FreepsPlayCard(onedwarf);
-		assertEquals(1, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
+		assertEquals(1, scn.GetWoundsOn(gimli));
 	}
 
 	@Test
-	public void OneDwarfCantBePlayedIfNoDwarvesWithItems() throws DecisionResultInvalidException, CardNotFoundException {
+	public void OneDwarfDiscardsVariableNumberOfItemsToWoundMinions() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl onedwarf = scn.GetFreepsCard("onedwarf");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCardToHand(onedwarf);
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsMoveCharToTable("guard");
+		scn.FreepsAttachCardsTo(gimli, "handaxe1", "handaxe2", "armor", "bracers", "ring");
+
+		scn.ShadowMoveCharToTable("runner", "runner2", "runner3", "runner4", "runner5", "runner6");
+
+		scn.StartGame();
+		scn.AddWoundsToChar(gimli, 2);
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.FreepsActionAvailable("One Dwarf"));
+
+		assertEquals(2, scn.GetWoundsOn(gimli));
+		scn.FreepsPlayCard(onedwarf);
+		assertEquals(1, scn.GetWoundsOn(gimli));
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to return to hand"));
+		assertEquals(5, scn.GetFreepsCardChoiceCount()); // There are 5 items on gimli
+		String[] choices = scn.FreepsGetCardChoices().toArray(new String[0]);
+		scn.FreepsChoose(choices[0], choices[1], choices[2], choices[3], choices[4]);
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to wound"));
+		choices = scn.FreepsGetCardChoices().toArray(new String[0]);
+		scn.FreepsChoose(choices[0], choices[1], choices[2], choices[3], choices[4]);
+
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[0]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[1]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[2]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[3]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[4]).getZone());
+
+		assertEquals(Zone.SHADOW_CHARACTERS, scn.GetShadowCardByID(choices[5]).getZone());
+	}
+
+	@Test
+	public void OneDwarfCantBePlayedIfNoDwarvesWithTwoItems() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 

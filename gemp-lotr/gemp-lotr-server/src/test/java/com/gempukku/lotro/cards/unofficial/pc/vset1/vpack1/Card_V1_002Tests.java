@@ -24,7 +24,8 @@ public class Card_V1_002Tests
                     put("axe", "1_9");
                     put("axe2", "1_9");
                     put("deep", "151_2");
-                    put("beneath", "2_1");
+                    put("emhr", "4_46");
+                    put("strike", "1_3");
 
                     put("runner", "1_178");
                     put("plunder", "1_193");
@@ -64,18 +65,22 @@ public class Card_V1_002Tests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl beneath = scn.GetFreepsCard("beneath");
+        PhysicalCardImpl emhr = scn.GetFreepsCard("emhr");
         PhysicalCardImpl deep = scn.GetFreepsCard("deep");
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
         PhysicalCardImpl axe = scn.GetFreepsCard("axe2");
-        scn.FreepsMoveCardToSupportArea(beneath);
+        PhysicalCardImpl strike = scn.GetFreepsCard("strike");
+        scn.FreepsMoveCardToSupportArea(emhr);
         scn.FreepsMoveCardToSupportArea(deep);
         scn.FreepsMoveCharToTable(gimli);
         scn.FreepsMoveCardToDiscard("axe");
+        scn.FreepsMoveCardToDiscard("runner");
+        scn.FreepsMoveCardToDiscard("plunder");
+        scn.FreepsMoveCardToDeck(strike);
 
         scn.StartGame();
 
-        scn.FreepsUseCardAction(beneath);
+        scn.FreepsUseCardAction("Discard 1");
 
         assertTrue(scn.FreepsHasOptionalTriggerAvailable());
         scn.FreepsAcceptOptionalTrigger();
@@ -89,23 +94,26 @@ public class Card_V1_002Tests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl beneath = scn.GetFreepsCard("beneath");
+        PhysicalCardImpl emhr = scn.GetFreepsCard("emhr");
         PhysicalCardImpl deep = scn.GetFreepsCard("deep");
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
-        PhysicalCardImpl axe = scn.GetFreepsCard("axe");
-        PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
-
-        scn.FreepsMoveCardToSupportArea(beneath);
-        scn.FreepsMoveCardToSupportArea(deep);
+        PhysicalCardImpl strike = scn.GetFreepsCard("strike");
+        scn.FreepsMoveCardToSupportArea(emhr);
+        scn.FreepsMoveCardToHand(deep);
         scn.FreepsMoveCharToTable(gimli);
         scn.FreepsMoveCardToDiscard("axe");
-
+        scn.FreepsMoveCardToDiscard("runner");
+        scn.FreepsMoveCardToDiscard("plunder");
+        scn.FreepsMoveCardToDeck(strike);
 
         scn.ShadowMoveCharToTable("runner");
 
         scn.StartGame();
 
-        scn.FreepsUseCardAction(beneath);
+        scn.FreepsPlayCard(deep);
+
+        scn.FreepsUseCardAction("Discard 1");
+        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
         scn.FreepsAcceptOptionalTrigger();
 
         scn.SkipToPhase(Phase.MANEUVER);
