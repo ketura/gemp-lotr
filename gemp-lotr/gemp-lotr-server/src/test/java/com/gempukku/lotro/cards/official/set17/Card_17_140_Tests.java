@@ -171,7 +171,7 @@ public class Card_17_140_Tests
     }
 
     @Test
-    public void EndOfTheGameDoesNotTriggerEnquea() throws DecisionResultInvalidException, CardNotFoundException {
+    public void EndOfTheGameTriggersEnquea() throws DecisionResultInvalidException, CardNotFoundException {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
@@ -209,10 +209,9 @@ public class Card_17_140_Tests
         scn.FreepsChooseMultipleChoiceOption("Heal");
         assertEquals(2, scn.GetWoundsOn(aragorn));
 
-        //We should have no Enquea triggers
-        assertFalse(scn.ShadowHasOptionalTriggerAvailable());
-        //We should see no burdens added from Enquea as DT is a shadow card.
-        assertEquals(0, scn.GetBurdens());
+        //As a Freeps healing source, we should have the Enquea trigger
+        assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+
     }
 
 

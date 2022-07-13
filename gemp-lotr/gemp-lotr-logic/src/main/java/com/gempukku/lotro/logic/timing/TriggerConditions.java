@@ -1,5 +1,7 @@
 package com.gempukku.lotro.logic.timing;
 
+import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -219,14 +221,12 @@ public class TriggerConditions {
         return false;
     }
 
-    public static boolean forEachHealed(LotroGame game, EffectResult effectResult, Side side, Filterable... filters) {
+    public static boolean forEachHealed(LotroGame game, EffectResult effectResult, String player, Filterable... filters) {
         if (effectResult.getType() != EffectResult.Type.FOR_EACH_HEALED)
             return false;
 
         HealResult healResult = (HealResult)effectResult;
-        String fpPlayer = game.getGameState().getCurrentPlayerId();
-        if (side == null ||(side == Side.FREE_PEOPLE && fpPlayer.equals(healResult.getPerformingPlayer()))
-                || (side == Side.SHADOW && !fpPlayer.equals(healResult.getPerformingPlayer())))
+        if (player.equals(healResult.getPerformingPlayer()))
             return Filters.and(filters).accepts(game, ((HealResult) effectResult).getHealedCard());
         else
             return false;

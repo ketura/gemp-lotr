@@ -6,17 +6,21 @@ import com.gempukku.lotro.cards.build.PlayerSource;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.GameUtils;
 
+import java.util.Locale;
+
 public class PlayerResolver {
     public static PlayerSource resolvePlayer(String type, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        if (type.equals("you"))
+
+        if (type.equalsIgnoreCase("you"))
             return (actionContext) -> actionContext.getPerformingPlayer();
-        if (type.equals("owner"))
+        if (type.equalsIgnoreCase("owner"))
             return (actionContext) -> actionContext.getSource().getOwner();
-        else if (type.equals("shadowPlayer"))
+        else if (type.equalsIgnoreCase("shadowPlayer") || type.equalsIgnoreCase("shadow"))
             return (actionContext) -> GameUtils.getFirstShadowPlayer(actionContext.getGame());
-        else if (type.equals("fp"))
+        else if (type.equalsIgnoreCase("fp") || type.equalsIgnoreCase("freeps")
+                || type.equalsIgnoreCase("free peoples") || type.equalsIgnoreCase("free people"))
             return ((actionContext) -> actionContext.getGame().getGameState().getCurrentPlayerId());
-        else if (type.startsWith("ownerFromMemory(") && type.endsWith(")")) {
+        else if (type.toLowerCase(Locale.ROOT).startsWith("ownerfrommemory(") && type.endsWith(")")) {
             String memory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return (actionContext) -> {
                 final PhysicalCard cardFromMemory = actionContext.getCardFromMemory(memory);

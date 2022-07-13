@@ -1,10 +1,8 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -15,11 +13,12 @@ import org.json.simple.JSONObject;
 public class Heals implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "side", "memorize");
+        FieldUtils.validateAllowedFields(value, "filter", "player", "memorize");
 
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
-        final Side side = FieldUtils.getEnum(Side.class, value.get("side"), "side");
+        final String player = FieldUtils.getString(value.get("player"), "player", "you");
+        final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
@@ -32,7 +31,7 @@ public class Heals implements TriggerCheckerProducer {
             @Override
             public boolean accepts(ActionContext actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
-                final boolean result = TriggerConditions.forEachHealed(actionContext.getGame(), actionContext.getEffectResult(), side, filterable);
+                final boolean result = TriggerConditions.forEachHealed(actionContext.getGame(), actionContext.getEffectResult(), playerSource.getPlayer(actionContext), filterable);
                 if (result && memorize != null) {
                     final PhysicalCard healedCard = ((HealResult) actionContext.getEffectResult()).getHealedCard();
                     actionContext.setCardMemory(memorize, healedCard);
