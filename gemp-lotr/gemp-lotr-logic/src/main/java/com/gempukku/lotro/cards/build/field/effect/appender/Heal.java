@@ -29,6 +29,7 @@ public class Heal implements EffectAppenderProducer {
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
+        final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -48,7 +49,7 @@ public class Heal implements EffectAppenderProducer {
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         List<Effect> result = new LinkedList<>();
                         for (int i = 0; i < healTimes; i++) {
-                            result.add(new HealCharactersEffect(actionContext.getSource(), action.getPerformingPlayer(), cardsFromMemory.toArray(new PhysicalCard[0])));
+                            result.add(new HealCharactersEffect(actionContext.getSource(), playerSource.getPlayer(actionContext), cardsFromMemory.toArray(new PhysicalCard[0])));
                         }
                         return result;
                     }

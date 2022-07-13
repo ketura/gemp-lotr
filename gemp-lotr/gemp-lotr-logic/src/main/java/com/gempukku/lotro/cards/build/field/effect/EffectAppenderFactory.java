@@ -34,6 +34,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choice", new Choice());
         effectAppenderProducers.put("chooseactivecards", new ChooseActiveCards());
         effectAppenderProducers.put("chooseakeyword", new ChooseAKeyword());
+        effectAppenderProducers.put("chooseandheal", new ChooseAndHeal());
         effectAppenderProducers.put("chooseanumber", new ChooseANumber());
         effectAppenderProducers.put("choosearace", new ChooseARace());
         effectAppenderProducers.put("chooseandaddtwilight", new ChooseAndAddTwilight());
