@@ -149,7 +149,7 @@ public class Card_01_138_ErrataTests
 
         scn.FreepsSkipCurrentPhaseAction();
         scn.ShadowPlayCard(snows);
-        scn.ShadowChoose(scn.ShadowGetCardChoices().get(1)); //Should be site 2
+        scn.ShadowChoose(String.valueOf(scn.GetCurrentSite().getCardId())); //Should be site 2
         scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.name("Uruk Savage"), Keyword.FIERCE));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);

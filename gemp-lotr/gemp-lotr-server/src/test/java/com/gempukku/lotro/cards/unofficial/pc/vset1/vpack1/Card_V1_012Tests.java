@@ -28,6 +28,7 @@ public class Card_V1_012Tests
 					put("elrond", "1_40");
 					put("galadriel", "1_45");
 
+					put("filler", "1_151");
 
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -87,7 +88,7 @@ public class Card_V1_012Tests
 		scn.FreepsPlayCard(narya);
 
 		assertEquals(2, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsDeckCount());
+		assertEquals(3, scn.GetFreepsDeckCount());
 		scn.FreepsSkipCurrentPhaseAction();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
@@ -96,7 +97,7 @@ public class Card_V1_012Tests
 		scn.FreepsChooseCardIDFromSelection(vilya);
 		// vilya put on the bottom of the deck, and then drew one card to get back to 2
 		assertEquals(2, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsDeckCount());
+		assertEquals(3, scn.GetFreepsDeckCount());
 		assertEquals(vilya, scn.GetFreepsBottomOfDeck());
 		assertFalse(scn.FreepsAnyDecisionsAvailable());
 	}
@@ -122,14 +123,14 @@ public class Card_V1_012Tests
 		scn.FreepsPlayCard(vilya);
 
 		assertEquals(1, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsDeckCount());
+		assertEquals(3, scn.GetFreepsDeckCount());
 		scn.FreepsSkipCurrentPhaseAction();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
 		// narya automatically put on the bottom of the deck, and then drew one card to get back to 1
 		assertEquals(1, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsDeckCount());
+		assertEquals(3, scn.GetFreepsDeckCount());
 		assertEquals(narya, scn.GetFreepsBottomOfDeck());
 		assertFalse(scn.FreepsAnyDecisionsAvailable());
 	}
@@ -162,8 +163,61 @@ public class Card_V1_012Tests
 
 		scn.FreepsSkipCurrentPhaseAction();
 
+		//assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		//scn.FreepsAcceptOptionalTrigger();
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to heal"));
+
+		scn.FreepsChooseCard(gandalf);
+		assertEquals(1, scn.GetWoundsOn(scn.GetRingBearer()));
+		assertEquals(0, scn.GetWoundsOn(gandalf));
+
+	}
+
+	@Test
+	public void ThreeRingsTriggersBothMusterAndHeal() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl three = scn.GetFreepsCard("three");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl narya = scn.GetFreepsCard("narya");
+		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+		PhysicalCardImpl vilya = scn.GetFreepsCard("vilya");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+		PhysicalCardImpl nenya = scn.GetFreepsCard("nenya");
+		scn.FreepsMoveCardToHand(three, gandalf, narya, elrond, vilya, galadriel, nenya);
+
+		scn.StartGame();
+		scn.FreepsPlayCard(three);
+		scn.FreepsPlayCard(gandalf);
+		scn.FreepsPlayCard(narya);
+		scn.FreepsPlayCard(elrond);
+		scn.FreepsPlayCard(vilya);
+		scn.FreepsPlayCard(galadriel);
+		scn.FreepsPlayCard(nenya);
+
+		scn.AddWoundsToChar(gandalf, 1);
+		scn.AddWoundsToChar(scn.GetRingBearer(), 1);
+
+		assertEquals(0, scn.GetFreepsHandCount());
+		assertEquals(1, scn.GetFreepsDeckCount());
+		scn.FreepsSkipCurrentPhaseAction();
+
+		//assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		//scn.FreepsAcceptOptionalTrigger();
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to heal"));
+
+		scn.FreepsChooseCard(gandalf);
+		assertEquals(1, scn.GetWoundsOn(scn.GetRingBearer()));
+		assertEquals(0, scn.GetWoundsOn(gandalf));
+
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
+
+		// nothing in the hand to place under the deck, then drew one
+		assertEquals(1, scn.GetFreepsHandCount());
+		assertEquals(0, scn.GetFreepsDeckCount());
+		assertFalse(scn.FreepsAnyDecisionsAvailable());
 
 	}
 }

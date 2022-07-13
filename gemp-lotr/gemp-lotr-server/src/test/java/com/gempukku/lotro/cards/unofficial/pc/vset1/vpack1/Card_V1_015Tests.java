@@ -1,4 +1,3 @@
-
 package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
@@ -22,7 +21,7 @@ public class Card_V1_015Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_15");
+					put("card", "151_14");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -34,19 +33,23 @@ public class Card_V1_015Tests
 	// Uncomment both @Test markers below once this is ready to be used
 
 	//@Test
-	public void LamentForGandalfStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void GwaihirStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
-		* Set: V1
-		* Title: *Lament For Gandalf
-		* Side: Free Peoples
-		* Culture: gandalf
-		* Twilight Cost: 1
-		* Type: condition
-		* Subtype: Support Area
-		* Game Text: At the start of the Regroup phase you may spot Gandalf to stack a card from hand here.
-		* 	Response: If Gandalf is killed you may exert X companions, or [elven] allies to take X cards stacked here into hand.
-		*/
+		 * Set: V1
+		 * Title: *Gwaihir, King Of All Birds
+		 * Side: Free Peoples
+		 * Culture: gandalf
+		 * Twilight Cost: 4
+		 * Type: ally
+		 * Subtype: Eagle
+		 * Strength: 8
+		 * Vitality: 4
+		 * Site Number: 4
+		 * Game Text: To play spot Gandalf.
+		 * 	Each time you move to an opponents site you may heal a companion with the Gandalf signet.
+		 * 	Regroup: Discard Gwaihir to make the move limit for this turn +1, the shadow player may take 2 shadow cards from their discard pile into hand.
+		 */
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
@@ -55,19 +58,19 @@ public class Card_V1_015Tests
 
 		assertTrue(card.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
+		assertEquals(4, card.getBlueprint().getTwilightCost());
+		assertEquals(8, card.getBlueprint().getStrength());
+		assertEquals(4, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
+		//assertEquals(Signet., card.getBlueprint().getSignet());
+		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(CardType.ALLY, card.getBlueprint().getCardType());
 		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	//@Test
-	public void LamentForGandalfTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void GwaihirTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -77,6 +80,8 @@ public class Card_V1_015Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		assertEquals(4, scn.GetTwilight());
 	}
 }
+
+

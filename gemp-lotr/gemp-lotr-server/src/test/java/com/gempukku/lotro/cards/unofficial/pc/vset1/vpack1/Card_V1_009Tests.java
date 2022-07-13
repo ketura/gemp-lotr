@@ -33,7 +33,7 @@ public class Card_V1_009Tests
 
 	// Uncomment both @Test markers below once this is ready to be used
 
-	//@Test
+	@Test
 	public void LegolasStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -57,7 +57,7 @@ public class Card_V1_009Tests
 		PhysicalCardImpl card = scn.GetFreepsCard("card");
 
 		assertTrue(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertTrue(scn.HasKeyword(card, Keyword.ARCHER)); // test for keywords as needed
 		assertEquals(2, card.getBlueprint().getTwilightCost());
 		assertEquals(6, card.getBlueprint().getStrength());
 		assertEquals(3, card.getBlueprint().getVitality());

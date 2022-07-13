@@ -22,13 +22,32 @@ public class Card_V1_011Tests
 				new HashMap<String, String>()
 				{{
 					put("library", "151_11");
-					put("arwen", "1_30");
-					put("elrond", "3_13");
+					put("gandalf", "1_364");
+					put("aragorn", "1_89");
 					put("galadriel", "1_45");
-					put("orophin", "1_56");
-					put("tale", "1_66");
+					put("gimli", "1_12");
 
-					put("runner", "1_178");
+					put("dwarftale", "1_24");
+					put("gondortale", "3_41");
+					put("elftale", "1_66");
+					put("shiretale", "2_113");
+
+					put("dwarfart", "9_6");
+					put("gandalfart", "2_22");
+					put("gondorart", "9_36");
+					put("elfart", "9_20");
+					put("shireart", "2_105");
+
+					put("savage1", "1_151");
+					put("savage2", "1_151");
+					put("savage3", "1_151");
+					put("savage4", "1_151");
+					put("savage5", "1_151");
+					put("savage6", "1_151");
+					put("savage7", "1_151");
+					put("savage8", "1_151");
+					put("savage9", "1_151");
+
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -44,12 +63,12 @@ public class Card_V1_011Tests
 		* Title: *Library of Rivendell
 		* Side: Free Peoples
 		* Culture: elven
-		* Twilight Cost: 2
+		* Twilight Cost: 3
 		* Type: artifact
 		* Subtype: Support Area
-		* Game Text: To play spot Elrond or 3 Elves.
-		* 	Each companion bearing an [elven] tale is strength +1.
-		* 	Skirmish: Discard an [elven] tale from play to make an [elven] companion strength +1.
+		* Game Text: Fellowship: Stack your tale or artifact from play or from hand here to draw a card.
+		* Regroup: Exert an [ELVEN] ally and discard this artifact to draw X cards, exert X minions, and remove up to
+		 * X wounds from companions, where X is the number of Free Peoples cultures on cards stacked here.
 		*/
 
 		//Pre-game setup
@@ -59,102 +78,232 @@ public class Card_V1_011Tests
 
 		assertTrue(library.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(library, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, library.getBlueprint().getTwilightCost());
+		assertEquals(3, library.getBlueprint().getTwilightCost());
 		assertEquals(CardType.ARTIFACT, library.getBlueprint().getCardType());
 		assertEquals(Culture.ELVEN, library.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, library.getBlueprint().getSide());
 	}
 
+
+
 	@Test
-	public void LibraryofRivendellCanPlayIfSpot3Elves() throws DecisionResultInvalidException, CardNotFoundException {
+	public void LibraryofRivendellStacksTalesOrArtifactsFromPlayToDrawCard() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
 		PhysicalCardImpl library = scn.GetFreepsCard("library");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
 		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
-		PhysicalCardImpl orophin = scn.GetFreepsCard("orophin");
-		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
-		scn.FreepsMoveCardToHand(library, galadriel, orophin, arwen);
+
+		PhysicalCardImpl dwarftale = scn.GetFreepsCard("dwarftale");
+		PhysicalCardImpl elftale = scn.GetFreepsCard("elftale");
+		PhysicalCardImpl gondortale = scn.GetFreepsCard("gondortale");
+		PhysicalCardImpl shiretale = scn.GetFreepsCard("shiretale");
+
+		PhysicalCardImpl dwarfart = scn.GetFreepsCard("dwarfart");
+		PhysicalCardImpl elfart = scn.GetFreepsCard("elfart");
+		PhysicalCardImpl gandalfart = scn.GetFreepsCard("gandalfart");
+		PhysicalCardImpl gondorart = scn.GetFreepsCard("gondorart");
+		PhysicalCardImpl shireart = scn.GetFreepsCard("shireart");
+
+		scn.FreepsMoveCardToSupportArea(library);
+		scn.FreepsMoveCharToTable(gandalf, aragorn, gimli, galadriel);
+		scn.FreepsMoveCardToHand(dwarftale, elftale, gondortale, shiretale, dwarfart, elfart, gandalfart, gondorart, shireart);
+
+		PhysicalCardImpl savage1 = scn.GetShadowCard("savage1");
+		PhysicalCardImpl savage2 = scn.GetShadowCard("savage2");
+		PhysicalCardImpl savage3 = scn.GetShadowCard("savage3");
+		PhysicalCardImpl savage4 = scn.GetShadowCard("savage4");
+		PhysicalCardImpl savage5 = scn.GetShadowCard("savage5");
+		PhysicalCardImpl savage6 = scn.GetShadowCard("savage6");
+		scn.ShadowMoveCharToTable(savage1, savage2, savage3, savage4, savage5, savage6);
 
 		scn.StartGame();
-		assertFalse(scn.FreepsActionAvailable("Library"));
-		scn.FreepsPlayCard(arwen);
-		assertFalse(scn.FreepsActionAvailable("Library"));
-		scn.FreepsPlayCard(orophin);
-		assertFalse(scn.FreepsActionAvailable("Library"));
-		scn.FreepsPlayCard(galadriel);
-		assertTrue(scn.FreepsActionAvailable("Library"));
-	}
 
-	@Test
-	public void LibraryofRivendellCanPlayIfSpotElrond() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
+		scn.FreepsPlayCard(dwarftale);
+		scn.FreepsPlayCard(elftale);
+		scn.FreepsPlayCard(gondortale);
+		scn.FreepsPlayCard(shiretale);
 
-		PhysicalCardImpl library = scn.GetFreepsCard("library");
-		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
-		scn.FreepsMoveCardToHand(library, elrond);
+		scn.FreepsPlayCard(dwarfart);
+		scn.FreepsPlayCard(elfart);
+		scn.FreepsPlayCard(gandalfart);
+		scn.FreepsPlayCard(gondorart);
+		scn.FreepsPlayCard(shireart);
 
-		scn.StartGame();
-		assertFalse(scn.FreepsActionAvailable("Library"));
-		scn.FreepsPlayCard(elrond);
-		assertTrue(scn.FreepsActionAvailable("Library"));
-	}
+		assertTrue(scn.FreepsCardActionAvailable(library));
 
-	@Test
-	public void LibraryofRivendellPumpsTaleBearers() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
-
-		PhysicalCardImpl library = scn.GetFreepsCard("library");
-		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
-		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
-		PhysicalCardImpl tale = scn.GetFreepsCard("tale");
-		scn.FreepsMoveCardToHand(library, tale);
-		scn.FreepsMoveCharToTable(arwen, elrond);
-
-		scn.StartGame();
-		//decline elrond's text
-		scn.FreepsDeclineOptionalTrigger();
-
-		scn.FreepsPlayCard(tale);
-		scn.FreepsChooseCard(arwen);
-		assertEquals(6, scn.GetStrength(arwen));
-
-		scn.FreepsPlayCard(library);
-		assertEquals(7, scn.GetStrength(arwen));
-	}
-
-	@Test
-	public void LibraryofRivendellBurnsTalesToPumpElfCompanions() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
-
-		PhysicalCardImpl library = scn.GetFreepsCard("library");
-		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
-		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
-		PhysicalCardImpl tale = scn.GetFreepsCard("tale");
-		scn.FreepsMoveCardToHand(library, tale);
-		scn.FreepsMoveCharToTable(arwen, elrond);
-
-		PhysicalCardImpl runner = scn.GetShadowCard("runner");
-		scn.ShadowMoveCharToTable(runner);
-
-		scn.StartGame();
-		//decline elrond's text
-		scn.FreepsDeclineOptionalTrigger();
-
-		scn.FreepsPlayCard(tale);
-		scn.FreepsChooseCard(elrond);
-		scn.FreepsPlayCard(library);
-
-		scn.SkipToPhase(Phase.ASSIGNMENT);
-		scn.SkipCurrentPhaseActions();
-		scn.FreepsAssignToMinions(arwen, runner);
-		scn.FreepsResolveSkirmish(arwen);
-		assertTrue(scn.FreepsActionAvailable("Library"));
-		assertEquals(6, scn.GetStrength(arwen));
+		assertEquals(0, scn.GetFreepsHandCount());
 		scn.FreepsUseCardAction(library);
-		assertEquals(7, scn.GetStrength(arwen));
+		scn.FreepsChooseCard(dwarftale);
+		assertEquals(1, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(elftale);
+		assertEquals(2, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(gondortale);
+		assertEquals(3, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(shiretale);
+		assertEquals(4, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(dwarfart);
+		assertEquals(4, scn.GetFreepsHandCount());//we've hit the rule of 4
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(elfart);
+		assertEquals(4, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(gandalfart);
+		assertEquals(4, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(gondorart);
+		assertEquals(4, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		//scn.FreepsChooseCard(shireart); // last one gets auto-picked since it's the last one
+		assertEquals(4, scn.GetFreepsHandCount());
+
+		assertEquals(9, scn.GetStackedCards(library).size());
+		assertFalse(scn.FreepsCardActionAvailable(library));
+	}
+
+	@Test
+	public void LibraryofRivendellStacksTalesOrArtifactsFromHandToDrawCard() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl library = scn.GetFreepsCard("library");
+
+		PhysicalCardImpl dwarftale = scn.GetFreepsCard("dwarftale");
+		PhysicalCardImpl elftale = scn.GetFreepsCard("elftale");
+		PhysicalCardImpl gondortale = scn.GetFreepsCard("gondortale");
+		PhysicalCardImpl shiretale = scn.GetFreepsCard("shiretale");
+
+		PhysicalCardImpl dwarfart = scn.GetFreepsCard("dwarfart");
+		PhysicalCardImpl elfart = scn.GetFreepsCard("elfart");
+		PhysicalCardImpl gandalfart = scn.GetFreepsCard("gandalfart");
+		PhysicalCardImpl gondorart = scn.GetFreepsCard("gondorart");
+		PhysicalCardImpl shireart = scn.GetFreepsCard("shireart");
+
+		scn.FreepsMoveCardToSupportArea(library);
+		scn.FreepsMoveCardToHand(dwarftale, elftale, gondortale, shiretale, dwarfart, elfart, gandalfart, gondorart, shireart);
+
+		scn.StartGame();
+
+		assertTrue(scn.FreepsCardActionAvailable(library));
+
+		assertEquals(9, scn.GetFreepsHandCount());
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(dwarftale);
+		assertEquals(9, scn.GetFreepsHandCount()); // Stacked 1, Drew 1
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(elftale);
+		assertEquals(9, scn.GetFreepsHandCount()); // Stacked 1, Drew 1
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(gondortale);
+		assertEquals(9, scn.GetFreepsHandCount()); // Stacked 1, Drew 1
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(shiretale);
+		assertEquals(9, scn.GetFreepsHandCount()); // Stacked 1, Drew 1
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(dwarfart);
+		assertEquals(8, scn.GetFreepsHandCount());//we've hit the rule of 4, so no more drawing
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(elfart);
+		assertEquals(7, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(gandalfart);
+		assertEquals(6, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		scn.FreepsChooseCard(gondorart);
+		assertEquals(5, scn.GetFreepsHandCount());
+
+		scn.FreepsUseCardAction(library);
+		//scn.FreepsChooseCard(shireart); // last one gets auto-picked since it's the last one
+		assertEquals(4, scn.GetFreepsHandCount());
+
+		assertEquals(9, scn.GetStackedCards(library).size());
+		assertFalse(scn.FreepsCardActionAvailable(library));
+	}
+
+	@Test
+	public void RegroupAbilitySelfDiscardsToHaveSeveralEffects() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl library = scn.GetFreepsCard("library");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+
+		scn.FreepsMoveCardToSupportArea(library);
+		scn.FreepsStackCardsOn(library, "dwarfart", "elfart", "gandalfart", "gondorart", "shireart");
+		scn.FreepsMoveCharToTable(gandalf, aragorn, gimli, galadriel);
+
+		PhysicalCardImpl savage1 = scn.GetShadowCard("savage1");
+		PhysicalCardImpl savage2 = scn.GetShadowCard("savage2");
+		PhysicalCardImpl savage3 = scn.GetShadowCard("savage3");
+		PhysicalCardImpl savage4 = scn.GetShadowCard("savage4");
+		PhysicalCardImpl savage5 = scn.GetShadowCard("savage5");
+		PhysicalCardImpl savage6 = scn.GetShadowCard("savage6");
+		scn.ShadowMoveCharToTable(savage1, savage2, savage3, savage4, savage5, savage6);
+
+		scn.StartGame();
+
+		scn.AddWoundsToChar(gandalf, 3);
+		scn.AddWoundsToChar(aragorn, 3);
+		scn.AddWoundsToChar(gimli, 2);
+
+		scn.SkipToPhase(Phase.REGROUP);
+
+		assertTrue(scn.FreepsCardActionAvailable(library));
+		assertEquals(0, scn.GetWoundsOn(galadriel));
+		scn.FreepsUseCardAction(library);
+		assertEquals(1, scn.GetWoundsOn(galadriel));
+
+		//X should be 5, so draw 5 cards
+		assertEquals(5, scn.GetFreepsHandCount());
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to exert"));
+
+		String[] choices = scn.FreepsGetCardChoices().toArray(new String[0]);
+		assertEquals(6, choices.length);
+		scn.FreepsChoose(choices[0], choices[1], choices[2], choices[3], choices[4]);
+
+		assertEquals(1, scn.GetWoundsOn(scn.GetShadowCardByID(choices[0])));
+		assertEquals(1, scn.GetWoundsOn(scn.GetShadowCardByID(choices[1])));
+		assertEquals(1, scn.GetWoundsOn(scn.GetShadowCardByID(choices[2])));
+		assertEquals(1, scn.GetWoundsOn(scn.GetShadowCardByID(choices[3])));
+		assertEquals(1, scn.GetWoundsOn(scn.GetShadowCardByID(choices[4])));
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose card to heal"));
+		scn.FreepsChooseCard(aragorn);
+		scn.FreepsChooseCard(aragorn);
+		scn.FreepsChooseCard(gimli);
+		scn.FreepsChooseCard(gandalf);
+		scn.FreepsChoose(""); // skipping the last, since it's "up to" X
+
+		assertEquals(1, scn.GetWoundsOn(aragorn));
+		assertEquals(1, scn.GetWoundsOn(gimli));
+		assertEquals(2, scn.GetWoundsOn(gandalf));
+
+		assertEquals(Zone.DISCARD, library.getZone());
 	}
 }

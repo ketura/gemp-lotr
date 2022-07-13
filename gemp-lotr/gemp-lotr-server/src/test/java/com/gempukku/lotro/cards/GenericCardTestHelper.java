@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -12,6 +13,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
@@ -224,6 +226,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public int GetBurdens() { return _game.getGameState().getBurdens(); }
 
+    public int GetFreepsArcheryTotal() { return RuleUtils.calculateFellowshipArcheryTotal(_game); }
+    public int GetShadowArcheryTotal() { return RuleUtils.calculateShadowArcheryTotal(_game); }
+
     public int GetFreepsHandCount() { return GetPlayerHandCount(P1); }
     public int GetShadowHandCount() { return GetPlayerHandCount(P2); }
     public int GetPlayerHandCount(String player)
@@ -284,6 +289,12 @@ public class GenericCardTestHelper extends AbstractAtTest {
         Arrays.stream(cards).forEach(card -> _game.getGameState().attachCard(_game, card, bearer));
     }
 
+    public void FreepsStackCardsOn(PhysicalCardImpl on, String...cardNames) {
+        Arrays.stream(cardNames).forEach(name -> _game.getGameState().stackCard(_game, GetFreepsCard(name), on));
+    }
+    public void ShadowStackCardsOn(PhysicalCardImpl on, String...cardNames) {
+        Arrays.stream(cardNames).forEach(name -> _game.getGameState().stackCard(_game, GetShadowCard(name), on));
+    }
     public void StackCardsOn(PhysicalCardImpl on, PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> _game.getGameState().stackCard(_game, card, on));
     }

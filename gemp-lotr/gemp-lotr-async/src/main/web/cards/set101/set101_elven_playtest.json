@@ -42,7 +42,7 @@
 	      },
 	      "effect": {
 	        "type": "stackCardsFromHand",
-	        "filter": "choose(culture(gandalf))",
+	        "filter": "choose(any)",
 	        "where": "self"
 	      },
 	    },
@@ -124,12 +124,12 @@
 
 
 	"151_10": {
-		"title": "*Let Fly the Darts of Lindon",
+		"title": "Let Fly the Darts of Lindon",
 		"culture": "elven",
 		"cost": 1,
 		"type": "condition",
 		"keyword": ["tale"],
-		"target": "elf,companion",
+		"target": "unique,elf,companion",
 		"effects": {
 			"type": "activated",
 			"phase": "archery",
@@ -138,34 +138,34 @@
 					"type": "exert",
 					"filter": "bearer",
 					"count": 1
-				},
-				{
-					"type": "spot",
-					"filter": "choose(minion)",
-					"memorize": "untarget"
-				},
+				}
 			],
-			"effect": {
-				"type": "preventable",
-				"effect": {
+			"effect": [
+				{
+					"type": "memorize",
+					"filter": "side(free people),archer",
+					"memory": "exarchers"
+				},
+				
+				{
 					"type": "addModifier",
 					"modifier": {
-						"type": "cantTakeWounds",
-						"filter": "memory(untarget)",
-						"condition": {
-							"type": "phase",
-							"phase": "archery"
-						}
+						"type": "addkeyword",
+						"filter": "memory(exarchers)",
+						"keyword": "damage+1",
 					},
 					"until": "start(regroup)"
 				},
-				"text": "Would you like to remove (2) to prevent a minion taking no archery wounds?",
-				"player": "shadowPlayer",
-				"cost": {
-					"type": "removeTwilight",
-					"amount": 2
-				},
-			}
+				{
+					"type": "addModifier",
+					"modifier": {
+						"type": "removekeyword",
+						"filter": "memory(exarchers)",
+						"keyword": "archer",
+					},
+					"until": "start(regroup)"
+				}
+			]
 		}
 	},
 
@@ -173,44 +173,92 @@
 	"151_11": {
 		"title": "*Library of Rivendell",
 		"culture": "elven",
-		"cost": 2,
+		"cost": 3,
 		"type": "artifact",
 		"keyword": ["support area"],
-		"condition": {
-			"type": "or",
-			"condition": [
-        {
-          "type": "canSpot",
-          "filter": "name(Elrond)"
-        },
-        {
-          "type": "canSpot",
-          "filter": "elf",
-          "count": 3
-        }
-      ]
-		},
 		"effects": [
 			{
-				"type": "modifier",
-				"modifier": {
-					"type": "modifyStrength",
-					"filter": "companion,hasAttached(culture(elven),tale)",
-					"amount": 1
-				}
-			},
-			{
 	      "type": "activated",
-	      "phase": "skirmish",
+	      "phase": "fellowship",
+
 	      "cost": {
-	        "type": "discard",
-	        "filter": "choose(culture(elven),tale)"
+	        "type": "stackcards",
+	        "filter": "choose(your,or(tale,artifact),not(self))",
+	        "where": "self"
 	      },
 	      "effect": {
-	        "type": "modifyStrength",
-	        "filter": "choose(culture(elven),companion)",
-	        "amount": 1
+	        "type": "drawcards",
+	        "count": 1
 	      }
+	    },
+	    {
+	      "type": "activated",
+	      "phase": "fellowship",
+	      "cost": {
+	        "type": "stackcardsfromhand",
+	        "filter": "choose(your,or(tale,artifact),not(self))",
+	        "where": "self"
+	      },
+	      "effect": {
+	        "type": "drawcards",
+	        "count": 1
+	      }
+	    },
+
+			{
+	      "type": "activated",
+	      "phase": "regroup",
+	      "cost": [
+	      	{
+		        "type": "exert",
+		        "filter": "choose(culture(elven),ally)"
+		      }
+		    ],
+	      "effect": [
+	      	{
+	      		"type": "memorizestacked",
+	      		"memory": "stackedCards",
+	      		"on": "self",
+	      		"filter": "side(free people)"
+	      	},
+	      	{
+	      		"type": "memorizenumber",
+	      		"memory": "stackedCultures",
+	      		"amount":{
+	      			"type": "forEachCultureOver",
+	      			"over": 0,
+	      			"filter": "cultureFromMemory(stackedCards)"
+	      		}
+	      	},
+	      	{
+		        "type": "drawCards",
+		        "count": {
+		        	"type": "fromMemory",
+		        	"memory": "stackedCultures"
+		        }
+		      },
+		      {
+		        "type": "exert",
+		        "filter": "choose(minion)",
+		        "count": {
+		        	"type": "fromMemory",
+		        	"memory": "stackedCultures"
+		        }
+		      }
+		      {
+		        "type": "chooseAndHeal",
+		        "optional": true,
+		        "filter": "companion",
+		        "count": {
+		        	"type": "fromMemory",
+		        	"memory": "stackedCultures"
+		        }
+		      },
+		      {
+		      	"type": "discard",
+		      	"filter": "self"
+		      }
+		    ]
 	    }
 		]
 	},
@@ -248,7 +296,7 @@
       },
 			{
         "type": "trigger",
-        "optional": true,
+        "optional": false,
         "text": "Would you like to spot 3 [elven] or [gandalf] rings to heal a companion?",
         "trigger": {
           "type": "moves"
@@ -260,7 +308,8 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "choose(companion)"
+          "filter": "choose(companion)",
+          "times": 1
         },
       }
 		]

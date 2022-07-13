@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -22,8 +21,10 @@ public class Card_V1_013Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_13");
-					// put other cards in here as needed for the test case
+					put("counsel", "151_7");
+					put("elrond", "1_40");
+					put("galadriel", "1_45");
+					put("orophin", "1_56");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,55 +32,60 @@ public class Card_V1_013Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
-	public void GandalfStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void CounselStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
-		* Set: V1
-		* Title: *Gandalf, Olorin
-		* Side: Free Peoples
-		* Culture: gandalf
-		* Twilight Cost: 4
-		* Type: companion
-		* Subtype: Wizard
-		* Strength: 6
-		* Vitality: 4
-		* Signet: Gandalf
-		* Game Text: At the start of your fellowship phase you may spot 2 [elven] allies to shuffle a [Gandalf] or [elven] card from your discard pile into your draw deck.
-		* 	While you can spot 3 [elven] allies, Gandalf is strength +2 (or strength +4 if you can spot Elrond, Galadriel and Celeborn).
-		*/
+		 * Set: V1
+		 * Title: Counsel of the Wise
+		 * Side: Free Peoples
+		 * Culture: elven
+		 * Twilight Cost: 0
+		 * Type: event
+		 * Subtype: Fellowship
+		 * Game Text: Add (X) to take an [elven] ally with a twilight cost of X or less into hand from your draw deck.
+		 */
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl counsel = scn.GetFreepsCard("counsel");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(4, card.getBlueprint().getTwilightCost());
-		assertEquals(6, card.getBlueprint().getStrength());
-		assertEquals(4, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.GANDALF, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(counsel.getBlueprint().isUnique());
+		//assertTrue(scn.HasKeyword(counsel, Keyword.TALE));
+		assertEquals(0, counsel.getBlueprint().getTwilightCost());
+		assertEquals(CardType.EVENT, counsel.getBlueprint().getCardType());
+		assertEquals(Culture.ELVEN, counsel.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, counsel.getBlueprint().getSide());
 	}
 
-	//@Test
-	public void GandalfTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void CounseloftheWiseChoosing4PermitsTakingElrondIntoHand() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl counsel = scn.GetFreepsCard("counsel");
+		scn.FreepsMoveCardToHand(counsel);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
+		assertEquals(1, scn.GetFreepsHandCount());
+		assertEquals(3, scn.GetFreepsDeckCount());
+		assertEquals(0, scn.GetTwilight());
+
+		scn.FreepsPlayCard(counsel);
+		scn.FreepsChoose("4");
+		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
+		// Choices available should be 1 Elrond, 1 Galadriel, 1 Orophin
+		assertEquals(3, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCardBPFromSelection(scn.GetFreepsCard("elrond"));
+
+		assertEquals(1, scn.GetFreepsHandCount());
+		assertEquals(2, scn.GetFreepsDeckCount());
+		assertEquals(1, scn.GetFreepsDiscardCount());
 		assertEquals(4, scn.GetTwilight());
 	}
 }
+
+
+

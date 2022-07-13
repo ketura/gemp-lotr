@@ -24,8 +24,13 @@ public class Card_V1_010Tests
 					put("darts", "151_10");
 					put("galadriel", "1_45");
 					put("greenleaf", "1_50");
+					put("lorien", "51_53");
+					put("bow1", "1_41");
+					put("bow2", "1_41");
+					put("aragorn", "1_89");
+					put("gornbow", "1_90");
 
-					put("scout", "1_191");
+					put("archer", "1_172");
 					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -46,9 +51,8 @@ public class Card_V1_010Tests
 		* Type: condition
 		* Subtype: 
 		* Game Text: Tale.
-		* 	 Bearer must be an [elven] companion.
-		* 	Archery: If bearer is an archer, exert bearer to spot a minion. That minion cannot take archery wounds
-		 * 	until the regroup phase. The Shadow player may remove (2) to prevent this.
+		* 	 Bearer must be a unique [elven] companion.
+		* 	Archery: Exert bearer to make all Free Peoples archers lose archer and gain damage +1 until the regroup phase.
 		*/
 
 		//Pre-game setup
@@ -56,7 +60,7 @@ public class Card_V1_010Tests
 
 		PhysicalCardImpl darts = scn.GetFreepsCard("darts");
 
-		assertTrue(darts.getBlueprint().isUnique());
+		assertFalse(darts.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(darts, Keyword.TALE)); // test for keywords as needed
 		assertEquals(1, darts.getBlueprint().getTwilightCost());
 		assertEquals(CardType.CONDITION, darts.getBlueprint().getCardType());
@@ -65,99 +69,100 @@ public class Card_V1_010Tests
 	}
 
 	@Test
-	public void LetFlytheDartsOnlyPlaysOnElvenCompanions() throws DecisionResultInvalidException, CardNotFoundException {
+	public void LetFlytheDartsOnlyPlaysOnUniqueElvenCompanions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
 		PhysicalCardImpl darts = scn.GetFreepsCard("darts");
 		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
 		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
-		scn.FreepsMoveCardToHand(darts, galadriel, greenleaf);
+		PhysicalCardImpl lorien = scn.GetFreepsCard("lorien");
+		scn.FreepsMoveCardToHand(darts, galadriel, greenleaf, lorien);
 
 		scn.StartGame();
 		assertFalse(scn.FreepsActionAvailable("let fly the darts"));
 		scn.FreepsPlayCard(galadriel);
 		assertFalse(scn.FreepsActionAvailable("let fly the darts"));
+		scn.FreepsPlayCard(lorien);
+		assertFalse(scn.FreepsActionAvailable("let fly the darts"));
 		scn.FreepsPlayCard(greenleaf);
 		assertTrue(scn.FreepsActionAvailable("let fly the darts"));
 	}
 
 	@Test
-	public void LetFlytheDartsExertsToProtectMinionFromArrows() throws DecisionResultInvalidException, CardNotFoundException {
+	public void LetFlytheDartsExertsToMakeArchersLoseArcherAndGainDamage() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
 		PhysicalCardImpl darts = scn.GetFreepsCard("darts");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
 		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
-		scn.FreepsMoveCardToHand(darts, greenleaf);
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl lorien = scn.GetFreepsCard("lorien");
+		scn.FreepsMoveCharToTable(greenleaf, galadriel, aragorn, lorien);
+		scn.FreepsAttachCardsTo(galadriel, "bow1");
+		scn.FreepsAttachCardsTo(lorien, "bow2");
+		scn.FreepsAttachCardsTo(aragorn, "gornbow");
+		scn.FreepsMoveCardToHand(darts);
 
-		PhysicalCardImpl scout = scn.GetShadowCard("scout");
-		PhysicalCardImpl runner = scn.GetShadowCard("runner");
-		scn.ShadowMoveCharToTable(scout, runner);
+		PhysicalCardImpl archer = scn.GetShadowCard("archer");
+		scn.ShadowMoveCharToTable(archer);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(greenleaf);
 		scn.FreepsPlayCard(darts);
-		scn.SetTwilight(0);
 
 		scn.SkipToPhase(Phase.ARCHERY);
-		assertEquals(4, scn.GetTwilight());
 		assertEquals(0, scn.GetWoundsOn(greenleaf));
+		//1 each from greenleaf, lorien elf + bow, aragorn + bow (galadriel doesn't count)
+		assertEquals(3, scn.GetFreepsArcheryTotal());
+		assertTrue(scn.HasKeyword(greenleaf, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(galadriel, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(aragorn, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(lorien, Keyword.ARCHER));
+		assertFalse(scn.HasKeyword(greenleaf, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(galadriel, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(lorien, Keyword.DAMAGE));
+
 		assertTrue(scn.FreepsActionAvailable("let fly the darts"));
 		scn.FreepsUseCardAction(darts);
-		assertTrue(scn.FreepsDecisionAvailable("Choose"));
-		scn.FreepsChooseCard(scout);
-		assertTrue(scn.ShadowDecisionAvailable("Would you like to remove (2) to prevent a minion taking no archery wounds?"));
-		scn.ShadowChooseNo();
 
-		assertEquals(4, scn.GetTwilight());
+		assertEquals(0, scn.GetFreepsArcheryTotal());
+		assertFalse(scn.HasKeyword(greenleaf, Keyword.ARCHER));
+		assertFalse(scn.HasKeyword(galadriel, Keyword.ARCHER));
+		assertFalse(scn.HasKeyword(aragorn, Keyword.ARCHER));
+		assertFalse(scn.HasKeyword(lorien, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(greenleaf, Keyword.DAMAGE));
+		assertTrue(scn.HasKeyword(galadriel, Keyword.DAMAGE));
+		assertTrue(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+		assertTrue(scn.HasKeyword(lorien, Keyword.DAMAGE));
+
 		assertEquals(1, scn.GetWoundsOn(greenleaf));
 
+		//Archery
 		scn.ShadowSkipCurrentPhaseAction();
 		scn.FreepsSkipCurrentPhaseAction();
 
-		//Since the Scout was barred from taking archery wounds, Gemp automatically assigns the single arrow
-		// to the Runner, killing it.
-		assertEquals(Zone.DISCARD, runner.getZone());
+		scn.FreepsChooseCard(aragorn);
 
+		//Assignment
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsAssignToMinions(lorien, archer);
+		scn.FreepsResolveSkirmish(lorien);
+		scn.SkipCurrentPhaseActions();
 
+		assertEquals(2, scn.GetWoundsOn(archer));
+
+		//Regroup
+		assertTrue(scn.HasKeyword(greenleaf, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(galadriel, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(aragorn, Keyword.ARCHER));
+		assertTrue(scn.HasKeyword(lorien, Keyword.ARCHER));
+		assertFalse(scn.HasKeyword(greenleaf, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(galadriel, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(lorien, Keyword.DAMAGE));
 	}
 
-	@Test
-	public void LetFlytheDartsPermitsShadowToPrevent() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl darts = scn.GetFreepsCard("darts");
-		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
-		scn.FreepsMoveCardToHand(darts, greenleaf);
-
-		PhysicalCardImpl scout = scn.GetShadowCard("scout");
-		PhysicalCardImpl runner = scn.GetShadowCard("runner");
-		scn.ShadowMoveCharToTable(scout, runner);
-
-		scn.StartGame();
-		scn.FreepsPlayCard(greenleaf);
-		scn.FreepsPlayCard(darts);
-		scn.SetTwilight(0);
-
-		scn.SkipToPhase(Phase.ARCHERY);
-		assertEquals(4, scn.GetTwilight());
-		assertEquals(0, scn.GetWoundsOn(greenleaf));
-		assertTrue(scn.FreepsActionAvailable("let fly the darts"));
-		scn.FreepsUseCardAction(darts);
-		assertTrue(scn.FreepsDecisionAvailable("Choose"));
-		scn.FreepsChooseCard(scout);
-		assertTrue(scn.ShadowDecisionAvailable("Would you like to remove (2) to prevent a minion taking no archery wounds?"));
-		scn.ShadowChooseYes();
-
-		assertEquals(2, scn.GetTwilight());
-		assertEquals(1, scn.GetWoundsOn(greenleaf));
-
-		scn.ShadowSkipCurrentPhaseAction();
-		scn.FreepsSkipCurrentPhaseAction();
-
-		//There should be 2 options, 1 for each minion that arrows can be assigned to.
-		assertEquals(2, scn.ShadowGetADParam("cardId").length);
-	}
 }
