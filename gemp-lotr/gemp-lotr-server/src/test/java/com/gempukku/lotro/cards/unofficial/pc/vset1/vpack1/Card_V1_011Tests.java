@@ -254,7 +254,7 @@ public class Card_V1_011Tests
 		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
 
 		scn.FreepsMoveCardToSupportArea(library);
-		scn.FreepsStackCardsOn(library, "dwarfart", "elfart", "gandalfart", "gondorart", "shireart");
+
 		scn.FreepsMoveCharToTable(gandalf, aragorn, gimli, galadriel);
 
 		PhysicalCardImpl savage1 = scn.GetShadowCard("savage1");
@@ -266,12 +266,16 @@ public class Card_V1_011Tests
 		scn.ShadowMoveCharToTable(savage1, savage2, savage3, savage4, savage5, savage6);
 
 		scn.StartGame();
+		
+		scn.FreepsStackCardsOn(library, "dwarfart", "elfart", "gandalfart", "gondorart", "shireart");
 
 		scn.AddWoundsToChar(gandalf, 3);
 		scn.AddWoundsToChar(aragorn, 3);
 		scn.AddWoundsToChar(gimli, 2);
 
 		scn.SkipToPhase(Phase.REGROUP);
+
+		assertEquals(5, scn.GetStackedCards(library).size());
 
 		assertTrue(scn.FreepsCardActionAvailable(library));
 		assertEquals(0, scn.GetWoundsOn(galadriel));

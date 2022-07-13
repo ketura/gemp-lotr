@@ -40,7 +40,6 @@ public class Card2_013Tests
         PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
         scn.FreepsMoveCharToTable(gimli);
         scn.FreepsMoveCardToHand(tidings);
-        scn.FreepsMoveCardToDeck("deckcard1", "deckcard2", "deckcard3");
 
         scn.StartGame();
         scn.FreepsSkipCurrentPhaseAction();
