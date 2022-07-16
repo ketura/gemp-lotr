@@ -266,7 +266,7 @@ public class Card_V1_011Tests
 		scn.ShadowMoveCharToTable(savage1, savage2, savage3, savage4, savage5, savage6);
 
 		scn.StartGame();
-		
+
 		scn.FreepsStackCardsOn(library, "dwarfart", "elfart", "gandalfart", "gondorart", "shireart");
 
 		scn.AddWoundsToChar(gandalf, 3);

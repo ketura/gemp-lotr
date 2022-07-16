@@ -85,7 +85,7 @@ public class Card_V1_002Tests
         assertTrue(scn.FreepsHasOptionalTriggerAvailable());
         scn.FreepsAcceptOptionalTrigger();
         assertEquals(1, scn.GetTwilight());
-        assertEquals(deep, axe.getStackedOn());
+        assertEquals(deep, strike.getStackedOn());
 
     }
 
@@ -111,10 +111,11 @@ public class Card_V1_002Tests
         scn.StartGame();
 
         scn.FreepsPlayCard(deep);
+        scn.StackCardsOn(deep, strike);
 
-        scn.FreepsUseCardAction("Discard 1");
-        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
-        scn.FreepsAcceptOptionalTrigger();
+//        scn.FreepsUseCardAction("Discard 1");
+//        assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+//        scn.FreepsAcceptOptionalTrigger();
 
         scn.SkipToPhase(Phase.MANEUVER);
 

@@ -107,7 +107,7 @@
         },
         "effect": {
           "type": "putStackedCardsIntoHand",
-          "filter": "choose(any)",
+          "filter": "choose(culture(dwarven))",
           "on": "self"
         }
       }
