@@ -1,3 +1,4 @@
+
 package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
@@ -14,14 +15,14 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_008Tests
+public class Card_V1_009_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("lament", "151_8");
+					put("card", "151_9");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -30,20 +31,25 @@ public class Card_V1_008Tests
 		);
 	}
 
+	// Uncomment both @Test markers below once this is ready to be used
+
 	@Test
-	public void LamentForGandalfStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void LegolasStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
-		 * Set: V1
-		 * Title: *Lament For Gandalf
-		 * Side: Free Peoples
-		 * Culture: gandalf
-		 * Twilight Cost: 1
-		 * Type: condition
-		 * Subtype: Support Area
-		 * Game Text: At the start of the Regroup phase you may spot Gandalf to stack a card from hand here.
-		 * 	Response: If Gandalf is killed you may exert X companions, or [elven] allies to take X cards stacked here into hand.
-		 */
+		* Set: V1
+		* Title: *Legolas, Swift and Deadly
+		* Side: Free Peoples
+		* Culture: elven
+		* Twilight Cost: 2
+		* Type: companion
+		* Subtype: Elf
+		* Strength: 6
+		* Vitality: 3
+		* Signet: Aragorn
+		* Game Text: Archer.
+		* 	Archery: Make the fellowship archery total -X (to a minimum of 0) to make Legolas strength +X until the regroup phase.  You cannot use archery special abilities.
+		*/
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
@@ -51,20 +57,20 @@ public class Card_V1_008Tests
 		PhysicalCardImpl card = scn.GetFreepsCard("card");
 
 		assertTrue(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
+		assertTrue(scn.HasKeyword(card, Keyword.ARCHER)); // test for keywords as needed
+		assertEquals(2, card.getBlueprint().getTwilightCost());
+		assertEquals(6, card.getBlueprint().getStrength());
+		assertEquals(3, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet());
+		assertEquals(Signet.ARAGORN, card.getBlueprint().getSignet()); 
 		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
+		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
-	@Test
-	public void LamentStacksAtTheStartOfRegroup() throws DecisionResultInvalidException, CardNotFoundException {
+	//@Test
+	public void LegolasTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -74,6 +80,6 @@ public class Card_V1_008Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		assertEquals(2, scn.GetTwilight());
 	}
 }

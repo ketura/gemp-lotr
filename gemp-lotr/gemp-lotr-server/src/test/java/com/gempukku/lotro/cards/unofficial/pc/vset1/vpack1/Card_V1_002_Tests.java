@@ -13,7 +13,7 @@ import java.util.HashMap;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class Card_V1_002Tests
+public class Card_V1_002_Tests
 {
 
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
