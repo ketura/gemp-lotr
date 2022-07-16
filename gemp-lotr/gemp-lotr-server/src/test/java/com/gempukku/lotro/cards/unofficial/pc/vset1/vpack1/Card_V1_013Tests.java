@@ -21,7 +21,8 @@ public class Card_V1_013Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("counsel", "151_7");
+					put("counsel", "151_13");
+					put("gandalf", "1_364");
 					put("elrond", "1_40");
 					put("galadriel", "1_45");
 					put("orophin", "1_56");
@@ -51,12 +52,29 @@ public class Card_V1_013Tests
 
 		PhysicalCardImpl counsel = scn.GetFreepsCard("counsel");
 
-		assertFalse(counsel.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, counsel.getBlueprint().getSide());
+		assertEquals(Culture.GANDALF, counsel.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, counsel.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(counsel, Keyword.FELLOWSHIP)); // test for keywords as needed
 		//assertTrue(scn.HasKeyword(counsel, Keyword.TALE));
 		assertEquals(0, counsel.getBlueprint().getTwilightCost());
-		assertEquals(CardType.EVENT, counsel.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, counsel.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, counsel.getBlueprint().getSide());
+
+	}
+
+	@Test
+	public void CounselRequiresGandalfToPlay() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl counsel = scn.GetFreepsCard("counsel");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		scn.FreepsMoveCardToHand(counsel, gandalf);
+
+		scn.StartGame();
+
+		assertFalse(scn.FreepsCardPlayAvailable(counsel));
+		scn.FreepsPlayCard(gandalf);
+		assertTrue(scn.FreepsCardPlayAvailable(counsel));
 	}
 
 	@Test
@@ -65,7 +83,10 @@ public class Card_V1_013Tests
 		GenericCardTestHelper scn = GetScenario();
 
 		PhysicalCardImpl counsel = scn.GetFreepsCard("counsel");
+		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
 		scn.FreepsMoveCardToHand(counsel);
+		scn.FreepsMoveCharToTable(gandalf);
 
 		scn.StartGame();
 
@@ -74,13 +95,15 @@ public class Card_V1_013Tests
 		assertEquals(0, scn.GetTwilight());
 
 		scn.FreepsPlayCard(counsel);
-		scn.FreepsChoose("4");
 		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
 		// Choices available should be 1 Elrond, 1 Galadriel, 1 Orophin
 		assertEquals(3, scn.GetFreepsCardChoiceCount());
 		scn.FreepsChooseCardBPFromSelection(scn.GetFreepsCard("elrond"));
+		assertTrue(scn.FreepsDecisionAvailable("Would you like to pay"));
+		scn.FreepsChooseYes();
 
 		assertEquals(1, scn.GetFreepsHandCount());
+		assertEquals(Zone.HAND, elrond.getZone());
 		assertEquals(2, scn.GetFreepsDeckCount());
 		assertEquals(1, scn.GetFreepsDiscardCount());
 		assertEquals(4, scn.GetTwilight());

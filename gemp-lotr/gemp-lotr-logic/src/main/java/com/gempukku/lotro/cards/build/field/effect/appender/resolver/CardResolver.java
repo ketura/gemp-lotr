@@ -183,6 +183,10 @@ public class CardResolver {
         throw new RuntimeException("Unable to resolve card resolver of type: " + type);
     }
 
+    public static EffectAppender resolveCardsInDeck(String type, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCardsInDeck(type, null, countSource, memory, choicePlayer, choiceText, environment);
+    }
+
     public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
         Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {

@@ -41,6 +41,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("chooseandremovetokens", new ChooseAndRemoveTokens());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("choosecardsfromdiscard", new ChooseCardsFromDiscard());
+        effectAppenderProducers.put("choosecardsfromdrawdeck", new ChooseCardsFromDrawDeck());
         effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
         effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());

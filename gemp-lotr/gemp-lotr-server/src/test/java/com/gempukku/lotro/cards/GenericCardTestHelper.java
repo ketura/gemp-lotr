@@ -652,6 +652,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void FreepsChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P1, option); }
     public void ShadowChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, option); }
     public void ChooseMultipleChoiceOption(String playerID, String option) throws DecisionResultInvalidException { ChooseAction(playerID, "results", option); }
+    public void FreepsChooseAction(String paramName, String option) throws DecisionResultInvalidException { ChooseAction(P1, paramName, option); }
+    public void ShadowChooseAction(String paramName, String option) throws DecisionResultInvalidException { ChooseAction(P2, paramName, option); }
     public void ChooseAction(String playerID, String paramName, String option) throws DecisionResultInvalidException {
         List<String> choices = GetADParamAsList(playerID, paramName);
         for(String choice : choices){
