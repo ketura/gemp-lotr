@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -652,6 +653,18 @@ public class GenericCardTestHelper extends AbstractAtTest {
     {
         return _game.getModifiersQuerying().getKeywordCount(_game, card, keyword);
     }
+
+    public Boolean CanBeAssigned(PhysicalCardImpl card)
+    {
+        return CanBeAssigned(card, Side.SHADOW) || CanBeAssigned(card, Side.FREE_PEOPLE);
+    }
+
+    public Boolean CanBeAssigned(PhysicalCardImpl card, Side side)
+    {
+        return _game.getModifiersQuerying().canBeAssignedToSkirmish(_game, side, card);
+    }
+
+
 
 
     public void ApplyAdHocModifier(Modifier mod)

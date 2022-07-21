@@ -22,19 +22,23 @@ public class Card_V1_017_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_17");
-					// put other cards in here as needed for the test case
+					put("twoeyes", "151_17");
+					put("gandalf", "151_14");
+					put("frodo", "13_149");
+
+					put("filler1", "1_7");
+					put("filler2", "1_7");
+					put("filler3", "1_7");
+					put("filler4", "1_7");
 				}},
 				GenericCardTestHelper.FellowshipSites,
-				GenericCardTestHelper.FOTRFrodo,
+				GenericCardTestHelper.GimliRB,
 				GenericCardTestHelper.FOTRRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
-	public void TwoEyesasOftenasICanSpareThemStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void TwoEyesStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
@@ -51,34 +55,67 @@ public class Card_V1_017_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl twoeyes = scn.GetFreepsCard("twoeyes");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(3, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(twoeyes.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, twoeyes.getBlueprint().getSide());
+		assertEquals(Culture.GANDALF, twoeyes.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, twoeyes.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, twoeyes.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(twoeyes, Keyword.FELLOWSHIP)); // test for keywords as needed
+		assertEquals(3, twoeyes.getBlueprint().getTwilightCost());
+		//assertEquals(, twoeyes.getBlueprint().getStrength());
+		//assertEquals(, twoeyes.getBlueprint().getVitality());
+		//assertEquals(, twoeyes.getBlueprint().getResistance());
+		//assertEquals(Signet., twoeyes.getBlueprint().getSignet());
+		//assertEquals(, twoeyes.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void TwoEyesasOftenasICanSpareThemTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void TwoEyesRequiresBothFrodoAndGandalf() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl twoeyes = scn.GetFreepsCard("twoeyes");
+		PhysicalCardImpl frodo = scn.GetFreepsCard("frodo");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+
+		scn.FreepsMoveCardToHand(twoeyes, frodo, gandalf);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(3, scn.GetTwilight());
+		assertFalse(scn.FreepsCardPlayAvailable(twoeyes));
+		scn.FreepsPlayCard(gandalf);
+		assertFalse(scn.FreepsCardPlayAvailable(twoeyes));
+		scn.FreepsPlayCard(frodo);
+		assertTrue(scn.FreepsCardPlayAvailable(twoeyes));
+	}
+
+	@Test
+	public void TwoEyesDrawsBasedOnFrodosVitality() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl twoeyes = scn.GetFreepsCard("twoeyes");
+		PhysicalCardImpl frodo = scn.GetFreepsCard("frodo");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+
+		scn.FreepsMoveCharToTable(frodo, gandalf);
+		scn.FreepsMoveCardToHand(twoeyes);
+
+		scn.AddWoundsToChar(frodo, 1);
+
+		scn.StartGame();
+
+		assertTrue(scn.FreepsCardPlayAvailable(twoeyes));
+		assertEquals(3, scn.GetVitality(frodo));
+		assertEquals(1, scn.GetFreepsHandCount()); //only Two Eyes itself
+		assertEquals(4, scn.GetFreepsDeckCount());
+
+		scn.FreepsPlayCard(twoeyes);
+
+		assertEquals(3, scn.GetFreepsHandCount());
+		assertEquals(1, scn.GetFreepsDeckCount());
 	}
 }

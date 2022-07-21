@@ -72,7 +72,7 @@ public class Card_V1_015_Tests
 		assertEquals(2, gwaihir.getBlueprint().getVitality());
 		//assertEquals(, gwaihir.getBlueprint().getResistance());
 		//assertEquals(Signet., gwaihir.getBlueprint().getSignet());
-		assertEquals(4, gwaihir.getBlueprint().getAllyHomeSiteNumbers()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(4, gwaihir.getBlueprint().getAllyHomeSiteNumbers()[0]); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
@@ -91,8 +91,9 @@ public class Card_V1_015_Tests
 		scn.FreepsPlayCard(gandalf);
 		assertTrue(scn.FreepsCardPlayAvailable(gwaihir));
 
-		scn.FreepsPlayCard(gwaihir);
 		assertEquals(4, scn.GetTwilight());
+		scn.FreepsPlayCard(gwaihir);
+		assertEquals(8, scn.GetTwilight());
 	}
 
 	@Test

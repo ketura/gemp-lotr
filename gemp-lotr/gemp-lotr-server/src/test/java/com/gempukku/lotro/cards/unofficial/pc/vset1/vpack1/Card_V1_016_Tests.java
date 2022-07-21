@@ -22,8 +22,13 @@ public class Card_V1_016_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_16");
-					// put other cards in here as needed for the test case
+					put("myheart", "151_16");
+					put("gandalf", "1_364");
+					put("greenleaf", "1_50");
+
+					put("runner1", "1_178");
+					put("runner2", "1_178");
+					put("runner3", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +36,7 @@ public class Card_V1_016_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void MyHeartTellsMeStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +53,92 @@ public class Card_V1_016_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl myheart = scn.GetFreepsCard("myheart");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(myheart.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, myheart.getBlueprint().getSide());
+		assertEquals(Culture.GANDALF, myheart.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, myheart.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, myheart.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(myheart, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, myheart.getBlueprint().getTwilightCost());
+		//assertEquals(, myheart.getBlueprint().getStrength());
+		//assertEquals(, myheart.getBlueprint().getVitality());
+		//assertEquals(, myheart.getBlueprint().getResistance());
+		//assertEquals(Signet., myheart.getBlueprint().getSignet());
+		//assertEquals(, myheart.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void MyHeartTellsMeTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void MyHeartSpotsGandalfToTrigger() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl myheart = scn.GetFreepsCard("myheart");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
+
+		scn.FreepsMoveCardToHand(gandalf);
+		scn.FreepsMoveCharToTable(greenleaf);
+		scn.FreepsMoveCardToSupportArea(myheart);
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
+
+		scn.ShadowMoveCharToTable(runner1, runner2);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SkipToPhase(Phase.ARCHERY);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.FreepsUseCardAction(greenleaf);
+		scn.FreepsChooseCard(runner1);
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+
+		scn.FreepsMoveCharToTable(gandalf);
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsUseCardAction(greenleaf);
+		//scn.FreepsChooseCard(runner2); //Only one choice, so it's made for us
+
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+	}
+
+	@Test
+	public void MyHeartConvertsWoundToHealLimitOncePerTurn() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl myheart = scn.GetFreepsCard("myheart");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
+
+		scn.FreepsMoveCardToHand(gandalf);
+		scn.FreepsMoveCharToTable(greenleaf, gandalf);
+		scn.FreepsMoveCardToSupportArea(myheart);
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
+
+		scn.ShadowMoveCharToTable(runner1, runner2);
+
+		scn.StartGame();
+		scn.SkipToPhase(Phase.ARCHERY);
+
+		assertEquals(0, scn.GetWoundsOn(greenleaf));
+
+		scn.FreepsUseCardAction(greenleaf);
+		scn.FreepsChooseCard(runner1);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+
+		assertEquals(1, scn.GetWoundsOn(greenleaf));
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(0, scn.GetWoundsOn(greenleaf));
+
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsUseCardAction(greenleaf);
+		scn.FreepsChooseCard(runner1);
+
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+		assertEquals(1, scn.GetWoundsOn(greenleaf));
 	}
 }

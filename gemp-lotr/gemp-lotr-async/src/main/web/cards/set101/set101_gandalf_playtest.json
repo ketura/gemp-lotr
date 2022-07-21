@@ -234,7 +234,7 @@
     }
   },
   "151_18": {
-    "title": "The White Council",
+    "title": "*The White Council",
     "culture": "gandalf",
     "cost": 1,
     "type": "condition",
@@ -243,44 +243,56 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "modifyStrength",
-          "condition": {
-            "type": "canspot",
-            "filter": "name(Saruman)"
-          },
-          "filter": "name(Gandalf)",
-          "amount": -1
+          "type": "SarumanFirstSentenceInactive",
+          "condition": [
+            {
+              "type": "canspot",
+              "filter": "name(Gandalf)"
+            },
+            {
+              "type": "canspot",
+              "filter": "culture(elven),ally",
+              "count": 2
+            }
+          ],
         }
       },
       {
         "type": "activated",
-        "phase": "skirmish",
-        "condition": {
-	        "type": "perPhaseLimit",
-	        "limit": 3
-	      },
+        "phase": "regroup",
+        "condition": [
+          {
+  	        "type": "perPhaseLimit",
+  	        "limit": 2
+  	      },
+          {
+            "type": "canSpot",
+            "count": 2,
+            "filter": "culture(elven),not(exhausted)"
+          }
+        ],
         "cost": {
           "type": "exert",
-          "filter": "choose(name(Gandalf))"
+          "filter": "choose(culture(elven),ally)",
+          "count": 2
         },
-        "effect": [
-        	{
-	          "type": "modifyStrength",
-	          "filter": "choose(or(culture(gandalf),culture(elven)),companion)",
-	          "amount": {
-	            "type": "forEachYouCanSpot",
-	            "filter": "culture(elven),ally",
-	            "limit": 3
-	          }
-	        },
-	        {
-          "type": "incrementPerPhaseLimit",
-	          "limit": {
-	            "type": "forEachYouCanSpot",
-	            "filter": "culture(elven),ally",
-	          }
-	        },
-	      ]
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "perPhaseLimit",
+            "limit": 2
+          },
+          "effect": [
+            {
+              "type": "incrementPerPhaseLimit",
+              "limit": 1
+            },
+            {
+              "type": "heal",
+              "filter": "choose(companion,or(name(Gandalf),signet(gandalf)))"
+            }
+          ]
+        }
       }
     ]
   }
