@@ -22,6 +22,20 @@ public class Card_V1_008_Tests
 				new HashMap<String, String>()
 				{{
 					put("lament", "151_8");
+					put("gandalf", "1_364");
+					put("elrond", "7_21");
+					put("galadriel", "10_11");
+					put("orophin", "1_56");
+					put("gimli", "1_13");
+					put("farin", "1_11");
+					put("guard", "1_7");
+
+					put("axe1", "1_9");
+					put("axe2", "1_9");
+					put("axe3", "1_9");
+					put("runner1", "1_178");
+					put("runner2", "1_178");
+
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -48,8 +62,11 @@ public class Card_V1_008_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl card = scn.GetFreepsCard("lament");
 
+		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
 		assertTrue(card.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
 		assertEquals(1, card.getBlueprint().getTwilightCost());
@@ -58,22 +75,123 @@ public class Card_V1_008_Tests
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet());
 		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 	}
 
 	@Test
-	public void LamentStacksAtTheStartOfRegroup() throws DecisionResultInvalidException, CardNotFoundException {
+	public void LamentSpotsGandalfToStackAtTheStartOfManeuver() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl axe1 = scn.GetFreepsCard("axe1");
+		PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
+		PhysicalCardImpl runner2 = scn.GetFreepsCard("runner2");
+
+		scn.FreepsMoveCardToHand(lament, axe1, axe2, runner2);
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		scn.ShadowMoveCharToTable(runner1);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.FreepsPlayCard(lament);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.SkipToPhase(Phase.MANEUVER);
+
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsChooseToMove();
+
+		scn.FreepsMoveCharToTable(gandalf);
+
+		scn.SkipToPhase(Phase.MANEUVER);
+
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards from hand"));
+		assertEquals(3, scn.GetFreepsHandCount());
+		assertEquals(2, scn.GetFreepsCardChoiceCount()); // 3 cards in hand, but only 2 freeps cards
+
+		scn.FreepsChooseCard(axe1);
+		assertEquals(Zone.STACKED, axe1.getZone());
+		assertEquals(lament, axe1.getStackedOn());
+		assertEquals(1, scn.GetStackedCards(lament).size());
+	}
+
+	@Test
+	public void RegroupActionExertsAndTakesCardsBasedOnDeadPileCount() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+		PhysicalCardImpl orophin = scn.GetFreepsCard("orophin");
+		PhysicalCardImpl axe1 = scn.GetFreepsCard("axe1");
+		PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
+
+		scn.FreepsMoveCharToTable(gandalf, galadriel, elrond, orophin);
+		scn.FreepsMoveCardToSupportArea(lament);
+		scn.StackCardsOn(lament, axe1, axe2);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.REGROUP);
+
+		assertEquals(0, scn.GetFreepsDeadCount());
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+
+		scn.FreepsMoveCardToDeadPile("guard");
+
+		scn.SkipCurrentPhaseActions();
+		scn.FreepsChooseToMove();
+		scn.SkipToPhase(Phase.REGROUP);
+
+		// 1 dead comp, but it's non-unique so it shouldn't trigger
+		assertEquals(1, scn.GetFreepsDeadCount());
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+
+		scn.FreepsMoveCardToDeadPile("gimli", "farin");
+
+		scn.SkipCurrentPhaseActions();
+		scn.ShadowSkipCurrentPhaseAction(); // reconciliation
+		scn.FreepsChooseToMove();
+		scn.SkipToPhase(Phase.REGROUP);
+
+		// 3 comps, at least 1 of which is unique, should trigger
+		assertEquals(3, scn.GetFreepsDeadCount());
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+
+		scn.FreepsAcceptOptionalTrigger();
+
+		assertTrue( scn.FreepsDecisionAvailable("Choose how many dead unique companions to spot"));
+		// 2 unique comps in the dead pile should restrict the max
+		assertEquals("2", scn.FreepsGetADParam("max")[0]);
+
+		scn.FreepsChoose("1");
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to exert"));
+		assertEquals(3, scn.GetFreepsCardChoiceCount());
+
+		assertEquals(0, scn.GetWoundsOn(elrond));
+		scn.FreepsChooseCard(elrond);
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose card"));
+		assertEquals(2, scn.GetStackedCards(lament).size());
+		assertEquals(2, scn.GetFreepsCardChoiceCount());
+
+		assertEquals(1, scn.GetWoundsOn(elrond));
+		assertEquals(0, scn.GetFreepsHandCount());
+		scn.FreepsChooseCard(axe1);
+
+		assertEquals(Zone.HAND, axe1.getZone());
+		assertEquals(Zone.STACKED, axe2.getZone());
+		assertEquals(1, scn.GetFreepsHandCount());
+
 	}
 }

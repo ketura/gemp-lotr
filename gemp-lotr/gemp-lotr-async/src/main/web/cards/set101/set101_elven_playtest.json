@@ -36,38 +36,72 @@
     	{
     		"type": "trigger",
     		"optional": true,
+    		"condition": {
+    			"type": "canSpot",
+    			"filter": "name(Gandalf)"
+    		},
 	      "trigger": {
 	        "type": "startOfPhase",
-	        "phase": "regroup"
+	        "phase": "maneuver"
 	      },
 	      "effect": {
 	        "type": "stackCardsFromHand",
-	        "filter": "choose(any)",
+	        "filter": "choose(side(free people))",
 	        "where": "self"
 	      },
 	    },
 	    {
-	      "type": "activatedTrigger",
+	      "type": "trigger",
+	      "optional": true,
 	      "trigger": {
-	        "type": "killed",
-	        "filter": "name(gandalf)"
+	      	"type": "startOfPhase",
+	      	"phase": "regroup"
 	      },
-	      "cost": {
-          "type": "exert",
-          "filter": "choose(and(or(companion,and(culture(elven),ally)),not(exhausted)))",
-          "memorize": "exertedTargets",
-          "count": {
-            "type": "range",
-            "from": 0,
-            "to": {
-              "type": "forEachYouCanSpot",
-              "filter": "and(or(companion,and(culture(elven),ally)),not(exhausted))"
-            }
-          }
-        },
+	      "condition": [
+	      	{
+		      	"type": "canspotindeadpile",
+		      	"filter": "companion,unique",
+		      	"count": 1
+		      },
+		      {
+		      	"type": "isMore",
+		      	"firstNumber": {
+              "type": "countStacked",
+              "on": "self",
+              "filter": "side(free people)"
+            },
+            "secondNumber": 0
+		      }
+		    ],
+	      "cost": [
+	      	{
+	      		"type": "chooseanumber",
+	      		"text": "Choose how many dead unique companions to spot",
+	      		"memorize": "deadcomps",
+	      		"from": 1,
+	      		"to": {
+	      			"type": "forEachInDeadPile",
+	      			"filter": "companion,unique"
+	      		}
+	      	},
+	      	{
+	          "type": "exert",
+	          "filter": "choose(elf)",
+	          "memorize": "exertedTargets",
+	          "count": {
+	            "type": "range",
+	            "from": 0,
+	            "to": {
+	              "type": "forEachYouCanSpot",
+	              "filter": "elf,not(exhausted)"
+	            }
+	          }
+	        },
+	      ],
 	      "effect": {
           "type": "putstackedcardsintohand",
           "on": "self",
+          "filter": "choose(side(free people))",
           "count": {
 	          "type": "forEachInMemory",
 	          "memory": "exertedTargets"
