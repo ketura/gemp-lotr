@@ -112,18 +112,17 @@ public class Card_09_039_Tests
 
         PhysicalCardImpl library = scn.GetShadowCard("library");
         PhysicalCardImpl troop1 = scn.GetShadowCard("troop1");
+        PhysicalCardImpl troop2 = scn.GetShadowCard("troop2");
         PhysicalCardImpl axe1 = scn.GetShadowCard("axe1");
 
-        scn.ShadowMoveCardToHand(library, troop1);
+        scn.ShadowMoveCardToSupportArea(library);
+        scn.ShadowMoveCharToTable(troop1);
+        scn.StackCardsOn(library, axe1, troop2);
 
         scn.StartGame();
         scn.SetTwilight(20);
 
         scn.FreepsSkipCurrentPhaseAction();
-
-        scn.ShadowPlayCard(library);
-        scn.ShadowUseCardAction(library);
-        assertEquals(library, axe1.getStackedOn());
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.SkipCurrentPhaseActions();
@@ -132,15 +131,52 @@ public class Card_09_039_Tests
         scn.FreepsSkipCurrentPhaseAction();
 
         assertTrue(scn.ShadowCardActionAvailable(library));
-        // 20 initially, +2 from move, -2 from library, -5 for troop, -2 for roaming
-        assertEquals(13, scn.GetTwilight());
+        // 20 initially, +2 from move, the rest were all cheated in
+        assertEquals(22, scn.GetTwilight());
         assertEquals(9, scn.GetStrength(troop1));
-        assertEquals(1, scn.GetStackedCards(library).size());
+        assertEquals(2, scn.GetStackedCards(library).size());
+
         scn.ShadowUseCardAction(library);
-        assertEquals(13, scn.GetTwilight());
-        assertEquals(9, scn.GetStrength(troop1));
-        assertEquals(0, scn.GetStackedCards(library).size());
+        assertFalse(scn.ShadowAnyDecisionsAvailable()); // only 1 valid choice even with 2 stacked, so should have no decision
+        assertEquals(21, scn.GetTwilight());
+        assertEquals(10, scn.GetStrength(troop1));
+        assertEquals(1, scn.GetStackedCards(library).size());
         assertEquals(Zone.DISCARD, axe1.getZone());
+    }
+
+    @Test
+    public void RegroupAbilityRemoves1AndTakesStackedIsengardCardIntoHand() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl library = scn.GetShadowCard("library");
+        PhysicalCardImpl troop1 = scn.GetShadowCard("troop1");
+        PhysicalCardImpl runner = scn.GetShadowCard("runner");
+        PhysicalCardImpl axe1 = scn.GetShadowCard("axe1");
+
+        scn.ShadowMoveCardToSupportArea(library);
+        scn.StackCardsOn(library, axe1, runner, troop1);
+
+        scn.StartGame();
+        scn.SetTwilight(20);
+
+        scn.FreepsSkipCurrentPhaseAction();
+
+        scn.SkipToPhase(Phase.REGROUP);
+        scn.FreepsSkipCurrentPhaseAction();
+
+        assertTrue(scn.ShadowCardActionAvailable(library));
+        // 20 initially, +2 from move, the rest were all cheated in
+        assertEquals(22, scn.GetTwilight());
+        assertEquals(0, scn.GetShadowHandCount());
+        assertEquals(3, scn.GetStackedCards(library).size());
+
+        scn.ShadowUseCardAction(library);
+        assertFalse(scn.ShadowAnyDecisionsAvailable()); // only 1 valid choice even with 3 stacked, so should have no decision
+        assertEquals(21, scn.GetTwilight());
+        assertEquals(1, scn.GetShadowHandCount());
+        assertEquals(2, scn.GetStackedCards(library).size());
+        assertEquals(Zone.HAND, troop1.getZone());
     }
 
 

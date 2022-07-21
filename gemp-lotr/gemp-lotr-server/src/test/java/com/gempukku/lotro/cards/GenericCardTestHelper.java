@@ -55,12 +55,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
     // Player key, then name/card
     public Map<String, Map<String, PhysicalCardImpl>> Cards = new HashMap<>();
 
-    public GenericCardTestHelper(Map<String, String> cardIDs) throws CardNotFoundException, DecisionResultInvalidException {
+    public GenericCardTestHelper(HashMap<String, String> cardIDs) throws CardNotFoundException, DecisionResultInvalidException {
         this(cardIDs, null, null, null);
     }
 
-    public GenericCardTestHelper(Map<String, String> cardIDs, Map<String, String> siteIDs, String ringBearerID, String ringID) throws CardNotFoundException, DecisionResultInvalidException {
+    public GenericCardTestHelper(HashMap<String, String> cardIDs, HashMap<String, String> siteIDs, String ringBearerID, String ringID) throws CardNotFoundException, DecisionResultInvalidException {
         super();
+
+
 
         if(siteIDs == null || ringBearerID == null || ringID == null) {
             initializeSimplestGame();
@@ -91,20 +93,17 @@ public class GenericCardTestHelper extends AbstractAtTest {
         if(cardIDs != null) {
             for(String name : cardIDs.keySet()) {
                 String id = cardIDs.get(name);
-                PhysicalCardImpl card = CreateCard(P1, id);
+                PhysicalCardImpl card = createCard(P1, id);
                 Cards.get(P1).put(name, card);
                 FreepsMoveCardsToTopOfDeck(card);
 
-                card = CreateCard(P2, id);
+                card = createCard(P2, id);
                 Cards.get(P2).put(name, card);
                 FreepsMoveCardsToTopOfDeck(card);
             }
         }
     }
 
-    public PhysicalCardImpl CreateCard(String playerID, String cardID) throws CardNotFoundException {
-        return new PhysicalCardImpl(LastCardID++, cardID, playerID, _library.getLotroCardBlueprint(cardID));
-    }
 
     public void StartGame() throws DecisionResultInvalidException {
         skipMulligans();
@@ -256,10 +255,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public int GetFreepsDiscardCount() { return GetPlayerDiscardCount(P1); }
     public int GetShadowDiscardCount() { return GetPlayerDiscardCount(P2); }
-    public int GetPlayerDiscardCount(String player)
-    {
-        return _game.getGameState().getDiscard(player).size();
-    }
+    public int GetPlayerDiscardCount(String player) { return _game.getGameState().getDiscard(player).size(); }
+
+    public int GetFreepsDeadCount() { return _game.getGameState().getDeadPile(P1).size(); }
 
     public Phase GetCurrentPhase() { return _game.getGameState().getCurrentPhase(); }
 
@@ -360,6 +358,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
             RemoveCardZone(card.getOwner(), card);
             _game.getGameState().putCardOnTopOfDeck(card);
         });
+
+        ShuffleFreepsDeck();
     }
     public void ShadowShuffleCardsInDeck(String...cardNames) {
         Arrays.stream(cardNames).forEach(cardName -> ShadowShuffleCardsInDeck(GetShadowCard(cardName)));
@@ -369,6 +369,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
             RemoveCardZone(card.getOwner(), card);
             _game.getGameState().putCardOnTopOfDeck(card);
         });
+
+        ShuffleShadowDeck();
+    }
+
+    public void ShuffleFreepsDeck() { ShuffleDeck(P1); }
+    public void ShuffleShadowDeck() { ShuffleDeck(P2); }
+    public void ShuffleDeck(String player) {
+        _game.getGameState().shuffleDeck(player);
     }
 
     public void FreepsMoveCharToTable(String...names) {
@@ -385,22 +393,43 @@ public class GenericCardTestHelper extends AbstractAtTest {
     }
 
 
-    public void FreepsMoveCardToSupportArea(String cardName) { FreepsMoveCardToSupportArea(GetFreepsCard(cardName)); }
+    public void FreepsMoveCardToSupportArea(String...names) {
+        Arrays.stream(names).forEach(name -> FreepsMoveCardToSupportArea(GetFreepsCard(name)));
+    }
     public void FreepsMoveCardToSupportArea(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.SUPPORT));
     }
-    public void ShadowMoveCardToSupportArea(String cardName) { ShadowMoveCardToSupportArea(GetShadowCard(cardName)); }
-    public void ShadowMoveCardToSupportArea(PhysicalCardImpl...cards) {
-        Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.SUPPORT));
+    public void ShadowMoveCardToSupportArea(String...names) {
+        Arrays.stream(names).forEach(name -> ShadowMoveCardToSupportArea(GetFreepsCard(name)));
     }
-
-    public void FreepsMoveCardToDiscard(String cardName) { FreepsMoveCardToDiscard(GetFreepsCard(cardName)); }
+    public void ShadowMoveCardToSupportArea(PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> MoveCardToZone(P2, card, Zone.SUPPORT));
+    }
+    public void FreepsMoveCardToDiscard(String...names) {
+        Arrays.stream(names).forEach(name -> FreepsMoveCardToDiscard(GetFreepsCard(name)));
+    }
     public void FreepsMoveCardToDiscard(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
     }
-    public void ShadowMoveCardToDiscard(String cardName) { ShadowMoveCardToDiscard(GetShadowCard(cardName)); }
+    public void ShadowMoveCardToDiscard(String...names) {
+        Arrays.stream(names).forEach(name -> ShadowMoveCardToDiscard(GetFreepsCard(name)));
+    }
     public void ShadowMoveCardToDiscard(PhysicalCardImpl...cards) {
-        Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
+        Arrays.stream(cards).forEach(card -> MoveCardToZone(P2, card, Zone.DISCARD));
+    }
+
+
+    public void FreepsMoveCardToDeadPile(String...names) {
+        Arrays.stream(names).forEach(name -> FreepsMoveCardToDeadPile(GetFreepsCard(name)));
+    }
+    public void FreepsMoveCardToDeadPile(PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DEAD));
+    }
+    public void ShadowMoveCardToDeadPile(String...names) {
+        Arrays.stream(names).forEach(name -> ShadowMoveCardToDeadPile(GetFreepsCard(name)));
+    }
+    public void ShadowMoveCardToDeadPile(PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> MoveCardToZone(P2, card, Zone.DEAD));
     }
 
 
@@ -557,25 +586,27 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetFreepsCardChoiceCount() { return FreepsGetCardChoices().size(); }
     public int GetShadowCardChoiceCount() { return ShadowGetCardChoices().size(); }
 
-    public void FreepsChooseCardBPFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardBPFromSelection(P1, card);}
-    public void ShadowChooseCardBPFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardBPFromSelection(P2, card);}
+    public void FreepsChooseCardBPFromSelection(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCardBPFromSelection(P1, cards);}
+    public void ShadowChooseCardBPFromSelection(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCardBPFromSelection(P2, cards);}
 
-    public void ChooseCardBPFromSelection(String player, PhysicalCardImpl card) throws DecisionResultInvalidException {
-        AwaitingDecision decision = _userFeedback.getAwaitingDecision(player);
+    public void ChooseCardBPFromSelection(String player, PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+        String[] choices = GetAwaitingDecisionParam(player,"blueprintId");
+        ArrayList<String> bps = new ArrayList<String>();
 
-        String[] ids = GetAwaitingDecisionParam(player,"blueprintId");
-        for(int i = 0; i < ids.length; i++)
+        for(int i = 0; i < choices.length; i++)
         {
-            String id = ids[i];
-            if(id == card.getBlueprintId())
+            for(PhysicalCardImpl card : cards)
             {
-                // I have no idea why the spacing is required, but the BP parser skips to the fourth position
-                playerDecided(player, "    " + i);
-                return;
+                if(card.getBlueprintId() == choices[i])
+                {
+                    // I have no idea why the spacing is required, but the BP parser skips to the fourth position
+                    bps.add("    " + i);
+                    break;
+                }
             }
         }
 
-        playerDecided(player, card.getBlueprintId());
+        playerDecided(player, String.join(",", bps));
     }
 
     public void FreepsChooseCardIDFromSelection(PhysicalCardImpl card) throws DecisionResultInvalidException { ChooseCardIDFromSelection(P1, card);}
