@@ -72,7 +72,7 @@ public class Card_01_248_ErrataTests
 
         scn.StartGame();
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         assertTrue(scn.ShadowActionAvailable("Forces of Mordor"));
         assertEquals(2, scn.GetTwilight());
 

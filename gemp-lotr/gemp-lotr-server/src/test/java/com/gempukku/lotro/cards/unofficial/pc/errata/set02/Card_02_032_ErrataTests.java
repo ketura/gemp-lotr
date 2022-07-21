@@ -130,20 +130,20 @@ public class Card_02_032_ErrataTests
         assertEquals(9, scn.GetStrength(aragorn));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(aragorn, runner);
         //skip assigning the nazgul
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //start goblin skirmish
         scn.FreepsResolveSkirmish(aragorn);
 
         //goblin shouldn't trigger Flaming Brand's action
         assertEquals(0, scn.FreepsGetAvailableActions().size());
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //assignment for fierce skirmish
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(aragorn, nazgul);
         scn.FreepsResolveSkirmish(aragorn);
 

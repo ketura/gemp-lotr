@@ -2,11 +2,9 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set19;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -86,14 +84,14 @@ public class Card_19_038_ErrataTests
         scn.SetTwilight(10);
         scn.RemoveBurdens(1); //To compensate for the bid
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.ShadowPlayCard(nertea);
         scn.ShadowChoose("14"); // Man
 
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         assertEquals(0, scn.GetBurdens());
         assertTrue(scn.FreepsDecisionAvailable("Would you like to add a burden to be able to assign Ulaire Nertea to a"));
         scn.FreepsChooseNo();
@@ -109,10 +107,10 @@ public class Card_19_038_ErrataTests
 
         scn.FreepsAssignToMinions(legolas, nertea);
         scn.FreepsResolveSkirmish(legolas);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //fierce skirmish
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         assertEquals(0, scn.GetBurdens());
         assertTrue(scn.FreepsDecisionAvailable("Would you like to add a burden to be able to assign Ulaire Nertea to a"));
         scn.FreepsChooseYes();

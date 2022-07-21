@@ -487,7 +487,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
             if(current == target)
                 break;
 
-            SkipCurrentPhaseActions();
+            PassCurrentPhaseActions();
 
             if(attempts == 20)
             {
@@ -496,18 +496,18 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
-    public void SkipCurrentPhaseActions() throws DecisionResultInvalidException {
-        FreepsSkipCurrentPhaseAction();
-        ShadowSkipCurrentPhaseAction();
+    public void PassCurrentPhaseActions() throws DecisionResultInvalidException {
+        FreepsPassCurrentPhaseAction();
+        ShadowPassCurrentPhaseAction();
     }
 
-    public void FreepsSkipCurrentPhaseAction() throws DecisionResultInvalidException {
+    public void FreepsPassCurrentPhaseAction() throws DecisionResultInvalidException {
         if(_userFeedback.getAwaitingDecision(P1) != null) {
             playerDecided(P1, "");
         }
     }
 
-    public void ShadowSkipCurrentPhaseAction() throws DecisionResultInvalidException {
+    public void ShadowPassCurrentPhaseAction() throws DecisionResultInvalidException {
         if(_userFeedback.getAwaitingDecision(P2) != null) {
             playerDecided(P2, "");
         }

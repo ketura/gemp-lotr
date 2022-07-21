@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -73,7 +72,7 @@ public class Card_V1_006_Tests
 		scn.StartGame();
 		scn.FreepsPlayCard(bold);
 
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		assertEquals(0, scn.GetWoundsOn(legolas));
@@ -84,7 +83,7 @@ public class Card_V1_006_Tests
 		assertEquals(1, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
 
 		scn.SkipToPhase(Phase.REGROUP);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		assertEquals(0, scn.GetKeywordCount(gimli, Keyword.DEFENDER));
 		scn.FreepsChooseToMove();
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());

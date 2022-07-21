@@ -89,7 +89,7 @@ public class Card_V1_012_Tests
 
 		assertEquals(2, scn.GetFreepsHandCount());
 		assertEquals(3, scn.GetFreepsDeckCount());
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
@@ -124,7 +124,7 @@ public class Card_V1_012_Tests
 
 		assertEquals(1, scn.GetFreepsHandCount());
 		assertEquals(3, scn.GetFreepsDeckCount());
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
@@ -161,7 +161,7 @@ public class Card_V1_012_Tests
 		scn.AddWoundsToChar(gandalf, 1);
 		scn.AddWoundsToChar(scn.GetRingBearer(), 1);
 
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		//assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		//scn.FreepsAcceptOptionalTrigger();
@@ -201,7 +201,7 @@ public class Card_V1_012_Tests
 
 		assertEquals(0, scn.GetFreepsHandCount());
 		assertEquals(1, scn.GetFreepsDeckCount());
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		//assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		//scn.FreepsAcceptOptionalTrigger();

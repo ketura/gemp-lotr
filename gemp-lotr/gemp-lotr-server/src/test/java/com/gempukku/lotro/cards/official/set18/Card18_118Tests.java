@@ -43,11 +43,11 @@ public class Card18_118Tests
         scn.StartGame();
 
         scn.SkipToPhase(Phase.ARCHERY);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsChooseCard(frodo);
 
         //assignment phase
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         assertEquals(0, scn.GetWoundsOn(lurtz));
 
         scn.ShadowUseCardAction(lurtz);

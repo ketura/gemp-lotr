@@ -72,7 +72,7 @@ public class Card_10_030_Tests
         scn.AddWoundsToChar(frodo, 3);
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
@@ -82,8 +82,8 @@ public class Card_10_030_Tests
         scn.FreepsPlayCard(endgame);
         assertEquals(8, scn.GetStrength(aragorn));
         //Passing skirmish actions
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.ShadowPassCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         //no other decisions occur from the event
         assertEquals(Phase.REGROUP, scn.GetCurrentPhase());
     }
@@ -106,7 +106,7 @@ public class Card_10_030_Tests
         scn.AddWoundsToChar(aragorn, 3);
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
@@ -135,7 +135,7 @@ public class Card_10_030_Tests
         scn.AddWoundsToChar(aragorn, 3);
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
@@ -144,8 +144,8 @@ public class Card_10_030_Tests
         assertEquals(8, scn.GetStrength(aragorn));
         scn.FreepsPlayCard(endgame);
         assertEquals(10, scn.GetStrength(aragorn));
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.ShadowPassCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertTrue(scn.FreepsActionAvailable("Required trigger from"));
         scn.FreepsResolveActionOrder("Required trigger from");
@@ -172,7 +172,7 @@ public class Card_10_030_Tests
         scn.AddWoundsToChar(aragorn, 3);
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
@@ -181,8 +181,8 @@ public class Card_10_030_Tests
         assertEquals(8, scn.GetStrength(aragorn));
         scn.FreepsPlayCard(endgame);
         assertEquals(10, scn.GetStrength(aragorn));
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.ShadowPassCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertTrue(scn.FreepsActionAvailable("Required trigger from"));
         scn.FreepsResolveActionOrder("Required trigger from");

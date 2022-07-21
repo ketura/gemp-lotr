@@ -2,11 +2,9 @@ package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
@@ -100,10 +98,10 @@ public class Card_V1_001_Tests
         assertFalse(scn.FreepsCardActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
-        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+        scn.PassCurrentPhaseActions();
+        scn.PassCurrentPhaseActions(); // skips the assignment on both sides
 
-        scn.SkipCurrentPhaseActions(); //in regroup
+        scn.PassCurrentPhaseActions(); //in regroup
         scn.FreepsChooseToMove();
 
         //Site 3
@@ -111,11 +109,11 @@ public class Card_V1_001_Tests
         assertFalse(scn.FreepsCardActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
-        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+        scn.PassCurrentPhaseActions();
+        scn.PassCurrentPhaseActions(); // skips the assignment on both sides
 
-        scn.SkipCurrentPhaseActions(); //in regroup
-        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.PassCurrentPhaseActions(); //in regroup
+        scn.ShadowPassCurrentPhaseAction(); //reconcile
         scn.FreepsChooseToMove();
 
         //Site 4
@@ -125,15 +123,15 @@ public class Card_V1_001_Tests
         assertFalse(scn.HasKeyword(gimli, Keyword.DAMAGE));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(gimli, troop);
         scn.FreepsResolveSkirmish(gimli);
-        scn.SkipCurrentPhaseActions(); // passes skirmish actions
+        scn.PassCurrentPhaseActions(); // passes skirmish actions
 
         assertEquals(1, scn.GetWoundsOn(gimli));
 
-        scn.SkipCurrentPhaseActions(); //in regroup
-        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.PassCurrentPhaseActions(); //in regroup
+        scn.ShadowPassCurrentPhaseAction(); //reconcile
         scn.FreepsChooseToMove();
 
         //Site 5
@@ -141,16 +139,16 @@ public class Card_V1_001_Tests
         assertTrue(scn.FreepsCardActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(gimli, troop);
         scn.FreepsResolveSkirmish(gimli);
-        scn.SkipCurrentPhaseActions(); // passes skirmish actions
+        scn.PassCurrentPhaseActions(); // passes skirmish actions
 
         //Without the wound protection, gimli dies with 2 wounds this round
         assertEquals(Zone.DEAD, gimli.getZone());
 
-        scn.SkipCurrentPhaseActions(); //in regroup
-        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.PassCurrentPhaseActions(); //in regroup
+        scn.ShadowPassCurrentPhaseAction(); //reconcile
         scn.FreepsChooseToMove();
 
         //Site 6
@@ -158,11 +156,11 @@ public class Card_V1_001_Tests
         assertTrue(scn.FreepsCardActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
-        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+        scn.PassCurrentPhaseActions();
+        scn.PassCurrentPhaseActions(); // skips the assignment on both sides
 
-        scn.SkipCurrentPhaseActions(); //in regroup
-        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.PassCurrentPhaseActions(); //in regroup
+        scn.ShadowPassCurrentPhaseAction(); //reconcile
         scn.FreepsChooseToMove();
 
         //Site 7
@@ -170,11 +168,11 @@ public class Card_V1_001_Tests
         assertTrue(scn.FreepsCardActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
-        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+        scn.PassCurrentPhaseActions();
+        scn.PassCurrentPhaseActions(); // skips the assignment on both sides
 
-        scn.SkipCurrentPhaseActions(); //in regroup
-        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.PassCurrentPhaseActions(); //in regroup
+        scn.ShadowPassCurrentPhaseAction(); //reconcile
         scn.FreepsChooseToMove();
 
         //Site 8
@@ -182,11 +180,11 @@ public class Card_V1_001_Tests
         assertTrue(scn.FreepsCardActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
-        scn.SkipCurrentPhaseActions(); // skips the assignment on both sides
+        scn.PassCurrentPhaseActions();
+        scn.PassCurrentPhaseActions(); // skips the assignment on both sides
 
-        scn.SkipCurrentPhaseActions(); //in regroup
-        scn.ShadowSkipCurrentPhaseAction(); //reconcile
+        scn.PassCurrentPhaseActions(); //in regroup
+        scn.ShadowPassCurrentPhaseAction(); //reconcile
         scn.FreepsChooseToMove();
 
         //Site 5

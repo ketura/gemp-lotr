@@ -37,11 +37,11 @@ public class Card1_011Tests
         scn.ShadowMoveCharToTable(goblin);
 
         scn.StartGame();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
 
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         scn.FreepsAssignToMinions(farin, goblin);
         scn.FreepsResolveSkirmish(farin);

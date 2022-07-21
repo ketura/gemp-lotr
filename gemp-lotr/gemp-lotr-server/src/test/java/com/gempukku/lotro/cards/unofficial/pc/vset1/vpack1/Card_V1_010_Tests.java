@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -140,16 +139,16 @@ public class Card_V1_010_Tests
 		assertEquals(1, scn.GetWoundsOn(greenleaf));
 
 		//Archery
-		scn.ShadowSkipCurrentPhaseAction();
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		scn.FreepsChooseCard(aragorn);
 
 		//Assignment
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		scn.FreepsAssignToMinions(lorien, archer);
 		scn.FreepsResolveSkirmish(lorien);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 
 		assertEquals(2, scn.GetWoundsOn(archer));
 

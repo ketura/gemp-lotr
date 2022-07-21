@@ -103,7 +103,7 @@ public class Card_03_068_ErrataTests
         assertFalse(scn.HasKeyword(uruk1, Keyword.FIERCE));
 
         //shadow has to skip archery actions
-        scn.ShadowSkipCurrentPhaseAction();
+        scn.ShadowPassCurrentPhaseAction();
 
 
         assertEquals(0, scn.GetWoundsOn(uruk1));
@@ -111,7 +111,7 @@ public class Card_03_068_ErrataTests
 
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //saruman is not on the list of assignable minions
         assertEquals(2, scn.FreepsGetADParamAsList("minions").size());
@@ -133,7 +133,7 @@ public class Card_03_068_ErrataTests
         scn.StartGame();
 
         scn.SkipToPhase(Phase.MANEUVER);
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertTrue(scn.ShadowCardActionAvailable(saruman));
 

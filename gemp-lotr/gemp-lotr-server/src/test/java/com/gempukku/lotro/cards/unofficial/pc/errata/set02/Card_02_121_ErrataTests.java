@@ -73,7 +73,7 @@ public class Card_02_121_ErrataTests
 
         scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         // 2 for Frodo/Gimli, 1 for the site, -1 for Gimli's text
         assertEquals(2, scn.GetTwilight());
@@ -89,7 +89,7 @@ public class Card_02_121_ErrataTests
 
         scn.StartGame();
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         // 2 for Frodo/Gimli, 1 for the site
         assertEquals(3, scn.GetTwilight());

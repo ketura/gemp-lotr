@@ -5,7 +5,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -84,7 +83,7 @@ public class Card_V1_007_Tests
 		scn.FreepsPlayCard(tale);
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		scn.FreepsAssignToMinions(aragorn, orc1);
 		assertEquals(Zone.HAND, there.getZone());
 		scn.FreepsResolveSkirmish(aragorn);
@@ -111,7 +110,7 @@ public class Card_V1_007_Tests
 		scn.FreepsPlayCard(saga);
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		scn.FreepsAssignToMinions(arwen, orc1);
 		assertEquals(Zone.HAND, there.getZone());
 		scn.FreepsResolveSkirmish(arwen);
@@ -136,7 +135,7 @@ public class Card_V1_007_Tests
 		scn.FreepsPlayCard(tale);
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		scn.FreepsAssignToMinions(arwen, orc1);
 		assertEquals(Zone.HAND, there.getZone());
 		scn.FreepsResolveSkirmish(arwen);

@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -74,7 +73,7 @@ public class Card_V1_035_Tests
 
 		scn.StartGame();
 		scn.SetTwilight(17);
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		scn.ShadowPlayCard(darkness);
 		assertTrue(scn.ShadowActionAvailable("Darkness Grew"));

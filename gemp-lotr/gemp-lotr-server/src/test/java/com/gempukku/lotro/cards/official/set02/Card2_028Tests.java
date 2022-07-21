@@ -42,7 +42,7 @@ public class Card2_028Tests
         scn.ShadowMoveCharToTable(runner);
 
         scn.StartGame();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.SkipToPhase(Phase.MANEUVER);
 

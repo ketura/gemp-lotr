@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -87,7 +86,7 @@ public class Card_V1_031_Tests
 		scn.StartGame();
 		scn.SetTwilight(8);
 		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.MARSH));
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 		scn.ShadowPlayCard(purpose);
 		scn.ShadowPlayCard(ftentacle1);
 		scn.ShadowDeclineOptionalTrigger();
@@ -95,19 +94,19 @@ public class Card_V1_031_Tests
 		scn.ShadowDeclineOptionalTrigger();
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 		assertFalse(scn.ShadowActionAvailable("One Purpose"));
-		scn.ShadowSkipCurrentPhaseAction();
+		scn.ShadowPassCurrentPhaseAction();
 		scn.FreepsAssignToMinions(new PhysicalCardImpl[]{merry, ftentacle1}, new PhysicalCardImpl[]{aragorn,ftentacle2});
 
 		scn.FreepsResolveSkirmish(merry);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
 		scn.ShadowAcceptOptionalTrigger();
 		assertEquals(1, scn.GetStackedCards(purpose).size());
 
 		scn.FreepsResolveSkirmish(aragorn);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		assertFalse(scn.ShadowHasOptionalTriggerAvailable());
 		assertEquals(1, scn.GetStackedCards(purpose).size());
 
@@ -131,12 +130,12 @@ public class Card_V1_031_Tests
 		scn.StartGame();
 		scn.SetTwilight(4);
 		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.MARSH));
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 		scn.ShadowPlayCard(htentacle);
 		scn.ShadowDeclineOptionalTrigger();
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 		assertTrue(scn.ShadowActionAvailable("One Purpose"));
 		scn.ShadowUseCardAction(purpose);
 		assertTrue(scn.IsCharAssigned(scn.GetRingBearer()));

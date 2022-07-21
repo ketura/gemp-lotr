@@ -5,7 +5,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -84,7 +83,7 @@ public class Card_09_039_Tests
         scn.StartGame();
         scn.SetTwilight(20);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.ShadowPlayCard(library);
         assertTrue(scn.ShadowCardActionAvailable(library));
@@ -122,13 +121,13 @@ public class Card_09_039_Tests
         scn.StartGame();
         scn.SetTwilight(20);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(scn.GetRingBearer(), troop1);
         scn.FreepsResolveSkirmish(scn.GetRingBearer());
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertTrue(scn.ShadowCardActionAvailable(library));
         // 20 initially, +2 from move, the rest were all cheated in
@@ -160,10 +159,10 @@ public class Card_09_039_Tests
         scn.StartGame();
         scn.SetTwilight(20);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.SkipToPhase(Phase.REGROUP);
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertTrue(scn.ShadowCardActionAvailable(library));
         // 20 initially, +2 from move, the rest were all cheated in

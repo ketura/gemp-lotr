@@ -127,7 +127,7 @@ public class Card_03_042_ErrataTests
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
 
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         scn.FreepsAssignToMinions(elrond, runner1);
         assertTrue(scn.IsCharAssigned(elrond));

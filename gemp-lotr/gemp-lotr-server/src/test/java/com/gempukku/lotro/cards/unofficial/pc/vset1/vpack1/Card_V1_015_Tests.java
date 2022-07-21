@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -22,8 +21,15 @@ public class Card_V1_015_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_15");
-					// put other cards in here as needed for the test case
+					put("gwaihir", "151_15");
+					put("aragorn", "1_89");
+					put("gandalf", "151_14");
+					put("pathfinder", "1_110");
+
+					put("runner", "1_178");
+					put("spear", "1_182");
+					put("troll", "1_165");
+
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +37,7 @@ public class Card_V1_015_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void GwaihirStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -55,34 +59,108 @@ public class Card_V1_015_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl gwaihir = scn.GetFreepsCard("gwaihir");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
-		assertEquals(CardType.ALLY, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(4, card.getBlueprint().getTwilightCost());
-		assertEquals(8, card.getBlueprint().getStrength());
-		assertEquals(2, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(gwaihir.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, gwaihir.getBlueprint().getSide());
+		assertEquals(Culture.GANDALF, gwaihir.getBlueprint().getCulture());
+		assertEquals(CardType.ALLY, gwaihir.getBlueprint().getCardType());
+		assertEquals(Race.EAGLE, gwaihir.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(gwaihir, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(4, gwaihir.getBlueprint().getTwilightCost());
+		assertEquals(8, gwaihir.getBlueprint().getStrength());
+		assertEquals(2, gwaihir.getBlueprint().getVitality());
+		//assertEquals(, gwaihir.getBlueprint().getResistance());
+		//assertEquals(Signet., gwaihir.getBlueprint().getSignet());
+		assertEquals(4, gwaihir.getBlueprint().getAllyHomeSiteNumbers()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void GwaihirTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void GwaihirSpotsGandalfToPlay() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl gwaihir = scn.GetFreepsCard("gwaihir");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		scn.FreepsMoveCardToHand(gwaihir, gandalf);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
+		assertFalse(scn.FreepsCardPlayAvailable(gwaihir));
+		scn.FreepsPlayCard(gandalf);
+		assertTrue(scn.FreepsCardPlayAvailable(gwaihir));
+
+		scn.FreepsPlayCard(gwaihir);
 		assertEquals(4, scn.GetTwilight());
 	}
+
+	@Test
+	public void MovingOptionallyHealsGandalfSignetOnOpponentsSite() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gwaihir = scn.GetFreepsCard("gwaihir");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl pathfinder = scn.GetFreepsCard("pathfinder");
+		scn.FreepsMoveCharToTable(gwaihir, aragorn);
+		scn.FreepsMoveCardToHand(pathfinder);
+
+		scn.StartGame();
+
+		scn.AddWoundsToChar(aragorn, 3);
+
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(2, scn.GetWoundsOn(aragorn));
+
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.FreepsPlayCard(pathfinder);
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		scn.FreepsChooseToMove();
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+		assertEquals(2, scn.GetWoundsOn(aragorn));
+	}
+
+	@Test
+	public void RegroupActionDiscardsToMakeMoveLimitPlus1AndShadowTakesCards() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gwaihir = scn.GetFreepsCard("gwaihir");
+		scn.FreepsMoveCharToTable(gwaihir);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		PhysicalCardImpl spear = scn.GetShadowCard("spear");
+		PhysicalCardImpl troll = scn.GetShadowCard("troll");
+
+		scn.ShadowMoveCardToDiscard(runner, spear, troll);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.REGROUP);
+
+		assertTrue(scn.FreepsCardActionAvailable(gwaihir));
+		assertEquals(Zone.FREE_CHARACTERS, gwaihir.getZone());
+		assertEquals(Zone.DISCARD, runner.getZone());
+		assertEquals(Zone.DISCARD, spear.getZone());
+		assertEquals(Zone.DISCARD, troll.getZone());
+
+		scn.FreepsUseCardAction(gwaihir);
+
+		assertTrue(scn.ShadowDecisionAvailable("Would you like to take up to 2 Shadow cards into hand from discard?"));
+		scn.ShadowChooseYes();
+		assertTrue(scn.ShadowDecisionAvailable("Choose card from discard"));
+		scn.ShadowChooseCardBPFromSelection(runner, troll);
+
+		assertEquals(Zone.DISCARD, gwaihir.getZone());
+		assertEquals(Zone.HAND, runner.getZone());
+		assertEquals(Zone.DISCARD, spear.getZone());
+		assertEquals(Zone.HAND, troll.getZone());
+	}
+
 }

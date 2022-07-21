@@ -114,7 +114,7 @@ public class Card_03_106_ErrataTests
         scn.FreepsPlayCard(sam);
         scn.FreepsPlayCard(bill);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertFalse(scn.IsAttachedTo(bill, sam));
         assertEquals(Zone.DISCARD, bill.getZone());

@@ -94,7 +94,7 @@ public class Card_01_108_ErrataTests
 
         scn.FreepsPlayCard(nostranger);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         // 2 for Frodo/Aragorn, 1 for the site, -1 for No Stranger
         assertEquals(2, scn.GetTwilight());

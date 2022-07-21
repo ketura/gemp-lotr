@@ -84,7 +84,7 @@ public class Card_02_075_ErrataTests
 
         scn.SetTwilight(12);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         //12 manual + 1 companion + 1 site.
         assertEquals(14, scn.GetTwilight());
@@ -123,7 +123,7 @@ public class Card_02_075_ErrataTests
         scn.StartGame();
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         Boolean exc = false;
         try {
@@ -133,15 +133,15 @@ public class Card_02_075_ErrataTests
             exc = true;
         }
         assertTrue(exc); // If an exception wasn't thrown, then freeps assigning was permitted even with a hobbit
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         scn.ShadowAssignToMinions(sam, ferny);
 
         scn.FreepsResolveSkirmish(sam);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //artificial fierce skirmish
         assertEquals(Zone.DEAD, sam.getZone());
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         Boolean exc2 = false;
         try {
@@ -169,7 +169,7 @@ public class Card_02_075_ErrataTests
 
         assertEquals(Zone.SHADOW_CHARACTERS, ferny.getZone());
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertEquals(Zone.DISCARD, ferny.getZone());
     }

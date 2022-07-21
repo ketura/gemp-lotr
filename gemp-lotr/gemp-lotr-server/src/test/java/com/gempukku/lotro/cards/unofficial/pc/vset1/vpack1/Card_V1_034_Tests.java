@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -77,7 +76,7 @@ public class Card_V1_034_Tests
 		scn.StartGame();
 		scn.SetTwilight(4);
 		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.MARSH));
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		scn.ShadowPlayCard(darkwaters);
 

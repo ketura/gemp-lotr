@@ -2,11 +2,9 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set10;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -87,7 +85,7 @@ public class Card_10_008_ErrataTests
         scn.StartGame();
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(cirdan, nazgul);
 
         //this nazgul should be strength 10, -4 = 6, enough to trigger Cirdan's secondary effect
@@ -99,14 +97,14 @@ public class Card_10_008_ErrataTests
         scn.FreepsChoose(scn.FreepsGetCardChoices().get(0), scn.FreepsGetCardChoices().get(1), scn.FreepsGetCardChoices().get(2));
 
         assertEquals(6, scn.GetStrength(nazgul));
-        scn.ShadowSkipCurrentPhaseAction();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.ShadowPassCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         assertEquals(1, scn.GetWoundsOn(cirdan));
         assertEquals(1, scn.GetWoundsOn(nazgul));
 
         //fierce skirmish
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(cirdan, nazgul);
         scn.FreepsResolveSkirmish(cirdan);
 

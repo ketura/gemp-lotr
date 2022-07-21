@@ -101,7 +101,7 @@ public class Card_V1_008_Tests
 		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
 
 		scn.SkipToPhase(Phase.REGROUP);
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		scn.FreepsChooseToMove();
 
 		scn.FreepsMoveCharToTable(gandalf);
@@ -149,7 +149,7 @@ public class Card_V1_008_Tests
 
 		scn.FreepsMoveCardToDeadPile("guard");
 
-		scn.SkipCurrentPhaseActions();
+		scn.PassCurrentPhaseActions();
 		scn.FreepsChooseToMove();
 		scn.SkipToPhase(Phase.REGROUP);
 
@@ -159,8 +159,8 @@ public class Card_V1_008_Tests
 
 		scn.FreepsMoveCardToDeadPile("gimli", "farin");
 
-		scn.SkipCurrentPhaseActions();
-		scn.ShadowSkipCurrentPhaseAction(); // reconciliation
+		scn.PassCurrentPhaseActions();
+		scn.ShadowPassCurrentPhaseAction(); // reconciliation
 		scn.FreepsChooseToMove();
 		scn.SkipToPhase(Phase.REGROUP);
 

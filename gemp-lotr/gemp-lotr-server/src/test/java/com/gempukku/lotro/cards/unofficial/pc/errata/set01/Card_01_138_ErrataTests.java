@@ -75,7 +75,7 @@ public class Card_01_138_ErrataTests
 
         scn.SetTwilight(10);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         assertFalse(scn.ShadowActionAvailable("Saruman's Snows"));
         scn.ShadowPlayCard(uruk);
         assertTrue(scn.ShadowActionAvailable("Saruman's Snows"));
@@ -104,14 +104,14 @@ public class Card_01_138_ErrataTests
 
         scn.SetTwilight(10);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         scn.ShadowPlayCard(snows);
         scn.ShadowChoose(scn.ShadowGetCardChoices().get(1));
 
         scn.ShadowMoveCardToDiscard(uruk);
         scn.SkipToPhase(Phase.REGROUP);
-        scn.FreepsSkipCurrentPhaseAction();
-        scn.ShadowSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
+        scn.ShadowPassCurrentPhaseAction();
         scn.FreepsChooseToMove();
 
         //After moving, Snows should still be attached
@@ -147,26 +147,26 @@ public class Card_01_138_ErrataTests
 
         scn.SetTwilight(10);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
         scn.ShadowPlayCard(snows);
         scn.ShadowChoose(String.valueOf(scn.GetCurrentSite().getCardId())); //Should be site 2
         scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.name("Uruk Savage"), Keyword.FIERCE));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(boromir, runner);
 
         //skip assigning the uruk
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //start goblin skirmish
         scn.FreepsResolveSkirmish(boromir);
         assertTrue(scn.FreepsActionAvailable("Play Swordarm"));
         assertTrue(scn.FreepsActionAvailable("Use Boromir"));
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         //fierce skirmish
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
         scn.FreepsAssignToMinions(boromir, uruk);
 
         //actions should be disallowed by snows as the skirmish involves an isengard minion

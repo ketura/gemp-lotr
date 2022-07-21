@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -67,7 +66,7 @@ public class Card_V1_032_Tests
 		scn.ShadowMoveCardToSupportArea(terror);
 
 		scn.StartGame();
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		assertFalse(scn.ShadowHasOptionalTriggerAvailable());
 	}
@@ -83,12 +82,12 @@ public class Card_V1_032_Tests
 		scn.ShadowMoveCardToHand(balrog);
 
 		scn.StartGame();
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 
 		assertEquals(0, scn.GetTwilight());
 		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
 		scn.ShadowAcceptOptionalTrigger();
-		scn.FreepsSkipCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
 		// 2 for the site, 1 for companions, 2 for Terror
 		assertEquals(5, scn.GetTwilight());
 	}

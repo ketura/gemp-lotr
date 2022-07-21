@@ -100,7 +100,7 @@ public class Card_01_311_ErrataTests
         assertNotSame(scn.GetRingBearer(), sam);
         scn.AddWoundsToChar(frodo, 4);
 
-        scn.SkipCurrentPhaseActions();
+        scn.PassCurrentPhaseActions();
 
         assertTrue(scn.FreepsActionAvailable("Optional Trigger"));
     }

@@ -86,7 +86,7 @@ public class Card_03_038_ErrataTests
         scn.StartGame();
         scn.SetTwilight(2);
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         // 2 for Frodo/Aragorn, 1 for the site, 2 in the pool, -1 for Aragorn's text
         assertEquals(4, scn.GetTwilight());
@@ -94,8 +94,8 @@ public class Card_03_038_ErrataTests
 
         scn.SkipToPhase(Phase.REGROUP);
 
-        scn.SkipCurrentPhaseActions();
-        scn.ShadowSkipCurrentPhaseAction();
+        scn.PassCurrentPhaseActions();
+        scn.ShadowPassCurrentPhaseAction();
         assertEquals(4, scn.GetTwilight());
         scn.FreepsChooseToMove();
 
@@ -114,7 +114,7 @@ public class Card_03_038_ErrataTests
 
         scn.StartGame();
 
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         // 2 for Frodo/Aragorn, 1 for the site, no removal since there was nothing in the pool before moving
         assertEquals(3, scn.GetTwilight());

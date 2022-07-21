@@ -42,7 +42,7 @@ public class Card2_013Tests
         scn.FreepsMoveCardToHand(tidings);
 
         scn.StartGame();
-        scn.FreepsSkipCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
 
         scn.SkipToPhase(Phase.REGROUP);
 

@@ -6,7 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -104,7 +103,7 @@ public class Card_V1_009_Tests
 		assertEquals(1, scn.GetFreepsArcheryTotal());
 		assertEquals(8, scn.GetStrength(legolas));
 
-		scn.ShadowSkipCurrentPhaseAction();
+		scn.ShadowPassCurrentPhaseAction();
 
 		assertFalse(scn.FreepsAnyActionsAvailable()); // No gorn bow
 	}
