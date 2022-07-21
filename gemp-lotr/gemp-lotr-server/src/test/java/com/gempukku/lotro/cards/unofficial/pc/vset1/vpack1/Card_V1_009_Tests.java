@@ -22,8 +22,13 @@ public class Card_V1_009_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_9");
-					// put other cards in here as needed for the test case
+					put("legolas", "151_9");
+					put("lorien", "51_53");
+					put("bow", "1_41");
+					put("aragorn", "1_89");
+					put("gornbow", "1_90");
+
+					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,7 +36,6 @@ public class Card_V1_009_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
 
 	@Test
 	public void LegolasStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
@@ -54,32 +58,54 @@ public class Card_V1_009_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl legolas = scn.GetFreepsCard("legolas");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.ARCHER)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(6, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.ARAGORN, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertTrue(legolas.getBlueprint().isUnique());
+		assertTrue(scn.HasKeyword(legolas, Keyword.ARCHER)); // test for keywords as needed
+		assertEquals(2, legolas.getBlueprint().getTwilightCost());
+		assertEquals(6, legolas.getBlueprint().getStrength());
+		assertEquals(3, legolas.getBlueprint().getVitality());
+		//assertEquals(, legolas.getBlueprint().getResistance());
+		assertEquals(Signet.ARAGORN, legolas.getBlueprint().getSignet()); 
+		//assertEquals(, legolas.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(CardType.COMPANION, legolas.getBlueprint().getCardType());
+		assertEquals(Culture.ELVEN, legolas.getBlueprint().getCulture());
+		assertEquals(Side.FREE_PEOPLE, legolas.getBlueprint().getSide());
 	}
 
-	//@Test
-	public void LegolasTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void ArcheryLosesFireToPumpLegolas() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl legolas = scn.GetFreepsCard("legolas");
+		PhysicalCardImpl lorien = scn.GetFreepsCard("lorien");
+		PhysicalCardImpl bow = scn.GetFreepsCard("bow");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl gornbow = scn.GetFreepsCard("gornbow");
+
+		scn.FreepsMoveCharToTable(legolas, lorien, aragorn);
+		scn.FreepsAttachCardsTo(aragorn, "gornbow");
+		scn.FreepsAttachCardsTo(lorien, "bow");
+
+		scn.ShadowMoveCharToTable("runner");
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ARCHERY);
+		assertTrue(scn.FreepsCardActionAvailable(legolas));
+		assertEquals(3, scn.GetFreepsArcheryTotal());
+		assertEquals(6, scn.GetStrength(legolas));
+
+		scn.FreepsUseCardAction(legolas);
+		assertTrue(scn.FreepsDecisionAvailable("Choose number to reduce archery by"));
+		scn.FreepsChoose("2");
+
+		assertEquals(1, scn.GetFreepsArcheryTotal());
+		assertEquals(8, scn.GetStrength(legolas));
+
+		scn.ShadowSkipCurrentPhaseAction();
+
+		assertFalse(scn.FreepsAnyActionsAvailable()); // No gorn bow
 	}
 }

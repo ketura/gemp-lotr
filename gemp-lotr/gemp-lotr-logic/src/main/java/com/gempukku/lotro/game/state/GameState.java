@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.GameStats;
 import org.apache.log4j.Logger;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -311,12 +312,18 @@ public class GameState {
             listener.cardMoved(card);
     }
 
-    public void attachCard(LotroGame game, PhysicalCard card, PhysicalCard attachTo) {
+    public void attachCard(LotroGame game, PhysicalCard card, PhysicalCard attachTo) throws InvalidParameterException {
+        if(card == attachTo)
+            throw new InvalidParameterException("Cannot attach card to itself!");
+
         ((PhysicalCardImpl) card).attachTo((PhysicalCardImpl) attachTo);
         addCardToZone(game, card, Zone.ATTACHED);
     }
 
-    public void stackCard(LotroGame game, PhysicalCard card, PhysicalCard stackOn) {
+    public void stackCard(LotroGame game, PhysicalCard card, PhysicalCard stackOn) throws InvalidParameterException {
+        if(card == stackOn)
+            throw new InvalidParameterException("Cannot stack card on itself!");
+
         ((PhysicalCardImpl) card).stackOn((PhysicalCardImpl) stackOn);
         addCardToZone(game, card, Zone.STACKED);
     }

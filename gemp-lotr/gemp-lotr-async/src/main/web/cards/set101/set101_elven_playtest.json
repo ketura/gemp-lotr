@@ -128,11 +128,13 @@
 			{
 	      "type": "activated",
 	      "phase": "archery",
-	      "cost": {
-	        "type": "reduceArcheryTotal",
-	        "side": "free people",
-	        "memorize": "reducedBy"
-	      },
+	      "cost": [
+	      	{
+		        "type": "reduceArcheryTotal",
+		        "side": "free people",
+		        "memorize": "reducedBy"
+	      	}
+	    	],
 	      "effect": [
 	      	{
 		        "type": "modifyStrength",
