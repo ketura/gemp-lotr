@@ -62,6 +62,10 @@
           "filter": "culture(elven),ally",
           "count": 2
         },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        },
         "effect": {
           "type": "shuffleCardsFromDiscardIntoDrawDeck",
           "filter": "choose(or(culture(gandalf),culture(elven)))"
@@ -124,6 +128,7 @@
     "effects": [
       {
         "type": "trigger",
+        "optional": true,
         "trigger": {
           "type": "movesTo",
           "filter": "not(your)"

@@ -108,6 +108,38 @@ public class Card_V1_013_Tests
 		assertEquals(1, scn.GetFreepsDiscardCount());
 		assertEquals(4, scn.GetTwilight());
 	}
+
+	@Test
+	public void CanRevealWithoutPaying() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl counsel = scn.GetFreepsCard("counsel");
+		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		scn.FreepsMoveCardToHand(counsel);
+		scn.FreepsMoveCharToTable(gandalf);
+
+		scn.StartGame();
+
+		assertEquals(1, scn.GetFreepsHandCount());
+		assertEquals(3, scn.GetFreepsDeckCount());
+		assertEquals(0, scn.GetTwilight());
+
+		scn.FreepsPlayCard(counsel);
+		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
+		// Choices available should be 1 Elrond, 1 Galadriel, 1 Orophin
+		assertEquals(3, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCardBPFromSelection(scn.GetFreepsCard("elrond"));
+		assertTrue(scn.FreepsDecisionAvailable("Would you like to pay"));
+		scn.FreepsChooseNo();
+
+		assertEquals(0, scn.GetFreepsHandCount());
+		assertEquals(Zone.DECK, elrond.getZone());
+		assertEquals(3, scn.GetFreepsDeckCount());
+		assertEquals(1, scn.GetFreepsDiscardCount());
+		assertEquals(0, scn.GetTwilight());
+	}
 }
 
 
