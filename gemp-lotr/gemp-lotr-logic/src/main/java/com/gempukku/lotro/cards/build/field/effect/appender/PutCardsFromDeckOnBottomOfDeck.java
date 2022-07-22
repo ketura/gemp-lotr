@@ -11,7 +11,10 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.PutCardFromDiscardOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromDeckIntoHandEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromDeckOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromDeckOnTopOfDeckEffect;
+import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
@@ -19,7 +22,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PutCardsFromDiscardOnBottomOfDrawDeck implements EffectAppenderProducer {
+public class PutCardsFromDeckOnBottomOfDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "count", "filter");
@@ -30,7 +33,7 @@ public class PutCardsFromDiscardOnBottomOfDrawDeck implements EffectAppenderProd
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInDiscard(filter, valueSource, "_temp", "you", "Choose cards from discard", environment));
+                CardResolver.resolveCardsInDeck(filter, null, valueSource, "_temp", "you", "Choose cards from deck", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
@@ -38,8 +41,7 @@ public class PutCardsFromDiscardOnBottomOfDrawDeck implements EffectAppenderProd
                         final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
                         List<Effect> result = new LinkedList<>();
                         for (PhysicalCard card : cards) {
-                            result.add(
-                                    new PutCardFromDiscardOnBottomOfDeckEffect(card));
+                            result.add(new PutCardFromDeckOnBottomOfDeckEffect(action.getActionSource(), card));
                         }
 
                         return result;

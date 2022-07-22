@@ -86,7 +86,7 @@
         "memorize": "playedUrukHai"
       },
       "effect": {
-        "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+        "type": "putCardsFromDiscardOnBottomOfDeck",
         "filter": "all(nameFromMemory(playedUrukHai))"
       }
     }

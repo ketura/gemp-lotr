@@ -413,7 +413,7 @@
         "filter": "self"
       },
       "effect": {
-        "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+        "type": "putCardsFromDiscardOnBottomOfDeck",
         "filter": "choose(culture(moria),orc)"
       }
     }

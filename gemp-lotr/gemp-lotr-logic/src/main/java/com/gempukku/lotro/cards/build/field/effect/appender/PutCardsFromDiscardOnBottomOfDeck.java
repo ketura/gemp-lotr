@@ -11,7 +11,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.PutCardFromDiscardOnTopOfDeckEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PutCardsFromDiscardOnTopOfDrawDeck implements EffectAppenderProducer {
+public class PutCardsFromDiscardOnBottomOfDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "count", "filter");
@@ -39,7 +39,7 @@ public class PutCardsFromDiscardOnTopOfDrawDeck implements EffectAppenderProduce
                         List<Effect> result = new LinkedList<>();
                         for (PhysicalCard card : cards) {
                             result.add(
-                                    new PutCardFromDiscardOnTopOfDeckEffect(card));
+                                    new PutCardFromDiscardOnBottomOfDeckEffect(card));
                         }
 
                         return result;

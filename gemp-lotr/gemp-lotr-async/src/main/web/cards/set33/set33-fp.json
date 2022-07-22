@@ -137,7 +137,7 @@
             "filter": "choose(name(Balin))"
           },
           {
-            "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+            "type": "putCardsFromDiscardOnBottomOfDeck",
             "count": 2
           }
         ]

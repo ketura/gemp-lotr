@@ -555,7 +555,7 @@
           "filter": "choose(culture(dwarven),follower)"
         },
         "effect": {
-          "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+          "type": "putCardsFromDiscardOnBottomOfDeck",
           "filter": "choose(culture(dwarven),artifact)"
         }
       }

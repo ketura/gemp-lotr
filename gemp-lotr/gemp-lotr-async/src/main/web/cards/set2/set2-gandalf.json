@@ -103,7 +103,7 @@
           "filter": "memory(chosenCard)"
         },
         {
-          "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+          "type": "putCardsFromDiscardOnBottomOfDeck",
           "filter": "memory(chosenCard)"
         }
       ]

@@ -212,7 +212,7 @@
           "filter": "self"
         },
         "effect": {
-          "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+          "type": "putCardsFromDiscardOnBottomOfDeck",
           "filter": "choose(orc)"
         }
       },

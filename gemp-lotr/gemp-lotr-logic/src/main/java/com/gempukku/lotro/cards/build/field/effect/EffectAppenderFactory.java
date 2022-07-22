@@ -94,9 +94,11 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("preventheal", new PreventCardEffectAppender());
         effectAppenderProducers.put("preventwound", new PreventWound());
         effectAppenderProducers.put("putcardsfromdeckintohand", new PutCardsFromDeckIntoHand());
+        effectAppenderProducers.put("putcardsfromdeckontopofdeck", new PutCardsFromDeckOnTopOfDeck());
+        effectAppenderProducers.put("putcardsfromdeckonbottomofdeck", new PutCardsFromDeckOnBottomOfDeck());
         effectAppenderProducers.put("putcardsfromdiscardintohand", new PutCardsFromDiscardIntoHand());
-        effectAppenderProducers.put("putcardsfromdiscardonbottomofdrawdeck", new PutCardsFromDiscardOnBottomOfDrawDeck());
-        effectAppenderProducers.put("putcardsfromdiscardontopofdrawdeck", new PutCardsFromDiscardOnTopOfDrawDeck());
+        effectAppenderProducers.put("putcardsfromdiscardonbottomofdeck", new PutCardsFromDiscardOnBottomOfDeck());
+        effectAppenderProducers.put("putcardsfromdiscardontopofdeck", new PutCardsFromDiscardOnTopOfDeck());
         effectAppenderProducers.put("putcardsfromhandonbottomofdeck", new PutCardsFromHandOnBottomOfDeck());
         effectAppenderProducers.put("putcardsfromhandontopofdeck", new PutCardsFromHandOnTopOfDeck());
         effectAppenderProducers.put("putcardsfromplayonbottomofdeck", new PutCardsFromPlayOnBottomOfDeck());
