@@ -13,6 +13,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolv
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.AddUntilModifierEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -68,6 +69,12 @@ public class AddKeyword implements EffectAppenderProducer {
                             result.add(new AddUntilModifierEffect(
                                     new KeywordModifier(actionContext.getSource(), physicalCard, keywordFunction.apply(actionContext), keywordCount), until));
                         }
+
+                        actionContext.getGame().getGameState().sendMessage(
+                                GameUtils.getCardLink(actionContext.getSource())
+                                        + " adds " + keywordFunction.apply(actionContext).getHumanReadableGeneric()
+                                        + " to " + GameUtils.getAppendedNames(cardsFromMemory)
+                                        + " until " + until.getHumanReadable());
                         return result;
                     }
                 });

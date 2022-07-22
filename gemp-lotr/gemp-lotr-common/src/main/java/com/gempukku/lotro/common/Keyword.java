@@ -63,6 +63,13 @@ public enum Keyword implements Filterable {
         return _humanReadable;
     }
 
+    public String getHumanReadableGeneric() {
+        if(_multiples)
+            return _humanReadable + " bonus";
+
+        return _humanReadable;
+    }
+
     public boolean isInfoDisplayable() {
         return _infoDisplayable;
     }
