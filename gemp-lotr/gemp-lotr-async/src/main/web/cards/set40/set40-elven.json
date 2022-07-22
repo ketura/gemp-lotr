@@ -442,7 +442,7 @@
             "filter": "memory(chosenElf)"
           },
           "effect": {
-            "type": "putCardsFromDiscardOnTopOfDrawDeck",
+            "type": "putCardsFromDiscardOnTopOfDeck",
             "count": "0-2",
             "filter": "choose(culture(elven))"
           }

@@ -157,7 +157,7 @@
         "phase": "regroup",
         "effect": [
           {
-            "type": "putCardsFromDiscardOnTopOfDrawDeck",
+            "type": "putCardsFromDiscardOnTopOfDeck",
             "filter": "choose(side(shadow),not(name(Smaug)))"
           },
           {
