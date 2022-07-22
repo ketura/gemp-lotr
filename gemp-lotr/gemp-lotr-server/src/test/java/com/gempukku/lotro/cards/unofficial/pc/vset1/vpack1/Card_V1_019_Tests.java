@@ -22,8 +22,14 @@ public class Card_V1_019_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_19");
-					// put other cards in here as needed for the test case
+					put("aragorn", "151_19");
+					put("elrond", "1_40");
+					put("galadriel", "1_45");
+					put("celeborn", "1_34");
+					put("orophin", "1_56");
+					put("defiance", "1_37");
+
+					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +37,7 @@ public class Card_V1_019_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void AragornStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -54,34 +58,81 @@ public class Card_V1_019_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GONDOR, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(4, card.getBlueprint().getTwilightCost());
-		assertEquals(8, card.getBlueprint().getStrength());
-		assertEquals(4, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.GANDALF, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(aragorn.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, aragorn.getBlueprint().getSide());
+		assertEquals(Culture.GONDOR, aragorn.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, aragorn.getBlueprint().getCardType());
+		assertEquals(Race.MAN, aragorn.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(aragorn, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(4, aragorn.getBlueprint().getTwilightCost());
+		assertEquals(8, aragorn.getBlueprint().getStrength());
+		assertEquals(4, aragorn.getBlueprint().getVitality());
+		//assertEquals(, aragorn.getBlueprint().getResistance());
+		assertEquals(Signet.GANDALF, aragorn.getBlueprint().getSignet());
+		//assertEquals(, aragorn.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void AragornTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void OnPlayTutorsAnElvenAllyOfCost2OrLess() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+		PhysicalCardImpl celeborn = scn.GetFreepsCard("celeborn");
+		PhysicalCardImpl orophin = scn.GetFreepsCard("orophin");
+
+		scn.FreepsMoveCardToHand(aragorn);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(4, scn.GetTwilight());
+		scn.FreepsPlayCard(aragorn);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(2, scn.GetFreepsCardChoiceCount());
+		assertEquals(Zone.DECK, orophin.getZone());
+		assertEquals(0, scn.GetFreepsHandCount());
+		assertEquals(6, scn.GetFreepsDeckCount());
+
+		scn.FreepsChooseCardBPFromSelection(orophin);
+		assertEquals(Zone.HAND, orophin.getZone());
+		assertEquals(1, scn.GetFreepsHandCount());
+		assertEquals(5, scn.GetFreepsDeckCount());
+	}
+
+	@Test
+	public void SkirmishAbilityDiscardsElvenEventToPumpAragorn() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl defiance = scn.GetFreepsCard("defiance");
+
+		scn.FreepsMoveCharToTable(aragorn);
+		scn.FreepsMoveCardToHand(defiance);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+
+		scn.ShadowMoveCharToTable(runner);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(aragorn, runner);
+		scn.FreepsResolveSkirmish(aragorn);
+
+		assertTrue(scn.FreepsCardActionAvailable(aragorn));
+		assertEquals(Zone.HAND, defiance.getZone());
+		assertEquals(8, scn.GetStrength(aragorn));
+
+		scn.FreepsUseCardAction(aragorn);
+		assertEquals(Zone.DISCARD, defiance.getZone());
+		assertEquals(10, scn.GetStrength(aragorn));
+
 	}
 }

@@ -22,8 +22,14 @@ public class Card_V1_021_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_21");
-					// put other cards in here as needed for the test case
+					put("sons", "151_21");
+					put("aragorn", "1_89");
+					put("boromir", "1_97");
+
+					put("runner1", "1_178");
+					put("runner2", "1_178");
+					put("runner3", "1_178");
+					put("runner4", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,10 +37,8 @@ public class Card_V1_021_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
-	public void TheSonsofGondorHaveReturnedStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void SonsStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: V1
@@ -51,34 +55,51 @@ public class Card_V1_021_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl sons = scn.GetFreepsCard("sons");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GONDOR, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(sons.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, sons.getBlueprint().getSide());
+		assertEquals(Culture.GONDOR, sons.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, sons.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, sons.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(sons, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(2, sons.getBlueprint().getTwilightCost());
+		//assertEquals(, sons.getBlueprint().getStrength());
+		//assertEquals(, sons.getBlueprint().getVitality());
+		//assertEquals(, sons.getBlueprint().getResistance());
+		//assertEquals(Signet., sons.getBlueprint().getSignet());
+		//assertEquals(, sons.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void TheSonsofGondorHaveReturnedTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void SonsPumpsAragornAndBoromir() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl sons = scn.GetFreepsCard("sons");
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		scn.FreepsMoveCharToTable(aragorn, boromir);
+		scn.FreepsMoveCardToSupportArea(sons);
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
+		PhysicalCardImpl runner3 = scn.GetShadowCard("runner3");
+		PhysicalCardImpl runner4 = scn.GetShadowCard("runner4");
+		scn.ShadowMoveCharToTable(runner1, runner2, runner3, runner4);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		assertEquals(8, scn.GetStrength(aragorn));
+		assertEquals(7, scn.GetStrength(boromir));
+
+		scn.PassCurrentPhaseActions();
+		scn.FreepsPassCurrentPhaseAction();
+		scn.ShadowAssignToMinions(new PhysicalCardImpl[]{aragorn, runner1, runner2}, new PhysicalCardImpl[]{boromir, runner3, runner4});
+
+		assertEquals(11, scn.GetStrength(aragorn));
+		assertEquals(10, scn.GetStrength(boromir));
 	}
 }

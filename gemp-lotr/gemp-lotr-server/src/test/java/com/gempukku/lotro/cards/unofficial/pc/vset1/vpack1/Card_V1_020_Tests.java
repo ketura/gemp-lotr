@@ -22,8 +22,13 @@ public class Card_V1_020_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_20");
-					// put other cards in here as needed for the test case
+					put("boromir", "151_20");
+					put("sam", "1_311");
+
+					put("runner1", "1_178");
+					put("runner2", "1_178");
+					put("runner3", "1_178");
+					put("nelya", "1_233");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +36,7 @@ public class Card_V1_020_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void BoromirStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -54,34 +57,81 @@ public class Card_V1_020_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GONDOR, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(3, card.getBlueprint().getTwilightCost());
-		assertEquals(5, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.ARAGORN, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(boromir.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, boromir.getBlueprint().getSide());
+		assertEquals(Culture.GONDOR, boromir.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, boromir.getBlueprint().getCardType());
+		assertEquals(Race.MAN, boromir.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(boromir, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(3, boromir.getBlueprint().getTwilightCost());
+		assertEquals(5, boromir.getBlueprint().getStrength());
+		assertEquals(3, boromir.getBlueprint().getVitality());
+		//assertEquals(, boromir.getBlueprint().getResistance());
+		assertEquals(Signet.ARAGORN, boromir.getBlueprint().getSignet());
+		//assertEquals(, boromir.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void BoromirTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void BoromirIsStrengthPlus2PerMinionHeIsSkirmishing() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		scn.FreepsMoveCharToTable(boromir);
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
+		PhysicalCardImpl runner3 = scn.GetShadowCard("runner3");
+		scn.ShadowMoveCharToTable(runner1, runner2, runner3);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(3, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+
+		assertEquals(5, scn.GetStrength(boromir));
+		scn.FreepsAssignToMinions(boromir, runner1);
+		scn.ShadowAssignToMinions(boromir, runner2, runner3);
+
+		scn.FreepsResolveSkirmish(boromir);
+
+		assertEquals(11, scn.GetStrength(boromir));
+	}
+
+	@Test
+	public void AssignmentActionExertsAragornSignetToMakeBoromirDefenderPlus1() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		scn.FreepsMoveCharToTable(boromir, sam);
+
+		PhysicalCardImpl nelya = scn.GetShadowCard("nelya");
+		scn.ShadowMoveCharToTable(nelya);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		assertFalse(scn.HasKeyword(boromir, Keyword.DEFENDER));
+		assertEquals(0, scn.GetWoundsOn(sam));
+
+		scn.FreepsAcceptOptionalTrigger();
+		assertTrue(scn.HasKeyword(boromir, Keyword.DEFENDER));
+		assertEquals(1, scn.GetKeywordCount(boromir, Keyword.DEFENDER));
+		assertEquals(1, scn.GetWoundsOn(sam));
+
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(boromir, nelya);
+		scn.FreepsResolveSkirmish(boromir);
+		scn.PassCurrentPhaseActions();
+
+		assertEquals(Phase.ASSIGNMENT, scn.GetCurrentPhase());
+		assertTrue(scn.HasKeyword(boromir, Keyword.DEFENDER));
+		assertEquals(1, scn.GetKeywordCount(boromir, Keyword.DEFENDER));
 	}
 }

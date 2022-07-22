@@ -136,24 +136,48 @@
         }
       },
       {
-        "type": "modifier",
-        "modifier": {
-          "type": "modifyStrength",
-          "filter": "companion,signet(aragorn)",
-          "amount": 1
-        }
-      },
-      {
-        "type": "activated",
-        "phase": "regroup",
-        "cost": {
-          "type": "discard",
-          "filter": "self"
+        "type": "trigger",
+        "optional": false,
+        "trigger": {
+          "type": "killed",
+          "filter": "name(Aragorn)"
         },
         "effect": {
-          "type": "heal",
-          "filter": "choose(companion,signet(aragorn))"
+          "type": "discard",
+          "filter": "self"
         }
+      },
+
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(companion,signet(aragorn))"
+        },
+        "effect": [
+          {
+            "type": "removeBurdens",
+            "amount": 1
+          },
+          {
+            "type": "choice",
+            "texts": [
+              "Exert Aragorn",
+              "Discard Gilraen's Memorial"
+            ],
+            "effects": [
+              {
+                "type": "exert",
+                "filter": "choose(name(Aragorn))"
+              },
+              {
+                "type": "discard",
+                "filter": "self"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -245,7 +269,7 @@
         "type": "choice",
         "texts": [
           "Exert Aragorn",
-          "Discard this condition"
+          "Discard You Have My Sword"
         ],
         "effects": [
           {

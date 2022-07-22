@@ -287,9 +287,11 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
+    public void FreepsAttachCardsTo(PhysicalCardImpl bearer, PhysicalCardImpl...cards) { AttachCardsTo(bearer, cards); }
     public void FreepsAttachCardsTo(PhysicalCardImpl bearer, String...names) {
         Arrays.stream(names).forEach(name -> AttachCardsTo(bearer, GetFreepsCard(name)));
     }
+    public void ShadowAttachCardsTo(PhysicalCardImpl bearer, PhysicalCardImpl...cards) { AttachCardsTo(bearer, cards); }
     public void ShadowAttachCardsTo(PhysicalCardImpl bearer, String...names) {
         Arrays.stream(names).forEach(name -> AttachCardsTo(bearer, GetShadowCard(name)));
     }

@@ -22,8 +22,25 @@ public class Card_V1_023_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_23");
-					// put other cards in here as needed for the test case
+					put("gone", "151_23");
+					put("aragorn", "1_365");
+					put("arwen", "1_30");
+					put("gimli", "1_12");
+					put("gandalf", "2_122");
+					put("sam", "1_311");
+
+					put("dwarf-event", "1_3");
+					put("elf-event", "1_37");
+					put("gandalf-event", "1_78");
+					put("gondor-event", "1_116");
+					put("shire-event", "1_116");
+
+					put("runner1", "1_178");
+					put("runner2", "1_178");
+					put("runner3", "1_178");
+					put("runner4", "1_178");
+					put("runner5", "1_178");
+					put("runner6", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +48,7 @@ public class Card_V1_023_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void IWouldHaveGoneWithYoutotheEndStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,34 +66,143 @@ public class Card_V1_023_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl gone = scn.GetFreepsCard("gone");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GONDOR, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(gone.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, gone.getBlueprint().getSide());
+		assertEquals(Culture.GONDOR, gone.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, gone.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, gone.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(gone, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(2, gone.getBlueprint().getTwilightCost());
+		//assertEquals(, gone.getBlueprint().getStrength());
+		//assertEquals(, gone.getBlueprint().getVitality());
+		//assertEquals(, gone.getBlueprint().getResistance());
+		//assertEquals(Signet., gone.getBlueprint().getSignet());
+		//assertEquals(, gone.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void IWouldHaveGoneWithYoutotheEndTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void GornSignetSkirmishEventsAreInterceptedAndUsedToPumpGornSignet() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl gone = scn.GetFreepsCard("gone");
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+
+		PhysicalCardImpl dwarfE = scn.GetFreepsCard("dwarf-event");
+		PhysicalCardImpl elfE = scn.GetFreepsCard("elf-event");
+		PhysicalCardImpl gondorE = scn.GetFreepsCard("gondor-event");
+		PhysicalCardImpl gandalfE = scn.GetFreepsCard("gandalf-event");
+		PhysicalCardImpl shireE = scn.GetFreepsCard("shire-event");
+
+		scn.FreepsMoveCardToSupportArea(gone);
+		scn.FreepsMoveCharToTable(aragorn, gimli, arwen, gandalf, sam);
+		scn.FreepsMoveCardToHand(dwarfE, elfE, gondorE, gandalfE, shireE);
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
+		PhysicalCardImpl runner3 = scn.GetShadowCard("runner3");
+		PhysicalCardImpl runner4 = scn.GetShadowCard("runner4");
+		PhysicalCardImpl runner5 = scn.GetShadowCard("runner5");
+		PhysicalCardImpl runner6 = scn.GetShadowCard("runner6");
+
+		scn.ShadowMoveCharToTable(runner1, runner2, runner3, runner4, runner5, runner6);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+
+		scn.FreepsAssignToMinions(
+				new PhysicalCardImpl[]{aragorn, runner1},
+				new PhysicalCardImpl[]{gimli, runner2},
+				new PhysicalCardImpl[]{arwen, runner3},
+				new PhysicalCardImpl[]{gandalf, runner4},
+				new PhysicalCardImpl[]{frodo, runner5},
+				new PhysicalCardImpl[]{sam, runner6});
+
+		assertEquals(0, scn.GetStackedCards(gone).size());
+
+		// Frodo is the only non-aragorn-signet in the fellowship, so let's test the lack of trigger
+		scn.FreepsResolveSkirmish(frodo);
+		scn.FreepsPlayCard(shireE);
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertFalse(scn.FreepsDecisionAvailable("I Would Have Gone With You to the End"));
+		// response from the one ring
+		scn.FreepsDeclineOptionalTrigger();
+		assertEquals(0, scn.GetStackedCards(gone).size());
+
+		// 1
+		scn.FreepsResolveSkirmish(aragorn);
+		assertFalse(scn.FreepsCardActionAvailable(gone)); // no stacks yet
+		scn.FreepsPlayCard(gondorE);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(1, scn.GetStackedCards(gone).size());
+		// The convoluted checking here is because the old event has been deleted and recreated
+		// after going into the discard pile and getting redirected as a stacked item.
+		// But not for the other events??? no idea why tbh
+		assertTrue(scn.GetStackedCards(gone).stream().anyMatch(x -> x.getBlueprintId() == gondorE.getBlueprintId()));
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		// 2
+		scn.FreepsResolveSkirmish(gimli);
+		assertTrue(scn.FreepsCardActionAvailable(gone));
+		scn.FreepsPlayCard(dwarfE);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(2, scn.GetStackedCards(gone).size());
+		assertEquals(Zone.STACKED, dwarfE.getZone());
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		// 3
+		scn.FreepsResolveSkirmish(arwen);
+		assertTrue(scn.FreepsCardActionAvailable(gone));
+		scn.FreepsPlayCard(elfE);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(3, scn.GetStackedCards(gone).size());
+		assertEquals(Zone.STACKED, elfE.getZone());
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		// 4
+		scn.FreepsResolveSkirmish(gandalf);
+		assertTrue(scn.FreepsCardActionAvailable(gone));
+		scn.FreepsPlayCard(gandalfE);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(4, scn.GetStackedCards(gone).size());
+		assertEquals(Zone.STACKED, gandalfE.getZone());
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+
+		scn.FreepsResolveSkirmish(sam);
+		assertTrue(scn.FreepsCardActionAvailable(gone));
+		scn.FreepsUseCardAction(gone);
+		assertTrue(scn.FreepsDecisionAvailable("Choose stacked cards to discard"));
+		assertEquals(3, scn.GetStrength(sam));
+		scn.FreepsChooseCards(gandalfE, elfE, dwarfE);
+		assertEquals(5, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCard(sam);
+		assertEquals(6, scn.GetStrength(sam));
+		assertEquals(1, scn.GetStackedCards(gone).size());
+		assertTrue(scn.GetStackedCards(gone).stream().anyMatch(x -> x.getBlueprintId() == gondorE.getBlueprintId()));
+		assertEquals(Zone.DISCARD, gandalfE.getZone());
+		assertEquals(Zone.DISCARD, elfE.getZone());
+		assertEquals(Zone.DISCARD, dwarfE.getZone());
 	}
 }

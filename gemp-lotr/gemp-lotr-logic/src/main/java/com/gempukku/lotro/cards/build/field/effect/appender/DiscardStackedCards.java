@@ -25,7 +25,7 @@ public class DiscardStackedCards implements EffectAppenderProducer {
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(
-                CardResolver.resolveStackedCards(filter, valueSource, onFilterSource, memory, "you", "Choose cards to discard", environment));
+                CardResolver.resolveStackedCards(filter, valueSource, onFilterSource, memory, "you", "Choose stacked cards to discard", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
