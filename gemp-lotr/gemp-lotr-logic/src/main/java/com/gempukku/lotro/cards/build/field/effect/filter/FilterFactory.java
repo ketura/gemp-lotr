@@ -174,6 +174,7 @@ public class FilterFactory {
         parameterFilters.put("name",
                 (parameter, environment) -> (actionContext) -> (Filter)
                         (game, physicalCard) -> physicalCard.getBlueprint().getTitle().equalsIgnoreCase(parameter));
+        parameterFilters.put("title",parameterFilters.get("name"));
         parameterFilters.put("nameInStackedOn",
                 (parameter, environment) -> {
                     final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
