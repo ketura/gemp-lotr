@@ -150,10 +150,17 @@
               }
             },
             {
-              "type": "playCardFromStacked",
-              "filter": "choose(tentacle)",
-              "on": "self"
-            }
+              "type": "conditional",
+              "condition": {
+                "type": "canSpot",
+                "filter": "self,hasStacked(any)"
+              },
+              "effect": {
+                "type": "playCardFromStacked",
+                "filter": "choose(tentacle)",
+                "on": "self"
+              }
+            },
           ]
         }
       },
@@ -192,18 +199,26 @@
       {
         "type": "activated",
         "phase": "shadow",
+        "condition": {
+          "type": "or",
+          "condition": [
+            {
+              "type": "hasInHand",
+              "filter": "culture(moria),item"
+            },
+            {
+              "type": "canSpot",
+              "filter": "name(The Balrog)"
+            }
+          ]
+        },
         "effect": {
           "type": "choice",
           "texts": [
             "Stack a [Moria] item here.",
-            "Take a [Moria] item stacked here into hand."
+            "Take a [Moria] card stacked here into hand."
           ],
           "effects": [
-            {
-              "type": "stackCardsFromHand",
-              "filter": "choose(culture(moria),item)",
-              "where": "self"
-            },
             {
               "type": "conditional",
               "condition": {
@@ -218,13 +233,19 @@
             },
             {
               "type": "conditional",
-              "condition": {
-                "type": "canSpot",
-                "filter": "name(The Balrog)"
-              },
+              "condition": [
+                {
+                  "type": "canSpot",
+                  "filter": "title(The Balrog)"
+                },
+                {
+                  "type": "canSpot",
+                  "filter": "self,hasStacked(any)"
+                },
+              ],
               "effect": {
                 "type": "putStackedCardsIntoHand",
-                "filter": "choose(culture(moria),item)",
+                "filter": "choose(culture(moria))",
                 "on": "self"
               }
             }

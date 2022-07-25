@@ -3,9 +3,11 @@ package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -71,24 +73,32 @@ public class Card_V1_035_Tests
 		PhysicalCardImpl spear = scn.GetShadowCard("spear");
 		scn.ShadowMoveCardToHand(darkness, balrog, whip, spear);
 
+		//so the balrog doesn't self-discard
+		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(2), Keyword.UNDERGROUND));
+
 		scn.StartGame();
 		scn.SetTwilight(17);
 		scn.FreepsPassCurrentPhaseAction();
 
 		scn.ShadowPlayCard(darkness);
-		assertTrue(scn.ShadowActionAvailable("Darkness Grew"));
+		assertTrue(scn.ShadowCardActionAvailable(darkness));
 		assertEquals(0, scn.GetStackedCards(darkness).size());
 		scn.ShadowUseCardAction(darkness);
 		scn.ShadowChooseCard(whip);
 		assertEquals(1, scn.GetStackedCards(darkness).size());
+		assertEquals(Zone.STACKED, whip.getZone());
 		scn.ShadowUseCardAction(darkness);
 		assertEquals(2, scn.GetStackedCards(darkness).size());
-		assertFalse(scn.ShadowActionAvailable("Darkness Grew"));
+		assertEquals(Zone.STACKED, spear.getZone());
 
-		//for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
+		assertFalse(scn.ShadowCardActionAvailable(darkness));
+
 		scn.ShadowPlayCard(balrog);
-		assertTrue(scn.ShadowActionAvailable("Darkness Grew"));
+		assertTrue(scn.ShadowCardActionAvailable(darkness));
 		scn.ShadowUseCardAction(darkness);
+		assertTrue(scn.ShadowDecisionAvailable("Choose cards to take into hand"));
+		assertEquals(2, scn.GetShadowCardChoiceCount());
+		scn.ShadowChooseCard(whip);
 		assertEquals(1, scn.GetStackedCards(darkness).size());
 
 	}

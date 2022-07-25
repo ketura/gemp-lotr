@@ -21,7 +21,7 @@ public class HasInHand implements RequirementProducer {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         return (actionContext) -> {
             final Filterable filterable = filterableSource.getFilterable(actionContext);
-            return !PlayConditions.hasCardInHand(actionContext.getGame(), playerSource.getPlayer(actionContext), count, filterable);
+            return PlayConditions.hasCardInHand(actionContext.getGame(), playerSource.getPlayer(actionContext), count, filterable);
         };
     }
 }

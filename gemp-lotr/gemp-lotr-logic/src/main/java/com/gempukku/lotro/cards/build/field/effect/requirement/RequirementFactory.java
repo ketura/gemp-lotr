@@ -28,6 +28,7 @@ public class RequirementFactory {
         requirementProducers.put("controlssite", new ControlsSite());
         requirementProducers.put("didwinskirmish", new DidWinSkirmish());
         requirementProducers.put("fierceskirmish", new FierceSkirmish());
+        requirementProducers.put("hasinhand", new HasInHand());
         requirementProducers.put("hasinzonedata", new HasInZoneData());
         requirementProducers.put("haveinitiative", new HaveInitiative());
         requirementProducers.put("ismore", new IsMore());
