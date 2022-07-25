@@ -138,9 +138,16 @@
           ],
           "effects": [
             {
-              "type": "stackCardsFromHand",
-              "filter": "choose(tentacle)",
-              "where": "self"
+              "type": "conditional",
+              "condition": {
+                "type": "hasInHand",
+                "filter": "tentacle"
+              },
+              "effect": {
+                "type": "stackCardsFromHand",
+                "filter": "choose(tentacle)",
+                "where": "self"
+              }
             },
             {
               "type": "playCardFromStacked",
@@ -196,6 +203,18 @@
               "type": "stackCardsFromHand",
               "filter": "choose(culture(moria),item)",
               "where": "self"
+            },
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "hasInHand",
+                "filter": "culture(moria),item"
+              },
+              "effect": {
+                "type": "stackCardsFromHand",
+                "filter": "choose(culture(moria),item)",
+                "where": "self"
+              }
             },
             {
               "type": "conditional",
@@ -259,7 +278,7 @@
           "type": "addKeyword",
           "filter": "choose(currentSite)",
           "keyword": "marsh",
-          "until": "start(regroup)"
+          "until": "endofturn"
         }
       },
       

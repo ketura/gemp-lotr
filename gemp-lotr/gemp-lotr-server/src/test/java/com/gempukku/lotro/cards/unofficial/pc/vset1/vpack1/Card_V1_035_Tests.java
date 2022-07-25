@@ -92,4 +92,6 @@ public class Card_V1_035_Tests
 		assertEquals(1, scn.GetStackedCards(darkness).size());
 
 	}
+
+
 }

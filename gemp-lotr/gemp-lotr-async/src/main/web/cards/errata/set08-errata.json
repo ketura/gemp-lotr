@@ -239,7 +239,7 @@
             "condition": {
               "type": "memorymatches",
               "memory": "chosenCard",
-              "filter": "not(zone(SUPPORT))"
+              "filter": "or(not(zone(SUPPORT),attachedTo(not(zone(SUPPORT)))))"
             },
             "effect": {
               "type": "discard",

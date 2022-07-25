@@ -25,6 +25,14 @@ public class Card_V1_036_Tests
 				{{
 					put("vile", "151_36");
 					put("spear", "1_182");
+
+					put("tent1", "2_58");
+					put("tent2", "2_58");
+					put("tent3", "2_66");
+					put("tent4", "2_66");
+
+					put("watcher", "2_73");
+
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -38,7 +46,7 @@ public class Card_V1_036_Tests
 		/**
 		 * Set: V1
 		 * Title: Vile Tentacle
-		 * Side: Free Peoples
+		 * Side: Shadow
 		 * Culture: moria
 		 * Twilight Cost: 3
 		 * Type: minion
@@ -57,7 +65,7 @@ public class Card_V1_036_Tests
 
 		assertFalse(vile.getBlueprint().isUnique());
 		assertTrue(scn.HasKeyword(vile, Keyword.TENTACLE)); // test for keywords as needed
-		assertEquals(3, vile.getBlueprint().getTwilightCost());
+		assertEquals(2, vile.getBlueprint().getTwilightCost());
 		assertEquals(7, vile.getBlueprint().getStrength());
 		assertEquals(2, vile.getBlueprint().getVitality());
 		assertEquals(4, vile.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
@@ -129,7 +137,7 @@ public class Card_V1_036_Tests
 		assertTrue(scn.HasKeyword(scn.GetCurrentSite(), Keyword.MARSH));
 
 		scn.SkipToPhase(Phase.REGROUP);
-		assertEquals(3, scn.GetStrength(vile));
-		assertFalse(scn.HasKeyword(scn.GetCurrentSite(), Keyword.MARSH));
+		assertTrue(scn.HasKeyword(scn.GetCurrentSite(), Keyword.MARSH));
 	}
+
 }

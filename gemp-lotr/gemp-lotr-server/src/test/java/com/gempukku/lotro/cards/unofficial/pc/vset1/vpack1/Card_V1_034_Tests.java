@@ -90,14 +90,16 @@ public class Card_V1_034_Tests
 		assertEquals(1, scn.GetStackedCards(darkwaters).size());
 		assertTrue(scn.ShadowActionAvailable("Dark Waters"));
 		scn.ShadowUseCardAction(darkwaters);
+		assertEquals(2, scn.ShadowGetMultipleChoices().size());
+		scn.ShadowChooseMultipleChoiceOption("stack");
 		assertEquals(5, scn.GetTwilight());
 		assertEquals(2, scn.GetStackedCards(darkwaters).size());
 
-
-		//for some reason, pulling cards stacked on a condition flat out doesn't work here in the test rig.
 		assertTrue(scn.ShadowActionAvailable("Dark Waters"));
 		scn.ShadowUseCardAction(darkwaters);
+		scn.ShadowChooseCard(ftentacle1);
 		assertEquals(1, scn.GetStackedCards(darkwaters).size());
+		assertEquals(0, scn.GetTwilight()); // -1 for ability, -2 minion, -2 roaming
 	}
 
 
@@ -124,7 +126,7 @@ public class Card_V1_034_Tests
 		scn.ShadowAcceptOptionalTrigger();
 		scn.ShadowChooseCard(ftentacle1);
 		assertEquals(Zone.DISCARD, ftentacle1.getZone());
-		assertEquals(Zone.SUPPORT, darkwaters);
+		assertEquals(Zone.SUPPORT, darkwaters.getZone());
 
 	}
 }
