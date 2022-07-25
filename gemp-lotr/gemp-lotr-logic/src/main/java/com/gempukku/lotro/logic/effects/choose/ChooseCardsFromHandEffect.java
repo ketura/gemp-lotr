@@ -28,7 +28,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Choose cards from hand";
     }
 
     @Override
@@ -54,7 +54,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
             cardsSelected(game, selectableCards);
         else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardsSelectionDecision(1, "Choose cards from hand", selectableCards, minimum, maximum) {
+                    new CardsSelectionDecision(1, getText(game), selectableCards, minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
