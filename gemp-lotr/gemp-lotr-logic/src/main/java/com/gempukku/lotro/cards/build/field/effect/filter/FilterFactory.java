@@ -216,6 +216,11 @@ public class FilterFactory {
                     int amount = Integer.parseInt(parameter);
                     return (actionContext) -> Filters.lessStrengthThan(amount);
                 });
+        parameterFilters.put("strengthMoreThan",
+                (parameter, environment) -> {
+                    int amount = Integer.parseInt(parameter);
+                    return (actionContext) -> Filters.moreStrengthThan(amount);
+                });
         parameterFilters.put("vitalityMoreThan",
                 (parameter, environment) -> {
                     int amount = Integer.parseInt(parameter);

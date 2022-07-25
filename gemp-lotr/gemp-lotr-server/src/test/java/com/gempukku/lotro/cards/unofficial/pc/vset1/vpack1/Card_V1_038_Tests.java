@@ -22,8 +22,13 @@ public class Card_V1_038_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_38");
-					// put other cards in here as needed for the test case
+					put("harry", "151_38");
+					put("rider", "12_161");
+					put("wk", "1_237");
+
+					put("farin", "1_11");
+					put("aragorn", "1_89");
+					put("pippin", "1_307");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +36,7 @@ public class Card_V1_038_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void HarryGoatleafStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -54,34 +57,74 @@ public class Card_V1_038_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl harry = scn.GetFreepsCard("harry");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
-		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
-		assertEquals(1, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(2, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(harry.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, harry.getBlueprint().getSide());
+		assertEquals(Culture.WRAITH, harry.getBlueprint().getCulture());
+		assertEquals(CardType.MINION, harry.getBlueprint().getCardType());
+		assertEquals(Race.MAN, harry.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(harry, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, harry.getBlueprint().getTwilightCost());
+		assertEquals(3, harry.getBlueprint().getStrength());
+		assertEquals(1, harry.getBlueprint().getVitality());
+		//assertEquals(, harry.getBlueprint().getResistance());
+		//assertEquals(Signet., harry.getBlueprint().getSignet());
+		assertEquals(2, harry.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void HarryGoatleafTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void AllNazgulAreCostMinusOne() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl harry = scn.GetShadowCard("harry");
+		PhysicalCardImpl rider = scn.GetShadowCard("rider");
+		PhysicalCardImpl wk = scn.GetShadowCard("wk");
+		scn.ShadowMoveCharToTable(harry);
+		scn.ShadowMoveCardToHand(rider, wk);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.SetTwilight(17);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(5, rider.getBlueprint().getTwilightCost());
+		assertEquals(8, wk.getBlueprint().getTwilightCost());
+		assertEquals(20, scn.GetTwilight());
+
+		scn.ShadowPlayCard(rider);
+		assertEquals(14, scn.GetTwilight()); // -5 minion cost, +1 from Harry, -2 roaming
+
+		scn.ShadowPlayCard(wk);
+		assertEquals(5, scn.GetTwilight()); // -8 minion cost, +1 from Harry, -2 roaming
+	}
+
+	@Test
+	public void AssignmentAbilityAssignsHarryToStrength5PlusComp() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl harry = scn.GetShadowCard("harry");
+		scn.ShadowMoveCharToTable(harry);
+
+		PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+		PhysicalCardImpl farin = scn.GetFreepsCard("farin");
+		PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
+		scn.FreepsMoveCharToTable(aragorn, farin, pippin);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+
+		scn.FreepsPassCurrentPhaseAction();
+		assertTrue(scn.ShadowCardActionAvailable(harry));
+
+		scn.ShadowUseCardAction(harry);
+		assertTrue(scn.FreepsDecisionAvailable("assign"));
+		assertEquals(2, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCard(aragorn);
+		assertTrue(scn.IsCharAssigned(aragorn));
 	}
 }

@@ -184,7 +184,7 @@ public class Filters {
         };
     }
 
-    public static Filter moreStrangthThan(final int strength) {
+    public static Filter moreStrengthThan(final int strength) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {

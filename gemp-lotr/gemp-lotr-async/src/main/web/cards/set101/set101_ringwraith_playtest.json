@@ -9,9 +9,22 @@
 		"effects": {
 			"type": "event",
 			"effect": {
-        "type": "playCardFromDiscard",
-        "filter": "choose(culture(wraith),item)"
-      },
+	        "type": "choice",
+	        "texts": [
+	          "Play a {wraith} item from your draw deck",
+	          "Play a {wraith} item from your discard pile"
+	        ],
+	        "effects": [
+	          {
+	            "type": "playCardFromDrawDeck",
+	            "filter": "choose(culture(wraith),item)",
+	          },
+	          {
+	            "type": "playCardFromDiscard",
+	            "filter": "choose(culture(wraith),item)",
+	          },
+	        ]
+	      },
     }
 	},
 
@@ -35,12 +48,19 @@
 			    "amount": -1
 			  }
 			},
-			{
-        "type": "modifier",
-        "modifier": {
-          "type": "cantBeAssignedToSkirmishAgainst",
-          "fpCharacter": "companion,strengthLessThan(5)",
-          "minion": "self"
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "condition": {
+          "type": "canSpot",
+          "filter": "companion,strengthMoreThan(4)",
+          "count": 1
+        },
+        "effect": {
+          "type": "assignFpCharacterToSkirmish",
+          "player": "fp",
+          "fpCharacter": "choose(companion,strengthMoreThan(4))",
+          "against": "self"
         }
       }
 		]
@@ -53,32 +73,50 @@
 		"cost": 1,
 		"type": "artifact",
 		"possession": "helm",
-		"target": "twilight,nazgul",
+		"keyword": "support area",
 		"vitality": 1,
 		"effects": [
 			{
 				"type": "modifier",
 				"modifier": {
-					"type": "addKeyword",
-					"filter": "dwarf",
-					"keyword": "damage+1"
+					"type": "cancelkeywordbonusfrom",
+					"filter": "inSkirmishAgainst(bearer)",
+					"from": "attachedTo(inSkirmishAgainst(bearer))",
+					"keyword": "damage",
+					"condition": {
+	          "type": "canSpot",
+	          "filter": "bearer,twilight"
+	        },
 				}
 			},
 			{
+				"type": "modifier",
+				"modifier": {
+					"type": "cancelstrengthbonusfrom",
+					"filter": "attachedTo(inSkirmishAgainst(bearer))",
+					"condition": {
+	          "type": "canSpot",
+	          "filter": "bearer,twilight"
+	        },
+				}
+			},
+			
+			{
 				"type": "activated",
 				"phase": "skirmish",
-
-				"condition": {
-					"type": "canspot",
-					"filter": "ring bearer,exhausted"
-				},
 				"cost": {
-					"type": "exert",
-					"filter": "bearer"
+					"type": "removeTwilight",
+					"amount": 1
 				},
-				"effect": {
-					"type": "putonring"
-				}
+				"condition": {
+          "type": "canSpot",
+          "filter": "self,zone(support)"
+        },
+        "effect": {
+          "type": "transfer",
+          "filter": "choose(self,zone(support))",
+          "where": "choose(nazgul,not(hasAttached(helm)))"
+        }
 			}
 		]
 	},

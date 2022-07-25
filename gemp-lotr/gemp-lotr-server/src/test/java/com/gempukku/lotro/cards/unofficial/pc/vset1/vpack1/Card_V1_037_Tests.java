@@ -22,8 +22,11 @@ public class Card_V1_037_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_37");
-					// put other cards in here as needed for the test case
+					put("fell", "151_37");
+					put("fell2", "151_37");
+					put("nazgul", "1_232");
+					put("blade", "1_216");
+					put("ring", "9_44");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +34,7 @@ public class Card_V1_037_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void FellVoicesCallStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +51,58 @@ public class Card_V1_037_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl fell = scn.GetFreepsCard("fell");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(fell.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, fell.getBlueprint().getSide());
+		assertEquals(Culture.WRAITH, fell.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, fell.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, fell.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(fell, Keyword.SHADOW)); // test for keywords as needed
+		assertEquals(0, fell.getBlueprint().getTwilightCost());
+		//assertEquals(, fell.getBlueprint().getStrength());
+		//assertEquals(, fell.getBlueprint().getVitality());
+		//assertEquals(, fell.getBlueprint().getResistance());
+		//assertEquals(Signet., fell.getBlueprint().getSignet());
+		//assertEquals(, fell.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void FellVoicesCallTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void FellVoicesCallPullsItemsFromDiscardOrDrawDeck() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl fell = scn.GetShadowCard("fell");
+		PhysicalCardImpl fell2 = scn.GetShadowCard("fell2");
+		PhysicalCardImpl nazgul = scn.GetShadowCard("nazgul");
+		PhysicalCardImpl blade = scn.GetShadowCard("blade");
+		PhysicalCardImpl ring = scn.GetShadowCard("ring");
+		scn.FreepsMoveCardToHand(fell, fell2);
+		scn.FreepsMoveCharToTable(nazgul);
+		scn.FreepsMoveCardToDiscard(ring);
+		scn.FreepsMoveCardsToTopOfDeck(blade);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertTrue(scn.ShadowCardPlayAvailable(fell));
+		assertEquals(Zone.DISCARD, ring.getZone());
+		assertEquals(Zone.DECK, blade.getZone());
+		scn.ShadowPlayCard(fell);
+
+		assertTrue(scn.ShadowDecisionAvailable("Choose action to perform"));
+		assertEquals(2, scn.ShadowGetMultipleChoices().size());
+		scn.ShadowChooseMultipleChoiceOption("discard");
+		assertEquals(Zone.ATTACHED, ring.getZone());
+		assertEquals(nazgul, ring.getAttachedTo());
+
+		assertTrue(scn.ShadowCardPlayAvailable(fell2));
+		scn.ShadowPlayCard(fell2);
+
+		assertEquals(Zone.ATTACHED, blade.getZone());
+		assertEquals(nazgul, blade.getAttachedTo());
+
 	}
 }
