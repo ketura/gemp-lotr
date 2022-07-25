@@ -91,7 +91,7 @@ public class Card_09_039_Tests
         assertEquals(0, scn.GetStackedCards(library).size());
 
         scn.ShadowUseCardAction(library);
-        assertTrue(scn.ShadowDecisionAvailable("Choose cards from hand"));
+        assertTrue(scn.ShadowDecisionAvailable("Choose card to play from hand"));
         scn.ShadowChooseCards(troop1);
         assertEquals(4, scn.GetShadowDeckCount());
         assertEquals(1, scn.GetStackedCards(library).size());

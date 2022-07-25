@@ -22,8 +22,32 @@ public class Card_V1_026_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_26");
-					// put other cards in here as needed for the test case
+					put("crows", "151_26");
+					put("crows2", "151_26");
+					put("crows3", "151_26");
+					put("crows4", "151_26");
+					put("crows5", "151_26");
+					put("crows6", "151_26");
+
+					put("poss1", "3_55");
+					put("poss2", "3_55");
+					put("art1", "3_67");
+
+					put("saruman", "3_69");
+
+					put("gimli", "1_12");
+
+					//Since we will go multiple rounds and need to manipulate the draw deck,
+					// these are here to ensure reconciliation doesn't screw us over.
+					put("axe1", "2_10");
+					put("axe2", "1_12");
+					put("axe3", "1_12");
+					put("axe4", "1_12");
+					put("axe5", "1_12");
+					put("axe6", "1_12");
+					put("axe7", "1_12");
+					put("axe8", "1_12");
+					put("ring1", "9_6");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +55,7 @@ public class Card_V1_026_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void CrowsofIsengardStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -47,41 +69,237 @@ public class Card_V1_026_Tests
 		* Strength: 3
 		* Vitality: 3
 		* Site Number: 4
-		* Game Text: When you play this minion, spot a companion.  This minion is twilight cost -1 for each Free Peoples card borne by that companion.
+		* Game Text: When you play this minion, spot a companion.  This minion is twilight cost -1 for each Free Peoples crows borne by that companion.
 		* 	Maneuver: Spot 2 Free Peoples items (or spot Saruman) and discard this minion to place an [isengard] item from your draw deck or discard pile on top of your draw deck.
 		*/
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl crows = scn.GetFreepsCard("crows");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.ISENGARD, card.getBlueprint().getCulture());
-		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(3, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(crows.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, crows.getBlueprint().getSide());
+		assertEquals(Culture.ISENGARD, crows.getBlueprint().getCulture());
+		assertEquals(CardType.MINION, crows.getBlueprint().getCardType());
+		assertEquals(Race.CROW, crows.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(crows, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(3, crows.getBlueprint().getTwilightCost());
+		assertEquals(3, crows.getBlueprint().getStrength());
+		assertEquals(3, crows.getBlueprint().getVitality());
+		//assertEquals(, crows.getBlueprint().getResistance());
+		//assertEquals(Signet., crows.getBlueprint().getSignet());
+		assertEquals(4, crows.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void CrowsofIsengardTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void CrowsTwilightDiscountScalesBasedOnItemsOnCompanions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl axe1 = scn.GetFreepsCard("axe1");
+		PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
+		PhysicalCardImpl axe3 = scn.GetFreepsCard("axe3");
+		PhysicalCardImpl ring1 = scn.GetFreepsCard("ring1");
+
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsMoveCardToHand(axe1, axe2, axe3, ring1);
+
+		PhysicalCardImpl crows = scn.GetShadowCard("crows");
+		PhysicalCardImpl crows2 = scn.GetShadowCard("crows2");
+		PhysicalCardImpl crows3 = scn.GetShadowCard("crows3");
+		PhysicalCardImpl crows4 = scn.GetShadowCard("crows4");
+		PhysicalCardImpl crows5 = scn.GetShadowCard("crows5");
+		PhysicalCardImpl crows6 = scn.GetShadowCard("crows6");
+		scn.ShadowMoveCardToHand(crows, crows2, crows3, crows4, crows5, crows6);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(3, scn.GetTwilight());
+		scn.SetTwilight(16);
+
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(20, scn.GetTwilight()); //base after moving
+		scn.ShadowPlayCard(crows);
+		scn.ShadowChooseCard(gimli);
+		assertEquals(15, scn.GetTwilight()); //-3 cost, -2 roaming, +0 bonus
+		scn.FreepsAttachCardsTo(gimli, ring1);
+		scn.ShadowPlayCard(crows2);
+		scn.ShadowChooseCard(gimli);
+		assertEquals(11, scn.GetTwilight()); //-3 cost, -2 roaming, +1 bonus
+		scn.FreepsAttachCardsTo(gimli, axe1);
+		scn.ShadowPlayCard(crows3);
+		scn.ShadowChooseCard(gimli);
+		assertEquals(8, scn.GetTwilight()); //-3 cost, -2 roaming, +2 bonus
+		scn.FreepsAttachCardsTo(gimli, axe2);
+		scn.ShadowPlayCard(crows4);
+		scn.ShadowChooseCard(gimli);
+		assertEquals(6, scn.GetTwilight()); //-3 cost, -2 roaming, +3 bonus
+		scn.FreepsAttachCardsTo(gimli, axe3);
+		scn.ShadowPlayCard(crows5);
+		scn.ShadowChooseCard(gimli);
+		assertEquals(4, scn.GetTwilight()); //-3 cost, -2 roaming, +3 bonus, capped
+
+		assertFalse(scn.ShadowCardPlayAvailable(crows6)); //no longer have cost + roaming, in spite of bonus
+	}
+
+	@Test
+	public void ManeuverActionRequires2FreepsItemsOrSaruman() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl axe1 = scn.GetFreepsCard("axe1");
+		PhysicalCardImpl ring1 = scn.GetFreepsCard("ring1");
+
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsAttachCardsTo(gimli, ring1);
+
+		PhysicalCardImpl crows = scn.GetShadowCard("crows");
+		PhysicalCardImpl poss1 = scn.GetShadowCard("poss1");
+		PhysicalCardImpl poss2 = scn.GetShadowCard("poss2");
+		PhysicalCardImpl art1 = scn.GetShadowCard("art1");
+		PhysicalCardImpl saruman = scn.GetShadowCard("saruman");
+
+		scn.ShadowMoveCardToHand(saruman);
+		scn.ShadowMoveCharToTable(crows);
+		scn.ShadowMoveCardsToBottomOfDeck(poss1);
+		scn.ShadowMoveCardToDiscard(poss2);
+		scn.ShadowMoveCardToDiscard(art1);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		// 1 freepsitem, no saruman
+		assertFalse(scn.ShadowCardActionAvailable(crows));
+		scn.ShadowPassCurrentPhaseAction();
+
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		scn.FreepsAttachCardsTo(gimli, axe1);
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		// 2 freeps items, no saruman
+		assertTrue(scn.ShadowCardActionAvailable(crows));
+		scn.ShadowPassCurrentPhaseAction();
+
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		scn.FreepsMoveCardToDiscard(axe1, ring1);
+		scn.ShadowMoveCharToTable(saruman);
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		// 0 wounded companions, yes saruman
+		assertTrue(scn.ShadowCardActionAvailable(crows));
+
+	}
+
+	@Test
+	public void ManeuverActionSelfDiscardsToTopDecksItemFromDeckOrDiscard() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+
+		PhysicalCardImpl crows = scn.GetShadowCard("crows");
+		PhysicalCardImpl crows2 = scn.GetShadowCard("crows2");
+		PhysicalCardImpl crows3 = scn.GetShadowCard("crows3");
+		PhysicalCardImpl poss1 = scn.GetShadowCard("poss1");
+		PhysicalCardImpl poss2 = scn.GetShadowCard("poss2");
+		PhysicalCardImpl art1 = scn.GetShadowCard("art1");
+		PhysicalCardImpl saruman = scn.GetShadowCard("saruman");
+
+		scn.ShadowMoveCharToTable(crows, crows2, crows3, saruman);
+		scn.ShadowMoveCardsToBottomOfDeck(poss1);
+		scn.ShadowMoveCardToDiscard(poss2);
+		scn.ShadowMoveCardToDiscard(art1);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertEquals(Zone.DECK, poss1.getZone());
+		assertEquals(poss1, scn.GetShadowBottomOfDeck());
+		assertEquals(Zone.DISCARD, poss2.getZone());
+		assertEquals(Zone.DISCARD, art1.getZone());
+
+		// When the ability is invoked and there are isengard items in both draw deck and discard, the player
+		// must first decide between deck and discard, and then choose among the revealed copies.
+		scn.ShadowUseCardAction(crows);
+		assertTrue(scn.ShadowDecisionAvailable("Choose action to perform"));
+		scn.ShadowChooseMultipleChoiceOption("discard");
+		assertEquals(2, scn.GetShadowCardChoiceCount());
+		scn.ShadowChooseCardBPFromSelection(poss2);
+		assertEquals(Zone.DISCARD, crows.getZone());
+		assertEquals(Zone.DECK, poss2.getZone());
+		assertEquals(poss2, scn.GetShadowTopOfDeck());
+
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		//scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		assertTrue(scn.ShadowCardActionAvailable(crows2));
+		assertEquals(Zone.DECK, poss1.getZone());
+		assertEquals(poss1, scn.GetShadowBottomOfDeck());
+		assertEquals(Zone.HAND, poss2.getZone()); // it was drawn during regroup
+		assertEquals(Zone.DISCARD, art1.getZone());
+
+		// When the ability is invoked and there is a single weather in both draw deck and discard, the player
+		// chooses between deck/discard, but then does not have to choose among copies (as there is only 1)
+		scn.ShadowUseCardAction(crows2);
+		assertTrue(scn.ShadowDecisionAvailable("Choose action to perform"));
+		scn.ShadowChooseMultipleChoiceOption("discard");
+//		assertEquals(1, scn.GetShadowCardChoiceCount());
+//		scn.ShadowChooseCardBPFromSelection(weather1);
+		assertEquals(Zone.DISCARD, crows2.getZone());
+		assertEquals(Zone.DECK, art1.getZone());
+		assertEquals(art1, scn.GetShadowTopOfDeck());
+
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowChooseCard("gimli"); // reconciling a card away so we draw the item from the top
+		scn.FreepsChooseToMove();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		assertTrue(scn.ShadowCardActionAvailable(crows3));
+		assertEquals(Zone.DECK, poss1.getZone());
+		assertEquals(poss1, scn.GetShadowBottomOfDeck());
+		assertEquals(Zone.HAND, poss2.getZone());
+		assertEquals(Zone.HAND, art1.getZone()); // it was drawn during regroup
+
+		// When the ability is invoked and there is a single weather between both draw deck and discard, the player
+		// does not need to choose either pile source nor which copy
+		scn.ShadowUseCardAction(crows3);
+		assertFalse(scn.ShadowDecisionAvailable("Choose action to perform"));
+//		scn.ShadowChooseMultipleChoiceOption("draw deck");
+//		assertEquals(1, scn.GetShadowCardChoiceCount());
+//		scn.ShadowChooseCardBPFromSelection(weather1);
+		assertEquals(Zone.DISCARD, crows3.getZone());
+		assertEquals(Zone.DECK, poss1.getZone());
+		assertEquals(poss1, scn.GetShadowTopOfDeck());
+
+
+
 	}
 }

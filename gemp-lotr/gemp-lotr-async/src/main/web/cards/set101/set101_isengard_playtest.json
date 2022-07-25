@@ -1,45 +1,66 @@
 {
 
 	"151_25": {
-		"title": "Crebain",
+		"title": "Crebain Flock",
 		"culture": "isengard",
 		"cost": 2,
 		"type": "minion",
 		"race": "crow",
-		"strength": 4,
-		"vitality": 2,
+		"strength": 2,
+		"vitality": 3,
 		"site": 4,
 		"effects": [
 			{
-				"type": "inhandtrigger",
-				"trigger": {
-					"type": "activated",
-					"filter": "companion"
-				},
-				"condition": {
-          "type": "canSpot",
-          "filter": "culture(isengard)",
-        },
-				"effect": {
-					"type": "play",
-					"filter": "self",
-					"cost": -1
-				}
+				"type": "modifyowncost",
+				"amount": {
+          "type": "multiply",
+          "multiplier": -1,
+          "source": {
+	          "type": "forEachYouCanSpot",
+	          "filter": "companion",
+	          "over": 3
+	        },
+	      }
 			},
 			{
 	      "type": "activated",
-	      "phase": "shadow",
+	      "phase": "maneuver",
 	      "condition": {
-          "type": "canSpot",
-          "filter": "another,minion,culture(isengard)",
-        },
+	      	"type": "or",
+	      	"condition": [
+	      		{
+		          "type": "canSpot",
+		          "filter": "companion,wounded",
+		          "count": 2
+		        },
+		        {
+		        	"type": "canSpot",
+		          "filter": "title(Saruman)",
+		        }
+	      	],
+	      },
 	      "cost": {
-	        "type": "exert",
+	        "type": "discard",
 	        "filter": "self"
 	      },
 	      "effect": {
-	        "type": "drawcards",
-	        "count": 1
+	        "type": "choice",
+	        "texts": [
+	          "Choose an {isengard} weather card from your draw deck",
+	          "Choose an {isengard} weather card from your discard pile"
+	        ],
+	        "effects": [
+	          {
+	            "type": "putCardsFromDeckOnTopOfDeck",
+	            "filter": "choose(culture(isengard),weather)",
+	            "count": 1
+	          },
+	          {
+	            "type": "putCardsFromDiscardOnTopOfDeck",
+	            "filter": "choose(culture(isengard),weather)",
+	            "count": 1
+	          },
+	        ]
 	      }
 	    }
 		]
@@ -51,62 +72,119 @@
 		"cost": 3,
 		"type": "minion",
 		"race": "crow",
-		"strength": 5,
+		"strength": 3,
 		"vitality": 3,
 		"site": 4,
 		"effects": [
 			{
-        "type": "trigger",
-        "optional":true,
-        "trigger": {
-          "type": "played",
-          "filter": "self"
-        },
-        "cost": {
-	        "type": "exert",
+	      "type": "trigger",
+	      "trigger": {
+	        "type": "played",
 	        "filter": "self"
 	      },
-        "effect": {
-	        "type": "drawcards",
-	        "count": 1
+	      "effect": [
+	      	{
+	          "type": "spot",
+	          "filter": "choose(companion)",
+	          "memorize": "spottedComp"
+	        },
+	        {
+            "type": "memorizeNumber",
+            "memory": "attachedItems",
+            "amount": {
+              "type": "forEachYouCanSpot",
+              "filter": "side(free people),attachedTo(memory(spottedComp))"
+            }
+          },
+	      	{
+		        "type": "addTwilight",
+		        "amount": {
+		          "type": "fromMemory",
+		          "memory": "attachedItems",
+		          "limit": 3
+		        },
+		      }
+		    ]
+	    },
+	    {
+	      "type": "activated",
+	      "phase": "maneuver",
+	      "condition": {
+	      	"type": "or",
+	      	"condition": [
+	      		{
+		          "type": "canSpot",
+		          "filter": "item,side(free people)",
+		          "count": 2
+		        },
+		        {
+		        	"type": "canSpot",
+		          "filter": "title(Saruman)",
+		        }
+	      	],
+	      },
+	      "cost": {
+	        "type": "discard",
+	        "filter": "self"
+	      },
+	      "effect": {
+	        "type": "choice",
+	        "texts": [
+	          "Choose an {isengard} item card from your draw deck",
+	          "Choose an {isengard} item card from your discard pile"
+	        ],
+	        "effects": [
+	          {
+	            "type": "putCardsFromDeckOnTopOfDeck",
+	            "filter": "choose(culture(isengard),item)",
+	            "count": 1
+	          },
+	          {
+	            "type": "putCardsFromDiscardOnTopOfDeck",
+	            "filter": "choose(culture(isengard),item)",
+	            "count": 1
+	          },
+	        ]
 	      }
-      },
-			{
-				"type": "inhandtrigger",
-				"trigger": {
-					"type": "played",
-					"filter": "event,side(free people)"
-				},
-				"condition": {
-          "type": "canSpot",
-          "filter": "culture(isengard)",
-        },
-				"effect": {
-					"type": "play",
-					"filter": "self",
-					"cost": -1
-				}
-			},
+	    }
+
 		]
 	},
 
 
 	"151_27": {
-		"title": "*Frostbite",
+		"title": "Frostbite",
 		"culture": "isengard",
 		"cost": 1,
 		"type": "condition",
-		"keyword": ["support area"],
+		"target": "companion,not(hasAttached(name(Frostbite)))",
+		"condition": {
+      "type": "canSpot",
+      "filter": "weather,condition"
+    },
 		"effects": [
-			{
+
+      {
         "type": "trigger",
         "trigger": {
-          "type": "movesFrom",
-          "filter": "hasAttached(weather,condition)"
+          "type": "played",
+          "filter": "weather"
         },
         "effect":  {
 	        "type": "addTwilight",
-	        "amount": 3
+	        "amount": 2
+	      },
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "aboutToDiscard",
+          "filter": "self",
+          "source": "side(free people)"
+        },
+        "effect":  {
+	        "type": "wound",
+	        "filter": "bearer",
 	      },
       },
 		]
@@ -116,54 +194,45 @@
 	"151_28": {
 		"title": "Just A Wisp Of Cloud",
 		"culture": "isengard",
-		"cost": 0,
+		"cost": 1,
 		"type": "event",
-		"keyword": ["regroup","spell","weather"],
+		"keyword": ["maneuver","spell","weather"],
 		"effects": {
 			"type": "event",
-			"cost": {
-        "type": "chooseHowManyToSpot",
-        "filter": "Crow",
-        "memorize": "crowCount",
-        "text": "Choose how many Crows to discard"
-      },
+			
 			"effect": [
 				{
-          "type": "chooseActiveCards",
-          "filter": "choose(Crow)",
-          "text": "Choose {crowCount} Crows to discard",
-          "count": {
-	          "type": "fromMemory",
-	          "memory": "crowCount"
-	        },
-          "memorize": "chosenCrows"
-        },
-        {
 	        "type": "choice",
-	        "player": "fp",
 	        "texts": [
-	          "Exert {crowCount} companions",
-	          "Make the move limit -1"
+	          "Choose Saruman from your draw deck",
+	          "Choose Saruman from your discard pile"
 	        ],
 	        "effects": [
 	          {
-	            "type": "exert",
-	            "filter": "choose(companion)",
-	            "count": {
-			          "type": "fromMemory",
-			          "memory": "crowCount"
-			        },
+	            "type": "putCardsFromDeckOnTopOfDeck",
+	            "filter": "choose(title(Saruman))",
+	            "count": 1
 	          },
 	          {
-              "type": "addModifier",
-              "modifier": {
-                "type": "modifyMoveLimit",
-                "amount": -1
-              },
-              "until": "endOfTurn"
-            }
+	            "type": "putCardsFromDiscardOnTopOfDeck",
+	            "filter": "choose(title(Saruman))",
+	            "count": 1
+	          },
 	        ]
-	      }
+	      },
+	      {
+	      	"type": "DiscardFromHand",
+	      	"forced": false,
+	      	"filter": "choose(any)",
+	      	"count": {
+	      		"type": "range",
+	      		"from": 0,
+	      		"to": {
+	      			"type": "forEachYouCanSpot",
+	      			"filter": "crow"
+	      		}
+	      	}
+		    }
 			]
 		}
 	},
@@ -172,48 +241,64 @@
 	"151_29": {
 		"title": "*A Murder Of Crows",
 		"culture": "isengard",
-		"cost": 5,
+		"cost": 4,
 		"type": "minion",
 		"race": "crow",
-		"strength": 7,
-		"vitality": 4,
+		"strength": 4,
+		"vitality": 3,
 		"site": 4,
 		"effects": [
 			{
-				"type": "inhandtrigger",
-				"trigger": {
-					"type": "played",
-					"filter": "character,side(free people)",
-					"memorize": "playedChar"
-				},
+				"type": "modifyowncost",
 				"condition": {
-          "type": "canSpot",
-          "filter": "culture(isengard)",
-        },
-				"effect": {
-					"type": "play",
-					"filter": "self",
-					"cost": {
-						"type": "multiply",
-		        "multiplier": -1,
-		        "source": {
-							"type": "twilightCostInMemory",
-							"memory": "playedChar"
-						}
-					}
-				}
+					"type": "canSpot",
+					"filter": "side(free people),condition",
+					"count": 3
+				},
+				"amount": -3
 			},
 			{
-	      "type": "modifier",
-	      "modifier": {
-	        "type": "modifyStrength",
-	        "filter": "self",
-	        "amount": {
-	          "type": "forEachCultureOver",
-	          "filter": "side(free people)"
-	        }
+	      "type": "activated",
+	      "phase": "maneuver",
+	      "condition": {
+	      	"type": "or",
+	      	"condition": [
+	      		{
+		          "type": "canSpot",
+		          "filter": "condition,side(free people)",
+		          "count": 3
+		        },
+		        {
+		        	"type": "canSpot",
+		          "filter": "title(Saruman)",
+		        }
+	      	],
+	      },
+	      "cost": {
+	        "type": "discard",
+	        "filter": "self"
+	      },
+	      "effect": {
+	        "type": "choice",
+	        "texts": [
+	          "Choose an {isengard} condition from your draw deck",
+	          "Choose an {isengard} condition from your discard pile"
+	        ],
+	        "effects": [
+	          {
+	            "type": "putCardsFromDeckOnTopOfDeck",
+	            "filter": "choose(culture(isengard),condition)",
+	            "count": 1
+	          },
+	          {
+	            "type": "putCardsFromDiscardOnTopOfDeck",
+	            "filter": "choose(culture(isengard),condition)",
+	            "count": 1
+	          },
+	        ]
 	      }
 	    }
+			
 		]
 	},
 
@@ -224,7 +309,7 @@
 		"cost": 4,
 		"type": "minion",
 		"race": "wizard",
-		"strength": 8,
+		"strength": 6,
 		"vitality": 4,
 		"site": 4,
 		"effects": [
@@ -234,6 +319,10 @@
           "type": "cantTakeWounds",
           "filter": "self",
           "condition": [
+          	{
+          		"type": "cantspot",
+          		"filter": "weather"
+          	},
             {
               "type": "phase",
               "phase": "archery"
@@ -249,9 +338,15 @@
         "modifier": {
           "type": "cantbeassignedtoskirmish",
           "filter": "self",
-          "condition": {
-            "type": "sarumanfirstsentenceactive"
-          }
+          "condition": [
+          	{
+          		"type": "cantspot",
+          		"filter": "weather"
+          	},
+          	{
+	            "type": "sarumanfirstsentenceactive"
+	          }
+	        ]
         }
       },
 			{
@@ -262,7 +357,7 @@
 					"amount": 2,
 					"condition": {
 	          "type": "canSpot",
-	          "filter": "weather,condition,attachedTo(site)"
+	          "filter": "weather,attachedTo(site)"
 	        },
 				}
 			},
@@ -285,3 +380,4 @@
 	},
 
 }
+

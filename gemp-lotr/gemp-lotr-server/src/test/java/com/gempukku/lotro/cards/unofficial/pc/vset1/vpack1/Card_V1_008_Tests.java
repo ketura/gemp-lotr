@@ -110,7 +110,7 @@ public class Card_V1_008_Tests
 
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
-		assertTrue(scn.FreepsDecisionAvailable("Choose cards from hand"));
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to stack"));
 		assertEquals(3, scn.GetFreepsHandCount());
 		assertEquals(2, scn.GetFreepsCardChoiceCount()); // 3 cards in hand, but only 2 freeps cards
 
