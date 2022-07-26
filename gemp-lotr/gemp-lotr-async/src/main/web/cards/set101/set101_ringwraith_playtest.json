@@ -144,6 +144,33 @@
 	          "multiplier": 1
 	        }
 	      }
+	    },
+	    {
+	      "type": "trigger",
+	      "trigger": {
+	        "type": "startofphase",
+	        "phase": "maneuver"
+	      },
+	      "optional": true,
+	      "cost": {
+	      	"type": "exert",
+	      	"filter": "self"
+	      },
+	      "effect": {
+	      	"type": "preventable",
+	      	"effect": {
+	          "type": "addKeyword",
+	          "filter": "self",
+	          "keyword": "fierce",
+	          "until": "start(regroup)",         
+	        },
+	        "text": "Would you like to exert the Ring-bearer to prevent this minion from being fierce?",
+	        "player": "freeps",
+	        "cost": {
+	        	"type": "exert",
+	        	"filter": "choose(ring-bearer)"
+	        }
+	      }
 	    }
 		]
 	},

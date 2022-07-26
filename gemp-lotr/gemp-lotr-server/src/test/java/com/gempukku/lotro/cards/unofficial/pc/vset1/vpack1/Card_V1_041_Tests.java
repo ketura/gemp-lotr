@@ -22,8 +22,13 @@ public class Card_V1_041_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_41");
-					// put other cards in here as needed for the test case
+					put("eyes", "151_41");
+					put("twigul", "2_83");
+
+					put("filler1", "2_75");
+					put("filler2", "2_75");
+					put("filler3", "2_75");
+
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +36,7 @@ public class Card_V1_041_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void TheirEyesFellUponHimStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,15 +54,15 @@ public class Card_V1_041_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl eyes = scn.GetFreepsCard("eyes");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
+		assertFalse(eyes.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, eyes.getBlueprint().getSide());
+		assertEquals(Culture.WRAITH, eyes.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, eyes.getBlueprint().getCardType());
 		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
+		assertTrue(scn.HasKeyword(eyes, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, eyes.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
@@ -68,17 +71,94 @@ public class Card_V1_041_Tests
 
 	}
 
-	//@Test
-	public void TheirEyesFellUponHimTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void RequiresATwigulToPlay() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl eyes = scn.GetShadowCard("eyes");
+		PhysicalCardImpl twigul = scn.GetShadowCard("twigul");
+		scn.ShadowMoveCardToHand(eyes, twigul);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.SetTwilight(10);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertFalse(scn.ShadowCardPlayAvailable(eyes));
+		scn.ShadowPlayCard(twigul);
+		assertTrue(scn.ShadowCardPlayAvailable(eyes));
 	}
+
+	@Test
+	public void EachMoveDrawsACardIfRingBearerIsWounded() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl eyes = scn.GetShadowCard("eyes");
+		scn.ShadowMoveCardToSupportArea(eyes);
+
+		scn.StartGame();
+
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertEquals(0, scn.GetShadowHandCount());
+		assertEquals(4, scn.GetShadowDeckCount());
+
+		scn.AddWoundsToChar(frodo, 1);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(1, scn.GetWoundsOn(frodo));
+		assertEquals(1, scn.GetShadowHandCount());
+		assertEquals(3, scn.GetShadowDeckCount());
+	}
+
+	@Test
+	public void MovingDrawsNoCardsIfRingBearerUnwounded() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl eyes = scn.GetShadowCard("eyes");
+		scn.ShadowMoveCardToSupportArea(eyes);
+
+		scn.StartGame();
+
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertEquals(0, scn.GetShadowHandCount());
+		assertEquals(4, scn.GetShadowDeckCount());
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertEquals(0, scn.GetShadowHandCount());
+		assertEquals(4, scn.GetShadowDeckCount());
+	}
+
+	@Test
+	public void MovingDraws2CardsIfRingBearerExhausted() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl eyes = scn.GetShadowCard("eyes");
+		scn.ShadowMoveCardToSupportArea(eyes);
+
+		scn.StartGame();
+
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertEquals(0, scn.GetShadowHandCount());
+		assertEquals(4, scn.GetShadowDeckCount());
+
+		scn.AddWoundsToChar(frodo, 3);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(3, scn.GetWoundsOn(frodo));
+		assertEquals(2, scn.GetShadowHandCount());
+		assertEquals(2, scn.GetShadowDeckCount());
+	}
+
+
 }

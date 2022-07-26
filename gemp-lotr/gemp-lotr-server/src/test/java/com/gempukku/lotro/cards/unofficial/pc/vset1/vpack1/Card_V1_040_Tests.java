@@ -22,7 +22,7 @@ public class Card_V1_040_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_40");
+					put("rit", "151_40");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -31,9 +31,7 @@ public class Card_V1_040_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void RingwraithinTwilightStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -55,34 +53,90 @@ public class Card_V1_040_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl rit = scn.GetFreepsCard("rit");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
-		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(4, card.getBlueprint().getTwilightCost());
-		assertEquals(9, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(3, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(rit.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, rit.getBlueprint().getSide());
+		assertEquals(Culture.WRAITH, rit.getBlueprint().getCulture());
+		assertEquals(CardType.MINION, rit.getBlueprint().getCardType());
+		assertEquals(Race.NAZGUL, rit.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(rit, Keyword.TWILIGHT)); // test for keywords as needed
+		assertEquals(4, rit.getBlueprint().getTwilightCost());
+		assertEquals(9, rit.getBlueprint().getStrength());
+		assertEquals(3, rit.getBlueprint().getVitality());
+		//assertEquals(, rit.getBlueprint().getResistance());
+		//assertEquals(Signet., rit.getBlueprint().getSignet());
+		assertEquals(3, rit.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void RingwraithinTwilightTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void RITIsStrengthPlusOnePerWoundOnTheRB() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl rit = scn.GetShadowCard("rit");
+		scn.ShadowMoveCharToTable(rit);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(4, scn.GetTwilight());
+		assertEquals(9, scn.GetStrength(rit));
+		scn.AddWoundsToChar(frodo, 1);
+		assertEquals(10, scn.GetStrength(rit));
+		scn.AddWoundsToChar(frodo, 1);
+		assertEquals(11, scn.GetStrength(rit));
+		scn.AddWoundsToChar(frodo, 1);
+		assertEquals(12, scn.GetStrength(rit));
+	}
+
+	@Test
+	public void ManeuverActionMakesRITFierce() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl rit = scn.GetShadowCard("rit");
+		scn.ShadowMoveCharToTable(rit);
+
+		scn.StartGame();
+
+		assertFalse(scn.HasKeyword(rit, Keyword.FIERCE));
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+		scn.FreepsChooseNo();
+
+		assertTrue(scn.HasKeyword(rit, Keyword.FIERCE));
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+
+		assertTrue(scn.HasKeyword(rit, Keyword.FIERCE));
+	}
+
+	@Test
+	public void FreepsCanPreventManeuverActionByExertingRingBearer() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl rit = scn.GetShadowCard("rit");
+		scn.ShadowMoveCharToTable(rit);
+
+		scn.StartGame();
+
+		assertFalse(scn.HasKeyword(rit, Keyword.FIERCE));
+		assertEquals(0, scn.GetWoundsOn(frodo));
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.ShadowAcceptOptionalTrigger();
+		assertTrue(scn.FreepsDecisionAvailable("prevent"));
+		scn.FreepsChooseYes();
+
+		assertFalse(scn.HasKeyword(rit, Keyword.FIERCE));
 	}
 }

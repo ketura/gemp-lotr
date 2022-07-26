@@ -22,8 +22,9 @@ public class Card_V1_043_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_43");
-					// put other cards in here as needed for the test case
+					put("faces", "151_43");
+					put("twigul", "2_82");
+					put("wk", "2_85");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +32,7 @@ public class Card_V1_043_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void WhiteFacesBurnedStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +49,80 @@ public class Card_V1_043_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl faces = scn.GetFreepsCard("faces");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(faces.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, faces.getBlueprint().getSide());
+		assertEquals(Culture.WRAITH, faces.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, faces.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, faces.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(faces, Keyword.SKIRMISH)); // test for keywords as needed
+		assertEquals(1, faces.getBlueprint().getTwilightCost());
+		//assertEquals(, faces.getBlueprint().getStrength());
+		//assertEquals(, faces.getBlueprint().getVitality());
+		//assertEquals(, faces.getBlueprint().getResistance());
+		//assertEquals(Signet., faces.getBlueprint().getSignet());
+		//assertEquals(, faces.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void WhiteFacesBurnedTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void FacesAddsOneStrengthPerWoundOnTheRB() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl faces = scn.GetShadowCard("faces");
+		PhysicalCardImpl twigul = scn.GetShadowCard("twigul");
+		scn.ShadowMoveCharToTable(twigul);
+		scn.ShadowMoveCardToHand(faces);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.AddWoundsToChar(frodo, 3);
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(frodo, twigul);
+		scn.FreepsResolveSkirmish(frodo);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(12, scn.GetStrength(twigul));
+		assertEquals(3, scn.GetWoundsOn(frodo));
+		assertTrue(scn.ShadowCardPlayAvailable(faces));
+		scn.ShadowPlayCard(faces);
+		assertEquals(15, scn.GetStrength(twigul));
+	}
+
+	@Test
+	public void FacesMakesWitchKingDamagePlusOne() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl faces = scn.GetShadowCard("faces");
+		PhysicalCardImpl wk = scn.GetShadowCard("wk");
+		scn.ShadowMoveCharToTable(wk);
+		scn.ShadowMoveCardToHand(faces);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(frodo, wk);
+		scn.FreepsResolveSkirmish(frodo);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(14, scn.GetStrength(wk));
+		assertFalse(scn.HasKeyword(wk, Keyword.DAMAGE));
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertTrue(scn.ShadowCardPlayAvailable(faces));
+
+		scn.ShadowPlayCard(faces);
+		assertEquals(14, scn.GetStrength(wk));
+		assertTrue(scn.HasKeyword(wk, Keyword.DAMAGE));
+		assertEquals(1, scn.GetKeywordCount(wk, Keyword.DAMAGE));
 	}
 }

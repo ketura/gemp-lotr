@@ -31,6 +31,7 @@ public class FilterFactory {
 
         simpleFilters.put("ring bearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("ringbearer", (actionContext) -> Filters.ringBearer);
+        simpleFilters.put("ring-bearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("any", (actionContext) -> Filters.any);
         simpleFilters.put("self", (actionContext) -> actionContext.getSource());
         simpleFilters.put("another", (actionContext) -> Filters.not(actionContext.getSource()));
