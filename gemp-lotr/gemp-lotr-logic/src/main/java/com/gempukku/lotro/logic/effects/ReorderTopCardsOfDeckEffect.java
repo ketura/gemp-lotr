@@ -15,11 +15,20 @@ import java.util.Set;
 public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
     private Action _action;
     private String _playerId;
+    private String _deckId;
     private int _count;
 
     public ReorderTopCardsOfDeckEffect(Action action, String playerId, int count) {
         _action = action;
         _playerId = playerId;
+        _deckId = playerId;
+        _count = count;
+    }
+
+    public ReorderTopCardsOfDeckEffect(Action action, String playerId, String deckId, int count) {
+        _action = action;
+        _playerId = playerId;
+        _deckId = deckId;
         _count = count;
     }
 
@@ -35,12 +44,12 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getDeck(_playerId).size() >= _count;
+        return game.getGameState().getDeck(_deckId).size() >= _count;
     }
 
     @Override
     public void playEffect(LotroGame game) {
-        final List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerId);
+        final List<? extends PhysicalCard> deck = game.getGameState().getDeck(_deckId);
         int count = Math.min(deck.size(), _count);
         Set<PhysicalCard> cards = new HashSet<PhysicalCard>(deck.subList(0, count));
 
@@ -57,7 +66,7 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
         private CostToEffectAction _subAction;
 
         public ChooseAndPutNextCardFromDeckOnTopOfDeck(CostToEffectAction subAction, Collection<PhysicalCard> remainingCards) {
-            super(_playerId, "Choose a card to put on top of your deck", remainingCards, 1, 1);
+            super(_playerId, "Choose a card to put on top of the deck", remainingCards, 1, 1);
             _subAction = subAction;
             _remainingCards = remainingCards;
         }
@@ -66,7 +75,7 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
-                        new PutCardFromDeckOnTopOfDeckEffect(_action.getActionSource(), selectedCard));
+                        new PutCardFromDeckOnTopOfDeckEffect(_playerId, selectedCard));
                 _remainingCards.remove(selectedCard);
                 if (_remainingCards.size() > 0)
                     _subAction.appendEffect(

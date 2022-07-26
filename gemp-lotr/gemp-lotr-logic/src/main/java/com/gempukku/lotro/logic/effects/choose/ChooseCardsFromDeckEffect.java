@@ -15,12 +15,22 @@ import java.util.LinkedList;
 
 public abstract class ChooseCardsFromDeckEffect extends AbstractEffect {
     private String _playerId;
+    private String _deckId;
     private int _minimum;
     private int _maximum;
     private Filter _filter;
 
     public ChooseCardsFromDeckEffect(String playerId, int minimum, int maximum, Filterable... filters) {
         _playerId = playerId;
+        _deckId = playerId;
+        _minimum = minimum;
+        _maximum = maximum;
+        _filter = Filters.and(filters);
+    }
+
+    public ChooseCardsFromDeckEffect(String playerId, String deckId, int minimum, int maximum, Filterable... filters) {
+        _playerId = playerId;
+        _deckId = deckId;
         _minimum = minimum;
         _maximum = maximum;
         _filter = Filters.and(filters);
@@ -38,13 +48,13 @@ public abstract class ChooseCardsFromDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDeck(_playerId), game, _filter);
+        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDeck(_deckId), game, _filter);
         return cards.size() >= _minimum;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDeck(_playerId), game, _filter);
+        Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getDeck(_deckId), game, _filter);
 
         boolean success = cards.size() >= _minimum;
 

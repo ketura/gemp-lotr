@@ -36,6 +36,7 @@ public class RequirementFactory {
         requirementProducers.put("isside", new IsSideRequirementProducer());
         requirementProducers.put("location", new Location());
         requirementProducers.put("memoryis", new MemoryIs());
+        requirementProducers.put("memorylike", new MemoryLike());
         requirementProducers.put("memorymatches", new MemoryMatches());
         requirementProducers.put("movecountminimum", new MoveCountMinimum());
         requirementProducers.put("perphaselimit", new PerPhaseLimit());

@@ -19,11 +19,12 @@ import java.util.List;
 public class Choice implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "player", "effects", "texts");
+        FieldUtils.validateAllowedFields(effectObject, "player", "effects", "texts", "memorize");
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effects"), "effects");
         final String[] textArray = FieldUtils.getStringArray(effectObject.get("texts"), "texts");
+        final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         if (effectArray.length != textArray.length)
             throw new InvalidCardDefinitionException("Number of texts and effects does not match in choice effect");
@@ -51,12 +52,15 @@ public class Choice implements EffectAppenderProducer {
                     textIndex++;
                 }
 
-                if (playableEffectAppenders.size() == 0)
+                if (playableEffectAppenders.size() == 0) {
+                    actionContext.setValueToMemory(memorize, "");
                     return null;
+                }
 
                 if (playableEffectAppenders.size() == 1) {
                     SubAction subAction = new SubAction(action);
                     playableEffectAppenders.get(0).appendEffect(cost, subAction, delegateActionContext);
+                    actionContext.setValueToMemory(memorize, textArray[0]);
                     return new StackActionEffect(subAction);
                 }
 
@@ -67,6 +71,7 @@ public class Choice implements EffectAppenderProducer {
                                     @Override
                                     protected void validDecisionMade(int index, String result) {
                                         playableEffectAppenders.get(index).appendEffect(cost, subAction, delegateActionContext);
+                                        actionContext.setValueToMemory(memorize, result);
                                     }
                                 }));
                 return new StackActionEffect(subAction);

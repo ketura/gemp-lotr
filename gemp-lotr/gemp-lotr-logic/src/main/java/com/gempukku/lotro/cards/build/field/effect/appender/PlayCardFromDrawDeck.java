@@ -47,7 +47,7 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                             }
                             return Filters.playable(actionContext.getGame(), costModifier);
                         },
-                        new ConstantEvaluator(1), memorize, "you", "Choose card to play", environment));
+                        new ConstantEvaluator(1), memorize, "you", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

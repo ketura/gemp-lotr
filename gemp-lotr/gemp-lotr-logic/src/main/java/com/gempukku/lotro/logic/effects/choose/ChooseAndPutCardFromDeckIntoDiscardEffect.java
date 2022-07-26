@@ -13,7 +13,12 @@ public class ChooseAndPutCardFromDeckIntoDiscardEffect extends ChooseCardsFromDe
     private Action _action;
 
     public ChooseAndPutCardFromDeckIntoDiscardEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
-        super(playerId, minimum, maximum, filters);
+        super(playerId, playerId, minimum, maximum, filters);
+        _action = action;
+    }
+
+    public ChooseAndPutCardFromDeckIntoDiscardEffect(Action action, String playerId, String deckId, int minimum, int maximum, Filterable... filters) {
+        super(playerId, deckId, minimum, maximum, filters);
         _action = action;
     }
 

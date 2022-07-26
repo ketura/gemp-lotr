@@ -35,7 +35,7 @@ public class StackCardsFromDeck implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCard(where, "_temp1", "you", "Choose card to stack on", environment));
         result.addEffectAppender(
-                CardResolver.resolveCardsInDeck(filter, null, valueSource, "_temp2", "you", "Choose cards to stack", environment));
+                CardResolver.resolveCardsInDeck(filter, valueSource, "_temp2", "you", "Choose cards to stack", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
             @Override

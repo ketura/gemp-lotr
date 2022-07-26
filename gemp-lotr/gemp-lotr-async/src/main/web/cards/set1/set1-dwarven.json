@@ -409,6 +409,7 @@
       "effect": [
         {
           "type": "choice",
+          "memorize": "revealChoice",
           "texts": [
             "Reveal top 3 cards of your deck.",
             "Reveal top 3 cards of your opponent's deck."
@@ -417,34 +418,77 @@
             {
               "type": "revealTopCardsOfDrawDeck",
               "count": 3,
-              "memorize": "revealedCards",
+              "memorize": "revealedFreepsCards",
               "deck": "you"
             },
             {
               "type": "revealTopCardsOfDrawDeck",
               "count": 3,
-              "memorize": "revealedCards",
+              "memorize": "revealedShadowCards",
               "deck": "shadowPlayer"
             }
           ]
         },
         
         {
-          "type": "optional",
-          "text": "Would you like to discard 1 Shadow card revealed?",
-          "effect": {
-            "type": "discardCardsFromDrawDeck",
-            "filter": "choose(side(shadow),memory(revealedCards))"
-          }
+          "type": "conditional",
+          "condition": {
+            "type": "memoryLike",
+            "memory": "revealChoice",
+            "value": "your deck"
+          },
+          "effect": [
+            {
+              "type": "optional",
+              "text": "Would you like to discard 1 Shadow card revealed?",
+              "effect": {
+                "type": "discardCardsFromDrawDeck",
+                "filter": "choose(side(shadow),memory(revealedFreepsCards))"
+              }
+            },
+            {
+              "type": "reorderTopCardsOfDrawDeck",
+              "player": "you",
+              "deck": "you",
+              "count": {
+                "type": "forEachMatchingInMemory",
+                "memory": "revealedFreepsCards",
+                "filter": "zone(deck)"
+              }
+            }
+          ]
         },
         {
-          "type": "reorderTopCardsOfDrawDeck",
-          "count": {
-            "type": "forEachMatchingInMemory",
-            "memory": "revealedCards",
-            "filter": "zone(deck)"
-          }
-        }
+          "type": "conditional",
+          "condition": {
+            "type": "memoryLike",
+            "memory": "revealChoice",
+            "value": "your opponent's deck"
+          },
+          "effect": [
+            {
+              "type": "optional",
+              "text": "Would you like to discard 1 Shadow card revealed?",
+              "effect": {
+                "type": "discardCardsFromDrawDeck",
+                "deck": "shadow",
+                "filter": "choose(side(shadow),memory(revealedShadowCards))"
+              }
+            },
+            {
+              "type": "reorderTopCardsOfDrawDeck",
+              "player": "you",
+              "deck": "shadow",
+              "count": {
+                "type": "forEachMatchingInMemory",
+                "memory": "revealedShadowCards",
+                "filter": "zone(deck)"
+              }
+            }
+          ]
+        },
+        
+        
       ]
     }
   },

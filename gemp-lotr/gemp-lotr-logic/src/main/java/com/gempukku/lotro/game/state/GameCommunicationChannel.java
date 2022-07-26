@@ -120,7 +120,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards) {
         Set<PhysicalCard> removedCardsVisibleByPlayer = new HashSet<PhysicalCard>();
         for (PhysicalCard card : cards) {
-            if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
+            if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self) || playerPerforming != card.getOwner()))
                 removedCardsVisibleByPlayer.add(card);
         }
         if (removedCardsVisibleByPlayer.size() > 0)

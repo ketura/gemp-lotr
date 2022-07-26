@@ -13,7 +13,12 @@ public class ChooseAndPutCardFromDeckIntoHandEffect extends ChooseCardsFromDeckE
     private Action _action;
 
     public ChooseAndPutCardFromDeckIntoHandEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
-        super(playerId, minimum, maximum, filters);
+        super(playerId, playerId, minimum, maximum, filters);
+        _action = action;
+    }
+
+    public ChooseAndPutCardFromDeckIntoHandEffect(Action action, String playerId, String deckId, int minimum, int maximum, Filterable... filters) {
+        super(playerId, deckId, minimum, maximum, filters);
         _action = action;
     }
 

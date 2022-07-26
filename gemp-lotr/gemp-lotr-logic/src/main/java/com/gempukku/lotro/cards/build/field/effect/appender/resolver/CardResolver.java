@@ -185,14 +185,16 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCardsInDeck(String type, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return resolveCardsInDeck(type, null, countSource, memory, choicePlayer, choiceText, environment);
+        return resolveCardsInDeck(type, null, countSource, memory, choicePlayer, choicePlayer, choiceText, environment);
     }
 
-    public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String targetDeck, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
+        final PlayerSource deckSource = PlayerResolver.resolvePlayer(targetDeck, environment);
+
         Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
-            String playerId = playerSource.getPlayer(actionContext);
-            return actionContext.getGame().getGameState().getDeck(playerId);
+            String deckId = deckSource.getPlayer(actionContext);
+            return actionContext.getGame().getGameState().getDeck(deckId);
         };
 
         if (type.startsWith("memory(") && type.endsWith(")")) {
@@ -202,7 +204,8 @@ public class CardResolver {
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
             ChoiceEffectSource effectSource = (possibleCards, action, actionContext, min, max) -> {
                 String choicePlayerId = playerSource.getPlayer(actionContext);
-                return new ChooseCardsFromDeckEffect(choicePlayerId, min, max, Filters.in(possibleCards)) {
+                String targetDeckId = deckSource.getPlayer(actionContext);
+                return new ChooseCardsFromDeckEffect(choicePlayerId, targetDeckId, min, max, Filters.in(possibleCards)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);

@@ -34,7 +34,7 @@ public class PutCardsFromDeckOnTopOfDeck implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInDeck(filter, null, valueSource, "_temp", "you", "Choose cards from deck", environment));
+                CardResolver.resolveCardsInDeck(filter, valueSource, "_temp", "you", "Choose cards from deck", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
@@ -42,7 +42,7 @@ public class PutCardsFromDeckOnTopOfDeck implements EffectAppenderProducer {
                         final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
                         List<Effect> result = new LinkedList<>();
                         for (PhysicalCard card : cards) {
-                            result.add(new PutCardFromDeckOnTopOfDeckEffect(action.getActionSource(), card));
+                            result.add(new PutCardFromDeckOnTopOfDeckEffect(action.getActionSource().getOwner(), card));
                         }
 
                         return result;

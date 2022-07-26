@@ -61,7 +61,7 @@ public class PutCardsFromDeckOnTopOfDrawDeckEffect extends AbstractSubActionEffe
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
-                        new PutCardFromDeckOnTopOfDeckEffect(_source, selectedCard));
+                        new PutCardFromDeckOnTopOfDeckEffect(_source.getOwner(), selectedCard));
                 _remainingCards.remove(selectedCard);
                 if (_remainingCards.size() > 0)
                     _subAction.appendEffect(

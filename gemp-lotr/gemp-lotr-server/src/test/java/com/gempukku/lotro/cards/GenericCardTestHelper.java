@@ -770,4 +770,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
             }
         });
     }
+
+    public void AcknowledgeReveal() throws DecisionResultInvalidException
+    {
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+    }
 }
