@@ -3,9 +3,11 @@ package com.gempukku.lotro.cards.unofficial.pc.vset1.vpack1;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
@@ -22,8 +24,13 @@ public class Card_V1_050_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_50");
-					// put other cards in here as needed for the test case
+					put("bilbo", "151_50");
+					put("sam", "1_311");
+					put("coat", "13_153");
+					put("sting", "8_113");
+
+					put("phial", "3_24");
+					put("greenleaf", "1_50");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +38,7 @@ public class Card_V1_050_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void BilboStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -53,34 +58,100 @@ public class Card_V1_050_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl bilbo = scn.GetFreepsCard("bilbo");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.ALLY, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(2, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(3, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(bilbo.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, bilbo.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, bilbo.getBlueprint().getCulture());
+		assertEquals(CardType.ALLY, bilbo.getBlueprint().getCardType());
+		assertEquals(Race.HOBBIT, bilbo.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(bilbo, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(2, bilbo.getBlueprint().getTwilightCost());
+		assertEquals(2, bilbo.getBlueprint().getStrength());
+		assertEquals(3, bilbo.getBlueprint().getVitality());
+		//assertEquals(, bilbo.getBlueprint().getResistance());
+		//assertEquals(Signet., bilbo.getBlueprint().getSignet());
+		assertEquals(3, bilbo.getBlueprint().getAllyHomeSiteNumbers()[0]); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void BilboTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void FellowshipAbilityOnlyWorksAtSanctuary() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl bilbo = scn.GetFreepsCard("bilbo");
+		scn.FreepsMoveCardToSupportArea(bilbo);
+
+		scn.FreepsMoveCardToDiscard("sam", "sting", "coat");
+		scn.ShadowMoveCardToDiscard("bilbo", "sam", "sting", "coat");
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		for(int i = 1; i <= 8; i++)
+		{
+			PhysicalCardImpl site = scn.GetCurrentSite();
+			if(i == 3 || i == 6 || scn.HasKeyword(scn.GetCurrentSite(), Keyword.SANCTUARY)) {
+				assertTrue(scn.FreepsCardActionAvailable(bilbo));
+			}
+			else {
+				assertFalse(scn.FreepsCardActionAvailable(bilbo));
+			}
+
+			scn.SkipToPhase(Phase.REGROUP);
+			if(i == 8)
+				break; // Game finished
+			scn.PassCurrentPhaseActions();
+			scn.FreepsChooseToStay();
+
+			//Shadow player
+			scn.SkipToPhase(Phase.REGROUP);
+			scn.FreepsPassCurrentPhaseAction(); // actually shadow with the swap
+			scn.ShadowChoose("1"); // Choose to stay
+			assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
+		}
+	}
+
+	@Test
+	public void FellowshipAbilityExertsTwiceToTutor2ItemsOnFrodoSignetCompanions() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl bilbo = scn.GetFreepsCard("bilbo");
+		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		PhysicalCardImpl coat = scn.GetFreepsCard("coat");
+		PhysicalCardImpl sting = scn.GetFreepsCard("sting");
+		PhysicalCardImpl phial = scn.GetFreepsCard("phial");
+		scn.FreepsMoveCardToSupportArea(bilbo, greenleaf);
+		scn.FreepsMoveCharToTable(sam);
+
+		//Cheat the sanctuary so we don't have to move and swap
+		scn.ApplyAdHocModifier(new KeywordModifier(null, Filters.siteNumber(1), Keyword.SANCTUARY));
+
+		scn.StartGame();
+
+		assertTrue(scn.FreepsCardActionAvailable(bilbo));
+		assertEquals(0, scn.GetWoundsOn(bilbo));
+
+		scn.FreepsUseCardAction(bilbo);
+		assertEquals(2, scn.GetWoundsOn(bilbo));
+		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
+		assertEquals(2, scn.GetFreepsCardChoiceCount());
+
+		scn.FreepsChooseCardBPFromSelection(coat);
+		assertEquals(Zone.ATTACHED, coat.getZone());
+		assertEquals(frodo, coat.getAttachedTo());
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
+		assertEquals(1, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCardBPFromSelection(sting);
+		assertEquals(Zone.ATTACHED, sting.getZone());
+		assertEquals(frodo, sting.getAttachedTo());
+
 	}
 }

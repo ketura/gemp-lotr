@@ -22,7 +22,9 @@ public class Card_V1_051_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_51");
+					put("griffo", "151_51");
+					put("farmer1", "1_295");
+					put("farmer2", "1_295");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -31,9 +33,7 @@ public class Card_V1_051_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void GriffoBoffinStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -47,40 +47,49 @@ public class Card_V1_051_Tests
 		* Strength: 3
 		* Vitality: 2
 		* Site Number: 1
-		* Game Text: Each time you play a [shire] ally, you may add (1) to draw a card.
+		* Game Text: Each time you play a [shire] ally, you may add (1) to draw a griffo.
 		*/
 
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl griffo = scn.GetFreepsCard("griffo");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.ALLY, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
-		assertEquals(2, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(1, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(griffo.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, griffo.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, griffo.getBlueprint().getCulture());
+		assertEquals(CardType.ALLY, griffo.getBlueprint().getCardType());
+		assertEquals(Race.HOBBIT, griffo.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(griffo, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, griffo.getBlueprint().getTwilightCost());
+		assertEquals(3, griffo.getBlueprint().getStrength());
+		assertEquals(2, griffo.getBlueprint().getVitality());
+		//assertEquals(, griffo.getBlueprint().getResistance());
+		//assertEquals(Signet., griffo.getBlueprint().getSignet());
+		assertEquals(1, griffo.getBlueprint().getAllyHomeSiteNumbers()[0]); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void GriffoBoffinTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void WhenShireAllyIsPlayedAdd1ToDraw() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl griffo = scn.GetFreepsCard("griffo");
+		PhysicalCardImpl farmer1 = scn.GetFreepsCard("farmer1");
+		PhysicalCardImpl farmer2 = scn.GetFreepsCard("farmer2");
+		scn.FreepsMoveCharToTable(griffo);
+		scn.FreepsMoveCardToHand(farmer1);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		assertEquals(0, scn.GetTwilight());
+		assertEquals(Zone.DECK, farmer2.getZone());
 
-		assertEquals(1, scn.GetTwilight());
+		scn.FreepsPlayCard(farmer1);
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(2, scn.GetTwilight()); // +1 from playing farmer, +1 from Griffo's ability
+		assertEquals(Zone.HAND, farmer2.getZone());
+
 	}
 }

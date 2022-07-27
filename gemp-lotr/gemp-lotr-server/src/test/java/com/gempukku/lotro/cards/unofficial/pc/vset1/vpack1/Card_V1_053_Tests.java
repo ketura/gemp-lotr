@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
+import org.mockito.internal.matchers.Same;
 
 import java.util.HashMap;
 
@@ -22,8 +23,10 @@ public class Card_V1_053_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_53");
-					// put other cards in here as needed for the test case
+					put("pippin", "151_53");
+					put("sam", "1_310");
+
+					put("nazgul", "1_232");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +34,7 @@ public class Card_V1_053_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void PippinStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -53,34 +54,85 @@ public class Card_V1_053_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
-		assertEquals(4, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.FRODO, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(pippin.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, pippin.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, pippin.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, pippin.getBlueprint().getCardType());
+		assertEquals(Race.HOBBIT, pippin.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(pippin, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, pippin.getBlueprint().getTwilightCost());
+		assertEquals(3, pippin.getBlueprint().getStrength());
+		assertEquals(4, pippin.getBlueprint().getVitality());
+		//assertEquals(, pippin.getBlueprint().getResistance());
+		assertEquals(Signet.FRODO, pippin.getBlueprint().getSignet());
+		//assertEquals(, pippin.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void PippinTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void SkirmishAbilityExertsPippinToPreventShireOverwhelmUnlessTripled() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
+		//PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		scn.FreepsMoveCharToTable(pippin);
+
+		PhysicalCardImpl nazgul = scn.GetShadowCard("nazgul");
+		scn.FreepsMoveCharToTable(nazgul);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(frodo, nazgul);
+		scn.FreepsResolveSkirmish(frodo);
+
+		assertEquals(2, scn.GetOverwhelmMultiplier(frodo)); // 2x is the default
+		assertTrue(scn.FreepsCardActionAvailable(pippin));
+		assertEquals(0, scn.GetWoundsOn(pippin));
+
+		scn.FreepsUseCardAction(pippin);
+		assertEquals(3, scn.GetOverwhelmMultiplier(frodo));
+		assertEquals(1, scn.GetWoundsOn(pippin));
+
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+		scn.FreepsDeclineOptionalTrigger(); //ring response
+
+		assertEquals(1, scn.GetWoundsOn(frodo));
+
+	}
+
+	@Test
+	public void SkirmishAbilityPumpsIfThreeFrodoSignets() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		scn.FreepsMoveCharToTable(pippin, sam);
+
+		PhysicalCardImpl nazgul = scn.GetShadowCard("nazgul");
+		scn.FreepsMoveCharToTable(nazgul);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(sam, nazgul);
+		scn.FreepsResolveSkirmish(sam);
+
+		assertEquals(3, scn.GetStrength(sam));
+		assertTrue(scn.FreepsCardActionAvailable(pippin));
+		assertEquals(0, scn.GetWoundsOn(pippin));
+
+		scn.FreepsUseCardAction(pippin);
+		assertEquals(4, scn.GetStrength(sam));
+
 	}
 }

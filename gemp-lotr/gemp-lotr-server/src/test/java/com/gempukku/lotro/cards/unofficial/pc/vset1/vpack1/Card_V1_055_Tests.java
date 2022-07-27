@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
+import org.xml.sax.SAXNotRecognizedException;
 
 import java.util.HashMap;
 
@@ -22,8 +23,14 @@ public class Card_V1_055_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_55");
-					// put other cards in here as needed for the test case
+					put("yet", "151_55");
+					put("boromir", "1_97");
+					put("sam", "1_311");
+					put("pippin", "1_306");
+					put("merry", "1_302");
+					put("gimli", "2_121");
+
+					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +38,7 @@ public class Card_V1_055_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void WeMayYetStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +55,81 @@ public class Card_V1_055_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl yet = scn.GetFreepsCard("yet");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(yet.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, yet.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, yet.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, yet.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, yet.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(yet, Keyword.SKIRMISH)); // test for keywords as needed
+		assertEquals(1, yet.getBlueprint().getTwilightCost());
+		//assertEquals(, yet.getBlueprint().getStrength());
+		//assertEquals(, yet.getBlueprint().getVitality());
+		//assertEquals(, yet.getBlueprint().getResistance());
+		//assertEquals(Signet., yet.getBlueprint().getSignet());
+		//assertEquals(, yet.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void WeMayYetTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void WeMayYetExertsToPumpBasedOnFrodoSignets() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl yet = scn.GetFreepsCard("yet");
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+		PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCharToTable(boromir, sam, merry, pippin, gimli);
+		scn.FreepsMoveCardToHand(yet);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		scn.ShadowMoveCharToTable(runner);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(boromir, runner);
+		scn.FreepsResolveSkirmish(boromir);
 
-		assertEquals(1, scn.GetTwilight());
+		assertTrue(scn.FreepsCardPlayAvailable(yet));
+		assertEquals(0, scn.GetWoundsOn(boromir));
+		assertEquals(7, scn.GetStrength(boromir));
+
+		scn.FreepsPlayCard(yet);
+		assertEquals(1, scn.GetWoundsOn(boromir));
+		// frodo/boromir/gimli/merry/pippin makes 5 frodo signets, but it's capped to 4.  Sam is gorn signet
+		assertEquals(11, scn.GetStrength(boromir));
+	}
+
+	@Test
+	public void WeMayYetRequiresFrodoSignetInSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl yet = scn.GetFreepsCard("yet");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		scn.FreepsMoveCharToTable(sam);
+		scn.FreepsMoveCardToHand(yet);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		scn.ShadowMoveCharToTable(runner);
+
+		scn.StartGame();
+
+		scn.AddWoundsToChar(scn.GetRingBearer(), 4);
+		scn.FreepsPassCurrentPhaseAction();
+		scn.FreepsAcceptOptionalTrigger(); // transfer ring to sam
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(sam, runner);
+		scn.FreepsResolveSkirmish(sam);
+
+		assertFalse(scn.FreepsCardPlayAvailable(yet));
+
 	}
 }

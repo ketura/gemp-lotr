@@ -426,7 +426,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.DISCARD));
     }
     public void ShadowMoveCardToDiscard(String...names) {
-        Arrays.stream(names).forEach(name -> ShadowMoveCardToDiscard(GetFreepsCard(name)));
+        Arrays.stream(names).forEach(name -> ShadowMoveCardToDiscard(GetShadowCard(name)));
     }
     public void ShadowMoveCardToDiscard(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P2, card, Zone.DISCARD));
@@ -780,5 +780,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
     {
         playerDecided(P1, "");
         playerDecided(P2, "");
+    }
+
+    public int GetOverwhelmMultiplier(PhysicalCardImpl card)
+    {
+        return _game.getModifiersQuerying().getOverwhelmMultiplier(_game, card);
     }
 }

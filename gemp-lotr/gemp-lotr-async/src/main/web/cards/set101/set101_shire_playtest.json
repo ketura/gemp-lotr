@@ -11,24 +11,35 @@
     "vitality": 3,
     "effects": [
       {
-        "type": "trigger",
-        "optional": true,
-        "trigger": {
-          "type": "moves"
+        "type": "activated",
+        "phase": "fellowship",
+        "condition": {
+          "type": "location",
+          "filter": "sanctuary"
         },
         "cost": {
           "type": "exert",
-          "filter": "self"
+          "filter": "self",
+          "times": 2
         },
-        "effect": {
-          "type": "modifyStrength",
-          "filter": "choose(companion,signet(frodo))",
-          "amount": 1,
-          "until": "start(regroup)"
-        }
-      }
+        "effect": [
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(item)",
+            "on": "culture(shire),companion",
+            "nocheck": true
+          },
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(item)",
+            "on": "culture(shire),companion",
+            "nocheck": true
+          }
+        ]
+      },
     ]
   },
+  
   "151_51": {
     "title": "*Griffo Boffin",
     "subtitle": "Uncouth Fellow",
@@ -58,6 +69,7 @@
       }
     ]
   },
+  
   "151_52": {
     "title": "*Merry",
     "subtitle": "Of Buckland",
@@ -75,22 +87,13 @@
         "phase": "assignment",
         "cost": [
           {
-            "type": "discard",
-            "filter": "choose(culture(dwarven),follower)",
-            "count": "1-100",
-            "memorize": "discardedTales"
-          },
-          {
-            "type": "memorizeNumber",
-            "memory": "numberOfTalesDiscarded",
-            "amount": {
-              "type": "forEachInMemory",
-              "memory": "discardedTales"
-            }
+            "type": "exert",
+            "filter": "self",
+            "times": "2",
           },
           {
             "type": "chooseActiveCards",
-            "text": "Choose minion",
+            "text": "Choose minion to prevent from skirmishing",
             "filter": "choose(minion)",
             "memorize": "chosenMinion"
           }
@@ -98,26 +101,21 @@
         "effect": {
           "type": "preventable",
           "player": "shadowPlayer",
-          "text": "Would you like to remove {numberOfTalesDiscarded} twilight to allow {chosenMinion} to skirmish?",
+          "text": "Would you like to exhaust {chosenMinion} to permit it to skirmish?",
           "cost": {
-            "type": "removeTwilight",
-            "amount": {
-              "type": "forEachInMemory",
-              "memory": "discardedTales"
-            }
+            "type": "exhaust",
+            "filter": "memory(chosenMinion)"
           },
           "effect": {
-            "type": "addModifier",
-            "modifier": {
-              "type": "cantBeAssignedToSkirmishAgainst",
-              "fpCharacter": "any",
-              "minion": "memory(chosenMinion)"
-            }
+            "type": "cantBeAssignedToSkirmish",
+            "filter": "memory(chosenMinion)",
+            "until": "start(regroup)"
           }
         }
       }
     ]
   },
+  
   "151_53": {
     "title": "*Pippin",
     "subtitle": "Of Tuckborough",
@@ -140,7 +138,7 @@
         "effect": [
           {
             "type": "cantBeOverwhelmedMultiplier",
-            "filter": "choose(culture(shire),companion)",
+            "filter": "choose(culture(shire),companion,inSkirmish)",
             "memorize": "shireCompanion"
           },
           {
@@ -160,6 +158,7 @@
       }
     ]
   },
+  
   "151_54": {
     "title": "*Sam",
     "subtitle": "Of Bagshot Row",
@@ -215,6 +214,7 @@
       }
     ]
   },
+  
   "151_55": {
     "title": "We May Yet",
     "culture": "shire",
@@ -225,7 +225,7 @@
       "type": "event",
       "cost": {
         "type": "exert",
-        "filter": "choose(companion,signet(frodo))",
+        "filter": "choose(companion,signet(frodo),inSkirmish)",
         "memorize": "exertedCompanion"
       },
       "effect": {
@@ -239,6 +239,7 @@
       }
     }
   },
+  
   "151_56": {
     "title": "We're Coming Too",
     "culture": "shire",

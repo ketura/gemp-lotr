@@ -22,8 +22,10 @@ public class Card_V1_054_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_54");
-					// put other cards in here as needed for the test case
+					put("sam", "151_54");
+					put("boromir", "1_97");
+
+					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +33,7 @@ public class Card_V1_054_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void SamStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -54,34 +54,94 @@ public class Card_V1_054_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
-		assertEquals(4, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.FRODO, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(sam.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, sam.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, sam.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, sam.getBlueprint().getCardType());
+		assertEquals(Race.HOBBIT, sam.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(sam, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(2, sam.getBlueprint().getTwilightCost());
+		assertEquals(3, sam.getBlueprint().getStrength());
+		assertEquals(4, sam.getBlueprint().getVitality());
+		//assertEquals(, sam.getBlueprint().getResistance());
+		assertEquals(Signet.FRODO, sam.getBlueprint().getSignet());
+		//assertEquals(, sam.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void SamTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void EachTimeFrodoSignetWinsSkirmishSamCanExertToHealThem() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		scn.FreepsMoveCharToTable(sam, boromir);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		scn.ShadowMoveCharToTable(runner);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		scn.AddWoundsToChar(boromir, 1);
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(boromir, runner);
+		scn.FreepsResolveSkirmish(boromir);
+
+		assertEquals(1, scn.GetWoundsOn(boromir));
+		assertEquals(0, scn.GetWoundsOn(sam));
+		assertEquals(1, scn.GetBurdens()); //1 from the bidding
+
+		scn.PassCurrentPhaseActions();
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertTrue(scn.FreepsDecisionAvailable("choose action"));
+		assertEquals(2, scn.FreepsGetMultipleChoices().size());
+		scn.FreepsChooseMultipleChoiceOption("exert");
+
+		assertEquals(0, scn.GetWoundsOn(boromir));
+		assertEquals(1, scn.GetWoundsOn(sam));
+		assertEquals(1, scn.GetBurdens());
+	}
+
+	@Test
+	public void EachTimeFrodoSignetWinsSkirmishSamCanAddBurdenToHealThem() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		scn.FreepsMoveCharToTable(sam, boromir);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		scn.ShadowMoveCharToTable(runner);
+
+		scn.StartGame();
+
+		scn.AddWoundsToChar(boromir, 1);
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(boromir, runner);
+		scn.FreepsResolveSkirmish(boromir);
+
+		assertEquals(1, scn.GetWoundsOn(boromir));
+		assertEquals(0, scn.GetWoundsOn(sam));
+		assertEquals(1, scn.GetBurdens()); //1 from the bidding
+
+		scn.PassCurrentPhaseActions();
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertTrue(scn.FreepsDecisionAvailable("choose action"));
+		assertEquals(2, scn.FreepsGetMultipleChoices().size());
+		scn.FreepsChooseMultipleChoiceOption("burden");
+
+		assertEquals(0, scn.GetWoundsOn(boromir));
+		assertEquals(0, scn.GetWoundsOn(sam));
+		assertEquals(2, scn.GetBurdens());
 	}
 }

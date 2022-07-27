@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
+import org.xml.sax.SAXNotRecognizedException;
 
 import java.util.HashMap;
 
@@ -22,8 +23,8 @@ public class Card_V1_052_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_52");
-					// put other cards in here as needed for the test case
+					put("merry", "151_52");
+					put("shelob", "8_26");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +32,7 @@ public class Card_V1_052_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void MerryStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -53,34 +52,80 @@ public class Card_V1_052_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
-		assertEquals(4, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		assertEquals(Signet.FRODO, card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(merry.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, merry.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, merry.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, merry.getBlueprint().getCardType());
+		assertEquals(Race.HOBBIT, merry.getBlueprint().getRace());
+		//assertTrue(scn.HasKeyword(merry, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, merry.getBlueprint().getTwilightCost());
+		assertEquals(3, merry.getBlueprint().getStrength());
+		assertEquals(4, merry.getBlueprint().getVitality());
+		//assertEquals(, merry.getBlueprint().getResistance());
+		assertEquals(Signet.FRODO, merry.getBlueprint().getSignet());
+		//assertEquals(, merry.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void MerryTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void MerryExertsTwiceToPreventMinionSkirmishing() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+		scn.FreepsMoveCharToTable(merry);
+
+		PhysicalCardImpl shelob = scn.GetShadowCard("shelob");
+		scn.ShadowMoveCharToTable(shelob);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		assertEquals(0, scn.GetWoundsOn(merry));
+		assertEquals(0, scn.GetWoundsOn(shelob));
+		assertTrue(scn.FreepsCardActionAvailable(merry));
+
+		scn.FreepsUseCardAction(merry);
+		assertEquals(2, scn.GetWoundsOn(merry));
+		scn.ShadowChooseNo();
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+		//immediately skips to the fierce skirmish
+		scn.PassCurrentPhaseActions();
+
+		assertEquals(Phase.REGROUP, scn.GetCurrentPhase());
+	}
+
+	@Test
+	public void MinionCanExhaustToPreventAbility() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+		scn.FreepsMoveCharToTable(merry);
+
+		PhysicalCardImpl shelob = scn.GetShadowCard("shelob");
+		scn.ShadowMoveCharToTable(shelob);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		assertEquals(0, scn.GetWoundsOn(merry));
+		assertEquals(0, scn.GetWoundsOn(shelob));
+		assertTrue(scn.FreepsCardActionAvailable(merry));
+
+		scn.FreepsUseCardAction(merry);
+		assertEquals(2, scn.GetWoundsOn(merry));
+		assertTrue(scn.ShadowDecisionAvailable("Would you like to exhaust"));
+
+		scn.ShadowChooseYes();
+		assertEquals(7, scn.GetWoundsOn(shelob));
+
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertTrue(scn.FreepsDecisionAvailable("Assign minions"));
 	}
 }

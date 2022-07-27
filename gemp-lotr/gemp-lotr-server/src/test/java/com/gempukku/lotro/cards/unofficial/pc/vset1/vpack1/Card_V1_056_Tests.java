@@ -22,8 +22,10 @@ public class Card_V1_056_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_56");
-					// put other cards in here as needed for the test case
+					put("coming", "151_56");
+					put("pippin", "1_306");
+					put("merry", "1_302");
+					put("gimli", "2_121");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +33,7 @@ public class Card_V1_056_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void WereComingTooStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +50,51 @@ public class Card_V1_056_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl coming = scn.GetFreepsCard("coming");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(coming.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, coming.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, coming.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, coming.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, coming.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(coming, Keyword.FELLOWSHIP)); // test for keywords as needed
+		assertEquals(2, coming.getBlueprint().getTwilightCost());
+		//assertEquals(, coming.getBlueprint().getStrength());
+		//assertEquals(, coming.getBlueprint().getVitality());
+		//assertEquals(, coming.getBlueprint().getResistance());
+		//assertEquals(Signet., coming.getBlueprint().getSignet());
+		//assertEquals(, coming.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
+	@Test
 	public void WereComingTooTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl coming = scn.GetFreepsCard("coming");
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+		PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsMoveCardToHand(coming, merry, pippin);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.AddWoundsToChar(gimli, 1);
+		scn.AddWoundsToChar(frodo, 1);
 
-		assertEquals(2, scn.GetTwilight());
+		assertFalse(scn.FreepsCardPlayAvailable(coming));
+		scn.FreepsPlayCard(merry);
+		assertFalse(scn.FreepsCardPlayAvailable(coming));
+		scn.FreepsPlayCard(pippin);
+		assertTrue(scn.FreepsCardPlayAvailable(coming));
+
+		assertEquals(1, scn.GetWoundsOn(gimli));
+		assertEquals(1, scn.GetWoundsOn(frodo));
+		scn.FreepsPlayCard(coming);
+		assertEquals(0, scn.GetWoundsOn(gimli));
+		assertEquals(0, scn.GetWoundsOn(frodo));
+
 	}
 }
