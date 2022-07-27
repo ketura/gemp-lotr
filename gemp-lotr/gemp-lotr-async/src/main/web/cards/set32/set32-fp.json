@@ -129,7 +129,7 @@
       "type": "activated",
       "phase": "maneuver",
       "condition": {
-        "type": "isMore",
+        "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
           "filter": "minion"

@@ -57,6 +57,10 @@ public class FilterFactory {
                 });
         simpleFilters.put("ring bound",
                 (actionContext) -> Filters.ringBoundCompanion);
+        simpleFilters.put("ringbound",
+                (actionContext) -> Filters.ringBoundCompanion);
+        simpleFilters.put("ring-bound",
+                (actionContext) -> Filters.ringBoundCompanion);
         simpleFilters.put("unbound",
                 (actionContext) -> Filters.unboundCompanion);
         simpleFilters.put("attachedtoinsameregion",
@@ -115,7 +119,7 @@ public class FilterFactory {
             return Filters.or(cultures.toArray(new Culture[0]));
         }));
         parameterFilters.put("side", (parameter, environment) -> {
-            final Side side = Side.valueOf(parameter.toUpperCase().replace(" ", "_"));
+            final Side side = Side.Parse(parameter);
             if (side == null)
                 throw new InvalidCardDefinitionException("Unable to find side for: " + parameter);
 
@@ -267,6 +271,22 @@ public class FilterFactory {
                     }
 
                     return (actionContext) -> Filters.siteNumberBetweenInclusive(min, max);
+                });
+        parameterFilters.put("regionNumber",
+                (parameter, environment) -> {
+                    int min, max;
+                    if (parameter.contains("-")) {
+                        final String[] split = parameter.split("-", 2);
+                        min = Integer.parseInt(split[0]);
+                        max = Integer.parseInt(split[1]);
+                    } else {
+                        min = max = Integer.parseInt(parameter);
+                    }
+
+                    if(min < 0 || max > 3 || max < min)
+                        throw new InvalidCardDefinitionException("Region number definition is invalid: " + parameter);
+
+                    return (actionContext) -> Filters.regionNumberBetweenInclusive(min, max);
                 });
         parameterFilters.put("or",
                 (parameter, environment) -> {

@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import org.json.simple.JSONObject;
 
-public class IsMore implements RequirementProducer {
+public class IsGreaterThanOrEqual implements RequirementProducer {
     @Override
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "firstNumber", "secondNumber");
@@ -19,7 +19,7 @@ public class IsMore implements RequirementProducer {
         return actionContext -> {
             final int first = firstNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
             final int second = secondNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
-            return first > second;
+            return first >= second;
         };
     }
 }

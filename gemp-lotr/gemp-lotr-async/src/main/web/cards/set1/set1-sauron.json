@@ -139,7 +139,7 @@
     "keyword": "maneuver",
     "condition": [
       {
-        "type": "isMore",
+        "type": "isGreaterThan",
         "firstNumber": {
           "type": "sum",
           "source": [
@@ -995,7 +995,7 @@
               "limit": 1
             },
             {
-              "type": "isMore",
+              "type": "isGreaterThan",
               "firstNumber": {
                 "type": "forEachInDeadPile",
                 "filter": "companion"

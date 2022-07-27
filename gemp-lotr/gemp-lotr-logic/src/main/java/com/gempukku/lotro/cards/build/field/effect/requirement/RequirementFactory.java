@@ -32,7 +32,12 @@ public class RequirementFactory {
         requirementProducers.put("hasinhand", new HasInHand());
         requirementProducers.put("hasinzonedata", new HasInZoneData());
         requirementProducers.put("haveinitiative", new HaveInitiative());
-        requirementProducers.put("ismore", new IsMore());
+        requirementProducers.put("isequal", new IsEqual());
+        requirementProducers.put("isgreaterthan", new IsGreaterThan());
+        requirementProducers.put("isgreaterthanorequal", new IsGreaterThanOrEqual());
+        requirementProducers.put("islessthan", new IsLessThan());
+        requirementProducers.put("islessthanorequal", new IsLessThanOrEqual());
+        requirementProducers.put("isnotequal", new IsNotEqual());
         requirementProducers.put("isowner", new IsOwnerRequirementProducer());
         requirementProducers.put("isside", new IsSideRequirementProducer());
         requirementProducers.put("location", new Location());

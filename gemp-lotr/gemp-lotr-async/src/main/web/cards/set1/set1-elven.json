@@ -208,7 +208,7 @@
         {
           "type": "conditional",
           "condition": {
-            "type": "isMore",
+            "type": "isGreaterThan",
             "firstNumber": {
               "type": "forEachMatchingInMemory",
               "memory": "cardsInHand",

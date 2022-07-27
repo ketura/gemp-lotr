@@ -102,8 +102,7 @@ public class ValueResolver {
                 return actionContext -> (game, cardAffected) -> {
                     return actionContext.getCardFromMemory(memory).getSiteNumber();
                 };
-            } else if (type.equalsIgnoreCase("forRegionNumber")) {
-                FieldUtils.validateAllowedFields(object);
+            } else if (type.equalsIgnoreCase("regionNumber")) {
                 return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "limit");

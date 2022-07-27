@@ -123,7 +123,7 @@
         "phase": "archery"
       },
       "condition": {
-        "type": "isMore",
+        "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
           "filter": "minion"
@@ -164,7 +164,7 @@
         "modifier": {
           "type": "modifyArcheryTotal",
           "condition": {
-            "type": "isMore",
+            "type": "isGreaterThan",
             "firstNumber": {
               "type": "forEachYouCanSpot",
               "filter": "minion"
@@ -298,7 +298,7 @@
           "filter": "self"
         },
         "condition": {
-          "type": "isMore",
+          "type": "isGreaterThan",
           "firstNumber": {
             "type": "forEachYouCanSpot",
             "filter": "minion"
@@ -402,7 +402,7 @@
         "phase": "regroup"
       },
       "condition": {
-        "type": "isMore",
+        "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
           "filter": "character,man"
@@ -439,7 +439,7 @@
         "phase": "assignment"
       },
       "condition": {
-        "type": "isMore",
+        "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
           "filter": "companion"

@@ -744,8 +744,6 @@ public class Filters {
         }
     };
 
-
-
     public static Filter siteNumber(final int siteNumber) {
         return siteNumberBetweenInclusive(siteNumber, siteNumber);
     }
@@ -775,12 +773,19 @@ public class Filters {
                 }
             });
 
-    public static Filter region(final int region) {
+    public static Filter region(final int region) { return regionNumberBetweenInclusive(region, region); }
+
+    public static Filter regionNumberBetweenInclusive(final int minRegionNumber, final int maxRegionNumber) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                int siteNumber = physicalCard.getSiteNumber();
-                return GameUtils.getRegion(siteNumber) == region;
+
+                if(physicalCard.getSiteNumber() == null)
+                    return false;
+
+                int regionNumber = GameUtils.getRegion(physicalCard.getSiteNumber());
+
+                return regionNumber >= minRegionNumber && regionNumber <= maxRegionNumber;
             }
         };
     }

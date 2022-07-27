@@ -64,7 +64,7 @@
 		      	"count": 1
 		      },
 		      {
-		      	"type": "isMore",
+		      	"type": "isGreaterThan",
 		      	"firstNumber": {
               "type": "countStacked",
               "on": "self",

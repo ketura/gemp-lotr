@@ -516,7 +516,7 @@
       "effect": {
         "type": "addThreats",
         "amount": {
-          "type": "forRegionNumber"
+          "type": "regionNumber"
         }
       }
     }
