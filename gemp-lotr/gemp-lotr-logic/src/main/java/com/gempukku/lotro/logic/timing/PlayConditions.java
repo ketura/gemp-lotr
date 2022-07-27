@@ -404,7 +404,7 @@ public class PlayConditions {
         return canDiscardFromPlay(source, game, 1, filters);
     }
 
-    public static boolean controllsSite(LotroGame game, String playerId) {
+    public static boolean controlsSite(LotroGame game, String playerId) {
         return Filters.findFirstActive(game, Filters.siteControlled(playerId)) != null;
     }
 

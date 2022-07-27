@@ -48,7 +48,7 @@ return Collections.singletonList(new CantReplaceSiteByFPPlayerModifier(self, new
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(3));
-            boolean controlsSite = PlayConditions.controllsSite(game, playerId);
+            boolean controlsSite = PlayConditions.controlsSite(game, playerId);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, controlsSite ? 2 : 1, CardType.MINION, Culture.URUK_HAI));
             return Collections.singletonList(action);
