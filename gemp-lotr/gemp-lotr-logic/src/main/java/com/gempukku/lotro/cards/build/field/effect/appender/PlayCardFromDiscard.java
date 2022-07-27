@@ -24,13 +24,23 @@ import java.util.Collection;
 public class PlayCardFromDiscard implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "cost", "removedTwilight", "memorize");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "cost", "removedTwilight", "memorize", "nocheck");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String onFilter = FieldUtils.getString(effectObject.get("on"), "on");
         final int removedTwilight = FieldUtils.getInteger(effectObject.get("removedTwilight"), "removedTwilight", 0);
         final ValueSource costModifierSource = ValueResolver.resolveEvaluator(effectObject.get("cost"), 0, environment);
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
+        final boolean noCheck = FieldUtils.getBoolean(effectObject.get("nocheck"), "nocheck", false);
+
+        ValueSource countSource = new ConstantEvaluator(1);
+        if(noCheck)
+        {
+            //This range will cause choice checks to succeed even if no valid choices are found (which is how draw deck
+            // searching is supposed to work RAW).  However we don't want this to be the default, else dual-choice cards
+            // that play "from draw deck or discard pile" would allow empty sources to be chosen, which is NPE.
+            countSource = ValueResolver.resolveEvaluator("0-1", 1, environment);
+        }
 
         final FilterableSource onFilterableSource = (onFilter != null) ? environment.getFilterFactory().generateFilter(onFilter, environment) : null;
 
@@ -59,7 +69,7 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
 
                             return Filters.playable(actionContext.getGame(), removedTwilight, costModifier, false, false);
                         },
-                        new ConstantEvaluator(1), memorize, "you", "Choose card to play", environment));
+                        countSource, memorize, "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

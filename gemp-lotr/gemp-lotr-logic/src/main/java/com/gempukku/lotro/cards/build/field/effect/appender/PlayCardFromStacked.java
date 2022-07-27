@@ -1,13 +1,11 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.PlayUtils;
@@ -22,11 +20,21 @@ import java.util.Collection;
 public class PlayCardFromStacked implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "removedTwilight");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "removedTwilight", "nocheck");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final String onFilter = FieldUtils.getString(effectObject.get("on"), "on");
         final int removedTwilight = FieldUtils.getInteger(effectObject.get("removedTwilight"), "removedTwilight", 0);
+        final boolean noCheck = FieldUtils.getBoolean(effectObject.get("nocheck"), "nocheck", false);
+
+        ValueSource countSource = new ConstantEvaluator(1);
+        if(noCheck)
+        {
+            //This range will cause choice checks to succeed even if no valid choices are found (which is how draw deck
+            // searching is supposed to work RAW).  However we don't want this to be the default, else dual-choice cards
+            // that play "from draw deck or discard pile" would allow empty sources to be chosen, which is NPE.
+            countSource = ValueResolver.resolveEvaluator("0-1", 1, environment);
+        }
 
         final FilterableSource onFilterableSource = (onFilter != null) ? environment.getFilterFactory().generateFilter(onFilter, environment) : null;
 
@@ -37,7 +45,7 @@ public class PlayCardFromStacked implements EffectAppenderProducer {
                 CardResolver.resolveStackedCards(filter,
                         actionContext -> Filters.playable(actionContext.getGame()),
                         actionContext -> Filters.playable(actionContext.getGame(), removedTwilight, 0, false, false),
-                        new ConstantEvaluator(1), onFilterableSource, "_temp", "you", "Choose card to play", environment));
+                        countSource, onFilterableSource, "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
