@@ -125,6 +125,7 @@ public class Card_V1_024_Tests
 		assertEquals("Exert Aragorn", choices[0]);
 		assertEquals("Discard You Have My Sword", choices[1]);
 
+		assertEquals(0, scn.GetWoundsOn(aragorn));
 		scn.FreepsChooseMultipleChoiceOption("Exert");
 		assertEquals(1, scn.GetWoundsOn(aragorn));
 

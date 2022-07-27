@@ -76,7 +76,7 @@ public class Card_V1_042_Tests
 	}
 
 	@Test
-	public void EachTwigulSkirmishVictory() throws DecisionResultInvalidException, CardNotFoundException {
+	public void EachTwigulSkirmishVictoryShufflesARingwraithCard() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 

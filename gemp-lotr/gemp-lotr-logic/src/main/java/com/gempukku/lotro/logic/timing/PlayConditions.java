@@ -408,6 +408,10 @@ public class PlayConditions {
         return Filters.findFirstActive(game, Filters.siteControlled(playerId)) != null;
     }
 
+    public static boolean canMove(LotroGame game) {
+        return game.getGameState().getMoveCount() < game.getModifiersQuerying().getMoveLimit(game, 2);
+    }
+
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
                 && Filters.countActive(game, Filters.and(fromFilters, Filters.hasAnyCultureTokens(count))) > 0;

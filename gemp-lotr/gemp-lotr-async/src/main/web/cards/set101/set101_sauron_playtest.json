@@ -42,7 +42,7 @@
 			"type": "activatedTrigger",
 				"trigger": {
 					"type": "abouttodiscard",
-					"filter": "another,culture(sauron),condition"
+					"filter": "culture(sauron),condition"
 				},
 				"cost": {
 					"type": "removeburdens",

@@ -22,8 +22,14 @@ public class Card_V1_045_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_45");
-					// put other cards in here as needed for the test case
+					put("gaze", "151_45");
+					put("cond", "1_242");
+					put("selfdiscard", "7_268");
+					put("orc", "1_270");
+
+					put("gandalf", "1_72");
+					put("sleep", "1_84");
+					put("introspection", "12_29");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -31,9 +37,7 @@ public class Card_V1_045_Tests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void GazeoftheEyeStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +54,169 @@ public class Card_V1_045_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl gaze = scn.GetFreepsCard("gaze");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SAURON, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(gaze.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, gaze.getBlueprint().getSide());
+		assertEquals(Culture.SAURON, gaze.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, gaze.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, gaze.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(gaze, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(1, gaze.getBlueprint().getTwilightCost());
+		//assertEquals(, gaze.getBlueprint().getStrength());
+		//assertEquals(, gaze.getBlueprint().getVitality());
+		//assertEquals(, gaze.getBlueprint().getResistance());
+		//assertEquals(Signet., gaze.getBlueprint().getSignet());
+		//assertEquals(, gaze.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void GazeoftheEyeTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void GazeProtectsNothingWithNoBurdens() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl gaze = scn.GetShadowCard("gaze");
+		PhysicalCardImpl cond = scn.GetShadowCard("cond");
+		scn.ShadowMoveCardToSupportArea(gaze, cond);
+
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl sleep1 = scn.GetFreepsCard("sleep");
+		scn.FreepsMoveCharToTable(gandalf);
+		scn.FreepsMoveCardToHand(sleep1);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.RemoveBurdens(1); // to compensate for the starting bid burden
+		scn.FreepsPlayCard(sleep1);
 
-		assertEquals(1, scn.GetTwilight());
+		assertFalse(scn.ShadowHasOptionalTriggerAvailable());
+	}
+
+	@Test
+	public void GazeProtectsOtherConditions() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gaze = scn.GetShadowCard("gaze");
+		PhysicalCardImpl cond = scn.GetShadowCard("cond");
+		scn.ShadowMoveCardToSupportArea(gaze, cond);
+
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl introspection = scn.GetFreepsCard("introspection");
+		scn.FreepsMoveCharToTable(gandalf);
+		scn.FreepsMoveCardToHand(introspection);
+
+		scn.StartGame();
+		scn.FreepsPlayCard(introspection);
+		//scn.ShadowDeclineOptionalTrigger();
+		scn.ShadowChooseCard(cond);
+
+		assertEquals(1, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+
+		assertEquals(0, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+	}
+
+	@Test
+	public void GazeProtectsSelf() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gaze = scn.GetShadowCard("gaze");
+		PhysicalCardImpl cond = scn.GetShadowCard("cond");
+		scn.ShadowMoveCardToSupportArea(gaze, cond);
+
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl introspection = scn.GetFreepsCard("introspection");
+		scn.FreepsMoveCharToTable(gandalf);
+		scn.FreepsMoveCardToHand(introspection);
+
+		scn.StartGame();
+		scn.FreepsPlayCard(introspection);
+		//scn.ShadowDeclineOptionalTrigger();
+		scn.ShadowChooseCard(gaze);
+
+		assertEquals(1, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+
+		assertEquals(0, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+	}
+
+	@Test
+	public void GazeProtectsAgainstNukeWithEnoughBurdens() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gaze = scn.GetShadowCard("gaze");
+		PhysicalCardImpl cond = scn.GetShadowCard("cond");
+		scn.ShadowMoveCardToSupportArea(gaze, cond);
+
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl sleep = scn.GetFreepsCard("sleep");
+		scn.FreepsMoveCharToTable(gandalf);
+		scn.FreepsMoveCardToHand(sleep);
+
+		scn.StartGame();
+
+		scn.AddBurdens(1);
+
+		scn.FreepsPlayCard(sleep);
+		//scn.ShadowDeclineOptionalTrigger();
+
+		assertEquals(2, scn.GetBurdens());
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+
+		scn.ShadowChooseCard(gaze);
+		assertEquals(1, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+
+		assertEquals(0, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, cond.getZone());
+		assertEquals(Zone.SUPPORT, gaze.getZone());
+	}
+
+	@Test
+	public void GazeProtectsAgainstSelfDiscard() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl gaze = scn.GetShadowCard("gaze");
+		PhysicalCardImpl selfdiscard = scn.GetShadowCard("selfdiscard");
+		PhysicalCardImpl orc = scn.GetShadowCard("orc");
+		scn.ShadowMoveCharToTable(orc);
+		scn.ShadowMoveCardToSupportArea(gaze,selfdiscard);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.REGROUP);
+
+		assertEquals(1, scn.GetBurdens());
+		assertEquals(Zone.SUPPORT, selfdiscard.getZone());
+
+		scn.FreepsPassCurrentPhaseAction();
+		scn.ShadowUseCardAction(selfdiscard);
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+
+		assertEquals(0, scn.GetBurdens()); // from initial starting bid
+		assertEquals(Zone.SUPPORT, selfdiscard.getZone());
+
 	}
 }

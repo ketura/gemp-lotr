@@ -54,6 +54,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public static final String FOTRFrodo = "1_290";
     public static final String GimliRB = "9_4";
     public static final String FOTRRing = "1_2";
+    public static final String GreatRing = "19_1";
 
     private final FilterFactory FilterFactory = new FilterFactory();
     private final CardGenerationEnvironment Environment = new LotroCardBlueprintBuilder();
@@ -487,7 +488,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetTwilight() { return _game.getGameState().getTwilightPool(); }
     public void SetTwilight(int amount) { _game.getGameState().setTwilight(amount); }
 
-    public int GetMoveLimit() { return _game.getGameState().getMoveCount(); }
+    public int GetMoveLimit() { return _game.getModifiersQuerying().getMoveLimit(_game, 2); }
+
+    public int GetMoveCount() { return _game.getGameState().getMoveCount(); }
 
     public PhysicalCardImpl GetRingBearer() { return (PhysicalCardImpl)_game.getGameState().getRingBearer(P1); }
 
@@ -721,7 +724,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void ShadowChooseMultipleChoiceOption(String option) throws DecisionResultInvalidException { ChooseMultipleChoiceOption(P2, option); }
     public void ChooseMultipleChoiceOption(String playerID, String option) throws DecisionResultInvalidException { ChooseAction(playerID, "results", option); }
     public void FreepsChooseAction(String paramName, String option) throws DecisionResultInvalidException { ChooseAction(P1, paramName, option); }
+    public void FreepsChooseAction(String option) throws DecisionResultInvalidException { ChooseAction(P1, "actionText", option); }
     public void ShadowChooseAction(String paramName, String option) throws DecisionResultInvalidException { ChooseAction(P2, paramName, option); }
+    public void ShadowChooseAction(String option) throws DecisionResultInvalidException { ChooseAction(P2, "actionText", option); }
     public void ChooseAction(String playerID, String paramName, String option) throws DecisionResultInvalidException {
         List<String> choices = GetADParamAsList(playerID, paramName);
         for(String choice : choices){

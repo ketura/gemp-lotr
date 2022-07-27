@@ -22,18 +22,17 @@ public class Card_V1_046_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_46");
-					// put other cards in here as needed for the test case
+					put("iseeyou", "151_46");
+					put("orc", "1_271");
+					put("orc2", "1_271");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
+				GenericCardTestHelper.GreatRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void ISeeYouStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -52,34 +51,104 @@ public class Card_V1_046_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl iseeyou = scn.GetFreepsCard("iseeyou");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SAURON, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(iseeyou.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, iseeyou.getBlueprint().getSide());
+		assertEquals(Culture.SAURON, iseeyou.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, iseeyou.getBlueprint().getCardType());
+		//assertEquals(Race.CREATURE, iseeyou.getBlueprint().getRace());
+		assertTrue(scn.HasKeyword(iseeyou, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		assertEquals(0, iseeyou.getBlueprint().getTwilightCost());
+		//assertEquals(, iseeyou.getBlueprint().getStrength());
+		//assertEquals(, iseeyou.getBlueprint().getVitality());
+		//assertEquals(, iseeyou.getBlueprint().getResistance());
+		//assertEquals(Signet., iseeyou.getBlueprint().getSignet());
+		//assertEquals(, iseeyou.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void ISeeYouTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void SiteNumberIsReducedPerBurden() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl iseeyou = scn.GetShadowCard("iseeyou");
+		PhysicalCardImpl orc = scn.GetShadowCard("orc");
+		PhysicalCardImpl orc2 = scn.GetShadowCard("orc2");
+		scn.ShadowMoveCardToSupportArea(iseeyou);
+		scn.ShadowMoveCharToTable(orc);
+		scn.ShadowMoveCardToHand(orc2);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		scn.RemoveBurdens(1);
+		assertEquals(6, scn.GetSiteNumber(orc));
+		scn.AddBurdens(1);
+		assertEquals(5, scn.GetSiteNumber(orc));
+		scn.AddBurdens(1);
+		assertEquals(4, scn.GetSiteNumber(orc));
+		scn.AddBurdens(1);
+		assertEquals(3, scn.GetSiteNumber(orc));
+		scn.AddBurdens(1);
+		assertEquals(2, scn.GetSiteNumber(orc));
+
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(3, scn.GetTwilight()); // 1 from comp, 2 from site, not enough to play soldier normally
+
+		assertTrue(scn.ShadowCardPlayAvailable(orc2)); //home site reduced to 2, doesn't pay roaming and so can play
+	}
+
+	@Test
+	public void SauronMinionsWithSiteNumber1OrLessAreStrengthPlus1() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl iseeyou = scn.GetShadowCard("iseeyou");
+		PhysicalCardImpl orc = scn.GetShadowCard("orc");
+		scn.ShadowMoveCardToSupportArea(iseeyou);
+		scn.ShadowMoveCharToTable(orc);
+
+		scn.StartGame();
+
+		scn.RemoveBurdens(1);
+		assertEquals(7, scn.GetStrength(orc)); // site 6
+		scn.AddBurdens(1);
+		assertEquals(7, scn.GetStrength(orc)); // site 5
+		scn.AddBurdens(1);
+		assertEquals(7, scn.GetStrength(orc)); // site 4
+		scn.AddBurdens(1);
+		assertEquals(7, scn.GetStrength(orc)); // site 3
+		scn.AddBurdens(1);
+		assertEquals(7, scn.GetStrength(orc)); // site 2
+		scn.AddBurdens(1);
+		assertEquals(8, scn.GetStrength(orc)); // site 1, +1 str
+		scn.AddBurdens(1);
+		assertEquals(8, scn.GetStrength(orc)); // site 0, +1 str
+		scn.AddBurdens(1);
+		assertEquals(8, scn.GetStrength(orc)); // site -1 (rounds to 0), +1 str
+
+	}
+
+	@Test
+	public void DiscardsWhenRingRemoved() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl iseeyou = scn.GetShadowCard("iseeyou");
+		PhysicalCardImpl orc = scn.GetShadowCard("orc");
+		scn.ShadowMoveCardToSupportArea(iseeyou);
+		scn.ShadowMoveCharToTable(orc);
+
+		PhysicalCardImpl ring = scn.GetFreepsCard(GenericCardTestHelper.GreatRing);
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsChooseAction("The One Ring");
+
+		assertEquals(Zone.SUPPORT, iseeyou.getZone());
+		scn.SkipToPhase(Phase.REGROUP); // great ring automatically removes itself
+		assertEquals(Zone.DISCARD, iseeyou.getZone());
 	}
 }
