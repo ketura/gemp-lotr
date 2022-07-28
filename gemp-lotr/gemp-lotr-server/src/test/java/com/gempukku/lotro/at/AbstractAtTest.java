@@ -31,8 +31,8 @@ public abstract class AbstractAtTest {
 
     protected DefaultLotroGame _game;
     protected DefaultUserFeedback _userFeedback;
-    protected static final String P1 = "player1";
-    protected static final String P2 = "player2";
+    public static final String P1 = "player1";
+    public static final String P2 = "player2";
 
     protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
         return (PhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _library, blueprintId);

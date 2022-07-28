@@ -13,6 +13,10 @@
         "type": "movesFrom",
         "filter": "name(Bag End Study)"
       },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(shire),companion)"
+      },
       "effect": {
         "type": "playCardFromDrawDeck",
         "filter": "choose(culture(shire),condition)"
@@ -20,22 +24,34 @@
     }
   },
   "151_58": {
-    "title": "Bree Overlook",
+    "title": "Prancing Pony Spare Room",
     "cost": 2,
     "type": "site",
     "site": 2,
     "block": "fellowship",
     "direction": "left",
     "effects": {
-      "type": "activated",
-      "phase": "regroup",
-      "cost": {
-        "type": "exert",
-        "filter": "choose(culture(gandalf),ally)"
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "minion,strengthLessThan(7)",
+        "memorize": "weakMinion"
       },
       "effect": {
-        "type": "wound",
-        "filter": "choose(minion)"
+        "type": "conditional",
+        "condition": {
+          "type": "cantSpot",
+          "filter": "culture(gandalf)"
+        },
+        "effect": {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyStrength",
+            "filter": "memory(weakMinion)",
+            "amount": 3
+          },
+          "until": "start(regroup)"
+        }
       }
     }
   },
@@ -46,34 +62,30 @@
     "site": 3,
     "block": "fellowship",
     "direction": "left",
+    "keyword": "Sanctuary",
     "effects": {
-      "type": "trigger",
-      "trigger": {
-        "type": "condition",
-        "condition": {
-          "type": "not",
-          "condition": {
-            "type": "cantspotfpcultures",
-            "amount": 4
-          }
-        }
-      },
-      "condition": {
-        "type": "perTurnLimit",
-        "limit": 1
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(companion)",
+        "memorize": "exertedComp"
       },
       "effect": [
         {
-          "type": "incrementPerTurnLimit",
-          "limit": 1
+          "type": "chooseActiveCards",
+          "text": "Choose a companion of a different culture to make strength +2 until the end of the turn.",
+          "filter": "choose(companion,not(cultureFromMemory(exertedComp)))",
+          "memorize": "pumpedComp" 
         },
         {
           "type": "addModifier",
           "modifier": {
-            "type": "modifyMoveLimit",
-            "amount": 1
+            "type": "modifyStrength",
+            "filter": "memory(pumpedComp)",
+            "amount": 2
           },
-          "until": "endOfTurn"
+          "until": "endofturn"
         }
       ]
     }
@@ -90,10 +102,16 @@
       "type": "modifier",
       "modifier": {
         "type": "cantcancelskirmish",
-        "condition": {
-          "type": "canSpot",
-          "filter": "unique,culture(moria),minion"
-        }
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "unique,culture(moria),minion"
+          },
+          {
+            "type": "canSpot",
+            "filter": "culture(moria),minion,inSkirmish"
+          }
+        ]
       }
     }
   },
@@ -103,24 +121,27 @@
     "type": "site",
     "site": 6,
     "block": "fellowship",
-    "keyword": "forest",
+    "keyword": ["forest", "sanctuary"],
     "direction": "left",
     "effects": {
       "type": "trigger",
       "optional": true,
       "trigger": {
-        "type": "played",
-        "filter": "your,culture(elven)"
+        "type": "exerts",
+        "filter": "your,companion",
+        "memorize": "exertedComp"
       },
       "cost": {
         "type": "exert",
         "filter": "choose(culture(elven),ally)"
       },
       "effect": {
-        "type": "removeTwilight"
+        "type": "heal",
+        "filter": "memory(exertedComp)"
       }
     }
   },
+  
   "151_62": {
     "title": "Valley of the Anduin",
     "cost": 6,
@@ -130,18 +151,19 @@
     "keyword": "river",
     "direction": "left",
     "effects": {
-      "type": "modifier",
-      "modifier": {
-        "type": "cantPlayCards",
-        "condition": {
-          "type": "canSpot",
-          "filter": "companion",
-          "count": 6
-        },
-        "filter": "event",
+      "type": "trigger",
+      "optional": false,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "skirmish"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "all(character,inSkirmish,unwounded)"
       }
     }
   },
+  
   "151_63": {
     "title": "Nen Hithoel",
     "cost": 7,
@@ -171,6 +193,7 @@
       }
     }
   },
+  
   "151_64": {
     "title": "Henneth Anun Glade",
     "cost": 9,
@@ -183,51 +206,16 @@
       {
         "type": "modifier",
         "modifier": {
-          "type": "modifyCost",
-          "condition": [
-            {
-              "type": "canSpot",
-              "filter": "unwounded,companion"
-            },
-            {
-              "type": "not",
-              "condition": {
-                "type": "hasInZoneData",
-                "filter": "self"
-              }
-            }
-          ],
-          "filter": "minion",
-          "amount": -3
+          "type": "canttakewounds",
+          "filter": "minion,wounded"
         }
       },
       {
-        "type": "trigger",
-        "trigger": {
-          "type": "played",
-          "filter": "minion",
-          "memorize": "playedMinion"
-        },
-        "condition": {
-          "type": "not",
-          "condition": {
-            "type": "hasInZoneData",
-            "filter": "self"
-          }
-        },
-        "effect": {
-          "type": "appendCardIdsToWhileInZone",
-          "memory": "playedMinion"
-        }
-      },
-      {
-        "type": "trigger",
-        "trigger": {
-          "type": "endOfPhase",
-          "phase": "shadow"
-        },
-        "effect": {
-          "type": "resetWhileInZoneData"
+        "type": "modifier",
+        "modifier": {
+          "type": "cantbeexerted",
+          "filter": "companion,wounded",
+          "by": "side(free peoples)"
         }
       }
     ]

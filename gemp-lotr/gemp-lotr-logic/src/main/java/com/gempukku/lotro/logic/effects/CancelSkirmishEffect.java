@@ -33,6 +33,7 @@ public class CancelSkirmishEffect extends AbstractEffect {
         return game.getGameState().getSkirmish() != null
                 && !game.getGameState().getSkirmish().isCancelled()
                 && (_involvementFilter == null || Filters.countActive(game, Filters.and(_involvementFilter, Filters.inSkirmish)) > 0)
+                && game.getModifiersQuerying().canCancelSkirmish(game, game.getGameState().getSkirmish().getFellowshipCharacter())
                 && (game.getFormat().canCancelRingBearerSkirmish() || Filters.countActive(game, Filters.ringBearer, Filters.inSkirmish) == 0);
     }
 
@@ -47,6 +48,7 @@ public class CancelSkirmishEffect extends AbstractEffect {
             game.getGameState().getSkirmish().cancel();
             return new FullEffectResult(true);
         }
+        game.getGameState().sendMessage("Skirmish could not be cancelled");
         return new FullEffectResult(false);
     }
 }

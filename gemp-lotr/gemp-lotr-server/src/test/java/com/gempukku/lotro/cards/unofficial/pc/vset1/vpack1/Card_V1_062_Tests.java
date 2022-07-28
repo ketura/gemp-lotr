@@ -22,18 +22,29 @@ public class Card_V1_062_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_62");
-					// put other cards in here as needed for the test case
+					put("runner1", "1_178");
+					put("runner2", "1_178");
+
+					put("savage1", "1_151");
+					put("savage2", "1_151");
 				}},
-				GenericCardTestHelper.FellowshipSites,
+				new HashMap<String, String>() {{
+					put("site1", "1_319");
+					put("site2", "1_327");
+					put("site3", "1_337");
+					put("site4", "1_343");
+					put("site5", "1_349");
+					put("site6", "1_350");
+					put("site7", "151_62");
+					put("site8", "1_356");
+					put("site9", "1_360");
+				}},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void ValleyoftheAnduinStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,34 +62,94 @@ public class Card_V1_062_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl site7 = scn.GetFreepsSite(7);
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(site7.getBlueprint().isUnique());
+		//assertEquals(Side.FREE_PEOPLE, site7.getBlueprint().getSide());
 		//assertEquals(Culture., card.getBlueprint().getCulture());
-		assertEquals(CardType.SITE, card.getBlueprint().getCardType());
+		assertEquals(CardType.SITE, site7.getBlueprint().getCardType());
 		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(6, card.getBlueprint().getTwilightCost());
+		assertTrue(scn.HasKeyword(site7, Keyword.RIVER)); // test for keywords as needed
+		assertEquals(6, site7.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(7, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(7, site7.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void ValleyoftheAnduinTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void EveryUnwoundedCharacterGetsWoundedAtStartOfSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+
+		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
+		PhysicalCardImpl runner2 = scn.GetShadowCard("runner2");
+		PhysicalCardImpl savage1 = scn.GetShadowCard("savage1");
+		PhysicalCardImpl savage2 = scn.GetShadowCard("savage2");
+		scn.ShadowMoveCardToHand(runner1, runner2, savage1, savage2);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(6, scn.GetTwilight());
+		// 1 -> 3
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 3 -> 4
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 4 -> 5
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 5 -> 6
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 6 -> 7
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		scn.ShadowMoveCharToTable(runner1, runner2, savage1, savage2);
+		scn.AddWoundsToChar(savage1, 1);
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsPassCurrentPhaseAction(); // skipping freeps assignments
+
+		scn.ShadowAssignToMinions(frodo, runner1, runner2, savage1, savage2);
+
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertEquals(1, scn.GetWoundsOn(savage1));
+		assertEquals(0, scn.GetWoundsOn(savage2));
+		assertEquals(Zone.SHADOW_CHARACTERS, runner1.getZone());
+		assertEquals(Zone.SHADOW_CHARACTERS, runner2.getZone());
+		scn.FreepsResolveSkirmish(frodo);
+
+		scn.FreepsDeclineOptionalTrigger(); // one ring response
+
+		assertEquals(1, scn.GetWoundsOn(frodo));
+		assertEquals(1, scn.GetWoundsOn(savage1));
+		assertEquals(1, scn.GetWoundsOn(savage2));
+		assertEquals(Zone.DISCARD, runner1.getZone());
+		assertEquals(Zone.DISCARD, runner2.getZone());
+
 	}
 }

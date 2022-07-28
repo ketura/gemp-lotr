@@ -22,18 +22,34 @@ public class Card_V1_060_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_60");
-					// put other cards in here as needed for the test case
+					put("sam", "1_311");
+					put("merry", "1_302");
+					put("stealth1", "1_298");
+					put("stealth2", "1_298");
+					put("stealth3", "1_298");
+
+
+					put("chieftain", "1_163");
+					put("runner", "1_178");
+					put("uruk", "1_151");
 				}},
-				GenericCardTestHelper.FellowshipSites,
+				new HashMap<String, String>() {{
+					put("site1", "1_319");
+					put("site2", "1_327");
+					put("site3", "1_337");
+					put("site4", "151_60");
+					put("site5", "1_349");
+					put("site6", "1_350");
+					put("site7", "1_353");
+					put("site8", "1_356");
+					put("site9", "1_360");
+				}},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void MoriaCrossroadsStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,34 +67,155 @@ public class Card_V1_060_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl site4 = scn.GetFreepsSite(4);
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(site4.getBlueprint().isUnique());
+		//assertEquals(Side.FREE_PEOPLE, site4.getBlueprint().getSide());
 		//assertEquals(Culture., card.getBlueprint().getCulture());
-		assertEquals(CardType.SITE, card.getBlueprint().getCardType());
+		assertEquals(CardType.SITE, site4.getBlueprint().getCardType());
 		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(3, card.getBlueprint().getTwilightCost());
+		assertTrue(scn.HasKeyword(site4, Keyword.UNDERGROUND)); // test for keywords as needed
+		assertEquals(3, site4.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(4, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(4, site4.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void MoriaCrossroadsTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void UniqueMoriaMinionBlocksSkirmishCancelingInMoriaSkirmishes() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+		PhysicalCardImpl stealth1 = scn.GetFreepsCard("stealth1");
+		PhysicalCardImpl stealth2 = scn.GetFreepsCard("stealth2");
+		PhysicalCardImpl stealth3 = scn.GetFreepsCard("stealth3");
+
+		scn.FreepsMoveCardToHand(stealth1, stealth2, stealth3);
+		scn.FreepsMoveCharToTable(sam, merry);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		PhysicalCardImpl chieftain = scn.GetShadowCard("chieftain");
+		PhysicalCardImpl uruk = scn.GetShadowCard("uruk");
+		scn.ShadowMoveCharToTable(runner, chieftain, uruk);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(3, scn.GetTwilight());
+		//Site 2
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		if(scn.ShadowDecisionAvailable("reconcile"))
+		{
+			scn.ShadowDeclineReconciliation();
+		}
+		scn.FreepsChooseToMove();
+
+		//Site 3
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		if(scn.ShadowDecisionAvailable("reconcile"))
+		{
+			scn.ShadowDeclineReconciliation();
+		}
+		scn.FreepsChooseToMove();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+
+		scn.FreepsAssignToMinions(
+				new PhysicalCardImpl[]{merry, uruk},
+				new PhysicalCardImpl[]{sam, runner},
+				new PhysicalCardImpl[]{frodo, chieftain}
+		);
+
+		// We cannot actually test ahead of time whether Stealth will be allowed to resolve, since per RAW effects
+		// are to be attempted as much as possible and if they fail, they fail.
+		scn.FreepsResolveSkirmish(merry);
+		scn.FreepsPlayCard(stealth1);
+
+		//non-moria skirmish stealth allowed, skipped to next skirmish
+		assertTrue(scn.FreepsDecisionAvailable("Choose next skirmish to resolve"));
+
+		scn.FreepsResolveSkirmish(sam);
+		scn.FreepsPlayCard(stealth2);
+		//non-unique moria skirmish stealth BLOCKED, so shadow action next as normal
+		assertTrue(scn.ShadowDecisionAvailable("Choose action to play or Pass"));
+
+		scn.ShadowPassCurrentPhaseAction();
+		scn.FreepsPassCurrentPhaseAction();
+
+		scn.FreepsResolveSkirmish(frodo);
+		scn.FreepsPlayCard(stealth3);
+		//unique moria skirmish stealth BLOCKED, so shadow action next as normal
+		assertTrue(scn.ShadowDecisionAvailable("Choose action to play or Pass"));
+	}
+
+	@Test
+	public void NonUniqueMoriaMinionDoesNotBlocksSkirmishCanceling() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+		PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+		PhysicalCardImpl stealth1 = scn.GetFreepsCard("stealth1");
+		PhysicalCardImpl stealth2 = scn.GetFreepsCard("stealth2");
+
+		scn.FreepsMoveCardToHand(stealth1, stealth2);
+		scn.FreepsMoveCharToTable(sam, merry);
+
+		PhysicalCardImpl runner = scn.GetShadowCard("runner");
+		PhysicalCardImpl uruk = scn.GetShadowCard("uruk");
+		scn.ShadowMoveCharToTable(runner, uruk);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
+
+		scn.StartGame();
+
+		//Site 2
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		if(scn.ShadowDecisionAvailable("reconcile"))
+		{
+			scn.ShadowDeclineReconciliation();
+		}
+		scn.FreepsChooseToMove();
+
+		//Site 3
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		if(scn.ShadowDecisionAvailable("reconcile"))
+		{
+			scn.ShadowDeclineReconciliation();
+		}
+		scn.FreepsChooseToMove();
+
+		scn.SkipToPhase(Phase.ASSIGNMENT);
+		scn.PassCurrentPhaseActions();
+
+		scn.FreepsAssignToMinions(
+				new PhysicalCardImpl[]{merry, uruk},
+				new PhysicalCardImpl[]{sam, runner}
+		);
+
+		scn.FreepsResolveSkirmish(merry);
+		scn.FreepsPlayCard(stealth1);
+		//non-moria skirmish stealth allowed, skipped to next skirmish
+		assertTrue(scn.FreepsDecisionAvailable("Choose next skirmish to resolve"));
+
+
+		scn.FreepsResolveSkirmish(sam);
+		scn.FreepsPlayCard(stealth2);
+		//non-unique moria skirmish stealth ALLOWED
+		assertEquals(Phase.REGROUP, scn.GetCurrentPhase());
 	}
 }

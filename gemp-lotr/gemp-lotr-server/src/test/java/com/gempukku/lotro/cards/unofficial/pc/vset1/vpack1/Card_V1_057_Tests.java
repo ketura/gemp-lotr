@@ -22,18 +22,26 @@ public class Card_V1_057_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_57");
-					// put other cards in here as needed for the test case
+					put("cond", "1_317");
+					put("farmer", "1_295");
 				}},
-				GenericCardTestHelper.FellowshipSites,
+				new HashMap<String, String>() {{
+					put("site1", "151_57");
+					put("site2", "1_327");
+					put("site3", "1_337");
+					put("site4", "1_343");
+					put("site5", "1_349");
+					put("site6", "1_350");
+					put("site7", "1_353");
+					put("site8", "1_356");
+					put("site9", "1_360");
+				}},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void BagEndStudyStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,34 +59,57 @@ public class Card_V1_057_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl site1 = scn.GetFreepsSite(1);
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(site1.getBlueprint().isUnique());
+		//assertEquals(Side.FREE_PEOPLE, site1.getBlueprint().getSide());
 		//assertEquals(Culture., card.getBlueprint().getCulture());
-		assertEquals(CardType.SITE, card.getBlueprint().getCardType());
+		assertEquals(CardType.SITE, site1.getBlueprint().getCardType());
 		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		//assertTrue(scn.HasKeyword(site1, Keyword.SUPPORT_AREA)); // test for keywords as needed
 		//assertEquals(, card.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(1, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(1, site1.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void BagEndStudyTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void WhenMovingAwayExertsAShireCompanionToPlayACondition() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl cond = scn.GetFreepsCard("cond");
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(0, scn.GetTwilight());
+		scn.FreepsPassCurrentPhaseAction();
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		assertEquals(0, scn.GetWoundsOn(frodo));
+		assertEquals(Zone.DECK, cond.getZone());
+
+		scn.FreepsAcceptOptionalTrigger();
+		assertEquals(1, scn.GetWoundsOn(frodo));
+		assertEquals(Zone.ATTACHED, cond.getZone());
+	}
+
+	@Test
+	public void HobbitFarmerDoesntCopyStudy() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl farmer = scn.GetRingBearer();
+		scn.FreepsMoveCharToTable(farmer);
+
+		scn.StartGame();
+
+		scn.FreepsPassCurrentPhaseAction();
+		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
+		scn.FreepsAcceptOptionalTrigger();
+		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+		assertEquals(1, scn.GetWoundsOn(scn.GetRingBearer()));
 	}
 }

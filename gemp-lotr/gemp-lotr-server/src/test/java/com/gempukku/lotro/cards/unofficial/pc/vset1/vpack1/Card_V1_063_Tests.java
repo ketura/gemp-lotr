@@ -22,18 +22,31 @@ public class Card_V1_063_Tests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "151_63");
-					// put other cards in here as needed for the test case
+					put("guard1", "1_7");
+					put("guard2", "1_7");
+					put("guard3", "1_7");
+					put("guard4", "1_7");
+					put("guard5", "1_7");
+					put("guard6", "1_7");
+
 				}},
-				GenericCardTestHelper.FellowshipSites,
+				new HashMap<String, String>() {{
+					put("site1", "1_319");
+					put("site2", "1_327");
+					put("site3", "1_337");
+					put("site4", "1_343");
+					put("site5", "1_349");
+					put("site6", "1_350");
+					put("site7", "1_353");
+					put("site8", "151_63");
+					put("site9", "1_360");
+				}},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void NenHithoelStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,34 +64,85 @@ public class Card_V1_063_Tests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl site8 = scn.GetFreepsSite(8);
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
+		assertFalse(site8.getBlueprint().isUnique());
+		//assertEquals(Side.FREE_PEOPLE, site8.getBlueprint().getSide());
 		//assertEquals(Culture., card.getBlueprint().getCulture());
-		assertEquals(CardType.SITE, card.getBlueprint().getCardType());
+		assertEquals(CardType.SITE, site8.getBlueprint().getCardType());
 		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
-		assertEquals(7, card.getBlueprint().getTwilightCost());
+		assertTrue(scn.HasKeyword(site8, Keyword.RIVER)); // test for keywords as needed
+		assertEquals(7, site8.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
 		//assertEquals(, card.getBlueprint().getResistance());
 		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(8, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertEquals(8, site8.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void NenHithoelTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void ShadowDraws1CardPerCompOver4WhenMovingTo() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl guard1 = scn.GetFreepsCard("guard1");
+		PhysicalCardImpl guard2 = scn.GetFreepsCard("guard2");
+		PhysicalCardImpl guard3 = scn.GetFreepsCard("guard3");
+		PhysicalCardImpl guard4 = scn.GetFreepsCard("guard4");
+		PhysicalCardImpl guard5 = scn.GetFreepsCard("guard5");
+		PhysicalCardImpl guard6 = scn.GetFreepsCard("guard6");
+		scn.FreepsMoveCharToTable(guard1, guard2, guard3, guard4, guard5, guard6);
+
+		//Max out the move limit so we don't have to juggle play back and forth
+		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(7, scn.GetTwilight());
+		// 1 -> 3
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		//scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 3 -> 4
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 4 -> 5
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 5 -> 6
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 6 -> 7
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+		scn.FreepsChooseToMove();
+
+		// 7 -> 8
+		scn.SkipToPhase(Phase.REGROUP);
+		scn.PassCurrentPhaseActions();
+		scn.ShadowDeclineReconciliation();
+
+		scn.ShadowMoveCardsToBottomOfDeck("guard1", "guard2", "guard3", "guard4", "guard5", "guard6");
+		assertEquals(6, scn.GetShadowDeckCount());
+		assertEquals(0, scn.GetShadowHandCount());
+		scn.FreepsChooseToMove();
+
+		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
+		scn.ShadowAcceptOptionalTrigger();
+		assertEquals(3, scn.GetShadowDeckCount());
+		assertEquals(3, scn.GetShadowHandCount());
+
 	}
 }

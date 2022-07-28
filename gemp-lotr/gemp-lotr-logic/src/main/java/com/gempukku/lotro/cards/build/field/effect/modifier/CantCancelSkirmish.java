@@ -19,7 +19,6 @@ public class CantCancelSkirmish implements ModifierSourceProducer {
 
         return (actionContext) -> {
             return new CantCancelSkirmishModifier(actionContext.getSource(),
-                    "Can't cancel skirmish",
                     new RequirementCondition(requirements, actionContext),
                     filterableSource.getFilterable(actionContext));
         };
