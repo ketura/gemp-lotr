@@ -14,7 +14,7 @@ import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 // Wielder of the Flame
-public class Card18_118Tests
+public class Card_18_118_Tests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(

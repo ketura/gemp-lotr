@@ -12,7 +12,7 @@ import java.util.HashMap;
 import static junit.framework.Assert.assertEquals;
 
 // Tidings of Erebor
-public class Card1_011Tests
+public class Card_01_011_Tests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
