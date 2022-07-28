@@ -27,6 +27,9 @@ public class ModifyOwnCost implements EffectProcessor {
                             return 0;
                     }
 
+                    if(target == null && onFilterableSource.getFilterable(actionContext) != Filters.any)
+                        return 0;
+
                     if (target != null) {
                         if (!Filters.and(onFilterableSource.getFilterable(actionContext)).accepts(actionContext.getGame(), target))
                             return 0;

@@ -172,9 +172,11 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public Boolean FreepsActionAvailable(String action) { return ActionAvailable(P1, action); }
     public Boolean FreepsCardActionAvailable(PhysicalCardImpl card) { return ActionAvailable(P1, "Use " + GameUtils.getFullName(card)); }
     public Boolean FreepsCardPlayAvailable(PhysicalCardImpl card) { return ActionAvailable(P1, "Play " + GameUtils.getFullName(card)); }
+    public Boolean FreepsCardTransferAvailable(PhysicalCardImpl card) { return ActionAvailable(P1, "Transfer " + GameUtils.getFullName(card)); }
     public Boolean ShadowActionAvailable(String action) { return ActionAvailable(P2, action); }
     public Boolean ShadowCardActionAvailable(PhysicalCardImpl card) { return ActionAvailable(P2, "Use " + GameUtils.getFullName(card)); }
     public Boolean ShadowCardPlayAvailable(PhysicalCardImpl card) { return ActionAvailable(P2, "Play " + GameUtils.getFullName(card)); }
+    public Boolean ShadowCardTransferAvailable(PhysicalCardImpl card) { return ActionAvailable(P2, "Transfer " + GameUtils.getFullName(card)); }
     public Boolean ActionAvailable(String player, String action) {
         List<String> actions = GetAvailableActions(player);
         if(actions == null)
@@ -222,8 +224,12 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void FreepsUseCardAction(String name) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, name)); }
     public void FreepsUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, "Use " + GameUtils.getFullName(card))); }
+    public void FreepsTransferCard(String name) throws DecisionResultInvalidException { FreepsTransferCard(GetFreepsCard(name)); }
+    public void FreepsTransferCard(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, "Transfer " + GameUtils.getFullName(card))); }
     public void ShadowUseCardAction(String name) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, name)); }
     public void ShadowUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, "Use " + GameUtils.getFullName(card))); }
+    public void ShadowTransferCard(String name) throws DecisionResultInvalidException { ShadowTransferCard(GetShadowCard(name)); }
+    public void ShadowTransferCard(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P2, getCardActionId(P2, "Transfer " + GameUtils.getFullName(card))); }
 
     public void FreepsPlayCard(String name) throws DecisionResultInvalidException { FreepsPlayCard(GetFreepsCard(name)); }
     public void FreepsPlayCard(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P1, getCardActionId(P1, "Play " + GameUtils.getFullName(card))); }
@@ -785,5 +791,40 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetOverwhelmMultiplier(PhysicalCardImpl card)
     {
         return _game.getModifiersQuerying().getOverwhelmMultiplier(_game, card);
+    }
+
+    public void SkipToSite(int siteNum) throws DecisionResultInvalidException {
+        for(int i = GetCurrentSite().getSiteNumber(); i < siteNum; i++)
+        {
+            PhysicalCardImpl site = GetCurrentSite();
+
+            SkipToPhase(Phase.REGROUP);
+            if(i == 8)
+                return; // Game finished
+            PassCurrentPhaseActions();
+            if(ShadowDecisionAvailable("reconcile"))
+            {
+                ShadowDeclineReconciliation();
+            }
+            FreepsChooseToStay();
+            if(FreepsDecisionAvailable("reconcile"))
+            {
+                FreepsChoose(""); //decline reconcile
+            }
+
+            //Shadow player
+            SkipToPhase(Phase.REGROUP);
+            FreepsPassCurrentPhaseAction(); // actually shadow with the swap
+            if(FreepsDecisionAvailable("reconcile"))
+            {
+                FreepsChoose(""); //decline reconcile
+            }
+            ShadowChoose("1"); // Choose to stay
+            if(ShadowDecisionAvailable("reconcile"))
+            {
+                ShadowDeclineReconciliation();
+            }
+            Assert.assertEquals(Phase.FELLOWSHIP, GetCurrentPhase());
+        }
     }
 }
