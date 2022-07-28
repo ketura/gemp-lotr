@@ -196,8 +196,7 @@ public class Card_V1_023_Tests
 		assertTrue(scn.FreepsDecisionAvailable("Choose stacked cards to discard"));
 		assertEquals(3, scn.GetStrength(sam));
 		scn.FreepsChooseCards(gandalfE, elfE, dwarfE);
-		assertEquals(5, scn.GetFreepsCardChoiceCount());
-		scn.FreepsChooseCard(sam);
+		//lots of candidates, but only one skirmishing, so Sam gets auto-picked
 		assertEquals(6, scn.GetStrength(sam));
 		assertEquals(1, scn.GetStackedCards(gone).size());
 		assertTrue(scn.GetStackedCards(gone).stream().anyMatch(x -> x.getBlueprintId() == gondorE.getBlueprintId()));

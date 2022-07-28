@@ -27,7 +27,7 @@ public class Card_V1_050_Tests
 					put("bilbo", "151_50");
 					put("sam", "1_311");
 					put("coat", "13_153");
-					put("sting", "8_113");
+					put("sting", "1_313");
 
 					put("phial", "3_24");
 					put("greenleaf", "1_50");
@@ -91,32 +91,22 @@ public class Card_V1_050_Tests
 
 		scn.StartGame();
 
-		for(int i = 1; i <= 8; i++)
+		for(int i = 1; i < 8; i++)
 		{
 			PhysicalCardImpl site = scn.GetCurrentSite();
-			if(i == 3 || i == 6 || scn.HasKeyword(scn.GetCurrentSite(), Keyword.SANCTUARY)) {
+			if(scn.HasKeyword(site, Keyword.SANCTUARY)) {
 				assertTrue(scn.FreepsCardActionAvailable(bilbo));
 			}
 			else {
 				assertFalse(scn.FreepsCardActionAvailable(bilbo));
 			}
 
-			scn.SkipToPhase(Phase.REGROUP);
-			if(i == 8)
-				break; // Game finished
-			scn.PassCurrentPhaseActions();
-			scn.FreepsChooseToStay();
-
-			//Shadow player
-			scn.SkipToPhase(Phase.REGROUP);
-			scn.FreepsPassCurrentPhaseAction(); // actually shadow with the swap
-			scn.ShadowChoose("1"); // Choose to stay
-			assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
+			scn.SkipToSite(i+1);
 		}
 	}
 
 	@Test
-	public void FellowshipAbilityExertsTwiceToTutor2ItemsOnFrodoSignetCompanions() throws DecisionResultInvalidException, CardNotFoundException {
+	public void FellowshipAbilityExertsTwiceToTutor2ItemsOnFrodoSignetShireCompanions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -141,17 +131,17 @@ public class Card_V1_050_Tests
 		scn.FreepsUseCardAction(bilbo);
 		assertEquals(2, scn.GetWoundsOn(bilbo));
 		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
-		assertEquals(2, scn.GetFreepsCardChoiceCount());
+		assertEquals(3, scn.GetFreepsCardChoiceCount()); // coat, sting, and phial
 
-		scn.FreepsChooseCardBPFromSelection(coat);
-		assertEquals(Zone.ATTACHED, coat.getZone());
-		assertEquals(frodo, coat.getAttachedTo());
-
-		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
-		assertEquals(1, scn.GetFreepsCardChoiceCount());
 		scn.FreepsChooseCardBPFromSelection(sting);
 		assertEquals(Zone.ATTACHED, sting.getZone());
 		assertEquals(frodo, sting.getAttachedTo());
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose card from deck"));
+		assertEquals(2, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCardBPFromSelection(phial);
+		assertEquals(Zone.ATTACHED, phial.getZone());
+		assertEquals(frodo, phial.getAttachedTo());
 
 	}
 }

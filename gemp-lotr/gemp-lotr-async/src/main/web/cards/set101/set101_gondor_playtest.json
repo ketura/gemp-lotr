@@ -238,7 +238,7 @@
         },
         "effect": {
           "type": "modifyStrength",
-          "filter": "choose(companion,signet(aragorn))",
+          "filter": "choose(companion,signet(aragorn),inSkirmish)",
           "amount": {
             "type": "forEachInMemory",
             "memory": "discardedCards",

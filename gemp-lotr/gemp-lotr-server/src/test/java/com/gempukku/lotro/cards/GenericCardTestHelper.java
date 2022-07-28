@@ -18,10 +18,13 @@ import com.gempukku.lotro.logic.modifiers.cost.DiscardFromPlayExtraPlayCostModif
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import junit.framework.Assert;
 
 import java.util.*;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GenericCardTestHelper extends AbstractAtTest {
 
@@ -135,12 +138,11 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public PhysicalCardImpl GetShadowSite(int siteNum) { return GetSite(P2, siteNum); }
     public PhysicalCardImpl GetSite(String playerID, int siteNum)
     {
+        PhysicalCardImpl site = (PhysicalCardImpl)_game.getGameState().getSite(siteNum);
+        if(site != null && site.getOwner() == playerID)
+            return site;
+
         List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(playerID);
-//        for (PhysicalCardImpl card : advDeck) {
-//            if (card.getSiteNumber() == siteNum){
-//                return card;
-//            }
-//        }
         return advDeck.stream().filter(x -> x.getBlueprint().getSiteNumber() == siteNum).findFirst().get();
     }
 

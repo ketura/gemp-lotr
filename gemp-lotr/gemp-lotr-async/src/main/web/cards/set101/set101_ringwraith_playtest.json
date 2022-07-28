@@ -258,7 +258,7 @@
       "effect": [
         {
           "type": "modifyStrength",
-          "filter": "choose(twilight,nazgul)",
+          "filter": "choose(twilight,nazgul,inSkirmish)",
           "memorize": "chosenNazzy",
           "amount": {
             "type": "forEachWound",
