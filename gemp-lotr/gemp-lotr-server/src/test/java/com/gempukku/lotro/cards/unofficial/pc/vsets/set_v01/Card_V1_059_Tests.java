@@ -53,7 +53,8 @@ public class Card_V1_059_Tests
 		* Type: sanctuary
 		* Subtype: 
 		* Site Number: 3
-		* Game Text: Sanctuary. When the fellowship moves from here, if you cannot spot 4 Free Peoples cultures, exert every companion.
+		* Game Text: Sanctuary. Forest.  Fellowship: Exert a companion to make a companion of another culture strength +1
+		 * until the end of the turn
 		*/
 
 		//Pre-game setup
@@ -66,7 +67,8 @@ public class Card_V1_059_Tests
 		//assertEquals(Culture., card.getBlueprint().getCulture());
 		assertEquals(CardType.SITE, site3.getBlueprint().getCardType());
 		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(site3, Keyword.SANCTUARY)); // test for keywords as needed
+		assertTrue(scn.HasKeyword(site3, Keyword.SANCTUARY));
+		assertTrue(scn.HasKeyword(site3, Keyword.FOREST));
 		assertEquals(0, site3.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
@@ -102,7 +104,7 @@ public class Card_V1_059_Tests
 		assertEquals(2, scn.GetFreepsCardChoiceCount()); //Legolas can only boost sam and frodo
 		scn.FreepsChooseCard(sam);
 
-		assertEquals(5, scn.GetStrength(sam));
+		assertEquals(4, scn.GetStrength(sam));
 
 		scn.FreepsUseCardAction(site3);
 		assertTrue(scn.FreepsDecisionAvailable("Choose cards to exert"));
@@ -112,15 +114,15 @@ public class Card_V1_059_Tests
 		assertEquals(2, scn.GetFreepsCardChoiceCount()); //Legolas can only boost sam and frodo
 		scn.FreepsChooseCard(sam);
 
-		assertEquals(7, scn.GetStrength(sam));
+		assertEquals(5, scn.GetStrength(sam));
 
 		scn.SkipToPhase(Phase.REGROUP);
-		assertEquals(7, scn.GetStrength(sam));
+		assertEquals(5, scn.GetStrength(sam));
 		scn.PassCurrentPhaseActions();
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.REGROUP);
-		assertEquals(7, scn.GetStrength(sam));
+		assertEquals(5, scn.GetStrength(sam));
 	}
 }

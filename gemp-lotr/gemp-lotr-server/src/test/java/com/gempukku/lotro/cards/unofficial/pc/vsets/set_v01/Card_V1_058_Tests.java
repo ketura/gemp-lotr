@@ -55,7 +55,8 @@ public class Card_V1_058_Tests
 		* Type: site
 		* Subtype: 
 		* Site Number: 2
-		* Game Text: Each time a minion is played, you may spot a [gandalf] character to exert that minion.
+		* Game Text: Each time you play a minion of strength 6 or less, make it strength +3 until the regroup phase
+		 * (unless you can spot a [GANDALF] card).
 		*/
 
 		//Pre-game setup

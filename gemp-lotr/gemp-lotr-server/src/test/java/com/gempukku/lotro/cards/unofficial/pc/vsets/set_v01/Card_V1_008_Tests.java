@@ -23,20 +23,13 @@ public class Card_V1_008_Tests
 				{{
 					put("lament", "151_8");
 					put("gandalf", "1_364");
-					put("elrond", "7_21");
-					put("galadriel", "10_11");
-					put("orophin", "1_56");
+					put("elrond", "3_13");
 					put("gimli", "1_13");
-					put("farin", "1_11");
 					put("guard", "1_7");
+					put("lastalliance", "1_49");
 
-					put("axe1", "1_9");
-					put("axe2", "1_9");
-					put("axe3", "1_9");
-					put("runner1", "1_178");
-					put("runner2", "1_178");
-
-					// put other cards in here as needed for the test case
+					put("marksman", "1_176");
+					put("bladetip", "1_209");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -49,14 +42,15 @@ public class Card_V1_008_Tests
 
 		/**
 		 * Set: V1
-		 * Title: *Lament For Gandalf
+		 * Title: Lament for the Fallen
 		 * Side: Free Peoples
-		 * Culture: gandalf
+		 * Culture: Elven
 		 * Twilight Cost: 1
 		 * Type: condition
 		 * Subtype: Support Area
-		 * Game Text: At the start of the Regroup phase you may spot Gandalf to stack a card from hand here.
-		 * 	Response: If Gandalf is killed you may exert X companions, or [elven] allies to take X cards stacked here into hand.
+		 * Game Text: To play, exert an Elf and spot a unique companion in the dead pile.  Bearer must be an unbound companion.
+		 * Bearer cannot be exerted, wounded, or assigned to a skirmish.
+		 * At the start of the regroup phase, discard a condition attached to bearer (and heal bearer if Gandalf is in the dead pile).
 		 */
 
 		//Pre-game setup
@@ -68,7 +62,7 @@ public class Card_V1_008_Tests
 		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
 		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
 		assertTrue(card.getBlueprint().isUnique());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
+		//assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA)); // test for keywords as needed
 		assertEquals(1, card.getBlueprint().getTwilightCost());
 		//assertEquals(, card.getBlueprint().getStrength());
 		//assertEquals(, card.getBlueprint().getVitality());
@@ -78,120 +72,157 @@ public class Card_V1_008_Tests
 	}
 
 	@Test
-	public void LamentSpotsGandalfToStackAtTheStartOfManeuver() throws DecisionResultInvalidException, CardNotFoundException {
+	public void LamentExertsAnElfAndSpotsADeadCompToPlayOnAnUnboundComp() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
 		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
 		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
-		PhysicalCardImpl axe1 = scn.GetFreepsCard("axe1");
-		PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
-		PhysicalCardImpl runner2 = scn.GetFreepsCard("runner2");
+		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl guard = scn.GetFreepsCard("guard");
 
-		scn.FreepsMoveCardToHand(lament, axe1, axe2, runner2);
-
-		PhysicalCardImpl runner1 = scn.GetShadowCard("runner1");
-		scn.ShadowMoveCharToTable(runner1);
+		scn.FreepsMoveCharToTable(gimli, gandalf);
+		scn.FreepsMoveCardToHand(lament, guard, elrond);
 
 		scn.StartGame();
+		assertFalse(scn.FreepsCardPlayAvailable(lament));
+		scn.FreepsPlayCard(elrond);
+		assertFalse(scn.FreepsCardPlayAvailable(lament));
+		scn.AddWoundsToChar(gandalf, 4);
+		scn.FreepsPlayCard(guard);
+		assertTrue(scn.FreepsCardPlayAvailable(lament));
+
+		assertEquals(0, scn.GetWoundsOn(elrond));
+		assertEquals(Zone.HAND, lament.getZone());
 		scn.FreepsPlayCard(lament);
+		assertTrue(scn.FreepsDecisionAvailable("Choose"));
+		assertEquals(2, scn.GetFreepsCardChoiceCount()); // gimli, guard, but not frodo
+		scn.FreepsChooseCard(gimli);
+		assertEquals(1, scn.GetWoundsOn(elrond));
+		assertEquals(Zone.ATTACHED, lament.getZone());
+		assertEquals(gimli, lament.getAttachedTo());
+	}
 
-		scn.SkipToPhase(Phase.MANEUVER);
+//	@Test
+//	public void BearerOfLamentCannotBeSpotted() throws DecisionResultInvalidException, CardNotFoundException {
+//		//Pre-game setup
+//		GenericCardTestHelper scn = GetScenario();
+//
+//		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
+//		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+//		PhysicalCardImpl guard = scn.GetFreepsCard("guard");
+//
+//		scn.FreepsMoveCharToTable(gimli);
+//		scn.FreepsAttachCardsTo(gimli, lament);
+//		scn.FreepsMoveCardToHand(guard);
+//
+//		scn.StartGame();
+//
+//		assertFalse(scn.FreepsCardPlayAvailable(guard)); // gimli can't be spotted, so guard's text can't be fulfilled
+//	}
 
-		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
+	@Test
+	public void BearerOfLamentCannotBeExertedOrWoundedOrAssignedToSkimish() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-		scn.SkipToPhase(Phase.REGROUP);
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl guard = scn.GetFreepsCard("guard");
+
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsAttachCardsTo(gimli, lament);
+		scn.FreepsMoveCardToHand(guard);
+
+		PhysicalCardImpl marksman = scn.GetShadowCard("marksman");
+		scn.ShadowMoveCharToTable(marksman);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ARCHERY);
 		scn.PassCurrentPhaseActions();
-		scn.FreepsChooseToMove();
+		assertEquals(1, scn.GetWoundsOn(frodo)); //automatically applied as Gimli can't be wounded
 
-		scn.FreepsMoveCharToTable(gandalf);
+		//assignment
+		scn.PassCurrentPhaseActions();
 
-		scn.SkipToPhase(Phase.MANEUVER);
-
-		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
-		scn.FreepsAcceptOptionalTrigger();
-		assertTrue(scn.FreepsDecisionAvailable("Choose cards to stack"));
-		assertEquals(3, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsCardChoiceCount()); // 3 cards in hand, but only 2 freeps cards
-
-		scn.FreepsChooseCard(axe1);
-		assertEquals(Zone.STACKED, axe1.getZone());
-		assertEquals(lament, axe1.getStackedOn());
-		assertEquals(1, scn.GetStackedCards(lament).size());
+		assertEquals(1, scn.FreepsGetADParam("freeCharacters").length); // gimli is not allowed to skirmish
+		scn.FreepsAssignToMinions(frodo, marksman);
+		scn.FreepsResolveSkirmish(frodo);
+		assertFalse(scn.FreepsCardActionAvailable(gimli)); // Can't use gimli's ability as he can't exert
 	}
 
 	@Test
-	public void RegroupActionExertsAndTakesCardsBasedOnDeadPileCount() throws DecisionResultInvalidException, CardNotFoundException {
+	public void AtStartOfRegroupBearerDiscardsAnAttachedCondition() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
+		PhysicalCardImpl frodo = scn.GetRingBearer();
 		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
-		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
-		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
-		PhysicalCardImpl elrond = scn.GetFreepsCard("elrond");
-		PhysicalCardImpl orophin = scn.GetFreepsCard("orophin");
-		PhysicalCardImpl axe1 = scn.GetFreepsCard("axe1");
-		PhysicalCardImpl axe2 = scn.GetFreepsCard("axe2");
+		PhysicalCardImpl lastalliance = scn.GetFreepsCard("lastalliance");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl guard = scn.GetFreepsCard("guard");
 
-		scn.FreepsMoveCharToTable(gandalf, galadriel, elrond, orophin);
-		scn.FreepsMoveCardToSupportArea(lament);
-		scn.StackCardsOn(lament, axe1, axe2);
+		scn.FreepsMoveCharToTable(gimli);
+		scn.AddWoundsToChar(gimli, 1);
+		scn.FreepsAttachCardsTo(gimli, lament);
+		scn.FreepsAttachCardsTo(gimli, lastalliance); //can't usually go there but who cares
+		scn.FreepsMoveCardToHand(guard);
 
-		//Max out the move limit so we don't have to juggle play back and forth
-		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
+		PhysicalCardImpl bladetip = scn.GetShadowCard("bladetip");
+		scn.AttachCardsTo(gimli, bladetip);
 
 		scn.StartGame();
 
+		assertEquals(1, scn.GetWoundsOn(gimli));
+		assertEquals(Zone.ATTACHED, lament.getZone());
+		assertEquals(gimli, lament.getAttachedTo());
+		assertEquals(Zone.ATTACHED, bladetip.getZone());
+		assertEquals(gimli, bladetip.getAttachedTo());
+		assertEquals(Zone.ATTACHED, lastalliance.getZone());
+		assertEquals(gimli, lastalliance.getAttachedTo());
+
 		scn.SkipToPhase(Phase.REGROUP);
-
-		assertEquals(0, scn.GetFreepsDeadCount());
-		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
-
-		scn.FreepsMoveCardToDeadPile("guard");
-
-		scn.PassCurrentPhaseActions();
-		scn.FreepsChooseToMove();
-		scn.SkipToPhase(Phase.REGROUP);
-
-		// 1 dead comp, but it's non-unique so it shouldn't trigger
-		assertEquals(1, scn.GetFreepsDeadCount());
-		assertFalse(scn.FreepsHasOptionalTriggerAvailable());
-
-		scn.FreepsMoveCardToDeadPile("gimli", "farin");
-
-		scn.PassCurrentPhaseActions();
-		scn.ShadowPassCurrentPhaseAction(); // reconciliation
-		scn.FreepsChooseToMove();
-		scn.SkipToPhase(Phase.REGROUP);
-
-		// 3 comps, at least 1 of which is unique, should trigger
-		assertEquals(3, scn.GetFreepsDeadCount());
-		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
-
-		scn.FreepsAcceptOptionalTrigger();
-
-		assertTrue( scn.FreepsDecisionAvailable("Choose how many dead unique companions to spot"));
-		// 2 unique comps in the dead pile should restrict the max
-		assertEquals("2", scn.FreepsGetADParam("max")[0]);
-
-		scn.FreepsChoose("1");
-		assertTrue(scn.FreepsDecisionAvailable("Choose cards to exert"));
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to discard"));
 		assertEquals(3, scn.GetFreepsCardChoiceCount());
+		scn.FreepsChooseCard(bladetip);
+		assertEquals(Zone.ATTACHED, lament.getZone());
+		assertEquals(Zone.DISCARD, bladetip.getZone());
+		assertEquals(Zone.ATTACHED, lastalliance.getZone());
+		assertEquals(1, scn.GetWoundsOn(gimli));
+	}
 
-		assertEquals(0, scn.GetWoundsOn(elrond));
-		scn.FreepsChooseCard(elrond);
+	@Test
+	public void AtStartOfRegroupBearerDiscardsAndHealsIfGandalfIsDead() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
 
-		assertTrue(scn.FreepsDecisionAvailable("Choose card"));
-		assertEquals(2, scn.GetStackedCards(lament).size());
-		assertEquals(2, scn.GetFreepsCardChoiceCount());
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl lament = scn.GetFreepsCard("lament");
+		PhysicalCardImpl lastalliance = scn.GetFreepsCard("lastalliance");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		PhysicalCardImpl guard = scn.GetFreepsCard("guard");
 
-		assertEquals(1, scn.GetWoundsOn(elrond));
-		assertEquals(0, scn.GetFreepsHandCount());
-		scn.FreepsChooseCard(axe1);
+		scn.FreepsMoveCharToTable(gimli, gandalf);
+		scn.AddWoundsToChar(gimli, 1);
+		scn.AddWoundsToChar(gandalf, 4);
+		scn.FreepsAttachCardsTo(gimli, lament);
+		scn.FreepsAttachCardsTo(gimli, lastalliance); //can't usually go there but who cares
+		scn.FreepsMoveCardToHand(guard);
 
-		assertEquals(Zone.HAND, axe1.getZone());
-		assertEquals(Zone.STACKED, axe2.getZone());
-		assertEquals(1, scn.GetFreepsHandCount());
+		PhysicalCardImpl bladetip = scn.GetShadowCard("bladetip");
+		scn.AttachCardsTo(gimli, bladetip);
 
+		scn.StartGame();
+
+		assertEquals(Zone.DEAD, gandalf.getZone());
+		assertEquals(1, scn.GetWoundsOn(gimli));
+		scn.SkipToPhase(Phase.REGROUP);
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to discard"));
+		scn.FreepsChooseCard(bladetip);
+		assertEquals(0, scn.GetWoundsOn(gimli));
 	}
 }

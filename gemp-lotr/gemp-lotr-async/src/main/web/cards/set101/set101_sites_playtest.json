@@ -62,7 +62,7 @@
     "site": 3,
     "block": "fellowship",
     "direction": "left",
-    "keyword": "Sanctuary",
+    "keyword": ["Sanctuary", "Forest"],
     "effects": {
       "type": "activated",
       "phase": "fellowship",
@@ -83,7 +83,7 @@
           "modifier": {
             "type": "modifyStrength",
             "filter": "memory(pumpedComp)",
-            "amount": 2
+            "amount": 1
           },
           "until": "endofturn"
         }
