@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
-import sun.security.pkcs11.P11TlsKeyMaterialGenerator;
 
 import java.util.HashMap;
 
