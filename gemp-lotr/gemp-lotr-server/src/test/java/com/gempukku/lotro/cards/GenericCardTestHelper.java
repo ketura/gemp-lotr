@@ -666,10 +666,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
     {
         return _game.getModifiersQuerying().getStrength(_game, card);
     }
-    public int GetVitality(PhysicalCardImpl card)
-    {
-        return _game.getModifiersQuerying().getVitality(_game, card);
-    }
+    public int GetVitality(PhysicalCardImpl card) { return _game.getModifiersQuerying().getVitality(_game, card); }
     public int GetSiteNumber(PhysicalCardImpl card) { return _game.getModifiersQuerying().getMinionSiteNumber(_game, card); }
 
     public boolean HasKeyword(PhysicalCardImpl card, Keyword keyword)
@@ -680,6 +677,12 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetKeywordCount(PhysicalCardImpl card, Keyword keyword)
     {
         return _game.getModifiersQuerying().getKeywordCount(_game, card, keyword);
+    }
+
+    public boolean IsType(PhysicalCardImpl card, CardType type)
+    {
+        return card.getBlueprint().getCardType() == type
+            || _game.getModifiersQuerying().isAdditionalCardType(_game, card, type);
     }
 
     public Boolean CanBeAssigned(PhysicalCardImpl card)
