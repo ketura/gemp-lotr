@@ -90,7 +90,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     }
 
     @Override
-    public Map<String, LotroDeck> getPlayerDecks(String tournamentId) {
+    public Map<String, LotroDeck> getPlayerDecks(String tournamentId, String format) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select player, deck_name, deck from tournament_player where tournament_id=? and deck_name is not null")) {
@@ -102,7 +102,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                             String deckName = rs.getString(2);
                             String contents = rs.getString(3);
 
-                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents));
+                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents, format));
                         }
                         return result;
                     }
@@ -134,7 +134,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     }
 
     @Override
-    public LotroDeck getPlayerDeck(String tournamentId, String playerName) {
+    public LotroDeck getPlayerDeck(String tournamentId, String playerName, String format) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select deck_name, deck from tournament_player where tournament_id=? and player=?")) {
@@ -142,7 +142,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                     statement.setString(2, playerName);
                     try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
-                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2));
+                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2), format);
                         else
                             return null;
                     }

@@ -38,7 +38,7 @@ public class DefaultTournamentTest {
         Set<String> droppedAfterRoundThree = new HashSet<String>(Arrays.asList("p2", "p3", "p4", "p5", "p6", "p7", "p8"));
 
         Mockito.when(tournamentService.getPlayers(tournamentId)).thenReturn(allPlayers);
-        Mockito.when(tournamentService.getPlayerDecks(tournamentId)).thenReturn(playerDecks);
+        Mockito.when(tournamentService.getPlayerDecks(tournamentId, "format")).thenReturn(playerDecks);
 
         PairingMechanism pairingMechanism = Mockito.mock(PairingMechanism.class);
         Mockito.when(pairingMechanism.shouldDropLoser()).thenReturn(true);

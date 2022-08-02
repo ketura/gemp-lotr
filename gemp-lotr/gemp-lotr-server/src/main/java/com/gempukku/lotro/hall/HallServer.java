@@ -570,13 +570,18 @@ public class HallServer extends AbstractServer {
     }
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
-        format.validateDeck(lotroDeck);
+        String validation = format.validateDeckForHall(lotroDeck);
+        if(validation == null || !validation.isEmpty())
+        {
+            throw new DeckInvalidException(validation);
+        }
 
         // Now check if player owns all the cards
         if (collectionType.getCode().equals("default")) {
             CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
 
             LotroDeck filteredSpecialCardsDeck = new LotroDeck(lotroDeck.getDeckName());
+            filteredSpecialCardsDeck.setTargetFormat(lotroDeck.getTargetFormat());
             if (lotroDeck.getRing() != null)
                 filteredSpecialCardsDeck.setRing(filterCard(lotroDeck.getRing(), ownedCollection));
             filteredSpecialCardsDeck.setRingBearer(filterCard(lotroDeck.getRingBearer(), ownedCollection));

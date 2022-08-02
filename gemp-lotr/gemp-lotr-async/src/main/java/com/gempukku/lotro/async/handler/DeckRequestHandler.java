@@ -8,10 +8,12 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -21,6 +23,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DeckRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private DeckDAO _deckDao;
@@ -28,6 +31,8 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     private LotroCardBlueprintLibrary _library;
     private LotroFormatLibrary _formatLibrary;
     private LotroServer _lotroServer;
+
+    private Gson JsonConvert = new Gson();
 
     public DeckRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -40,74 +45,113 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("/list") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("/list") && request.method() == HttpMethod.GET) {
             listDecks(request, responseWriter);
-        } else if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("") && request.method() == HttpMethod.GET) {
             getDeck(request, responseWriter);
-        } else if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("") && request.method() == HttpMethod.POST) {
             saveDeck(request, responseWriter);
-        } else if (uri.equals("/html") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/html") && request.method() == HttpMethod.GET) {
             getDeckInHtml(request, responseWriter);
-        } else if (uri.equals("/rename") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/rename") && request.method() == HttpMethod.POST) {
             renameDeck(request, responseWriter);
-        } else if (uri.equals("/delete") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/delete") && request.method() == HttpMethod.POST) {
             deleteDeck(request, responseWriter);
-        } else if (uri.equals("/stats") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/stats") && request.method() == HttpMethod.POST) {
             getDeckStats(request, responseWriter);
+        } else if (uri.equals("/formats") && request.method() == HttpMethod.GET) {
+            getAllFormats(request, responseWriter);
         } else {
             throw new HttpProcessingException(404);
         }
     }
 
+    public class Format {
+        public String code;
+        public String name;
+        public Format(String c, String n) {
+            code = c;
+            name = n;
+        }
+    }
+
+    private void getAllFormats(HttpRequest request, ResponseWriter responseWriter) {
+
+
+        try {
+            Map<String, LotroFormat> formats = _formatLibrary.getHallFormats();
+            Object[] formats2 = formats.entrySet().stream()
+                    .map(x -> new Format(x.getKey(), x.getValue().getName())).toArray();
+
+            String json = JsonConvert.toJson(formats2);
+            responseWriter.writeJsonResponse(json);
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
+
+
+    }
+
     private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String contents = getFormParameterSafely(postDecoder, "deckContents");
-        
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String targetFormat = getFormParameterSafely(postDecoder, "targetFormat");
+            String contents = getFormParameterSafely(postDecoder, "deckContents");
 
-        LotroDeck deck = _lotroServer.createDeckWithValidate("tempDeck", contents);
-        if (deck == null)
-            throw new HttpProcessingException(400);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        int fpCount = 0;
-        int shadowCount = 0;
-        for (String card : deck.getAdventureCards()) {
-            Side side = _library.getLotroCardBlueprint(card).getSide();
-            if (side == Side.SHADOW)
-                shadowCount++;
-            else if (side == Side.FREE_PEOPLE)
-                fpCount++;
-        }
+            LotroDeck deck = _lotroServer.createDeckWithValidate("tempDeck", contents, targetFormat);
+            if (deck == null)
+                throw new HttpProcessingException(400);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
-
-        StringBuilder valid = new StringBuilder();
-        StringBuilder invalid = new StringBuilder();
-        for (LotroFormat format : _formatLibrary.getHallFormats().values()) {
-            try {
-                format.validateDeck(deck);
-                valid.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
-            } catch (DeckInvalidException exp) {
-                if (!format.getErrataCardMap().isEmpty()) {
-                    LotroDeck deckWithErrata = format.applyErrata(deck);
-                    try {
-                        format.validateDeck(deckWithErrata);
-                        valid.append("<b>" + format.getName() + "</b>: <font color='yellow'>valid (with errata automatically applied)</font><br/>");
-                    } catch (DeckInvalidException exp2) {
-                        invalid.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
-                    }
-                } else {
-                    invalid.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
-                }
+            int fpCount = 0;
+            int shadowCount = 0;
+            for (String card : deck.getAdventureCards()) {
+                Side side = _library.getLotroCardBlueprint(card).getSide();
+                if (side == Side.SHADOW)
+                    shadowCount++;
+                else if (side == Side.FREE_PEOPLE)
+                    fpCount++;
             }
-        }
-        sb.append(valid);
-        sb.append(invalid);
 
-        responseWriter.writeHtmlResponse(sb.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
+
+            StringBuilder valid = new StringBuilder();
+            StringBuilder invalid = new StringBuilder();
+
+            LotroFormat format = _formatLibrary.getHallFormats().get(targetFormat);
+            if(format == null || targetFormat == null)
+            {
+                responseWriter.writeHtmlResponse("Invalid format: " + targetFormat);
+            }
+
+            List<String> validation = format.validateDeck(deck);
+            List<String> errataValidation = null;
+            if (!format.getErrataCardMap().isEmpty()) {
+                LotroDeck deckWithErrata = format.applyErrata(deck);
+                errataValidation = format.validateDeck(deckWithErrata);
+            }
+            if(validation.size() == 0) {
+                valid.append("<b>" + format.getName() + "</b>: <font color='green'>Valid</font><br/>");
+            }
+            else if(errataValidation != null && errataValidation.size() == 0) {
+                valid.append("<b>" + format.getName() + "</b>: <font color='green'>Valid</font> <font color='yellow'>(with errata automatically applied)</font><br/>");
+                String output = String.join("<br>", validation).replace("\n", "<br>");
+                invalid.append("<font color='yellow'>" + output + "</font><br/>");
+            }
+            else {
+                String output = String.join("<br>", validation).replace("\n", "<br>");
+                invalid.append("<b>" + format.getName() + "</b>: <font color='red'>" + output + "</font><br/>");
+            }
+
+            sb.append(valid);
+            sb.append(invalid);
+
+            responseWriter.writeHtmlResponse(sb.toString());
         } finally {
             postDecoder.destroy();
         }
@@ -131,17 +175,17 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     private void renameDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
-        if (deck == null)
-            throw new HttpProcessingException(404);
+            LotroDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
+            if (deck == null)
+                throw new HttpProcessingException(404);
 
-        responseWriter.writeXmlResponse(serializeDeck(deck));
+            responseWriter.writeXmlResponse(serializeDeck(deck));
         } finally {
             postDecoder.destroy();
         }
@@ -150,26 +194,27 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     private void saveDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        String contents = getFormParameterSafely(postDecoder, "deckContents");
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            String targetFormat = getFormParameterSafely(postDecoder, "targetFormat");
+            String contents = getFormParameterSafely(postDecoder, "deckContents");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(deckName, contents);
-        if (lotroDeck == null)
-            throw new HttpProcessingException(400);
+            LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(deckName, contents, targetFormat);
+            if (lotroDeck == null)
+                throw new HttpProcessingException(400);
 
-        _deckDao.saveDeckForPlayer(resourceOwner, deckName, lotroDeck);
+            _deckDao.saveDeckForPlayer(resourceOwner, deckName, targetFormat, lotroDeck);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
-        Element deckElem = doc.createElement("ok");
-        doc.appendChild(deckElem);
+            Document doc = documentBuilder.newDocument();
+            Element deckElem = doc.createElement("ok");
+            doc.appendChild(deckElem);
 
-        responseWriter.writeXmlResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } finally {
             postDecoder.destroy();
         }
@@ -189,6 +234,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");
         result.append("<h1>" + StringEscapeUtils.escapeHtml(deck.getDeckName()) + "</h1>");
+        result.append("<h2>Format: " + StringEscapeUtils.escapeHtml(deck.getTargetFormat()) + "</h2>");
         String ringBearer = deck.getRingBearer();
         if (ringBearer != null)
             result.append("<b>Ring-bearer:</b> " + GameUtils.getFullName(_library.getLotroCardBlueprint(ringBearer)) + "<br/>");
@@ -273,6 +319,10 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         Document doc = documentBuilder.newDocument();
         Element deckElem = doc.createElement("deck");
         doc.appendChild(deckElem);
+
+        Element targetFormat = doc.createElement("targetFormat");
+        targetFormat.setAttribute("formatName", deck.getTargetFormat());
+        deckElem.appendChild(targetFormat);
 
         if (deck.getRingBearer() != null) {
             Element ringBearer = doc.createElement("ringBearer");

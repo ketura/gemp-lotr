@@ -158,7 +158,7 @@ public class LotroServer extends AbstractServer {
         return _deckDao.getDeckForPlayer(player, deckName);
     }
 
-    public LotroDeck createDeckWithValidate(String deckName, String contents) {
+    public LotroDeck createDeckWithValidate(String deckName, String contents, String targetFormat) {
         if (contents.contains("|")) {
             // New format
             int cnt = 0;
@@ -170,14 +170,14 @@ public class LotroServer extends AbstractServer {
             if (cnt != 3)
                 return null;
 
-            return _deckDao.buildDeckFromContents(deckName, contents);
+            return _deckDao.buildDeckFromContents(deckName, contents, targetFormat);
         } else {
             // Old format
             List<String> cards = Arrays.asList(contents.split(","));
             if (cards.size() < 2)
                 return null;
 
-            return _deckDao.buildDeckFromContents(deckName, contents);
+            return _deckDao.buildDeckFromContents(deckName, contents, targetFormat);
         }
     }
 

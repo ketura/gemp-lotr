@@ -72,17 +72,21 @@ var GempLotrHallUI = Class.extend({
         this.supportedFormatsSelect = $("<select style='width: 180px'></select>");
         this.supportedFormatsSelect.hide();
 
-        this.createTableButton = $("<button>Create table</button>");
+        this.createTableButton = $('<button id="createTableBut">Create table</button>');
         $(this.createTableButton).button().click(
             function () {
-                that.supportedFormatsSelect.hide();
-                that.decksSelect.hide();
+                //that.supportedFormatsSelect.hide();
+                //that.decksSelect.hide();
                 that.createTableButton.hide();
+                // $("#createTableBut").prop("disabled", true);
+                // $("#createTableBut").prop("aria-disabled", true);
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
                 var timer = that.timerSelect.val();
                 if (deck != null)
+                    console.log("creating table");
                     that.comm.createTable(format, deck, timer, function (xml) {
+                        console.log("received table response");
                         that.processResponse(xml);
                     });
             });
@@ -309,9 +313,10 @@ var GempLotrHallUI = Class.extend({
 
     updateHall:function () {
         var that = this;
-
+        console.log("updating");
         this.comm.updateHall(
             function (xml) {
+                console.log("calling process");
                 that.processHall(xml);
             }, this.hallChannelId, this.hallErrorMap());
     },
@@ -383,9 +388,10 @@ var GempLotrHallUI = Class.extend({
             for (var i = 0; i < decks.length; i++) {
                 var deck = decks[i];
                 var deckName = decks[i].childNodes[0].nodeValue;
-                var deckElem = $("<option></option>");
-                deckElem.attr("value", deckName);
-                deckElem.text(deckName);
+                deckName = deckName.replace("<b>", "").replace("</b>", "");
+                var deckElem = $("<option/>")
+                        .attr("value", deckName.replace(/^.*?- /, ""))
+                        .text(deckName);
                 this.decksSelect.append(deckElem);
             }
             this.decksSelect.css("display", "");
@@ -421,6 +427,8 @@ var GempLotrHallUI = Class.extend({
 
     processHall:function (xml) {
         var that = this;
+        
+        console.log("processing");
 
         var root = xml.documentElement;
         if (root.tagName == "hall") {
@@ -728,8 +736,11 @@ var GempLotrHallUI = Class.extend({
                 this.decksSelect.css("display", "");
             if (this.createTableButton.css("display") == "none")
                 this.createTableButton.css("display", "");
+            // if (this.createTableButton.is('[disabled]'))
+            //     this.createTableButton.prop("disabled", false);
 
             setTimeout(function () {
+                console.log("set timeout");
                 that.updateHall();
             }, 100);
         }

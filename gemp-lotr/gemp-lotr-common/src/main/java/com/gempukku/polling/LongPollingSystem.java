@@ -16,8 +16,8 @@ public class LongPollingSystem {
 
     private final Set<ResourceWaitingRequest> _waitingActions = Collections.synchronizedSet(new HashSet<ResourceWaitingRequest>());
 
-    private long _pollingInterval = 1000;
-    private long _pollingLength = 10000;
+    private long _pollingInterval = 100;
+    private long _pollingLength = 5000;
 
     private ProcessingRunnable _timeoutRunnable;
     private ExecutorService _executorService = new ThreadPoolExecutor(10, Integer.MAX_VALUE,

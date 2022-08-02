@@ -10,14 +10,14 @@
       "hall":false
     },
     {
-        "name":"Fellowship block",
+        "name":"Fellowship Block",
         "code":"fotr_block",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
         "set":[1, 2, 3]
     },
     {
-        "name":"Fellowship block (PC)",
+        "name":"Fellowship Block (PC)",
         "code":"pc_fotr_block",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -32,14 +32,14 @@
         }
     },
     {
-        "name":"Movie block",
+        "name":"Movie Block",
         "code":"movie",
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     },
     {
-        "name":"Movie block (PC)",
+        "name":"Movie Block (PC)",
         "code":"pc_movie",
         "sites":"KING",
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -101,7 +101,7 @@
         "set":[0, 1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14]
     },
     {
-        "name":"Fellowship block - Set 1",
+        "name":"Fellowship Block - Set 1",
         "code":"fotr1_block",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -109,7 +109,7 @@
         "hall":false
     },
     {
-        "name":"Fellowship block - Sets 1-2",
+        "name":"Fellowship Block - Sets 1-2",
         "code":"fotr2_block",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -117,7 +117,7 @@
         "hall":false
     },
     {
-        "name":"Fellowship block - Poorman's",
+        "name":"Fellowship Block - Poorman's",
         "code":"fotr_poorman",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -142,14 +142,14 @@
         "hall":false
     },
     {
-        "name":"Towers block",
+        "name":"Towers Block",
         "code":"ttt_block",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "set":[4, 5, 6]
     },
     {
-        "name":"Towers block - Set 4",
+        "name":"Towers Block - Set 4",
         "code":"ttt1_block",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -157,7 +157,7 @@
         "hall":false
     },
     {
-        "name":"Towers block - Sets 4-5",
+        "name":"Towers Block - Sets 4-5",
         "code":"ttt2_block",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -165,7 +165,7 @@
         "hall":false
     },
     {
-        "name":"Towers standard",
+        "name":"Towers Standard",
         "code":"towers_standard",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -182,7 +182,7 @@
         "hall":true
     },
     {
-        "name": "Anything goes",
+        "name": "Anything Goes",
         "code":"rev_tow_sta",
         "sites": "SPECIAL",
         "cancelRingBearerSkirmish":true,
@@ -194,7 +194,7 @@
         ]
     },
     {
-        "name":"Towers standard - Sets 1-4",
+        "name":"Towers Standard - Sets 1-4",
         "code":"ttt_standard",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -203,7 +203,7 @@
         "hall":false
     },
     {
-        "name":"Towers standard - Sets 1-5",
+        "name":"Towers Standard - Sets 1-5",
         "code":"bohd_standard",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -212,7 +212,7 @@
         "hall":false
     },
     {
-        "name":"Towers standard - Sets 2-6",
+        "name":"Towers Standard - Sets 2-6",
         "code":"ts_no_fotr",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -229,7 +229,7 @@
         "set":[1, 2, 3, 4, 5, 6, 7]
     },
     {
-        "name":"King block",
+        "name":"King Block",
         "code":"king_block",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
@@ -237,7 +237,7 @@
         "set":[7, 8, 10]
     },
     {
-        "name":"King block - Set 7",
+        "name":"King Block - Set 7",
         "code":"king1_block",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
@@ -246,7 +246,7 @@
         "hall":false
     },
     {
-        "name":"King block - Sets 7-8",
+        "name":"King Block - Sets 7-8",
         "code":"king2_block",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
@@ -255,7 +255,7 @@
         "hall":false
     },
     {
-        "name":"Movie block - Sets 1-7",
+        "name":"Movie Block - Sets 1-7",
         "code":"movie7",
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
@@ -263,7 +263,7 @@
         "hall":false
     },
     {
-        "name":"Movie block - Sets 1-8",
+        "name":"Movie Block - Sets 1-8",
         "code":"movie8",
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
@@ -271,7 +271,7 @@
         "hall":false
     },
     {
-        "name":"Movie block - Sets 1-9",
+        "name":"Movie Block - Sets 1-9",
         "code":"movie9",
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
@@ -279,7 +279,7 @@
         "hall":false
     },
     {
-        "name":"Movie block - Sets 1-8, 10",
+        "name":"Movie Block - Sets 1-8, 10",
         "code":"movie_sans9",
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
@@ -287,20 +287,20 @@
         "hall":false
     },
     {
-        "name":"War of the Ring block",
+        "name":"War of the Ring Block",
         "code":"war_block",
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
         "set":[11, 12, 13]
     },
     {
-        "name":"Hunter block",
+        "name":"Hunters Block",
         "code":"hunter_block",
         "sites":"SHADOWS",
         "set":[15, 17, 18]
     },
     {
-        "name":"War of the Ring standard",
+        "name":"War of the Ring Standard",
         "code":"war_standard",
         "sites":"SHADOWS",
         "banned":["4_73", "4_276", "4_304", "7_49", "8_1", "10_2", "10_11", "10_91", "11_31", "11_100", "11_132"],
@@ -321,7 +321,7 @@
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     },
     {
-        "name":"War of the Ring block - Set 11",
+        "name":"War of the Ring Block - Set 11",
         "code":"war_block11",
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
@@ -329,7 +329,7 @@
         "hall":false
     },
     {
-        "name":"War of the Ring block - Sets 11-12",
+        "name":"War of the Ring Block - Sets 11-12",
         "code":"war_block12",
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
@@ -337,7 +337,7 @@
         "hall":false
     },
     {
-        "name":"War of the Ring block - Sets 10-14",
+        "name":"War of the Ring Block - Sets 10-14",
         "code":"war_block14",
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
@@ -354,7 +354,7 @@
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     },
     {
-        "name":"Movie block, no GLR (10R11)",
+        "name":"Movie Block, no GLR (10R11)",
         "code":"movie_exp",
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "10_11", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
@@ -412,7 +412,7 @@
         "hall": false
     },
     {
-        "name":"Fellowship block - Highlander",
+        "name":"Fellowship Block - Highlander",
         "code":"fotr_highlander",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -421,7 +421,7 @@
         "hall":false
     },
     {
-        "name":"Movie block - Highlander",
+        "name":"Movie Block - Highlander",
         "code":"movie_highlander",
         "sites":"KING",
         "maximumSameName":1,
@@ -483,7 +483,7 @@
         "hall":false
     },
     {
-        "name":"PLAYTEST - Fellowship block (PC)",
+        "name":"PLAYTEST - Fellowship Block (PC)",
         "code":"test_pc_fotr_block",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -500,7 +500,7 @@
         }
     },
     {
-        "name":"PLAYTEST - Movie block (PC)",
+        "name":"PLAYTEST - Movie Block (PC)",
         "code":"test_pc_movie",
         "sites":"KING",
         "hall":true,
