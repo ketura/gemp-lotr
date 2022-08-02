@@ -72,7 +72,7 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                             final CostToEffectAction playCardAction = PlayUtils.getPlayCardAction(actionContext.getGame(), cardsToPlay.iterator().next(), costModifier, onFilterable, false);
                             return new StackActionEffect(playCardAction);
                         } else {
-                            return null; //Fix Wizard is Never Late by changing this to a DoNothingEffect?
+                            return null;
                         }
                     }
 
