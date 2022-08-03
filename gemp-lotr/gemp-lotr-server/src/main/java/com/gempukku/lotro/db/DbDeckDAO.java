@@ -1,20 +1,14 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DbDeckDAO implements DeckDAO {
     private DbAccess _dbAccess;
@@ -52,18 +46,18 @@ public class DbDeckDAO implements DeckDAO {
         return deck;
     }
 
-    public synchronized Set<String> getPlayerDeckNames(Player player) {
+    public synchronized Set<Map.Entry<String, String>> getPlayerDeckNames(Player player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select name, target_format from deck where player_id=?")) {
                     statement.setInt(1, player.getId());
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<Map.Entry<String, String>> result = new HashSet<>();
 
                         while (rs.next()) {
                             String deckName = rs.getString(1);
                             String targetFormat = rs.getString(2);
-                            result.add("<b>[" + targetFormat + "] - </b>" + deckName);
+                            result.add(new AbstractMap.SimpleEntry<>(targetFormat, deckName));
                         }
 
                         return result;

@@ -273,10 +273,35 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    getLibraryDeck:function (deckName, callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/deck/library",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId"),
+                deckName:deckName },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
     getDecks:function (callback, errorMap) {
         $.ajax({
             type:"GET",
             url:this.url + "/deck/list",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    getLibraryDecks:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/deck/libraryList",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},

@@ -366,7 +366,18 @@ var GempLotrHallUI = Class.extend({
     updateDecks:function () {
         var that = this;
         this.comm.getDecks(function (xml) {
-            that.processDecks(xml);
+            count = xml.documentElement.getElementsByTagName("deck").length;
+            if(count == 0)
+            {
+                that.comm.getLibraryDecks(function(xml) {
+                    that.processDecks(xml);
+                });
+            }
+            else
+            {
+                that.processDecks(xml);
+            }
+            
         });
     },
 
@@ -382,16 +393,21 @@ var GempLotrHallUI = Class.extend({
 
     processDecks:function (xml) {
         var root = xml.documentElement;
+        
+        function formatDeckName(formatName, deckName)
+        {
+            return "[" + formatName + "] - " + deckName;
+        }
         if (root.tagName == "decks") {
             this.decksSelect.html("");
             var decks = root.getElementsByTagName("deck");
             for (var i = 0; i < decks.length; i++) {
                 var deck = decks[i];
-                var deckName = decks[i].childNodes[0].nodeValue;
-                deckName = deckName.replace("<b>", "").replace("</b>", "");
+                var deckName = deck.childNodes[0].nodeValue;
+                var formatName = deck.getAttribute("targetFormat");
                 var deckElem = $("<option/>")
-                        .attr("value", deckName.replace(/^.*?- /, ""))
-                        .text(deckName);
+                        .attr("value", deckName)
+                        .text(formatDeckName(formatName, deckName));
                 this.decksSelect.append(deckElem);
             }
             this.decksSelect.css("display", "");

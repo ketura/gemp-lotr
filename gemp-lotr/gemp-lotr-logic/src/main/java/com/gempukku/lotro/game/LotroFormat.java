@@ -20,8 +20,12 @@ public interface LotroFormat {
     public boolean winOnControlling5Sites();
 
     public boolean isPlaytest();
+    public boolean hallVisible();
 
     public String getName();
+
+    public String getCode();
+    public int getOrder();
 
     public String validateCard(String cardId);
 

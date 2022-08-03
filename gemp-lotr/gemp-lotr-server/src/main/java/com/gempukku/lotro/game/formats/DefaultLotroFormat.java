@@ -4,19 +4,10 @@ import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.Adventure;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.DeckInvalidException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import javax.lang.model.util.AbstractTypeVisitor7;
-import javax.smartcardio.Card;
-import java.security.cert.X509Certificate;
-import java.sql.ResultSet;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +17,9 @@ public class DefaultLotroFormat implements LotroFormat {
     private Adventure _adventure;
     private LotroCardBlueprintLibrary _library;
     private String _name;
+    private String _code;
+    private int _order;
+    private boolean _hallVisible;
     private SitesBlock _siteBlock;
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
@@ -48,14 +42,40 @@ public class DefaultLotroFormat implements LotroFormat {
     private List<String> _limit3Cards = new ArrayList<String>();
     private Map<String,String> _errataCardMap = new TreeMap<String,String>();
 
-    public DefaultLotroFormat(Adventure adventure,
-                              LotroCardBlueprintLibrary library, String name, String surveyUrl,
+    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, LotroFormatLibrary.FormatDefinition def){
+        this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
+                def.validateShadowFPCount, def.minimumDeckSize, def.maximumSameName, def.mulliganRule, def.cancelRingBearerSkirmish,
+                def.ruleOfFour, def.winAtEndOfRegroup, def.winOnControlling5Sites, def.playtest, def.hall);
+
+        if(def.set != null)
+            def.set.stream().forEach(this::addValidSet);
+        if(def.banned != null)
+            def.banned.stream().forEach(this::addBannedCard);
+        if(def.restricted != null)
+            def.restricted.stream().forEach(this::addRestrictedCard);
+        if(def.valid != null)
+            def.valid.stream().forEach(this::addValidCard);
+        if(def.limit2 != null)
+            def.limit2.stream().forEach(this::addLimit2Card);
+        if(def.limit3 != null)
+            def.limit3.stream().forEach(this::addLimit3Card);
+        if(def.restrictedName != null)
+            def.restrictedName.stream().forEach(this::addRestrictedCardName);
+        if(def.errata != null)
+            def.errata.entrySet().stream().forEach(pair -> addCardErrata(pair.getKey(), pair.getValue()));
+    }
+
+    public DefaultLotroFormat(LotroCardBlueprintLibrary library,
+                              Adventure adventure, String name, String code, int order, String surveyUrl,
                               SitesBlock siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
-                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites, boolean playtest) {
+                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites,
+                              boolean playtest, boolean hallVisible) {
         _adventure = adventure;
         _library = library;
         _name = name;
+        _code = code;
+        _order = order;
         _surveyUrl = surveyUrl;
         _siteBlock = siteBlock;
         _validateShadowFPCount = validateShadowFPCount;
@@ -67,6 +87,7 @@ public class DefaultLotroFormat implements LotroFormat {
         _winAtEndOfRegroup = winAtEndOfRegroup;
         _winOnControlling5Sites = winOnControlling5Sites;
         _isPlaytest = playtest;
+        _hallVisible = hallVisible;
     }
 
     @Override
@@ -82,6 +103,18 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public String getName() {
         return _name;
+    }
+    @Override
+    public String getCode() {
+        return _code;
+    }
+    @Override
+    public int getOrder() {
+        return _order;
+    }
+    @Override
+    public boolean hallVisible() {
+        return _hallVisible;
     }
 
     @Override

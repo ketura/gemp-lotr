@@ -3,6 +3,7 @@ package com.gempukku.lotro.db;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
+import java.util.Map;
 import java.util.Set;
 
 public interface DeckDAO {
@@ -14,7 +15,7 @@ public interface DeckDAO {
 
     public LotroDeck renameDeck(Player player, String oldName, String newName);
 
-    public Set<String> getPlayerDeckNames(Player player);
+    public Set<Map.Entry<String, String>> getPlayerDeckNames(Player player);
 
     public LotroDeck buildDeckFromContents(String deckName, String contents, String target_format);
 }

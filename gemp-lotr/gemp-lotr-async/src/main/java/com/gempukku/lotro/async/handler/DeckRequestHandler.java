@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.Side;
@@ -8,19 +9,21 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,8 +34,6 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     private LotroCardBlueprintLibrary _library;
     private LotroFormatLibrary _formatLibrary;
     private LotroServer _lotroServer;
-
-    private Gson JsonConvert = new Gson();
 
     public DeckRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -47,12 +48,18 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("/list") && request.method() == HttpMethod.GET) {
             listDecks(request, responseWriter);
+        } else if (uri.equals("/libraryList") && request.method() == HttpMethod.GET) {
+            listLibraryDecks(request, responseWriter);
         } else if (uri.equals("") && request.method() == HttpMethod.GET) {
             getDeck(request, responseWriter);
         } else if (uri.equals("") && request.method() == HttpMethod.POST) {
             saveDeck(request, responseWriter);
+        } else if (uri.equals("/library") && request.method() == HttpMethod.GET) {
+            getLibraryDeck(request, responseWriter);
         } else if (uri.equals("/html") && request.method() == HttpMethod.GET) {
             getDeckInHtml(request, responseWriter);
+        } else if (uri.equals("/libraryHtml") && request.method() == HttpMethod.GET) {
+            getLibraryDeckInHtml(request, responseWriter);
         } else if (uri.equals("/rename") && request.method() == HttpMethod.POST) {
             renameDeck(request, responseWriter);
         } else if (uri.equals("/delete") && request.method() == HttpMethod.POST) {
@@ -77,31 +84,24 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
     private void getAllFormats(HttpRequest request, ResponseWriter responseWriter) {
 
+        Map<String, LotroFormat> formats = _formatLibrary.getHallFormats();
+        Object[] formats2 = formats.entrySet().stream()
+                .map(x -> new Format(x.getKey(), x.getValue().getName()))
+                .toArray();
 
-        try {
-            Map<String, LotroFormat> formats = _formatLibrary.getHallFormats();
-            Object[] formats2 = formats.entrySet().stream()
-                    .map(x -> new Format(x.getKey(), x.getValue().getName())).toArray();
-
-            String json = JsonConvert.toJson(formats2);
-            responseWriter.writeJsonResponse(json);
-        }
-        catch(Exception ex)
-        {
-            System.out.println(ex);
-        }
-
-
+        String json = JSON.toJSONString(formats2);
+        responseWriter.writeJsonResponse(json);
     }
 
-    private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws IOException, HttpProcessingException, CardNotFoundException {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String targetFormat = getFormParameterSafely(postDecoder, "targetFormat");
             String contents = getFormParameterSafely(postDecoder, "deckContents");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            //check for valid access
+            getResourceOwnerSafely(request, participantId);
 
             LotroDeck deck = _lotroServer.createDeckWithValidate("tempDeck", contents, targetFormat);
             if (deck == null)
@@ -157,22 +157,22 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void deleteDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void deleteDeck(HttpRequest request, ResponseWriter responseWriter) throws IOException, HttpProcessingException {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
+            _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
         } finally {
             postDecoder.destroy();
         }
     }
 
-    private void renameDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void renameDeck(HttpRequest request, ResponseWriter responseWriter) throws IOException, HttpProcessingException, ParserConfigurationException {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
             String participantId = getFormParameterSafely(postDecoder, "participantId");
@@ -191,7 +191,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void saveDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void saveDeck(HttpRequest request, ResponseWriter responseWriter) throws IOException, HttpProcessingException, ParserConfigurationException {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
             String participantId = getFormParameterSafely(postDecoder, "participantId");
@@ -220,8 +220,8 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void getDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+    private void getDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, CardNotFoundException {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -230,6 +230,30 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         if (deck == null)
             throw new HttpProcessingException(404);
+
+        String result = convertDeckToHTML(deck);
+
+        responseWriter.writeHtmlResponse(result);
+    }
+
+    private void getLibraryDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, CardNotFoundException {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
+        String deckName = getQueryParameterSafely(queryDecoder, "deckName");
+
+        LotroDeck deck = _deckDao.getDeckForPlayer(getLibrarian(), deckName);
+
+        if (deck == null)
+            throw new HttpProcessingException(404);
+
+        String result = convertDeckToHTML(deck);
+
+        responseWriter.writeHtmlResponse(result);
+    }
+
+    public String convertDeckToHTML(LotroDeck deck) throws CardNotFoundException {
+
+        if (deck == null)
+            return null;
 
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");
@@ -265,51 +289,102 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         result.append("</body></html>");
 
-        responseWriter.writeHtmlResponse(result.toString());
+        return result.toString();
     }
 
-    private void getDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+    private void getDeck(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, ParserConfigurationException {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
-
-        if (deck == null) {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = documentBuilder.newDocument();
-            Element deckElem = doc.createElement("deck");
-            doc.appendChild(deckElem);
-
-            responseWriter.writeXmlResponse(doc);
-        } else {
-            responseWriter.writeXmlResponse(serializeDeck(deck));
-        }
+        responseWriter.writeXmlResponse(serializeDeck(resourceOwner, deckName));
     }
 
-    private void listDecks(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+    private void getLibraryDeck(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, ParserConfigurationException {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
+        String deckName = getQueryParameterSafely(queryDecoder, "deckName");
+
+        responseWriter.writeXmlResponse(serializeDeck(getLibrarian(), deckName));
+    }
+
+    private void listDecks(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, ParserConfigurationException {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        List<String> names = new ArrayList<String>(_deckDao.getPlayerDeckNames(resourceOwner));
-        Collections.sort(names);
+        List<Map.Entry<LotroFormat, String>> decks = GetDeckNamesAndFormats(resourceOwner);
+        SortDecks(decks);
 
+        Document doc = ConvertDeckNamesToXML(decks);
+        responseWriter.writeXmlResponse(doc);
+    }
+
+    private Document ConvertDeckNamesToXML(List<Map.Entry<LotroFormat, String>> deckNames) throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document doc = documentBuilder.newDocument();
         Element decksElem = doc.createElement("decks");
-        for (String name : names) {
+
+        for (Map.Entry<LotroFormat, String> pair : deckNames) {
             Element deckElem = doc.createElement("deck");
-            deckElem.appendChild(doc.createTextNode(name));
+            deckElem.setTextContent(pair.getValue());
+            deckElem.setAttribute("targetFormat", pair.getKey().getName());
             decksElem.appendChild(deckElem);
         }
         doc.appendChild(decksElem);
+        return doc;
+    }
+
+    private List<Map.Entry<LotroFormat, String>> GetDeckNamesAndFormats(Player player)
+    {
+        Set<Map.Entry<String, String>> names = new HashSet(_deckDao.getPlayerDeckNames(player));
+
+        return names.stream()
+                .map(pair -> new AbstractMap.SimpleEntry<>(_formatLibrary.getFormatByName(pair.getKey()), pair.getValue()))
+                .collect(Collectors.toList());
+    }
+
+    private void SortDecks(List<Map.Entry<LotroFormat, String>> decks)
+    {
+        decks.sort(Comparator.comparing((deck) -> {
+            LotroFormat format = deck.getKey();
+            return String.format("%02d", format.getOrder()) + format.getName() + deck.getValue();
+        }));
+    }
+
+    private void listLibraryDecks(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, ParserConfigurationException {
+        List<Map.Entry<LotroFormat, String>> starterDecks = new ArrayList<>();
+        List<Map.Entry<LotroFormat, String>> championshipDecks = new ArrayList<>();
+
+        List<Map.Entry<LotroFormat, String>> decks = GetDeckNamesAndFormats(getLibrarian());
+
+        for (Map.Entry<LotroFormat, String> pair : decks) {
+
+            if (pair.getValue().contains("Starter"))
+                starterDecks.add(pair);
+            else
+                championshipDecks.add(pair);
+        }
+
+        SortDecks(starterDecks);
+        SortDecks(championshipDecks);
+
+        //Keeps all the championship decks at the bottom of the list
+        starterDecks.addAll(championshipDecks);
+
+        Document doc = ConvertDeckNamesToXML(starterDecks);
+
+        // Write the XML response
         responseWriter.writeXmlResponse(doc);
+    }
+
+    private Document serializeDeck(Player player, String deckName) throws ParserConfigurationException {
+        LotroDeck deck = _deckDao.getDeckForPlayer(player, deckName);
+
+        return serializeDeck(deck);
     }
 
     private Document serializeDeck(LotroDeck deck) throws ParserConfigurationException {
@@ -319,6 +394,9 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         Document doc = documentBuilder.newDocument();
         Element deckElem = doc.createElement("deck");
         doc.appendChild(deckElem);
+
+        if (deck == null)
+            return doc;
 
         Element targetFormat = doc.createElement("targetFormat");
         targetFormat.setAttribute("formatName", deck.getTargetFormat());
