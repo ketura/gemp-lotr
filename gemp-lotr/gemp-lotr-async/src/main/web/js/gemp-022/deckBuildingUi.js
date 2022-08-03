@@ -919,14 +919,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     var $option = $("<option/>")
                         .attr("value", o.code)
                         .text(o.name);
-                    if(o.name === "Anything Goes")
-                    {
-                        that.formatSelect.prepend($option);
-                    }
-                    else
-                    {
-                        that.formatSelect.append($option);
-                    }
+                    that.formatSelect.append($option);
                 });
                 
                 that.formatSelect.val(currentFormat);
