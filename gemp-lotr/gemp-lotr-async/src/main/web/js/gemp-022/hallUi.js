@@ -313,10 +313,8 @@ var GempLotrHallUI = Class.extend({
 
     updateHall:function () {
         var that = this;
-        console.log("updating");
         this.comm.updateHall(
             function (xml) {
-                console.log("calling process");
                 that.processHall(xml);
             }, this.hallChannelId, this.hallErrorMap());
     },
@@ -444,8 +442,6 @@ var GempLotrHallUI = Class.extend({
     processHall:function (xml) {
         var that = this;
         
-        console.log("processing");
-
         var root = xml.documentElement;
         if (root.tagName == "hall") {
             this.hallChannelId = root.getAttribute("channelNumber");
@@ -756,7 +752,6 @@ var GempLotrHallUI = Class.extend({
             //     this.createTableButton.prop("disabled", false);
 
             setTimeout(function () {
-                console.log("set timeout");
                 that.updateHall();
             }, 100);
         }
