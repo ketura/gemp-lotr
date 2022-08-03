@@ -226,7 +226,7 @@ public class TriggerConditions {
             return false;
 
         HealResult healResult = (HealResult)effectResult;
-        if (player.equals(healResult.getPerformingPlayer()))
+        if (player == null || player.equals(healResult.getPerformingPlayer()))
             return Filters.and(filters).accepts(game, ((HealResult) effectResult).getHealedCard());
         else
             return false;

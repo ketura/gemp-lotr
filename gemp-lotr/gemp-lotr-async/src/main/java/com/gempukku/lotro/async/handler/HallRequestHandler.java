@@ -54,27 +54,27 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("") && request.method() == HttpMethod.GET) {
             getHall(request, responseWriter);
-        } else if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("") && request.method() == HttpMethod.POST) {
             createTable(request, responseWriter);
-        } else if (uri.equals("/update") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/update") && request.method() == HttpMethod.POST) {
             updateHall(request, responseWriter);
-        } else if (uri.equals("/formats/html") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/formats/html") && request.method() == HttpMethod.GET) {
             getFormats(request, responseWriter);
-        } else if (uri.startsWith("/format/") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.startsWith("/format/") && request.method() == HttpMethod.GET) {
             getFormat(request, uri.substring(8), responseWriter);
-        } else if (uri.startsWith("/queue/") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/queue/") && request.method() == HttpMethod.POST) {
             if (uri.endsWith("/leave")) {
                 leaveQueue(request, uri.substring(7, uri.length() - 6), responseWriter);
             } else {
                 joinQueue(request, uri.substring(7), responseWriter);
             }
-        } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.method() == HttpMethod.POST) {
             dropFromTournament(request, uri.substring(12, uri.length() - 6), responseWriter);
-        } else if (uri.startsWith("/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/") && uri.endsWith("/leave") && request.method() == HttpMethod.POST) {
             leaveTable(request, uri.substring(1, uri.length() - 6), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.POST) {
             joinTable(request, uri.substring(1), responseWriter);
         } else {
             responseWriter.writeError(404);
@@ -93,6 +93,15 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
             responseWriter.writeXmlResponse(null);
         } catch (HallException e) {
+            try {
+                //Try again assuming it's a new player using the default deck library decks
+                Player libraryOwner = _playerDao.getPlayer("Librarian");
+                _hallServer.joinTableAsPlayerWithSpoofedDeck(tableId, resourceOwner, libraryOwner, deckName);
+                responseWriter.writeXmlResponse(null);
+                return;
+            } catch (HallException ex) {
+
+            }
             responseWriter.writeXmlResponse(marshalException(e));
         }
         } finally {
@@ -127,6 +136,16 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.createNewTable(format, resourceOwner, deckName, timer);
             responseWriter.writeXmlResponse(null);
         } catch (HallException e) {
+            try
+            {
+                //try again assuming it's a new player with one of the default library decks selected
+                Player librarian = _playerDao.getPlayer("Librarian");
+                _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer);
+                responseWriter.writeXmlResponse(null);
+            } catch (HallException ex) {
+
+            }
+
             responseWriter.writeXmlResponse(marshalException(e));
         }
         } finally {

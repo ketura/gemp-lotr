@@ -12,11 +12,11 @@ public interface TournamentPlayerDAO {
 
     public void dropPlayer(String tournamentId, String playerName);
 
-    public Map<String, LotroDeck> getPlayerDecks(String tournamentId);
+    public Map<String, LotroDeck> getPlayerDecks(String tournamentId, String format);
 
     public Set<String> getDroppedPlayers(String tournamentId);
 
-    public LotroDeck getPlayerDeck(String tournamentId, String playerName);
+    public LotroDeck getPlayerDeck(String tournamentId, String playerName, String format);
 
     public Set<String> getPlayers(String tournamentId);
 }

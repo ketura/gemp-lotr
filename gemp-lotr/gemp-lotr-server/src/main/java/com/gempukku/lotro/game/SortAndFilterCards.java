@@ -162,11 +162,10 @@ public class SortAndFilterCards {
             LotroFormat format = formatLibrary.getFormat(set);
 
             if (format != null) {
-                try {
-                    format.validateCard(blueprintId);
-                } catch (DeckInvalidException exp) {
+                String valid = format.validateCard(blueprintId);
+                if(valid != null && !valid.isEmpty())
                     return false;
-                }
+
                 final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
                 if (blueprint.getCardType() == CardType.SITE) {
                     if (blueprint.getSiteBlock() == SitesBlock.FELLOWSHIP) {

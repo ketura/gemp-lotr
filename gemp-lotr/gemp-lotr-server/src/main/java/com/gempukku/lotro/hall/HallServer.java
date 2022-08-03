@@ -339,6 +339,26 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    public void spoofNewTable(String type, Player player, Player librarian, String deckName, String timer) throws HallException {
+        if (_shutdown)
+            throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
+
+        GameSettings gameSettings = createGameSettings(type, timer);
+
+        LotroDeck lotroDeck = validateUserAndDeck(gameSettings.getLotroFormat(), librarian, deckName, gameSettings.getCollectionType());
+
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            final GameTable table = tableHolder.createTable(player, gameSettings, lotroDeck);
+            if (table != null)
+                createGameFromTable(table);
+
+            hallChanged();
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
     private GameSettings createGameSettings(String type, String timer) throws HallException {
         League league = null;
         LeagueSerieData leagueSerie = null;
@@ -416,6 +436,27 @@ public class HallServer extends AbstractServer {
 
         GameSettings gameSettings = tableHolder.getGameSettings(tableId);
         LotroDeck lotroDeck = validateUserAndDeck(gameSettings.getLotroFormat(), player, deckName, gameSettings.getCollectionType());
+
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            final GameTable runningTable = tableHolder.joinTable(tableId, player, lotroDeck);
+            if (runningTable != null)
+                createGameFromTable(runningTable);
+
+            hallChanged();
+
+            return true;
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    public boolean joinTableAsPlayerWithSpoofedDeck(String tableId, Player player, Player librarian, String deckName) throws HallException {
+        if (_shutdown)
+            throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
+
+        GameSettings gameSettings = tableHolder.getGameSettings(tableId);
+        LotroDeck lotroDeck = validateUserAndDeck(gameSettings.getLotroFormat(), librarian, deckName, gameSettings.getCollectionType());
 
         _hallDataAccessLock.writeLock().lock();
         try {
@@ -570,13 +611,18 @@ public class HallServer extends AbstractServer {
     }
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
-        format.validateDeck(lotroDeck);
+        String validation = format.validateDeckForHall(lotroDeck);
+        if(validation == null || !validation.isEmpty())
+        {
+            throw new DeckInvalidException(validation);
+        }
 
         // Now check if player owns all the cards
         if (collectionType.getCode().equals("default")) {
             CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
 
             LotroDeck filteredSpecialCardsDeck = new LotroDeck(lotroDeck.getDeckName());
+            filteredSpecialCardsDeck.setTargetFormat(lotroDeck.getTargetFormat());
             if (lotroDeck.getRing() != null)
                 filteredSpecialCardsDeck.setRing(filterCard(lotroDeck.getRing(), ownedCollection));
             filteredSpecialCardsDeck.setRingBearer(filterCard(lotroDeck.getRingBearer(), ownedCollection));

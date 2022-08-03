@@ -110,6 +110,15 @@ public class LotroServerRequestHandler {
         return resourceOwner;
     }
 
+    protected final Player getLibrarian() throws HttpProcessingException {
+        Player resourceOwner = _playerDao.getPlayer("Librarian");
+
+        if (resourceOwner == null)
+            throw new HttpProcessingException(401);
+
+        return resourceOwner;
+    }
+
     protected String getQueryParameterSafely(QueryStringDecoder queryStringDecoder, String parameterName) {
         List<String> parameterValues = queryStringDecoder.parameters().get(parameterName);
         if (parameterValues != null && parameterValues.size() > 0)

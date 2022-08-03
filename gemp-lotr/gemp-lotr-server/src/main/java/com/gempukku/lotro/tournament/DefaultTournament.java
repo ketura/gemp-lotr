@@ -64,7 +64,7 @@ public class DefaultTournament implements Tournament {
         _currentlyPlayingPlayers = new HashSet<String>();
 
         _players = new HashSet<String>(_tournamentService.getPlayers(_tournamentId));
-        _playerDecks = new HashMap<String, LotroDeck>(_tournamentService.getPlayerDecks(_tournamentId));
+        _playerDecks = new HashMap<String, LotroDeck>(_tournamentService.getPlayerDecks(_tournamentId, _format));
         _droppedPlayers = new HashSet<String>(_tournamentService.getDroppedPlayers(_tournamentId));
         _playerByes = new HashMap<String, Integer>(_tournamentService.getPlayerByes(_tournamentId));
         _finishedTournamentMatches = new HashSet<TournamentMatch>();

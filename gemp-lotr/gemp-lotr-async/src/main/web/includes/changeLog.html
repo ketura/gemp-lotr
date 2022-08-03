@@ -1,6 +1,83 @@
 <pre style="font-size:80%">
 <b>Most recent update</b>
 
+<b>2022 August 03</b>
+- Added Library Decks, which are a shared set of decks that anyone can load (tho not save or edit)
+- Added all starter decks and as many Worlds championship 1/2 decks that we could find to the Library
+- Improved the format listings so that all formats are sorted according to chronological order, rather than alphabetical.
+- Added ability to rename decks while on the deck selection window
+- New players now have all of the library decks in the main hall, which persist until they make their first deck.
+
+<b>2022 August 02</b>
+- Fixed each card draw pausing between cards
+- Overhauled how deck validation is evaluated by making each deck define what its
+ target format is.  Now the only validations that show will be for the target format,
+ but ALL problems with the deck will now show instead of just one.  In addition, the 
+ format will show in the deck listing, both in the deckbuilder and in the main hall.
+- All decks default to the Anything Goes format, so you'll have to spend some time 
+ associating each deck with the proper format.
+- Increased deck name limit to 100 characters
+- Edited decks now highlight their title in orange with a * in front (to facilitate
+ much longer deck names pushing the " - edited" post-script off the screen).
+
+<b>2022 July 31</b>
+- Fixed Radagast Deceived (13R80) and Lingering Shadow (12U166) causing the game to crash.  
+
+<b>2022 July 29</b>
+Shadow of the Past Set V1 Revamp!  Lots of adjustments to various cards in the set and released here into playtesting.  <a href="https://blog.lotrtcgpc.net/2022/07/28/set-v1-revamp/">See full details here.</a>
+
+V1 CARDS BUFFED:
+- I Name You Elf-Friend
+- So Bold and So Courteous
+- Frostbite
+- Fell Voices Call
+- Ringwraith in Twilight
+- Merry, Of Buckland
+
+V1 CARDS NERFED:
+- Gandalf, Olorin
+- Saruman, Fell Voice
+
+V1 CARDS TWEAKED: 
+- Counsel of the Wise
+- Harry Goatleaf, In Thrall to the Nine
+
+V1 CARDS REWORKED:
+- Hospitality of the Dwarves
+- One Dwarf in Moria
+- Lament for the Fallen (renamed from Lament for Gandalf)
+- Let Fly the Darts of Lindon
+- Library of Rivendell
+- The White Council
+- Gilraen's Memorial
+- Crebain Flock
+- Crows of Isengard
+- Just a Wisp of Cloud
+- Murder of Crows
+- Pale Crown
+- Bilbo, Of Bag End
+- Prancing Pony Spare Room
+- Rivendell Gateway
+- Lorien Throne Room
+- Amon Hen Ruins
+
+
+<b><i>Several changes below have wide impact.</i></b>  If you notice any issues at all, please do not hesitate to report them <a href="https://forms.gle/ewAuxFPJqUHwHJCa9">on this form here.</a>
+
+General Changes:
+
+- Fixed Halls of My Home (1C18) not rearranging cards in the Shadow deck
+- Fixed A Wizard Is Never Late (1R87) not being able to be played if there are no [Gandalf] cards in the draw deck.  Other cards with such behavior will need fixed on a case-by-case basis, so report them if you see any.
+- Fixed Asfaloth (1U31) not paying twilight when transfered to another character.  Other Free Peoples cards with a self-discount like this likely had the same behavior, but should have been fixed with this.
+- Fixed Grond, Hammer of the Underworld (8R103) PC Errata self-discarding if it was used to discard a card attached to a card in the support area (such as Vilya on an Elrond ally).
+- Fixed Caves of Aglarond Decipher clarification image being rotated
+- Added a message to chat when a player chooses to skip assigning
+- Adding experimental chat output for when a card's effect adds keywords.
+   In particular, this should allow the errata'd Saruman, Keeper of Isengard (3R68) to indicate which Uruk has been targeted.
+- Fixed an infinite loop caused by cards attaching themselves to themselves
+- Fixed minor verbiage issues with various card actions
+
+
 <b>2022 July 12</b>
 - Fixed Black Breath (1U207) highlighting itself incorrectly when there was a Ringwraith minion on the board (such as Bill Ferny) but no Nazgul.
 - Fixed Ulaire Enquea, Duplicitous Lieutenant (17R140) triggering on any heals, even if they didn't come from the Free Peoples player (such as Dark Temptation)

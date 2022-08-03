@@ -273,10 +273,35 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    getLibraryDeck:function (deckName, callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/deck/library",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId"),
+                deckName:deckName },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
     getDecks:function (callback, errorMap) {
         $.ajax({
             type:"GET",
             url:this.url + "/deck/list",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    getLibraryDecks:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/deck/libraryList",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},
@@ -409,7 +434,7 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    saveDeck:function (deckName, contents, callback, errorMap) {
+    saveDeck:function (deckName, targetFormat, contents, callback, errorMap) {
         $.ajax({
             type:"POST",
             url:this.url + "/deck",
@@ -418,6 +443,7 @@ var GempLotrCommunication = Class.extend({
             data:{
                 participantId:getUrlParam("participantId"),
                 deckName:deckName,
+                targetFormat:targetFormat,
                 deckContents:contents},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
@@ -451,19 +477,31 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    getDeckStats:function (contents, callback, errorMap) {
+    getDeckStats:function (contents, targetFormat, callback, errorMap) {
         $.ajax({
             type:"POST",
             url:this.url + "/deck/stats",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId"),
+                targetFormat:targetFormat,
                 deckContents:contents},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"html"
         });
     },
+    getFormats:function (callback, errorMap) {
+            $.ajax({
+                type:"GET",
+                url:this.url + "/deck/formats",
+                cache:true,
+                data:{ },
+                success:this.deliveryCheck(callback),
+                error:this.errorCheck(errorMap),
+                dataType:"json"
+            });
+        },
     startChat:function (room, callback, errorMap) {
         $.ajax({
             type:"GET",

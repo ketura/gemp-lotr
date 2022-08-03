@@ -2234,7 +2234,7 @@ var GempLotrGameUI = Class.extend({
 
                 that.decisionFunction(id, "" + assignmentArray);
                 
-                this.PlaySound("awaitAction");
+                that.PlaySound("awaitAction");
             });
         }
 

@@ -10,7 +10,7 @@ import com.gempukku.lotro.packs.PacksStorage;
 
 import java.util.*;
 
-public class TournamentService {
+public class TournamentService implements ITournamentService {
     private PacksStorage _packsStorage;
     private DraftPackStorage _draftPackStorage;
     private PairingMechanismRegistry _pairingMechanismRegistry;
@@ -39,63 +39,78 @@ public class TournamentService {
         _cardSets = cardSets;
     }
 
+    @Override
     public void clearCache() {
         _tournamentById.clear();
     }
 
+    @Override
     public void addPlayer(String tournamentId, String playerName, LotroDeck deck) {
         _tournamentPlayerDao.addPlayer(tournamentId, playerName, deck);
     }
 
+    @Override
     public void dropPlayer(String tournamentId, String playerName) {
         _tournamentPlayerDao.dropPlayer(tournamentId, playerName);
     }
 
+    @Override
     public Set<String> getPlayers(String tournamentId) {
         return _tournamentPlayerDao.getPlayers(tournamentId);
     }
 
-    public Map<String, LotroDeck> getPlayerDecks(String tournamentId) {
-        return _tournamentPlayerDao.getPlayerDecks(tournamentId);
+    @Override
+    public Map<String, LotroDeck> getPlayerDecks(String tournamentId, String format) {
+        return _tournamentPlayerDao.getPlayerDecks(tournamentId, format);
     }
 
+    @Override
     public Set<String> getDroppedPlayers(String tournamentId) {
         return _tournamentPlayerDao.getDroppedPlayers(tournamentId);
     }
 
-    public LotroDeck getPlayerDeck(String tournamentId, String player) {
-        return _tournamentPlayerDao.getPlayerDeck(tournamentId, player);
+    @Override
+    public LotroDeck getPlayerDeck(String tournamentId, String player, String format) {
+        return _tournamentPlayerDao.getPlayerDeck(tournamentId, player, format);
     }
 
+    @Override
     public void addMatch(String tournamentId, int round, String playerOne, String playerTwo) {
         _tournamentMatchDao.addMatch(tournamentId, round, playerOne, playerTwo);
     }
 
+    @Override
     public void setMatchResult(String tournamentId, int round, String winner) {
         _tournamentMatchDao.setMatchResult(tournamentId, round, winner);
     }
 
+    @Override
     public void setPlayerDeck(String tournamentId, String player, LotroDeck deck) {
         _tournamentPlayerDao.updatePlayerDeck(tournamentId, player, deck);
     }
 
+    @Override
     public List<TournamentMatch> getMatches(String tournamentId) {
         return _tournamentMatchDao.getMatches(tournamentId);
     }
 
+    @Override
     public Tournament addTournament(String tournamentId, String draftType, String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, String prizeScheme, Date start) {
         _tournamentDao.addTournament(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, prizeScheme, start);
         return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, prizeScheme, 0));
     }
 
+    @Override
     public void updateTournamentStage(String tournamentId, Tournament.Stage stage) {
         _tournamentDao.updateTournamentStage(tournamentId, stage);
     }
 
+    @Override
     public void updateTournamentRound(String tournamentId, int round) {
         _tournamentDao.updateTournamentRound(tournamentId, round);
     }
 
+    @Override
     public List<Tournament> getOldTournaments(long since) {
         List<Tournament> result = new ArrayList<Tournament>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getFinishedTournamentsSince(since)) {
@@ -107,6 +122,7 @@ public class TournamentService {
         return result;
     }
 
+    @Override
     public List<Tournament> getLiveTournaments() {
         List<Tournament> result = new ArrayList<Tournament>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
@@ -118,6 +134,7 @@ public class TournamentService {
         return result;
     }
 
+    @Override
     public Tournament getTournamentById(String tournamentId) {
         Tournament tournament = _tournamentById.get(tournamentId);
         if (tournament == null) {
@@ -151,18 +168,22 @@ public class TournamentService {
         return tournament;
     }
 
+    @Override
     public void addRoundBye(String tournamentId, String player, int round) {
         _tournamentMatchDao.addBye(tournamentId, player, round);
     }
 
+    @Override
     public Map<String, Integer> getPlayerByes(String tournamentId) {
         return _tournamentMatchDao.getPlayerByes(tournamentId);
     }
 
+    @Override
     public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues(long tillDate) {
         return _tournamentDao.getUnstartedScheduledTournamentQueues(tillDate);
     }
 
+    @Override
     public void updateScheduledTournamentStarted(String scheduledTournamentId) {
         _tournamentDao.updateScheduledTournamentStarted(scheduledTournamentId);
     }

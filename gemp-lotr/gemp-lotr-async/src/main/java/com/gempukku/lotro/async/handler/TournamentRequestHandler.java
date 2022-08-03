@@ -103,7 +103,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
         if (tournament.getTournamentStage() != Tournament.Stage.FINISHED)
             throw new HttpProcessingException(403);
 
-        LotroDeck deck = _tournamentService.getPlayerDeck(tournamentId, playerName);
+        LotroDeck deck = _tournamentService.getPlayerDeck(tournamentId, playerName, tournament.getFormat());
         if (deck == null)
             throw new HttpProcessingException(404);
 

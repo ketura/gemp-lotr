@@ -27,32 +27,49 @@
 	},
 	
 	"151_8": {
-    "title": "*Lament for Gandalf",
+    "title": "*Lament For The Fallen",
     "culture": "elven",
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
+    "target": "companion,unbound",
+    "condition": {
+    	"type": "canSpotInDeadPile",
+    	"filter": "companion,unique"
+    },
     "effects": [
     	{
-    		"type": "trigger",
-    		"optional": true,
-    		"condition": {
-    			"type": "canSpot",
-    			"filter": "name(Gandalf)"
-    		},
-	      "trigger": {
-	        "type": "startOfPhase",
-	        "phase": "maneuver"
-	      },
-	      "effect": {
-	        "type": "stackCardsFromHand",
-	        "filter": "choose(side(free people))",
-	        "where": "self"
-	      },
-	    },
+    		"type": "extraCost",
+    		"cost": {
+    			"type": "exert",
+    			"filter": "choose(elf)"
+    		}
+    	},
+    	{
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeWounds",
+          "filter": "bearer"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeExerted",
+          "filter": "bearer"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "CantBeAssignedToSkirmish",
+          "filter": "bearer"
+        }
+      },
+      
 	    {
 	      "type": "trigger",
-	      "optional": true,
+	      "optional": false,
 	      "trigger": {
 	      	"type": "startOfPhase",
 	      	"phase": "regroup"
@@ -60,52 +77,24 @@
 	      "condition": [
 	      	{
 		      	"type": "canspotindeadpile",
-		      	"filter": "companion,unique",
-		      	"count": 1
+		      	"filter": "name(Gandalf)",
 		      },
-		      {
-		      	"type": "isGreaterThan",
-		      	"firstNumber": {
-              "type": "countStacked",
-              "on": "self",
-              "filter": "side(free people)"
-            },
-            "secondNumber": 0
-		      }
 		    ],
-	      "cost": [
-	      	{
-	      		"type": "chooseanumber",
-	      		"text": "Choose how many dead unique companions to spot",
-	      		"memorize": "deadcomps",
-	      		"from": 1,
-	      		"to": {
-	      			"type": "forEachInDeadPile",
-	      			"filter": "companion,unique"
-	      		}
-	      	},
-	      	{
-	          "type": "exert",
-	          "filter": "choose(elf)",
-	          "memorize": "exertedTargets",
-	          "count": {
-	            "type": "range",
-	            "from": 0,
-	            "to": {
-	              "type": "forEachYouCanSpot",
-	              "filter": "elf,not(exhausted)"
-	            }
-	          }
-	        },
-	      ],
 	      "effect": {
-          "type": "putstackedcardsintohand",
-          "on": "self",
-          "filter": "choose(side(free people))",
-          "count": {
-	          "type": "forEachInMemory",
-	          "memory": "exertedTargets"
-	        }
+          "type": "heal",
+          "filter": "bearer"
+        },
+	    },
+	    {
+	      "type": "trigger",
+	      "optional": false,
+	      "trigger": {
+	      	"type": "startOfPhase",
+	      	"phase": "regroup"
+	      },
+	      "effect": {
+          "type": "discard",
+          "filter": "choose(condition,attachedTo(bearer))"
         },
 	    }
 	  ]

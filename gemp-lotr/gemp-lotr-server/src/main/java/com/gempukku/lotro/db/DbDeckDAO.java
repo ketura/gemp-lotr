@@ -1,20 +1,14 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DbDeckDAO implements DeckDAO {
     private DbAccess _dbAccess;
@@ -29,9 +23,9 @@ public class DbDeckDAO implements DeckDAO {
         return getPlayerDeck(player.getId(), name);
     }
 
-    public synchronized void saveDeckForPlayer(Player player, String name, LotroDeck deck) {
+    public synchronized void saveDeckForPlayer(Player player, String name, String target_format, LotroDeck deck) {
         boolean newDeck = getPlayerDeck(player.getId(), name) == null;
-        storeDeckToDB(player.getId(), name, deck, newDeck);
+        storeDeckToDB(player.getId(), name, target_format, deck, newDeck);
     }
 
     public synchronized void deleteDeckForPlayer(Player player, String name) {
@@ -46,22 +40,25 @@ public class DbDeckDAO implements DeckDAO {
         LotroDeck deck = getDeckForPlayer(player, oldName);
         if (deck == null)
             return null;
-        saveDeckForPlayer(player, newName, deck);
+        saveDeckForPlayer(player, newName, deck.getTargetFormat(), deck);
         deleteDeckForPlayer(player, oldName);
 
         return deck;
     }
 
-    public synchronized Set<String> getPlayerDeckNames(Player player) {
+    public synchronized Set<Map.Entry<String, String>> getPlayerDeckNames(Player player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-                try (PreparedStatement statement = connection.prepareStatement("select name from deck where player_id=?")) {
+                try (PreparedStatement statement = connection.prepareStatement("select name, target_format from deck where player_id=?")) {
                     statement.setInt(1, player.getId());
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<Map.Entry<String, String>> result = new HashSet<>();
 
-                        while (rs.next())
-                            result.add(rs.getString(1));
+                        while (rs.next()) {
+                            String deckName = rs.getString(1);
+                            String targetFormat = rs.getString(2);
+                            result.add(new AbstractMap.SimpleEntry<>(targetFormat, deckName));
+                        }
 
                         return result;
                     }
@@ -75,12 +72,12 @@ public class DbDeckDAO implements DeckDAO {
     private LotroDeck getPlayerDeck(int playerId, String name) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-                try (PreparedStatement statement = connection.prepareStatement("select contents from deck where player_id=? and name=?")) {
+                try (PreparedStatement statement = connection.prepareStatement("select contents, target_format from deck where player_id=? and name=?")) {
                     statement.setInt(1, playerId);
                     statement.setString(2, name);
                     try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
-                            return buildDeckFromContents(name, rs.getString(1));
+                            return buildDeckFromContents(name, rs.getString(1), rs.getString(2));
 
                         return null;
                     }
@@ -92,27 +89,28 @@ public class DbDeckDAO implements DeckDAO {
         }
     }
 
-    private void storeDeckToDB(int playerId, String name, LotroDeck deck, boolean newDeck) {
+    private void storeDeckToDB(int playerId, String name, String target_format, LotroDeck deck, boolean newDeck) {
         String contents = DeckSerialization.buildContentsFromDeck(deck);
         try {
             if (newDeck)
-                storeDeckInDB(playerId, name, contents);
+                storeDeckInDB(playerId, name, target_format, contents);
             else
-                updateDeckInDB(playerId, name, contents);
+                updateDeckInDB(playerId, name, target_format, contents);
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to store player deck to DB", exp);
         }
     }
 
-    public synchronized LotroDeck buildDeckFromContents(String deckName, String contents) {
+    public synchronized LotroDeck buildDeckFromContents(String deckName, String contents, String target_format) {
         if (contents.contains("|")) {
-            return DeckSerialization.buildDeckFromContents(deckName, contents);
+            return DeckSerialization.buildDeckFromContents(deckName, contents, target_format);
         } else {
             // Old format
             List<String> cardsList = Arrays.asList(contents.split(","));
             String ringBearer = cardsList.get(0);
             String ring = cardsList.get(1);
             final LotroDeck lotroDeck = new LotroDeck(deckName);
+            lotroDeck.setTargetFormat(target_format);
             if (ringBearer.length() > 0)
                 lotroDeck.setRingBearer(ringBearer);
             if (ring.length() > 0)
@@ -144,23 +142,25 @@ public class DbDeckDAO implements DeckDAO {
         }
     }
 
-    private void storeDeckInDB(int playerId, String name, String contents) throws SQLException {
+    private void storeDeckInDB(int playerId, String name, String target_format, String contents) throws SQLException {
         try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("insert into deck (player_id, name, contents) values (?, ?, ?)")) {
+            try (PreparedStatement statement = connection.prepareStatement("insert into deck (player_id, name, target_format, contents) values (?, ?, ?, ?)")) {
                 statement.setInt(1, playerId);
                 statement.setString(2, name);
-                statement.setString(3, contents);
+                statement.setString(3, target_format);
+                statement.setString(4, contents);
                 statement.execute();
             }
         }
     }
 
-    private void updateDeckInDB(int playerId, String name, String contents) throws SQLException {
+    private void updateDeckInDB(int playerId, String name, String target_format, String contents) throws SQLException {
         try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("update deck set contents=? where player_id=? and name=?")) {
+            try (PreparedStatement statement = connection.prepareStatement("update deck set contents=?, target_format=? where player_id=? and name=?")) {
                 statement.setString(1, contents);
-                statement.setInt(2, playerId);
-                statement.setString(3, name);
+                statement.setString(2, target_format);
+                statement.setInt(3, playerId);
+                statement.setString(4, name);
                 statement.execute();
             }
         }
