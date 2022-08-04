@@ -6,15 +6,15 @@ import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.league.LeagueSerieData;
 
 public class GameSettings {
-    private CollectionType collectionType;
-    private LotroFormat lotroFormat;
-    private League league;
-    private LeagueSerieData leagueSerie;
-    private boolean competitive;
-    private boolean privateGame;
-    private String timerName;
-    private int maxSecondsPerPlayer;
-    private int maxSecondsPerDecision;
+    private final CollectionType collectionType;
+    private final LotroFormat lotroFormat;
+    private final League league;
+    private final LeagueSerieData leagueSerie;
+    private final boolean competitive;
+    private final boolean privateGame;
+    private final String timerName;
+    private final int maxSecondsPerPlayer;
+    private final int maxSecondsPerDecision;
 
     public GameSettings(CollectionType collectionType, LotroFormat lotroFormat, League league, LeagueSerieData leagueSerie,
                         boolean competitive, boolean privateGame, String timerName, int maxSecondsPerPlayer, int maxSecondsPerDecision) {

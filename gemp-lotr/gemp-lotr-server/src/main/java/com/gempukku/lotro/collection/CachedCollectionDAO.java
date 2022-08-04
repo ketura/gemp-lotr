@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.Map;
 
 public class CachedCollectionDAO implements CollectionDAO, Cached {
-    private CollectionDAO _delegate;
-    private Map<String, CardCollection> _playerCollections = Collections.synchronizedMap(new LRUMap(100));
+    private final CollectionDAO _delegate;
+    private final Map<String, CardCollection> _playerCollections = Collections.synchronizedMap(new LRUMap(100));
 
     public CachedCollectionDAO(CollectionDAO delegate) {
         _delegate = delegate;

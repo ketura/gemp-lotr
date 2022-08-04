@@ -17,8 +17,8 @@ import com.gempukku.lotro.logic.timing.results.ZeroVitalityResult;
 import java.util.*;
 
 public class CharacterDeathRule {
-    private Set<PhysicalCard> _charactersAlreadyOnWayToDeath = new HashSet<PhysicalCard>();
-    private DefaultActionsEnvironment _actionsEnvironment;
+    private final Set<PhysicalCard> _charactersAlreadyOnWayToDeath = new HashSet<>();
+    private final DefaultActionsEnvironment _actionsEnvironment;
 
     public CharacterDeathRule(DefaultActionsEnvironment actionsEnvironment) {
         _actionsEnvironment = actionsEnvironment;
@@ -58,7 +58,7 @@ public class CharacterDeathRule {
             Collection<PhysicalCard> characters = Filters.filterActive(game,
                     Filters.or(CardType.ALLY, CardType.COMPANION, CardType.MINION));
 
-            Set<PhysicalCard> deadChars = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> deadChars = new HashSet<>();
             for (PhysicalCard character : characters)
                 if (!_charactersAlreadyOnWayToDeath.contains(character) && game.getModifiersQuerying().getVitality(game, character) <= 0)
                     deadChars.add(character);

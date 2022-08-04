@@ -57,7 +57,7 @@ public class Card8_069 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new CantHealModifier(self, Filters.hasAttached(self)));
         modifiers.add(

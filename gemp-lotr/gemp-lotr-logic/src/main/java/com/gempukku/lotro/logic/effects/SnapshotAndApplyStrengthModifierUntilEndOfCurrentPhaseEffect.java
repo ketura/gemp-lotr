@@ -10,9 +10,9 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 public class SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private Filterable[] _filters;
-    private Evaluator _evaluator;
+    private final PhysicalCard _source;
+    private final Filterable[] _filters;
+    private final Evaluator _evaluator;
 
     public SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect(PhysicalCard source, int value, Filterable... filter) {
         this(source, new ConstantEvaluator(value), filter);

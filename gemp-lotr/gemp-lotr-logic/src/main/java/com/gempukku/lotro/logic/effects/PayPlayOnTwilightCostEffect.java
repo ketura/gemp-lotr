@@ -6,9 +6,9 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class PayPlayOnTwilightCostEffect extends AbstractEffect {
-    private PhysicalCard _physicalCard;
-    private PhysicalCard _target;
-    private int _twilightModifier;
+    private final PhysicalCard _physicalCard;
+    private final PhysicalCard _target;
+    private final int _twilightModifier;
 
     public PayPlayOnTwilightCostEffect(PhysicalCard physicalCard, PhysicalCard target, int twilightModifier) {
         _physicalCard = physicalCard;

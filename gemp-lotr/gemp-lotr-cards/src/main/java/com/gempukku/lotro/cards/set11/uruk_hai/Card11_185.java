@@ -51,7 +51,7 @@ public class Card11_185 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Culture.URUK_HAI, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCost = new LinkedList<Effect>();
+            List<Effect> possibleCost = new LinkedList<>();
             possibleCost.add(
                     new RemoveTokenEffect(self, self, Token.URUK_HAI) {
                         @Override

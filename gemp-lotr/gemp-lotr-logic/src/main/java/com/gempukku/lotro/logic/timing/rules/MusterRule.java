@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class MusterRule {
-    private DefaultActionsEnvironment _actionsEnvironment;
+    private final DefaultActionsEnvironment _actionsEnvironment;
 
     public MusterRule(DefaultActionsEnvironment actionsEnvironment) {
         _actionsEnvironment = actionsEnvironment;

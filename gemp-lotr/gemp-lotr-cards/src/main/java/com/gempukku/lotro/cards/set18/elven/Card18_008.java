@@ -31,7 +31,7 @@ public class Card18_008 extends AbstractAttachableFPPossession {
 
     @Override
     public Set<PossessionClass> getPossessionClasses() {
-        Set<PossessionClass> result = new HashSet<PossessionClass>();
+        Set<PossessionClass> result = new HashSet<>();
         result.add(PossessionClass.HAND_WEAPON);
         result.add(PossessionClass.SHIELD);
         return result;
@@ -44,7 +44,7 @@ public class Card18_008 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new MayNotBearModifier(self, Filters.hasAttached(self), Filters.not(self), CardType.POSSESSION));
         modifiers.add(

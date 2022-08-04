@@ -36,7 +36,7 @@ public class Card7_009 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), new MinThreatCondition(1), Keyword.DAMAGE, 1));
         modifiers.add(

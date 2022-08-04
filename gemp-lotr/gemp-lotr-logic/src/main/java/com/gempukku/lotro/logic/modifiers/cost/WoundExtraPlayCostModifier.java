@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class WoundExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int count;
-    private Filterable[] wounding;
+    private final int count;
+    private final Filterable[] wounding;
 
     public WoundExtraPlayCostModifier(PhysicalCard source, Filterable affects, Condition condition, Filterable... wounding) {
         this(source, affects, condition, 1, wounding);

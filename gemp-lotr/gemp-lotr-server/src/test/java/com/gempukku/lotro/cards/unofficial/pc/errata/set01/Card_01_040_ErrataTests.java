@@ -10,15 +10,12 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static junit.framework.Assert.assertEquals;
-
 public class Card_01_040_ErrataTests
 {
 
     protected GenericCardTestHelper GetSimpleDeckScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("elrond", "51_40");
                     put("randomcard", "1_3");
                 }}
@@ -27,8 +24,7 @@ public class Card_01_040_ErrataTests
 
     protected GenericCardTestHelper GetSimpleSpotScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("elrond", "51_40");
                     put("gandalf", "1_72");
                     put("arwen", "1_30");
@@ -38,8 +34,7 @@ public class Card_01_040_ErrataTests
 
     protected GenericCardTestHelper GetHome3AllyScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("elrond", "51_40");
                     put("allyHome3_1", "1_60");
                     put("allyHome3_2", "1_27"); // tharin

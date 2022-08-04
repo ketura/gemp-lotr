@@ -30,7 +30,7 @@ public class Card7_123 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             if (PlayConditions.canPlayFromHand(playerId, game, Culture.GONDOR, Race.MAN)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Add a GONDOR token here");

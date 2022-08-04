@@ -13,10 +13,10 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class ChooseAndAssignCharacterToMinionEffect extends ChooseActiveCardEffect {
-    private Action _action;
-    private String _playerId;
-    private PhysicalCard _minion;
-    private boolean _skipAllyLocationCheck;
+    private final Action _action;
+    private final String _playerId;
+    private final PhysicalCard _minion;
+    private final boolean _skipAllyLocationCheck;
 
     public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, PhysicalCard minion, Filterable... filters) {
         this(action, playerId, minion, false, filters);

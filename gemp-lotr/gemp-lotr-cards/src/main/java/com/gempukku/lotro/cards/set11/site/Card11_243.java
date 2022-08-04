@@ -51,12 +51,12 @@ public class Card11_243 extends AbstractShadowsSite {
                         protected void doPlayEffect(LotroGame game) {
                             game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
                                     new AbstractActionProxy() {
-                                        private Set<Integer> _minionsMarked = new HashSet<Integer>();
+                                        private final Set<Integer> _minionsMarked = new HashSet<>();
 
                                         @Override
                                         public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                            Set<PhysicalCard> toLose = new HashSet<PhysicalCard>();
-                                            final Set<Integer> toLoseInts = new HashSet<Integer>();
+                                            Set<PhysicalCard> toLose = new HashSet<>();
+                                            final Set<Integer> toLoseInts = new HashSet<>();
                                             for (PhysicalCard minion : Filters.filterActive(game, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION))) {
                                                 if (!_minionsMarked.contains(minion.getCardId())) {
                                                     toLose.add(minion);

@@ -16,10 +16,8 @@ public class ModifySanctuaryHeal implements ModifierSourceProducer {
 
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return (actionContext) -> {
-            return new SanctuaryHealModifier(actionContext.getSource(),
-                    new RequirementCondition(requirements, actionContext),
-                    amountSource.getEvaluator(actionContext));
-        };
+        return (actionContext) -> new SanctuaryHealModifier(actionContext.getSource(),
+                new RequirementCondition(requirements, actionContext),
+                amountSource.getEvaluator(actionContext));
     }
 }

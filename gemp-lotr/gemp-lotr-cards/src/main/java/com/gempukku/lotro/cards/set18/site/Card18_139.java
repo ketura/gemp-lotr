@@ -22,7 +22,7 @@ public class Card18_139 extends AbstractShadowsSite {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS));
         modifiers.add(

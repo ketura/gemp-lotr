@@ -6,9 +6,9 @@ import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.timing.rules.*;
 
 public class RuleSet {
-    private LotroGame _game;
-    private DefaultActionsEnvironment _actionsEnvironment;
-    private ModifiersLogic _modifiersLogic;
+    private final LotroGame _game;
+    private final DefaultActionsEnvironment _actionsEnvironment;
+    private final ModifiersLogic _modifiersLogic;
 
     public RuleSet(LotroGame game, DefaultActionsEnvironment actionsEnvironment, ModifiersLogic modifiersLogic) {
         _game = game;

@@ -25,8 +25,7 @@ public class FieldUtils {
             return new String[0];
         else if (value instanceof String)
             return new String[]{(String) value};
-        else if (value instanceof JSONArray) {
-            final JSONArray array = (JSONArray) value;
+        else if (value instanceof final JSONArray array) {
             return (String[]) array.toArray(new String[0]);
         }
         throw new InvalidCardDefinitionException("Unknown type in " + key + " field");
@@ -84,8 +83,7 @@ public class FieldUtils {
             return new JSONObject[0];
         else if (value instanceof JSONObject)
             return new JSONObject[]{(JSONObject) value};
-        else if (value instanceof JSONArray) {
-            final JSONArray array = (JSONArray) value;
+        else if (value instanceof final JSONArray array) {
             return (JSONObject[]) array.toArray(new JSONObject[0]);
         }
         throw new InvalidCardDefinitionException("Unknown type in " + key + " field");

@@ -12,18 +12,18 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class MerchantService {
-    private Merchant _merchant;
-    private long _priceGuaranteeExpire = 1000 * 60 * 5;
-    private Map<String, PriceGuarantee> _priceGuarantees = Collections.synchronizedMap(new LRUMap(100));
+    private final Merchant _merchant;
+    private final long _priceGuaranteeExpire = 1000 * 60 * 5;
+    private final Map<String, PriceGuarantee> _priceGuarantees = Collections.synchronizedMap(new LRUMap(100));
 
-    private ReadWriteLock _lock = new ReentrantReadWriteLock(true);
-    private Set<BasicCardItem> _merchantableItems = new HashSet<BasicCardItem>();
-    private Set<String> _merchantableStrings = new HashSet<String>();
+    private final ReadWriteLock _lock = new ReentrantReadWriteLock(true);
+    private final Set<BasicCardItem> _merchantableItems = new HashSet<>();
+    private final Set<String> _merchantableStrings = new HashSet<>();
 
-    private Map<String, Integer> _fixedPriceItems = new HashMap<String, Integer>();
+    private final Map<String, Integer> _fixedPriceItems = new HashMap<>();
 
-    private CollectionType _permanentCollection = CollectionType.MY_CARDS;
-    private CollectionsManager _collectionsManager;
+    private final CollectionType _permanentCollection = CollectionType.MY_CARDS;
+    private final CollectionsManager _collectionsManager;
 
     public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, CardSets cardSets) {
         _collectionsManager = collectionsManager;
@@ -108,8 +108,8 @@ public class MerchantService {
         lock.lock();
         try {
             Date currentTime = new Date();
-            Map<String, Integer> buyPrices = new HashMap<String, Integer>();
-            Map<String, Integer> sellPrices = new HashMap<String, Integer>();
+            Map<String, Integer> buyPrices = new HashMap<>();
+            Map<String, Integer> sellPrices = new HashMap<>();
             for (CardItem cardItem : cardBlueprintIds) {
                 String blueprintId = cardItem.getBlueprintId();
 
@@ -197,9 +197,9 @@ public class MerchantService {
     }
 
     public static class PriceGuarantee {
-        private Map<String, Integer> _sellPrices;
-        private Map<String, Integer> _buyPrices;
-        private Date _date;
+        private final Map<String, Integer> _sellPrices;
+        private final Map<String, Integer> _buyPrices;
+        private final Date _date;
 
         private PriceGuarantee(Map<String, Integer> sellPrices, Map<String, Integer> buyPrices, Date date) {
             _sellPrices = sellPrices;

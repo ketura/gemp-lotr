@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier extends AbstractModifier {
-    private Side _side;
-    private Phase _phase;
+    private final Side _side;
+    private final Phase _phase;
 
     public SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(PhysicalCard source, Side side, Phase phase) {
         this(source, null, side, phase);

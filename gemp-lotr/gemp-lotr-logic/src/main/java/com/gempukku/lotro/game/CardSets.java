@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class CardSets {
-    private Map<String, SetDefinition> _allSets = new LinkedHashMap<String, SetDefinition>();
+    private final Map<String, SetDefinition> _allSets = new LinkedHashMap<>();
 
     public CardSets() {
         try {
@@ -29,7 +29,7 @@ public class CardSets {
                     String setName = (String) setDefinition.get("setName");
                     String rarityFile = (String) setDefinition.get("rarityFile");
 
-                    Set<String> flags = new HashSet<String>();
+                    Set<String> flags = new HashSet<>();
                     determineOriginalSetFlag(setDefinition, flags);
                     determineMerchantableFlag(setDefinition, flags);
                     determineNeedsLoadingFlag(setDefinition, flags);
@@ -80,16 +80,15 @@ public class CardSets {
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
+                String blueprintId = setNo + "_" + line.substring(setNo.length() + 1);
                 if (line.endsWith("T")) {
-                    if (!line.substring(0, setNo.length()).equals(setNo))
+                    if (!line.startsWith(setNo))
                         throw new IllegalStateException("Seems the rarity is for some other set");
-                    String blueprintId = setNo + "_" + line.substring(setNo.length() + 1);
                     rarity.addTengwarCard(blueprintId);
                 } else {
-                    if (!line.substring(0, setNo.length()).equals(setNo))
+                    if (!line.startsWith(setNo))
                         throw new IllegalStateException("Seems the rarity is for some other set");
                     String cardRarity = line.substring(setNo.length(), setNo.length() + 1);
-                    String blueprintId = setNo + "_" + line.substring(setNo.length() + 1);
                     rarity.addCard(blueprintId, cardRarity);
                 }
             }

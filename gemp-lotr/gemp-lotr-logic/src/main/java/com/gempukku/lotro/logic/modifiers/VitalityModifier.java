@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class VitalityModifier extends AbstractModifier {
-    private Evaluator _modifier;
-    private boolean _nonCardTextModifier;
+    private final Evaluator _modifier;
+    private final boolean _nonCardTextModifier;
 
     public VitalityModifier(PhysicalCard source, Filterable affectFilter, int modifier) {
         this(source, affectFilter, modifier, false);

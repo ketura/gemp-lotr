@@ -14,10 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DiscardCardsFromHandEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerId;
-    private Collection<? extends PhysicalCard> _cards;
-    private boolean _forced;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final Collection<? extends PhysicalCard> _cards;
+    private final boolean _forced;
 
     public DiscardCardsFromHandEffect(PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, boolean forced) {
         _source = source;
@@ -52,7 +52,7 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
         if (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source)) {
             GameState gameState = game.getGameState();
 
-            Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> discardedCards = new HashSet<>();
             for (PhysicalCard card : _cards)
                 if (card.getZone() == Zone.HAND)
                     discardedCards.add(card);

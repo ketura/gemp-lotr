@@ -48,9 +48,9 @@ public class Card5_041 extends AbstractEvent {
         return action;
     }
 
-    private class PlayAnyNumberOfPossessionsOnCharacters extends AbstractSuccessfulEffect {
-        private PlayEventAction _action;
-        private String _playerId;
+    private static class PlayAnyNumberOfPossessionsOnCharacters extends AbstractSuccessfulEffect {
+        private final PlayEventAction _action;
+        private final String _playerId;
 
         private PlayAnyNumberOfPossessionsOnCharacters(PlayEventAction action, String playerId) {
             _action = action;

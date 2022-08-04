@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class TransferToShadowEffect extends AbstractEffect {
-    private PhysicalCard _card;
+    private final PhysicalCard _card;
 
     public TransferToShadowEffect(PhysicalCard card) {
         _card = card;

@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class WhenMoveFromResult extends EffectResult {
-    private PhysicalCard _site;
+    private final PhysicalCard _site;
 
     public WhenMoveFromResult(PhysicalCard site) {
         super(EffectResult.Type.WHEN_MOVE_FROM);

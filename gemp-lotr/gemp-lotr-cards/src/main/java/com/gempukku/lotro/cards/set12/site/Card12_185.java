@@ -39,7 +39,7 @@ public class Card12_185 extends AbstractShadowsSite {
                 PlayConditions.canPlayFromHand(playerId, game, Race.NAZGUL)
                         || (PlayConditions.canSpot(game, 6, CardType.COMPANION) && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Race.NAZGUL) {
                         @Override

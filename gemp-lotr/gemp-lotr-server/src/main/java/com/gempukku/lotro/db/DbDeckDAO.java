@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class DbDeckDAO implements DeckDAO {
-    private DbAccess _dbAccess;
-    private LotroCardBlueprintLibrary _library;
+    private final DbAccess _dbAccess;
+    private final LotroCardBlueprintLibrary _library;
 
     public DbDeckDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
         _dbAccess = dbAccess;

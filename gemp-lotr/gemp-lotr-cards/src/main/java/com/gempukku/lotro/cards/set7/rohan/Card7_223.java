@@ -37,9 +37,9 @@ public class Card7_223 extends AbstractEvent {
         return action;
     }
 
-    private class ExertMinionContinuouslyEffect extends ChooseAndExertCharactersEffect {
-        private CostToEffectAction _action;
-        private String _fpPlayerId;
+    private static class ExertMinionContinuouslyEffect extends ChooseAndExertCharactersEffect {
+        private final CostToEffectAction _action;
+        private final String _fpPlayerId;
 
         private ExertMinionContinuouslyEffect(CostToEffectAction action, String playerId) {
             super(action, playerId, 0, 1, CardType.MINION);

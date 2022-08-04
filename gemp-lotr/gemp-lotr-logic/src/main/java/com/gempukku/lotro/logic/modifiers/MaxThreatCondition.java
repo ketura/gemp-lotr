@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class MaxThreatCondition implements Condition {
-    private int _count;
+    private final int _count;
 
     public MaxThreatCondition(int count) {
         _count = count;

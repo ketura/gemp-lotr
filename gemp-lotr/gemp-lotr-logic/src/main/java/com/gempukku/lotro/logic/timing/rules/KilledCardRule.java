@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class KilledCardRule {
-    private DefaultActionsEnvironment _actionsEnvironment;
+    private final DefaultActionsEnvironment _actionsEnvironment;
 
     public KilledCardRule(DefaultActionsEnvironment actionsEnvironment) {
         _actionsEnvironment = actionsEnvironment;
@@ -46,7 +46,7 @@ public class KilledCardRule {
                         if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
                             KilledResult killResult = (KilledResult) effectResult;
                             Set<PhysicalCard> killedCards = killResult.getKilledCards();
-                            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
+                            List<OptionalTriggerAction> actions = new LinkedList<>();
                             for (PhysicalCard killedCard : killedCards) {
                                 OptionalTriggerAction trigger = killedCard.getBlueprint().getKilledOptionalTrigger(playerId, game, killedCard);
                                 if (trigger != null) {

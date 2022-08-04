@@ -12,9 +12,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerDeck;
-    private Collection<PhysicalCard> _cards;
+    private final PhysicalCard _source;
+    private final String _playerDeck;
+    private final Collection<PhysicalCard> _cards;
 
     public ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(PhysicalCard source, String playerDeck, Collection<PhysicalCard> cards) {
         _source = source;
@@ -44,8 +44,8 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        Set<PhysicalCard> toShuffleIn = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> inPlay = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toShuffleIn = new HashSet<>();
+        Set<PhysicalCard> inPlay = new HashSet<>();
 
         for (PhysicalCard card : _cards) {
             if (card.getZone().isInPlay()) {

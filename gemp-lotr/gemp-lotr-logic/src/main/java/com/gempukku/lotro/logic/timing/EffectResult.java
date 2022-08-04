@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class EffectResult {
-    private Set<String> _optionalTriggersUsed = new HashSet<String>();
+    private final Set<String> _optionalTriggersUsed = new HashSet<>();
 
     public enum Type {
         // Translated to new format
@@ -62,7 +62,7 @@ public abstract class EffectResult {
         TAKE_OFF_THE_ONE_RING
     }
 
-    private Type _type;
+    private final Type _type;
 
     protected EffectResult(Type type) {
         _type = type;

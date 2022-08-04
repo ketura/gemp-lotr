@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DbIpBanDAO implements IpBanDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbIpBanDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -49,7 +49,7 @@ public class DbIpBanDAO implements IpBanDAO {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select ip from ip_ban where prefix=0")) {
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<String> result = new HashSet<>();
                         while (rs.next()) {
                             String ip = rs.getString(1);
 
@@ -70,7 +70,7 @@ public class DbIpBanDAO implements IpBanDAO {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select ip from ip_ban where prefix=1")) {
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<String> result = new HashSet<>();
                         while (rs.next()) {
                             String ip = rs.getString(1);
 

@@ -52,7 +52,7 @@ public class Card17_039 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Race.WIZARD, 3));
         modifiers.add(

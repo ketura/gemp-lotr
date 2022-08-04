@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class CollectionSerializerTest {
-    private CollectionSerializer _serializer = new CollectionSerializer();
+    private final CollectionSerializer _serializer = new CollectionSerializer();
 
     @Test
     public void testSerializeDeserialize() throws IOException {

@@ -50,7 +50,7 @@ public class Card7_112 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.GONDOR) {
                         @Override

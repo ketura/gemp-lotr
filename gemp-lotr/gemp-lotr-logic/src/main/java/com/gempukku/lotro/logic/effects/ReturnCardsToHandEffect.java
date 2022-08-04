@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
@@ -19,8 +18,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ReturnCardsToHandEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private Filterable _filter;
+    private final PhysicalCard _source;
+    private final Filterable _filter;
 
     public ReturnCardsToHandEffect(PhysicalCard source, Filterable filter) {
         _source = source;
@@ -55,12 +54,12 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
         Collection<PhysicalCard> cardsToReturnToHand = Filters.filterActive(game, _filter);
 
         // Preparation, figure out, what's going where...
-        Set<PhysicalCard> discardedFromPlay = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> toGoToDiscardCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        Set<PhysicalCard> toGoToDiscardCards = new HashSet<>();
 
         DiscardUtils.cardsToChangeZones(game, cardsToReturnToHand, discardedFromPlay, toGoToDiscardCards);
 
-        Set<PhysicalCard> cardsToRemoveFromZones = new HashSet<PhysicalCard>(toGoToDiscardCards);
+        Set<PhysicalCard> cardsToRemoveFromZones = new HashSet<>(toGoToDiscardCards);
         cardsToRemoveFromZones.addAll(cardsToReturnToHand);
 
         // Remove from their zone

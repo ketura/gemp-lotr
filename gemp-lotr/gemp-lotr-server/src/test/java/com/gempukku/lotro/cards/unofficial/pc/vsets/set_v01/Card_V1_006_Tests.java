@@ -10,8 +10,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_006_Tests
@@ -19,8 +18,7 @@ public class Card_V1_006_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
+				new HashMap<>() {{
 					put("bold", "151_6");
 					put("legolas", "1_50");
 					put("gimli", "1_13");

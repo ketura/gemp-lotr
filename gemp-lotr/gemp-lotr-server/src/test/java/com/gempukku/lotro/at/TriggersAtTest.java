@@ -17,13 +17,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TriggersAtTest extends AbstractAtTest {
     @Test
     public void fpCharWinsSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "5_7", P1, _library.getLotroCardBlueprint("5_7"));
@@ -74,7 +74,7 @@ public class TriggersAtTest extends AbstractAtTest {
 
     @Test
     public void musterWorkingWithOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _library.getLotroCardBlueprint("7_88"));
@@ -115,7 +115,7 @@ public class TriggersAtTest extends AbstractAtTest {
 
     @Test
     public void userOfMusterAllowsUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _library.getLotroCardBlueprint("7_88"));

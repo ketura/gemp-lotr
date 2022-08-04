@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class BiddingGameProcess implements GameProcess {
-    private Set<String> _players;
-    private PlayerOrderFeedback _playerOrderFeedback;
-    private Map<String, Integer> _bids = new LinkedHashMap<String, Integer>();
+    private final Set<String> _players;
+    private final PlayerOrderFeedback _playerOrderFeedback;
+    private final Map<String, Integer> _bids = new LinkedHashMap<>();
 
     public BiddingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback) {
         _players = players;

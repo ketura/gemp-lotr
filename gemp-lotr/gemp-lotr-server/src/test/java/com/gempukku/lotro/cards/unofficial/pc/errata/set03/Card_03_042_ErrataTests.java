@@ -5,20 +5,18 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 public class Card_03_042_ErrataTests
 {
     protected GenericCardTestHelper GetFOTRScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("horn", "53_42");
                     put("elrond", "1_40");
                     put("boromir", "1_97");
@@ -34,8 +32,7 @@ public class Card_03_042_ErrataTests
 
     protected GenericCardTestHelper GetMovieScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("horn", "53_42");
                     put("elrond", "1_40");
                     put("boromir", "1_97");

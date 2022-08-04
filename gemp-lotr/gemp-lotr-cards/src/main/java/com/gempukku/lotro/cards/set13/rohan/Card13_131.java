@@ -30,7 +30,7 @@ public class Card13_131 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             if (PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Eomer...");

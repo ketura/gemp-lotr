@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 
 public class LoggingProxy {
-    private static Logger logger = Logger.getLogger(LoggingProxy.class);
+    private static final Logger logger = Logger.getLogger(LoggingProxy.class);
     private static final long ERROR_LEVEL = 3000;
     private static final long WARN_LEVEL = 1000;
     private static final long INFO_LEVEL = 500;

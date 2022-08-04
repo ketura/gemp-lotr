@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DbCollectionDAO implements CollectionDAO {
-    private DbAccess _dbAccess;
-    private CollectionSerializer _collectionSerializer;
+    private final DbAccess _dbAccess;
+    private final CollectionSerializer _collectionSerializer;
 
     public DbCollectionDAO(DbAccess dbAccess, CollectionSerializer collectionSerializer) {
         _dbAccess = dbAccess;
@@ -25,7 +25,7 @@ public class DbCollectionDAO implements CollectionDAO {
             try (PreparedStatement statement = connection.prepareStatement("select player_id, collection from collection where type=?")) {
                 statement.setString(1, type);
                 try (ResultSet rs = statement.executeQuery()) {
-                    Map<Integer, CardCollection> playerCollections = new HashMap<Integer, CardCollection>();
+                    Map<Integer, CardCollection> playerCollections = new HashMap<>();
                     while (rs.next()) {
                         int playerId = rs.getInt(1);
                         Blob blob = rs.getBlob(2);

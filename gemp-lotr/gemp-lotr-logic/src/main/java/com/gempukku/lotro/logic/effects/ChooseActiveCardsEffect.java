@@ -75,7 +75,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
             minimum = matchingCards.size();
 
         if (_shortcut && maximum == 0) {
-            cardsSelected(game, Collections.<PhysicalCard>emptySet());
+            cardsSelected(game, Collections.emptySet());
         } else if (_shortcut && matchingCards.size() == minimum) {
             if (_source != null && matchingCards.size() > 0)
                 game.getGameState().cardAffectsCard(_playerId, _source, matchingCards);
@@ -99,7 +99,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     protected abstract void cardsSelected(LotroGame game, Collection<PhysicalCard> cards);
 
-    protected void validateChoice(LotroGame game, Collection<PhysicalCard> cards) throws DecisionResultInvalidException {
+    protected void validateChoice(LotroGame game, Collection<PhysicalCard> cards) {
 
     }
 }

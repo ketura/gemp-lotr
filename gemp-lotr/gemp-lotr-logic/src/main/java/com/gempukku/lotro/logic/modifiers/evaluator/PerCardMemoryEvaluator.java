@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PerCardMemoryEvaluator implements Evaluator {
-    private Map<Integer, Integer> _rememberedValue = new HashMap<Integer, Integer>();
-    private Evaluator _evaluator;
+    private final Map<Integer, Integer> _rememberedValue = new HashMap<>();
+    private final Evaluator _evaluator;
 
     public PerCardMemoryEvaluator(Evaluator evaluator) {
         _evaluator = evaluator;

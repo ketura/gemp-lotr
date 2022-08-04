@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class TransferPermanentNotFromPlayEffect extends AbstractEffect {
-    private PhysicalCard _physicalCard;
-    private PhysicalCard _targetCard;
+    private final PhysicalCard _physicalCard;
+    private final PhysicalCard _targetCard;
 
     public TransferPermanentNotFromPlayEffect(PhysicalCard physicalCard, PhysicalCard targetCard) {
         _physicalCard = physicalCard;

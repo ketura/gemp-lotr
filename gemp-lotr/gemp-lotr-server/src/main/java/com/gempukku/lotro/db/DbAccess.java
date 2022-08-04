@@ -10,7 +10,7 @@ import org.apache.commons.pool.impl.GenericObjectPool;
 import javax.sql.DataSource;
 
 public class DbAccess {
-    private DataSource _dataSource;
+    private final DataSource _dataSource;
 
     public DbAccess() {
         try {

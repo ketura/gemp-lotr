@@ -9,8 +9,6 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
-import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import org.json.simple.JSONObject;
 
 public class ActivatedTriggerCheckerProducer implements TriggerCheckerProducer {

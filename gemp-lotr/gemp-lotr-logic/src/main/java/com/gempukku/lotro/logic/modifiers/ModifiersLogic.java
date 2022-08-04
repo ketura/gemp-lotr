@@ -12,20 +12,20 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.*;
 
 public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
-    private Map<ModifierEffect, List<Modifier>> _modifiers = new HashMap<ModifierEffect, List<Modifier>>();
+    private final Map<ModifierEffect, List<Modifier>> _modifiers = new HashMap<>();
 
-    private Map<Phase, List<Modifier>> _untilStartOfPhaseModifiers = new HashMap<Phase, List<Modifier>>();
-    private Map<Phase, List<Modifier>> _untilEndOfPhaseModifiers = new HashMap<Phase, List<Modifier>>();
-    private List<Modifier> _untilEndOfTurnModifiers = new LinkedList<Modifier>();
+    private final Map<Phase, List<Modifier>> _untilStartOfPhaseModifiers = new HashMap<>();
+    private final Map<Phase, List<Modifier>> _untilEndOfPhaseModifiers = new HashMap<>();
+    private final List<Modifier> _untilEndOfTurnModifiers = new LinkedList<>();
 
-    private Set<Modifier> _skipSet = new HashSet<Modifier>();
+    private final Set<Modifier> _skipSet = new HashSet<>();
 
-    private Map<Phase, Map<String, LimitCounter>> _endOfPhaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
-    private Map<Phase, Map<String, LimitCounter>> _startOfPhaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
-    private Map<String, LimitCounter> _turnLimitCounters = new HashMap<String, LimitCounter>();
+    private final Map<Phase, Map<String, LimitCounter>> _endOfPhaseLimitCounters = new HashMap<>();
+    private final Map<Phase, Map<String, LimitCounter>> _startOfPhaseLimitCounters = new HashMap<>();
+    private final Map<String, LimitCounter> _turnLimitCounters = new HashMap<>();
 
     private int _drawnThisPhaseCount = 0;
-    private Map<Integer, Integer> _woundsPerPhaseMap = new HashMap<Integer, Integer>();
+    private final Map<Integer, Integer> _woundsPerPhaseMap = new HashMap<>();
 
     @Override
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
@@ -41,7 +41,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, String prefix, Phase phase) {
         Map<String, LimitCounter> limitCounterMap = _endOfPhaseLimitCounters.get(phase);
         if (limitCounterMap == null) {
-            limitCounterMap = new HashMap<String, LimitCounter>();
+            limitCounterMap = new HashMap<>();
             _endOfPhaseLimitCounters.put(phase, limitCounterMap);
         }
         LimitCounter limitCounter = limitCounterMap.get(prefix + card.getCardId());
@@ -56,7 +56,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public LimitCounter getUntilStartOfPhaseLimitCounter(PhysicalCard card, String prefix, Phase phase) {
         Map<String, LimitCounter> limitCounterMap = _startOfPhaseLimitCounters.get(phase);
         if (limitCounterMap == null) {
-            limitCounterMap = new HashMap<String, LimitCounter>();
+            limitCounterMap = new HashMap<>();
             _startOfPhaseLimitCounters.put(phase, limitCounterMap);
         }
         LimitCounter limitCounter = limitCounterMap.get(prefix + card.getCardId());
@@ -95,7 +95,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     private List<Modifier> getEffectModifiers(ModifierEffect modifierEffect) {
         List<Modifier> modifiers = _modifiers.get(modifierEffect);
         if (modifiers == null) {
-            modifiers = new LinkedList<Modifier>();
+            modifiers = new LinkedList<>();
             _modifiers.put(modifierEffect, modifiers);
         }
         return modifiers;
@@ -135,7 +135,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         if (modifiers == null)
             return Collections.emptyList();
         else {
-            LinkedList<Modifier> liveModifiers = new LinkedList<Modifier>();
+            LinkedList<Modifier> liveModifiers = new LinkedList<>();
             for (Modifier modifier : modifiers) {
                 if (keyword == null || ((KeywordAffectingModifier) modifier).getKeyword() == keyword) {
                     if (!_skipSet.contains(modifier)) {
@@ -205,7 +205,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         addModifier(modifier);
         List<Modifier> list = _untilEndOfPhaseModifiers.get(phase);
         if (list == null) {
-            list = new LinkedList<Modifier>();
+            list = new LinkedList<>();
             _untilEndOfPhaseModifiers.put(phase, list);
         }
         list.add(modifier);
@@ -216,7 +216,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         addModifier(modifier);
         List<Modifier> list = _untilStartOfPhaseModifiers.get(phase);
         if (list == null) {
-            list = new LinkedList<Modifier>();
+            list = new LinkedList<>();
             _untilStartOfPhaseModifiers.put(phase, list);
         }
         list.add(modifier);
@@ -230,7 +230,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public Collection<Modifier> getModifiersAffecting(LotroGame game, PhysicalCard card) {
-        Set<Modifier> result = new HashSet<Modifier>();
+        Set<Modifier> result = new HashSet<>();
         for (List<Modifier> modifiers : _modifiers.values()) {
             for (Modifier modifier : modifiers) {
                 Condition condition = modifier.getCondition();
@@ -733,7 +733,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public List<? extends Action> getExtraPhaseActions(LotroGame game, PhysicalCard target) {
-        List<Action> activateCardActions = new LinkedList<Action>();
+        List<Action> activateCardActions = new LinkedList<>();
 
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_ACTION_MODIFIER, target)) {
             List<? extends Action> actions = modifier.getExtraPhaseAction(game, target);
@@ -746,7 +746,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public List<? extends Action> getExtraPhaseActionsFromStacked(LotroGame game, PhysicalCard target) {
-        List<Action> activateCardActions = new LinkedList<Action>();
+        List<Action> activateCardActions = new LinkedList<>();
 
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_ACTION_MODIFIER, target)) {
             List<? extends Action> actions = modifier.getExtraPhaseActionFromStacked(game, target);
@@ -991,7 +991,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public int getNumberOfSpottableFPCultures(LotroGame game, String playerId) {
-        Set<Culture> spottableCulturesBasedOnCards = new HashSet<Culture>();
+        Set<Culture> spottableCulturesBasedOnCards = new HashSet<>();
         for (PhysicalCard spottableFPCard : Filters.filterActive(game, Side.FREE_PEOPLE, Filters.spottable)) {
             final Culture fpCulture = spottableFPCard.getBlueprint().getCulture();
             if (fpCulture != null)
@@ -1019,7 +1019,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public int getNumberOfSpottableShadowCultures(LotroGame game, String playerId) {
-        Set<Culture> spottableCulturesBasedOnCards = new HashSet<Culture>();
+        Set<Culture> spottableCulturesBasedOnCards = new HashSet<>();
         for (PhysicalCard spottableFPCard : Filters.filterActive(game, Side.SHADOW, Filters.spottable)) {
             final Culture fpCulture = spottableFPCard.getBlueprint().getCulture();
             if (fpCulture != null)
@@ -1100,7 +1100,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     private class ModifierHookImpl implements ModifierHook {
-        private Modifier _modifier;
+        private final Modifier _modifier;
 
         private ModifierHookImpl(Modifier modifier) {
             _modifier = modifier;

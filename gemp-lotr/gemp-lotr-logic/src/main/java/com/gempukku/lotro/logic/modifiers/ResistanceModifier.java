@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class ResistanceModifier extends AbstractModifier {
-    private Evaluator evaluator;
-    private boolean nonCardTextModifier;
+    private final Evaluator evaluator;
+    private final boolean nonCardTextModifier;
 
     public ResistanceModifier(PhysicalCard source, Filterable affectFilter, int modifier) {
         this(source, affectFilter, new ConstantEvaluator(modifier));

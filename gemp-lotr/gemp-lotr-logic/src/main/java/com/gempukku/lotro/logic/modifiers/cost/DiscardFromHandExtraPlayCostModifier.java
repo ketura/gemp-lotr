@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class DiscardFromHandExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int count;
-    private Filterable[] cardFilter;
+    private final int count;
+    private final Filterable[] cardFilter;
 
     public DiscardFromHandExtraPlayCostModifier(PhysicalCard source, Filterable affects, int count, Condition condition, Filterable... cardFilter) {
         super(source, "Discard card(s) from hand to play", affects, condition);

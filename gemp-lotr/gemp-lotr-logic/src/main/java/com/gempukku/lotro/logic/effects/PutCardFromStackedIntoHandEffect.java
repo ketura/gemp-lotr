@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 import java.util.Collections;
 
 public class PutCardFromStackedIntoHandEffect extends AbstractEffect {
-    private PhysicalCard _card;
+    private final PhysicalCard _card;
 
     public PutCardFromStackedIntoHandEffect(PhysicalCard card) {
         _card = card;

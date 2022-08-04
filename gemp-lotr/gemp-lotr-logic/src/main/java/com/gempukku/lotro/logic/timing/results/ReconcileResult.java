@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class ReconcileResult extends EffectResult {
-    private String _playerId;
+    private final String _playerId;
 
     public ReconcileResult(String playerId) {
         super(EffectResult.Type.RECONCILE);

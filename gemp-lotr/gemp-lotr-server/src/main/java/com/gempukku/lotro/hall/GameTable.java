@@ -6,11 +6,11 @@ import com.gempukku.lotro.game.LotroGameParticipant;
 import java.util.*;
 
 public class GameTable {
-    private GameSettings gameSettings;
-    private Map<String, LotroGameParticipant> players = new HashMap<String, LotroGameParticipant>();
+    private final GameSettings gameSettings;
+    private final Map<String, LotroGameParticipant> players = new HashMap<>();
 
     private LotroGameMediator lotroGameMediator;
-    private int capacity;
+    private final int capacity;
 
     public GameTable(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
@@ -44,11 +44,11 @@ public class GameTable {
     }
 
     public List<String> getPlayerNames() {
-        return new LinkedList<String>(players.keySet());
+        return new LinkedList<>(players.keySet());
     }
 
     public Set<LotroGameParticipant> getPlayers() {
-        return Collections.unmodifiableSet(new HashSet<LotroGameParticipant>(players.values()));
+        return Collections.unmodifiableSet(new HashSet<>(players.values()));
     }
 
     public GameSettings getGameSettings() {

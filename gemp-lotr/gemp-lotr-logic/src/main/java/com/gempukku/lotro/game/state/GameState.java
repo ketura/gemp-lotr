@@ -14,24 +14,24 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameState {
-    private static Logger _log = Logger.getLogger(GameState.class);
+    private static final Logger _log = Logger.getLogger(GameState.class);
     private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
 
-    private Map<String, List<PhysicalCardImpl>> _adventureDecks = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _decks = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _hands = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _discards = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _deadPiles = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _stacked = new HashMap<String, List<PhysicalCardImpl>>();
+    private final Map<String, List<PhysicalCardImpl>> _adventureDecks = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _decks = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _hands = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _discards = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _deadPiles = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _stacked = new HashMap<>();
 
-    private Map<String, List<PhysicalCardImpl>> _voids = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _voidsFromHand = new HashMap<String, List<PhysicalCardImpl>>();
-    private Map<String, List<PhysicalCardImpl>> _removed = new HashMap<String, List<PhysicalCardImpl>>();
+    private final Map<String, List<PhysicalCardImpl>> _voids = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _voidsFromHand = new HashMap<>();
+    private final Map<String, List<PhysicalCardImpl>> _removed = new HashMap<>();
 
-    private List<PhysicalCardImpl> _inPlay = new LinkedList<PhysicalCardImpl>();
+    private final List<PhysicalCardImpl> _inPlay = new LinkedList<>();
 
-    private Map<Integer, PhysicalCardImpl> _allCards = new HashMap<Integer, PhysicalCardImpl>();
+    private final Map<Integer, PhysicalCardImpl> _allCards = new HashMap<>();
 
     private String _currentPlayerId;
     private Phase _currentPhase = Phase.PUT_RING_BEARER;
@@ -45,21 +45,21 @@ public class GameState {
     private boolean _wearingRing;
     private boolean _consecutiveAction;
 
-    private Map<String, Integer> _playerPosition = new HashMap<String, Integer>();
-    private Map<String, Integer> _playerThreats = new HashMap<String, Integer>();
+    private final Map<String, Integer> _playerPosition = new HashMap<>();
+    private final Map<String, Integer> _playerThreats = new HashMap<>();
 
-    private Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<PhysicalCard, Map<Token, Integer>>();
+    private final Map<PhysicalCard, Map<Token, Integer>> _cardTokens = new HashMap<>();
 
-    private Map<String, PhysicalCard> _ringBearers = new HashMap<String, PhysicalCard>();
-    private Map<String, PhysicalCard> _rings = new HashMap<String, PhysicalCard>();
+    private final Map<String, PhysicalCard> _ringBearers = new HashMap<>();
+    private final Map<String, PhysicalCard> _rings = new HashMap<>();
 
-    private Map<String, AwaitingDecision> _playerDecisions = new HashMap<String, AwaitingDecision>();
+    private final Map<String, AwaitingDecision> _playerDecisions = new HashMap<>();
 
-    private List<Assignment> _assignments = new LinkedList<Assignment>();
+    private final List<Assignment> _assignments = new LinkedList<>();
     private Skirmish _skirmish = null;
 
-    private Set<GameStateListener> _gameStateListeners = new HashSet<GameStateListener>();
-    private LinkedList<String> _lastMessages = new LinkedList<String>();
+    private final Set<GameStateListener> _gameStateListeners = new HashSet<>();
+    private final LinkedList<String> _lastMessages = new LinkedList<>();
 
     private int _nextCardId = 0;
 
@@ -75,15 +75,15 @@ public class GameState {
             String playerId = stringListEntry.getKey();
             List<String> decks = stringListEntry.getValue();
 
-            _adventureDecks.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _decks.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _hands.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _voids.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _voidsFromHand.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _removed.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _discards.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _deadPiles.put(playerId, new LinkedList<PhysicalCardImpl>());
-            _stacked.put(playerId, new LinkedList<PhysicalCardImpl>());
+            _adventureDecks.put(playerId, new LinkedList<>());
+            _decks.put(playerId, new LinkedList<>());
+            _hands.put(playerId, new LinkedList<>());
+            _voids.put(playerId, new LinkedList<>());
+            _voidsFromHand.put(playerId, new LinkedList<>());
+            _removed.put(playerId, new LinkedList<>());
+            _discards.put(playerId, new LinkedList<>());
+            _deadPiles.put(playerId, new LinkedList<>());
+            _stacked.put(playerId, new LinkedList<>());
 
             addPlayerCards(playerId, decks, library);
             try {
@@ -195,8 +195,8 @@ public class GameState {
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
-            Set<PhysicalCard> cardsLeftToSent = new LinkedHashSet<PhysicalCard>(_inPlay);
-            Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> cardsLeftToSent = new LinkedHashSet<>(_inPlay);
+            Set<PhysicalCard> sentCardsFromPlay = new HashSet<>();
 
             int cardsToSendAtLoopStart;
             do {
@@ -443,7 +443,7 @@ public class GameState {
             if (zone == Zone.STACKED)
                 ((PhysicalCardImpl) card).stackOn(null);
 
-            for (Assignment assignment : new LinkedList<Assignment>(_assignments)) {
+            for (Assignment assignment : new LinkedList<>(_assignments)) {
                 if (assignment.getFellowshipCharacter() == card)
                     removeAssignment(assignment);
                 if (assignment.getShadowCharacters().remove(card))
@@ -656,7 +656,7 @@ public class GameState {
     }
 
     public List<PhysicalCard> getAttachedCards(PhysicalCard card) {
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> result = new LinkedList<>();
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (physicalCard.getAttachedTo() != null && physicalCard.getAttachedTo() == card)
                 result.add(physicalCard);
@@ -665,7 +665,7 @@ public class GameState {
     }
 
     public List<PhysicalCard> getStackedCards(PhysicalCard card) {
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> result = new LinkedList<>();
         for (List<PhysicalCardImpl> physicalCardList : _stacked.values()) {
             for (PhysicalCardImpl physicalCard : physicalCardList) {
                 if (physicalCard.getStackedOn() == card)
@@ -710,7 +710,7 @@ public class GameState {
     public void addTokens(PhysicalCard card, Token token, int count) {
         Map<Token, Integer> tokens = _cardTokens.get(card);
         if (tokens == null) {
-            tokens = new HashMap<Token, Integer>();
+            tokens = new HashMap<>();
             _cardTokens.put(card, tokens);
         }
         Integer currentCount = tokens.get(token);
@@ -726,7 +726,7 @@ public class GameState {
     public void removeTokens(PhysicalCard card, Token token, int count) {
         Map<Token, Integer> tokens = _cardTokens.get(card);
         if (tokens == null) {
-            tokens = new HashMap<Token, Integer>();
+            tokens = new HashMap<>();
             _cardTokens.put(card, tokens);
         }
         Integer currentCount = tokens.get(token);
@@ -950,7 +950,7 @@ public class GameState {
         for (PhysicalCard minion : minions) {
             removeFromSkirmish(minion);
 
-            for (Assignment assignment : new LinkedList<Assignment>(_assignments)) {
+            for (Assignment assignment : new LinkedList<>(_assignments)) {
                 if (assignment.getShadowCharacters().remove(minion))
                     if (assignment.getShadowCharacters().size() == 0)
                         removeAssignment(assignment);
@@ -961,7 +961,7 @@ public class GameState {
         if (assignment != null)
             assignment.getShadowCharacters().addAll(minions);
         else
-            _assignments.add(new Assignment(fp, new HashSet<PhysicalCard>(minions)));
+            _assignments.add(new Assignment(fp, new HashSet<>(minions)));
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.addAssignment(fp, minions);
@@ -985,7 +985,7 @@ public class GameState {
     }
 
     public void startSkirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
-        _skirmish = new Skirmish(fellowshipCharacter, new HashSet<PhysicalCard>(shadowCharacters));
+        _skirmish = new Skirmish(fellowshipCharacter, new HashSet<>(shadowCharacters));
         for (GameStateListener listener : getAllGameStateListeners())
             listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
     }

@@ -13,10 +13,10 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CachedLeagueMatchDAO implements LeagueMatchDAO, Cached {
-    private LeagueMatchDAO _leagueMatchDAO;
-    private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
+    private final LeagueMatchDAO _leagueMatchDAO;
+    private final ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
-    private Map<String, Collection<LeagueMatchResult>> _cachedMatches = Collections.synchronizedMap(new LRUMap(5));
+    private final Map<String, Collection<LeagueMatchResult>> _cachedMatches = Collections.synchronizedMap(new LRUMap(5));
 
     public CachedLeagueMatchDAO(LeagueMatchDAO leagueMatchDAO) {
         _leagueMatchDAO = leagueMatchDAO;
@@ -62,7 +62,7 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO, Cached {
         Collection<LeagueMatchResult> leagueMatches;
         leagueMatches = _cachedMatches.get(leagueId);
         if (leagueMatches == null) {
-            leagueMatches = new CopyOnWriteArraySet<LeagueMatchResult>(_leagueMatchDAO.getLeagueMatches(leagueId));
+            leagueMatches = new CopyOnWriteArraySet<>(_leagueMatchDAO.getLeagueMatches(leagueId));
             _cachedMatches.put(leagueId, leagueMatches);
         }
         return leagueMatches;

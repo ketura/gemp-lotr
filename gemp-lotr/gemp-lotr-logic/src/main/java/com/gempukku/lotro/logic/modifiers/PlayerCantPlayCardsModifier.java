@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class PlayerCantPlayCardsModifier extends AbstractModifier {
-    private String _playerId;
+    private final String _playerId;
 
     public PlayerCantPlayCardsModifier(PhysicalCard source, String playerId) {
         this(source, null, playerId);

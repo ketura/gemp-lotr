@@ -18,23 +18,23 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class LotroServer extends AbstractServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
 
-    private LotroCardBlueprintLibrary _lotroCardBlueprintLibrary;
+    private final LotroCardBlueprintLibrary _lotroCardBlueprintLibrary;
 
-    private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
-    private Set<String> _gameDeathWarningsSent = new HashSet<String>();
+    private final Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<>();
+    private final Set<String> _gameDeathWarningsSent = new HashSet<>();
 
-    private final Map<String, Date> _finishedGamesTime = Collections.synchronizedMap(new LinkedHashMap<String, Date>());
+    private final Map<String, Date> _finishedGamesTime = Collections.synchronizedMap(new LinkedHashMap<>());
     private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
     private final long _timeToGameDeathWarning = 1000 * 60 * 4; // 4 minutes
 
     private int _nextGameId = 1;
 
-    private DeckDAO _deckDao;
+    private final DeckDAO _deckDao;
 
-    private ChatServer _chatServer;
-    private GameRecorder _gameRecorder;
+    private final ChatServer _chatServer;
+    private final GameRecorder _gameRecorder;
 
-    private ReadWriteLock _lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock _lock = new ReentrantReadWriteLock();
 
     public LotroServer(DeckDAO deckDao, LotroCardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder) {
         _deckDao = deckDao;
@@ -48,7 +48,7 @@ public class LotroServer extends AbstractServer {
         try {
             long currentTime = System.currentTimeMillis();
 
-            LinkedHashMap<String, Date> copy = new LinkedHashMap<String, Date>(_finishedGamesTime);
+            LinkedHashMap<String, Date> copy = new LinkedHashMap<>(_finishedGamesTime);
             for (Map.Entry<String, Date> finishedGame : copy.entrySet()) {
                 String gameId = finishedGame.getKey();
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeathWarning
@@ -92,7 +92,7 @@ public class LotroServer extends AbstractServer {
             final String gameId = String.valueOf(_nextGameId);
 
             if (gameSettings.isCompetitive()) {
-                Set<String> allowedUsers = new HashSet<String>();
+                Set<String> allowedUsers = new HashSet<>();
                 for (LotroGameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
@@ -117,8 +117,8 @@ public class LotroServer extends AbstractServer {
                     });
             lotroGameMediator.sendMessageToPlayers("You're starting a game of " + gameSettings.getLotroFormat().getName());
 
-            StringBuffer players = new StringBuffer();
-            Map<String, String> deckNames = new HashMap<String, String>();
+            StringBuilder players = new StringBuilder();
+            Map<String, String> deckNames = new HashMap<>();
             for (LotroGameParticipant participant : participants) {
                 deckNames.put(participant.getPlayerId(), participant.getDeck().getDeckName());
                 if (players.length() > 0)

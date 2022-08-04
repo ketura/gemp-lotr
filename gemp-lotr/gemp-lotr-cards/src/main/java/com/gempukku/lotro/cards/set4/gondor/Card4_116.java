@@ -35,7 +35,7 @@ public class Card4_116 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new TwilightCostModifier(self, Filters.and(Filters.not(self), Culture.GONDOR, Race.MAN),
                         new PhaseCondition(Phase.PLAY_STARTING_FELLOWSHIP), -1));

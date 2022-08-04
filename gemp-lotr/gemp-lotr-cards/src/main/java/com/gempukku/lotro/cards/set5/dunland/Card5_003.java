@@ -47,7 +47,7 @@ public class Card5_003 extends AbstractEvent {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
                                 action.appendEffect(
-                                        new ShuffleCardsFromHandIntoDeckEffect(self, playerId, new HashSet<PhysicalCard>(game.getGameState().getHand(playerId))));
+                                        new ShuffleCardsFromHandIntoDeckEffect(self, playerId, new HashSet<>(game.getGameState().getHand(playerId))));
                                 action.appendEffect(
                                         new DrawCardsEffect(action, playerId, 8));
                             }

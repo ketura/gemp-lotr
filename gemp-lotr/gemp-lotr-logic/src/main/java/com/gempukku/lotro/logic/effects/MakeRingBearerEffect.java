@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import java.util.Collections;
 
 public class MakeRingBearerEffect extends UnrespondableEffect {
-    private PhysicalCard _newRingBearer;
+    private final PhysicalCard _newRingBearer;
 
     public MakeRingBearerEffect(PhysicalCard newRingBearer) {
         _newRingBearer = newRingBearer;

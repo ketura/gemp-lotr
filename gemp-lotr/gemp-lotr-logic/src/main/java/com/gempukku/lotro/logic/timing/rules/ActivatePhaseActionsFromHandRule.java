@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActivatePhaseActionsFromHandRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public ActivatePhaseActionsFromHandRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

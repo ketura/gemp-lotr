@@ -44,7 +44,7 @@ public class Card10_002 extends AbstractPermanent {
                 PlayConditions.canPlayFromHand(playerId, game, Culture.DWARVEN, CardType.CONDITION)
                         || PlayConditions.canPlayFromDiscard(playerId, game, Culture.DWARVEN, CardType.CONDITION))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.DWARVEN, CardType.CONDITION));
             possibleEffects.add(

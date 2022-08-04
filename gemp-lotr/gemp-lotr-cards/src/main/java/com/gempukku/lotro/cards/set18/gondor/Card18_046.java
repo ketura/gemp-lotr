@@ -43,7 +43,7 @@ public class Card18_046 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new MayNotBearModifier(self, Filters.hasAttached(self), Side.SHADOW));
         return modifiers;
@@ -67,7 +67,7 @@ public class Card18_046 extends AbstractPermanent {
                 && (PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN)
                 || PlayConditions.canSpot(game, Keyword.RANGER))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN) {
                         @Override

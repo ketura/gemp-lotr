@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class HunterRule {
-    private ModifiersLogic _modifiersLogic;
+    private final ModifiersLogic _modifiersLogic;
 
     public HunterRule(ModifiersLogic modifiersLogic) {
         _modifiersLogic = modifiersLogic;

@@ -36,7 +36,7 @@ public class Card6_091 extends AbstractPermanent {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, PossessionClass.MOUNT, Filters.attachedTo(Culture.ROHAN, Race.MAN)) {
                         @Override
                         protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
-                            Set<PhysicalCard> affectedCharacters = new HashSet<PhysicalCard>();
+                            Set<PhysicalCard> affectedCharacters = new HashSet<>();
                             for (PhysicalCard card : cards)
                                 affectedCharacters.add(card.getAttachedTo());
                             action.appendEffect(

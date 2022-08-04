@@ -40,7 +40,7 @@ public class Card13_102 extends AbstractAttachable {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), new CanSpotCultureTokensCondition(1),
                         new CountActiveEvaluator(CardType.COMPANION, Filters.assignedToSkirmish)));

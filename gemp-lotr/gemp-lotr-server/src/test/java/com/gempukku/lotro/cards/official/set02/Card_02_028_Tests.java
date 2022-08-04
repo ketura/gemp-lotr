@@ -9,16 +9,15 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 // Wielder of the Flame
 public class Card_02_028_Tests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("wielder", "2_28");
                     put("gandalf", "1_364");
 

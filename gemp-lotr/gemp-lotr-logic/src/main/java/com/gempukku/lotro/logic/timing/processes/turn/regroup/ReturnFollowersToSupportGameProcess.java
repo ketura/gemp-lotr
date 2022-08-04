@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.Collection;
 
 public class ReturnFollowersToSupportGameProcess implements GameProcess {
-    private GameProcess _followingProcess;
+    private final GameProcess _followingProcess;
 
     public ReturnFollowersToSupportGameProcess(GameProcess followingProcess) {
         _followingProcess = followingProcess;

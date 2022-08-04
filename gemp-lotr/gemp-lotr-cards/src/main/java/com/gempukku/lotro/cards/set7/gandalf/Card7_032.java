@@ -46,7 +46,7 @@ public class Card7_032 extends AbstractResponseEvent {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new RemoveTwilightEffect(2));
             possibleEffects.add(

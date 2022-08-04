@@ -21,28 +21,28 @@ import java.util.*;
 public class DefaultLotroGame implements LotroGame {
     private static final Logger log = Logger.getLogger(DefaultLotroGame.class);
 
-    private GameState _gameState;
-    private ModifiersLogic _modifiersLogic = new ModifiersLogic();
-    private DefaultActionsEnvironment _actionsEnvironment;
-    private UserFeedback _userFeedback;
-    private TurnProcedure _turnProcedure;
-    private ActionStack _actionStack;
+    private final GameState _gameState;
+    private final ModifiersLogic _modifiersLogic = new ModifiersLogic();
+    private final DefaultActionsEnvironment _actionsEnvironment;
+    private final UserFeedback _userFeedback;
+    private final TurnProcedure _turnProcedure;
+    private final ActionStack _actionStack;
     private boolean _cancelled;
     private boolean _finished;
 
-    private Adventure _adventure;
-    private LotroFormat _format;
+    private final Adventure _adventure;
+    private final LotroFormat _format;
 
-    private Set<String> _allPlayers;
-    private Map<String, Set<Phase>> _autoPassConfiguration = new HashMap<String, Set<Phase>>();
+    private final Set<String> _allPlayers;
+    private final Map<String, Set<Phase>> _autoPassConfiguration = new HashMap<>();
 
     private String _winnerPlayerId;
-    private Map<String, String> _losers = new HashMap<String, String>();
+    private final Map<String, String> _losers = new HashMap<>();
 
-    private Set<GameResultListener> _gameResultListeners = new HashSet<GameResultListener>();
+    private final Set<GameResultListener> _gameResultListeners = new HashSet<>();
 
-    private Set<String> _requestedCancel = new HashSet<String>();
-    private LotroCardBlueprintLibrary _library;
+    private final Set<String> _requestedCancel = new HashSet<>();
+    private final LotroCardBlueprintLibrary _library;
 
     public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
         _library = library;
@@ -54,11 +54,11 @@ public class DefaultLotroGame implements LotroGame {
 
         _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
 
-        final Map<String, List<String>> cards = new HashMap<String, List<String>>();
-        final Map<String, String> ringBearers = new HashMap<String, String>();
-        final Map<String, String> rings = new HashMap<String, String>();
+        final Map<String, List<String>> cards = new HashMap<>();
+        final Map<String, String> ringBearers = new HashMap<>();
+        final Map<String, String> rings = new HashMap<>();
         for (String playerId : decks.keySet()) {
-            List<String> deck = new LinkedList<String>();
+            List<String> deck = new LinkedList<>();
 
             LotroDeck lotroDeck = decks.get(playerId);
             deck.addAll(lotroDeck.getSites());
@@ -175,7 +175,7 @@ public class DefaultLotroGame implements LotroGame {
     public void playerWon(String playerId, String reason) {
         if (!_finished) {
             // Any remaining players have lost
-            Set<String> losers = new HashSet<String>(_allPlayers);
+            Set<String> losers = new HashSet<>(_allPlayers);
             losers.removeAll(_losers.keySet());
             losers.remove(playerId);
 
@@ -207,7 +207,7 @@ public class DefaultLotroGame implements LotroGame {
                     _gameState.sendMessage(playerId + " lost due to: " + reason);
 
                 if (_losers.size() + 1 == _allPlayers.size()) {
-                    List<String> allPlayers = new LinkedList<String>(_allPlayers);
+                    List<String> allPlayers = new LinkedList<>(_allPlayers);
                     allPlayers.removeAll(_losers.keySet());
                     gameWon(allPlayers.get(0), "Last remaining player in game");
                 }

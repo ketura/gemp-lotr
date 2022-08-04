@@ -12,11 +12,11 @@ import java.util.Queue;
 
 public abstract class AbstractTournamentQueue implements TournamentQueue {
     protected int _cost;
-    protected Queue<String> _players = new LinkedList<String>();
-    protected Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
+    protected Queue<String> _players = new LinkedList<>();
+    protected Map<String, LotroDeck> _playerDecks = new HashMap<>();
     protected boolean _requiresDeck;
 
-    private CollectionType _currencyCollection = CollectionType.MY_CARDS;
+    private final CollectionType _currencyCollection = CollectionType.MY_CARDS;
 
     protected final PairingMechanism _pairingMechanism;
     protected final CollectionType _collectionType;

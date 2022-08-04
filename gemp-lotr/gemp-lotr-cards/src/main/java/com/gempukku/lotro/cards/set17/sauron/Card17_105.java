@@ -36,7 +36,7 @@ public class Card17_105 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(CardType.MINION, Filters.not(Filters.name("Sauron"))),
                         new SpotCondition(Filters.name("Sauron")), Keyword.DAMAGE, 1));

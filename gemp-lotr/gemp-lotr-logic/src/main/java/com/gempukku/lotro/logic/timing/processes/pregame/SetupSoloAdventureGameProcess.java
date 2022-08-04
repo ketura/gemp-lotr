@@ -13,10 +13,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class SetupSoloAdventureGameProcess implements GameProcess {
-    private String _startingSite;
-    private String _player;
-    private PlayerOrderFeedback _playerOrderFeedback;
-    private String _adventureCard;
+    private final String _startingSite;
+    private final String _player;
+    private final PlayerOrderFeedback _playerOrderFeedback;
+    private final String _adventureCard;
 
     public SetupSoloAdventureGameProcess(String adventureCard, String startingSite, String player, PlayerOrderFeedback playerOrderFeedback) {
         _adventureCard = adventureCard;
@@ -27,7 +27,7 @@ public class SetupSoloAdventureGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        _playerOrderFeedback.setPlayerOrder(new PlayerOrder(Arrays.asList(_player)), _player);
+        _playerOrderFeedback.setPlayerOrder(new PlayerOrder(Collections.singletonList(_player)), _player);
         final GameState gameState = game.getGameState();
         try {
             final PhysicalCard adventureCard = gameState.createPhysicalCard(_player, game.getLotroCardBlueprintLibrary(), _adventureCard);

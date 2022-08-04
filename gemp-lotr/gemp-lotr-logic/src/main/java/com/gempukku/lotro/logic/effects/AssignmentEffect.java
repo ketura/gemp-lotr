@@ -13,11 +13,11 @@ import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
 import java.util.Collections;
 
 public class AssignmentEffect extends AbstractEffect {
-    private String _playerId;
+    private final String _playerId;
     private boolean _ignoreSingleMinionRestriction;
-    private boolean _skipAllyLocationCheck;
-    private PhysicalCard _fpChar;
-    private PhysicalCard _minion;
+    private final boolean _skipAllyLocationCheck;
+    private final PhysicalCard _fpChar;
+    private final PhysicalCard _minion;
 
     public AssignmentEffect(String playerId, PhysicalCard fpChar, PhysicalCard minion) {
         this(playerId, fpChar, minion, false);

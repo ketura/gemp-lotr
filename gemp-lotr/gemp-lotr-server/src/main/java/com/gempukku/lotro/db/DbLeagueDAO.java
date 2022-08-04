@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbLeagueDAO implements LeagueDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbLeagueDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
     }
 
-    public void addLeague(int cost, String name, String type, String clazz, String parameters, int start, int endTime) throws SQLException, IOException {
+    public void addLeague(int cost, String name, String type, String clazz, String parameters, int start, int endTime) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("insert into league (name, type, class, parameters, start, end, status, cost) values (?, ?, ?, ?, ?, ?, ?, ?)")) {
                 statement.setString(1, name);
@@ -33,12 +33,12 @@ public class DbLeagueDAO implements LeagueDAO {
         }
     }
 
-    public List<League> loadActiveLeagues(int currentTime) throws SQLException, IOException {
+    public List<League> loadActiveLeagues(int currentTime) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("select name, type, class, parameters, status, cost from league where end>=? order by start desc")) {
                 statement.setInt(1, currentTime);
                 try (ResultSet rs = statement.executeQuery()) {
-                    List<League> activeLeagues = new ArrayList<League>();
+                    List<League> activeLeagues = new ArrayList<>();
                     while (rs.next()) {
                         String name = rs.getString(1);
                         String type = rs.getString(2);

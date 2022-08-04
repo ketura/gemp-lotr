@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.decisions;
 
 public class DecisionResultInvalidException extends Exception {
-    private String _warningMessage;
+    private final String _warningMessage;
 
     public DecisionResultInvalidException() {
         this("Something went wrong");

@@ -33,7 +33,7 @@ public class Card13_165 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new LocationCondition(Keyword.FOREST), -1));
         modifiers.add(

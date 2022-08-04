@@ -33,7 +33,7 @@ public class ShuffleHandIntoDrawDeck implements EffectAppenderProducer {
                 return new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        List<PhysicalCard> hand = new LinkedList<PhysicalCard>(game.getGameState().getHand(handPlayer));
+                        List<PhysicalCard> hand = new LinkedList<>(game.getGameState().getHand(handPlayer));
                         game.getGameState().removeCardsFromZone(actionContext.getPerformingPlayer(), hand);
                         for (PhysicalCard physicalCard : hand) {
                             game.getGameState().putCardOnBottomOfDeck(physicalCard);

@@ -42,7 +42,7 @@ public class Card10_062 extends AbstractMinion {
             }
         };
 
-        final List<Modifier> modifiers = new LinkedList<Modifier>();
+        final List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, self, con, 3));
         modifiers.add(

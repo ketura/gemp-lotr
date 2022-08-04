@@ -11,7 +11,7 @@ public enum PossessionClass implements Filterable {
 
     ;
     
-    private String _humanReadable;
+    private final String _humanReadable;
 
     private PossessionClass(String humanReadable) {
         _humanReadable = humanReadable;

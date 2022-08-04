@@ -13,8 +13,6 @@ public class NotRequirementProducer implements RequirementProducer {
 
         final Requirement condition = environment.getRequirementFactory().getRequirement((JSONObject) object.get("condition"), environment);
 
-        return (actionContext) -> {
-            return !condition.accepts(actionContext);
-        };
+        return (actionContext) -> !condition.accepts(actionContext);
     }
 }

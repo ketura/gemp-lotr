@@ -29,11 +29,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DeckRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private DeckDAO _deckDao;
-    private SortAndFilterCards _sortAndFilterCards;
-    private LotroCardBlueprintLibrary _library;
-    private LotroFormatLibrary _formatLibrary;
-    private LotroServer _lotroServer;
+    private final DeckDAO _deckDao;
+    private final SortAndFilterCards _sortAndFilterCards;
+    private final LotroCardBlueprintLibrary _library;
+    private final LotroFormatLibrary _formatLibrary;
+    private final LotroServer _lotroServer;
 
     public DeckRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -73,7 +73,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    public class Format {
+    public static class Format {
         public String code;
         public String name;
         public Format(String c, String n) {
@@ -437,7 +437,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private List<CardItem> createCardItems(List<String> blueprintIds) {
-        List<CardItem> cardItems = new LinkedList<CardItem>();
+        List<CardItem> cardItems = new LinkedList<>();
         for (String blueprintId : blueprintIds)
             cardItems.add(new BasicCardItem(blueprintId));
 

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PlayerStatsRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private GameHistoryService _gameHistoryService;
+    private final GameHistoryService _gameHistoryService;
 
     public PlayerStatsRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -30,7 +30,7 @@ public class PlayerStatsRequestHandler extends LotroServerRequestHandler impleme
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if (uri.equals("") && request.method() == HttpMethod.GET) {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
             String participantId = getQueryParameterSafely(queryDecoder, "participantId");
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 

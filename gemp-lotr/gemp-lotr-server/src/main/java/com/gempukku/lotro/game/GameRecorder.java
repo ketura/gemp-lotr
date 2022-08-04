@@ -23,10 +23,10 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
 public class GameRecorder {
-    private static String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    private static int _charsCount = _possibleChars.length();
+    private static final String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    private static final int _charsCount = _possibleChars.length();
 
-    private GameHistoryService _gameHistoryService;
+    private final GameHistoryService _gameHistoryService;
 
     public GameRecorder(GameHistoryService gameHistoryService) {
         _gameHistoryService = gameHistoryService;
@@ -51,7 +51,7 @@ public class GameRecorder {
 
     public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, LotroFormat format, final String tournament, final Map<String, String> deckNames) {
         final Date startData = new Date();
-        final Map<String, GameCommunicationChannel> recordingChannels = new HashMap<String, GameCommunicationChannel>();
+        final Map<String, GameCommunicationChannel> recordingChannels = new HashMap<>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
             GameCommunicationChannel recordChannel = new GameCommunicationChannel(playerId, 0);
             lotroGame.addGameStateListener(playerId, recordChannel);
@@ -93,7 +93,7 @@ public class GameRecorder {
     }
 
     private Map<String, String> saveRecordedChannels(Map<String, GameCommunicationChannel> gameProgress) {
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
         for (Map.Entry<String, GameCommunicationChannel> playerRecordings : gameProgress.entrySet()) {
             String playerId = playerRecordings.getKey();
 
@@ -101,8 +101,7 @@ public class GameRecorder {
             final List<GameEvent> gameEvents = playerRecordings.getValue().consumeGameEvents();
 
             try {
-                OutputStream replayStream = getRecordingWriteStream(playerId, gameRecordingId);
-                try {
+                try (OutputStream replayStream = getRecordingWriteStream(playerId, gameRecordingId)) {
                     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
                     Document doc = documentBuilder.newDocument();
@@ -123,8 +122,6 @@ public class GameRecorder {
                     // Write the DOM document to the file
                     Transformer xformer = TransformerFactory.newInstance().newTransformer();
                     xformer.transform(source, streamResult);
-                } finally {
-                    replayStream.close();
                 }
             } catch (Exception exp) {
 

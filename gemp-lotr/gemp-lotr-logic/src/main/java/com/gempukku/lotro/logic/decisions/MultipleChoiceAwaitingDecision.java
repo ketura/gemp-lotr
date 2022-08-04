@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.decisions;
 
 public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDecision {
-    private String[] _possibleResults;
+    private final String[] _possibleResults;
 
     public MultipleChoiceAwaitingDecision(int id, String text, String[] possibleResults) {
         super(id, text, AwaitingDecisionType.MULTIPLE_CHOICE);

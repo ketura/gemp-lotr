@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import java.util.Stack;
 
 public class ActionStack {
-    private Stack<Action> _actionStack = new Stack<Action>();
+    private final Stack<Action> _actionStack = new Stack<>();
 
     public void stackAction(Action action) {
         _actionStack.add(action);

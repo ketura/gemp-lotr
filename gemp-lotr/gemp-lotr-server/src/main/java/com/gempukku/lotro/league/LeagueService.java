@@ -21,18 +21,18 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LeagueService {
-    private LeagueDAO _leagueDao;
-    private CardSets _cardSets;
+    private final LeagueDAO _leagueDao;
+    private final CardSets _cardSets;
 
     // Cached on this layer
-    private CachedLeagueMatchDAO _leagueMatchDao;
-    private CachedLeagueParticipationDAO _leagueParticipationDAO;
+    private final CachedLeagueMatchDAO _leagueMatchDao;
+    private final CachedLeagueParticipationDAO _leagueParticipationDAO;
 
-    private CollectionsManager _collectionsManager;
-    private SoloDraftDefinitions _soloDraftDefinitions;
+    private final CollectionsManager _collectionsManager;
+    private final SoloDraftDefinitions _soloDraftDefinitions;
 
-    private Map<String, List<PlayerStanding>> _leagueStandings = new ConcurrentHashMap<String, List<PlayerStanding>>();
-    private Map<String, List<PlayerStanding>> _leagueSerieStandings = new ConcurrentHashMap<String, List<PlayerStanding>>();
+    private final Map<String, List<PlayerStanding>> _leagueStandings = new ConcurrentHashMap<>();
+    private final Map<String, List<PlayerStanding>> _leagueSerieStandings = new ConcurrentHashMap<>();
 
     private int _activeLeaguesLoadedDate;
     private List<League> _activeLeagues;
@@ -68,8 +68,6 @@ public class LeagueService {
                 _activeLeaguesLoadedDate = currentDate;
                 processLoadedLeagues(currentDate);
             } catch (SQLException e) {
-                throw new RuntimeException("Unable to load Leagues", e);
-            } catch (IOException e) {
                 throw new RuntimeException("Unable to load Leagues", e);
             }
         }
@@ -172,7 +170,7 @@ public class LeagueService {
 
     public synchronized Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
         final Collection<LeagueMatchResult> allMatches = _leagueMatchDao.getLeagueMatches(league.getType());
-        Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
+        Set<LeagueMatchResult> result = new HashSet<>();
         for (LeagueMatchResult match : allMatches) {
             if (match.getSerieName().equals(serie.getName()) && (match.getWinner().equals(player) || match.getLoser().equals(player)))
                 result.add(match);
@@ -206,7 +204,7 @@ public class LeagueService {
         final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league.getType());
         final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league.getType());
 
-        Set<LeagueMatchResult> matchesInSerie = new HashSet<LeagueMatchResult>();
+        Set<LeagueMatchResult> matchesInSerie = new HashSet<>();
         for (LeagueMatchResult match : matches) {
             if (match.getSerieName().equals(leagueSerie.getName()))
                 matchesInSerie.add(match);
@@ -223,7 +221,7 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createStandingsForMatchesAndPoints(Collection<String> playersParticipating, Collection<LeagueMatchResult> matches) {
-        return BestOfOneStandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String, Integer>emptyMap());
+        return BestOfOneStandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.emptyMap());
     }
 
     public synchronized boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {

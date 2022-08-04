@@ -44,7 +44,7 @@ public class Card8_092 extends AbstractCompanion {
     public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
         if (playerId.equals(self.getOwner())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(self.getOwner(), Culture.ROHAN, CardType.COMPANION) {
                         @Override

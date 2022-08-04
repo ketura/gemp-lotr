@@ -16,8 +16,8 @@ import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import java.util.*;
 
 public class FilterFactory {
-    private Map<String, FilterableSource> simpleFilters = new HashMap<>();
-    private Map<String, FilterableSourceProducer> parameterFilters = new HashMap<>();
+    private final Map<String, FilterableSource> simpleFilters = new HashMap<>();
+    private final Map<String, FilterableSourceProducer> parameterFilters = new HashMap<>();
 
     public FilterFactory() {
         for (CardType value : CardType.values())
@@ -33,7 +33,7 @@ public class FilterFactory {
         simpleFilters.put("ringbearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("ring-bearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("any", (actionContext) -> Filters.any);
-        simpleFilters.put("self", (actionContext) -> actionContext.getSource());
+        simpleFilters.put("self", ActionContext::getSource);
         simpleFilters.put("another", (actionContext) -> Filters.not(actionContext.getSource()));
         simpleFilters.put("your", (actionContext) -> Filters.owner(actionContext.getPerformingPlayer()));
         simpleFilters.put("unique", (actionContext) -> Filters.unique);
@@ -251,9 +251,7 @@ public class FilterFactory {
                     return (actionContext) -> Filters.isAllyInRegion(number, sitesBlock);
                 });
         parameterFilters.put("allyInCurrentRegion",
-                (parameter, environment) -> {
-                    return (actionContext) -> Filters.isAllyInCurrentRegion();
-                });
+                (parameter, environment) -> (actionContext) -> Filters.isAllyInCurrentRegion());
         parameterFilters.put("siteBlock",
                 (parameter, environment) -> {
                     final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameter.toUpperCase().replace(' ', '_'));
@@ -317,9 +315,7 @@ public class FilterFactory {
                     };
                 });
         parameterFilters.put("memory",
-                (parameter, environment) -> (actionContext) -> {
-                    return Filters.in(actionContext.getCardsFromMemory(parameter));
-                });
+                (parameter, environment) -> (actionContext) -> Filters.in(actionContext.getCardsFromMemory(parameter)));
         parameterFilters.put("maxTwilight",
                 (parameter, environment) -> {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
@@ -415,7 +411,7 @@ public class FilterFactory {
         parameterFilters.put("nameFromMemory",
                 new FilterableSourceProducer() {
                     @Override
-                    public FilterableSource createFilterableSource(String parameter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+                    public FilterableSource createFilterableSource(String parameter, CardGenerationEnvironment environment) {
                         return new FilterableSource() {
                             @Override
                             public Filterable getFilterable(ActionContext actionContext) {
@@ -453,7 +449,7 @@ public class FilterFactory {
             InvalidCardDefinitionException {
         if (value == null)
             throw new InvalidCardDefinitionException("Filter not specified");
-        String filterStrings[] = splitIntoFilters(value);
+        String[] filterStrings = splitIntoFilters(value);
         if (filterStrings.length == 0)
             return (actionContext) -> Filters.any;
         if (filterStrings.length == 1)

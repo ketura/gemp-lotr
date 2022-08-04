@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class AllyParticipatesInSkirmishesModifier extends AbstractModifier {
-    private PhysicalCard _source;
+    private final PhysicalCard _source;
 
     public AllyParticipatesInSkirmishesModifier(PhysicalCard source, Filterable... affectFilters) {
         this(source, null, affectFilters);

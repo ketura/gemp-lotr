@@ -4,9 +4,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class RevealCardFromHandResult extends EffectResult {
-    private PhysicalCard _source;
-    private String _playerId;
-    private PhysicalCard _card;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final PhysicalCard _card;
 
     public RevealCardFromHandResult(PhysicalCard source, String playerId, PhysicalCard card) {
         super(Type.FOR_EACH_REVEALED_FROM_HAND);

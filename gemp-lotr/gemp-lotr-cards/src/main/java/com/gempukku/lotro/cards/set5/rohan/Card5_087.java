@@ -37,7 +37,7 @@ public class Card5_087 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && PlayConditions.canSpot(game, 2, Culture.ROHAN, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 2, Keyword.MACHINE) {
                         @Override

@@ -29,7 +29,7 @@ public class Card15_044 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new ResistanceModifier(self, Filters.smeagol, new SpotCondition(Filters.frodo), 1));
         modifiers.add(

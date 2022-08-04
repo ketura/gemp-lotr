@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class VitalityEvaluator implements Evaluator {
-    private int _multiplier;
-    private PhysicalCard _physicalCard;
+    private final int _multiplier;
+    private final PhysicalCard _physicalCard;
 
     public VitalityEvaluator(PhysicalCard physicalCard) {
         this(physicalCard, 1);

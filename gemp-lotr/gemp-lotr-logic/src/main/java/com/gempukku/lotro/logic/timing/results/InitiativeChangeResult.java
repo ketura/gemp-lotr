@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class InitiativeChangeResult extends EffectResult {
-    private Side _side;
+    private final Side _side;
 
     public InitiativeChangeResult(Side side) {
         super(Type.INITIATIVE_CHANGE);

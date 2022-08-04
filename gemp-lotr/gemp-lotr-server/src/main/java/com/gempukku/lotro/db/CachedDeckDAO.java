@@ -8,9 +8,9 @@ import org.apache.commons.collections.map.LRUMap;
 import java.util.*;
 
 public class CachedDeckDAO implements DeckDAO, Cached {
-    private DeckDAO _delegate;
-    private Map<String, Set<Map.Entry<String, String>>> _playerDeckNames = Collections.synchronizedMap(new LRUMap(100));
-    private Map<String, LotroDeck> _decks = Collections.synchronizedMap(new LRUMap(100));
+    private final DeckDAO _delegate;
+    private final Map<String, Set<Map.Entry<String, String>>> _playerDeckNames = Collections.synchronizedMap(new LRUMap(100));
+    private final Map<String, LotroDeck> _decks = Collections.synchronizedMap(new LRUMap(100));
 
     public CachedDeckDAO(DeckDAO delegate) {
         _delegate = delegate;

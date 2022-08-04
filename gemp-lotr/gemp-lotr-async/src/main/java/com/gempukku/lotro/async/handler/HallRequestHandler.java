@@ -33,13 +33,13 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class HallRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private CollectionsManager _collectionManager;
-    private LotroFormatLibrary _formatLibrary;
-    private HallServer _hallServer;
-    private LeagueService _leagueService;
-    private LotroCardBlueprintLibrary _library;
-    private LotroServer _lotroServer;
-    private LongPollingSystem longPollingSystem;
+    private final CollectionsManager _collectionManager;
+    private final LotroFormatLibrary _formatLibrary;
+    private final HallServer _hallServer;
+    private final LeagueService _leagueService;
+    private final LotroCardBlueprintLibrary _library;
+    private final LotroServer _lotroServer;
+    private final LongPollingSystem longPollingSystem;
 
     public HallRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -296,7 +296,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private void getHall(HttpRequest request, ResponseWriter responseWriter) {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
 
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
@@ -368,10 +368,10 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class HallUpdateLongPollingResource implements LongPollingResource {
-        private HttpRequest _request;
-        private HallCommunicationChannel _hallCommunicationChannel;
-        private Player _resourceOwner;
-        private ResponseWriter _responseWriter;
+        private final HttpRequest _request;
+        private final HallCommunicationChannel _hallCommunicationChannel;
+        private final Player _resourceOwner;
+        private final ResponseWriter _responseWriter;
         private boolean _processed;
 
         private HallUpdateLongPollingResource(HallCommunicationChannel hallCommunicationChannel, HttpRequest request, Player resourceOwner, ResponseWriter responseWriter) {
@@ -401,7 +401,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                     doc.appendChild(hall);
 
-                    Map<String, String> headers = new HashMap<String, String>();
+                    Map<String, String> headers = new HashMap<>();
                     processDeliveryServiceNotification(_request, headers);
 
                     _responseWriter.writeXmlResponse(doc, headers);
@@ -413,9 +413,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private class SerializeDraftVisitor implements DraftChannelVisitor {
-        private Document _doc;
-        private Element _draft;
+    private static class SerializeDraftVisitor implements DraftChannelVisitor {
+        private final Document _doc;
+        private final Element _draft;
 
         private SerializeDraftVisitor(Document doc, Element draft) {
             _doc = doc;
@@ -453,9 +453,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private class SerializeHallInfoVisitor implements HallChannelVisitor {
-        private Document _doc;
-        private Element _hall;
+    private static class SerializeHallInfoVisitor implements HallChannelVisitor {
+        private final Document _doc;
+        private final Element _hall;
 
         public SerializeHallInfoVisitor(Document doc, Element hall) {
             _doc = doc;

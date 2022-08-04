@@ -3,12 +3,12 @@ package com.gempukku.lotro.game.packs;
 import java.util.*;
 
 public class DefaultSetDefinition implements SetDefinition {
-    private List<String> _tengwarCards = new LinkedList<String>();
-    private Map<String, List<String>> _rarityList = new HashMap<String, List<String>>();
-    private Map<String, String> _cardsRarity = new LinkedHashMap<String, String>();
-    private String _setId;
-    private String _setName;
-    private Set<String> _flags;
+    private final List<String> _tengwarCards = new LinkedList<>();
+    private final Map<String, List<String>> _rarityList = new HashMap<>();
+    private final Map<String, String> _cardsRarity = new LinkedHashMap<>();
+    private final String _setId;
+    private final String _setName;
+    private final Set<String> _flags;
 
     public DefaultSetDefinition(String setId, String setName, Set<String> flags) {
         _setId = setId;
@@ -20,7 +20,7 @@ public class DefaultSetDefinition implements SetDefinition {
         _cardsRarity.put(blueprintId, rarity);
         List<String> cardsOfRarity = _rarityList.get(rarity);
         if (cardsOfRarity == null) {
-            cardsOfRarity = new LinkedList<String>();
+            cardsOfRarity = new LinkedList<>();
             _rarityList.put(rarity, cardsOfRarity);
         }
         cardsOfRarity.add(blueprintId);

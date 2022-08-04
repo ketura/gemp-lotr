@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LeagueStarterBox implements PackBox {
     @Override
     public List<CardCollection.Item> openPack() {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         int starter = ThreadLocalRandom.current().nextInt(6);
         if (starter == 0) {
             result.add(CardCollection.Item.createItem("FotR - Gandalf Starter", 1));

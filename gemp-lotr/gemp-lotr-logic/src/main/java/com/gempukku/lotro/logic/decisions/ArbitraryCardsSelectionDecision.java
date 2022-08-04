@@ -7,10 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDecision {
-    private Collection<? extends PhysicalCard> _physicalCards;
-    private Collection<? extends PhysicalCard> _selectable;
-    private int _minimum;
-    private int _maximum;
+    private final Collection<? extends PhysicalCard> _physicalCards;
+    private final Collection<? extends PhysicalCard> _selectable;
+    private final int _minimum;
+    private final int _maximum;
 
     public ArbitraryCardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCard) {
         this(id, text, physicalCard, 0, physicalCard.size());
@@ -80,7 +80,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         if (cardIds.length < _minimum || cardIds.length > _maximum)
             throw new DecisionResultInvalidException();
 
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> result = new LinkedList<>();
         try {
             for (String cardId : cardIds) {
                 PhysicalCard card = getPhysicalCardByIndex(Integer.parseInt(cardId.substring(4)));
@@ -88,9 +88,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
                     throw new DecisionResultInvalidException();
                 result.add(card);
             }
-        } catch (NumberFormatException e) {
-            throw new DecisionResultInvalidException();
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new DecisionResultInvalidException();
         }
 

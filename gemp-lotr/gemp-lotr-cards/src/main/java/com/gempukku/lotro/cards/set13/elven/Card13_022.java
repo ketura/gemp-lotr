@@ -53,7 +53,7 @@ public class Card13_022 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && (PlayConditions.canSelfDiscard(self, game) || PlayConditions.canRemoveTokens(game, self, Token.ELVEN, 2))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.ELVEN, 2));
             possibleCosts.add(

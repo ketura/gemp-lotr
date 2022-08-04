@@ -3,7 +3,7 @@ package com.gempukku.util;
 import java.util.Comparator;
 
 public class DescComparator<T> implements Comparator<T> {
-    private Comparator<T> _comparator;
+    private final Comparator<T> _comparator;
 
     public DescComparator(Comparator<T> comparator) {
         _comparator = comparator;

@@ -56,7 +56,7 @@ public class Card18_091 extends AbstractMinion {
                     new YesNoDecision("Do you want to add burden or exert the Ring-bearer twice to discard " + GameUtils.getFullName(self) + "?") {
                 @Override
                 protected void yes() {
-                    List<Effect> possibleCosts = new LinkedList<Effect>();
+                    List<Effect> possibleCosts = new LinkedList<>();
                     possibleCosts.add(
                             new AddBurdenEffect(fpPlayer, self, 1));
                     possibleCosts.add(

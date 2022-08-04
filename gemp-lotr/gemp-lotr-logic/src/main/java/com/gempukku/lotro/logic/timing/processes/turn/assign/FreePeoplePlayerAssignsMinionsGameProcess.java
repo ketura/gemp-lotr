@@ -25,7 +25,7 @@ import java.util.Set;
 
 public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
     private Set<PhysicalCard> _leftoverMinions;
-    private GameProcess _followingAssignments;
+    private final GameProcess _followingAssignments;
     private LotroGame _game;
 
     public FreePeoplePlayerAssignsMinionsGameProcess(GameProcess followingAssignments) {
@@ -60,7 +60,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
                                             Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                                            Set<PhysicalCard> unassignedMinions = new HashSet<PhysicalCard>(Filters.filterActive(game, CardType.MINION));
+                                            Set<PhysicalCard> unassignedMinions = new HashSet<>(Filters.filterActive(game, CardType.MINION));
                                             // Validate minion count (Defender)
                                             for (PhysicalCard freeCard : assignments.keySet()) {
                                                 Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
@@ -79,7 +79,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         }
                                     });
                         } else {
-                            _leftoverMinions = new HashSet<PhysicalCard>(Filters.filterActive(game, CardType.MINION));
+                            _leftoverMinions = new HashSet<>(Filters.filterActive(game, CardType.MINION));
                         }
                     }
                 });

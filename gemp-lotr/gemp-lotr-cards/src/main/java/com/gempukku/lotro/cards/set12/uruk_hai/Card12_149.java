@@ -42,7 +42,7 @@ public class Card12_149 extends AbstractMinion {
         if (TriggerConditions.assignedToSkirmish(game, effectResult, null, self)
                 && !PlayConditions.location(game, Keyword.BATTLEGROUND)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new RemoveTwilightEffect(2));
             possibleEffects.add(

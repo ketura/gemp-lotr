@@ -31,7 +31,7 @@ public class Card13_041 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(CardType.COMPANION, Filters.hasAttached(CardType.FOLLOWER)), Keyword.MUSTER));
         modifiers.add(

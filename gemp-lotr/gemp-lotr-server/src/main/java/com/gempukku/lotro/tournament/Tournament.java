@@ -12,7 +12,7 @@ public interface Tournament {
     public enum Stage {
         DRAFT("Drafting"), DECK_BUILDING("Deck building"), PLAYING_GAMES("Playing games"), FINISHED("Finished");
 
-        private String _humanReadable;
+        private final String _humanReadable;
 
         Stage(String humanReadable) {
             _humanReadable = humanReadable;

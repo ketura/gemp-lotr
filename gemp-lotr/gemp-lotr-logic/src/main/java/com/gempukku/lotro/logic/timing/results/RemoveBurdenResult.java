@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class RemoveBurdenResult extends EffectResult {
-    private String _performingPlayerId;
-    private PhysicalCard _source;
+    private final String _performingPlayerId;
+    private final PhysicalCard _source;
 
     public RemoveBurdenResult(String performingPlayerId, PhysicalCard source) {
         super(EffectResult.Type.REMOVE_BURDEN);

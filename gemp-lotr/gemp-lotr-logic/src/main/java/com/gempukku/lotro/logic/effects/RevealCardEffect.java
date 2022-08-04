@@ -4,7 +4,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayOrder;
-import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
@@ -14,8 +13,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class RevealCardEffect extends AbstractSuccessfulEffect {
-    private PhysicalCard _source;
-    private Collection<? extends PhysicalCard> _cards;
+    private final PhysicalCard _source;
+    private final Collection<? extends PhysicalCard> _cards;
 
     public RevealCardEffect(PhysicalCard source, PhysicalCard card) {
         this(source, Collections.singleton(card));
@@ -44,9 +43,9 @@ public class RevealCardEffect extends AbstractSuccessfulEffect {
             String nextPlayer;
             while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                 game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                        new ArbitraryCardsSelectionDecision(1, "Revealed card(s)", _cards, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                        new ArbitraryCardsSelectionDecision(1, "Revealed card(s)", _cards, Collections.emptySet(), 0, 0) {
                             @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                            public void decisionMade(String result) {
                             }
                         });
             }

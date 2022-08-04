@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.BetweenTurnsProcess;
 
 public class PlayersDrawStartingHandGameProcess implements GameProcess {
-    private String _firstPlayer;
+    private final String _firstPlayer;
     private GameProcess _followingGameProcess;
 
     public PlayersDrawStartingHandGameProcess(String firstPlayer) {

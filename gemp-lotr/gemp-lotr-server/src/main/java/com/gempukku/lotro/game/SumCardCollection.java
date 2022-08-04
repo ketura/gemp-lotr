@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SumCardCollection implements CardCollection {
-    private List<CardCollection> _cardCollections;
+    private final List<CardCollection> _cardCollections;
 
     public SumCardCollection(List<CardCollection> cardCollections) {
         _cardCollections = cardCollections;
@@ -22,7 +22,7 @@ public class SumCardCollection implements CardCollection {
 
     @Override
     public Map<String, Object> getExtraInformation() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         for (CardCollection cardCollection : _cardCollections) {
             result.putAll(cardCollection.getExtraInformation());
         }
@@ -31,7 +31,7 @@ public class SumCardCollection implements CardCollection {
 
     @Override
     public Iterable<Item> getAll() {
-        Map<String, Item> sum = new HashMap<String, Item>();
+        Map<String, Item> sum = new HashMap<>();
         for (CardCollection cardCollection : _cardCollections) {
             Iterable<Item> inCollection = cardCollection.getAll();
             for (Item cardCount : inCollection) {

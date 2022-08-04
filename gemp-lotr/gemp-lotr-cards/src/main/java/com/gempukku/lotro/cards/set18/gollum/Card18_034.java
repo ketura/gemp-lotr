@@ -42,7 +42,7 @@ public class Card18_034 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
+            List<OptionalTriggerAction> actions = new LinkedList<>();
 
             final OptionalTriggerAction action1 = new OptionalTriggerAction(self.getCardId() + "-1", self);
             action1.setText("Add threats");

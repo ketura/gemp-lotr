@@ -9,10 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GatherPlayableActionsFromDiscardVisitor extends CompletePhysicalCardVisitor {
-    private LotroGame _game;
-    private String _playerId;
+    private final LotroGame _game;
+    private final String _playerId;
 
-    private List<Action> _actions = new LinkedList<Action>();
+    private final List<Action> _actions = new LinkedList<>();
 
     public GatherPlayableActionsFromDiscardVisitor(LotroGame game, String playerId) {
         _game = game;

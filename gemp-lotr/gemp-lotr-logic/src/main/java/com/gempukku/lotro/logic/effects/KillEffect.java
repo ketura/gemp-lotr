@@ -15,8 +15,8 @@ import com.gempukku.lotro.logic.timing.results.KilledResult;
 import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
-    private Collection<? extends PhysicalCard> _cards;
-    private Cause _cause;
+    private final Collection<? extends PhysicalCard> _cards;
+    private final Cause _cause;
 
     public enum Cause {
         WOUNDS, OVERWHELM, CARD_EFFECT
@@ -41,7 +41,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
     }
 
     public List<PhysicalCard> getCharactersToBeKilled() {
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> result = new LinkedList<>();
         for (PhysicalCard card : _cards) {
             if (card.getZone() != null && card.getZone().isInPlay())
                 result.add(card);
@@ -66,13 +66,13 @@ public class KillEffect extends AbstractSuccessfulEffect {
             gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
 
         // For result
-        Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> killedCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> discardedCards = new HashSet<>();
+        Set<PhysicalCard> killedCards = new HashSet<>();
 
         // Prepare the moves
-        Set<PhysicalCard> toRemoveFromZone = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> toAddToDeadPile = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> toAddToDiscard = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toRemoveFromZone = new HashSet<>();
+        Set<PhysicalCard> toAddToDeadPile = new HashSet<>();
+        Set<PhysicalCard> toAddToDiscard = new HashSet<>();
 
         for (PhysicalCard card : toBeKilled) {
             toRemoveFromZone.add(card);

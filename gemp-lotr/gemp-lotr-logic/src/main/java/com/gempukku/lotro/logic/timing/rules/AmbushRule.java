@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AmbushRule {
-    private DefaultActionsEnvironment _actionsEnvironment;
+    private final DefaultActionsEnvironment _actionsEnvironment;
 
     public AmbushRule(DefaultActionsEnvironment actionsEnvironment) {
         _actionsEnvironment = actionsEnvironment;

@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class AddEvaluator implements Evaluator {
-    private Evaluator _source;
-    private int _additional;
+    private final Evaluator _source;
+    private final int _additional;
 
     public AddEvaluator(int additional, Evaluator source) {
         _additional = additional;

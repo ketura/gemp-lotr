@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.List;
 
 public class PlayerPlaysPhaseActionsUntilPassesGameProcess implements GameProcess {
-    private String _playerId;
-    private GameProcess _followingGameProcess;
+    private final String _playerId;
+    private final GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 

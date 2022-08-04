@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <U>
  */
 public class ExpireObjectCache<T, U> {
-    private Map<T, U> _cachedObjects = new ConcurrentHashMap<T, U>();
+    private final Map<T, U> _cachedObjects = new ConcurrentHashMap<>();
 
     public U getCachedObject(T key, Producable<T, U> producable) {
         U result = _cachedObjects.get(key);

@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class FpSkirmishResistanceStrengthOverrideModifier extends AbstractModifier {
-    private static Evaluator _resistanceEvaluator =
+    private static final Evaluator _resistanceEvaluator =
             new Evaluator() {
                 @Override
                 public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {

@@ -13,12 +13,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ArcheryAtTest extends AbstractAtTest {
     @Test
     public void archeryWorksBothWays() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legolas = new PhysicalCardImpl(100, "1_51", P1, _library.getLotroCardBlueprint("1_51"));
@@ -59,7 +59,7 @@ public class ArcheryAtTest extends AbstractAtTest {
 
     @Test
     public void archeryBonusesDontLeakToOtherSide() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legolas = new PhysicalCardImpl(100, "1_51", P1, _library.getLotroCardBlueprint("1_51"));

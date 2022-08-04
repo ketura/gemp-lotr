@@ -42,7 +42,7 @@ public class Card3_083 extends AbstractPermanent {
         }
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, Race.NAZGUL) {
                         @Override

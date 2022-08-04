@@ -11,9 +11,9 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class ChooseAndAddUntilEOPStrengthBonusEffect extends ChooseActiveCardEffect {
-    private CostToEffectAction _action;
-    private PhysicalCard _source;
-    private Evaluator _bonusEvaluator;
+    private final CostToEffectAction _action;
+    private final PhysicalCard _source;
+    private final Evaluator _bonusEvaluator;
 
     public ChooseAndAddUntilEOPStrengthBonusEffect(CostToEffectAction action, PhysicalCard source, String playerId, int bonus, Filterable... selectionFilter) {
         this(action, source, playerId, new ConstantEvaluator(bonus), selectionFilter);

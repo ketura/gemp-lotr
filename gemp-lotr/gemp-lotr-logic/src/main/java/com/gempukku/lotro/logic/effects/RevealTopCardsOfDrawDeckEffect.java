@@ -15,9 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerId;
-    private int _count;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final int _count;
 
     public RevealTopCardsOfDrawDeckEffect(PhysicalCard source, String playerId, int count) {
         _source = source;
@@ -44,16 +44,16 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerId);
         int count = Math.min(deck.size(), _count);
-        LinkedList<PhysicalCard> topCards = new LinkedList<PhysicalCard>(deck.subList(0, count));
+        LinkedList<PhysicalCard> topCards = new LinkedList<>(deck.subList(0, count));
         if (topCards.size() > 0) {
             final PlayOrder playerOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_source.getOwner(), false);
 
             String nextPlayer;
             while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                 game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                        new ArbitraryCardsSelectionDecision(1, _playerId + " revealed card(s) from hand top of deck", topCards, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                        new ArbitraryCardsSelectionDecision(1, _playerId + " revealed card(s) from hand top of deck", topCards, Collections.emptySet(), 0, 0) {
                             @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                            public void decisionMade(String result) {
                             }
                         });
             }

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GameHistoryRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private GameHistoryService _gameHistoryService;
+    private final GameHistoryService _gameHistoryService;
 
     public GameHistoryRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -31,8 +31,8 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        if (uri.equals("") && request.method() == HttpMethod.GET) {
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
             String participantId = getQueryParameterSafely(queryDecoder, "participantId");
             int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
             int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
@@ -82,7 +82,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
             doc.appendChild(gameHistory);
 
             responseWriter.writeXmlResponse(doc);
-        } else if (uri.equals("/list") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/list") && request.method() == HttpMethod.GET) {
             final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getTrackableGames(100);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -117,7 +117,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
             doc.appendChild(gameHistory);
 
             responseWriter.writeXmlResponse(doc);
-        } else if (uri.equals("/list/html") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/list/html") && request.method() == HttpMethod.GET) {
             final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getTrackableGames(100);
 
             StringBuilder sb = new StringBuilder();

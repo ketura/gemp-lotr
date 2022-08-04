@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class TwilightCostModifier extends AbstractModifier {
-    private Evaluator _evaluator;
+    private final Evaluator _evaluator;
 
     public TwilightCostModifier(PhysicalCard source, Filterable affectFilter, int twilightCostModifier) {
         this(source, affectFilter, null, twilightCostModifier);

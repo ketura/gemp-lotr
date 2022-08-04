@@ -6,28 +6,25 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class Card_V1_058_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
+				new HashMap<>() {{
 					put("cart", "1_73");
 					put("backstabber", "1_174");
 					put("soldier", "1_271");
 
 				}},
-				new HashMap<String, String>() {{
+				new HashMap<>() {{
 					put("site1", "1_319");
 					put("site2", "151_58");
 					put("site3", "1_337");

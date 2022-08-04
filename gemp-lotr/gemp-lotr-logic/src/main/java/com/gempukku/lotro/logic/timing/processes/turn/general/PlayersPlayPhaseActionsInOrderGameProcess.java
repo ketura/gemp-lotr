@@ -12,9 +12,9 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.List;
 
 public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
-    private PlayOrder _playOrder;
+    private final PlayOrder _playOrder;
     private int _consecutivePasses;
-    private GameProcess _followingGameProcess;
+    private final GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 

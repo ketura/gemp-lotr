@@ -8,9 +8,9 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.RemoveBurdenResult;
 
 public class RemoveBurdenEffect extends AbstractEffect {
-    private String _performingPlayerId;
-    private PhysicalCard _source;
-    private int _count;
+    private final String _performingPlayerId;
+    private final PhysicalCard _source;
+    private final int _count;
 
     public RemoveBurdenEffect(String performingPlayerId, PhysicalCard source) {
         this(performingPlayerId, source, 1);

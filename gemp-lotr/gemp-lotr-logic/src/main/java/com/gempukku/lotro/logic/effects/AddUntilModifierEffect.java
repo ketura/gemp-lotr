@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class AddUntilModifierEffect extends UnrespondableEffect {
-    private Modifier _modifier;
-    private TimeResolver.Time until;
+    private final Modifier _modifier;
+    private final TimeResolver.Time until;
 
     public AddUntilModifierEffect(Modifier modifier, TimeResolver.Time until) {
         _modifier = modifier;

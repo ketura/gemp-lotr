@@ -40,13 +40,13 @@ public class Card13_189 extends AbstractShadowsSite {
                 && PlayConditions.isPhase(game, Phase.REGROUP)
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
-            Set<Culture> companionCultures = new HashSet<Culture>();
+            Set<Culture> companionCultures = new HashSet<>();
             for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION)) {
                 if (companion.getBlueprint().getCulture() != null)
                     companionCultures.add(companion.getBlueprint().getCulture());
             }
 
-            final Set<PhysicalCard> companionsToHeal = new HashSet<PhysicalCard>();
+            final Set<PhysicalCard> companionsToHeal = new HashSet<>();
 
             for (Culture companionCulture : companionCultures) {
                 action.appendEffect(

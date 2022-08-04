@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OptionalTriggersRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public OptionalTriggersRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

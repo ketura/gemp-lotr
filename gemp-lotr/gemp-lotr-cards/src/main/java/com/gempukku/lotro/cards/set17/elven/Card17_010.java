@@ -51,7 +51,7 @@ public class Card17_010 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSpot(game, Culture.ELVEN, Keyword.HUNTER)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SelfDiscardEffect(self));
             possibleCosts.add(

@@ -9,9 +9,9 @@ public enum Culture implements Filterable {
 	//Additional Hobbit Draft cultures
 	ESGAROTH("Esgaroth", true), GUNDABAD("Gundabad", false), MIRKWOOD("Mirkwood", false), SMAUG("Smaug", false), SPIDER("Spider", false), TROLL("Troll", false);
 
-    private String _humanReadable;
-    private boolean _fp;
-    private boolean _official;
+    private final String _humanReadable;
+    private final boolean _fp;
+    private final boolean _official;
 
     private Culture(String humanReadable, boolean fp) {
         this(humanReadable, fp, true);

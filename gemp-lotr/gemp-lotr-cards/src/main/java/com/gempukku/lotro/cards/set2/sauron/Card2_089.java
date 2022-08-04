@@ -54,7 +54,7 @@ public class Card2_089 extends AbstractMinion {
             PlayEventResult playEffect = (PlayEventResult) effectResult;
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self);
-                List<Effect> possibleCosts = new LinkedList<Effect>();
+                List<Effect> possibleCosts = new LinkedList<>();
                 possibleCosts.add(
                         new SelfExertEffect(action, self) {
                             @Override

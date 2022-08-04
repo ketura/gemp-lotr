@@ -5,8 +5,8 @@ import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class ForEachKilledResult extends EffectResult {
-    private PhysicalCard _killedCard;
-    private KillEffect.Cause _cause;
+    private final PhysicalCard _killedCard;
+    private final KillEffect.Cause _cause;
 
     public ForEachKilledResult(PhysicalCard killedCard, KillEffect.Cause cause) {
         super(EffectResult.Type.FOR_EACH_KILLED);

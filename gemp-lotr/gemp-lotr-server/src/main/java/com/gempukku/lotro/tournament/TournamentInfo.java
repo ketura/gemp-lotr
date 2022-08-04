@@ -3,15 +3,15 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.db.vo.CollectionType;
 
 public class TournamentInfo {
-    private String _tournamentId;
-    private String _draftType;
-    private String _tournamentName;
-    private String _tournamentFormat;
-    private CollectionType _collectionType;
-    private String _prizesScheme;
-    private int _tournamentRound;
-    private String _pairingMechanism;
-    private Tournament.Stage _tournamentStage;
+    private final String _tournamentId;
+    private final String _draftType;
+    private final String _tournamentName;
+    private final String _tournamentFormat;
+    private final CollectionType _collectionType;
+    private final String _prizesScheme;
+    private final int _tournamentRound;
+    private final String _pairingMechanism;
+    private final Tournament.Stage _tournamentStage;
 
     public TournamentInfo(String tournamentId, String draftType, String tournamentName, String tournamentFormat, CollectionType collectionType,
                           Tournament.Stage tournamentStage, String pairingMechanism, String prizesScheme, int tournamentRound) {

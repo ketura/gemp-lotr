@@ -8,6 +8,7 @@ import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.ChatCommunicationChannel;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.polling.LongPollingResource;
@@ -24,11 +25,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class ChatRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private ChatServer _chatServer;
-    private LongPollingSystem longPollingSystem;
+    private final ChatServer _chatServer;
+    private final LongPollingSystem longPollingSystem;
 
     public ChatRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -38,10 +41,10 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
-            getMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
-            postMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
+        if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
+            getMessages(request, URLDecoder.decode(uri.substring(1), StandardCharsets.UTF_8), responseWriter);
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.POST) {
+            postMessages(request, URLDecoder.decode(uri.substring(1), StandardCharsets.UTF_8), responseWriter);
         } else {
             throw new HttpProcessingException(404);
         }
@@ -82,11 +85,11 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class ChatUpdateLongPollingResource implements LongPollingResource {
-        private ChatRoomMediator chatRoom;
-        private String room;
-        private String playerId;
-        private boolean admin;
-        private ResponseWriter responseWriter;
+        private final ChatRoomMediator chatRoom;
+        private final String room;
+        private final String playerId;
+        private final boolean admin;
+        private final ResponseWriter responseWriter;
         private boolean processed;
 
         private ChatUpdateLongPollingResource(ChatRoomMediator chatRoom, String room, String playerId, boolean admin, ResponseWriter responseWriter) {
@@ -129,7 +132,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private void getMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -168,7 +171,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             chatElem.appendChild(message);
         }
 
-        Set<String> users = new TreeSet<String>(new CaseInsensitiveStringComparator());
+        Set<String> users = new TreeSet<>(new CaseInsensitiveStringComparator());
         for (String userInRoom : usersInRoom)
             users.add(formatPlayerNameForChatList(userInRoom));
 
@@ -179,7 +182,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private class CaseInsensitiveStringComparator implements Comparator<String> {
+    private static class CaseInsensitiveStringComparator implements Comparator<String> {
         @Override
         public int compare(String o1, String o2) {
             return o1.toLowerCase().compareTo(o2.toLowerCase());

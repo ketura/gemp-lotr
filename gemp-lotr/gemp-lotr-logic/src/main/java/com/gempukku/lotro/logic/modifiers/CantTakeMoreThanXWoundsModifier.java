@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import java.util.Collection;
 
 public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
-    private int _count;
+    private final int _count;
 
     public CantTakeMoreThanXWoundsModifier(PhysicalCard source, Phase phase, int count, Filterable... affectFilters) {
         this(source, phase, count, null, affectFilters);

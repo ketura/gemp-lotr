@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModifierSourceFactory {
-    private Map<String, ModifierSourceProducer> modifierProducers = new HashMap<>();
+    private final Map<String, ModifierSourceProducer> modifierProducers = new HashMap<>();
 
     public ModifierSourceFactory() {
         modifierProducers.put("addactivated", new AddActivated());

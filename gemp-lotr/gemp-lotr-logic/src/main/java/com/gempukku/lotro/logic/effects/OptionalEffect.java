@@ -8,9 +8,9 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class OptionalEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private Effect _optionalEffect;
+    private final Action _action;
+    private final String _playerId;
+    private final Effect _optionalEffect;
 
     public OptionalEffect(Action action, String playerId, Effect optionalEffect) {
         _action = action;

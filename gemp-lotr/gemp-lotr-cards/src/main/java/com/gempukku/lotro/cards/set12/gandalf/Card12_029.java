@@ -38,7 +38,7 @@ public class Card12_029 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseOpponentEffect(playerId) {
                     @Override

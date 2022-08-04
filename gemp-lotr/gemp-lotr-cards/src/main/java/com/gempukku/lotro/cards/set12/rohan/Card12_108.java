@@ -34,7 +34,7 @@ public class Card12_108 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             if (PlayConditions.canSpot(game, Culture.ROHAN, Race.MAN)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert a minion");

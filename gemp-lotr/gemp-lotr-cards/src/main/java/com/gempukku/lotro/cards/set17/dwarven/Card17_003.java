@@ -39,7 +39,7 @@ public class Card17_003 extends AbstractEvent {
     public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         final int count = Filters.countActive(game, Keyword.HUNTER);
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new UnrespondableEffect() {
                     @Override

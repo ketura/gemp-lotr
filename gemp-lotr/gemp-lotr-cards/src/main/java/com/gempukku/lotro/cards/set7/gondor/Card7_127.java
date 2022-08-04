@@ -56,7 +56,7 @@ public class Card7_127 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && (PlayConditions.canExert(self, game, 1, 3, Culture.GONDOR, Race.MAN) || PlayConditions.canExert(self, game, 1, 2, Keyword.KNIGHT))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 3, 3, Culture.GONDOR, Race.MAN) {
                         @Override

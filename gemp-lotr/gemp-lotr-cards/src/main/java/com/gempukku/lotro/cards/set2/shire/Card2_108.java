@@ -50,7 +50,7 @@ public class Card2_108 extends AbstractAttachable {
             action.appendCost(
                     new SelfDiscardEffect(self));
 
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new TakeOffTheOneRingEffect());
             possibleEffects.add(
@@ -64,8 +64,8 @@ public class Card2_108 extends AbstractAttachable {
         return null;
     }
 
-    private class CancelRingBearerAndNazgulSkirmish extends CancelSkirmishEffect {
-        private PhysicalCard _attachedTo;
+    private static class CancelRingBearerAndNazgulSkirmish extends CancelSkirmishEffect {
+        private final PhysicalCard _attachedTo;
 
         private CancelRingBearerAndNazgulSkirmish(PhysicalCard attachedTo) {
             _attachedTo = attachedTo;

@@ -6,9 +6,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CountActiveEvaluator implements Evaluator {
-    private int _over;
-    private Filterable[] _filters;
-    private Integer _limit;
+    private final int _over;
+    private final Filterable[] _filters;
+    private final Integer _limit;
 
     public CountActiveEvaluator(Filterable... filters) {
         this(null, filters);

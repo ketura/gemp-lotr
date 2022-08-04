@@ -21,13 +21,13 @@ public class SortAndFilterCards {
         List<String> words = getWords(filterParams);
         Set<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
         Set<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
-        Set<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptySet(), filterParams);
+        Set<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.emptySet(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
         Set<Race> races = getEnumFilter(Race.values(), Race.class, "race", null, filterParams);
-        Set<PossessionClass> itemClasses = getEnumFilter(PossessionClass.values(), PossessionClass.class, "itemClass", Collections.<PossessionClass>emptySet(), filterParams);
-        Set<Keyword> phases = getEnumFilter(Keyword.values(),Keyword.class, "phase", Collections.<Keyword>emptySet(), filterParams);
+        Set<PossessionClass> itemClasses = getEnumFilter(PossessionClass.values(), PossessionClass.class, "itemClass", Collections.emptySet(), filterParams);
+        Set<Keyword> phases = getEnumFilter(Keyword.values(),Keyword.class, "phase", Collections.emptySet(), filterParams);
 
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         Map<String, LotroCardBlueprint> cardBlueprintMap = new HashMap<>();
 
         for (T item : items) {
@@ -52,25 +52,27 @@ public class SortAndFilterCards {
 
         final String[] sortSplit = sort.split(",");
 
-        MultipleComparator<CardItem> comparators = new MultipleComparator<CardItem>();
+        MultipleComparator<CardItem> comparators = new MultipleComparator<>();
         for (String oneSort : sortSplit) {
-            if (oneSort.equals("twilight"))
-                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardBlueprintMap)));
-            else if (oneSort.equals("siteNumber"))
-                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardBlueprintMap)));
-            else if (oneSort.equals("strength"))
-                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardBlueprintMap)));
-            else if (oneSort.equals("vitality"))
-                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardBlueprintMap)));
-            else if (oneSort.equals("cardType"))
-                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardBlueprintMap)));
-            else if (oneSort.equals("culture"))
-                comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardBlueprintMap)));
-            else if (oneSort.equals("name"))
-                comparators.addComparator(new PacksFirstComparator(new NameComparator(cardBlueprintMap)));
+            switch (oneSort) {
+                case "twilight" ->
+                        comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardBlueprintMap)));
+                case "siteNumber" ->
+                        comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardBlueprintMap)));
+                case "strength" ->
+                        comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardBlueprintMap)));
+                case "vitality" ->
+                        comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardBlueprintMap)));
+                case "cardType" ->
+                        comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardBlueprintMap)));
+                case "culture" ->
+                        comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardBlueprintMap)));
+                case "name" ->
+                        comparators.addComparator(new PacksFirstComparator(new NameComparator(cardBlueprintMap)));
+            }
         }
 
-        Collections.sort(result, comparators);
+        result.sort(comparators);
 
         return result;
     }
@@ -218,7 +220,7 @@ public class SortAndFilterCards {
     }
 
     private List<String> getWords(String[] filterParams) {
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("name:"))
                 result.add(replaceSpecialCharacters(filterParam.substring("name:".length()).toLowerCase()));
@@ -293,7 +295,7 @@ public class SortAndFilterCards {
                 String values = filterParam.substring((prefix + ":").length());
                 if (values.startsWith("-")) {
                     values = values.substring(1);
-                    Set<T> cardTypes = new HashSet<T>(Arrays.asList(enumValues));
+                    Set<T> cardTypes = new HashSet<>(Arrays.asList(enumValues));
                     for (String v : values.split(",")) {
                         T t = (T) Enum.valueOf(enumType, v);
                         if (t != null)
@@ -301,7 +303,7 @@ public class SortAndFilterCards {
                     }
                     return cardTypes;
                 } else {
-                    Set<T> cardTypes = new HashSet<T>();
+                    Set<T> cardTypes = new HashSet<>();
                     for (String v : values.split(","))
                         cardTypes.add((T) Enum.valueOf(enumType, v));
                     return cardTypes;
@@ -316,7 +318,7 @@ public class SortAndFilterCards {
     }
 
     private static class PacksFirstComparator implements Comparator<CardItem> {
-        private Comparator<CardItem> _cardComparator;
+        private final Comparator<CardItem> _cardComparator;
 
         private PacksFirstComparator(Comparator<CardItem> cardComparator) {
             _cardComparator = cardComparator;
@@ -338,7 +340,7 @@ public class SortAndFilterCards {
     }
 
     private static class SiteNumberComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private SiteNumberComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
@@ -364,7 +366,7 @@ public class SortAndFilterCards {
     }
 
     private static class NameComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private NameComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
@@ -377,7 +379,7 @@ public class SortAndFilterCards {
     }
 
     private static class TwilightComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private TwilightComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
@@ -390,7 +392,7 @@ public class SortAndFilterCards {
     }
 
     private static class StrengthComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private StrengthComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
@@ -411,7 +413,7 @@ public class SortAndFilterCards {
     }
 
     private static class VitalityComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private VitalityComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
@@ -432,7 +434,7 @@ public class SortAndFilterCards {
     }
 
     private static class CardTypeComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private CardTypeComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
@@ -447,7 +449,7 @@ public class SortAndFilterCards {
     }
 
     private static class CultureComparator implements Comparator<CardItem> {
-        private Map<String, LotroCardBlueprint> _cardBlueprintMap;
+        private final Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
         private CultureComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;

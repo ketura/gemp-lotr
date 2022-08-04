@@ -36,7 +36,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, hobbitSword, merry);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<PhysicalCard>();
+        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
@@ -79,7 +79,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getGameState().attachCard(_game, alatar, merry);
         _game.getGameState().attachCard(_game, whisperInTheDark, alatar);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<PhysicalCard>();
+        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
@@ -122,7 +122,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().stackCard(_game, hobbitSword, merry);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<PhysicalCard>();
+        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {

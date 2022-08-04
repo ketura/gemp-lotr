@@ -8,8 +8,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CancelKeywordBonusTargetModifier extends AbstractModifier implements KeywordAffectingModifier {
-    private Keyword _keyword;
-    private Filter _sourceFilter;
+    private final Keyword _keyword;
+    private final Filter _sourceFilter;
 
     public CancelKeywordBonusTargetModifier(PhysicalCard source, Keyword keyword, Filterable affectFilter, Filterable sourceFilter) {
         this(source, keyword, null, affectFilter, sourceFilter);

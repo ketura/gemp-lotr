@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RequiredTriggersRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public RequiredTriggersRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

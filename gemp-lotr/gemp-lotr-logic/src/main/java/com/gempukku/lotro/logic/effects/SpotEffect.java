@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class SpotEffect extends AbstractEffect {
-    private int _count;
-    private Filterable[] _filters;
+    private final int _count;
+    private final Filterable[] _filters;
 
     public SpotEffect(int count, Filterable... filters) {
         _count = count;

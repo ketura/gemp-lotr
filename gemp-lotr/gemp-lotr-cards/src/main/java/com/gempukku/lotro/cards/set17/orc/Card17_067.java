@@ -41,7 +41,7 @@ public class Card17_067 extends AbstractPermanent {
 
     @Override
     public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
+        return List.of(
                 new ExertExtraPlayCostModifier(self, self, null, Culture.ORC, Race.ORC, Filters.mounted));
     }
 
@@ -52,7 +52,7 @@ public class Card17_067 extends AbstractPermanent {
             PhysicalCard companion = assignResult.getAgainst().iterator().next();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.setText("Assign " + GameUtils.getFullName(assignResult.getAssignedCard()) + " to " + GameUtils.getFullName(companion));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ExertCharactersEffect(action, self, companion));
             possibleEffects.add(

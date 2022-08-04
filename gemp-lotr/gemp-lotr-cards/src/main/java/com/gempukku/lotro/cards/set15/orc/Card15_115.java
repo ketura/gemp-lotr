@@ -49,7 +49,7 @@ public class Card15_115 extends AbstractAttachable {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new CantReplaceSiteByFPPlayerModifier(self, null, Filters.hasAttached(self)));
         modifiers.add(

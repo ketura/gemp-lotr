@@ -70,8 +70,8 @@ public class Card4_365 extends AbstractCompanion {
     }
 
     private static class AppendHealTargetEffect extends UnrespondableEffect {
-        private CostToEffectAction _action;
-        private AttachPermanentAction _attachPermanentAction;
+        private final CostToEffectAction _action;
+        private final AttachPermanentAction _attachPermanentAction;
 
         private AppendHealTargetEffect(CostToEffectAction action, AttachPermanentAction attachPermanentAction) {
             _action = action;

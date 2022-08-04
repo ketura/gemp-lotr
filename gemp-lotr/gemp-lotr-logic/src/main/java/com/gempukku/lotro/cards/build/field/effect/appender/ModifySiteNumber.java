@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.AddUntilModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;

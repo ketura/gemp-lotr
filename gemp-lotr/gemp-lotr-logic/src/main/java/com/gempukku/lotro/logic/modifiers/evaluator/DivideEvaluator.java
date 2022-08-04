@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class DivideEvaluator implements Evaluator {
-    private Evaluator _source;
-    private int divider;
+    private final Evaluator _source;
+    private final int divider;
 
     public DivideEvaluator(int divider, Evaluator source) {
         this.divider = divider;

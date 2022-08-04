@@ -1,8 +1,8 @@
 package com.gempukku.lotro.logic.decisions;
 
 public abstract class IntegerAwaitingDecision extends AbstractAwaitingDecision {
-    private Integer _min;
-    private Integer _max;
+    private final Integer _min;
+    private final Integer _max;
 
     public IntegerAwaitingDecision(int id, String text) {
         this(id, text, null);

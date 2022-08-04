@@ -5,8 +5,8 @@ import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class PlayStartingFellowshipGameProcess implements GameProcess {
-    private PlayOrder _playOrder;
-    private String _firstPlayer;
+    private final PlayOrder _playOrder;
+    private final String _firstPlayer;
 
     private GameProcess _nextProcess;
 

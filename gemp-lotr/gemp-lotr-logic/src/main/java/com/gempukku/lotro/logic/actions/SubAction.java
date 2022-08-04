@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class SubAction extends AbstractCostToEffectAction {
-    private Action _action;
+    private final Action _action;
 
     public SubAction(Action action) {
         _action = action;

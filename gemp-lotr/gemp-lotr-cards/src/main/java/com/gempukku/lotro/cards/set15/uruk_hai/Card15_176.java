@@ -49,7 +49,7 @@ public class Card15_176 extends AbstractMinion {
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 1, Filters.any));
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 1, Filters.any));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new TakeControlOfASiteEffect(self, playerId));
             possibleEffects.add(

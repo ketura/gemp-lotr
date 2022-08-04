@@ -37,13 +37,13 @@ public class SwissPairingMechanismTest {
 
         int betterPlayerWins =0;
 
-        Set<String> betterPlayers = new HashSet<String>();
-        Set<String> worsePlayers = new HashSet<String>();
+        Set<String> betterPlayers = new HashSet<>();
+        Set<String> worsePlayers = new HashSet<>();
 
         Random rnd = ThreadLocalRandom.current();
 
         for (int repeat = 0; repeat < repeatCount; repeat++) {
-            Set<String> players = new HashSet<String>();
+            Set<String> players = new HashSet<>();
             for (int i = 0; i < playerCount; i++) {
                 String playerName = String.valueOf(i);
                 players.add(playerName);
@@ -53,21 +53,21 @@ public class SwissPairingMechanismTest {
                     worsePlayers.add(playerName);
             }
 
-            Set<String> droppedPlayers = new HashSet<String>();
-            Map<String, Integer> byes = new HashMap<String, Integer>();
+            Set<String> droppedPlayers = new HashSet<>();
+            Map<String, Integer> byes = new HashMap<>();
 
-            Set<TournamentMatch> matches = new HashSet<TournamentMatch>();
-            Map<String, Set<String>> previouslyPaired = new HashMap<String, Set<String>>();
+            Set<TournamentMatch> matches = new HashSet<>();
+            Map<String, Set<String>> previouslyPaired = new HashMap<>();
             for (String player : players)
-                previouslyPaired.put(player, new HashSet<String>());
+                previouslyPaired.put(player, new HashSet<>());
 
             SwissPairingMechanism pairing = new SwissPairingMechanism("swiss");
             for (int i = 1; i <= roundCount; i++) {
                 if (!pairing.isFinished(i - 1, players, droppedPlayers)) {
                     List<PlayerStanding> standings = BestOfOneStandingsProducer.produceStandings(players, matches, 3, 0, byes);
 
-                    Map<String, String> newPairings = new LinkedHashMap<String, String>();
-                    Set<String> newByes = new HashSet<String>();
+                    Map<String, String> newPairings = new LinkedHashMap<>();
+                    Set<String> newByes = new HashSet<>();
 
                     pairing.pairPlayers(i, players, droppedPlayers, byes, standings, previouslyPaired, newPairings, newByes);
                     if (newByes.size() > 0) {
@@ -158,17 +158,17 @@ public class SwissPairingMechanismTest {
     }
 
     private void testSwissPairingForPlayerCount(int playerCount) {
-        Set<String> players = new HashSet<String>();
+        Set<String> players = new HashSet<>();
         for (int i = 0; i < playerCount; i++)
             players.add("p" + i);
 
-        Set<String> droppedPlayers = new HashSet<String>();
-        Map<String, Integer> byes = new HashMap<String, Integer>();
+        Set<String> droppedPlayers = new HashSet<>();
+        Map<String, Integer> byes = new HashMap<>();
 
-        Set<TournamentMatch> matches = new HashSet<TournamentMatch>();
-        Map<String, Set<String>> previouslyPaired = new HashMap<String, Set<String>>();
+        Set<TournamentMatch> matches = new HashSet<>();
+        Map<String, Set<String>> previouslyPaired = new HashMap<>();
         for (String player : players)
-            previouslyPaired.put(player, new HashSet<String>());
+            previouslyPaired.put(player, new HashSet<>());
 
         SwissPairingMechanism pairing = new SwissPairingMechanism("swiss");
         for (int i = 1; i < 20; i++) {
@@ -180,8 +180,8 @@ public class SwissPairingMechanismTest {
                     log(player + " points - " + standing.getPoints() + " played against: " + StringUtils.join(previouslyPaired.get(player), ","));
                 }
 
-                Map<String, String> newPairings = new LinkedHashMap<String, String>();
-                Set<String> newByes = new HashSet<String>();
+                Map<String, String> newPairings = new LinkedHashMap<>();
+                Set<String> newByes = new HashSet<>();
 
                 assertFalse("Unable to pair for round " + i, pairing.pairPlayers(i, players, droppedPlayers, byes, standings, previouslyPaired, newPairings, newByes));
                 assertEquals("Invalid number of pairings", playerCount / 2, newPairings.size());

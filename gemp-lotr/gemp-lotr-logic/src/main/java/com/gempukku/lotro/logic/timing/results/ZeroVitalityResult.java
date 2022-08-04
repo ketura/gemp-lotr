@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.Set;
 
 public class ZeroVitalityResult extends EffectResult {
-    private Set<PhysicalCard> _characters;
+    private final Set<PhysicalCard> _characters;
 
     public ZeroVitalityResult(Set<PhysicalCard> characters) {
         super(Type.ZERO_VITALITY);

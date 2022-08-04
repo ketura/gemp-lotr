@@ -17,7 +17,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class DeliveryRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private TransferDAO _transferDAO;
+    private final TransferDAO _transferDAO;
 
     public DeliveryRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -26,7 +26,7 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("") && request.method() == HttpMethod.GET) {
             getDelivery(request, responseWriter);
         } else {
             throw new HttpProcessingException(404);

@@ -36,7 +36,7 @@ public class Card7_307 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new MinionSiteNumberModifier(self, Filters.and(Culture.SAURON, Race.ORC), null, -1));
         modifiers.add(

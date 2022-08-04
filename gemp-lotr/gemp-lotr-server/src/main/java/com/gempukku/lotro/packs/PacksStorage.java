@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PacksStorage {
-    private Map<String, PackBox> _boosterBoxes = new HashMap<String, PackBox>();
+    private final Map<String, PackBox> _boosterBoxes = new HashMap<>();
 
     public void addPackBox(String packId, PackBox boosterBox) {
         _boosterBoxes.put(packId, boosterBox);

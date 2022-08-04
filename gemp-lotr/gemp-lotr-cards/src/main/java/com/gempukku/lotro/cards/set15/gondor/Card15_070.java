@@ -49,7 +49,7 @@ Filters.and(Filters.character, Filters.inSkirmishAgainst(Filters.hasAttached(sel
                 || PlayConditions.canSpot(game, 3, Keyword.RANGER))
                 && self.getZone() == Zone.SUPPORT) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN) {
                         @Override

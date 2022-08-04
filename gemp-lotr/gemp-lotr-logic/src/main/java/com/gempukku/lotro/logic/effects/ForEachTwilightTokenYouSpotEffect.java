@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.decisions.ForEachTwilightTokenYouSpotDecision;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public abstract class ForEachTwilightTokenYouSpotEffect implements Effect {
-    private String _playerId;
+    private final String _playerId;
 
     protected ForEachTwilightTokenYouSpotEffect(String playerId) {
         _playerId = playerId;

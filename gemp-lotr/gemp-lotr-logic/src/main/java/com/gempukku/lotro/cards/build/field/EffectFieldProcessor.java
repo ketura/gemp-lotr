@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EffectFieldProcessor implements FieldProcessor {
-    private Map<String, EffectProcessor> effectProcessors = new HashMap<>();
+    private final Map<String, EffectProcessor> effectProcessors = new HashMap<>();
 
     public EffectFieldProcessor() {
         effectProcessors.put("activated", new ActivatedEffectProcessor());

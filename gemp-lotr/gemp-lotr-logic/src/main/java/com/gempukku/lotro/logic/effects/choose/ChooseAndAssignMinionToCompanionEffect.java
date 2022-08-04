@@ -13,9 +13,9 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffect {
-    private Action _action;
-    private String _playerId;
-    private PhysicalCard _companion;
+    private final Action _action;
+    private final String _playerId;
+    private final PhysicalCard _companion;
 
     public ChooseAndAssignMinionToCompanionEffect(Action action, String playerId, PhysicalCard companion, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose minion to assign " + GameUtils.getCardLink(companion) + " to", filters);

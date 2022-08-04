@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FollowerRule {
-    private DefaultActionsEnvironment defaultActionsEnvironment;
+    private final DefaultActionsEnvironment defaultActionsEnvironment;
 
     public FollowerRule(DefaultActionsEnvironment defaultActionsEnvironment) {
         this.defaultActionsEnvironment = defaultActionsEnvironment;
@@ -34,7 +34,7 @@ public class FollowerRule {
                         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
                             final Filter followerTarget = Filters.and(Filters.owner(playerId), Filters.or(CardType.COMPANION, CardType.MINION));
 
-                            List<OptionalTriggerAction> optionalTriggerActions = new LinkedList<OptionalTriggerAction>();
+                            List<OptionalTriggerAction> optionalTriggerActions = new LinkedList<>();
                             for (final PhysicalCard follower : Filters.filterActive(game, CardType.FOLLOWER, Filters.owner(playerId))) {
                                 if (follower.getBlueprint().canPayAidCost(game, follower)
                                         && PlayConditions.isActive(game, followerTarget)) {

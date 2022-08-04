@@ -4,9 +4,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class CardTransferredResult extends EffectResult {
-    private PhysicalCard _transferredCard;
-    private PhysicalCard _transferredFrom;
-    private PhysicalCard _transferredTo;
+    private final PhysicalCard _transferredCard;
+    private final PhysicalCard _transferredFrom;
+    private final PhysicalCard _transferredTo;
 
     public CardTransferredResult(PhysicalCard transferredCard, PhysicalCard transferredFrom, PhysicalCard transferredTo) {
         super(EffectResult.Type.CARD_TRANSFERRED);

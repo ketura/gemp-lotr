@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class StackActionEffect implements Effect {
-    private CostToEffectAction _action;
+    private final CostToEffectAction _action;
 
     public StackActionEffect(CostToEffectAction action) {
         _action = action;

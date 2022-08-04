@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SanctuaryRule {
-    private DefaultActionsEnvironment _actionsEnvironment;
-    private ModifiersLogic _modifiersLogic;
+    private final DefaultActionsEnvironment _actionsEnvironment;
+    private final ModifiersLogic _modifiersLogic;
 
     public SanctuaryRule(DefaultActionsEnvironment actionsEnvironment, ModifiersLogic modifiersLogic) {
         _actionsEnvironment = actionsEnvironment;

@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Set;
 
 public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
-    private PhysicalCard _source;
-    private String _playerId;
-    private int _count;
-    private int discount;
-    private Filterable _cardFilter;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final int _count;
+    private final int discount;
+    private final Filterable _cardFilter;
 
     private boolean _paid;
     private boolean _required;
@@ -94,7 +94,7 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     }
 
     private void removeCards(LotroGame game, List<PhysicalCard> cardsToRemove) {
-        Set<PhysicalCard> removedCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> removedCards = new HashSet<>();
         for (PhysicalCard physicalCard : cardsToRemove)
             if (physicalCard.getZone() == Zone.DISCARD)
                 removedCards.add(physicalCard);

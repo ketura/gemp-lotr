@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class ExertExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int count;
-    private Filterable[] exerting;
+    private final int count;
+    private final Filterable[] exerting;
 
     public ExertExtraPlayCostModifier(PhysicalCard source, Filterable affects, Condition condition, Filterable ...exerting) {
         this(source, affects, condition, 1, exerting);

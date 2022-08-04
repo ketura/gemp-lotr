@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.logic.modifiers.CancelKeywordBonusTargetModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
 import org.json.simple.JSONObject;
 
 public class CancelKeywordBonusFrom implements ModifierSourceProducer {

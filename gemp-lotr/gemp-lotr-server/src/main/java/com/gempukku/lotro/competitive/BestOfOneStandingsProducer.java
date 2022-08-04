@@ -14,22 +14,22 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BestOfOneStandingsProducer {
-    private static Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
-            new MultipleComparator<PlayerStanding>(
-                    new DescComparator<PlayerStanding>(new PointsComparator()),
+    private static final Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
+            new MultipleComparator<>(
+                    new DescComparator<>(new PointsComparator()),
                     new GamesPlayedComparator(),
-                    new DescComparator<PlayerStanding>(new OpponentsWinComparator()));
+                    new DescComparator<>(new OpponentsWinComparator()));
 
 
     public static List<PlayerStanding> produceStandings(Collection<String> participants, Collection<? extends CompetitiveMatchResult> matches,
                                                         int pointsForWin, int pointsForLoss, Map<String, Integer> playersWithByes) {
-        Map<String, List<String>> playerOpponents = new HashMap<String, List<String>>();
-        Map<String, AtomicInteger> playerWinCounts = new HashMap<String, AtomicInteger>();
-        Map<String, AtomicInteger> playerLossCounts = new HashMap<String, AtomicInteger>();
+        Map<String, List<String>> playerOpponents = new HashMap<>();
+        Map<String, AtomicInteger> playerWinCounts = new HashMap<>();
+        Map<String, AtomicInteger> playerLossCounts = new HashMap<>();
 
         // Initialize the list
         for (String playerName : participants) {
-            playerOpponents.put(playerName, new ArrayList<String>());
+            playerOpponents.put(playerName, new ArrayList<>());
             playerWinCounts.put(playerName, new AtomicInteger(0));
             playerLossCounts.put(playerName, new AtomicInteger(0));
         }
@@ -41,7 +41,7 @@ public class BestOfOneStandingsProducer {
             playerLossCounts.get(leagueMatch.getLoser()).incrementAndGet();
         }
 
-        List<PlayerStanding> leagueStandings = new LinkedList<PlayerStanding>();
+        List<PlayerStanding> leagueStandings = new LinkedList<>();
         for (String playerName : participants) {
             int playerWins = playerWinCounts.get(playerName).intValue();
             int playerLosses = playerLossCounts.get(playerName).intValue();
@@ -72,7 +72,7 @@ public class BestOfOneStandingsProducer {
             leagueStandings.add(standing);
         }
 
-        Collections.sort(leagueStandings, LEAGUE_STANDING_COMPARATOR);
+        leagueStandings.sort(LEAGUE_STANDING_COMPARATOR);
 
         int standing = 0;
         int position = 1;

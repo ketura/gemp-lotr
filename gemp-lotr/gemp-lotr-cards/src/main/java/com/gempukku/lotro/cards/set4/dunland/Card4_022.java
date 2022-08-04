@@ -35,7 +35,7 @@ public class Card4_022 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new ShouldSkipPhaseModifier(self, new SpotCondition(2, Filters.siteControlled(self.getOwner())), Phase.ARCHERY));
         modifiers.add(

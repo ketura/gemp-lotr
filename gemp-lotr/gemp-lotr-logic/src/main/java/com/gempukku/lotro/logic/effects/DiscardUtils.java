@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 
 import java.util.Collection;
@@ -25,7 +24,6 @@ public class DiscardUtils {
         }
 
         List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(card);
-        for (PhysicalCard stackedCard : stackedCards)
-            toMoveToDiscard.add(stackedCard);
+        toMoveToDiscard.addAll(stackedCards);
     }
 }

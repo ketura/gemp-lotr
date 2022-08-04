@@ -11,12 +11,12 @@ import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import java.util.Collections;
 
 public class PlayCardEffect extends AbstractEffect {
-    private Zone _playedFrom;
-    private PhysicalCard _cardPlayed;
+    private final Zone _playedFrom;
+    private final PhysicalCard _cardPlayed;
     private PhysicalCard _attachedToCard;
-    private Zone _zone;
-    private PhysicalCard _attachedOrStackedPlayedFrom;
-    private boolean _paidToil;
+    private final Zone _zone;
+    private final PhysicalCard _attachedOrStackedPlayedFrom;
+    private final boolean _paidToil;
 
     public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
         _playedFrom = playedFrom;

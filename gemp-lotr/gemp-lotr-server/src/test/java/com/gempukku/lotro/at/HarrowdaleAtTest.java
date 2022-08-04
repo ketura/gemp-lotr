@@ -13,13 +13,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class HarrowdaleAtTest extends AbstractAtTest {
     @Test
     public void movesFromHarrowdale() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl harrowdale = new PhysicalCardImpl(100, "11_243", P1, _library.getLotroCardBlueprint("11_243"));
@@ -61,7 +61,7 @@ public class HarrowdaleAtTest extends AbstractAtTest {
 
     @Test
     public void movesThroughHarrowdale() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl harrowdale = new PhysicalCardImpl(100, "11_243", P1, _library.getLotroCardBlueprint("11_243"));

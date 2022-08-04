@@ -3,11 +3,11 @@ package com.gempukku.lotro.logic.cardtype;
 import com.gempukku.lotro.common.*;
 
 public class AbstractAlly extends AbstractPermanent {
-    private SitesBlock _siteBlock;
-    private int[] _siteNumbers;
-    private int _strength;
-    private int _vitality;
-    private Race _race;
+    private final SitesBlock _siteBlock;
+    private final int[] _siteNumbers;
+    private final int _strength;
+    private final int _vitality;
+    private final Race _race;
 
     public AbstractAlly(int twilight, SitesBlock siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name) {
         this(twilight, siteBlock, siteNumber, strength, vitality, race, culture, name, null, false);

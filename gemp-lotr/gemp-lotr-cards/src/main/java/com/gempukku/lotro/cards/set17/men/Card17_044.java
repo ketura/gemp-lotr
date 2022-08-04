@@ -47,7 +47,7 @@ public class Card17_044 extends AbstractAttachable {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.name("Grima"), Filters.hasAttached(self)), null,
                         new CountCulturesEvaluator(2, Side.FREE_PEOPLE)));

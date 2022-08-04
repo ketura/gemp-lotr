@@ -44,7 +44,7 @@ public class Card10_074 extends AbstractResponseEvent {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.POSSESSION));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                         @Override

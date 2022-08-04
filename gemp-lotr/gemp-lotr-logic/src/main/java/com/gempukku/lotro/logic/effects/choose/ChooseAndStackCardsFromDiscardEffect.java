@@ -15,12 +15,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
-    private Action _action;
-    private String _playerId;
-    private int _minimum;
-    private int _maximum;
-    private PhysicalCard _stackOn;
-    private Filterable[] _filter;
+    private final Action _action;
+    private final String _playerId;
+    private final int _minimum;
+    private final int _maximum;
+    private final PhysicalCard _stackOn;
+    private final Filterable[] _filter;
 
     public ChooseAndStackCardsFromDiscardEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, Filterable... filter) {
         _action = action;

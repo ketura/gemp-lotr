@@ -17,14 +17,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RoamingAtTest extends AbstractAtTest {
     @Test
     public void cantPlayRoamingMinionIfNotEnoughTwilight() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
@@ -48,7 +48,7 @@ public class RoamingAtTest extends AbstractAtTest {
 
     @Test
     public void payingForRoamingMinionDefaultRoamingPenalty() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
@@ -77,7 +77,7 @@ public class RoamingAtTest extends AbstractAtTest {
 
     @Test
     public void payingForRoamingMinionDiscountRoamingPenalty() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
@@ -108,7 +108,7 @@ public class RoamingAtTest extends AbstractAtTest {
 
     @Test
     public void payingForRoamingMinionNotRoamingModifier() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
@@ -139,7 +139,7 @@ public class RoamingAtTest extends AbstractAtTest {
 
     @Test
     public void payingForRoamingMinionSiteNumberModifier() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
@@ -170,7 +170,7 @@ public class RoamingAtTest extends AbstractAtTest {
 
     @Test
     public void payingForRoamingMinionSiteNumberModifierNotEnough() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
@@ -201,7 +201,7 @@ public class RoamingAtTest extends AbstractAtTest {
 
     @Test
     public void payingForRoamingMinionWithoutRoamingPenalty() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));

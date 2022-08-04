@@ -17,14 +17,14 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
-    private int _twilightCost;
-    private String _name;
-    private String _subTitle;
-    private CardType _cardType;
-    private Side _side;
-    private Culture _culture;
-    private boolean _unique;
-    private Map<Keyword, Integer> _keywords = new HashMap<Keyword, Integer>();
+    private final int _twilightCost;
+    private final String _name;
+    private final String _subTitle;
+    private final CardType _cardType;
+    private final Side _side;
+    private final Culture _culture;
+    private final boolean _unique;
+    private final Map<Keyword, Integer> _keywords = new HashMap<>();
 
     public AbstractLotroCardBlueprint(int twilightCost, Side side, CardType cardType, Culture culture, String name) {
         this(twilightCost, side, cardType, culture, name, null, false);

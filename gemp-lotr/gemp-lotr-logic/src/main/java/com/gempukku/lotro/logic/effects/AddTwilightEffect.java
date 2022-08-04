@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Preventable;
 
 public class AddTwilightEffect extends AbstractEffect implements Preventable {
-    private PhysicalCard _source;
-    private Evaluator _twilight;
+    private final PhysicalCard _source;
+    private final Evaluator _twilight;
     private boolean _prevented;
     private String _sourceText;
 

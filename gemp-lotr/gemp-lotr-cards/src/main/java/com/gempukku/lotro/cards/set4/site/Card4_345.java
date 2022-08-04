@@ -39,7 +39,7 @@ public class Card4_345 extends AbstractSite {
             String fpPlayerId = game.getGameState().getCurrentPlayerId();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
 
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, fpPlayerId, 1, 1, Filters.name(Names.theoden)) {
                         @Override

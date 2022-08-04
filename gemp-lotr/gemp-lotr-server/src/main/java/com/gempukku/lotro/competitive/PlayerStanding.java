@@ -1,12 +1,12 @@
 package com.gempukku.lotro.competitive;
 
 public class PlayerStanding {
-    private String _playerName;
-    private int _points;
-    private int _gamesPlayed;
-    private int _playerWins;
-    private int _playerLosses;
-    private int _playerByes;
+    private final String _playerName;
+    private final int _points;
+    private final int _gamesPlayed;
+    private final int _playerWins;
+    private final int _playerLosses;
+    private final int _playerByes;
     private float _opponentWin;
     private int _standing;
 

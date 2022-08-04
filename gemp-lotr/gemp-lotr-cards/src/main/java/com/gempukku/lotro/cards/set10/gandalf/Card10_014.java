@@ -42,13 +42,13 @@ public class Card10_014 extends AbstractEvent {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                         for (final PhysicalCard cardInHand : selectedCards) {
-                            List<Effect> possibleEffects = new LinkedList<Effect>();
+                            List<Effect> possibleEffects = new LinkedList<>();
                             possibleEffects.add(
                                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, CardType.COMPANION) {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                             for (PhysicalCard cardInDiscard : cards) {
-                                                Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
+                                                Set<PhysicalCard> cardsToRemove = new HashSet<>();
                                                 cardsToRemove.add(cardInHand);
                                                 cardsToRemove.add(cardInDiscard);
 
@@ -64,7 +64,7 @@ public class Card10_014 extends AbstractEvent {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                             for (PhysicalCard cardInDeadPile : cards) {
-                                                Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
+                                                Set<PhysicalCard> cardsToRemove = new HashSet<>();
                                                 cardsToRemove.add(cardInHand);
                                                 cardsToRemove.add(cardInDeadPile);
 

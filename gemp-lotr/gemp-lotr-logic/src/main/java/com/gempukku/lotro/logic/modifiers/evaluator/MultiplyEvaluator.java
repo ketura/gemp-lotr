@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class MultiplyEvaluator implements Evaluator {
-    private Evaluator _source;
-    private int _multiplier;
+    private final Evaluator _source;
+    private final int _multiplier;
 
     public MultiplyEvaluator(int multiplier, Evaluator source) {
         _multiplier = multiplier;

@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_062_Tests
@@ -20,25 +20,24 @@ public class Card_V1_062_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("runner1", "1_178");
-					put("runner2", "1_178");
+                new HashMap<>() {{
+                    put("runner1", "1_178");
+                    put("runner2", "1_178");
 
-					put("savage1", "1_151");
-					put("savage2", "1_151");
-				}},
-				new HashMap<String, String>() {{
-					put("site1", "1_319");
-					put("site2", "1_327");
-					put("site3", "1_337");
-					put("site4", "1_343");
-					put("site5", "1_349");
-					put("site6", "1_350");
-					put("site7", "151_62");
-					put("site8", "1_356");
-					put("site9", "1_360");
-				}},
+                    put("savage1", "1_151");
+                    put("savage2", "1_151");
+                }},
+                new HashMap<>() {{
+                    put("site1", "1_319");
+                    put("site2", "1_327");
+                    put("site3", "1_337");
+                    put("site4", "1_343");
+                    put("site5", "1_349");
+                    put("site6", "1_350");
+                    put("site7", "151_62");
+                    put("site8", "1_356");
+                    put("site9", "1_360");
+                }},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing
 		);

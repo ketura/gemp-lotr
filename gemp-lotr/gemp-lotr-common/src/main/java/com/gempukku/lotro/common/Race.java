@@ -12,7 +12,7 @@ public enum Race implements Filterable {
     //PC Races
     CROW("Crow"), WARG("Warg");
 
-    private String _humanReadable;
+    private final String _humanReadable;
 
     Race(String humanReadable) {
         _humanReadable = humanReadable;

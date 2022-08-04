@@ -15,18 +15,18 @@ import org.apache.log4j.Logger;
 import java.util.*;
 
 public class DefaultActionsEnvironment implements ActionsEnvironment {
-    private static Logger LOG = Logger.getLogger(DefaultActionsEnvironment.class);
-    private LotroGame _lotroGame;
-    private ActionStack _actionStack;
-    private List<ActionProxy> _actionProxies = new LinkedList<ActionProxy>();
-    private Map<Phase, List<ActionProxy>> _untilStartOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
-    private Map<Phase, List<ActionProxy>> _untilEndOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
-    private List<ActionProxy> _untilEndOfTurnActionProxies = new LinkedList<ActionProxy>();
+    private static final Logger LOG = Logger.getLogger(DefaultActionsEnvironment.class);
+    private final LotroGame _lotroGame;
+    private final ActionStack _actionStack;
+    private final List<ActionProxy> _actionProxies = new LinkedList<>();
+    private final Map<Phase, List<ActionProxy>> _untilStartOfPhaseActionProxies = new HashMap<>();
+    private final Map<Phase, List<ActionProxy>> _untilEndOfPhaseActionProxies = new HashMap<>();
+    private final List<ActionProxy> _untilEndOfTurnActionProxies = new LinkedList<>();
 
-    private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
+    private Set<EffectResult> _effectResults = new HashSet<>();
 
-    private List<EffectResult> turnEffectResults = new LinkedList<>();
-    private List<EffectResult> phaseEffectResults = new LinkedList<>();
+    private final List<EffectResult> turnEffectResults = new LinkedList<>();
+    private final List<EffectResult> phaseEffectResults = new LinkedList<>();
 
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
@@ -46,7 +46,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     public Set<EffectResult> consumeEffectResults() {
         Set<EffectResult> result = _effectResults;
-        _effectResults = new HashSet<EffectResult>();
+        _effectResults = new HashSet<>();
         return result;
     }
 
@@ -92,7 +92,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionProxies.add(actionProxy);
         List<ActionProxy> list = _untilStartOfPhaseActionProxies.get(phase);
         if (list == null) {
-            list = new LinkedList<ActionProxy>();
+            list = new LinkedList<>();
             _untilStartOfPhaseActionProxies.put(phase, list);
         }
         list.add(actionProxy);
@@ -103,7 +103,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionProxies.add(actionProxy);
         List<ActionProxy> list = _untilEndOfPhaseActionProxies.get(phase);
         if (list == null) {
-            list = new LinkedList<ActionProxy>();
+            list = new LinkedList<>();
             _untilEndOfPhaseActionProxies.put(phase, list);
         }
         list.add(actionProxy);
@@ -228,7 +228,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getPhaseActions(String playerId) {
-        List<Action> result = new LinkedList<Action>();
+        List<Action> result = new LinkedList<>();
 
         final Phase currentPhase = _lotroGame.getGameState().getCurrentPhase();
         for (ActionProxy actionProxy : _actionProxies) {

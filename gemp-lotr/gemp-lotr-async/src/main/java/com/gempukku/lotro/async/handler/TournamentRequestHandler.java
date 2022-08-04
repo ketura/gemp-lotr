@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Map;
 
 public class TournamentRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private TournamentService _tournamentService;
-    private LotroFormatLibrary _formatLibrary;
-    private LotroCardBlueprintLibrary _library;
-    private SortAndFilterCards _sortAndFilterCards;
+    private final TournamentService _tournamentService;
+    private final LotroFormatLibrary _formatLibrary;
+    private final LotroCardBlueprintLibrary _library;
+    private final SortAndFilterCards _sortAndFilterCards;
 
     public TournamentRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -42,13 +42,13 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("") && request.method() == HttpMethod.GET) {
             getCurrentTournaments(request, responseWriter);
-        } else if (uri.equals("/history") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/history") && request.method() == HttpMethod.GET) {
             getTournamentHistory(request, responseWriter);
-        } else if (uri.startsWith("/") && uri.endsWith("/html") && uri.contains("/deck/") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.startsWith("/") && uri.endsWith("/html") && uri.contains("/deck/") && request.method() == HttpMethod.GET) {
             getTournamentDeck(request, uri.substring(1, uri.indexOf("/deck/")), uri.substring(uri.indexOf("/deck/") + 6, uri.lastIndexOf("/html")), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
             getTournamentInfo(request, uri.substring(1), responseWriter);
         } else {
             throw new HttpProcessingException(404);

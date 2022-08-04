@@ -269,7 +269,7 @@
 		        	"type": "fromMemory",
 		        	"memory": "stackedCultures"
 		        }
-		      }
+		      },
 		      {
 		        "type": "chooseAndHeal",
 		        "optional": true,

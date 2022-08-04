@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class DiscardCardFromDeckEffect extends AbstractEffect {
-    private PhysicalCard _card;
+    private final PhysicalCard _card;
 
     public DiscardCardFromDeckEffect(PhysicalCard card) {
         _card = card;

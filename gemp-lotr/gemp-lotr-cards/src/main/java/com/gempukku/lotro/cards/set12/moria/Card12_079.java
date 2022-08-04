@@ -35,7 +35,7 @@ public class Card12_079 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, self, new LocationCondition(Keyword.UNDERGROUND), Keyword.FIERCE, 1));
         modifiers.add(

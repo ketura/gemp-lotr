@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.Collection;
 
 public class WoundResult extends EffectResult {
-    private Collection<PhysicalCard> _sources;
-    private PhysicalCard _card;
+    private final Collection<PhysicalCard> _sources;
+    private final PhysicalCard _card;
 
     public WoundResult(Collection<PhysicalCard> sources, PhysicalCard card) {
         super(EffectResult.Type.FOR_EACH_WOUNDED);

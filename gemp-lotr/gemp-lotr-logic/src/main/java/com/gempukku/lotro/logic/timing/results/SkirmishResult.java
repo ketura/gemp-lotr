@@ -7,15 +7,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class SkirmishResult extends EffectResult {
-    private Set<PhysicalCard> _winners;
-    private Set<PhysicalCard> _inSkirmishlosers;
-    private Set<PhysicalCard> _losers;
+    private final Set<PhysicalCard> _winners;
+    private final Set<PhysicalCard> _inSkirmishlosers;
+    private final Set<PhysicalCard> _losers;
 
     public SkirmishResult(EffectResult.Type type, Set<PhysicalCard> winners, Set<PhysicalCard> losers, Set<PhysicalCard> removedFromSkirmish) {
         super(type);
         _winners = winners;
         _inSkirmishlosers = losers;
-        _losers = new HashSet<PhysicalCard>(losers);
+        _losers = new HashSet<>(losers);
         _losers.addAll(removedFromSkirmish);
     }
 

@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class EnduringRule {
-    private ModifiersLogic _modifiersLogic;
+    private final ModifiersLogic _modifiersLogic;
 
     public EnduringRule(ModifiersLogic modifiersLogic) {
         _modifiersLogic = modifiersLogic;

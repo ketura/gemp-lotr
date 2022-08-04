@@ -4,9 +4,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class DiscardCardsFromPlayResult extends EffectResult {
-    private PhysicalCard _source;
-    private String _performingPlayer;
-    private PhysicalCard _card;
+    private final PhysicalCard _source;
+    private final String _performingPlayer;
+    private final PhysicalCard _card;
 
     public DiscardCardsFromPlayResult(PhysicalCard source, String performingPlayer, PhysicalCard card) {
         super(EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY);

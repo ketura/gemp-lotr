@@ -30,8 +30,8 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
             final List<Assignment> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
-                Set<PhysicalCard> nonLurkerSkirmishFps = new HashSet<PhysicalCard>();
-                Set<PhysicalCard> lurkerSkirmishFps = new HashSet<PhysicalCard>();
+                Set<PhysicalCard> nonLurkerSkirmishFps = new HashSet<>();
+                Set<PhysicalCard> lurkerSkirmishFps = new HashSet<>();
                 for (Assignment assignment : assignments) {
                     if (Filters.filter(assignment.getShadowCharacters(), game, Keyword.LURKER).size() > 0)
                         lurkerSkirmishFps.add(assignment.getFellowshipCharacter());

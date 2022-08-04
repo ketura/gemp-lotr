@@ -16,10 +16,8 @@ public class OpponentMayNotDiscard implements ModifierSourceProducer {
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
-        return (actionContext) -> {
-                    return new CantDiscardFromPlayByPlayerModifier(actionContext.getSource(), "Can't be discarded by opponent",
-                            filterableSource.getFilterable(actionContext),
-                            actionContext.getPerformingPlayer());
-        };
+        return (actionContext) -> new CantDiscardFromPlayByPlayerModifier(actionContext.getSource(), "Can't be discarded by opponent",
+                filterableSource.getFilterable(actionContext),
+                actionContext.getPerformingPlayer());
     }
 }

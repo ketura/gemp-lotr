@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndPutCardFromStackedToHandEffect extends ChooseStackedCardsEffect {
-    private Action _action;
+    private final Action _action;
 
     public ChooseAndPutCardFromStackedToHandEffect(Action action, String playerId, int minimum, int maximum, Filterable stackedOn, Filterable... stackedCardsFilter) {
         super(action, playerId, minimum, maximum, stackedOn, Filters.and(stackedCardsFilter));

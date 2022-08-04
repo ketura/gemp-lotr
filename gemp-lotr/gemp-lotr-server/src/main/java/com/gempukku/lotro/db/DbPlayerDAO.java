@@ -13,7 +13,7 @@ public class DbPlayerDAO implements PlayerDAO {
     private final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
     private final String _selectPlayer = "select id, name, password, type, last_login_reward, banned_until, create_ip, last_ip from player";
 
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbPlayerDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -64,7 +64,7 @@ public class DbPlayerDAO implements PlayerDAO {
                     nextParamIndex += 2;
                 }
                 try (ResultSet rs = statement.executeQuery()) {
-                    List<Player> players = new LinkedList<Player>();
+                    List<Player> players = new LinkedList<>();
                     while (rs.next())
                         players.add(getPlayerFromResultSet(rs));
                     return players;
@@ -74,13 +74,13 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public Set<String> getBannedUsernames() throws SQLException {
+    public Set<String> getBannedUsernames() {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("SELECT name FROM player WHERE type = '' ORDER BY ID DESC LIMIT 50")) {
 
                     try (ResultSet resultSet = statement.executeQuery()) {
-                        TreeSet<String> users = new TreeSet<String>();
+                        TreeSet<String> users = new TreeSet<>();
                         while (resultSet.next()) {
                             users.add(resultSet.getString(1));
                         }
@@ -269,8 +269,8 @@ public class DbPlayerDAO implements PlayerDAO {
 
     private String convertToHexString(byte[] bytes) {
         StringBuilder hexString = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            String hex = Integer.toHexString(0xFF & bytes[i]);
+        for (byte aByte : bytes) {
+            String hex = Integer.toHexString(0xFF & aByte);
             if (hex.length() == 1)
                 hexString.append('0');
             hexString.append(hex);

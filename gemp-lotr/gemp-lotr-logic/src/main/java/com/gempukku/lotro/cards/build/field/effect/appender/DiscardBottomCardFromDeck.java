@@ -12,8 +12,6 @@ import com.gempukku.lotro.logic.effects.DiscardBottomCardFromDeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
-import java.util.Collection;
-
 public class DiscardBottomCardFromDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

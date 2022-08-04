@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class InitiativeHandSizeModifier extends AbstractModifier {
-    private Evaluator _evaluator;
+    private final Evaluator _evaluator;
 
     public InitiativeHandSizeModifier(PhysicalCard source, int modifier) {
         this(source, null, modifier);

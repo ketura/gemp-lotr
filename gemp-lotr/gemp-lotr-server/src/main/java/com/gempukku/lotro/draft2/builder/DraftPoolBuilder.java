@@ -4,7 +4,6 @@ import com.gempukku.lotro.draft2.builder.DefaultDraftPoolElement;
 import com.gempukku.lotro.draft2.builder.DraftPoolElement;
 import com.gempukku.lotro.draft2.builder.DraftPoolProducer;
 
-import com.google.common.collect.Iterables;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -13,22 +12,20 @@ import java.util.*;
 public class DraftPoolBuilder {
     public DraftPoolProducer buildDraftPoolProducer(JSONArray draftPoolComponents) {
     
-        List<DraftPoolElement> fullDraftPool = new ArrayList<DraftPoolElement>();
-        Iterator<JSONObject> draftPoolIterator = draftPoolComponents.iterator();
-        while (draftPoolIterator.hasNext()) {
-            JSONObject draftPoolComponent = draftPoolIterator.next();
+        List<DraftPoolElement> fullDraftPool = new ArrayList<>();
+        for (JSONObject draftPoolComponent : (Iterable<JSONObject>) draftPoolComponents) {
             fullDraftPool.add(buildDraftPool(draftPoolComponent));
         }
 
         return new DraftPoolProducer() {
             @Override
             public List<String> getDraftPool(long seed, long code) {
-                List<String> completedDraftPool = new ArrayList<String>();
+                List<String> completedDraftPool = new ArrayList<>();
                 Random randomSource = new Random();
                 int mod = 0;
                 
                 for (DraftPoolElement element : fullDraftPool) {
-                    List<ArrayList<String>> draftPacks = new ArrayList<ArrayList<String>>();
+                    List<ArrayList<String>> draftPacks = new ArrayList<>();
                     draftPacks = element.getDraftPackList();
                     if (element.getDraftPoolType() == "singleDraft")
                         randomSource = new Random(seed+mod);
@@ -63,14 +60,10 @@ public class DraftPoolBuilder {
         JSONArray draftPackPool = (JSONArray) data.get("packs");
 
         List draftPacks = new ArrayList();
-        Iterator<JSONArray> iterator = draftPackPool.iterator();
-        while (iterator.hasNext()) {
-            JSONArray cards = iterator.next();
-            
+        for (JSONArray cards : (Iterable<JSONArray>) draftPackPool) {
             List<String> draftPack = new ArrayList<>();
-            Iterator<String> cardIterator = cards.iterator();
-            while (cardIterator.hasNext()) {
-                draftPack.add(cardIterator.next());
+            for (String card : (Iterable<String>) cards) {
+                draftPack.add(card);
             }
             draftPacks.add(draftPack);
         }
@@ -82,14 +75,10 @@ public class DraftPoolBuilder {
         JSONArray draftPackPool = (JSONArray) data.get("packs");
 
         List draftPacks = new ArrayList();
-        Iterator<JSONArray> iterator = draftPackPool.iterator();
-        while (iterator.hasNext()) {
-            JSONArray cards = iterator.next();
-            
+        for (JSONArray cards : (Iterable<JSONArray>) draftPackPool) {
             List<String> draftPack = new ArrayList<>();
-            Iterator<String> cardIterator = cards.iterator();
-            while (cardIterator.hasNext()) {
-                draftPack.add(cardIterator.next());
+            for (String card : (Iterable<String>) cards) {
+                draftPack.add(card);
             }
             draftPacks.add(draftPack);
         }

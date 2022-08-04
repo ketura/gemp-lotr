@@ -25,8 +25,7 @@ public class ValueResolver {
             return new ConstantEvaluator(defaultValue);
         if (value instanceof Number)
             return new ConstantEvaluator(((Number) value).intValue());
-        if (value instanceof String) {
-            String stringValue = (String) value;
+        if (value instanceof String stringValue) {
             if (stringValue.contains("-")) {
                 final String[] split = stringValue.split("-", 2);
                 final int min = Integer.parseInt(split[0]);
@@ -54,8 +53,7 @@ public class ValueResolver {
                 return new ConstantEvaluator(v);
             }
         }
-        if (value instanceof JSONObject) {
-            JSONObject object = (JSONObject) value;
+        if (value instanceof JSONObject object) {
             final String type = FieldUtils.getString(object.get("type"), "type");
             if (type.equalsIgnoreCase("range")) {
                 FieldUtils.validateAllowedFields(object, "from", "to");
@@ -99,9 +97,7 @@ public class ValueResolver {
             } else if (type.equalsIgnoreCase("siteNumberInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
-                return actionContext -> (game, cardAffected) -> {
-                    return actionContext.getCardFromMemory(memory).getSiteNumber();
-                };
+                return actionContext -> (game, cardAffected) -> actionContext.getCardFromMemory(memory).getSiteNumber();
             } else if (type.equalsIgnoreCase("regionNumber")) {
                 return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {

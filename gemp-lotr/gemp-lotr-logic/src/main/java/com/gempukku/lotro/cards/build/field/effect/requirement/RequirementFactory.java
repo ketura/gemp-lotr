@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RequirementFactory {
-    private Map<String, RequirementProducer> requirementProducers = new HashMap<>();
+    private final Map<String, RequirementProducer> requirementProducers = new HashMap<>();
 
     public RequirementFactory() {
         requirementProducers.put("not", new NotRequirementProducer());

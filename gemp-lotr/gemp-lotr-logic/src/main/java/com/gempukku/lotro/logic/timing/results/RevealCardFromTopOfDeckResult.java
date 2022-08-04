@@ -3,11 +3,9 @@ package com.gempukku.lotro.logic.timing.results;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collection;
-
 public class RevealCardFromTopOfDeckResult extends EffectResult {
-    private String _playerId;
-    private PhysicalCard _revealedCard;
+    private final String _playerId;
+    private final PhysicalCard _revealedCard;
 
     public RevealCardFromTopOfDeckResult(String playerId, PhysicalCard revealedCard) {
         super(Type.FOR_EACH_REVEALED_FROM_TOP_OF_DECK);

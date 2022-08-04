@@ -45,7 +45,7 @@ return Collections.singletonList(new TwilightCostModifier(self, CardType.SITE, n
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, CardType.COMPANION) {
                         @Override

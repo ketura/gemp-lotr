@@ -37,7 +37,7 @@ public class Card17_068 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new TwilightCostModifier(self, Filters.and(Filters.owner(self.getOwner()), CardType.MINION), 1));
         modifiers.add(

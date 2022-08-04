@@ -17,9 +17,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
-    private String _playerId;
-    private Filter _filter;
-    private int _twilightModifier;
+    private final String _playerId;
+    private final Filter _filter;
+    private final int _twilightModifier;
     private Action _playCardAction;
 
     public ChooseAndPlayCardFromDeadPileEffect(String playerId, LotroGame game, Filterable... filter) {
@@ -57,7 +57,7 @@ public class ChooseAndPlayCardFromDeadPileEffect implements Effect {
         Collection<PhysicalCard> deadPile = getPlayableInDeadPile(game);
         if (deadPile.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deadPile), 1, 1) {
+                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<>(deadPile), 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

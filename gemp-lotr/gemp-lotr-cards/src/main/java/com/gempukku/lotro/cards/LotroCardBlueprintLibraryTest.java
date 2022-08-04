@@ -13,7 +13,7 @@ public class LotroCardBlueprintLibraryTest {
     public static void main(String[] args) throws CardNotFoundException {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
-        Map<String, String> cardNames = new HashMap<String, String>();
+        Map<String, String> cardNames = new HashMap<>();
         for (int i = 0; i <= 19; i++) {
             for (int j = 1; j <= 365; j++) {
                 String blueprintId = i + "_" + j;

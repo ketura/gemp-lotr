@@ -10,7 +10,7 @@ import java.util.List;
 public class MultiEffectAppender implements EffectAppender {
     private boolean playabilityCheckedForEffect;
 
-    private List<EffectAppender> effectAppenders = new LinkedList<>();
+    private final List<EffectAppender> effectAppenders = new LinkedList<>();
 
     public void setPlayabilityCheckedForEffect(boolean playabilityCheckedForEffect) {
         this.playabilityCheckedForEffect = playabilityCheckedForEffect;

@@ -44,7 +44,7 @@ public class Card7_118 extends AbstractPermanent {
                 && self.getZone() == Zone.SUPPORT
                 && (PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN) || PlayConditions.canSpot(game, Keyword.RANGER))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN) {
                         @Override

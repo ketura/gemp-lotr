@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import java.util.Collection;
 
 public class TransferPermanentAction extends ActivateCardAction {
-    private PhysicalCard _transferredCard;
+    private final PhysicalCard _transferredCard;
 
     public TransferPermanentAction(final PhysicalCard card, Filter filter) {
         super(card);

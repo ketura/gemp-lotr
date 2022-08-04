@@ -5,11 +5,10 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class AllyParticipatesInArcheryFireAndSkirmishesModifier extends AbstractModifier {
-    private PhysicalCard _source;
+    private final PhysicalCard _source;
 
     public AllyParticipatesInArcheryFireAndSkirmishesModifier(PhysicalCard source, Filterable affectFilter) {
         super(source, "Can participate in archery and skirmishes", affectFilter, ModifierEffect.PRESENCE_MODIFIER);

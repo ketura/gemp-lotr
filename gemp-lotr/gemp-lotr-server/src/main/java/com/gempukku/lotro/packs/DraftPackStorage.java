@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DraftPackStorage {
-    private Map<String, DraftPack> _draftPacksByType = new HashMap<String, DraftPack>();
+    private final Map<String, DraftPack> _draftPacksByType = new HashMap<>();
 
     public void addDraftPack(String draftType, DraftPack draftPack) {
         _draftPacksByType.put(draftType, draftPack);

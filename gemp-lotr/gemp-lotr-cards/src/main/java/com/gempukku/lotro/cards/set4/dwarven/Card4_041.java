@@ -53,7 +53,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
                 && Filters.countActive(game, CardType.CONDITION, Culture.DWARVEN) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
 
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION, Culture.DWARVEN) {
                         @Override

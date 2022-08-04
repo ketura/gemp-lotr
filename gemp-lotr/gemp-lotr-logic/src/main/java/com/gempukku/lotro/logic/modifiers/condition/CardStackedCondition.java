@@ -7,9 +7,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class CardStackedCondition implements Condition {
-    private Filter _stackedOn;
-    private Filter _cardStacked;
-    private int _minimumCount;
+    private final Filter _stackedOn;
+    private final Filter _cardStacked;
+    private final int _minimumCount;
 
     public CardStackedCondition(int minimumCount, Filterable stackedOn, Filterable... cardStacked) {
         _minimumCount = minimumCount;

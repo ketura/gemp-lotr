@@ -35,9 +35,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class GameRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private LotroServer _lotroServer;
-    private LongPollingSystem longPollingSystem;
-    private Set<Phase> _autoPassDefault = new HashSet<Phase>();
+    private final LotroServer _lotroServer;
+    private final LongPollingSystem longPollingSystem;
+    private final Set<Phase> _autoPassDefault = new HashSet<>();
 
     public GameRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -53,15 +53,15 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.startsWith("/") && uri.endsWith("/cardInfo") && request.getMethod() == HttpMethod.GET) {
+        if (uri.startsWith("/") && uri.endsWith("/cardInfo") && request.method() == HttpMethod.GET) {
             getCardInfo(request, uri.substring(1, uri.length() - 9), responseWriter);
-        } else if (uri.startsWith("/") && uri.endsWith("/concede") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/") && uri.endsWith("/concede") && request.method() == HttpMethod.POST) {
             concede(request, uri.substring(1, uri.length() - 8), responseWriter);
-        } else if (uri.startsWith("/") && uri.endsWith("/cancel") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/") && uri.endsWith("/cancel") && request.method() == HttpMethod.POST) {
             cancel(request, uri.substring(1, uri.length() - 7), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
             getGameState(request, uri.substring(1), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.POST) {
             updateGameState(request, uri.substring(1), responseWriter);
         } else {
             throw new HttpProcessingException(404);
@@ -107,11 +107,11 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class GameUpdateLongPollingResource implements LongPollingResource {
-        private GameCommunicationChannel _gameCommunicationChannel;
-        private LotroGameMediator _gameMediator;
-        private Player _resourceOwner;
-        private int _channelNumber;
-        private ResponseWriter _responseWriter;
+        private final GameCommunicationChannel _gameCommunicationChannel;
+        private final LotroGameMediator _gameMediator;
+        private final Player _resourceOwner;
+        private final int _channelNumber;
+        private final ResponseWriter _responseWriter;
         private boolean _processed;
 
         private GameUpdateLongPollingResource(GameCommunicationChannel gameCommunicationChannel, int channelNumber, LotroGameMediator gameMediator, Player resourceOwner, ResponseWriter responseWriter) {
@@ -189,7 +189,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private void getCardInfo(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String cardIdStr = getQueryParameterSafely(queryDecoder, "cardId");
         if (cardIdStr.startsWith("extra")) {
@@ -208,7 +208,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private void getGameState(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -244,7 +244,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
             for (Cookie cookie : cookies) {
                 if (cookie.name().equals("autoPassPhases")) {
                     final String[] phases = cookie.value().split("0");
-                    Set<Phase> result = new HashSet<Phase>();
+                    Set<Phase> result = new HashSet<>();
                     for (String phase : phases)
                         result.add(Phase.valueOf(phase));
                     return result;
@@ -259,9 +259,9 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class SerializationVisitor implements ParticipantCommunicationVisitor {
-        private Document _doc;
-        private Element _element;
-        private EventSerializer _eventSerializer = new EventSerializer();
+        private final Document _doc;
+        private final Element _element;
+        private final EventSerializer _eventSerializer = new EventSerializer();
 
         private SerializationVisitor(Document doc, Element element) {
             _doc = doc;

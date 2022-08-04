@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MockMerchantDAO implements MerchantDAO {
-    private Map<String, Float> _prices = new HashMap<String, Float>();
-    private Map<String, Date> _dates = new HashMap<String, Date>();
-    private Map<String, TransactionType> _transactionTypes = new HashMap<String, TransactionType>();
-    private Map<String, Integer> _stock = new HashMap<String, Integer>();
+    private final Map<String, Float> _prices = new HashMap<>();
+    private final Map<String, Date> _dates = new HashMap<>();
+    private final Map<String, TransactionType> _transactionTypes = new HashMap<>();
+    private final Map<String, Integer> _stock = new HashMap<>();
 
     @Override
     public void addTransaction(String blueprintId, float price, Date date, TransactionType transactionType) {

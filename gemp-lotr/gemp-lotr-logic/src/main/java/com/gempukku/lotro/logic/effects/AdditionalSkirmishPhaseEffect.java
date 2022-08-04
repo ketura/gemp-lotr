@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import java.util.Set;
 
 public class AdditionalSkirmishPhaseEffect extends UnrespondableEffect {
-    private PhysicalCard _fpCard;
-    private Set<PhysicalCard> _shadowCards;
+    private final PhysicalCard _fpCard;
+    private final Set<PhysicalCard> _shadowCards;
 
     public AdditionalSkirmishPhaseEffect(PhysicalCard fpCard, Set<PhysicalCard> shadowCards) {
         _fpCard = fpCard;

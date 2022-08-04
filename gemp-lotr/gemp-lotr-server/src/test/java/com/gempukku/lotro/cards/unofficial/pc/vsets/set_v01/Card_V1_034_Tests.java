@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_034_Tests
@@ -21,13 +21,12 @@ public class Card_V1_034_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("darkwaters", "151_34");
-					put("ftentacle1", "2_58");
-					put("ftentacle2", "2_58");
-					put("song", "3_5");
-				}},
+                new HashMap<>() {{
+                    put("darkwaters", "151_34");
+                    put("ftentacle1", "2_58");
+                    put("ftentacle2", "2_58");
+                    put("song", "3_5");
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 public class NewSealedLeagueData implements LeagueData {
-    private SealedLeagueType _leagueType;
-    private List<LeagueSerieData> _series;
-    private CollectionType _collectionType;
-    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
-    private LeaguePrizes _leaguePrizes;
-    private SealedLeagueProduct _leagueProduct;
+    private final SealedLeagueType _leagueType;
+    private final List<LeagueSerieData> _series;
+    private final CollectionType _collectionType;
+    private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
+    private final LeaguePrizes _leaguePrizes;
+    private final SealedLeagueProduct _leagueProduct;
 
     public NewSealedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
@@ -34,7 +34,7 @@ public class NewSealedLeagueData implements LeagueData {
 
         _leagueProduct = new SealedLeagueProduct();
 
-        _series = new LinkedList<LeagueSerieData>();
+        _series = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
             _series.add(
                     new DefaultLeagueSerieData(_leaguePrizes, true, "Serie " + (i + 1),

@@ -70,7 +70,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 
 		Result result = getUpcomingResult(game);
 
-		Set<PhysicalCard> involving = new HashSet<PhysicalCard>();
+		Set<PhysicalCard> involving = new HashSet<>();
 		if (skirmish.getFellowshipCharacter() != null)
 			involving.add(skirmish.getFellowshipCharacter());
 		involving.addAll(skirmish.getShadowCharacters());

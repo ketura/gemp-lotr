@@ -32,12 +32,12 @@ public class GameStats {
 
     private boolean _fpOverwhelmed;
 
-    private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<String, Map<Zone, Integer>>();
-    private Map<String, Integer> _threats = new HashMap<String, Integer>();
-    private Map<Integer, Integer> _charStrengths = new HashMap<Integer, Integer>();
-    private Map<Integer, Integer> _charVitalities = new HashMap<Integer, Integer>();
-    private Map<Integer, Integer> _siteNumbers = new HashMap<Integer, Integer>();
-    private Map<Integer, String> _charResistances = new HashMap<Integer, String>();
+    private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<>();
+    private Map<String, Integer> _threats = new HashMap<>();
+    private Map<Integer, Integer> _charStrengths = new HashMap<>();
+    private Map<Integer, Integer> _charVitalities = new HashMap<>();
+    private Map<Integer, Integer> _siteNumbers = new HashMap<>();
+    private Map<Integer, String> _charResistances = new HashMap<>();
 
     /**
      * @return If the stats have changed
@@ -126,10 +126,10 @@ public class GameStats {
             _fpOverwhelmed = newFpOverwhelmed;
         }
 
-        Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<String, Map<Zone, Integer>>();
+        Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<>();
         if (playerOrder != null) {
             for (String player : playerOrder.getAllPlayers()) {
-                final HashMap<Zone, Integer> playerZoneSizes = new HashMap<Zone, Integer>();
+                final HashMap<Zone, Integer> playerZoneSizes = new HashMap<>();
                 playerZoneSizes.put(Zone.HAND, game.getGameState().getHand(player).size());
                 playerZoneSizes.put(Zone.DECK, game.getGameState().getDeck(player).size());
                 playerZoneSizes.put(Zone.ADVENTURE_DECK, game.getGameState().getAdventureDeck(player).size());
@@ -144,10 +144,10 @@ public class GameStats {
             _zoneSizes = newZoneSizes;
         }
 
-        Map<Integer, Integer> newCharStrengths = new HashMap<Integer, Integer>();
-        Map<Integer, Integer> newCharVitalities = new HashMap<Integer, Integer>();
-        Map<Integer, Integer> newSiteNumbers = new HashMap<Integer, Integer>();
-        Map<Integer, String> newCharResistances = new HashMap<Integer, String>();
+        Map<Integer, Integer> newCharStrengths = new HashMap<>();
+        Map<Integer, Integer> newCharVitalities = new HashMap<>();
+        Map<Integer, Integer> newSiteNumbers = new HashMap<>();
+        Map<Integer, String> newCharResistances = new HashMap<>();
         for (PhysicalCard character : Filters.filterActive(game, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
             newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game, character));
             newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game, character));
@@ -196,7 +196,7 @@ public class GameStats {
             _charResistances = newCharResistances;
         }
 
-        Map<String, Integer> newThreats = new HashMap<String, Integer>();
+        Map<String, Integer> newThreats = new HashMap<>();
         if (playerOrder != null) {
             for (String player : playerOrder.getAllPlayers())
                 newThreats.put(player, game.getGameState().getPlayerThreats(player));

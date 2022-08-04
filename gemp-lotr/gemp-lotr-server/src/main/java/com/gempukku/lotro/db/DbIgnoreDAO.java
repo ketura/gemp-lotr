@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class DbIgnoreDAO implements IgnoreDAO {
-    private DbAccess dbAccess;
+    private final DbAccess dbAccess;
 
     public DbIgnoreDAO(DbAccess dbAccess) {
         this.dbAccess = dbAccess;

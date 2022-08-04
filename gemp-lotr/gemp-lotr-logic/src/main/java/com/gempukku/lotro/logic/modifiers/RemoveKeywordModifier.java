@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class RemoveKeywordModifier extends AbstractModifier implements KeywordAffectingModifier {
-    private Keyword _keyword;
+    private final Keyword _keyword;
 
     public RemoveKeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Keyword keyword) {
         this(physicalCard, affectFilter, null, keyword);

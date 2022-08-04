@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.timing.results.ReconcileResult;
 import java.util.List;
 
 public class WinConditionRule {
-    private DefaultActionsEnvironment _actionsEnvironment;
+    private final DefaultActionsEnvironment _actionsEnvironment;
 
     public WinConditionRule(DefaultActionsEnvironment actionsEnvironment) {
         _actionsEnvironment = actionsEnvironment;

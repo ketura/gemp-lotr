@@ -5,8 +5,8 @@ import com.gempukku.lotro.logic.actions.PlayerReconcilesAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class PlayerReconcilesGameProcess implements GameProcess {
-    private String _playerId;
-    private GameProcess _followingGameProcess;
+    private final String _playerId;
+    private final GameProcess _followingGameProcess;
 
     public PlayerReconcilesGameProcess(String playerId, GameProcess followingGameProcess) {
         _playerId = playerId;

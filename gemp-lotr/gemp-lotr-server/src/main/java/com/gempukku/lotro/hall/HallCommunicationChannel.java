@@ -9,13 +9,13 @@ import org.apache.commons.lang.mutable.MutableObject;
 import java.util.*;
 
 public class HallCommunicationChannel implements LongPollableResource {
-    private int _channelNumber;
+    private final int _channelNumber;
     private long _lastConsumed;
     private String _lastMotd;
-    private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
-    private Map<String, Map<String, String>> _tournamentPropsOnClient = new LinkedHashMap<String, Map<String, String>>();
-    private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
-    private Set<String> _playedGames = new HashSet<String>();
+    private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new LinkedHashMap<>();
+    private Map<String, Map<String, String>> _tournamentPropsOnClient = new LinkedHashMap<>();
+    private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<>();
+    private Set<String> _playedGames = new HashSet<>();
     private volatile boolean _changed;
     private volatile WaitingRequest _waitingRequest;
 
@@ -63,10 +63,10 @@ public class HallCommunicationChannel implements LongPollableResource {
         hallChannelVisitor.channelNumber(_channelNumber);
         final MutableObject newMotd = new MutableObject();
 
-        final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<String, Map<String, String>>();
-        final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<String, Map<String, String>>();
-        final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
-        final Set<String> playedGamesOnServer = new HashSet<String>();
+        final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<>();
+        final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<>();
+        final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<>();
+        final Set<String> playedGamesOnServer = new HashSet<>();
 
         hallServer.processHall(player,
                 new HallInfoVisitor() {
@@ -82,7 +82,7 @@ public class HallCommunicationChannel implements LongPollableResource {
 
                     @Override
                     public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, List<String> playerIds, boolean playing, String winner) {
-                        Map<String, String> props = new HashMap<String, String>();
+                        Map<String, String> props = new HashMap<>();
                         props.put("gameId", gameId);
                         props.put("watchable", String.valueOf(watchable));
                         props.put("status", String.valueOf(status));
@@ -100,7 +100,7 @@ public class HallCommunicationChannel implements LongPollableResource {
                     @Override
                     public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName,
                                                      String tournamentPrizes, String pairingDescription, String startCondition, int playerCount, boolean playerSignedUp, boolean joinable) {
-                        Map<String, String> props = new HashMap<String, String>();
+                        Map<String, String> props = new HashMap<>();
                         props.put("cost", String.valueOf(cost));
                         props.put("collection", collectionName);
                         props.put("format", formatName);
@@ -118,7 +118,7 @@ public class HallCommunicationChannel implements LongPollableResource {
                     @Override
                     public void visitTournament(String tournamentKey, String collectionName, String formatName, String tournamentName, String pairingDescription,
                                                 String tournamentStage, int round, int playerCount, boolean playerInCompetition) {
-                        Map<String, String> props = new HashMap<String, String>();
+                        Map<String, String> props = new HashMap<>();
                         props.put("collection", collectionName);
                         props.put("format", formatName);
                         props.put("name", tournamentName);

@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class AndCondition implements Condition {
-    private Condition[] _conditions;
+    private final Condition[] _conditions;
 
     public AndCondition(Condition... conditions) {
         _conditions = conditions;

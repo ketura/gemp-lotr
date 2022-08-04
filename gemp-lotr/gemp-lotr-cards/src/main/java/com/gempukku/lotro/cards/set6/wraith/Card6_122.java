@@ -42,7 +42,7 @@ public class Card6_122 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.NAZGUL, CardType.COMPANION)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             if (Filters.canSpot(game,
                     CardType.ALLY, Filters.canTakeWounds(self, 2))) {
                 possibleEffects.add(

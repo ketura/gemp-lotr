@@ -38,7 +38,7 @@ public class Card7_117 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
+        List<Effect> possibleCosts = new LinkedList<>();
         possibleCosts.add(
                 new SpotEffect(2, Keyword.KNIGHT) {
                     @Override
@@ -56,7 +56,7 @@ public class Card7_117 extends AbstractEvent {
         action.appendCost(
                 new ChoiceEffect(action, playerId, possibleCosts));
 
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new LiberateASiteEffect(self, playerId, null));
         possibleEffects.add(

@@ -8,7 +8,7 @@ public enum SitesBlock {
 	//Additional Hobbit Draft block
 	HOBBIT("Hobbit");
 
-    private String _humanReadable;
+    private final String _humanReadable;
 
     private SitesBlock(String humanReadable) {
         _humanReadable = humanReadable;

@@ -50,7 +50,7 @@ public class Card7_066 extends AbstractEvent {
                                 new RevealHandEffect(self, playerId, opponentId) {
                                     @Override
                                     protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                                        Set<Culture> cultures = new HashSet<Culture>();
+                                        Set<Culture> cultures = new HashSet<>();
                                         for (PhysicalCard physicalCard : cards)
                                             cultures.add(physicalCard.getBlueprint().getCulture());
 

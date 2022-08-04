@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class ServerCleaner {
     private static final Logger LOG = Logger.getLogger(ServerCleaner.class);
-    private final Set<AbstractServer> _servers = Collections.synchronizedSet(new HashSet<AbstractServer>());
+    private final Set<AbstractServer> _servers = Collections.synchronizedSet(new HashSet<>());
     private CleaningThread _thr;
 
     public synchronized void addServer(AbstractServer server) {

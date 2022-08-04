@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class PossessionClassSpotModifier extends AbstractModifier {
-    private PossessionClass _possessionClass;
+    private final PossessionClass _possessionClass;
 
     public PossessionClassSpotModifier(PhysicalCard source, PossessionClass possessionClass) {
         super(source, "Spotting modifier", null, ModifierEffect.SPOT_MODIFIER);

@@ -18,9 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChooseAndPlayCardFromDeckEffect implements Effect {
-    private String _playerId;
-    private Filterable[] _filter;
-    private int _twilightModifier;
+    private final String _playerId;
+    private final Filterable[] _filter;
+    private final int _twilightModifier;
     private CostToEffectAction _playCardAction;
 
     public ChooseAndPlayCardFromDeckEffect(String playerId, Filterable... filter) {
@@ -53,7 +53,7 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
         if (isPlayableInFull(game)) {
             Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game, Filters.and(_filter, Filters.playable(game, _twilightModifier)));
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deck), 0, 1) {
+                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<>(deck), 0, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

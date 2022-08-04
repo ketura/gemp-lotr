@@ -11,13 +11,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class FollowerAtTest extends AbstractAtTest {
     @Test
     public void aidFollower() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl pallando = new PhysicalCardImpl(100, "13_37", P1, _library.getLotroCardBlueprint("13_37"));

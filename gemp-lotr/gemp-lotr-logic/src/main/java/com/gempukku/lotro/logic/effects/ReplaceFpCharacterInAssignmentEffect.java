@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class ReplaceFpCharacterInAssignmentEffect extends AbstractEffect {
-    private PhysicalCard _replacedBy;
-    private PhysicalCard _replacing;
+    private final PhysicalCard _replacedBy;
+    private final PhysicalCard _replacing;
 
     public ReplaceFpCharacterInAssignmentEffect(PhysicalCard replacedBy, PhysicalCard replacing) {
         _replacedBy = replacedBy;

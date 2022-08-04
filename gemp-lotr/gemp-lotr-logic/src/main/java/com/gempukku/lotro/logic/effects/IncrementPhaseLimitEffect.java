@@ -6,10 +6,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class IncrementPhaseLimitEffect extends UnrespondableEffect {
-    private PhysicalCard card;
-    private int limit;
+    private final PhysicalCard card;
+    private final int limit;
     private Phase phase;
-    private String prefix;
+    private final String prefix;
 
     public IncrementPhaseLimitEffect(PhysicalCard card, int limit) {
         this(card, null, "", limit);

@@ -6,10 +6,10 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class StackTopCardsFromDeckEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerId;
-    private int _count;
-    private PhysicalCard _target;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final int _count;
+    private final PhysicalCard _target;
 
     public StackTopCardsFromDeckEffect(PhysicalCard source, String playerId, int count, PhysicalCard target) {
         _source = source;

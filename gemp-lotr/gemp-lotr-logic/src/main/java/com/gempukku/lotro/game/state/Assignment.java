@@ -5,8 +5,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import java.util.Set;
 
 public class Assignment {
-    private PhysicalCard _fellowshipCharacter;
-    private Set<PhysicalCard> _shadowCharacters;
+    private final PhysicalCard _fellowshipCharacter;
+    private final Set<PhysicalCard> _shadowCharacters;
 
     public Assignment(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;

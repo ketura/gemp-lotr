@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
-    private PhysicalCard _source;
-    private String _performingPlayer;
+    private final PhysicalCard _source;
+    private final String _performingPlayer;
 
     public DiscardCardsFromPlayEffect(String performingPlayer, PhysicalCard source, Filterable... filters) {
         super(filters);
@@ -58,9 +58,9 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
     @Override
     protected void playoutEffectOn(LotroGame game, Collection<PhysicalCard> cards) {
-        Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> discardedCards = new HashSet<>();
 
-        Set<PhysicalCard> toMoveFromZoneToDiscard = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toMoveFromZoneToDiscard = new HashSet<>();
 
         GameState gameState = game.getGameState();
 

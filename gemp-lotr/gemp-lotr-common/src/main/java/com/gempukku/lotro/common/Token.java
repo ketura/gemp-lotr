@@ -12,7 +12,7 @@ public enum Token {
     //Additional Hobbit Draft cultures
     ESGAROTH(Culture.ESGAROTH), GUNDABAD(Culture.GUNDABAD), MIRKWOOD(Culture.MIRKWOOD), SMAUG(Culture.SMAUG), SPIDER(Culture.SPIDER), TROLL(Culture.TROLL);
 
-    private Culture _culture;
+    private final Culture _culture;
 
     private Token() {
         this(null);

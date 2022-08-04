@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class DbGameHistoryDAO implements GameHistoryDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbGameHistoryDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -153,7 +153,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select count(*), format_name from game_history where (tournament is null or tournament like 'Casual %') and end_date>=? and end_date<? group by format_name")) {
                     statement.setLong(1, from);
                     statement.setLong(2, from + duration);
-                    Map<String, Integer> result = new HashMap<String, Integer>();
+                    Map<String, Integer> result = new HashMap<>();
                     try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next()) {
                             result.put(rs.getString(2), rs.getInt(1));
@@ -177,7 +177,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                                 " group by deck_name, format_name order by format_name, deck_name")) {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
-                    List<PlayerStatistic> result = new LinkedList<PlayerStatistic>();
+                    List<PlayerStatistic> result = new LinkedList<>();
                     try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next())
                             result.add(new PlayerStatistic(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
@@ -223,7 +223,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                                 " group by deck_name, format_name order by format_name, deck_name")) {
                     statement.setString(1, player.getName());
                     statement.setString(2, player.getName());
-                    List<PlayerStatistic> result = new LinkedList<PlayerStatistic>();
+                    List<PlayerStatistic> result = new LinkedList<>();
                     try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next())
                             result.add(new PlayerStatistic(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));

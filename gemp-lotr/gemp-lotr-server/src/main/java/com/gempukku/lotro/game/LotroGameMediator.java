@@ -23,23 +23,23 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class LotroGameMediator {
     private static final Logger LOG = Logger.getLogger(LotroGameMediator.class);
 
-    private Map<String, GameCommunicationChannel> _communicationChannels = Collections.synchronizedMap(new HashMap<String, GameCommunicationChannel>());
-    private DefaultUserFeedback _userFeedback;
-    private DefaultLotroGame _lotroGame;
-    private Map<String, Integer> _playerClocks = new HashMap<String, Integer>();
-    private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
-    private Set<String> _playersPlaying = new HashSet<String>();
+    private final Map<String, GameCommunicationChannel> _communicationChannels = Collections.synchronizedMap(new HashMap<>());
+    private final DefaultUserFeedback _userFeedback;
+    private final DefaultLotroGame _lotroGame;
+    private final Map<String, Integer> _playerClocks = new HashMap<>();
+    private final Map<String, Long> _decisionQuerySentTimes = new HashMap<>();
+    private final Set<String> _playersPlaying = new HashSet<>();
 
-    private String _gameId;
-    private int _maxSecondsForGamePerPlayer;
-    private int _maxSecondsPerDecision;
-    private boolean _allowSpectators;
-    private boolean _cancellable;
-    private boolean privateGame;
+    private final String _gameId;
+    private final int _maxSecondsForGamePerPlayer;
+    private final int _maxSecondsPerDecision;
+    private final boolean _allowSpectators;
+    private final boolean _cancellable;
+    private final boolean privateGame;
 
-    private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
-    private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
-    private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
+    private final ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
+    private final ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
+    private final ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
     private int _channelNextIndex = 0;
     private volatile boolean _destroyed;
 
@@ -54,7 +54,7 @@ public class LotroGameMediator {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
 
         for (LotroGameParticipant participant : participants) {
             String participantId = participant.getPlayerId();
@@ -119,7 +119,7 @@ public class LotroGameMediator {
     }
 
     public List<String> getPlayersPlaying() {
-        return new LinkedList<String>(_playersPlaying);
+        return new LinkedList<>(_playersPlaying);
     }
 
     public String getGameStatus() {
@@ -252,7 +252,7 @@ public class LotroGameMediator {
         _writeLock.lock();
         try {
             long currentTime = System.currentTimeMillis();
-            Map<String, GameCommunicationChannel> channelsCopy = new HashMap<String, GameCommunicationChannel>(_communicationChannels);
+            Map<String, GameCommunicationChannel> channelsCopy = new HashMap<>(_communicationChannels);
             for (Map.Entry<String, GameCommunicationChannel> playerChannels : channelsCopy.entrySet()) {
                 String playerId = playerChannels.getKey();
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
@@ -265,7 +265,7 @@ public class LotroGameMediator {
             }
 
             if (_lotroGame != null && _lotroGame.getWinnerPlayerId() == null) {
-                for (Map.Entry<String, Long> playerDecision : new HashMap<String, Long>(_decisionQuerySentTimes).entrySet()) {
+                for (Map.Entry<String, Long> playerDecision : new HashMap<>(_decisionQuerySentTimes).entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
                     if (currentTime > decisionSent + _maxSecondsPerDecision*1000) {
@@ -383,7 +383,7 @@ public class LotroGameMediator {
             for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
 
-            Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
+            Map<String, Integer> secondsLeft = new HashMap<>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                 String playerClockName = playerClock.getKey();
                 secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
@@ -414,7 +414,7 @@ public class LotroGameMediator {
             for (GameEvent gameEvent : participantCommunicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
 
-            Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
+            Map<String, Integer> secondsLeft = new HashMap<>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                 String playerId = playerClock.getKey();
                 secondsLeft.put(playerId, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerId));

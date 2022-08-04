@@ -42,7 +42,7 @@ public class Card7_166 extends AbstractMinion {
                 && new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game, null) >= 4
                 && (PlayConditions.canSelfExert(self, game) || PlayConditions.canRemoveThreat(game, self, 1))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SelfExertEffect(action, self) {
                         @Override

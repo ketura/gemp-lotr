@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class CantSpotCondition implements Condition {
-    private Filterable[] _filters;
+    private final Filterable[] _filters;
 
     public CantSpotCondition(Filterable... filters) {
         this._filters = filters;

@@ -359,7 +359,7 @@
         "type": "modifyOwnCost",
         "amount": {
           "type": "forEachYouCanSpot",
-          "multiplier": -1
+          "multiplier": -1,
           "filter": "culture(sauron),archer"
         }
       },

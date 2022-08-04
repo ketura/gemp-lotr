@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class RoamingPenaltyModifier extends AbstractModifier {
-    private int _modifier;
+    private final int _modifier;
 
     public RoamingPenaltyModifier(PhysicalCard source, Filterable affectFilter, int modifier) {
         super(source, "Roaming penalty " + ((modifier > 0) ? ("+" + modifier) : modifier), affectFilter, ModifierEffect.TWILIGHT_COST_MODIFIER);

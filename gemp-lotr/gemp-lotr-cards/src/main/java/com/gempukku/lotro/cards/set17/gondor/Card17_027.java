@@ -55,7 +55,7 @@ public class Card17_027 extends AbstractAttachableFPPossession {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new LiberateASiteEffect(self, playerId, null));
             possibleEffects.add(

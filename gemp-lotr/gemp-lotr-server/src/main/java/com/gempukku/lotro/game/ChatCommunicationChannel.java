@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Set;
 
 public class ChatCommunicationChannel implements ChatRoomListener, LongPollableResource {
-    private List<ChatMessage> _messages = new LinkedList<ChatMessage>();
+    private List<ChatMessage> _messages = new LinkedList<>();
     private long _lastConsumed = System.currentTimeMillis();
     private volatile WaitingRequest _waitingRequest;
-    private Set<String> ignoredUsers;
+    private final Set<String> ignoredUsers;
 
     public ChatCommunicationChannel(Set<String> ignoredUsers) {
         this.ignoredUsers = ignoredUsers;
@@ -47,7 +47,7 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
     public synchronized List<ChatMessage> consumeMessages() {
         updateLastAccess();
         List<ChatMessage> messages = _messages;
-        _messages = new LinkedList<ChatMessage>();
+        _messages = new LinkedList<>();
         return messages;
     }
 

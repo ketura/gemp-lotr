@@ -41,7 +41,7 @@ public class Card17_049 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.playedFromZone(game, effectResult, Zone.HAND, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             if (PlayConditions.canSpot(game, Filters.not(self), Culture.MEN, CardType.MINION))
                 possibleEffects.add(
                         new RemoveTwilightEffect(3));

@@ -3,7 +3,6 @@ package com.gempukku.lotro.builder;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
-import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;

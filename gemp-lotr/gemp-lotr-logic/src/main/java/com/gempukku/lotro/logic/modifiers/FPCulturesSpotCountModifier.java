@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class FPCulturesSpotCountModifier extends AbstractModifier {
-    private String _playerId;
-    private int _modifier;
+    private final String _playerId;
+    private final int _modifier;
 
     public FPCulturesSpotCountModifier(PhysicalCard source, String playerId, int modifier) {
         this(source, playerId, null, modifier);

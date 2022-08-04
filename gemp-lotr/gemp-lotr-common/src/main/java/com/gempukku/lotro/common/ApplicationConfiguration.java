@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.Properties;
 
 public class ApplicationConfiguration {
-    private static Logger LOGGER = Logger.getLogger(ApplicationConfiguration.class);
+    private static final Logger LOGGER = Logger.getLogger(ApplicationConfiguration.class);
     private static Properties _properties;
     private static File _root;
 

@@ -48,7 +48,7 @@ public class Card15_068 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new MinionSiteNumberModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))),
                         new OrCondition(
@@ -63,7 +63,7 @@ public class Card15_068 extends AbstractAttachableFPPossession {
                 && (PlayConditions.canAddThreat(game, self, 1)
                 || PlayConditions.canExert(self, game, self.getAttachedTo()))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new AddThreatsEffect(playerId, self, 1));
             possibleCosts.add(

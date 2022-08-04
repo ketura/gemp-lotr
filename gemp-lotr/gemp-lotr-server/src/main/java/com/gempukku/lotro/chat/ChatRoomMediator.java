@@ -13,19 +13,19 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ChatRoomMediator {
-    private IgnoreDAO ignoreDAO;
-    private PlayerDAO playerDAO;
-    private Logger _logger;
-    private ChatRoom _chatRoom;
+    private final IgnoreDAO ignoreDAO;
+    private final PlayerDAO playerDAO;
+    private final Logger _logger;
+    private final ChatRoom _chatRoom;
 
-    private Map<String, ChatCommunicationChannel> _listeners = new HashMap<String, ChatCommunicationChannel>();
+    private final Map<String, ChatCommunicationChannel> _listeners = new HashMap<>();
 
     private final int _channelInactivityTimeoutPeriod;
-    private Set<String> _allowedPlayers;
+    private final Set<String> _allowedPlayers;
 
-    private ReadWriteLock _lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock _lock = new ReentrantReadWriteLock();
 
-    private Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<String, ChatCommandCallback>();
+    private final Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<>();
     private String welcomeMessage;
 
     public ChatRoomMediator(IgnoreDAO ignoreDAO, PlayerDAO playerDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean allowIncognito, String welcomeMessage) {
@@ -148,7 +148,7 @@ public class ChatRoomMediator {
         _lock.writeLock().lock();
         try {
             long currentTime = System.currentTimeMillis();
-            Map<String, ChatCommunicationChannel> copy = new HashMap<String, ChatCommunicationChannel>(_listeners);
+            Map<String, ChatCommunicationChannel> copy = new HashMap<>(_listeners);
             for (Map.Entry<String, ChatCommunicationChannel> playerListener : copy.entrySet()) {
                 String playerId = playerListener.getKey();
                 ChatCommunicationChannel listener = playerListener.getValue();

@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 
 public class SingleMemoryEvaluator implements Evaluator {
     private Integer _rememberedValue;
-    private Evaluator _evaluator;
+    private final Evaluator _evaluator;
 
     public SingleMemoryEvaluator(Evaluator evaluator) {
         _evaluator = evaluator;

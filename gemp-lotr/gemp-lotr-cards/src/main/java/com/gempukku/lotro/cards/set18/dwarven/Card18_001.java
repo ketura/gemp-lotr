@@ -46,7 +46,7 @@ public class Card18_001 extends AbstractCompanion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new AddThreatsEffect(playerId, self, 1));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                         @Override

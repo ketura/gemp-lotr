@@ -6,9 +6,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CardMatchesEvaluator implements Evaluator {
-    private Filterable[] _filters;
-    private Evaluator _matches;
-    private int _default;
+    private final Filterable[] _filters;
+    private final Evaluator _matches;
+    private final int _default;
 
     public CardMatchesEvaluator(int defaultValue, Evaluator matches, Filterable... filters) {
         _default = defaultValue;

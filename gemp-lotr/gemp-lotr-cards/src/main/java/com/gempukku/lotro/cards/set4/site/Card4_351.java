@@ -27,7 +27,7 @@ public class Card4_351 extends AbstractSite {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1));
         modifiers.add(

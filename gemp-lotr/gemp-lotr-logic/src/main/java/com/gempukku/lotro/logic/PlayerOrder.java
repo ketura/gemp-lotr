@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class PlayerOrder {
-    private List<String> _turnOrder;
+    private final List<String> _turnOrder;
 
     public PlayerOrder(List<String> turnOrder) {
         _turnOrder = turnOrder;
@@ -21,7 +21,7 @@ public class PlayerOrder {
 
     public PlayOrder getCounterClockwisePlayOrder(String startingPlayerId, boolean looped) {
         int currentPlayerIndex = _turnOrder.indexOf(startingPlayerId);
-        List<String> playOrder = new ArrayList<String>();
+        List<String> playOrder = new ArrayList<>();
         int nextIndex = currentPlayerIndex;
         do {
             playOrder.add(_turnOrder.get(nextIndex));
@@ -34,7 +34,7 @@ public class PlayerOrder {
 
     public PlayOrder getClockwisePlayOrder(String startingPlayerId, boolean looped) {
         int currentPlayerIndex = _turnOrder.indexOf(startingPlayerId);
-        List<String> playOrder = new ArrayList<String>();
+        List<String> playOrder = new ArrayList<>();
         int nextIndex = currentPlayerIndex;
         do {
             playOrder.add(_turnOrder.get(nextIndex));

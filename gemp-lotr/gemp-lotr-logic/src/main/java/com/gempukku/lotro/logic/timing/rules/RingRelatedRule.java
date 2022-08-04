@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 
 public class RingRelatedRule {
-    private ModifiersLogic _modifiersLogic;
+    private final ModifiersLogic _modifiersLogic;
 
     public RingRelatedRule(ModifiersLogic modifiersLogic) {
         _modifiersLogic = modifiersLogic;

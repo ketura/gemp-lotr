@@ -22,11 +22,11 @@ import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import java.util.Set;
 
 public class DefaultSoloAdventure extends SoloAdventure {
-    private LotroCardBlueprintLibrary _library;
-    private SiteSelection _siteSelection;
-    private ShadowAI _shadowAI;
-    private String _adventureCard;
-    private String _startingSite;
+    private final LotroCardBlueprintLibrary _library;
+    private final SiteSelection _siteSelection;
+    private final ShadowAI _shadowAI;
+    private final String _adventureCard;
+    private final String _startingSite;
 
     public DefaultSoloAdventure(LotroCardBlueprintLibrary library,
                                 SiteSelection siteSelection, ShadowAI shadowAI,

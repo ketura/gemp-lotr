@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class AddThreatResult extends EffectResult {
-    private PhysicalCard _source;
+    private final PhysicalCard _source;
 
     public AddThreatResult(PhysicalCard source) {
         super(Type.ADD_THREAT);

@@ -44,7 +44,7 @@ public class Card5_030 extends AbstractEvent {
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentPhase() == Phase.SHADOW) {
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gollum) {
                         @Override

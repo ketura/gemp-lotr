@@ -7,9 +7,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class LocationEvaluator implements Evaluator {
-    private int defaultValue;
-    private int locationValue;
-    private Filter locationFilter;
+    private final int defaultValue;
+    private final int locationValue;
+    private final Filter locationFilter;
 
     public LocationEvaluator(int defaultValue, int locationValue, Filterable... locationFilter) {
         this.defaultValue = defaultValue;

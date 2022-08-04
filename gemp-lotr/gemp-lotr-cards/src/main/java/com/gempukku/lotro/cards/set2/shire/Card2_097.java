@@ -53,7 +53,7 @@ public class Card2_097 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()) {
                         @Override

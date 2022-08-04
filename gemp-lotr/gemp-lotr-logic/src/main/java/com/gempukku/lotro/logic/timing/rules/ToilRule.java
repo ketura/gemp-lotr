@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 
 public class ToilRule {
-    private ModifiersLogic modifiersLogic;
+    private final ModifiersLogic modifiersLogic;
 
     public ToilRule(ModifiersLogic modifiersLogic) {
         this.modifiersLogic = modifiersLogic;

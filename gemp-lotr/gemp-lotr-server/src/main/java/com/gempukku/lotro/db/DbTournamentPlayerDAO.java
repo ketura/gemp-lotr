@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbTournamentPlayerDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -75,7 +75,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=?")) {
                     statement.setString(1, tournamentId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<String> result = new HashSet<>();
                         while (rs.next()) {
                             String player = rs.getString(1);
                             result.add(player);
@@ -96,7 +96,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select player, deck_name, deck from tournament_player where tournament_id=? and deck_name is not null")) {
                     statement.setString(1, tournamentId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        Map<String, LotroDeck> result = new HashMap<String, LotroDeck>();
+                        Map<String, LotroDeck> result = new HashMap<>();
                         while (rs.next()) {
                             String player = rs.getString(1);
                             String deckName = rs.getString(2);
@@ -120,7 +120,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=? and dropped=true")) {
                     statement.setString(1, tournamentId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<String> result = new HashSet<>();
                         while (rs.next()) {
                             result.add(rs.getString(1));
                         }

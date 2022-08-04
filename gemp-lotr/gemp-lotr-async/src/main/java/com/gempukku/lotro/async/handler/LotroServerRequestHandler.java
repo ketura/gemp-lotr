@@ -21,7 +21,6 @@ import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.InetSocketAddress;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -31,8 +30,8 @@ import static io.netty.handler.codec.http.HttpHeaderNames.SET_COOKIE;
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
     protected LoggedUserHolder _loggedUserHolder;
-    private TransferDAO _transferDAO;
-    private CollectionsManager _collectionManager;
+    private final TransferDAO _transferDAO;
+    private final CollectionsManager _collectionManager;
 
     public LotroServerRequestHandler(Map<Type, Object> context) {
         _playerDao = extractObject(context, PlayerDAO.class);
@@ -42,7 +41,7 @@ public class LotroServerRequestHandler {
     }
 
     private boolean isTest() {
-        return Boolean.valueOf(System.getProperty("test"));
+        return Boolean.parseBoolean(System.getProperty("test"));
     }
 
     protected final void processLoginReward(String loggedUser) throws Exception {
@@ -128,7 +127,7 @@ public class LotroServerRequestHandler {
     }
 
     protected List<String> getFormMultipleParametersSafely(HttpPostRequestDecoder postRequestDecoder, String parameterName) throws HttpPostRequestDecoder.NotEnoughDataDecoderException, IOException {
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         List<InterfaceHttpData> datas = postRequestDecoder.getBodyHttpDatas(parameterName);
         if (datas == null)
             return Collections.emptyList();
@@ -158,7 +157,7 @@ public class LotroServerRequestHandler {
         List<InterfaceHttpData> datas = postRequestDecoder.getBodyHttpDatas(parameterName);
         if (datas == null)
             return null;
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (InterfaceHttpData data : datas) {
             if (data.getHttpDataType() == InterfaceHttpData.HttpDataType.Attribute) {
                 Attribute attribute = (Attribute) data;

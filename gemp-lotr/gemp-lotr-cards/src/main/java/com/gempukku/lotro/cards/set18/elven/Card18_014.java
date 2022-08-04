@@ -42,7 +42,7 @@ public class Card18_014 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && (PlayConditions.canSelfExert(self, game) || PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.ELVEN))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SelfExertEffect(action, self));
             possibleCosts.add(

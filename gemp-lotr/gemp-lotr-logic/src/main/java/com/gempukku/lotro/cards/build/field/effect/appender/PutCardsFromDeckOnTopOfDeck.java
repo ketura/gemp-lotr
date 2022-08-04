@@ -11,15 +11,11 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.PutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromDeckOnTopOfDeckEffect;
-import com.gempukku.lotro.logic.effects.PutCardsFromDeckOnTopOfDrawDeckEffect;
-import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 

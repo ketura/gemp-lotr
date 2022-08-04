@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_028_Tests
@@ -20,31 +20,30 @@ public class Card_V1_028_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("wisp", "151_28");
-					put("wisp2", "151_28");
-					put("wisp3", "151_28");
+                new HashMap<>() {{
+                    put("wisp", "151_28");
+                    put("wisp2", "151_28");
+                    put("wisp3", "151_28");
 
-					put("saruman1", "4_173");
-					put("saruman2", "4_173");
-					put("saruman3", "4_173");
+                    put("saruman1", "4_173");
+                    put("saruman2", "4_173");
+                    put("saruman3", "4_173");
 
-					put("flock", "151_25");
-					put("flock2", "151_25");
-					put("flock3", "151_25");
-					put("flock4", "151_25");
+                    put("flock", "151_25");
+                    put("flock2", "151_25");
+                    put("flock3", "151_25");
+                    put("flock4", "151_25");
 
-					put("filler1", "1_12");
-					put("filler2", "1_12");
-					put("filler3", "1_12");
-					put("filler4", "1_12");
-					put("filler5", "1_12");
-					put("filler6", "1_12");
-					put("filler7", "1_12");
-					put("filler8", "1_12");
-					put("filler9", "1_12");
-				}},
+                    put("filler1", "1_12");
+                    put("filler2", "1_12");
+                    put("filler3", "1_12");
+                    put("filler4", "1_12");
+                    put("filler5", "1_12");
+                    put("filler6", "1_12");
+                    put("filler7", "1_12");
+                    put("filler8", "1_12");
+                    put("filler9", "1_12");
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

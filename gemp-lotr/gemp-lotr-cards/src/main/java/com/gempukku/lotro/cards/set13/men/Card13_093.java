@@ -43,7 +43,7 @@ public class Card13_093 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new CantTakeWoundsModifier(self, new SpotCondition(Filters.hasAttached(self), Filters.inSkirmish), CardType.MINION));
         return modifiers;

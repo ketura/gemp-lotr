@@ -52,8 +52,8 @@ public class Card5_072 extends AbstractMinion {
         return null;
     }
 
-    private class CountCulturesVisitor extends CompletePhysicalCardVisitor {
-        private Set<Culture> _cultures = new HashSet<Culture>();
+    private static class CountCulturesVisitor extends CompletePhysicalCardVisitor {
+        private final Set<Culture> _cultures = new HashSet<>();
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {

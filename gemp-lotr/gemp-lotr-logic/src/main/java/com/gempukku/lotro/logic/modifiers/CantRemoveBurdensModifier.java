@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantRemoveBurdensModifier extends AbstractModifier {
-    private Filter _sourceFilters;
+    private final Filter _sourceFilters;
 
     public CantRemoveBurdensModifier(PhysicalCard source, Condition condition, Filterable... sourceFilters) {
         super(source, "Can't remove burdens", Filters.and(sourceFilters), condition, ModifierEffect.BURDEN_MODIFIER);

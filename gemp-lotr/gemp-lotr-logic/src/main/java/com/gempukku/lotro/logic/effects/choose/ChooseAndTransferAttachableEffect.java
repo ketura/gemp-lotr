@@ -17,12 +17,12 @@ import java.util.Collection;
 import java.util.Set;
 
 public class ChooseAndTransferAttachableEffect extends AbstractEffect {
-    private Action _action;
-    private String _playerId;
-    private Filterable _attachedTo;
-    private Filterable _attachedCard;
-    private Filterable _transferTo;
-    private boolean _skipOriginalTargetCheck;
+    private final Action _action;
+    private final String _playerId;
+    private final Filterable _attachedTo;
+    private final Filterable _attachedCard;
+    private final Filterable _transferTo;
+    private final boolean _skipOriginalTargetCheck;
 
     public ChooseAndTransferAttachableEffect(Action action, String playerId, Filterable attachedCard, Filterable attachedTo, Filterable transferTo) {
         this(action, playerId, false, attachedCard, attachedTo, transferTo);

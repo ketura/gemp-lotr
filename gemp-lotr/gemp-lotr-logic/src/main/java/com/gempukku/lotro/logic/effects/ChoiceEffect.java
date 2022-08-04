@@ -11,9 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChoiceEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _choicePlayerId;
-    private List<Effect> _possibleEffects;
+    private final Action _action;
+    private final String _choicePlayerId;
+    private final List<Effect> _possibleEffects;
 
     public ChoiceEffect(Action action, String choicePlayerId, List<Effect> possibleEffects) {
         _action = action;
@@ -42,7 +42,7 @@ public class ChoiceEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(final LotroGame game) {
-        final List<Effect> possibleEffects = new LinkedList<Effect>();
+        final List<Effect> possibleEffects = new LinkedList<>();
         for (Effect effect : _possibleEffects) {
             if (effect.isPlayableInFull(game))
                 possibleEffects.add(effect);

@@ -5,7 +5,7 @@ import com.gempukku.polling.LongPollableResource;
 import com.gempukku.polling.WaitingRequest;
 
 public class DraftCommunicationChannel implements LongPollableResource {
-    private int _channelNumber;
+    private final int _channelNumber;
     private long _lastAccessed;
 
     private String _cardChoiceOnClient;

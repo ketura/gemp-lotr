@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public abstract class ChooseOpponentEffect extends UnrespondableEffect {
-    private String _playerId;
+    private final String _playerId;
 
     public ChooseOpponentEffect(String playerId) {
         _playerId = playerId;

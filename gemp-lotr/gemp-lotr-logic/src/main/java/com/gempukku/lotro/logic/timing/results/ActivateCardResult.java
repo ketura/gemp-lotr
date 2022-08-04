@@ -5,8 +5,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class ActivateCardResult extends EffectResult {
-    private PhysicalCard _source;
-    private Phase _actionTimeword;
+    private final PhysicalCard _source;
+    private final Phase _actionTimeword;
     private boolean _effectCancelled;
 
     public ActivateCardResult(PhysicalCard source, Phase actionTimeword) {

@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class StartOfPhaseResult extends EffectResult {
-    private Phase _phase;
+    private final Phase _phase;
     private String _playerId;
 
     public StartOfPhaseResult(Phase phase) {

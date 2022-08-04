@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import java.util.Collection;
 
 public class CantWoundWithCardModifier extends AbstractModifier {
-    private Filter _preventWoundWithFilter;
+    private final Filter _preventWoundWithFilter;
 
     public CantWoundWithCardModifier(PhysicalCard source, Filterable affectFilter, Filterable preventWoundWithFilter) {
         this(source, affectFilter, null, preventWoundWithFilter);

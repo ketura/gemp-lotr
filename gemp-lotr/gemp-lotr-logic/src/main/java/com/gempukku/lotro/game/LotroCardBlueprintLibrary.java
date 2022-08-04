@@ -9,13 +9,14 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
 public class LotroCardBlueprintLibrary {
-    private static Logger logger = Logger.getLogger(LotroCardBlueprintLibrary.class);
+    private static final Logger logger = Logger.getLogger(LotroCardBlueprintLibrary.class);
 
-    private String[] _packageNames =
+    private final String[] _packageNames =
             new String[]{
                     "", ".dwarven", ".dunland", ".elven", ".fallenRealms", ".gandalf", ".gollum", ".gondor", ".isengard", ".men", ".orc",
                     ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site", ".uruk_hai",
@@ -23,19 +24,18 @@ public class LotroCardBlueprintLibrary {
                     //Additional Hobbit Draft packages
                     ".esgaroth", ".gundabad", ".smaug", ".spider", ".troll"
             };
-    private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
+    private final Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<>();
 
-    private Map<String, String> _blueprintMapping = new HashMap<String, String>();
-    private Map<String, Set<String>> _fullBlueprintMapping = new HashMap<String, Set<String>>();
+    private final Map<String, String> _blueprintMapping = new HashMap<>();
+    private final Map<String, Set<String>> _fullBlueprintMapping = new HashMap<>();
 
-    private LotroCardBlueprintBuilder cardBlueprintBuilder = new LotroCardBlueprintBuilder();
+    private final LotroCardBlueprintBuilder cardBlueprintBuilder = new LotroCardBlueprintBuilder();
 
     public CountDownLatch collectionReadyLatch = new CountDownLatch(1);
 
     public LotroCardBlueprintLibrary() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(LotroCardBlueprintLibrary.class.getResourceAsStream("/blueprintMapping.txt"), "UTF-8"));
-            try {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(LotroCardBlueprintLibrary.class.getResourceAsStream("/blueprintMapping.txt"), "UTF-8"))) {
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
@@ -45,8 +45,6 @@ public class LotroCardBlueprintLibrary {
                         addAlternatives(split[0], split[1]);
                     }
                 }
-            } finally {
-                bufferedReader.close();
             }
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading blueprint mapping", exp);
@@ -147,7 +145,7 @@ public class LotroCardBlueprintLibrary {
     private void addAlternative(String from, String to) {
         Set<String> list = _fullBlueprintMapping.get(from);
         if (list == null) {
-            list = new HashSet<String>();
+            list = new HashSet<>();
             _fullBlueprintMapping.put(from, list);
         }
         list.add(to);
@@ -222,7 +220,7 @@ public class LotroCardBlueprintLibrary {
             LotroCardBlueprint blueprint;
             try {
                 blueprint = tryLoadingFromPackage(packageName, setNumber, cardNumber);
-            } catch (IllegalAccessException | InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException | NoSuchMethodException e) {
                 throw new CardNotFoundException(blueprintId);
             }
             if (blueprint != null)
@@ -232,11 +230,11 @@ public class LotroCardBlueprintLibrary {
         throw new CardNotFoundException(blueprintId);
     }
 
-    private LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException {
+    private LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
         try {
             Class clazz = Class.forName("com.gempukku.lotro.cards.set" + setNumber + packageName + ".Card" + setNumber + "_" + normalizeId(cardNumber));
-            return (LotroCardBlueprint) clazz.newInstance();
-        } catch (ClassNotFoundException e) {
+            return (LotroCardBlueprint) clazz.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | InvocationTargetException e) {
             // Ignore
             return null;
         }

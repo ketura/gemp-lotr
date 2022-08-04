@@ -8,10 +8,10 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class CheckTurnLimitEffect extends UnrespondableEffect {
-    private Action _action;
-    private PhysicalCard _card;
-    private int _limit;
-    private Effect _limitedEffect;
+    private final Action _action;
+    private final PhysicalCard _card;
+    private final int _limit;
+    private final Effect _limitedEffect;
 
     public CheckTurnLimitEffect(Action action, PhysicalCard card, int limit, Effect limitedEffect) {
         _card = card;

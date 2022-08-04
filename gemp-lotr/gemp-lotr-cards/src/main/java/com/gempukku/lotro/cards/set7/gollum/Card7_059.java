@@ -41,7 +41,7 @@ public class Card7_059 extends AbstractMinion {
                 (PlayConditions.canSelfExert(self, 2, game)
                         || PlayConditions.canRemoveThreat(game, self, 1))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, self) {
                         @Override

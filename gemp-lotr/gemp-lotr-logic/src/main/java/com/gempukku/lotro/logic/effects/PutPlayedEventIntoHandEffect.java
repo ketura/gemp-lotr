@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import java.util.Collections;
 
 public class PutPlayedEventIntoHandEffect extends AbstractEffect {
-    private PhysicalCard card;
+    private final PhysicalCard card;
 
     public PutPlayedEventIntoHandEffect(PhysicalCard card) {
         this.card = card;

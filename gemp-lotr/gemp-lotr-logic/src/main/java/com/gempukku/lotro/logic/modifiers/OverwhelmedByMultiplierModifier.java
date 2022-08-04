@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class OverwhelmedByMultiplierModifier extends AbstractModifier {
-    private int _multiplier;
+    private final int _multiplier;
 
     public OverwhelmedByMultiplierModifier(PhysicalCard source, Filterable affectFilter, int multiplier) {
         this(source, affectFilter, null, multiplier);

@@ -3,10 +3,10 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.competitive.CompetitiveMatchResult;
 
 public class TournamentMatch implements CompetitiveMatchResult {
-    private String _playerOne;
-    private String _playerTwo;
-    private String _winner;
-    private int _round;
+    private final String _playerOne;
+    private final String _playerTwo;
+    private final String _winner;
+    private final int _round;
 
     public TournamentMatch(String playerOne, String playerTwo, String winner, int round) {
         _playerOne = playerOne;

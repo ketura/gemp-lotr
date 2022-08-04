@@ -14,7 +14,7 @@ public class Skirmish {
     private Evaluator _fpStrengthOverrideEvaluator;
     private Evaluator _shadowStrengthOverrideEvaluator;
 
-    private Set<PhysicalCard> _removedFromSkirmish = new HashSet<PhysicalCard>();
+    private final Set<PhysicalCard> _removedFromSkirmish = new HashSet<>();
 
     public Skirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;

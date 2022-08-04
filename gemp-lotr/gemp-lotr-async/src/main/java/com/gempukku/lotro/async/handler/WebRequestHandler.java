@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class WebRequestHandler implements UriRequestHandler {
-    private String _root;
+    private final String _root;
 
     public WebRequestHandler(String root) {
         _root = root;
@@ -43,7 +43,7 @@ public class WebRequestHandler implements UriRequestHandler {
         if (clientHasCurrentVersion(request, etag))
             throw new HttpProcessingException(304);
 
-        responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, etag));
+        responseWriter.writeFile(file, Collections.singletonMap(HttpHeaderNames.ETAG.toString(), etag));
     }
 
     private boolean clientHasCurrentVersion(HttpRequest request, String etag) {

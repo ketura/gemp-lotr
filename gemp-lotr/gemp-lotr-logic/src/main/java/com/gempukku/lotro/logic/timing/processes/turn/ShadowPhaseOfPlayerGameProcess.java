@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.timing.processes.turn.general.PlayerPlaysPhaseAc
 import com.gempukku.lotro.logic.timing.processes.turn.general.StartOfPhaseGameProcess;
 
 public class ShadowPhaseOfPlayerGameProcess implements GameProcess {
-    private PlayOrder _playOrder;
-    private String _shadowPlayer;
+    private final PlayOrder _playOrder;
+    private final String _shadowPlayer;
 
     private GameProcess _followingGameProcess;
 

@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class PutRandomCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
-    private String _playerId;
+    private final String _playerId;
 
     public PutRandomCardFromHandOnBottomOfDeckEffect(String playerId) {
         _playerId = playerId;

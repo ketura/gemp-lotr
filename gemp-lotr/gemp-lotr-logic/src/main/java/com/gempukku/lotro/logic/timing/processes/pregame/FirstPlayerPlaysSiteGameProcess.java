@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.Map;
 
 public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
-    private Map<String, Integer> _bids;
-    private String _firstPlayer;
+    private final Map<String, Integer> _bids;
+    private final String _firstPlayer;
 
     public FirstPlayerPlaysSiteGameProcess(Map<String, Integer> bids, String firstPlayer) {
         _bids = bids;

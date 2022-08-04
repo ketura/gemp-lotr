@@ -13,12 +13,11 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class PlayCardInPhaseRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public PlayCardInPhaseRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

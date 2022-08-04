@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 public class AssignmentAtTest extends AbstractAtTest {
     @Test
@@ -326,7 +326,7 @@ public class AssignmentAtTest extends AbstractAtTest {
 
     @Test
     public void balrogPreventingToAssign() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_14");
         decks.put(P1, p1Deck);

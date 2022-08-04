@@ -41,7 +41,7 @@ public class Card7_244 extends AbstractPermanent {
                 && (PlayConditions.canExert(self, game, 2, Culture.ROHAN, CardType.COMPANION) || PlayConditions.canSelfDiscard(self, game))
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ROHAN, CardType.POSSESSION)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Culture.ROHAN, CardType.COMPANION) {
                         @Override

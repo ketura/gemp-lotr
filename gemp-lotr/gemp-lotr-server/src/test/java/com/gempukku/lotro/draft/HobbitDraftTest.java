@@ -56,7 +56,7 @@ public class HobbitDraftTest {
                 for (SoloDraft.DraftChoice availableChoice : availableChoices) {
                     final String blueprintId = availableChoice.getBlueprintId();
                     availableCards.merge(blueprintId, 1,
-                            (integer, integer2) -> integer + integer2);
+                            Integer::sum);
                 }
 
                 stage++;

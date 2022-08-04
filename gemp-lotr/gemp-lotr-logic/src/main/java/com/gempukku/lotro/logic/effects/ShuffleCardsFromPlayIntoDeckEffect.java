@@ -12,9 +12,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ShuffleCardsFromPlayIntoDeckEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerDeck;
-    private Collection<? extends PhysicalCard> _cards;
+    private final PhysicalCard _source;
+    private final String _playerDeck;
+    private final Collection<? extends PhysicalCard> _cards;
 
     public ShuffleCardsFromPlayIntoDeckEffect(PhysicalCard source, String playerDeck, Collection<? extends PhysicalCard> cards) {
         _source = source;
@@ -44,9 +44,9 @@ public class ShuffleCardsFromPlayIntoDeckEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        Set<PhysicalCard> goingToDiscard = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> discardedFromPlay = new HashSet<PhysicalCard>();
-        Set<PhysicalCard> toShuffleIn = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> goingToDiscard = new HashSet<>();
+        Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        Set<PhysicalCard> toShuffleIn = new HashSet<>();
 
         for (PhysicalCard card : _cards) {
             if (card.getZone().isInPlay()) {
@@ -57,7 +57,7 @@ public class ShuffleCardsFromPlayIntoDeckEffect extends AbstractEffect {
         if (toShuffleIn.size() > 0) {
             DiscardUtils.cardsToChangeZones(game, toShuffleIn, discardedFromPlay, goingToDiscard);
 
-            Set<PhysicalCard> removeFromPlay = new HashSet<PhysicalCard>(goingToDiscard);
+            Set<PhysicalCard> removeFromPlay = new HashSet<>(goingToDiscard);
             removeFromPlay.addAll(toShuffleIn);
 
             game.getGameState().removeCardsFromZone(_source.getOwner(), removeFromPlay);

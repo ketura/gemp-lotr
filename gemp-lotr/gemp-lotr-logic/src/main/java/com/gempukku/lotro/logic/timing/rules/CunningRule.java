@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
 public class CunningRule {
-    private ModifiersLogic _modifiersLogic;
+    private final ModifiersLogic _modifiersLogic;
 
     public CunningRule(ModifiersLogic modifiersLogic) {
         _modifiersLogic = modifiersLogic;

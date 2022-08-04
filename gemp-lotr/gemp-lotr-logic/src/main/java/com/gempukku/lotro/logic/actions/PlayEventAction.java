@@ -13,8 +13,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class PlayEventAction extends AbstractCostToEffectAction {
-    private PhysicalCard _eventPlayed;
-    private boolean _requiresRanger;
+    private final PhysicalCard _eventPlayed;
+    private final boolean _requiresRanger;
 
     private boolean _cardRemoved;
 
@@ -26,7 +26,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     private boolean _discountResolved;
     private boolean _discountApplied;
 
-    private Zone _playedFrom;
+    private final Zone _playedFrom;
 
     public PlayEventAction(PhysicalCard card) {
         this(card, false);

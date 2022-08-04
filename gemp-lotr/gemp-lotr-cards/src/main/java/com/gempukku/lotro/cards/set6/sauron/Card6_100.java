@@ -43,7 +43,7 @@ public class Card6_100 extends AbstractMinion {
                 new AbstractExtraPlayCostModifier(self, "Extra cost to play", self) {
                     @Override
                     public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
-                        List<Effect> possibleCosts = new LinkedList<Effect>();
+                        List<Effect> possibleCosts = new LinkedList<>();
                         possibleCosts.add(
                                 new RemoveBurdenEffect(self.getOwner(), self));
                         possibleCosts.add(

@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ThreatRule {
-    private DefaultActionsEnvironment _actionsEnvironment;
+    private final DefaultActionsEnvironment _actionsEnvironment;
 
     public ThreatRule(DefaultActionsEnvironment actionsEnvironment) {
         _actionsEnvironment = actionsEnvironment;

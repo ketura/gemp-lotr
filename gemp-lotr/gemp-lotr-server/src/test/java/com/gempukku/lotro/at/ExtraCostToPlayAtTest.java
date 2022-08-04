@@ -10,12 +10,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ExtraCostToPlayAtTest extends AbstractAtTest {
     @Test
     public void addThreat() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _library.getLotroCardBlueprint("10_26"));
@@ -32,7 +32,7 @@ public class ExtraCostToPlayAtTest extends AbstractAtTest {
 
     @Test
     public void cantPlayTooManyThreats() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _library.getLotroCardBlueprint("10_26"));

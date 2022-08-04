@@ -36,7 +36,7 @@ public class Card4_084 extends AbstractEvent {
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
 
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new LiberateASiteEffect(self, playerId, null));
         possibleEffects.add(

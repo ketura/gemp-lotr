@@ -3,11 +3,11 @@ package com.gempukku.lotro.logic.cardtype;
 import com.gempukku.lotro.common.*;
 
 public abstract class AbstractCompanion extends AbstractPermanent {
-    private int _strength;
-    private int _vitality;
-    private int _resistance;
-    private Race _race;
-    private Signet _signet;
+    private final int _strength;
+    private final int _vitality;
+    private final int _resistance;
+    private final Race _race;
+    private final Signet _signet;
 
     public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name) {
         this(twilightCost, strength, vitality, resistance, culture, race, signet, name, null, false);

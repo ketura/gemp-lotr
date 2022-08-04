@@ -14,10 +14,10 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private int _count;
-    private String _actingPlayer;
-    private String _playerHand;
+    private final PhysicalCard _source;
+    private final int _count;
+    private final String _actingPlayer;
+    private final String _playerHand;
 
     protected RevealRandomCardsFromHandEffect(String actingPlayer, String handOfPlayer, PhysicalCard source, int count) {
         _actingPlayer = actingPlayer;
@@ -47,9 +47,9 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
                 String nextPlayer;
                 while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                     game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                            new ArbitraryCardsSelectionDecision(1, _playerHand+" revealed card(s) from hand at random", randomCards, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                            new ArbitraryCardsSelectionDecision(1, _playerHand+" revealed card(s) from hand at random", randomCards, Collections.emptySet(), 0, 0) {
                                 @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                public void decisionMade(String result) {
                                 }
                             });
                 }

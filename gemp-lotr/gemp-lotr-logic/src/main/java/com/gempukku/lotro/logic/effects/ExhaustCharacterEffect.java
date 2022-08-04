@@ -14,9 +14,9 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collection;
 
 public class ExhaustCharacterEffect extends AbstractSubActionEffect {
-    private PhysicalCard _source;
-    private Action _action;
-    private Filterable[] _filters;
+    private final PhysicalCard _source;
+    private final Action _action;
+    private final Filterable[] _filters;
 
     public ExhaustCharacterEffect(PhysicalCard source, Action action, PhysicalCard physicalCard) {
         this(source, action, Filters.sameCard(physicalCard));
@@ -54,7 +54,7 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
     }
 
     private class InfiniteExertionEffect extends ExertCharactersEffect {
-        private CostToEffectAction _subAction;
+        private final CostToEffectAction _subAction;
 
         private InfiniteExertionEffect(PhysicalCard source, CostToEffectAction subAction, Filterable[] filters) {
             super(_action, source, filters);

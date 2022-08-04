@@ -27,8 +27,8 @@ public class SkirmishActionProcedureAction extends SystemQueueAction {
     }
 
     private class CheckIfSkirmishFinishedEffect extends UnrespondableEffect {
-        private PlayOrder _playOrder;
-        private int _consecutivePasses;
+        private final PlayOrder _playOrder;
+        private final int _consecutivePasses;
 
         private CheckIfSkirmishFinishedEffect(PlayOrder playOrder, int consecutivePasses) {
             _playOrder = playOrder;
@@ -47,8 +47,8 @@ public class SkirmishActionProcedureAction extends SystemQueueAction {
     }
 
     private class PlayerPlaysNextActionEffect extends UnrespondableEffect {
-        private PlayOrder _playOrder;
-        private int _consecutivePasses;
+        private final PlayOrder _playOrder;
+        private final int _consecutivePasses;
 
         private PlayerPlaysNextActionEffect(PlayOrder playOrder, int consecutivePasses) {
             _playOrder = playOrder;

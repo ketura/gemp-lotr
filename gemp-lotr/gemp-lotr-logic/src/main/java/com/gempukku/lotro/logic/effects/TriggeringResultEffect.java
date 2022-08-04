@@ -6,9 +6,9 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class TriggeringResultEffect extends AbstractSuccessfulEffect {
-    private Type _effectType;
-    private EffectResult _effectResult;
-    private String _text;
+    private final Type _effectType;
+    private final EffectResult _effectResult;
+    private final String _text;
 
     public TriggeringResultEffect(EffectResult effectResult, String text) {
         this(null, effectResult, text);

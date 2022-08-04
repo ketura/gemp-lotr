@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
-    private Action _action;
-    private int _count;
+    private final Action _action;
+    private final int _count;
 
     private String _sourceText;
 

@@ -10,28 +10,27 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_010_Tests
 {
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("darts", "151_10");
-					put("galadriel", "1_45");
-					put("greenleaf", "1_50");
-					put("lorien", "51_53");
-					put("bow1", "1_41");
-					put("bow2", "1_41");
-					put("aragorn", "1_89");
-					put("gornbow", "1_90");
+                new HashMap<>() {{
+                    put("darts", "151_10");
+                    put("galadriel", "1_45");
+                    put("greenleaf", "1_50");
+                    put("lorien", "51_53");
+                    put("bow1", "1_41");
+                    put("bow2", "1_41");
+                    put("aragorn", "1_89");
+                    put("gornbow", "1_90");
 
-					put("archer", "1_172");
-					put("runner", "1_178");
-				}},
+                    put("archer", "1_172");
+                    put("runner", "1_178");
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

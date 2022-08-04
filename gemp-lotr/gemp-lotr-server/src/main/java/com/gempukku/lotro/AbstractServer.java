@@ -3,8 +3,8 @@ package com.gempukku.lotro;
 import org.apache.log4j.Logger;
 
 public abstract class AbstractServer {
-    private static Logger _logger = Logger.getLogger(AbstractServer.class);
-    private static ServerCleaner _cleaningTask = new ServerCleaner();
+    private static final Logger _logger = Logger.getLogger(AbstractServer.class);
+    private static final ServerCleaner _cleaningTask = new ServerCleaner();
 
     private boolean _started;
 

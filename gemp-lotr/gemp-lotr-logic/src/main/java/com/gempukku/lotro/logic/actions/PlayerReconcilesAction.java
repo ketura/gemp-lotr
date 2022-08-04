@@ -20,8 +20,8 @@ import java.util.Queue;
 import java.util.Set;
 
 public class PlayerReconcilesAction implements Action {
-    private LotroGame _game;
-    private String _playerId;
+    private final LotroGame _game;
+    private final String _playerId;
 
     private Queue<Effect> _effectQueue;
 
@@ -81,7 +81,7 @@ public class PlayerReconcilesAction implements Action {
     public Effect nextEffect(LotroGame game) {
         if (_effectQueue == null) {
             game.getGameState().sendMessage(_playerId + " reconciles");
-            _effectQueue = new LinkedList<Effect>();
+            _effectQueue = new LinkedList<>();
 
             final int handSize = game.getFormat().getHandSize();
 

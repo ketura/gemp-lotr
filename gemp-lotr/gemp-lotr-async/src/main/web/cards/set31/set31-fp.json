@@ -838,7 +838,7 @@
             {
               "type": "putCardsFromDeckIntoHand",
               "filter": "choose(side(free people),not(or(culture(gandalf),culture(elven))))"
-            }
+            },
             {
               "type": "putCardsFromDiscardIntoHand",
               "filter": "choose(side(free people),not(or(culture(gandalf),culture(elven))))"

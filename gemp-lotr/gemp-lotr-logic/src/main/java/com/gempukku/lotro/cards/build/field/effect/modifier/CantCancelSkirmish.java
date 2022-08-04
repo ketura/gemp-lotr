@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.logic.modifiers.CantCancelSkirmishModifier;
-import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
 import org.json.simple.JSONObject;
 
 public class CantCancelSkirmish implements ModifierSourceProducer {
@@ -17,10 +16,8 @@ public class CantCancelSkirmish implements ModifierSourceProducer {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return (actionContext) -> {
-            return new CantCancelSkirmishModifier(actionContext.getSource(),
-                    new RequirementCondition(requirements, actionContext),
-                    filterableSource.getFilterable(actionContext));
-        };
+        return (actionContext) -> new CantCancelSkirmishModifier(actionContext.getSource(),
+                new RequirementCondition(requirements, actionContext),
+                filterableSource.getFilterable(actionContext));
     }
 }

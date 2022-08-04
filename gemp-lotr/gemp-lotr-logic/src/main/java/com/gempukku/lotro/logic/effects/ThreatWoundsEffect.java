@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.timing.results.KilledResult;
 import com.gempukku.lotro.logic.timing.results.ThreatWoundTriggerResult;
 
 public class ThreatWoundsEffect extends AbstractEffect {
-    private KilledResult _killResult;
+    private final KilledResult _killResult;
 
     public ThreatWoundsEffect(KilledResult killResult) {
         _killResult = killResult;

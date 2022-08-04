@@ -43,13 +43,13 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     private final static long SIX_MONTHS = 1000L * 60L * 60L * 24L * 30L * 6L;
-    private static Logger _log = Logger.getLogger(GempukkuHttpRequestHandler.class);
-    private static Logger _accesslog = Logger.getLogger("access");
-    private Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
+    private static final Logger _log = Logger.getLogger(GempukkuHttpRequestHandler.class);
+    private static final Logger _accesslog = Logger.getLogger("access");
+    private final Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<>());
 
-    private Map<Type, Object> _objects;
-    private UriRequestHandler _uriRequestHandler;
-    private IpBanDAO _ipBanDAO;
+    private final Map<Type, Object> _objects;
+    private final UriRequestHandler _uriRequestHandler;
+    private final IpBanDAO _ipBanDAO;
 
     public GempukkuHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
         _objects = objects;
@@ -58,9 +58,9 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
     }
 
     private static class RequestInformation {
-        private String uri;
-        private String remoteIp;
-        private long requestTime;
+        private final String uri;
+        private final String remoteIp;
+        private final long requestTime;
 
         private RequestInformation(String uri, String remoteIp, long requestTime) {
             this.uri = uri;
@@ -78,9 +78,9 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
         if (HttpUtil.is100ContinueExpected(httpRequest))
             send100Continue(ctx);
 
-        String uri = httpRequest.getUri();
+        String uri = httpRequest.uri();
 
-        if (uri.indexOf("?") > -1)
+        if (uri.contains("?"))
             uri = uri.substring(0, uri.indexOf("?"));
 
         String ip = httpRequest.headers().get("X-Forwarded-For");
@@ -88,7 +88,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
         if(ip == null)
            ip = ((InetSocketAddress) ctx.channel().remoteAddress()).getAddress().getHostAddress();
 
-        final RequestInformation requestInformation = new RequestInformation(httpRequest.getUri(),
+        final RequestInformation requestInformation = new RequestInformation(httpRequest.uri(),
                 ip,
                 System.currentTimeMillis());
 
@@ -138,7 +138,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
     }
 
     private Map<String, String> getHeadersForFile(Map<String, String> headers, File file) {
-        Map<String, String> fileHeaders = new HashMap<String, String>(headers);
+        Map<String, String> fileHeaders = new HashMap<>(headers);
 
         boolean disableCaching = false;
         boolean cache = false;
@@ -205,8 +205,8 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
     }
 
     private class ResponseSender implements ResponseWriter {
-        private ChannelHandlerContext ctx;
-        private HttpRequest request;
+        private final ChannelHandlerContext ctx;
+        private final HttpRequest request;
 
         public ResponseSender(ChannelHandlerContext ctx, HttpRequest request) {
             this.ctx = ctx;

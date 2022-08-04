@@ -14,8 +14,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DiscardStackedCardsEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private Collection<? extends PhysicalCard> _cards;
+    private final PhysicalCard _source;
+    private final Collection<? extends PhysicalCard> _cards;
 
     public DiscardStackedCardsEffect(PhysicalCard source, PhysicalCard card) {
         this(source, Collections.singleton(card));
@@ -49,7 +49,7 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         GameState gameState = game.getGameState();
 
-        Set<PhysicalCard> toDiscard = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> toDiscard = new HashSet<>();
         for (PhysicalCard card : _cards) {
             if (card.getZone() == Zone.STACKED)
                 toDiscard.add(card);

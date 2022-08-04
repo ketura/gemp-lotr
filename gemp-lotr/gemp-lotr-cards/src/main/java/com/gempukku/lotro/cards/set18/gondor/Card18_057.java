@@ -52,7 +52,7 @@ public class Card18_057 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             for (String opponentId : GameUtils.getShadowPlayers(game)) {
                 action.appendEffect(
-                        new ShuffleCardsFromHandIntoDeckEffect(self, opponentId, new HashSet<PhysicalCard>(game.getGameState().getHand(opponentId))));
+                        new ShuffleCardsFromHandIntoDeckEffect(self, opponentId, new HashSet<>(game.getGameState().getHand(opponentId))));
                 action.appendEffect(
                         new DrawCardsEffect(action, opponentId, 8));
             }

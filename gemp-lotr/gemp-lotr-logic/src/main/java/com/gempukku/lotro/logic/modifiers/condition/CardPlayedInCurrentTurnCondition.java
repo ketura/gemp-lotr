@@ -18,8 +18,7 @@ public class CardPlayedInCurrentTurnCondition implements Condition {
     @Override
     public boolean isFullfilled(LotroGame game) {
         for (EffectResult effectResult : game.getActionsEnvironment().getTurnEffectResults()) {
-            if (effectResult instanceof PlayCardResult) {
-                PlayCardResult playResult = (PlayCardResult) effectResult;
+            if (effectResult instanceof PlayCardResult playResult) {
                 if (filter.accepts(game, playResult.getPlayedCard()))
                     return true;
             }

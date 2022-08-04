@@ -40,7 +40,7 @@ public class Card10_021 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.assignedToSkirmish(game, effectResult, Side.FREE_PEOPLE, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, self, 3), Phase.REGROUP) {

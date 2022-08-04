@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class NegativeEvaluator implements Evaluator {
-    private Evaluator _source;
+    private final Evaluator _source;
 
     public NegativeEvaluator(Evaluator source) {
         _source = source;

@@ -6,16 +6,14 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.logic.modifiers.cost.DiscardFromPlayExtraPlayCostModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_V1_029_Tests
@@ -23,8 +21,7 @@ public class Card_V1_029_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
+				new HashMap<>() {{
 					put("murder", "151_29");
 					put("murder2", "151_29");
 					put("murder3", "151_29");
@@ -94,7 +91,7 @@ public class Card_V1_029_Tests
 	}
 
 	@Test
-	public void MurderTwilightDiscountFrom3FreepsConditions() throws DecisionResultInvalidException, CardNotFoundException, InvalidCardDefinitionException {
+	public void MurderTwilightDiscountFrom3FreepsConditions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 

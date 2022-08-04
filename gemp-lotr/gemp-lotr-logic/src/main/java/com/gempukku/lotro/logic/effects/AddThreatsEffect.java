@@ -13,9 +13,9 @@ import com.gempukku.lotro.logic.timing.results.AddThreatResult;
 
 public class AddThreatsEffect extends AbstractEffect {
     private Action _action;
-    private String _performingPlayer;
-    private PhysicalCard _source;
-    private Evaluator _count;
+    private final String _performingPlayer;
+    private final PhysicalCard _source;
+    private final Evaluator _count;
 
     public AddThreatsEffect(String performingPlayer, PhysicalCard source, Evaluator count) {
         _performingPlayer = performingPlayer;

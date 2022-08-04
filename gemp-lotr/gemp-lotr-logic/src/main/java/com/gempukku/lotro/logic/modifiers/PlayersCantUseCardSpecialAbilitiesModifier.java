@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.Action;
 
 public class PlayersCantUseCardSpecialAbilitiesModifier extends AbstractModifier {
 
-    private Filter _sourceFilters;
+    private final Filter _sourceFilters;
 
     public PlayersCantUseCardSpecialAbilitiesModifier(PhysicalCard source, Filterable... sourceFilters) {
         this(source, null, sourceFilters);

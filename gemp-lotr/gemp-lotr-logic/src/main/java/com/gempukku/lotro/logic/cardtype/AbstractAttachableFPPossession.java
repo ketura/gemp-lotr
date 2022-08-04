@@ -6,8 +6,8 @@ import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Side;
 
 public abstract class AbstractAttachableFPPossession extends AbstractAttachable {
-    private int _strength;
-    private int _vitality;
+    private final int _strength;
+    private final int _vitality;
 
     public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, PossessionClass possessionClass, String name) {
         this(twilight, strength, vitality, culture, possessionClass, name, null, false);

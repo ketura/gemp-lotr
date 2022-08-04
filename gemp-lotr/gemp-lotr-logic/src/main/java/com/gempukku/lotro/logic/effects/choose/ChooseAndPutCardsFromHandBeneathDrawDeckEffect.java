@@ -14,10 +14,10 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndPutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private int _count;
-    private Filterable[] _filters;
+    private final Action _action;
+    private final String _playerId;
+    private final int _count;
+    private final Filterable[] _filters;
 
     public ChooseAndPutCardsFromHandBeneathDrawDeckEffect(Action action, String playerId, int count, Filterable... filters) {
         _action = action;
@@ -51,9 +51,9 @@ public class ChooseAndPutCardsFromHandBeneathDrawDeckEffect extends AbstractSubA
     }
 
     private class ChooseAndPutNextCardFromHandOnBottomOfLibrary extends ChooseArbitraryCardsEffect {
-        private Collection<PhysicalCard> _remainingCards;
-        private CostToEffectAction _subAction;
-        private int _remainingCount;
+        private final Collection<PhysicalCard> _remainingCards;
+        private final CostToEffectAction _subAction;
+        private final int _remainingCount;
 
         public ChooseAndPutNextCardFromHandOnBottomOfLibrary(CostToEffectAction subAction, int remainingCount, Collection<PhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on bottom of your deck", remainingCards, 1, 1);

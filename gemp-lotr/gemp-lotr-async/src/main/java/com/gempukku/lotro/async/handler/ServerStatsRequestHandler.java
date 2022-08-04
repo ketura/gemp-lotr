@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 public class ServerStatsRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private GameHistoryService _gameHistoryService;
+    private final GameHistoryService _gameHistoryService;
 
     public ServerStatsRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -32,8 +32,8 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        if (uri.equals("") && request.method() == HttpMethod.GET) {
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
             String participantId = getQueryParameterSafely(queryDecoder, "participantId");
             String startDay = getQueryParameterSafely(queryDecoder, "startDay");
             String length = getQueryParameterSafely(queryDecoder, "length");
@@ -45,14 +45,12 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
                 format.setTimeZone(TimeZone.getTimeZone("GMT"));
                 long from = format.parse(startDay).getTime();
                 Date to = format.parse(startDay);
-                if (length.equals("month"))
-                    to.setMonth(to.getMonth() + 1);
-                else if (length.equals("week"))
-                    to.setDate(to.getDate() + 7);
-                else if (length.equals("day"))
-                    to.setDate(to.getDate() + 1);
-                else
-                    throw new HttpProcessingException(400);
+                switch (length) {
+                    case "month" -> to.setMonth(to.getMonth() + 1);
+                    case "week" -> to.setDate(to.getDate() + 7);
+                    case "day" -> to.setDate(to.getDate() + 1);
+                    default -> throw new HttpProcessingException(400);
+                }
                 long duration = to.getTime() - from;
 
                 int activePlayers = _gameHistoryService.getActivePlayersCount(from, duration);

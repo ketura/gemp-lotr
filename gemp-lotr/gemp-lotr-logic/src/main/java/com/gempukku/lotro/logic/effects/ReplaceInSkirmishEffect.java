@@ -7,8 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 public class ReplaceInSkirmishEffect extends AbstractEffect {
-    private PhysicalCard _replacedBy;
-    private Filterable[] _replacingFilter;
+    private final PhysicalCard _replacedBy;
+    private final Filterable[] _replacingFilter;
 
     public ReplaceInSkirmishEffect(PhysicalCard replacedBy, Filterable... replacingFilter) {
         _replacedBy = replacedBy;

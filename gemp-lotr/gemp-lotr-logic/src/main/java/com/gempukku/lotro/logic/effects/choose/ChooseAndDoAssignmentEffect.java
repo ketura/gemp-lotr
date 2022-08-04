@@ -17,10 +17,10 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndDoAssignmentEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private Filterable _minionFilter;
-    private Filterable _fpFilter;
+    private final Action _action;
+    private final String _playerId;
+    private final Filterable _minionFilter;
+    private final Filterable _fpFilter;
 
     public ChooseAndDoAssignmentEffect(Action action, String playerId, Filterable minionFilter, Filterable fpFilter) {
         _action = action;

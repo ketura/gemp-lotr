@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ReflectionsPackBox implements PackBox {
-    private SetDefinition _reflectionsRarity;
-    private List<String> _previousSetCards = new ArrayList<String>();
-    private List<String> _reflectionSlotCards = new ArrayList<String>();
+    private final SetDefinition _reflectionsRarity;
+    private final List<String> _previousSetCards = new ArrayList<>();
+    private final List<String> _reflectionSlotCards = new ArrayList<>();
 
     public ReflectionsPackBox(CardSets cardSets) {
         _reflectionsRarity = cardSets.getSetDefinitions().get("9");
@@ -36,7 +36,7 @@ public class ReflectionsPackBox implements PackBox {
 
     @Override
     public List<CardCollection.Item> openPack() {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         boolean foil;
         foil = ThreadLocalRandom.current().nextInt(15) == 0;
         result.add(CardCollection.Item.createItem(getRandomReflectionsCard() + (foil ? "*" : ""), 1));

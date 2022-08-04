@@ -5,8 +5,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class IncrementTurnLimitEffect extends UnrespondableEffect {
-    private PhysicalCard card;
-    private int limit;
+    private final PhysicalCard card;
+    private final int limit;
 
     public IncrementTurnLimitEffect(PhysicalCard card, int limit) {
         this.card = card;

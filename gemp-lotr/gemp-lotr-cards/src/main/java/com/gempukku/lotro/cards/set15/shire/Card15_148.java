@@ -29,7 +29,7 @@ public class Card15_148 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new VitalityModifier(self, Filters.and(Race.HOBBIT, Filters.hasAttached(PossessionClass.HAND_WEAPON)), 1));
         modifiers.add(

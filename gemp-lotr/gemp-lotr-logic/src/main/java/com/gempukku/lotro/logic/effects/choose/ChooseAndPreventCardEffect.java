@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 
 public class ChooseAndPreventCardEffect extends ChooseActiveCardEffect {
-    private PreventableCardEffect _effect;
+    private final PreventableCardEffect _effect;
 
     public ChooseAndPreventCardEffect(PhysicalCard source, PreventableCardEffect effect, String playerId, String choiceText, Filterable... filters) {
         super(source, playerId, choiceText, filters);

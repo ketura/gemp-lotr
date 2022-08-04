@@ -37,7 +37,7 @@ public class Card7_249 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new SpecialFlagModifier(self, ModifierFlag.SKIRMISH_ORDER_BY_FIRST_SHADOW_PLAYER));
         modifiers.add(

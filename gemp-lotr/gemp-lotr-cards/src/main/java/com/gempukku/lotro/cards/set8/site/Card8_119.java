@@ -36,7 +36,7 @@ public class Card8_119 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new AddThreatsEffect(game.getGameState().getCurrentPlayerId(), self, 3));
             possibleEffects.add(

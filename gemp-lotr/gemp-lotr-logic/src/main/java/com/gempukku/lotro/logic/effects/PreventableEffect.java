@@ -12,11 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class PreventableEffect extends AbstractSubActionEffect {
-    private CostToEffectAction _action;
-    private Effect _effectToExecute;
-    private Effect _insteadEffect;
-    private Iterator<String> _choicePlayers;
-    private PreventionCost _preventionCost;
+    private final CostToEffectAction _action;
+    private final Effect _effectToExecute;
+    private final Effect _insteadEffect;
+    private final Iterator<String> _choicePlayers;
+    private final PreventionCost _preventionCost;
 
     public PreventableEffect(CostToEffectAction action, Effect effectToExecute, String[] choicePlayers, PreventionCost preventionCost) {
         this(action, effectToExecute, Arrays.asList(choicePlayers), preventionCost, null);

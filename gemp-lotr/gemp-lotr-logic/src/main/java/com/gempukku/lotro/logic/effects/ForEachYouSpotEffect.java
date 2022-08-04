@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
-    private String _playerId;
-    private Filterable[] _filters;
+    private final String _playerId;
+    private final Filterable[] _filters;
 
     public ForEachYouSpotEffect(String playerId, Filterable... filters) {
         _playerId = playerId;

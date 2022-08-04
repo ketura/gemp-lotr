@@ -15,11 +15,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class NewConstructedLeagueData implements LeagueData {
-    private LeaguePrizes _leaguePrizes;
-    private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
+    private final LeaguePrizes _leaguePrizes;
+    private final List<LeagueSerieData> _series = new ArrayList<>();
 
-    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
-    private CollectionType _collectionType;
+    private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
+    private final CollectionType _collectionType;
 
     public NewConstructedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);

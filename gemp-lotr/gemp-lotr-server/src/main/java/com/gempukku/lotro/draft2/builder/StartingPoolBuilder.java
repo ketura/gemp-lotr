@@ -25,15 +25,11 @@ public class StartingPoolBuilder {
     private CardCollectionProducer buildRandomCardPool(JSONObject randomCardPool) {
         JSONArray cardPools = (JSONArray) randomCardPool.get("randomResult");
 
-        final List<CardCollection> cardCollections = new ArrayList<CardCollection>();
-        Iterator<JSONArray> iterator = cardPools.iterator();
-        while (iterator.hasNext()) {
-            JSONArray cards = iterator.next();
-
+        final List<CardCollection> cardCollections = new ArrayList<>();
+        for (JSONArray cards : (Iterable<JSONArray>) cardPools) {
             DefaultCardCollection cardCollection = new DefaultCardCollection();
-            Iterator<String> cardIterator = cards.iterator();
-            while (cardIterator.hasNext()) {
-                cardCollection.addItem(cardIterator.next(), 1);
+            for (String card : (Iterable<String>) cards) {
+                cardCollection.addItem(card, 1);
             }
             cardCollections.add(cardCollection);
         }

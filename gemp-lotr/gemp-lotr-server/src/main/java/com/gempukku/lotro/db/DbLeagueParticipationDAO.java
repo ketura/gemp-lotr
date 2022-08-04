@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbLeagueParticipationDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -38,7 +38,7 @@ public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
                 try (PreparedStatement statement = conn.prepareStatement("select player_name from league_participation where league_type=?")) {
                     statement.setString(1, leagueId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<String> result = new HashSet<String>();
+                        Set<String> result = new HashSet<>();
                         while (rs.next())
                             result.add(rs.getString(1));
                         return result;

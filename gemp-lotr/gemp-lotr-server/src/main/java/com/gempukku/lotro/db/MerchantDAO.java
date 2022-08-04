@@ -12,10 +12,10 @@ public interface MerchantDAO {
     }
 
     public static class Transaction {
-        private float _price;
-        private Date _date;
-        private TransactionType _transactionType;
-        private int _stock;
+        private final float _price;
+        private final Date _date;
+        private final TransactionType _transactionType;
+        private final int _stock;
 
         public Transaction(Date date, float price, TransactionType transactionType, int stock) {
             _date = date;

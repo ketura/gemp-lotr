@@ -3,10 +3,8 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
@@ -16,9 +14,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ExertCharactersEffect extends AbstractPreventableCardEffect {
-    private Action _action;
-    private PhysicalCard _source;
-    private Set<PhysicalCard> _placeNoWound = new HashSet<PhysicalCard>();
+    private final Action _action;
+    private final PhysicalCard _source;
+    private final Set<PhysicalCard> _placeNoWound = new HashSet<>();
     private boolean _forToil;
 
     public ExertCharactersEffect(Action action, PhysicalCard source, Filterable... filter) {

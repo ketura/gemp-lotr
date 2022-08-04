@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 
 public class CountFPCulturesEvaluator implements Evaluator {
-    private String _playerId;
+    private final String _playerId;
 
     public CountFPCulturesEvaluator(String playerId) {
         _playerId = playerId;

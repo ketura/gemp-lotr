@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 
-import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -17,8 +16,7 @@ public class Card_01_311_ErrataTests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("sam", "51_311");
 
                     put("orc", "1_272");

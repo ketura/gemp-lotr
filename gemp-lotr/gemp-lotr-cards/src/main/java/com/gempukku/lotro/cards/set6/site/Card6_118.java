@@ -35,7 +35,7 @@ public class Card6_118 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canSpot(game, 3, CardType.COMPANION, Signet.THEODEN)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            Set<PhysicalCard> hand = new HashSet<PhysicalCard>(game.getGameState().getHand(playerId));
+            Set<PhysicalCard> hand = new HashSet<>(game.getGameState().getHand(playerId));
             action.appendCost(
                     new DiscardCardsFromHandEffect(self, playerId, hand, false));
             action.appendEffect(

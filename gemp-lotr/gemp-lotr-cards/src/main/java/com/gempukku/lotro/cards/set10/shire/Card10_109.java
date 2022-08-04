@@ -45,7 +45,7 @@ public class Card10_109 extends AbstractEvent {
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(String opponentId) {
-                        List<Effect> possibleEffects = new LinkedList<Effect>();
+                        List<Effect> possibleEffects = new LinkedList<>();
                         possibleEffects.add(
                                 new RemoveTwilightEffect(2));
                         possibleEffects.add(

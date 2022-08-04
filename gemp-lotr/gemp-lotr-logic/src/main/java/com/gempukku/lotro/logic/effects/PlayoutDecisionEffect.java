@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
-    private String _playerId;
-    private AwaitingDecision _decision;
+    private final String _playerId;
+    private final AwaitingDecision _decision;
 
     public PlayoutDecisionEffect(String playerId, AwaitingDecision decision) {
         _playerId = playerId;

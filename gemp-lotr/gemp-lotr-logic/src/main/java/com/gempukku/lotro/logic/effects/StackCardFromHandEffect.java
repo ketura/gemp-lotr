@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class StackCardFromHandEffect extends AbstractEffect {
-    private PhysicalCard _card;
-    private PhysicalCard _stackOn;
+    private final PhysicalCard _card;
+    private final PhysicalCard _stackOn;
 
     public StackCardFromHandEffect(PhysicalCard card, PhysicalCard stackOn) {
         _card = card;

@@ -10,11 +10,11 @@ import java.util.List;
 
 public class PhysicalCardImpl implements PhysicalCard {
     private int _cardId;
-    private String _blueprintId;
-    private String _owner;
+    private final String _blueprintId;
+    private final String _owner;
     private String _cardController;
     private Zone _zone;
-    private LotroCardBlueprint _blueprint;
+    private final LotroCardBlueprint _blueprint;
 
     private PhysicalCardImpl _attachedTo;
     private PhysicalCardImpl _stackedOn;
@@ -70,7 +70,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     public void startAffectingGame(LotroGame game) {
         List<? extends Modifier> modifiers = _blueprint.getInPlayModifiers(game, this);
         if (modifiers != null) {
-            _modifierHooks = new LinkedList<ModifierHook>();
+            _modifierHooks = new LinkedList<>();
             for (Modifier modifier : modifiers)
                 _modifierHooks.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
         }
@@ -87,7 +87,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     public void startAffectingGameStacked(LotroGame game) {
         List<? extends Modifier> modifiers = _blueprint.getStackedOnModifiers(game, this);
         if (modifiers != null) {
-            _modifierHooksStacked = new LinkedList<ModifierHook>();
+            _modifierHooksStacked = new LinkedList<>();
             for (Modifier modifier : modifiers)
                 _modifierHooksStacked.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
         }
@@ -104,7 +104,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     public void startAffectingGameInDiscard(LotroGame game) {
         List<? extends Modifier> modifiers = _blueprint.getInDiscardModifiers(game, this);
         if (modifiers != null) {
-            _modifierHooksInDiscard = new LinkedList<ModifierHook>();
+            _modifierHooksInDiscard = new LinkedList<>();
             for (Modifier modifier : modifiers)
                 _modifierHooksInDiscard.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
         }
@@ -121,7 +121,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     public void startAffectingGameControlledSite(LotroGame game) {
         List<? extends Modifier> modifiers = _blueprint.getControlledSiteModifiers(game, this);
         if (modifiers != null) {
-            _modifierHooksControlledSite = new LinkedList<ModifierHook>();
+            _modifierHooksControlledSite = new LinkedList<>();
             for (Modifier modifier : modifiers)
                 _modifierHooksControlledSite.add(game.getModifiersEnvironment().addAlwaysOnModifier(modifier));
         }

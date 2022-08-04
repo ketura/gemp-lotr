@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.processes.turn.RegroupGameProcess;
 import com.gempukku.lotro.logic.timing.results.AfterAllSkirmishesResult;
 
 public class EndSkirmishesGameProcess implements GameProcess {
-    private AfterAllSkirmishesResult _afterAllSkirmishesResult = new AfterAllSkirmishesResult();
+    private final AfterAllSkirmishesResult _afterAllSkirmishesResult = new AfterAllSkirmishesResult();
 
     @Override
     public void process(LotroGame game) {

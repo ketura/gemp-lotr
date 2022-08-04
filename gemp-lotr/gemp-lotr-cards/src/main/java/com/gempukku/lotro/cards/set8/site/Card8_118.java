@@ -39,7 +39,7 @@ public class Card8_118 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveBurdenEffect(playerId, self, 2));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, CardType.MINION, Keyword.ENDURING) {
                         @Override

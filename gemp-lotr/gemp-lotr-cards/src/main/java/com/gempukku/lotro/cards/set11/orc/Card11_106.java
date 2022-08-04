@@ -37,7 +37,7 @@ public class Card11_106 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ORC, CardType.POSSESSION));
         if (PlayConditions.location(game, Keyword.BATTLEGROUND))
