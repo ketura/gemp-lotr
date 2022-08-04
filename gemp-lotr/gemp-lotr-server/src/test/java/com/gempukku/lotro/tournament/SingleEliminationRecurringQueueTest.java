@@ -87,10 +87,9 @@ public class SingleEliminationRecurringQueueTest {
     @Test
     public void fillingQueue() {
         Tournament tournament = Mockito.mock(Tournament.class);
-
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
         Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any()))
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any()))
                 .thenReturn(tournament);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -122,7 +121,7 @@ public class SingleEliminationRecurringQueueTest {
         assertFalse(queue.isPlayerSignedUp("p2"));
 
         Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any());
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any());
         
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.<LotroDeck>eq(null));
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.<LotroDeck>eq(null));
@@ -137,7 +136,7 @@ public class SingleEliminationRecurringQueueTest {
 
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
         Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any()))
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any()))
                 .thenReturn(tournament);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -171,7 +170,7 @@ public class SingleEliminationRecurringQueueTest {
         assertTrue(queue.isPlayerSignedUp("p3"));
 
         Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any());
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any());
 
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.<LotroDeck>eq(null));
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.<LotroDeck>eq(null));
