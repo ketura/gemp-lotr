@@ -69,13 +69,15 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public Map<String, Map<String, PhysicalCardImpl>> Cards = new HashMap<>();
 
     public GenericCardTestHelper(HashMap<String, String> cardIDs) throws CardNotFoundException, DecisionResultInvalidException {
-        this(cardIDs, null, null, null);
+        this(cardIDs, null, null, null, "multipath");
     }
 
     public GenericCardTestHelper(HashMap<String, String> cardIDs, HashMap<String, String> siteIDs, String ringBearerID, String ringID) throws CardNotFoundException, DecisionResultInvalidException {
+        this(cardIDs, siteIDs, ringBearerID, ringID, "multipath");
+    }
+
+    public GenericCardTestHelper(HashMap<String, String> cardIDs, HashMap<String, String> siteIDs, String ringBearerID, String ringID, String path) throws CardNotFoundException, DecisionResultInvalidException {
         super();
-
-
 
         if(siteIDs == null || ringBearerID == null || ringID == null) {
             initializeSimplestGame();
@@ -97,7 +99,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
             decks.get(P1).setRing(ringID);
             decks.get(P2).setRing(ringID);
 
-            initializeGameWithDecks(decks);
+            initializeGameWithDecks(decks, path);
         }
 
         Cards.put(P1, new HashMap<>());
@@ -122,6 +124,15 @@ public class GenericCardTestHelper extends AbstractAtTest {
         skipMulligans();
     }
 
+    public void SkipStartingFellowships() throws DecisionResultInvalidException {
+        if(FreepsDecisionAvailable("Starting fellowship")) {
+            FreepsChoose("");
+        }
+        if(ShadowDecisionAvailable("Starting fellowship")) {
+            ShadowChoose("");
+        }
+    }
+
     public PhysicalCardImpl GetFreepsCard(String cardName) { return Cards.get(P1).get(cardName); }
     public PhysicalCardImpl GetShadowCard(String cardName) { return Cards.get(P2).get(cardName); }
     public PhysicalCardImpl GetFreepsCardByID(String id) { return GetCardByID(P1, Integer.parseInt(id)); }
@@ -144,6 +155,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
         List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(playerID);
         return advDeck.stream().filter(x -> x.getBlueprint().getSiteNumber() == siteNum).findFirst().get();
+    }
+    public PhysicalCardImpl GetFreepsSite(String name) { return GetSiteByName(P1, name); }
+    public PhysicalCardImpl GetShadowSite(String name) { return GetSiteByName(P2, name); }
+    public PhysicalCardImpl GetSiteByName(String playerID, String name)
+    {
+        final String lowername = name.toLowerCase();
+        List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(playerID);
+        return advDeck.stream().filter(x -> x.getBlueprint().getTitle().toLowerCase().contains(lowername)).findFirst().get();
     }
 
     public List<String> FreepsGetAvailableActions() { return GetAvailableActions(P1); }

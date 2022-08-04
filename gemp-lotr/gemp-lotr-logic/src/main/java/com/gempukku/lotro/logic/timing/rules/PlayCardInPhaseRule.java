@@ -19,19 +19,9 @@ import java.util.List;
 
 public class PlayCardInPhaseRule {
     private DefaultActionsEnvironment actionsEnvironment;
-    private final HashMap<Phase, Keyword> phaseKeywordMap;
 
     public PlayCardInPhaseRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;
-
-        phaseKeywordMap = new HashMap<>();
-        phaseKeywordMap.put(Phase.FELLOWSHIP, Keyword.FELLOWSHIP);
-        phaseKeywordMap.put(Phase.SHADOW, Keyword.SHADOW);
-        phaseKeywordMap.put(Phase.MANEUVER, Keyword.MANEUVER);
-        phaseKeywordMap.put(Phase.ARCHERY, Keyword.ARCHERY);
-        phaseKeywordMap.put(Phase.ASSIGNMENT, Keyword.ASSIGNMENT);
-        phaseKeywordMap.put(Phase.SKIRMISH, Keyword.SKIRMISH);
-        phaseKeywordMap.put(Phase.REGROUP, Keyword.REGROUP);
     }
 
     public void applyRule() {
@@ -46,7 +36,7 @@ public class PlayCardInPhaseRule {
                                 List<Action> result = new LinkedList<>();
                                 for (PhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game, side,
                                         Filters.or(Filters.and(CardType.EVENT, Keyword.FELLOWSHIP), Filters.not(CardType.EVENT)))) {
-                                    if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false))
+                                    if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, true))
                                         result.add(PlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
                                 }
                                 return result;
@@ -56,18 +46,18 @@ public class PlayCardInPhaseRule {
                                 List<Action> result = new LinkedList<>();
                                 for (PhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game, side,
                                         Filters.or(Filters.and(CardType.EVENT, Keyword.SHADOW), Filters.not(CardType.EVENT)))) {
-                                    if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false))
+                                    if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, true))
                                         result.add(PlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
                                 }
                                 return result;
                             }
                         } else {
-                            final Keyword phaseKeyword = phaseKeywordMap.get(game.getGameState().getCurrentPhase());
+                            final Keyword phaseKeyword = PlayUtils.PhaseKeywordMap.get(game.getGameState().getCurrentPhase());
                             if (phaseKeyword != null) {
                                 List<Action> result = new LinkedList<>();
                                 for (PhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game, side,
                                         Filters.and(CardType.EVENT, phaseKeyword))) {
-                                    if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false))
+                                    if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, true))
                                         result.add(PlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
                                 }
                                 return result;

@@ -46,7 +46,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         int twilightCost = game.getModifiersQuerying().getTwilightCost(game, physicalCard, null, 0, false);
                         return game.getGameState().getTwilightPool() + twilightCost <= 4
-                                && PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, 0, 0, false, false);
+                                && PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, 0, 0, false, false, true);
                     }
                 });
     }

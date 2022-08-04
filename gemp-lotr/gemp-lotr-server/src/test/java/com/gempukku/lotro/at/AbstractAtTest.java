@@ -51,10 +51,14 @@ public abstract class AbstractAtTest {
     }
 
     protected void initializeGameWithDecks(Map<String, LotroDeck> decks) throws DecisionResultInvalidException {
+        initializeGameWithDecks(decks, "multipath");
+    }
+
+    protected void initializeGameWithDecks(Map<String, LotroDeck> decks, String formatName) throws DecisionResultInvalidException {
         _userFeedback = new DefaultUserFeedback();
 
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
-        LotroFormat format = formatLibrary.getFormat("multipath");
+        LotroFormat format = formatLibrary.getFormat(formatName);
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
         _userFeedback.setGame(_game);

@@ -56,7 +56,7 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                                 final Filterable onFilterable = onFilterableSource.getFilterable(actionContext);
                                 return Filters.and(Filters.playable(game, costModifier), ExtraFilters.attachableTo(game, onFilterable));
                             }
-                            return Filters.playable(actionContext.getGame(), costModifier);
+                            return Filters.playable(actionContext.getGame(), costModifier, false, false, true);
                         },
                         countSource, memorize, "you", "you", "Choose card to play", environment));
         result.addEffectAppender(
