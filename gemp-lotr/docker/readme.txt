@@ -29,7 +29,7 @@ gemp_app is slightly more complicated.  Gemp is a Java server, is built using Ma
 	
 	4C- note the two "published" ports: 17001 for the app, and 35001 for the db.  These are the ports that you will be accessing the site with (and the db if you connect with a database manager). If you are hosting this for something other than personal development, consider changing these to something else.  DO NOT change the "target" ports.
 	
-5- If you changed SQL credentials in step 4, navigate to gemp-lotr/gemp-lotr/gemp-lotr-commond/src/main/resources/ and open gemp-lotr.properties:
+5- If you changed SQL credentials in step 4, navigate to gemp-lotr/gemp-lotr/gemp-lotr-common/src/main/resources/ and open gemp-lotr.properties:
 	
 	5A- DO NOT CHANGE the ports here.  These ports listed are the "target" ports in step 4C, which you didn't edit because you followed the big "DO NOT" imperative.
 	
