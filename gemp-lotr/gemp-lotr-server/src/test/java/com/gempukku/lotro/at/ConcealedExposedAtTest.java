@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 public class ConcealedExposedAtTest extends AbstractAtTest {

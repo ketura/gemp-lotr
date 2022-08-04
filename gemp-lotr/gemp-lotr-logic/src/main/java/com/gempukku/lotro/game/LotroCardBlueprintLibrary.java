@@ -9,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
@@ -222,7 +223,7 @@ public class LotroCardBlueprintLibrary {
             LotroCardBlueprint blueprint;
             try {
                 blueprint = tryLoadingFromPackage(packageName, setNumber, cardNumber);
-            } catch (IllegalAccessException | InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException | NoSuchMethodException e) {
                 throw new CardNotFoundException(blueprintId);
             }
             if (blueprint != null)
@@ -232,11 +233,11 @@ public class LotroCardBlueprintLibrary {
         throw new CardNotFoundException(blueprintId);
     }
 
-    private LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException {
+    private LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
         try {
             Class clazz = Class.forName("com.gempukku.lotro.cards.set" + setNumber + packageName + ".Card" + setNumber + "_" + normalizeId(cardNumber));
-            return (LotroCardBlueprint) clazz.newInstance();
-        } catch (ClassNotFoundException e) {
+            return (LotroCardBlueprint) clazz.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | InvocationTargetException e) {
             // Ignore
             return null;
         }

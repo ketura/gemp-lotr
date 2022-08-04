@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class CreateCardStubs {
@@ -178,7 +179,7 @@ public class CreateCardStubs {
             LotroCardBlueprint blueprint = null;
             try {
                 blueprint = tryLoadingFromPackage(packageName, setNumber, cardNumber);
-            } catch (IllegalAccessException | InstantiationException e) {
+            } catch (IllegalAccessException | InstantiationException | NoSuchMethodException e) {
                 throw new CardNotFoundException(blueprintId);
             }
             if (blueprint != null)
@@ -188,11 +189,11 @@ public class CreateCardStubs {
         throw new CardNotFoundException(blueprintId);
     }
 
-    private static LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException {
+    private static LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
         try {
             Class clazz = Class.forName("com.gempukku.lotro.cards.set" + setNumber + packageName + ".Card" + setNumber + "_" + normalizeId(cardNumber));
-            return (LotroCardBlueprint) clazz.newInstance();
-        } catch (ClassNotFoundException e) {
+            return (LotroCardBlueprint) clazz.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | InvocationTargetException e) {
             // Ignore
             return null;
         }

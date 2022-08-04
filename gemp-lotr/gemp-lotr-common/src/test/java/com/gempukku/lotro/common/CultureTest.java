@@ -2,7 +2,8 @@ package com.gempukku.lotro.common;
 
 import org.junit.Test;
 
-import static junit.framework.Assert.assertSame;
+import static org.junit.Assert.assertSame;
+
 
 public class CultureTest {
     @Test

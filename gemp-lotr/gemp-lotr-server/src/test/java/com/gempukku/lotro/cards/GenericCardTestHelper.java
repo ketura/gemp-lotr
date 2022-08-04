@@ -18,11 +18,11 @@ import com.gempukku.lotro.logic.modifiers.cost.DiscardFromPlayExtraPlayCostModif
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import java.util.*;
 
-import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
