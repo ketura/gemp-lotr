@@ -802,7 +802,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         for (Requirement playInOtherPhaseCondition : playInOtherPhaseConditions) {
             DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
             if (playInOtherPhaseCondition.accepts(actionContext)
-                    && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false))
+                    && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false, false))
                 playCardActions.add(PlayUtils.getPlayCardAction(game, self, 0, Filters.any, false));
         }
 

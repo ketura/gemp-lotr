@@ -327,7 +327,7 @@ public class PlayConditions {
     }
 
     public static boolean canPlayFromHand(String playerId, LotroGame game, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile, Filterable... filters) {
-        return Filters.filter(game.getGameState().getHand(playerId), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile))).size() > 0;
+        return Filters.filter(game.getGameState().getHand(playerId), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, false))).size() > 0;
     }
 
     public static boolean canPlayFromDeadPile(String playerId, LotroGame game, Filterable... filters) {
@@ -347,7 +347,7 @@ public class PlayConditions {
     public static boolean canPlayFromStacked(String playerId, LotroGame game, int withTwilightRemoved, Filterable stackedOn, Filterable... filters) {
         final Collection<PhysicalCard> matchingStackedOn = Filters.filterActive(game, stackedOn);
         for (PhysicalCard stackedOnCard : matchingStackedOn) {
-            if (Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, 0, false, false))).size() > 0)
+            if (Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, 0, false, false, false))).size() > 0)
                 return true;
         }
 
@@ -357,7 +357,7 @@ public class PlayConditions {
     public static boolean canPlayFromStacked(String playerId, LotroGame game, int withTwilightRemoved, int twilightModifier, Filterable stackedOn, Filterable... filters) {
         final Collection<PhysicalCard> matchingStackedOn = Filters.filterActive(game, stackedOn);
         for (PhysicalCard stackedOnCard : matchingStackedOn) {
-            if (Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, twilightModifier, false, false))).size() > 0)
+            if (Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, twilightModifier, false, false, false))).size() > 0)
                 return true;
         }
 
@@ -379,7 +379,7 @@ public class PlayConditions {
     public static boolean canPlayFromDiscard(String playerId, LotroGame game, int withTwilightRemoved, int modifier, Filterable... filters) {
         if (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
             return false;
-        return Filters.filter(game.getGameState().getDiscard(playerId), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, modifier, false, false))).size() > 0;
+        return Filters.filter(game.getGameState().getDiscard(playerId), game, Filters.and(filters, Filters.playable(game, withTwilightRemoved, modifier, false, false, false))).size() > 0;
     }
 
     public static boolean canDiscardFromPlay(final PhysicalCard source, LotroGame game, final PhysicalCard card) {

@@ -19,7 +19,7 @@ public class ExtraFilters {
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         if (physicalCard.getBlueprint().getValidTargetFilter(physicalCard.getOwner(), game, physicalCard) == null)
                             return false;
-                        return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.and(filters), 0, twilightModifier, false, false);
+                        return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.and(filters), 0, twilightModifier, false, false, true);
                     }
                 });
     }

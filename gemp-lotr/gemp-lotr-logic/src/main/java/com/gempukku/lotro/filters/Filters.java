@@ -589,10 +589,14 @@ public class Filters {
     }
 
     public static Filter playable(final LotroGame game, final int twilightModifier, final boolean ignoreRoamingPenalty, final boolean ignoreCheckingDeadPile) {
-        return playable(game, 0, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
+        return playable(game, 0, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, false);
     }
 
-    public static Filter playable(final LotroGame game, final int withTwilightRemoved, final int twilightModifier, final boolean ignoreRoamingPenalty, final boolean ignoreCheckingDeadPile) {
+    public static Filter playable(final LotroGame game, final int twilightModifier, final boolean ignoreRoamingPenalty, final boolean ignoreCheckingDeadPile, final boolean ignoreResponseEvents) {
+        return playable(game, 0, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, ignoreResponseEvents);
+    }
+
+    public static Filter playable(final LotroGame game, final int withTwilightRemoved, final int twilightModifier, final boolean ignoreRoamingPenalty, final boolean ignoreCheckingDeadPile, final boolean ignoreResponseEvents) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -601,7 +605,7 @@ public class Filters {
                 if (blueprint.getSide() != expectedSide)
                     return false;
 
-                return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
+                return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, ignoreResponseEvents);
             }
         };
     }

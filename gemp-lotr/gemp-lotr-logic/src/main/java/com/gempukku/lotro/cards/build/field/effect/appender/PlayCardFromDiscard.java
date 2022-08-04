@@ -64,10 +64,10 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
                             final int costModifier = costModifierSource.getEvaluator(actionContext).evaluateExpression(game, actionContext.getSource());
                             if (onFilterableSource != null) {
                                 final Filterable onFilterable = onFilterableSource.getFilterable(actionContext);
-                                return Filters.and(Filters.playable(actionContext.getGame(), removedTwilight, costModifier, false, false), ExtraFilters.attachableTo(actionContext.getGame(), onFilterable));
+                                return Filters.and(Filters.playable(actionContext.getGame(), removedTwilight, costModifier, false, false, true), ExtraFilters.attachableTo(actionContext.getGame(), onFilterable));
                             }
 
-                            return Filters.playable(actionContext.getGame(), removedTwilight, costModifier, false, false);
+                            return Filters.playable(actionContext.getGame(), removedTwilight, costModifier, false, false, true);
                         },
                         countSource, memorize, "you", "Choose card to play", environment));
         result.addEffectAppender(

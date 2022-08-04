@@ -1,20 +1,25 @@
 package com.gempukku.lotro.logic;
 
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.AttachPermanentAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.RuleUtils;
+import com.google.common.collect.ImmutableMap;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class PlayUtils {
     private static Zone getPlayToZone(PhysicalCard card) {
@@ -28,6 +33,27 @@ public class PlayUtils {
                 return Zone.SUPPORT;
         }
     }
+
+    public static Map<Phase, Keyword> PhaseKeywordMap = ImmutableMap.copyOf(new HashMap<Phase, Keyword>() {{
+        put(Phase.FELLOWSHIP, Keyword.FELLOWSHIP);
+        put(Phase.SHADOW, Keyword.SHADOW);
+        put(Phase.MANEUVER, Keyword.MANEUVER);
+        put(Phase.ARCHERY, Keyword.ARCHERY);
+        put(Phase.ASSIGNMENT, Keyword.ASSIGNMENT);
+        put(Phase.SKIRMISH, Keyword.SKIRMISH);
+        put(Phase.REGROUP, Keyword.REGROUP);
+    }});
+
+//    static {
+//        phaseKeywordMap = new HashMap<>();
+//        phaseKeywordMap.put(Phase.FELLOWSHIP, Keyword.FELLOWSHIP);
+//        phaseKeywordMap.put(Phase.SHADOW, Keyword.SHADOW);
+//        phaseKeywordMap.put(Phase.MANEUVER, Keyword.MANEUVER);
+//        phaseKeywordMap.put(Phase.ARCHERY, Keyword.ARCHERY);
+//        phaseKeywordMap.put(Phase.ASSIGNMENT, Keyword.ASSIGNMENT);
+//        phaseKeywordMap.put(Phase.SKIRMISH, Keyword.SKIRMISH);
+//        phaseKeywordMap.put(Phase.REGROUP, Keyword.REGROUP);
+//    }
 
 
     private static Filter getFullAttachValidTargetFilter(final LotroGame game, final PhysicalCard card, int twilightModifier, int withTwilightRemoved) {
@@ -84,6 +110,10 @@ public class PlayUtils {
     }
 
     public static boolean checkPlayRequirements(LotroGame game, PhysicalCard card, Filterable additionalAttachmentFilter, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return checkPlayRequirements(game, card, additionalAttachmentFilter, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, false);
+    }
+
+    public static boolean checkPlayRequirements(LotroGame game, PhysicalCard card, Filterable additionalAttachmentFilter, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile, boolean ignoreResponseEvents) {
         final LotroCardBlueprint blueprint = card.getBlueprint();
 
         // Check if card's own play requirements are met
@@ -113,8 +143,21 @@ public class PlayUtils {
             return false;
 
         if (blueprint.getCardType() == CardType.COMPANION
-                && !(PlayConditions.checkRuleOfNine(game, card) && PlayConditions.checkPlayRingBearer(game, card)))
+            && !(PlayConditions.checkRuleOfNine(game, card) && PlayConditions.checkPlayRingBearer(game, card)))
             return false;
+
+        if(blueprint.getCardType() == CardType.EVENT)
+        {
+            if(game.getModifiersQuerying().hasKeyword(game, card, Keyword.RESPONSE)) {
+                if (ignoreResponseEvents)
+                    return false;
+            }
+            else {
+                final Keyword phaseKeyword = PhaseKeywordMap.get(game.getGameState().getCurrentPhase());
+                if (phaseKeyword != null && !game.getModifiersQuerying().hasKeyword(game, card, phaseKeyword))
+                    return false;
+            }
+        }
 
         return (blueprint.getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, card, finalTargetFilter, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
