@@ -1,14 +1,14 @@
 package com.gempukku.lotro.tournament;
 
 public class TournamentQueueInfo {
-    private int _cost;
-    private long _startTime;
-    private String _tournamentName;
-    private String _scheduledTournamentId;
-    private String _format;
-    private String _playOffSystem;
-    private String _prizeScheme;
-    private int _minimumPlayers;
+    private final int _cost;
+    private final long _startTime;
+    private final String _tournamentName;
+    private final String _scheduledTournamentId;
+    private final String _format;
+    private final String _playOffSystem;
+    private final String _prizeScheme;
+    private final int _minimumPlayers;
 
     public TournamentQueueInfo(String scheduledTournamentId, String tournamentName, String format, long startTime, int cost, String playOffSystem, String prizeScheme, int minimumPlayers) {
         _scheduledTournamentId = scheduledTournamentId;

@@ -11,11 +11,11 @@ import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class ExertCharactersDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
-    private Action _action;
-    private PhysicalCard _payingFor;
-    private String _ownerId;
-    private int _multiplier;
-    private Filterable[] _exertFilter;
+    private final Action _action;
+    private final PhysicalCard _payingFor;
+    private final String _ownerId;
+    private final int _multiplier;
+    private final Filterable[] _exertFilter;
     private int _minimalDiscount;
 
     private int _exertedCount;

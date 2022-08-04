@@ -12,8 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LookAtOpponentsHandEffect extends AbstractEffect {
-    private String _playerId;
-    private String _opponentId;
+    private final String _playerId;
+    private final String _opponentId;
 
     public LookAtOpponentsHandEffect(String playerId, String opponentId) {
         _playerId = playerId;
@@ -38,12 +38,12 @@ public class LookAtOpponentsHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId)) {
-            List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
+            List<PhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
 
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Opponent's hand", opponentHand, Collections.<PhysicalCard>emptyList(), 0, 0) {
+                    new ArbitraryCardsSelectionDecision(1, "Opponent's hand", opponentHand, Collections.emptyList(), 0, 0) {
                         @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                        public void decisionMade(String result) {
                         }
                     });
             return new FullEffectResult(true);

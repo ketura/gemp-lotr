@@ -18,12 +18,12 @@ import java.util.Collections;
 import java.util.Set;
 
 public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private boolean _forced;
-    private Evaluator _minimum;
-    private Evaluator _maximum;
-    private Filterable[] _filter;
+    private final Action _action;
+    private final String _playerId;
+    private final boolean _forced;
+    private final Evaluator _minimum;
+    private final Evaluator _maximum;
+    private final Filterable[] _filter;
     private String _text = "Choose cards to discard";
 
     public ChooseAndDiscardCardsFromHandEffect(Action action, String playerId, boolean forced, Evaluator minimum, Evaluator maximum, Filterable... filters) {
@@ -81,7 +81,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
 
         int minimum = _minimum.evaluateExpression(game, null);
         if (maximum == 0) {
-            cardsBeingDiscardedCallback(Collections.<PhysicalCard>emptySet());
+            cardsBeingDiscardedCallback(Collections.emptySet());
         } else if (hand.size() <= minimum) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, hand, _forced));

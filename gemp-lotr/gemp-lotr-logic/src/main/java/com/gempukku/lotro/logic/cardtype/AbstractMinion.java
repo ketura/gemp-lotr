@@ -3,10 +3,10 @@ package com.gempukku.lotro.logic.cardtype;
 import com.gempukku.lotro.common.*;
 
 public class AbstractMinion extends AbstractPermanent {
-    private int _strength;
-    private int _vitality;
-    private int _site;
-    private Race _race;
+    private final int _strength;
+    private final int _vitality;
+    private final int _site;
+    private final Race _race;
 
     public AbstractMinion(int twilightCost, int strength, int vitality, int site, Race race, Culture culture, String name) {
         this(twilightCost, strength, vitality, site, race, culture, name, null, false);

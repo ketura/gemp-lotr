@@ -6,8 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MultipleComparator<T> implements Comparator<T> {
-    private List<Comparator<T>> _comparators = new ArrayList<Comparator<T>>();
+    private final List<Comparator<T>> _comparators = new ArrayList<>();
 
+    @SafeVarargs
     public MultipleComparator(Comparator<T>... comparators) {
         Collections.addAll(_comparators, comparators);
     }

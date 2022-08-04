@@ -35,7 +35,7 @@ public class Card13_122 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        List<PlayEventAction> actions = new LinkedList<PlayEventAction>();
+        List<PlayEventAction> actions = new LinkedList<>();
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && TriggerConditions.isGettingWounded(effect, game, Filters.name(Names.theoden))
                 && PlayConditions.canDiscardFromPlay(self, game, Filters.or(Filters.name(Names.eomer), Filters.name("Theodred")))) {

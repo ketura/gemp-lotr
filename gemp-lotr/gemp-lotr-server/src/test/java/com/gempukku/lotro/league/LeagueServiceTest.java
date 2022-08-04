@@ -19,7 +19,7 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 public class LeagueServiceTest {
-    private CardSets _cardSets = new CardSets();
+    private final CardSets _cardSets = new CardSets();
     @Test
     public void testJoiningLeagueAfterMaxGamesPlayed() throws Exception {
 
@@ -31,7 +31,7 @@ public class LeagueServiceTest {
             sb.append("," + "lotr_block" + "," + "7" + "," + "2");
 
 
-        List<League> leagues = new ArrayList<League>();
+        List<League> leagues = new ArrayList<>();
         League league = new League(5000, "League name", "leagueType", NewConstructedLeagueData.class.getName(), sb.toString(), 0);
         leagues.add(league);
 
@@ -41,9 +41,9 @@ public class LeagueServiceTest {
 
         LeagueMatchDAO leagueMatchDAO = Mockito.mock(LeagueMatchDAO.class);
 
-        Set<LeagueMatchResult> matches = new HashSet<LeagueMatchResult>();
+        Set<LeagueMatchResult> matches = new HashSet<>();
 
-        Mockito.when(leagueMatchDAO.getLeagueMatches(league.getType())).thenReturn(new HashSet<LeagueMatchResult>(matches));
+        Mockito.when(leagueMatchDAO.getLeagueMatches(league.getType())).thenReturn(new HashSet<>(matches));
 
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -84,7 +84,7 @@ public class LeagueServiceTest {
             sb.append("," + "lotr_block" + "," + "7" + "," + "2");
 
 
-        List<League> leagues = new ArrayList<League>();
+        List<League> leagues = new ArrayList<>();
         League league = new League(5000, "League name", "leagueType", NewConstructedLeagueData.class.getName(), sb.toString(), 0);
         leagues.add(league);
 
@@ -94,10 +94,10 @@ public class LeagueServiceTest {
 
         LeagueMatchDAO leagueMatchDAO = Mockito.mock(LeagueMatchDAO.class);
 
-        Set<LeagueMatchResult> matches = new HashSet<LeagueMatchResult>();
+        Set<LeagueMatchResult> matches = new HashSet<>();
         matches.add(new LeagueMatchResult(leagueSerie.getName(), "player1", "player2"));
 
-        Mockito.when(leagueMatchDAO.getLeagueMatches(league.getType())).thenReturn(new HashSet<LeagueMatchResult>(matches));
+        Mockito.when(leagueMatchDAO.getLeagueMatches(league.getType())).thenReturn(new HashSet<>(matches));
 
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -130,7 +130,7 @@ public class LeagueServiceTest {
             sb.append("," + "lotr_block" + "," + "7" + "," + "2");
 
 
-        List<League> leagues = new ArrayList<League>();
+        List<League> leagues = new ArrayList<>();
         League league = new League(5000, "League name", "leagueType", NewConstructedLeagueData.class.getName(), sb.toString(), 0);
         leagues.add(league);
 
@@ -140,12 +140,12 @@ public class LeagueServiceTest {
 
         LeagueMatchDAO leagueMatchDAO = Mockito.mock(LeagueMatchDAO.class);
 
-        Set<LeagueMatchResult> matches = new HashSet<LeagueMatchResult>();
+        Set<LeagueMatchResult> matches = new HashSet<>();
 
-        Mockito.when(leagueMatchDAO.getLeagueMatches(league.getType())).thenReturn(new HashSet<LeagueMatchResult>(matches));
+        Mockito.when(leagueMatchDAO.getLeagueMatches(league.getType())).thenReturn(new HashSet<>(matches));
 
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
-        Set<String> players = new HashSet<String>();
+        Set<String> players = new HashSet<>();
         players.add("player1");
         players.add("player2");
         players.add("player3");

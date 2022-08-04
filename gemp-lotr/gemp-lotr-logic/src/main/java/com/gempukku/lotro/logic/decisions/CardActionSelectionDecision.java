@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class CardActionSelectionDecision extends AbstractAwaitingDecision {
-    private LotroGame _game;
-    private List<Action> _actions;
+    private final LotroGame _game;
+    private final List<Action> _actions;
 
     public CardActionSelectionDecision(LotroGame game, int decisionId, String text, List<? extends Action> actions) {
         super(decisionId, text, AwaitingDecisionType.CARD_ACTION_CHOICE);
         _game = game;
-        _actions = new LinkedList<Action>(actions);
+        _actions = new LinkedList<>(actions);
 
         setParam("actionId", getActionIds(actions));
         setParam("cardId", getCardIds(actions));

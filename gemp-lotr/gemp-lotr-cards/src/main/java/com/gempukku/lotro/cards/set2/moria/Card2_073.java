@@ -40,7 +40,7 @@ public class Card2_073 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Keyword.TENTACLE, 2));
         modifiers.add(
@@ -52,7 +52,7 @@ public class Card2_073 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
+        List<RequiredTriggerAction> actions = new LinkedList<>();
         if (Filters.canSpot(game, CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

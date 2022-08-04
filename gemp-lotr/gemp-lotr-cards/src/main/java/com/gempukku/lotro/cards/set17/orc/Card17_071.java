@@ -38,7 +38,7 @@ public class Card17_071 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Culture.ORC, Race.ORC),
                         new SpotCondition(Culture.URUK_HAI, CardType.MINION), Keyword.HUNTER, 1));

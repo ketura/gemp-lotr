@@ -4,18 +4,16 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.HealResult;
 
 import java.util.Collection;
 
 public class HealCharactersEffect extends AbstractPreventableCardEffect {
-    private PhysicalCard _source;
-    private String _performingPlayer;
+    private final PhysicalCard _source;
+    private final String _performingPlayer;
 
     public HealCharactersEffect(PhysicalCard source, String performingPlayer, PhysicalCard... cards) {
         super(cards);

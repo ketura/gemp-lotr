@@ -34,7 +34,7 @@ public class Card11_159 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, self, new SpotCondition(Culture.GANDALF, CardType.COMPANION), Keyword.MUSTER, 1));
         modifiers.add(

@@ -4,14 +4,12 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class ReinforceTokenEffect extends ChooseActiveCardEffect {
-    private Token _token;
-    private int _count;
+    private final Token _token;
+    private final int _count;
 
     public ReinforceTokenEffect(PhysicalCard source, String playerId, Token token) {
         this(source, playerId, token, 1);

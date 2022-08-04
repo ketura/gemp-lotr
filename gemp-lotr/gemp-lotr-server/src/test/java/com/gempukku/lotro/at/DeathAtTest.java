@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class DeathAtTest extends AbstractAtTest {
     @Test
     public void charactersDontDieIfPrintedVitalityEqualToWoundsButCurrentVitalityMoreThanZero() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _library.getLotroCardBlueprint("1_96"));
@@ -57,7 +57,7 @@ public class DeathAtTest extends AbstractAtTest {
 
     @Test
     public void charactersDieIfCurrentVitalityIsZero() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _library.getLotroCardBlueprint("1_96"));

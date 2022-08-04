@@ -43,7 +43,7 @@ public class Card10_112 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SHIRE, Filters.character));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new RemoveBurdenEffect(playerId, self));
         if (game.getGameState().getThreats() > 1) {

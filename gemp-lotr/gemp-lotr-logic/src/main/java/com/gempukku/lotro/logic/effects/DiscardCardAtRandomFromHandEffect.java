@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DiscardCardAtRandomFromHandEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerId;
-    private boolean _forced;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final boolean _forced;
 
     public DiscardCardAtRandomFromHandEffect(PhysicalCard source, String playerId, boolean forced) {
         _source = source;

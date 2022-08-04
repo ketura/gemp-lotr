@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class IsAdditionalCardTypeModifier extends AbstractModifier {
-    private CardType _cardType;
+    private final CardType _cardType;
 
     public IsAdditionalCardTypeModifier(PhysicalCard source, Filterable affectFilter, CardType cardType) {
         this(source, affectFilter, null, cardType);

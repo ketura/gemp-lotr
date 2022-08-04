@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActivatePhaseActionsFromDiscardRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public ActivatePhaseActionsFromDiscardRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

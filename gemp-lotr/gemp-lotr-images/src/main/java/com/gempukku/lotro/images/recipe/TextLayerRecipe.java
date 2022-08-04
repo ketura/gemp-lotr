@@ -4,11 +4,11 @@ import java.awt.*;
 import java.util.function.Function;
 
 public class TextLayerRecipe implements LayerRecipe {
-    private Function<RenderContext, Font> fontProvider;
-    private Function<RenderContext, String> textProvider;
-    private Function<RenderContext, Paint> paintProvider;
-    private Function<RenderContext, TextBox> textBoxProvider;
-    private Function<RenderContext, Boolean> dropShadow;
+    private final Function<RenderContext, Font> fontProvider;
+    private final Function<RenderContext, String> textProvider;
+    private final Function<RenderContext, Paint> paintProvider;
+    private final Function<RenderContext, TextBox> textBoxProvider;
+    private final Function<RenderContext, Boolean> dropShadow;
 
     public TextLayerRecipe(Function<RenderContext, Font> fontProvider, Function<RenderContext, String> textProvider,
                            Function<RenderContext, Paint> paintProvider, Function<RenderContext, TextBox> textBoxProvider,

@@ -46,7 +46,7 @@ public class Card7_181 extends AbstractPermanent {
         if (TriggerConditions.isGettingKilled(effect, game, CardType.COMPANION)) {
             KillEffect killEffect = (KillEffect) effect;
             Collection<PhysicalCard> companionsKilled = Filters.filter(killEffect.getCharactersToBeKilled(), game, CardType.COMPANION);
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
+            List<OptionalTriggerAction> actions = new LinkedList<>();
             for (PhysicalCard physicalCard : companionsKilled) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendCost(

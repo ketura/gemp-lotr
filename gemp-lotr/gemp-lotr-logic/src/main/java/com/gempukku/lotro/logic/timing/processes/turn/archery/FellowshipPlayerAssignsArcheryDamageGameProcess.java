@@ -4,16 +4,14 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProcess {
-    private int _woundsToAssign;
-    private GameProcess _followingGameProcess;
+    private final int _woundsToAssign;
+    private final GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 

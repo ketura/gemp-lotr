@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.Set;
 
 public class AssignAgainstResult extends EffectResult {
-    private String _playerId;
-    private PhysicalCard _assignedCard;
-    private Set<PhysicalCard> _against;
+    private final String _playerId;
+    private final PhysicalCard _assignedCard;
+    private final Set<PhysicalCard> _against;
 
     public AssignAgainstResult(String playerId, PhysicalCard assignedCard, PhysicalCard against) {
         super(Type.ASSIGNED_AGAINST);

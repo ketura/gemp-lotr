@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
     public void dwarvenAxeDoesNotFreeze() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
@@ -87,7 +87,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void playDiscountAsfalothOnArwen() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         extraCards.put(P1, Arrays.asList("1_30", "1_31"));
         initializeSimplestGame(extraCards);
 
@@ -116,7 +116,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void playDiscountAsfalothOnOtherElf() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         extraCards.put(P1, Arrays.asList("1_51", "1_31"));
         initializeSimplestGame(extraCards);
 
@@ -145,7 +145,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void bilboRingBearerWithConsortingAndMorgulBrute() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_49");
         decks.put(P1, p1Deck);
@@ -160,7 +160,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         PhysicalCard morgulBrute = _game.getGameState().getHand(P2).iterator().next();
 
         PhysicalCardImpl consortingWithWizards = new PhysicalCardImpl(100, "2_97", P1, _library.getLotroCardBlueprint("2_97"));
-        PhysicalCardImpl ÚlairëEnquëa = new PhysicalCardImpl(101, "1_231", P2, _library.getLotroCardBlueprint("1_231"));
+        PhysicalCardImpl enquea = new PhysicalCardImpl(101, "1_231", P2, _library.getLotroCardBlueprint("1_231"));
 
         _game.getGameState().attachCard(_game, consortingWithWizards, _game.getGameState().getRingBearer(P1));
 
@@ -169,7 +169,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End fellowship phase
         playerDecided(P1, "");
 
-        _game.getGameState().addCardToZone(_game, ÚlairëEnquëa, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, enquea, Zone.SHADOW_CHARACTERS);
 
         final AwaitingDecision shadowDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowDecision.getDecisionType());
@@ -192,7 +192,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void mumakChieftainPlayingMumakForFree() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P2, _library.getLotroCardBlueprint("10_45"));
@@ -227,7 +227,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void musterFrodoAllowsToDiscardAndDraw() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("11_164");
         decks.put(P1, p1Deck);
@@ -272,7 +272,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void legolasBowWithToil() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         extraCards.put(P1, Arrays.asList("11_21", "11_23", "11_17"));
         initializeSimplestGame(extraCards);
 
@@ -405,7 +405,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void oElberethGilthoniel() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_49");
         decks.put(P1, p1Deck);
@@ -460,7 +460,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void frodoCantBePlayedInStartingFellowship() throws DecisionResultInvalidException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("13_156");
         p1Deck.addCard("4_301");
@@ -646,7 +646,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         p1Deck.setRing("4_1");
         LotroDeck p2Deck = createSimplestDeck();
 
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         decks.put(P1, p1Deck);
         decks.put(P2, p2Deck);
 
@@ -834,7 +834,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void garradrielCorruptionAtStart() throws DecisionResultInvalidException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         LotroDeck lotroDeck = new LotroDeck("Some deck");
         lotroDeck.setRingBearer("9_14");
         lotroDeck.setRing("11_1");
@@ -873,7 +873,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void greenHillCountryWorksForFirstPlayer() throws DecisionResultInvalidException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         LotroDeck lotroDeck = new LotroDeck("Some deck");
         lotroDeck.setRingBearer("10_121");
         lotroDeck.setRing("1_2");
@@ -957,7 +957,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void exertingEhaustedFrodo() throws CardNotFoundException, DecisionResultInvalidException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         LotroDeck lotroDeck = new LotroDeck("Some deck");
         lotroDeck.setRingBearer("10_121");
         lotroDeck.setRing("40_1");
@@ -1218,7 +1218,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void playStartingFellowship() throws CardNotFoundException, DecisionResultInvalidException {
+    public void playStartingFellowship() throws DecisionResultInvalidException {
 
         Map<String, Collection<String>> additionalCardsInDeck = new HashMap<>();
         List<String> additionalCards = new LinkedList<>();
@@ -1227,7 +1227,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         additionalCards.add("1_306");
         additionalCardsInDeck.put(P1, additionalCards);
 
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         addPlayerDeck(P1, decks, additionalCardsInDeck);
         addPlayerDeck(P2, decks, additionalCardsInDeck);
 
@@ -1256,7 +1256,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
     @Test
     public void courteousFrodoPreventsDiscard() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("4_301");
         decks.put(P1, p1Deck);

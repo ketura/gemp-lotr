@@ -20,11 +20,11 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class SoloDraftDefinitions {
-    private static Logger _logger = Logger.getLogger(SoloDraftDefinitions.class);
-    private Map<String, SoloDraft> draftTypes = new HashMap<String, SoloDraft>();
-    private StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
-    private DraftPoolBuilder draftPoolBuilder = new DraftPoolBuilder();
-    private DraftChoiceBuilder draftChoiceBuilder;
+    private static final Logger _logger = Logger.getLogger(SoloDraftDefinitions.class);
+    private final Map<String, SoloDraft> draftTypes = new HashMap<>();
+    private final StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
+    private final DraftPoolBuilder draftPoolBuilder = new DraftPoolBuilder();
+    private final DraftChoiceBuilder draftChoiceBuilder;
 
     public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
                                 LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
@@ -65,11 +65,9 @@ public class SoloDraftDefinitions {
                 if (draftPoolComponents != null)
                     draftPoolProducer = draftPoolBuilder.buildDraftPoolProducer(draftPoolComponents);
 
-                List<DraftChoiceDefinition> draftChoiceDefinitions = new ArrayList<DraftChoiceDefinition>();
+                List<DraftChoiceDefinition> draftChoiceDefinitions = new ArrayList<>();
                 JSONArray choices = (JSONArray) object.get("choices");
-                Iterator<JSONObject> choicesIterator = choices.iterator();
-                while (choicesIterator.hasNext()) {
-                    JSONObject choice = choicesIterator.next();
+                for (JSONObject choice : (Iterable<JSONObject>) choices) {
                     DraftChoiceDefinition draftChoiceDefinition = draftChoiceBuilder.buildDraftChoiceDefinition(choice);
                     int repeatCount = ((Number) choice.get("repeat")).intValue();
                     for (int i = 0; i < repeatCount; i++)

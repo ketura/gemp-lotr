@@ -27,7 +27,7 @@ public class CancelAllAssignments implements EffectAppenderProducer {
                 return new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        List<Assignment> assignments = new LinkedList<Assignment>(game.getGameState().getAssignments());
+                        List<Assignment> assignments = new LinkedList<>(game.getGameState().getAssignments());
                         for (Assignment assignment : assignments)
                             game.getGameState().removeAssignment(assignment);
 

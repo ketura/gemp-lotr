@@ -48,7 +48,7 @@ public class Card10_060 extends AbstractAttachable {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.name("Gorbag"), Filters.hasAttached(self)), Keyword.FIERCE));
         return modifiers;

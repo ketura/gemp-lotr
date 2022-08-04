@@ -15,7 +15,7 @@ import java.util.Collections;
 import static org.junit.Assert.assertEquals;
 
 public class CollectionSerializerTest {
-    private CollectionSerializer _serializer = new CollectionSerializer();
+    private final CollectionSerializer _serializer = new CollectionSerializer();
 
     @Test
     public void testSerializeDeserialize() throws IOException {

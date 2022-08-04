@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
-    private int _woundsToAssign;
-    private GameProcess _followingProcess;
+    private final int _woundsToAssign;
+    private final GameProcess _followingProcess;
 
     public AIPlayerAssignsArcheryTotalGameProcess(int woundsToAssign, GameProcess followingProcess) {
         _woundsToAssign = woundsToAssign;
@@ -61,7 +61,7 @@ public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
                         if (acceptableCards.size() == 0)
                             acceptableCards = Filters.filterActive(game, filterFallback);
 
-                        List<PhysicalCard> possibleChoices = new ArrayList<PhysicalCard>(acceptableCards);
+                        List<PhysicalCard> possibleChoices = new ArrayList<>(acceptableCards);
                         if (possibleChoices.size()>0) {
                             SubAction subAction = new SubAction(action);
                             final int randomIndex = ThreadLocalRandom.current().nextInt(possibleChoices.size());

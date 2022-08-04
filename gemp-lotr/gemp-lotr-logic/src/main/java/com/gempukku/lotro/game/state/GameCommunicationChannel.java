@@ -12,10 +12,10 @@ import com.gempukku.polling.WaitingRequest;
 import java.util.*;
 
 public class GameCommunicationChannel implements GameStateListener, LongPollableResource {
-    private List<GameEvent> _events = Collections.synchronizedList(new LinkedList<GameEvent>());
-    private String _self;
+    private List<GameEvent> _events = Collections.synchronizedList(new LinkedList<>());
+    private final String _self;
     private long _lastConsumed = System.currentTimeMillis();
-    private int _channelNumber;
+    private final int _channelNumber;
     private volatile WaitingRequest _waitingRequest;
 
     public GameCommunicationChannel(String self, int channelNumber) {
@@ -29,9 +29,8 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void setPlayerOrder(List<String> participants) {
-        List<String> participantIds = new LinkedList<String>();
-        for (String participant : participants)
-            participantIds.add(participant);
+        List<String> participantIds = new LinkedList<>();
+        participantIds.addAll(participants);
         appendEvent(new GameEvent(PARTICIPANTS).participantId(_self).allParticipantIds(participantIds));
     }
 
@@ -118,7 +117,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards) {
-        Set<PhysicalCard> removedCardsVisibleByPlayer = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> removedCardsVisibleByPlayer = new HashSet<>();
         for (PhysicalCard card : cards) {
             if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
                 removedCardsVisibleByPlayer.add(card);
@@ -196,7 +195,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     public List<GameEvent> consumeGameEvents() {
         updateLastAccess();
         List<GameEvent> result = _events;
-        _events = Collections.synchronizedList(new LinkedList<GameEvent>());
+        _events = Collections.synchronizedList(new LinkedList<>());
         return result;
     }
 

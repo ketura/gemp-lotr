@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.modifiers.CantReturnToHandModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 
 public class RingBearerRule {
-    private ModifiersLogic _modifiersLogic;
+    private final ModifiersLogic _modifiersLogic;
 
     public RingBearerRule(ModifiersLogic modifiersLogic) {
         _modifiersLogic = modifiersLogic;

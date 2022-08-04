@@ -16,10 +16,8 @@ public class CantHeal implements ModifierSourceProducer {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return (actionContext) -> {
-            return new CantHealModifier(actionContext.getSource(),
-                    new RequirementCondition(requirements, actionContext),
-                    filterableSource.getFilterable(actionContext));
-        };
+        return (actionContext) -> new CantHealModifier(actionContext.getSource(),
+                new RequirementCondition(requirements, actionContext),
+                filterableSource.getFilterable(actionContext));
     }
 }

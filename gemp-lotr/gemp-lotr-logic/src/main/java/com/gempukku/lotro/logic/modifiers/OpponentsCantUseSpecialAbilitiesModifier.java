@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class OpponentsCantUseSpecialAbilitiesModifier extends AbstractModifier {
-    private String _playerId;
+    private final String _playerId;
 
     public OpponentsCantUseSpecialAbilitiesModifier(PhysicalCard source, String playerId) {
         this(source, null, playerId);

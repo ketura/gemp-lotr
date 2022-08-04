@@ -88,8 +88,8 @@ public class SingleEliminationRecurringQueueTest {
     public void fillingQueue() {
         Tournament tournament = Mockito.mock(Tournament.class);
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
-        Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any()))
+        Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.eq(null), Mockito.anyString(), Mockito.eq("format"),
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.any()))
                 .thenReturn(tournament);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -100,7 +100,7 @@ public class SingleEliminationRecurringQueueTest {
         Player player2 = new Player(2, "p2", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-        Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.<Player>any(), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
+        Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.any(), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
                 .thenReturn(true);
 
         queue.joinPlayer(collectionsManager, player1, null);
@@ -120,11 +120,11 @@ public class SingleEliminationRecurringQueueTest {
         assertFalse(queue.isPlayerSignedUp("p1"));
         assertFalse(queue.isPlayerSignedUp("p2"));
 
-        Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any());
+        Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.eq(null), Mockito.anyString(), Mockito.eq("format"),
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.any());
         
-        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.<LotroDeck>eq(null));
-        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.<LotroDeck>eq(null));
+        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.eq(null));
+        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.eq(null));
 
         Mockito.verify(queueCallback).createTournament(tournament);
         Mockito.verifyNoMoreInteractions(tournamentService, queueCallback);
@@ -135,8 +135,8 @@ public class SingleEliminationRecurringQueueTest {
         Tournament tournament = Mockito.mock(Tournament.class);
 
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
-        Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any()))
+        Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.eq(null), Mockito.anyString(), Mockito.eq("format"),
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.any()))
                 .thenReturn(tournament);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -147,7 +147,7 @@ public class SingleEliminationRecurringQueueTest {
         Player player3 = new Player(3, "p3", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-        Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.<Player>any(), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
+        Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.any(), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
                 .thenReturn(true);
 
         queue.joinPlayer(collectionsManager, player1, null);
@@ -169,11 +169,11 @@ public class SingleEliminationRecurringQueueTest {
         assertFalse(queue.isPlayerSignedUp("p2"));
         assertTrue(queue.isPlayerSignedUp("p3"));
 
-        Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.<Date>any());
+        Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.eq(null), Mockito.anyString(), Mockito.eq("format"),
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.nullable(String.class), Mockito.any());
 
-        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.<LotroDeck>eq(null));
-        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.<LotroDeck>eq(null));
+        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.eq(null));
+        Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.eq(null));
 
         Mockito.verify(queueCallback).createTournament(tournament);
         Mockito.verifyNoMoreInteractions(tournamentService, queueCallback);

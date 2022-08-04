@@ -5,9 +5,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class ConditionEvaluator implements Evaluator {
-    private int _default;
-    private int _conditionFullfilled;
-    private Condition _condition;
+    private final int _default;
+    private final int _conditionFullfilled;
+    private final Condition _condition;
 
     public ConditionEvaluator(int aDefault, int conditionFullfilled, Condition condition) {
         _default = aDefault;

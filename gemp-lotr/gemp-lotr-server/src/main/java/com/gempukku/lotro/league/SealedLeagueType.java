@@ -17,8 +17,8 @@ public enum SealedLeagueType {
         return null;
     }
 
-    private String _sealedCode;
-    private String _format;
+    private final String _sealedCode;
+    private final String _format;
 
     private SealedLeagueType(String sealedCode, String format) {
         _sealedCode = sealedCode;

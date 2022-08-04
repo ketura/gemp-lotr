@@ -10,22 +10,22 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ChooseSeatingOrderGameProcess implements GameProcess {
-    private String[] _choices = new String[]{"first", "second", "third", "fourth", "fifth"};
-    private Map<String, Integer> _bids;
-    private PlayerOrderFeedback _playerOrderFeedback;
+    private final String[] _choices = new String[]{"first", "second", "third", "fourth", "fifth"};
+    private final Map<String, Integer> _bids;
+    private final PlayerOrderFeedback _playerOrderFeedback;
 
-    private Iterator<String> _biddingOrderPlayers;
-    private String[] _orderedPlayers;
+    private final Iterator<String> _biddingOrderPlayers;
+    private final String[] _orderedPlayers;
     private boolean _sentBids;
 
     public ChooseSeatingOrderGameProcess(Map<String, Integer> bids, PlayerOrderFeedback playerOrderFeedback) {
         _bids = bids;
         _playerOrderFeedback = playerOrderFeedback;
 
-        ArrayList<String> participantList = new ArrayList<String>(bids.keySet());
+        ArrayList<String> participantList = new ArrayList<>(bids.keySet());
         Collections.shuffle(participantList, ThreadLocalRandom.current());
 
-        Collections.sort(participantList, new Comparator<String>() {
+        participantList.sort(new Comparator<>() {
             @Override
             public int compare(String o1, String o2) {
                 return _bids.get(o2) - _bids.get(o1);
@@ -71,7 +71,7 @@ public class ChooseSeatingOrderGameProcess implements GameProcess {
     }
 
     private String[] getEmptySeatNumbers() {
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (int i = 0; i < _orderedPlayers.length; i++)
             if (_orderedPlayers[i] == null)
                 result.add("Go " + _choices[i]);

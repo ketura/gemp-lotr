@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Set;
 
 public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private String _deckId;
-    private int _count;
+    private final Action _action;
+    private final String _playerId;
+    private final String _deckId;
+    private final int _count;
 
     public ReorderTopCardsOfDeckEffect(Action action, String playerId, int count) {
         _action = action;
@@ -51,7 +51,7 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
     public void playEffect(LotroGame game) {
         final List<? extends PhysicalCard> deck = game.getGameState().getDeck(_deckId);
         int count = Math.min(deck.size(), _count);
-        Set<PhysicalCard> cards = new HashSet<PhysicalCard>(deck.subList(0, count));
+        Set<PhysicalCard> cards = new HashSet<>(deck.subList(0, count));
 
         game.getGameState().sendMessage(_playerId + " reorders top " + count + " cards of draw deck");
 
@@ -62,8 +62,8 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
     }
 
     private class ChooseAndPutNextCardFromDeckOnTopOfDeck extends ChooseArbitraryCardsEffect {
-        private Collection<PhysicalCard> _remainingCards;
-        private CostToEffectAction _subAction;
+        private final Collection<PhysicalCard> _remainingCards;
+        private final CostToEffectAction _subAction;
 
         public ChooseAndPutNextCardFromDeckOnTopOfDeck(CostToEffectAction subAction, Collection<PhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on top of the deck", remainingCards, 1, 1);

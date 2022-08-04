@@ -48,7 +48,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(self, Fi
                 && (PlayConditions.canExert(self, game, 4, Culture.URUK_HAI, CardType.MINION)
                 || PlayConditions.canDiscardFromPlay(self, game, 3, Culture.URUK_HAI, CardType.MINION))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 4, 4, Culture.URUK_HAI, CardType.MINION) {
                         @Override

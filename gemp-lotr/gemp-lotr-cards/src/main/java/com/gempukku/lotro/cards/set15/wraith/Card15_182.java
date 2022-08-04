@@ -40,7 +40,7 @@ public class Card15_182 extends AbstractPermanent {
                 && (PlayConditions.canExert(self, game, 1, 2, Race.NAZGUL)
                 || PlayConditions.canExert(self, game, 2, 1, Race.NAZGUL))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, 1, Race.NAZGUL) {
                         @Override

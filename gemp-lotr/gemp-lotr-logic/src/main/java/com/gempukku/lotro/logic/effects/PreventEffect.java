@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Preventable;
 
 public class PreventEffect extends AbstractEffect {
-    private Preventable _preventable;
+    private final Preventable _preventable;
 
     public PreventEffect(Preventable preventable) {
         _preventable = preventable;

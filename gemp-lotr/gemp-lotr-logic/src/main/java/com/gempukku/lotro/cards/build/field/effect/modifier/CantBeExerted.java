@@ -18,11 +18,9 @@ public class CantBeExerted implements ModifierSourceProducer {
         final FilterableSource byFilterableSource = environment.getFilterFactory().generateFilter(byFilter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return (actionContext) -> {
-                    return new CantExertWithCardModifier(actionContext.getSource(),
-                            filterableSource.getFilterable(actionContext),
-                            new RequirementCondition(requirements, actionContext),
-                            byFilterableSource.getFilterable(actionContext));
-        };
+        return (actionContext) -> new CantExertWithCardModifier(actionContext.getSource(),
+                filterableSource.getFilterable(actionContext),
+                new RequirementCondition(requirements, actionContext),
+                byFilterableSource.getFilterable(actionContext));
     }
 }

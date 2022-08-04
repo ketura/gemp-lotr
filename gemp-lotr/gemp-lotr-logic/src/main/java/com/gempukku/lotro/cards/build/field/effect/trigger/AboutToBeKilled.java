@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import org.json.simple.JSONObject;
 

@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class SpecialFlagModifier extends AbstractModifier {
-    private ModifierFlag _modifierFlag;
+    private final ModifierFlag _modifierFlag;
 
     public SpecialFlagModifier(PhysicalCard source, ModifierFlag modifierFlag) {
         this(source, null, modifierFlag);

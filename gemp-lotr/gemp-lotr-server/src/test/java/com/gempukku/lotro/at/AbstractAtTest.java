@@ -19,7 +19,7 @@ import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
-    private int cardId = 100;
+    private final int cardId = 100;
 
     static {
         _library = new LotroCardBlueprintLibrary();
@@ -43,7 +43,7 @@ public abstract class AbstractAtTest {
     }
 
     protected void initializeSimplestGame(Map<String, Collection<String>> additionalCardsInDeck) throws DecisionResultInvalidException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         addPlayerDeck(P1, decks, additionalCardsInDeck);
         addPlayerDeck(P2, decks, additionalCardsInDeck);
 
@@ -81,7 +81,7 @@ public abstract class AbstractAtTest {
     protected void validateContents(String[] array1, String[] array2) {
         if (array1.length != array2.length)
             fail("Array sizes differ");
-        List<String> values = new ArrayList<String>(Arrays.asList(array1));
+        List<String> values = new ArrayList<>(Arrays.asList(array1));
         for (String s : array2) {
             if (!values.remove(s))
                 fail("Arrays contents differ");

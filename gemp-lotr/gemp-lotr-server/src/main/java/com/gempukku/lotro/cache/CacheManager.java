@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CacheManager {
-    private Set<Cached> _caches = new HashSet<Cached>();
+    private final Set<Cached> _caches = new HashSet<>();
 
     public void addCache(Cached cached) {
         _caches.add(cached);

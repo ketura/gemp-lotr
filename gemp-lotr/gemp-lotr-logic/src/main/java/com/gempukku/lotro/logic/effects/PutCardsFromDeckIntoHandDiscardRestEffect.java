@@ -15,13 +15,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private PhysicalCard _source;
-    private String _playerId;
-    private Filterable[] _filters;
-    private Set<PhysicalCard> _cards;
+    private final Action _action;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final Filterable[] _filters;
+    private final Set<PhysicalCard> _cards;
     private int _drawn;
-    private int _maxCount;
+    private final int _maxCount;
 
     public PutCardsFromDeckIntoHandDiscardRestEffect(Action action, PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, Filterable... filters) {
         this(action, source, playerId, cards, Integer.MAX_VALUE, filters);
@@ -33,7 +33,7 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
         _playerId = playerId;
         _maxCount = maxCount;
         _filters = filters;
-        _cards = new HashSet<PhysicalCard>(cards);
+        _cards = new HashSet<>(cards);
     }
 
     @Override
@@ -70,8 +70,8 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
     }
 
     private class ChooseAndPutNextCardFromDeckIntoHand extends UnrespondableEffect {
-        private CostToEffectAction _subAction;
-        private Set<PhysicalCard> _remainingCards;
+        private final CostToEffectAction _subAction;
+        private final Set<PhysicalCard> _remainingCards;
 
         private ChooseAndPutNextCardFromDeckIntoHand(CostToEffectAction subAction, Set<PhysicalCard> remainingCards) {
             _subAction = subAction;

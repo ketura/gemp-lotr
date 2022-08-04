@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 import java.util.Set;
 
 public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
-    private NormalSkirmishResult _skirmishResult;
+    private final NormalSkirmishResult _skirmishResult;
 
     private Integer _damageToDo;
     private int _remainingDamage;

@@ -9,8 +9,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class PlayersCantUseCardPhaseSpecialAbilitiesModifier extends AbstractModifier {
-    private Phase _phase;
-    private Filter _sourceFilters;
+    private final Phase _phase;
+    private final Filter _sourceFilters;
 
     public PlayersCantUseCardPhaseSpecialAbilitiesModifier(PhysicalCard source, Phase phase, Filterable... sourceFilters) {
         this(source, null, phase, sourceFilters);

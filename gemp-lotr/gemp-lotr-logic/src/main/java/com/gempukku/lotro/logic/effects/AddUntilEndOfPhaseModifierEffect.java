@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class AddUntilEndOfPhaseModifierEffect extends UnrespondableEffect {
-    private Modifier _modifier;
-    private Phase _phase;
+    private final Modifier _modifier;
+    private final Phase _phase;
 
     public AddUntilEndOfPhaseModifierEffect(Modifier modifier) {
         this(modifier, null);

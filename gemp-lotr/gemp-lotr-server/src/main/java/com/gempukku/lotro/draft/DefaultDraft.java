@@ -18,16 +18,16 @@ public class DefaultDraft implements Draft {
     // 35 seconds
     public static final int PICK_TIME = 35 * 1000;
 
-    private CollectionsManager _collectionsManager;
-    private CollectionType _collectionType;
-    private PacksStorage _packsStorage;
-    private DraftPack _draftPack;
-    private List<String> _players;
+    private final CollectionsManager _collectionsManager;
+    private final CollectionType _collectionType;
+    private final PacksStorage _packsStorage;
+    private final DraftPack _draftPack;
+    private final List<String> _players;
 
-    private List<MutableCardCollection> _cardChoices = new ArrayList<MutableCardCollection>();
-    private Map<String, MutableCardCollection> _cardChoice = new HashMap<String, MutableCardCollection>();
+    private final List<MutableCardCollection> _cardChoices = new ArrayList<>();
+    private final Map<String, MutableCardCollection> _cardChoice = new HashMap<>();
 
-    private int _playerCount;
+    private final int _playerCount;
 
     private long _lastPickStart;
 
@@ -36,7 +36,7 @@ public class DefaultDraft implements Draft {
 
     private boolean _finishedDraft;
 
-    private Map<String, DraftCommunicationChannel> _playerDraftCommunications = new HashMap<String, DraftCommunicationChannel>();
+    private final Map<String, DraftCommunicationChannel> _playerDraftCommunications = new HashMap<>();
     private int _nextChannelNumber = 0;
 
     public DefaultDraft(CollectionsManager collectionsManager, CollectionType collectionType, PacksStorage packsStorage, DraftPack draftPack, Set<String> players) {
@@ -119,7 +119,7 @@ public class DefaultDraft implements Draft {
     }
 
     private void forceRandomCardChoice() {
-        Map<String, MutableCardCollection> cardChoiceCopy = new HashMap<String, MutableCardCollection>(_cardChoice);
+        Map<String, MutableCardCollection> cardChoiceCopy = new HashMap<>(_cardChoice);
 
         for (Map.Entry<String, MutableCardCollection> playerChoices : cardChoiceCopy.entrySet()) {
             String playerName = playerChoices.getKey();
@@ -133,7 +133,7 @@ public class DefaultDraft implements Draft {
         MutableCardCollection cardChoice = _cardChoice.get(playerName);
         if (cardChoice != null) {
             if (cardChoice.removeItem(cardId, 1)) {
-                _collectionsManager.addItemsToPlayerCollection(false, "Pick in draft", playerName, _collectionType, Arrays.asList(CardCollection.Item.createItem(cardId, 1)));
+                _collectionsManager.addItemsToPlayerCollection(false, "Pick in draft", playerName, _collectionType, List.of(CardCollection.Item.createItem(cardId, 1)));
                 _cardChoice.remove(playerName);
             }
         }

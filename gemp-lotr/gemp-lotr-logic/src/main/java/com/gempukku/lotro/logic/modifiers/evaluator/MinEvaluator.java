@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class MinEvaluator implements Evaluator {
-    private int _limit;
-    private Evaluator _evaluator;
+    private final int _limit;
+    private final Evaluator _evaluator;
 
     public MinEvaluator(Evaluator evaluator, int limit) {
         _evaluator = evaluator;

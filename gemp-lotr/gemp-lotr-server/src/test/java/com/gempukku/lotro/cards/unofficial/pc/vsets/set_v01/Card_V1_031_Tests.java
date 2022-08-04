@@ -21,20 +21,19 @@ public class Card_V1_031_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("purpose", "151_31");
-					put("merry", "1_303");
-					put("pippin", "1_306");
-					put("aragorn", "1_89");
+                new HashMap<>() {{
+                    put("purpose", "151_31");
+                    put("merry", "1_303");
+                    put("pippin", "1_306");
+                    put("aragorn", "1_89");
 
-					put("ftentacle1", "2_58");
-					put("ftentacle2", "2_58");
-					put("ftentacle3", "2_58");
-					put("ftentacle4", "2_58");
-					put("htentacle", "2_66");
+                    put("ftentacle1", "2_58");
+                    put("ftentacle2", "2_58");
+                    put("ftentacle3", "2_58");
+                    put("ftentacle4", "2_58");
+                    put("htentacle", "2_66");
 
-				}},
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

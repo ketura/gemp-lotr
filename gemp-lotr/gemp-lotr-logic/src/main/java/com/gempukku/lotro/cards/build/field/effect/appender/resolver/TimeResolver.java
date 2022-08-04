@@ -31,9 +31,9 @@ public class TimeResolver {
     }
 
     public static class Time {
-        private Phase phase;
-        private boolean start;
-        private boolean endOfTurn;
+        private final Phase phase;
+        private final boolean start;
+        private final boolean endOfTurn;
 
         private Time(Phase phase, boolean start, boolean endOfTurn) {
             this.phase = phase;

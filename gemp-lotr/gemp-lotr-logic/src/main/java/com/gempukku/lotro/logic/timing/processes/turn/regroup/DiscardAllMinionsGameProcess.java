@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class DiscardAllMinionsGameProcess implements GameProcess {
-    private GameProcess _followingGameProcess;
+    private final GameProcess _followingGameProcess;
 
     public DiscardAllMinionsGameProcess(GameProcess followingGameProcess) {
         _followingGameProcess = followingGameProcess;

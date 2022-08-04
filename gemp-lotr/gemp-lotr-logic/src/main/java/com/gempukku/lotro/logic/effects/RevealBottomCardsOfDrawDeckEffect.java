@@ -13,9 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class RevealBottomCardsOfDrawDeckEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _playerId;
-    private int _count;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final int _count;
 
     public RevealBottomCardsOfDrawDeckEffect(PhysicalCard source, String playerId, int count) {
         _source = source;
@@ -42,7 +42,7 @@ public abstract class RevealBottomCardsOfDrawDeckEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerId);
         int count = Math.min(deck.size(), _count);
-        LinkedList<PhysicalCard> bottomCards = new LinkedList<PhysicalCard>(deck.subList(deck.size() - count, deck.size()));
+        LinkedList<PhysicalCard> bottomCards = new LinkedList<>(deck.subList(deck.size() - count, deck.size()));
 
         if (bottomCards.size() > 0) {
             final PlayOrder playerOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_source.getOwner(), false);
@@ -50,9 +50,9 @@ public abstract class RevealBottomCardsOfDrawDeckEffect extends AbstractEffect {
             String nextPlayer;
             while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                 game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                        new ArbitraryCardsSelectionDecision(1, _playerId+" revealed card(s) from bottom of deck", bottomCards, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                        new ArbitraryCardsSelectionDecision(1, _playerId+" revealed card(s) from bottom of deck", bottomCards, Collections.emptySet(), 0, 0) {
                             @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                            public void decisionMade(String result) {
                             }
                         });
             }

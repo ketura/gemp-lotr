@@ -18,9 +18,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
-    private String _playerId;
+    private final String _playerId;
 
-    private GameProcess _followingGameProcess;
+    private final GameProcess _followingGameProcess;
     private GameProcess _nextProcess;
 
     public PlayerPlaysStartingFellowshipGameProcess(String playerId, GameProcess followingGameProcess) {
@@ -53,7 +53,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
 
     private AwaitingDecision createChooseNextCharacterDecision(final LotroGame game, final String playerId, final Collection<PhysicalCard> possibleCharacters) {
         return new ArbitraryCardsSelectionDecision(1, "Starting fellowship - Choose next character or press DONE",
-                new LinkedList<PhysicalCard>(possibleCharacters), 0, 1) {
+                new LinkedList<>(possibleCharacters), 0, 1) {
             @Override
             public void decisionMade(String result) throws DecisionResultInvalidException {
                 List<PhysicalCard> selectedCharacters = getSelectedCardsByResponse(result);

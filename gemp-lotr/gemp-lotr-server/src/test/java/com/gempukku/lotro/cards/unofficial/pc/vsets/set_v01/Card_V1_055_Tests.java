@@ -6,9 +6,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
-import org.xml.sax.SAXNotRecognizedException;
 
 import java.util.HashMap;
 
@@ -21,8 +19,7 @@ public class Card_V1_055_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
+				new HashMap<>() {{
 					put("yet", "151_55");
 					put("boromir", "1_97");
 					put("sam", "1_311");

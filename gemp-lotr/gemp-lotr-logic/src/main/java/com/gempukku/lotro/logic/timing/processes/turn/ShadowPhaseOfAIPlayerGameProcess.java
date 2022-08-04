@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.processes.turn.general.StartOfPhaseGamePr
 
 public class ShadowPhaseOfAIPlayerGameProcess implements GameProcess {
     private GameProcess _followingGameProcess;
-    private ShadowAI _shadowAI;
+    private final ShadowAI _shadowAI;
 
     public ShadowPhaseOfAIPlayerGameProcess(ShadowAI shadowAI) {
         _shadowAI = shadowAI;

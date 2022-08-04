@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import java.util.Collections;
 
 public class PutPlayedEventOnBottomOfDeckEffect extends AbstractEffect {
-    private PhysicalCard card;
+    private final PhysicalCard card;
 
     public PutPlayedEventOnBottomOfDeckEffect(PhysicalCard card) {
         this.card = card;

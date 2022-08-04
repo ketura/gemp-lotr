@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CancelStrengthBonusTargetModifier extends AbstractModifier {
-    private Filter _sourceFilter;
+    private final Filter _sourceFilter;
 
     public CancelStrengthBonusTargetModifier(PhysicalCard source, Filterable affectFilter, Filterable sourceFilter) {
         this(source, null, affectFilter, sourceFilter);

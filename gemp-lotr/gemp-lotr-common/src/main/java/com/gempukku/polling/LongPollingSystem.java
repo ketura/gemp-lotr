@@ -12,17 +12,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class LongPollingSystem {
-    private static Logger _log = Logger.getLogger(LongPollingSystem.class);
+    private static final Logger _log = Logger.getLogger(LongPollingSystem.class);
 
-    private final Set<ResourceWaitingRequest> _waitingActions = Collections.synchronizedSet(new HashSet<ResourceWaitingRequest>());
+    private final Set<ResourceWaitingRequest> _waitingActions = Collections.synchronizedSet(new HashSet<>());
 
-    private long _pollingInterval = 100;
-    private long _pollingLength = 5000;
+    private final long _pollingInterval = 100;
+    private final long _pollingLength = 5000;
 
     private ProcessingRunnable _timeoutRunnable;
-    private ExecutorService _executorService = new ThreadPoolExecutor(10, Integer.MAX_VALUE,
+    private final ExecutorService _executorService = new ThreadPoolExecutor(10, Integer.MAX_VALUE,
             60L, TimeUnit.SECONDS,
-            new SynchronousQueue<Runnable>());
+            new SynchronousQueue<>());
 
     public void start() {
         _timeoutRunnable = new ProcessingRunnable();
@@ -68,13 +68,11 @@ public class LongPollingSystem {
             while (true) {
                 Set<ResourceWaitingRequest> resourcesCopy;
                 synchronized (_waitingActions) {
-                    resourcesCopy = new HashSet<ResourceWaitingRequest>(_waitingActions);
+                    resourcesCopy = new HashSet<>(_waitingActions);
                 }
 
                 long now = System.currentTimeMillis();
-                Iterator<ResourceWaitingRequest> iterator = resourcesCopy.iterator();
-                while (iterator.hasNext()) {
-                    ResourceWaitingRequest waitingRequest = iterator.next();
+                for (ResourceWaitingRequest waitingRequest : resourcesCopy) {
                     if (waitingRequest.getLongPollingResource().wasProcessed())
                         _waitingActions.remove(waitingRequest);
                     else {
@@ -92,9 +90,9 @@ public class LongPollingSystem {
     }
 
     private class ResourceWaitingRequest implements WaitingRequest {
-        private LongPollingResource _longPollingResource;
-        private LongPollableResource _longPollableResource;
-        private long _start;
+        private final LongPollingResource _longPollingResource;
+        private final LongPollableResource _longPollableResource;
+        private final long _start;
 
         private ResourceWaitingRequest(LongPollableResource longPollableResource, LongPollingResource longPollingResource, long start) {
             _longPollableResource = longPollableResource;

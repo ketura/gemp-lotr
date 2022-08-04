@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class StrengthModifier extends AbstractModifier {
-    private Evaluator _evaluator;
-    private boolean _nonCardTextModifier;
+    private final Evaluator _evaluator;
+    private final boolean _nonCardTextModifier;
 
     public StrengthModifier(PhysicalCard source, Filterable affectFilter, int modifier) {
         this(source, affectFilter, null, modifier);

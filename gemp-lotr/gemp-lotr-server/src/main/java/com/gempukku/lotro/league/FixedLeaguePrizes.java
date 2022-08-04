@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FixedLeaguePrizes implements LeaguePrizes {
-    private List<String> _commons = new ArrayList<String>();
-    private List<String> _uncommons = new ArrayList<String>();
-    private List<String> _rares = new ArrayList<String>();
+    private final List<String> _commons = new ArrayList<>();
+    private final List<String> _uncommons = new ArrayList<>();
+    private final List<String> _rares = new ArrayList<>();
 
     public FixedLeaguePrizes(CardSets cardSets) {
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
@@ -182,7 +182,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     }
 
     private List<String> getRandomFoil(List<String> list, int count) {
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String element : list)
             result.add(element + "*");
         Collections.shuffle(result, ThreadLocalRandom.current());

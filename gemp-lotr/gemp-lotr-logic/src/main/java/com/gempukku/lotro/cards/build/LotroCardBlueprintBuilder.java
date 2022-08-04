@@ -14,13 +14,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
-    private Map<String, FieldProcessor> fieldProcessors = new HashMap<>();
+    private final Map<String, FieldProcessor> fieldProcessors = new HashMap<>();
 
-    private EffectAppenderFactory effectAppenderFactory = new EffectAppenderFactory();
-    private FilterFactory filterFactory = new FilterFactory();
-    private RequirementFactory requirementFactory = new RequirementFactory();
-    private TriggerCheckerFactory triggerCheckerFactory = new TriggerCheckerFactory();
-    private ModifierSourceFactory modifierSourceFactory = new ModifierSourceFactory();
+    private final EffectAppenderFactory effectAppenderFactory = new EffectAppenderFactory();
+    private final FilterFactory filterFactory = new FilterFactory();
+    private final RequirementFactory requirementFactory = new RequirementFactory();
+    private final TriggerCheckerFactory triggerCheckerFactory = new TriggerCheckerFactory();
+    private final ModifierSourceFactory modifierSourceFactory = new ModifierSourceFactory();
 
     public LotroCardBlueprintBuilder() {
         fieldProcessors.put("title", new TitleFieldProcessor());
@@ -97,7 +97,7 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
 
     private static class NullProcessor implements FieldProcessor {
         @Override
-        public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) {
             // Ignore
         }
     }

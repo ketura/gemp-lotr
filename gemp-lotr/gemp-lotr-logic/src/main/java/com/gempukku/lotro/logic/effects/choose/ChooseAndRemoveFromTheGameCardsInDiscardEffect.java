@@ -16,12 +16,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private PhysicalCard _source;
-    private String _playerId;
-    private int _minimum;
-    private int _maximum;
-    private Filterable[] _filters;
+    private final Action _action;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final int _minimum;
+    private final int _maximum;
+    private final Filterable[] _filters;
     private CostToEffectAction _resultSubAction;
     private boolean _success;
 

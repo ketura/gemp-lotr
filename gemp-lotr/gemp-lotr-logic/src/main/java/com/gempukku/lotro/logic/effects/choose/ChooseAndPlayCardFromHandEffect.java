@@ -17,11 +17,11 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class ChooseAndPlayCardFromHandEffect implements Effect {
-    private String _playerId;
-    private boolean _ignoreRoamingPenalty;
-    private boolean _ignoreCheckingDeadPile;
-    private Filter _filter;
-    private int _twilightModifier;
+    private final String _playerId;
+    private final boolean _ignoreRoamingPenalty;
+    private final boolean _ignoreCheckingDeadPile;
+    private final Filter _filter;
+    private final int _twilightModifier;
     private CostToEffectAction _playCardAction;
 
     public ChooseAndPlayCardFromHandEffect(String playerId, LotroGame game, Filterable... filters) {

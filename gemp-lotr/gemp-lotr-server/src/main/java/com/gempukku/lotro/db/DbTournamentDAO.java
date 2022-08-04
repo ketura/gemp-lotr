@@ -1,6 +1,5 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.tournament.Tournament;
 import com.gempukku.lotro.tournament.TournamentDAO;
@@ -11,13 +10,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class DbTournamentDAO implements TournamentDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbTournamentDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -75,7 +73,7 @@ public class DbTournamentDAO implements TournamentDAO {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round, prizes from tournament where stage <> '" + Tournament.Stage.FINISHED.name() + "'")) {
                     try (ResultSet rs = statement.executeQuery()) {
-                        List<TournamentInfo> result = new ArrayList<TournamentInfo>();
+                        List<TournamentInfo> result = new ArrayList<>();
                         while (rs.next()) {
                             String[] collectionTypeStr = rs.getString(5).split(":", 2);
                             result.add(new TournamentInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
@@ -98,7 +96,7 @@ public class DbTournamentDAO implements TournamentDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round, prizes from tournament where stage = '" + Tournament.Stage.FINISHED.name() + "' and start>?")) {
                     statement.setLong(1, time);
                     try (ResultSet rs = statement.executeQuery()) {
-                        List<TournamentInfo> result = new ArrayList<TournamentInfo>();
+                        List<TournamentInfo> result = new ArrayList<>();
                         while (rs.next()) {
                             String[] collectionTypeStr = rs.getString(5).split(":", 2);
                             result.add(new TournamentInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
@@ -151,7 +149,7 @@ public class DbTournamentDAO implements TournamentDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select tournament_id, name, format, start, cost, playoff, prizes, minimum_players from scheduled_tournament where started = 0 and start<=?")) {
                     statement.setLong(1, tillDate);
                     try (ResultSet rs = statement.executeQuery()) {
-                        List<TournamentQueueInfo> result = new ArrayList<TournamentQueueInfo>();
+                        List<TournamentQueueInfo> result = new ArrayList<>();
                         while (rs.next()) {
                             result.add(new TournamentQueueInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getLong(4),
                                     rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));

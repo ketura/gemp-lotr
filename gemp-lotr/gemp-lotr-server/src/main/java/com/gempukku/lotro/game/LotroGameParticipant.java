@@ -3,8 +3,8 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 public class LotroGameParticipant {
-    private String _playerId;
-    private LotroDeck _deck;
+    private final String _playerId;
+    private final LotroDeck _deck;
 
     public LotroGameParticipant(String playerId, LotroDeck deck) {
         _playerId = playerId;

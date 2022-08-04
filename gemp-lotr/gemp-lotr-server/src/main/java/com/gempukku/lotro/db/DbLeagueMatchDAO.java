@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DbLeagueMatchDAO implements LeagueMatchDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbLeagueMatchDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -24,7 +24,7 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
                 try (PreparedStatement statement = conn.prepareStatement("select winner, loser, season_type from league_match where league_type=?")) {
                     statement.setString(1, leagueId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
+                        Set<LeagueMatchResult> result = new HashSet<>();
                         while (rs.next()) {
                             String winner = rs.getString(1);
                             String loser = rs.getString(2);

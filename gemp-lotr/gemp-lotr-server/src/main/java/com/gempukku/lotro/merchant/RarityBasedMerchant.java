@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RarityBasedMerchant implements Merchant {
-    private Map<String, SetDefinition> _rarity = new HashMap<String, SetDefinition>();
+    private final Map<String, SetDefinition> _rarity = new HashMap<>();
 
     public RarityBasedMerchant(CardSets cardSets) {
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
@@ -73,16 +73,13 @@ public class RarityBasedMerchant implements Merchant {
         if (rarity == null)
             return null;
         String cardRarity = rarity.getCardRarity(blueprintId);
-        if (cardRarity.equals("C"))
-            return 50;
-        else if (cardRarity.equals("U") || cardRarity.equals("S"))
-            return 100;
-        else if (cardRarity.equals("R") || cardRarity.equals("P") || cardRarity.equals("A"))
-            return 1000;
-        else if (cardRarity.equals("X"))
-            return 2000;
-        else
-            throw new RuntimeException("Unknown rarity for priced card: " + cardRarity);
+        return switch (cardRarity) {
+            case "C" -> 50;
+            case "U", "S" -> 100;
+            case "R", "P", "A" -> 1000;
+            case "X" -> 2000;
+            default -> throw new RuntimeException("Unknown rarity for priced card: " + cardRarity);
+        };
     }
 
     @Override

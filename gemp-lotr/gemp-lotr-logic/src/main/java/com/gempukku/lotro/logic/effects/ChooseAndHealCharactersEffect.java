@@ -11,9 +11,9 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
-    private Action _action;
-    private String _playerId;
-    private int _count;
+    private final Action _action;
+    private final String _playerId;
+    private final int _count;
 
     public ChooseAndHealCharactersEffect(Action action, String playerId, Filterable... filters) {
         this(action, playerId, 1, 1, filters);

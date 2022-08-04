@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransferItemRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public TransferItemRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

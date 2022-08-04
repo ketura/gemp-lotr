@@ -10,9 +10,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CountCulturesEvaluator implements Evaluator {
-    private Filterable[] _filters;
-    private int _multiplier;
-    private int _over;
+    private final Filterable[] _filters;
+    private final int _multiplier;
+    private final int _over;
 
     public CountCulturesEvaluator(Filterable... filters) {
         this(0, filters);
@@ -30,7 +30,7 @@ public class CountCulturesEvaluator implements Evaluator {
 
     @Override
     public int evaluateExpression(LotroGame game, PhysicalCard self) {
-        Set<Culture> cultures = new HashSet<Culture>();
+        Set<Culture> cultures = new HashSet<>();
         for (PhysicalCard physicalCard : Filters.filterActive(game, _filters)) {
             Culture culture = physicalCard.getBlueprint().getCulture();
             if (culture != null)

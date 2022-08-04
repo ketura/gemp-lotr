@@ -18,8 +18,7 @@ public class Card_13_080_Tests
 
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("radagast", "13_80");
                     put("saruman", "12_144");
                     put("gandalf", "6_30");

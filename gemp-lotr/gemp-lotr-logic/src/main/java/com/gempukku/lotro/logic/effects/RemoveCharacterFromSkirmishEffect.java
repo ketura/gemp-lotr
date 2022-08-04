@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class RemoveCharacterFromSkirmishEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private PhysicalCard _toRemove;
+    private final PhysicalCard _source;
+    private final PhysicalCard _toRemove;
 
     public RemoveCharacterFromSkirmishEffect(PhysicalCard source, PhysicalCard toRemove) {
         _source = source;

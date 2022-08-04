@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.EndOfPhaseResult;
 
 public class EndOfPhaseGameProcess implements GameProcess {
-    private Phase _phase;
-    private GameProcess _followingGameProcess;
+    private final Phase _phase;
+    private final GameProcess _followingGameProcess;
 
     public EndOfPhaseGameProcess(Phase phase, GameProcess followingGameProcess) {
         _phase = phase;

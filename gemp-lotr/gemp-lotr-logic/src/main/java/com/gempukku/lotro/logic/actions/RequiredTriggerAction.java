@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class RequiredTriggerAction extends AbstractCostToEffectAction {
-    private PhysicalCard _physicalCard;
+    private final PhysicalCard _physicalCard;
 
     private boolean _sentMessage;
     private String _message;

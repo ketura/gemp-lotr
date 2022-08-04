@@ -6,35 +6,28 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.AttachPermanentAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class PlayUtils {
     private static Zone getPlayToZone(PhysicalCard card) {
         final CardType cardType = card.getBlueprint().getCardType();
-        switch (cardType) {
-            case COMPANION:
-                return Zone.FREE_CHARACTERS;
-            case MINION:
-                return Zone.SHADOW_CHARACTERS;
-            default:
-                return Zone.SUPPORT;
-        }
+        return switch (cardType) {
+            case COMPANION -> Zone.FREE_CHARACTERS;
+            case MINION -> Zone.SHADOW_CHARACTERS;
+            default -> Zone.SUPPORT;
+        };
     }
 
-    public static Map<Phase, Keyword> PhaseKeywordMap = ImmutableMap.copyOf(new HashMap<Phase, Keyword>() {{
+    public static Map<Phase, Keyword> PhaseKeywordMap = ImmutableMap.copyOf(new HashMap<>() {{
         put(Phase.FELLOWSHIP, Keyword.FELLOWSHIP);
         put(Phase.SHADOW, Keyword.SHADOW);
         put(Phase.MANEUVER, Keyword.MANEUVER);
@@ -43,18 +36,6 @@ public class PlayUtils {
         put(Phase.SKIRMISH, Keyword.SKIRMISH);
         put(Phase.REGROUP, Keyword.REGROUP);
     }});
-
-//    static {
-//        phaseKeywordMap = new HashMap<>();
-//        phaseKeywordMap.put(Phase.FELLOWSHIP, Keyword.FELLOWSHIP);
-//        phaseKeywordMap.put(Phase.SHADOW, Keyword.SHADOW);
-//        phaseKeywordMap.put(Phase.MANEUVER, Keyword.MANEUVER);
-//        phaseKeywordMap.put(Phase.ARCHERY, Keyword.ARCHERY);
-//        phaseKeywordMap.put(Phase.ASSIGNMENT, Keyword.ASSIGNMENT);
-//        phaseKeywordMap.put(Phase.SKIRMISH, Keyword.SKIRMISH);
-//        phaseKeywordMap.put(Phase.REGROUP, Keyword.REGROUP);
-//    }
-
 
     private static Filter getFullAttachValidTargetFilter(final LotroGame game, final PhysicalCard card, int twilightModifier, int withTwilightRemoved) {
         return Filters.and(RuleUtils.getFullValidTargetFilter(card.getOwner(), game, card),

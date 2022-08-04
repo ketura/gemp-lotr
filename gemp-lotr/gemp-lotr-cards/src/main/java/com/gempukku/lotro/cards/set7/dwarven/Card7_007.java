@@ -43,7 +43,7 @@ public class Card7_007 extends AbstractCompanion {
                 && (PlayConditions.canExert(self, game, Race.DWARF)
                 || PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF) {
                         @Override

@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class MayNotBearModifier extends AbstractModifier {
-    private Filter _unbearableCardFilter;
+    private final Filter _unbearableCardFilter;
 
     public MayNotBearModifier(PhysicalCard source, Filterable affectFilter, Filterable... unbearableCardFilter) {
         super(source, "Affected by \"may not bear\" limitation", affectFilter, ModifierEffect.TARGET_MODIFIER);

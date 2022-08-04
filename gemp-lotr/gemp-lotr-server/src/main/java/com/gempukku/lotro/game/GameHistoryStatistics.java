@@ -6,8 +6,8 @@ import java.util.*;
 
 public class GameHistoryStatistics {
     private List<FormatStat> _formatStats;
-    private long _start;
-    private long _duration;
+    private final long _start;
+    private final long _duration;
 
     public GameHistoryStatistics(long start, long duration) {
         _start = start;
@@ -16,7 +16,7 @@ public class GameHistoryStatistics {
 
     public void init(GameHistoryDAO gameHistoryDao) {
         Map<String, Integer> countsPerFormat = gameHistoryDao.getCasualGamesPlayedPerFormat(_start, _duration);
-        Map<String, Integer> result = new HashMap<String, Integer>();
+        Map<String, Integer> result = new HashMap<>();
         for (Map.Entry<String, Integer> formatCount : countsPerFormat.entrySet()) {
             String format = formatCount.getKey();
             if (!isIgnorable(format)) {
@@ -28,11 +28,11 @@ public class GameHistoryStatistics {
         for (Integer integer : result.values())
             sum += integer;
 
-        List<FormatStat> stats = new ArrayList<FormatStat>();
+        List<FormatStat> stats = new ArrayList<>();
         for (Map.Entry<String, Integer> formatCount : result.entrySet())
             stats.add(new FormatStat(formatCount.getKey(), formatCount.getValue(), 1f * formatCount.getValue() / sum));
 
-        Collections.sort(stats, new Comparator<FormatStat>() {
+        stats.sort(new Comparator<>() {
             @Override
             public int compare(FormatStat o1, FormatStat o2) {
                 return o2.getCount() - o1.getCount();
@@ -94,9 +94,9 @@ public class GameHistoryStatistics {
     }
 
     public static class FormatStat {
-        private String _format;
-        private int _count;
-        private float _percentage;
+        private final String _format;
+        private final int _count;
+        private final float _percentage;
 
         public FormatStat(String format, int count, float percentage) {
             _format = format;

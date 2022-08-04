@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndExhaustCharactersEffect extends ChooseActiveCardsEffect {
-    private Action _action;
+    private final Action _action;
 
     public ChooseAndExhaustCharactersEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose characters to exert", minimum, maximum, filters);

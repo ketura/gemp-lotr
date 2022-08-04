@@ -43,7 +43,7 @@ public class Card15_049 extends AbstractCompanion {
 
         @Override
         public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
+        return List.of(
                 new ResistanceModifier(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND), 1));
     }
 

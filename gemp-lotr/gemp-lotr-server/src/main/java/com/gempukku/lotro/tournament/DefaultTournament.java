@@ -18,29 +18,29 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DefaultTournament implements Tournament {
     // 10 minutes
-    private int _deckBuildTime = 10 * 60 * 1000;
+    private final int _deckBuildTime = 10 * 60 * 1000;
     private long _waitForPairingsTime = 1000 * 60 * 2;
 
-    private PairingMechanism _pairingMechanism;
-    private TournamentPrizes _tournamentPrizes;
-    private String _tournamentId;
-    private String _tournamentName;
-    private String _format;
-    private CollectionType _collectionType;
+    private final PairingMechanism _pairingMechanism;
+    private final TournamentPrizes _tournamentPrizes;
+    private final String _tournamentId;
+    private final String _tournamentName;
+    private final String _format;
+    private final CollectionType _collectionType;
     private Stage _tournamentStage;
     private int _tournamentRound;
 
-    private Set<String> _players;
-    private Map<String, LotroDeck> _playerDecks;
-    private Set<String> _droppedPlayers;
-    private Map<String, Integer> _playerByes;
+    private final Set<String> _players;
+    private final Map<String, LotroDeck> _playerDecks;
+    private final Set<String> _droppedPlayers;
+    private final Map<String, Integer> _playerByes;
 
-    private Set<String> _currentlyPlayingPlayers;
-    private Set<TournamentMatch> _finishedTournamentMatches;
+    private final Set<String> _currentlyPlayingPlayers;
+    private final Set<TournamentMatch> _finishedTournamentMatches;
 
-    private TournamentService _tournamentService;
+    private final TournamentService _tournamentService;
 
-    private ReadWriteLock _lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock _lock = new ReentrantReadWriteLock();
     private TournamentTask _nextTask;
 
     private long _deckBuildStartTime;
@@ -61,16 +61,16 @@ public class DefaultTournament implements Tournament {
         _pairingMechanism = pairingMechanism;
         _tournamentPrizes = tournamentPrizes;
 
-        _currentlyPlayingPlayers = new HashSet<String>();
+        _currentlyPlayingPlayers = new HashSet<>();
 
-        _players = new HashSet<String>(_tournamentService.getPlayers(_tournamentId));
-        _playerDecks = new HashMap<String, LotroDeck>(_tournamentService.getPlayerDecks(_tournamentId, _format));
-        _droppedPlayers = new HashSet<String>(_tournamentService.getDroppedPlayers(_tournamentId));
-        _playerByes = new HashMap<String, Integer>(_tournamentService.getPlayerByes(_tournamentId));
-        _finishedTournamentMatches = new HashSet<TournamentMatch>();
+        _players = new HashSet<>(_tournamentService.getPlayers(_tournamentId));
+        _playerDecks = new HashMap<>(_tournamentService.getPlayerDecks(_tournamentId, _format));
+        _droppedPlayers = new HashSet<>(_tournamentService.getDroppedPlayers(_tournamentId));
+        _playerByes = new HashMap<>(_tournamentService.getPlayerByes(_tournamentId));
+        _finishedTournamentMatches = new HashSet<>();
 
         if (_tournamentStage == Stage.PLAYING_GAMES) {
-            Map<String, String> matchesToCreate = new HashMap<String, String>();
+            Map<String, String> matchesToCreate = new HashMap<>();
             for (TournamentMatch tournamentMatch : _tournamentService.getMatches(_tournamentId)) {
                 if (tournamentMatch.isFinished())
                     _finishedTournamentMatches.add(tournamentMatch);
@@ -319,8 +319,8 @@ public class DefaultTournament implements Tournament {
     private void doPairing(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
         _tournamentRound++;
         _tournamentService.updateTournamentRound(_tournamentId, _tournamentRound);
-        Map<String, String> pairingResults = new HashMap<String, String>();
-        Set<String> byeResults = new HashSet<String>();
+        Map<String, String> pairingResults = new HashMap<>();
+        Set<String> byeResults = new HashSet<>();
 
         Map<String, Set<String>> previouslyPaired = getPreviouslyPairedPlayersMap();
 
@@ -347,9 +347,9 @@ public class DefaultTournament implements Tournament {
     }
 
     private Map<String, Set<String>> getPreviouslyPairedPlayersMap() {
-        Map<String, Set<String>> previouslyPaired = new HashMap<String, Set<String>>();
+        Map<String, Set<String>> previouslyPaired = new HashMap<>();
         for (String player : _players)
-            previouslyPaired.put(player, new HashSet<String>());
+            previouslyPaired.put(player, new HashSet<>());
 
         for (TournamentMatch finishedTournamentMatch : _finishedTournamentMatches) {
             previouslyPaired.get(finishedTournamentMatch.getWinner()).add(finishedTournamentMatch.getLoser());
@@ -366,7 +366,7 @@ public class DefaultTournament implements Tournament {
     }
 
     private class PairPlayers implements TournamentTask {
-        private long _taskStart = System.currentTimeMillis() + _waitForPairingsTime;
+        private final long _taskStart = System.currentTimeMillis() + _waitForPairingsTime;
 
         @Override
         public void executeTask(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
@@ -380,7 +380,7 @@ public class DefaultTournament implements Tournament {
     }
 
     private class CreateMissingGames implements TournamentTask {
-        private Map<String, String> _gamesToCreate;
+        private final Map<String, String> _gamesToCreate;
 
         public CreateMissingGames(Map<String, String> gamesToCreate) {
             _gamesToCreate = gamesToCreate;

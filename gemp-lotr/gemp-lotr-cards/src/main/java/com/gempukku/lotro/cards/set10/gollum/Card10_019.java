@@ -48,7 +48,7 @@ public class Card10_019 extends AbstractResponseEvent {
                 final PhysicalCard playedOn = playResult.getAttachedTo();
                 if (playedOn != null && playedOn.getBlueprint().getCardType() == CardType.COMPANION) {
                     final PlayEventAction action = new PlayEventAction(self);
-                    List<Effect> possibleEffects = new LinkedList<Effect>();
+                    List<Effect> possibleEffects = new LinkedList<>();
                     possibleEffects.add(
                             new ChooseAndPlayCardFromDiscardEffect(playerId, game, -2, Filters.gollum) {
                                 @Override

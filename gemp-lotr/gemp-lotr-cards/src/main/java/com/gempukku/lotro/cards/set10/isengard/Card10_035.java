@@ -29,7 +29,7 @@ public class Card10_035 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH), Keyword.BATTLEGROUND));
         modifiers.add(

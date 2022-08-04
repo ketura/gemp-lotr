@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import java.util.Collections;
 
 public class RemovePlayedEventFromGameEffect extends AbstractEffect {
-    private PlayEventAction _action;
+    private final PlayEventAction _action;
 
     public RemovePlayedEventFromGameEffect(PlayEventAction action) {
         _action = action;

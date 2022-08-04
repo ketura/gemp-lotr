@@ -15,10 +15,10 @@ public enum Zone implements Filterable {
     // Nobody sees
     VOID("void", false, false, false), VOID_FROM_HAND("voidFromHand", false, false, false), DECK("deck", false, false, false), REMOVED("removed", false, false, false);
 
-    private String _humanReadable;
-    private boolean _public;
-    private boolean _visibleByOwner;
-    private boolean _inPlay;
+    private final String _humanReadable;
+    private final boolean _public;
+    private final boolean _visibleByOwner;
+    private final boolean _inPlay;
 
     private Zone(String humanReadable, boolean isPublic, boolean visibleByOwner, boolean inPlay) {
         _humanReadable = humanReadable;

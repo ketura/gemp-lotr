@@ -41,7 +41,7 @@ public class Card4_086 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)),
                         new Condition() {

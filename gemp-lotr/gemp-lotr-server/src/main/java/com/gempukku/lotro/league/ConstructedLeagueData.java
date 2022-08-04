@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConstructedLeagueData implements LeagueData {
-    private LeaguePrizes _leaguePrizes;
-    private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
-    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
-    private CollectionType _collectionType;
+    private final LeaguePrizes _leaguePrizes;
+    private final List<LeagueSerieData> _series = new ArrayList<>();
+    private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
+    private final CollectionType _collectionType;
 
     // Example params - 20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block
     // Which means - start date,league prize pool,prizes multiplier,collection type,collection name,serie length,serie match count,series count,

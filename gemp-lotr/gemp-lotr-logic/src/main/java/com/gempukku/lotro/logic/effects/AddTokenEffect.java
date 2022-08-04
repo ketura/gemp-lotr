@@ -9,10 +9,10 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class AddTokenEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private PhysicalCard _target;
-    private Token _token;
-    private int _count;
+    private final PhysicalCard _source;
+    private final PhysicalCard _target;
+    private final Token _token;
+    private final int _count;
 
     public AddTokenEffect(PhysicalCard source, PhysicalCard target, Token token) {
         this(source, target, token, 1);

@@ -58,7 +58,7 @@ public class GameUtils {
         if (game.isSolo())
             throw new InvalidSoloAdventureException("Shadow player requested");
         final String fpPlayer = game.getGameState().getCurrentPlayerId();
-        List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
+        List<String> shadowPlayers = new LinkedList<>(game.getGameState().getPlayerOrder().getAllPlayers());
         shadowPlayers.remove(fpPlayer);
         return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
@@ -70,7 +70,7 @@ public class GameUtils {
     public static String[] getOpponents(LotroGame game, String playerId) {
         if (game.isSolo())
             throw new InvalidSoloAdventureException("Opponent requested");
-        List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
+        List<String> shadowPlayers = new LinkedList<>(game.getGameState().getPlayerOrder().getAllPlayers());
         shadowPlayers.remove(playerId);
         return shadowPlayers.toArray(new String[shadowPlayers.size()]);
     }
@@ -91,10 +91,10 @@ public class GameUtils {
     }
 
     public static List<PhysicalCard> getRandomCards(List<? extends PhysicalCard> cards, int count) {
-        List<PhysicalCard> randomizedCards = new ArrayList<PhysicalCard>(cards);
+        List<PhysicalCard> randomizedCards = new ArrayList<>(cards);
         Collections.shuffle(randomizedCards, ThreadLocalRandom.current());
 
-        return new LinkedList<PhysicalCard>(randomizedCards.subList(0, Math.min(count, randomizedCards.size())));
+        return new LinkedList<>(randomizedCards.subList(0, Math.min(count, randomizedCards.size())));
     }
 
     public static String s(Collection<PhysicalCard> cards) {
@@ -150,7 +150,7 @@ public class GameUtils {
     }
 
     public static int getSpottableCulturesCount(LotroGame game, Filterable... filters) {
-        Set<Culture> cultures = new HashSet<Culture>();
+        Set<Culture> cultures = new HashSet<>();
         for (PhysicalCard physicalCard : Filters.filterActive(game, filters)) {
             final Culture culture = physicalCard.getBlueprint().getCulture();
             if (culture != null)

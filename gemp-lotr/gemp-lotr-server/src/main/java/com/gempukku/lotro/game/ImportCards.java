@@ -7,12 +7,12 @@ import java.util.*;
 
 public class ImportCards {
     //For a deck to be legal in a Pre-shadows format, it must contain one of these sites
-    private Set<String> fellowshipSiteCheck = new HashSet<>(Arrays.asList("council courtyard",
+    private final Set<String> fellowshipSiteCheck = new HashSet<>(Arrays.asList("council courtyard",
             "ford of bruinen", "frodo's bedroom", "rivendell terrace", "rivendell valley", "rivendell waterfall",
             "house of elrond"));
-    private Set<String> towersSiteCheck = new HashSet<>(Arrays.asList("derndingle", "eastfold",
+    private final Set<String> towersSiteCheck = new HashSet<>(Arrays.asList("derndingle", "eastfold",
             "fangorn forest", "plains of rohan camp", "rohirrim village", "uruk camp", "wold of rohan"));
-    private Set<String> kingSiteCheck = new HashSet<>(Arrays.asList("king's tent", "rohirrim camp", "west road"));
+    private final Set<String> kingSiteCheck = new HashSet<>(Arrays.asList("king's tent", "rohirrim camp", "west road"));
 
     public List<CardCollection.Item> process(String rawDecklist, LotroCardBlueprintLibrary cardLibrary) {
         List<CardCount> decklist = getDecklist(rawDecklist);
@@ -98,8 +98,8 @@ public class ImportCards {
     }
 
     private static class CardCount {
-        private String name;
-        private int count;
+        private final String name;
+        private final int count;
 
         public CardCount(String name, int count) {
             this.name = name;

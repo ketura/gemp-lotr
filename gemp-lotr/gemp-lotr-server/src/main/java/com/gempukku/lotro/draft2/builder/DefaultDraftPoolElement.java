@@ -7,9 +7,9 @@ import java.util.List;
 
 
 public class DefaultDraftPoolElement implements DraftPoolElement {
-    private List<ArrayList<String>> _draftPackList;
-    private String _draftPoolType;
-    private int _packsToDraft;
+    private final List<ArrayList<String>> _draftPackList;
+    private final String _draftPoolType;
+    private final int _packsToDraft;
         
     public DefaultDraftPoolElement(String draftPoolType, List<ArrayList<String>> draftPackList, int packsToDraft) {
         _draftPoolType = draftPoolType;
@@ -25,8 +25,7 @@ public class DefaultDraftPoolElement implements DraftPoolElement {
     @Override
     public List<ArrayList<String>> getDraftPackList() {
         List draftPacksCopy = new ArrayList();
-        for (List<String> pack : _draftPackList)
-            draftPacksCopy.add(pack);
+        draftPacksCopy.addAll(_draftPackList);
         return draftPacksCopy;
     }
 

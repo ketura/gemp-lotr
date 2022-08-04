@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatServer extends AbstractServer {
-    private IgnoreDAO ignoreDAO;
-    private PlayerDAO playerDAO;
-    private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
+    private final IgnoreDAO ignoreDAO;
+    private final PlayerDAO playerDAO;
+    private final Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<>();
 
     public ChatServer(IgnoreDAO ignoreDAO, PlayerDAO playerDAO) {
         this.ignoreDAO = ignoreDAO;

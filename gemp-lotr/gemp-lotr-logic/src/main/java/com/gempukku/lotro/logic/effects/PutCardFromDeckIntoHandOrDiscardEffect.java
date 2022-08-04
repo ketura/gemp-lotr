@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 import java.util.Collections;
 
 public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
-    private PhysicalCard _physicalCard;
+    private final PhysicalCard _physicalCard;
 
     public PutCardFromDeckIntoHandOrDiscardEffect(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;

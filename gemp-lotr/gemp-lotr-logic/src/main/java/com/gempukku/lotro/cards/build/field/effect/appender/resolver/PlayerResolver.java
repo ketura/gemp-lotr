@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
@@ -12,7 +13,7 @@ public class PlayerResolver {
     public static PlayerSource resolvePlayer(String type, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
 
         if (type.equalsIgnoreCase("you"))
-            return (actionContext) -> actionContext.getPerformingPlayer();
+            return ActionContext::getPerformingPlayer;
         if (type.equalsIgnoreCase("owner"))
             return (actionContext) -> actionContext.getSource().getOwner();
         else if (type.equalsIgnoreCase("shadowPlayer") || type.equalsIgnoreCase("shadow"))

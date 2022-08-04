@@ -7,8 +7,6 @@ import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.Player;
 import com.google.common.collect.Iterables;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
@@ -30,25 +28,25 @@ public class SealedLeagueDataTest {
             data.joinLeague(collectionsManager, player, i);
             Mockito.verify(collectionsManager, new Times(1))
                 .addPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
-                    new ArgumentMatcher<CardCollection>() {
+                        new ArgumentMatcher<>() {
 //                        @Override
 //                        public void describeTo(Description description) {
 //                            description.appendText("Expected collection");
 //                        }
 
-                        @Override
-                        public boolean matches(CardCollection cards) {
-                            if (Iterables.size(cards.getAll()) != 3)
-                                return false;
-                            if (cards.getItemCount("(S)FotR - Starter") != 1)
-                                return false;
-                            if (cards.getItemCount("FotR - Booster") != 6)
-                                return false;
-                            if (cards.getItemCount("1_231") != 2)
-                                return false;
-                            return true;
+                            @Override
+                            public boolean matches(CardCollection cards) {
+                                if (Iterables.size(cards.getAll()) != 3)
+                                    return false;
+                                if (cards.getItemCount("(S)FotR - Starter") != 1)
+                                    return false;
+                                if (cards.getItemCount("FotR - Booster") != 6)
+                                    return false;
+                                if (cards.getItemCount("1_231") != 2)
+                                    return false;
+                                return true;
+                            }
                         }
-                    }
             ));
             Mockito.verifyNoMoreInteractions(collectionsManager);
         }
@@ -63,7 +61,7 @@ public class SealedLeagueDataTest {
             Player player = new Player(1, "Test", "pass", "u", null, null, null, null);
             data.joinLeague(collectionsManager, player, i);
             Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
-                    new ArgumentMatcher<CardCollection>() {
+                    new ArgumentMatcher<>() {
 //                        @Override
 //                        public void describeTo(Description description) {
 //                            description.appendText("Expected collection");
@@ -98,7 +96,7 @@ public class SealedLeagueDataTest {
         SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<Player, CardCollection>());
+            Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<>());
             int result = data.process(collectionsManager, null, 0, i);
             assertEquals(1, result);
             Mockito.verify(collectionsManager, new Times(1)).getPlayersCollection("test");
@@ -111,7 +109,7 @@ public class SealedLeagueDataTest {
         SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<Player, CardCollection>());
+            Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<>());
             int result = data.process(collectionsManager, null, 1, i);
             assertEquals(1, result);
             Mockito.verifyNoMoreInteractions(collectionsManager);
@@ -124,13 +122,13 @@ public class SealedLeagueDataTest {
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Map<Player, CardCollection> playersInLeague = new HashMap<Player, CardCollection>();
+            Map<Player, CardCollection> playersInLeague = new HashMap<>();
             Player player = new Player(1, "Test", "pass", "u", null, null, null, null);
             playersInLeague.put(player, new DefaultCardCollection());
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(playersInLeague);
             int result = data.process(collectionsManager, null, 1, i);
             assertEquals(2, result);
-            final List<CardCollection.Item> expectedToAdd = new ArrayList<CardCollection.Item>();
+            final List<CardCollection.Item> expectedToAdd = new ArrayList<>();
             expectedToAdd.add(CardCollection.Item.createItem("(S)MoM - Starter", 1));
             expectedToAdd.add(CardCollection.Item.createItem("MoM - Booster", 3));
             expectedToAdd.add(CardCollection.Item.createItem("2_51", 1));
@@ -158,7 +156,7 @@ public class SealedLeagueDataTest {
         SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<Player, CardCollection>());
+            Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<>());
             int result = data.process(collectionsManager, null, 2, i);
             assertEquals(2, result);
             Mockito.verifyNoMoreInteractions(collectionsManager);

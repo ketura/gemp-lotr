@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndPutCardFromDeckIntoDiscardEffect extends ChooseCardsFromDeckEffect {
-    private Action _action;
+    private final Action _action;
 
     public ChooseAndPutCardFromDeckIntoDiscardEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         super(playerId, playerId, minimum, maximum, filters);

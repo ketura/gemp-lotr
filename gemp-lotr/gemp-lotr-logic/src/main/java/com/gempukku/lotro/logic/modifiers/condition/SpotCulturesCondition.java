@@ -11,8 +11,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SpotCulturesCondition implements Condition {
-    private int _count;
-    private Filterable _filters;
+    private final int _count;
+    private final Filterable _filters;
 
     public SpotCulturesCondition(int count, Filterable filters) {
         _count = count;
@@ -21,7 +21,7 @@ public class SpotCulturesCondition implements Condition {
 
     @Override
     public boolean isFullfilled(LotroGame game) {
-        Set<Culture> cultures = new HashSet<Culture>();
+        Set<Culture> cultures = new HashSet<>();
         for (PhysicalCard physicalCard : Filters.filterActive(game, _filters)) {
             final Culture culture = physicalCard.getBlueprint().getCulture();
             if (cultures.add(culture))

@@ -53,7 +53,7 @@ public class Card15_022 extends AbstractPermanent {
                                     new ChooseArbitraryCardsEffect(playerId, "Choose card to put into your hand", revealedCards, Side.FREE_PEOPLE, 1, 1) {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                            Set<PhysicalCard> cardsToPutOnBottom = new HashSet<PhysicalCard>(revealedCards);
+                                            Set<PhysicalCard> cardsToPutOnBottom = new HashSet<>(revealedCards);
                                             for (PhysicalCard physicalCard : selectedCards) {
                                                 cardsToPutOnBottom.remove(physicalCard);
                                                 action.appendEffect(

@@ -36,7 +36,7 @@ public class Card7_165 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Culture.RAIDER, Race.MAN), new CanSpotTwilightCondition(3), 1));
         modifiers.add(

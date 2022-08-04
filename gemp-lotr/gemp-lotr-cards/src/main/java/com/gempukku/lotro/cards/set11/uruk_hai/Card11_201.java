@@ -42,7 +42,7 @@ public class Card11_201 extends AbstractMinion {
         if (TriggerConditions.isGettingWounded(effect, game, Culture.URUK_HAI, CardType.MINION)
                 && PlayConditions.isPhase(game, Phase.SKIRMISH)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SelfExertEffect(action, self));
             possibleCosts.add(

@@ -65,7 +65,7 @@ public class Card12_054 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
 
-            final Set<String> possibleCultures = new LinkedHashSet<String>();
+            final Set<String> possibleCultures = new LinkedHashSet<>();
             for (Culture culture : Culture.values())
                 if (culture.isOfficial())
                     possibleCultures.add(culture.getHumanReadable());

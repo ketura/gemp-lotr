@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PlayResponseEventRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public PlayResponseEventRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

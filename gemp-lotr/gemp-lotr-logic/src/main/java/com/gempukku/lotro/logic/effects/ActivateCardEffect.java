@@ -9,10 +9,10 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
 public class ActivateCardEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private Phase _actionTimeword;
+    private final PhysicalCard _source;
+    private final Phase _actionTimeword;
 
-    private ActivateCardResult _activateCardResult;
+    private final ActivateCardResult _activateCardResult;
 
     public ActivateCardEffect(PhysicalCard source, Phase actionTimeword) {
         _source = source;

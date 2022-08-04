@@ -6,7 +6,6 @@ import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -17,8 +16,7 @@ public class Card_01_045_ErrataTests
 {
     protected GenericCardTestHelper GetSimplePlayScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("galadriel", "51_45");
                     put("elrond", "1_40");
                 }}
@@ -27,8 +25,7 @@ public class Card_01_045_ErrataTests
 
     protected GenericCardTestHelper GetHome6AllyScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("galadriel", "51_45");
                     put("allyHome3_1", "1_60");
                     put("allyHome6_1", "1_56");

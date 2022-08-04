@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import java.util.Set;
 
 public class CantTakeWoundsFromLosingSkirmishModifier extends AbstractModifier {
-    private Filter _winnersFilter;
+    private final Filter _winnersFilter;
 
     public CantTakeWoundsFromLosingSkirmishModifier(PhysicalCard source, Filterable affectFilter, Filterable winnersFilter) {
         super(source, "Can't take wounds", affectFilter, ModifierEffect.WOUND_MODIFIER);

@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 public class ChatRoom {
     private static final int MAX_MESSAGE_HISTORY_COUNT = 500;
-    private LinkedList<ChatMessage> _lastMessages = new LinkedList<>();
-    private Map<String, ChatRoomInfo> _chatRoomListeners = new TreeMap<>(
+    private final LinkedList<ChatMessage> _lastMessages = new LinkedList<>();
+    private final Map<String, ChatRoomInfo> _chatRoomListeners = new TreeMap<>(
             String::compareToIgnoreCase);
-    private boolean muteJoinPartMessages;
-    private boolean allowIncognito;
+    private final boolean muteJoinPartMessages;
+    private final boolean allowIncognito;
 
     public ChatRoom(boolean muteJoinPartMessages, boolean allowIncognito) {
         this.muteJoinPartMessages = muteJoinPartMessages;
@@ -72,8 +72,8 @@ public class ChatRoom {
         }
     }
 
-    private class ChatRoomInfo {
-        private ChatRoomListener chatRoomListener;
+    private static class ChatRoomInfo {
+        private final ChatRoomListener chatRoomListener;
         private boolean incognito;
 
         public ChatRoomInfo(ChatRoomListener chatRoomListener, boolean incognito) {

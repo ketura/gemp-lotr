@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Date;
 
 public class DbMerchantDAO implements MerchantDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbMerchantDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;

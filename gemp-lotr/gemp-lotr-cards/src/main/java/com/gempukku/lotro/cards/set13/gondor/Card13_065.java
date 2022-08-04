@@ -52,7 +52,7 @@ public class Card13_065 extends AbstractCompanion {
 
                     @Override
                     public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
-                        List<Effect> possibleCosts = new LinkedList<Effect>();
+                        List<Effect> possibleCosts = new LinkedList<>();
                         possibleCosts.add(
                                 new SpotEffect(2, Culture.GONDOR, Keyword.KNIGHT) {
                                     @Override

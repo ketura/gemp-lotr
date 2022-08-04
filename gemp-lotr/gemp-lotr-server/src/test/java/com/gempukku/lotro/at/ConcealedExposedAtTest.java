@@ -12,13 +12,11 @@ import org.junit.Test;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
 public class ConcealedExposedAtTest extends AbstractAtTest {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("aragorn", "1_89");
                     put("arwen", "1_30");
                 }}

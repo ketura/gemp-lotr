@@ -37,7 +37,7 @@ public class Card17_017 extends AbstractCompanion {
         if (TriggerConditions.played(game, effectResult, self)
                 && !PlayConditions.isPhase(game, Phase.PLAY_STARTING_FELLOWSHIP)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDeck(playerId),
                             Filters.and(

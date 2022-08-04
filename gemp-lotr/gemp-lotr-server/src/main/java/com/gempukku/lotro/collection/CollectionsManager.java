@@ -12,14 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.Collectors;
 
 public class CollectionsManager {
-    private ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
+    private final ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
-    private PlayerDAO _playerDAO;
-    private CollectionDAO _collectionDAO;
-    private TransferDAO _transferDAO;
-    private LotroCardBlueprintLibrary lotroCardBlueprintLibrary;
+    private final PlayerDAO _playerDAO;
+    private final CollectionDAO _collectionDAO;
+    private final TransferDAO _transferDAO;
+    private final LotroCardBlueprintLibrary lotroCardBlueprintLibrary;
 
     public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary) {
         _playerDAO = playerDAO;
@@ -37,13 +38,11 @@ public class CollectionsManager {
 
             @Override
             public Iterable<Item> getAll() {
-                return Iterables.transform(lotroCardBlueprintLibrary.getBaseCards().entrySet(),
-                        cardBlueprintEntry -> {
-                            String blueprintId = cardBlueprintEntry.getKey();
-                            int count = getCount(cardBlueprintEntry.getValue());
-                            return Item.createItem(blueprintId, count);
-                        }
-                );
+                return lotroCardBlueprintLibrary.getBaseCards().entrySet().stream().map(cardBlueprintEntry -> {
+                    String blueprintId = cardBlueprintEntry.getKey();
+                    int count = getCount(cardBlueprintEntry.getValue());
+                    return Item.createItem(blueprintId, count);
+                }).collect(Collectors.toList());
             }
 
             @Override
@@ -92,9 +91,7 @@ public class CollectionsManager {
                 return new DefaultCardCollection();
 
             return collection;
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get player collection", exp);
-        } catch (IOException exp) {
+        } catch (SQLException | IOException exp) {
             throw new RuntimeException("Unable to get player collection", exp);
         } finally {
             _readWriteLock.readLock().unlock();
@@ -102,7 +99,7 @@ public class CollectionsManager {
     }
 
     private CardCollection createSumCollection(Player player, String[] collectionTypes) {
-        List<CardCollection> collections = new LinkedList<CardCollection>();
+        List<CardCollection> collections = new LinkedList<>();
         for (String collectionType : collectionTypes)
             collections.add(getPlayerCollection(player, collectionType));
 
@@ -114,9 +111,7 @@ public class CollectionsManager {
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         try {
             _collectionDAO.setPlayerCollection(player.getId(), collectionType, cardCollection);
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to store player collection", exp);
-        } catch (IOException exp) {
+        } catch (SQLException | IOException exp) {
             throw new RuntimeException("Unable to store player collection", exp);
         }
     }
@@ -146,14 +141,12 @@ public class CollectionsManager {
         try {
             final Map<Integer, CardCollection> playerCollectionsByType = _collectionDAO.getPlayerCollectionsByType(collectionType);
 
-            Map<Player, CardCollection> result = new HashMap<Player, CardCollection>();
+            Map<Player, CardCollection> result = new HashMap<>();
             for (Map.Entry<Integer, CardCollection> playerCollection : playerCollectionsByType.entrySet())
                 result.put(_playerDAO.getPlayer(playerCollection.getKey()), playerCollection.getValue());
 
             return result;
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get players collection", exp);
-        } catch (IOException exp) {
+        } catch (SQLException | IOException exp) {
             throw new RuntimeException("Unable to get players collection", exp);
         } finally {
             _readWriteLock.readLock().unlock();
@@ -201,7 +194,7 @@ public class CollectionsManager {
                 }
 
                 if (extraInformation != null) {
-                    Map<String, Object> resultExtraInformation = new HashMap<String, Object>(playerCollection.getExtraInformation());
+                    Map<String, Object> resultExtraInformation = new HashMap<>(playerCollection.getExtraInformation());
                     resultExtraInformation.putAll(extraInformation);
                     mutableCardCollection.setExtraInformation(resultExtraInformation);
                 }

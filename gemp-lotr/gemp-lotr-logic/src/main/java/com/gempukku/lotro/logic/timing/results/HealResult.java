@@ -4,9 +4,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class HealResult extends EffectResult {
-    private PhysicalCard _healedCard;
-    private PhysicalCard _source;
-    private String _performingPlayer;
+    private final PhysicalCard _healedCard;
+    private final PhysicalCard _source;
+    private final String _performingPlayer;
 
     public HealResult(PhysicalCard healedCard, PhysicalCard source, String performingPlayer) {
         super(Type.FOR_EACH_HEALED);

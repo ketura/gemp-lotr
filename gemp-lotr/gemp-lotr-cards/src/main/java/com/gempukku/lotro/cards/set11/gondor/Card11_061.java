@@ -48,7 +48,7 @@ public class Card11_061 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddTwilightEffect(self, 2));
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.GONDOR) {
                         @Override

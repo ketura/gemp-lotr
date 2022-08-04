@@ -46,8 +46,7 @@ public class Card4_261 extends AbstractPermanent {
 
                         if (actionSource != null
                                 && actionSource.getBlueprint().getCardType() == CardType.EVENT
-                                && action instanceof PlayEventAction) {
-                            PlayEventAction playEventAction = (PlayEventAction) action;
+                                && action instanceof PlayEventAction playEventAction) {
                             if (Filters.canSpot(game, Culture.RAIDER, Race.MAN)
                                     && playEventAction.isRequiresRanger())
                                 playEventAction.appendCost(

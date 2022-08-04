@@ -14,9 +14,9 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
-    private Action _action;
-    private int _times;
-    private Filterable[] _filters;
+    private final Action _action;
+    private final int _times;
+    private final Filterable[] _filters;
     private CostToEffectAction _resultSubAction;
     private int _intToRemember;
     private boolean _forToil;

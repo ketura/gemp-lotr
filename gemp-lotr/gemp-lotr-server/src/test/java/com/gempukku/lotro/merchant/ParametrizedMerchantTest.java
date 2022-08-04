@@ -10,7 +10,7 @@ import java.util.Date;
 import static org.junit.Assert.assertTrue;
 
 public class ParametrizedMerchantTest {
-    private CardSets _cardSets = new CardSets();
+    private final CardSets _cardSets = new CardSets();
     @Test
     public void checkTransactionRevertsPriceAfterFiveDays() {
         Date setupDate = new Date(-1000 * 60 * 60 * 24 * 50L);

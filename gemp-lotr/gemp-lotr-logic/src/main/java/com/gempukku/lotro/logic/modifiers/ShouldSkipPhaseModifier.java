@@ -5,8 +5,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class ShouldSkipPhaseModifier extends AbstractModifier {
-    private Phase _phase;
-    private String _playerId;
+    private final Phase _phase;
+    private final String _playerId;
 
     public ShouldSkipPhaseModifier(PhysicalCard source, Phase phase) {
         this(source, null, phase);

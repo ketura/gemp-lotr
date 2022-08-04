@@ -38,7 +38,7 @@ public class Card10_058 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Culture.WRAITH, CardType.MINION, Keyword.ENDURING));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new AddBurdenEffect(playerId, self, 1));
         possibleEffects.add(

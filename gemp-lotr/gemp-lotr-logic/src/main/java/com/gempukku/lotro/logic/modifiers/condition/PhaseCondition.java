@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class PhaseCondition implements Condition {
-    private Phase _phase;
+    private final Phase _phase;
 
     public PhaseCondition(Phase phase) {
         _phase = phase;

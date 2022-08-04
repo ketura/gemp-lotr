@@ -50,7 +50,7 @@ public class Card11_144 extends AbstractPermanent {
         if (TriggerConditions.played(game, effectResult, CardType.MINION)
                 && PlayConditions.location(game, Keyword.PLAINS)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.ROHAN) {
                         @Override

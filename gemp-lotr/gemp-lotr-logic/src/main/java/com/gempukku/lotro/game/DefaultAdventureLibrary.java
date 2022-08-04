@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DefaultAdventureLibrary implements AdventureLibrary {
-    private Adventure _defaultAdventure = new DefaultAdventure();
-    private Map<String, Adventure> _customAdventures = new HashMap<String, Adventure>();
+    private final Adventure _defaultAdventure = new DefaultAdventure();
+    private final Map<String, Adventure> _customAdventures = new HashMap<>();
 
     @Override
     public Adventure getAdventure(String adventureType) {

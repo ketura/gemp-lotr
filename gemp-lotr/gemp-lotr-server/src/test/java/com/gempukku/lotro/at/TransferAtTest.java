@@ -3,7 +3,6 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class TransferAtTest extends AbstractAtTest {
     @Test
     public void transfer() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl athelas= new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));

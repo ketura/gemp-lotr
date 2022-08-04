@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.CardTransferredResult;
 
 public class TransferPermanentEffect extends AbstractEffect {
-    private PhysicalCard _physicalCard;
-    private PhysicalCard _targetCard;
+    private final PhysicalCard _physicalCard;
+    private final PhysicalCard _targetCard;
 
     public TransferPermanentEffect(PhysicalCard physicalCard, PhysicalCard targetCard) {
         _physicalCard = physicalCard;

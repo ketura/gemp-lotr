@@ -12,16 +12,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PutCardsFromDeckBeneathDrawDeckEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private PhysicalCard _source;
-    private String _playerId;
-    private Set<PhysicalCard> _cards;
+    private final Action _action;
+    private final PhysicalCard _source;
+    private final String _playerId;
+    private final Set<PhysicalCard> _cards;
 
     public PutCardsFromDeckBeneathDrawDeckEffect(Action action, PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards) {
         _action = action;
         _source = source;
         _playerId = playerId;
-        _cards = new HashSet<PhysicalCard>(cards);
+        _cards = new HashSet<>(cards);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class PutCardsFromDeckBeneathDrawDeckEffect extends AbstractSubActionEffe
     }
 
     private class ChooseAndPutNextCardFromDeckOnBottomOfDeck extends ChooseArbitraryCardsEffect {
-        private Collection<PhysicalCard> _remainingCards;
-        private CostToEffectAction _subAction;
+        private final Collection<PhysicalCard> _remainingCards;
+        private final CostToEffectAction _subAction;
 
         public ChooseAndPutNextCardFromDeckOnBottomOfDeck(CostToEffectAction subAction, Collection<PhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on bottom of your deck", remainingCards, 1, 1);

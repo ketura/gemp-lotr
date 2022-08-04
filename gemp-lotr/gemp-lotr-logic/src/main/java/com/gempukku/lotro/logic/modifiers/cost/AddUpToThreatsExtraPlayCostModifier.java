@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class AddUpToThreatsExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int maxThreatCount;
+    private final int maxThreatCount;
 
     public AddUpToThreatsExtraPlayCostModifier(PhysicalCard source, int maxThreatCount, Condition condition, Filterable... affects) {
         super(source, "Add up to " + maxThreatCount + " threat(s)", Filters.and(affects), condition);

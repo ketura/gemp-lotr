@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TransferToSupportEffect extends AbstractEffect {
-    private PhysicalCard _card;
+    private final PhysicalCard _card;
 
     public TransferToSupportEffect(PhysicalCard card) {
         _card = card;
@@ -38,7 +38,7 @@ public class TransferToSupportEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             PhysicalCard transferredFrom = _card.getAttachedTo();
 
-            Set<PhysicalCard> transferredCards = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> transferredCards = new HashSet<>();
             transferredCards.add(_card);
 
             final List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(_card);

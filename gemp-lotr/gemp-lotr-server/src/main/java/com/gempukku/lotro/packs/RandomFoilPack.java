@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomFoilPack implements PackBox {
-    private List<String> _availableCards = new ArrayList<String>();
+    private final List<String> _availableCards = new ArrayList<>();
 
     public RandomFoilPack(String rarity, String[] sets, CardSets cardSets) {
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
@@ -20,7 +20,7 @@ public class RandomFoilPack implements PackBox {
 
     @Override
     public List<CardCollection.Item> openPack() {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         final String cardBlueprintId = _availableCards.get(ThreadLocalRandom.current().nextInt(_availableCards.size())) + "*";
         result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
         return result;

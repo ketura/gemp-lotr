@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Set;
 
 public class LiberateASiteEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _liberatingPlayer;
-    private String _liberatedSiteController;
+    private final PhysicalCard _source;
+    private final String _liberatingPlayer;
+    private final String _liberatedSiteController;
 
     public LiberateASiteEffect(PhysicalCard source, String liberatingPlayer, String liberatedSiteController) {
         _source = source;
@@ -64,8 +64,8 @@ public class LiberateASiteEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             PhysicalCard siteToLiberate = getSiteToLiberate(game);
             if (siteToLiberate != null) {
-                Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
-                Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+                Set<PhysicalCard> cardsToRemove = new HashSet<>();
+                Set<PhysicalCard> discardedCards = new HashSet<>();
 
                 List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(siteToLiberate);
                 cardsToRemove.addAll(stackedCards);

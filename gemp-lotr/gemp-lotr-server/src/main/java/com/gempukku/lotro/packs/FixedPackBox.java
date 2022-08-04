@@ -11,11 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 public class FixedPackBox implements PackBox {
-    private Map<String, Integer> _contents = new LinkedHashMap<String, Integer>();
+    private final Map<String, Integer> _contents = new LinkedHashMap<>();
 
     public FixedPackBox(String packName) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FixedPackBox.class.getResourceAsStream("/" + packName + ".pack")));
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FixedPackBox.class.getResourceAsStream("/" + packName + ".pack")))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.trim();
@@ -24,15 +23,13 @@ public class FixedPackBox implements PackBox {
                     _contents.put(result[1], Integer.parseInt(result[0]));
                 }
             }
-        } finally {
-            bufferedReader.close();
         }
 
     }
 
     @Override
     public List<CardCollection.Item> openPack() {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         for (Map.Entry<String, Integer> contentsEntry : _contents.entrySet()) {
             String blueprintId = contentsEntry.getKey();
             result.add(CardCollection.Item.createItem(blueprintId, contentsEntry.getValue()));

@@ -7,12 +7,12 @@ import com.gempukku.lotro.league.LeagueData;
 import java.lang.reflect.Constructor;
 
 public class League {
-    private int _cost;
-    private String _name;
-    private String _type;
-    private String _clazz;
-    private String _parameters;
-    private int _status;
+    private final int _cost;
+    private final String _name;
+    private final String _type;
+    private final String _clazz;
+    private final String _parameters;
+    private final int _status;
     private LeagueData _leagueData;
 
     public League(int cost, String name, String type, String clazz, String parameters, int status) {

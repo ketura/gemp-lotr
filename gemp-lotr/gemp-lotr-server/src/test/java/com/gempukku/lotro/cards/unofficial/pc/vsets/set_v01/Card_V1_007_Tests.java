@@ -17,16 +17,15 @@ public class Card_V1_007_Tests
 {
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("there", "151_7");
-					put("arwen", "1_30");
-					put("aragorn", "1_89");
-					put("tale", "1_66");
-					put("saga", "1_114");
+                new HashMap<>() {{
+                    put("there", "151_7");
+                    put("arwen", "1_30");
+                    put("aragorn", "1_89");
+                    put("tale", "1_66");
+                    put("saga", "1_114");
 
-					put("orc1", "1_191");
-				}},
+                    put("orc1", "1_191");
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

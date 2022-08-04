@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.List;
 
 public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
-    private LotroGame _game;
-    private List<? extends Action> _actions;
+    private final LotroGame _game;
+    private final List<? extends Action> _actions;
 
     public ActionSelectionDecision(LotroGame game, int decisionId, String text, List<? extends Action> actions) {
         super(decisionId, text, AwaitingDecisionType.ACTION_CHOICE);

@@ -11,18 +11,18 @@ import com.gempukku.lotro.packs.PacksStorage;
 import java.util.*;
 
 public class TournamentService implements ITournamentService {
-    private PacksStorage _packsStorage;
-    private DraftPackStorage _draftPackStorage;
-    private PairingMechanismRegistry _pairingMechanismRegistry;
-    private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
-    private TournamentDAO _tournamentDao;
-    private TournamentPlayerDAO _tournamentPlayerDao;
-    private TournamentMatchDAO _tournamentMatchDao;
-    private CardSets _cardSets;
+    private final PacksStorage _packsStorage;
+    private final DraftPackStorage _draftPackStorage;
+    private final PairingMechanismRegistry _pairingMechanismRegistry;
+    private final TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
+    private final TournamentDAO _tournamentDao;
+    private final TournamentPlayerDAO _tournamentPlayerDao;
+    private final TournamentMatchDAO _tournamentMatchDao;
+    private final CardSets _cardSets;
 
-    private CollectionsManager _collectionsManager;
+    private final CollectionsManager _collectionsManager;
 
-    private Map<String, Tournament> _tournamentById = new HashMap<String, Tournament>();
+    private final Map<String, Tournament> _tournamentById = new HashMap<>();
 
     public TournamentService(CollectionsManager collectionsManager, PacksStorage packsStorage, DraftPackStorage draftPackStorage,
                              PairingMechanismRegistry pairingMechanismRegistry, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
@@ -112,7 +112,7 @@ public class TournamentService implements ITournamentService {
 
     @Override
     public List<Tournament> getOldTournaments(long since) {
-        List<Tournament> result = new ArrayList<Tournament>();
+        List<Tournament> result = new ArrayList<>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getFinishedTournamentsSince(since)) {
             Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
             if (tournament == null)
@@ -124,7 +124,7 @@ public class TournamentService implements ITournamentService {
 
     @Override
     public List<Tournament> getLiveTournaments() {
-        List<Tournament> result = new ArrayList<Tournament>();
+        List<Tournament> result = new ArrayList<>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
             Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
             if (tournament == null)

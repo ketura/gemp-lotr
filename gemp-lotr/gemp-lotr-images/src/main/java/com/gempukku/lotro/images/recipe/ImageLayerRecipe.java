@@ -4,11 +4,11 @@ import java.awt.*;
 import java.util.function.Function;
 
 public class ImageLayerRecipe implements LayerRecipe {
-    private Function<RenderContext, Image> imageProvider;
-    private Function<RenderContext, Integer> leftProvider;
-    private Function<RenderContext, Integer> topProvider;
-    private Function<RenderContext, Integer> widthProvider;
-    private Function<RenderContext, Integer> heightProvider;
+    private final Function<RenderContext, Image> imageProvider;
+    private final Function<RenderContext, Integer> leftProvider;
+    private final Function<RenderContext, Integer> topProvider;
+    private final Function<RenderContext, Integer> widthProvider;
+    private final Function<RenderContext, Integer> heightProvider;
 
     public ImageLayerRecipe(
             Function<RenderContext, Image> imageProvider,

@@ -37,7 +37,7 @@ public class Card8_028 extends AbstractPermanent {
                 && (PlayConditions.canRemoveThreat(game, self, 1) || PlayConditions.canRemoveBurdens(game, self, 1))
                 && self.getZone() == Zone.SUPPORT) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveThreatsEffect(self, 1) {
                         @Override

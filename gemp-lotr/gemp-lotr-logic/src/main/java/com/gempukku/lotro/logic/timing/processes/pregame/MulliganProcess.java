@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MulliganProcess implements GameProcess {
-    private PlayOrder _playOrder;
+    private final PlayOrder _playOrder;
 
     private GameProcess _nextProcess;
 
@@ -34,7 +34,7 @@ public class MulliganProcess implements GameProcess {
                             if (index == 1) {
                                 final GameState gameState = game.getGameState();
                                 gameState.sendMessage(nextPlayer + " mulligans");
-                                Set<PhysicalCard> hand = new HashSet<PhysicalCard>(gameState.getHand(nextPlayer));
+                                Set<PhysicalCard> hand = new HashSet<>(gameState.getHand(nextPlayer));
                                 gameState.removeCardsFromZone(nextPlayer, hand);
                                 for (PhysicalCard card : hand)
                                     gameState.addCardToZone(game, card, Zone.DECK);

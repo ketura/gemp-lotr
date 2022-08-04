@@ -13,11 +13,11 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collection;
 
 public class DiscardCardFromHandDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
-    private Action _action;
-    private String _playerId;
+    private final Action _action;
+    private final String _playerId;
     private int _minimalDiscount;
     private int _discardedCount;
-    private Filterable[] _discardedCardFilter;
+    private final Filterable[] _discardedCardFilter;
 
     public DiscardCardFromHandDiscountEffect(Action action, String playerId, Filterable... discardedCardFilter) {
         _action = action;

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DefaultUserFeedback implements UserFeedback {
-    private Map<String, AwaitingDecision> _awaitingDecisionMap = new HashMap<String, AwaitingDecision>();
+    private final Map<String, AwaitingDecision> _awaitingDecisionMap = new HashMap<>();
 
     private LotroGame _game;
 

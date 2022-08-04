@@ -3,14 +3,14 @@ package com.gempukku.lotro.game;
 import java.util.Date;
 
 public class Player {
-    private int _id;
-    private String _name;
-    private String _password;
-    private String _type;
+    private final int _id;
+    private final String _name;
+    private final String _password;
+    private final String _type;
     private Integer _lastLoginReward;
-    private Date _bannedUntil;
-    private String _createIp;
-    private String _lastIp;
+    private final Date _bannedUntil;
+    private final String _createIp;
+    private final String _lastIp;
 
     public Player(int id, String name, String password, String type, Integer lastLoginReward, Date bannedUntil, String createIp, String lastIp) {
         _id = id;

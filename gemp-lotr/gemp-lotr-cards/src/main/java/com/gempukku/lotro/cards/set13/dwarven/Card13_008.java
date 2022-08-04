@@ -59,7 +59,7 @@ public class Card13_008 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && (PlayConditions.canRemoveTokens(game, self, Token.DWARVEN, 2) || PlayConditions.canSelfDiscard(self, game))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.DWARVEN, 2));
             possibleCosts.add(

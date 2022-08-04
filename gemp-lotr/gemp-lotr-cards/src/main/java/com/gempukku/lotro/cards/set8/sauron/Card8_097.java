@@ -38,7 +38,7 @@ public class Card8_097 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && (PlayConditions.canSelfExert(self, game) || PlayConditions.canSpot(game, Filters.siteControlled(playerId)))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SelfExertEffect(action, self) {
                         @Override

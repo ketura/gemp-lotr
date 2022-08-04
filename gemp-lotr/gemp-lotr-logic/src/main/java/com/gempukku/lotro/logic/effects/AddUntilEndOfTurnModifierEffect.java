@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class AddUntilEndOfTurnModifierEffect extends UnrespondableEffect {
-    private Modifier _modifier;
+    private final Modifier _modifier;
 
     public AddUntilEndOfTurnModifierEffect(Modifier modifier) {
         _modifier = modifier;

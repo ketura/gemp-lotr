@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TakeOffRingRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public TakeOffRingRule(DefaultActionsEnvironment actionsEnvironment) {
 

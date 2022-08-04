@@ -53,7 +53,7 @@ public class Card3_019 extends AbstractAttachable {
                 && (PlayConditions.canExert(self, game, Filters.aragorn)
                 || game.getGameState().getHand(playerId).size() >= 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn) {
                         @Override

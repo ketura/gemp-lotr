@@ -8,12 +8,12 @@ import com.gempukku.lotro.logic.modifiers.LimitCounter;
 public class CardPhaseLimitEvaluator implements Evaluator {
     private Integer _evaluated;
 
-    private Evaluator _evaluator;
+    private final Evaluator _evaluator;
 
-    private LotroGame _game;
-    private PhysicalCard _source;
-    private Phase _phase;
-    private int _limit;
+    private final LotroGame _game;
+    private final PhysicalCard _source;
+    private final Phase _phase;
+    private final int _limit;
 
     public CardPhaseLimitEvaluator(LotroGame game, PhysicalCard source, Phase phase, int limit, Evaluator evaluator) {
         _game = game;

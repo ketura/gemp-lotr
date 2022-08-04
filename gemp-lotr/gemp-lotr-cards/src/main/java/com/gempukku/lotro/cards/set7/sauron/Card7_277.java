@@ -37,7 +37,7 @@ public class Card7_277 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             if (PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Play stacked SAURON Orc");

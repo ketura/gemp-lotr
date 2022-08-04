@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 
 public class DiscountChoiceEffect extends AbstractSuccessfulEffect implements DiscountEffect {
-    private String _playerId;
-    private int _discountOffer;
+    private final String _playerId;
+    private final int _discountOffer;
 
     private int _minimalRequiredDiscount;
     private int _discountedBy = 0;

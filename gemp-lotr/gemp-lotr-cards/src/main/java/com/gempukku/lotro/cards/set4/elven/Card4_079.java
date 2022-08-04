@@ -44,7 +44,7 @@ public class Card4_079 extends AbstractResponseEvent {
                 action.appendCost(
                         new ExertCharactersEffect(action, self, winner));
 
-                List<Effect> possibleEffects = new LinkedList<Effect>();
+                List<Effect> possibleEffects = new LinkedList<>();
                 possibleEffects.add(
                         new LiberateASiteEffect(self, playerId, null));
                 possibleEffects.add(

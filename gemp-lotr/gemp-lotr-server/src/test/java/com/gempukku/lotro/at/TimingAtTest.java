@@ -25,15 +25,12 @@ import org.junit.Test;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TimingAtTest extends AbstractAtTest {
     @Test
     public void playStartingFellowshipWithDiscount() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         extraCards.put(P1, Arrays.asList("7_88", "6_121"));
         initializeSimplestGame(extraCards);
 
@@ -54,7 +51,7 @@ public class TimingAtTest extends AbstractAtTest {
 
     @Test
     public void playStartingFellowshipWithDiscountFromCardItself() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         extraCards.put(P1, Arrays.asList("40_17", "40_20"));
         initializeSimplestGame(extraCards);
 
@@ -75,7 +72,7 @@ public class TimingAtTest extends AbstractAtTest {
 
     @Test
     public void playStartingFellowshipWithSpotRequirement() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         extraCards.put(P1, Arrays.asList("1_50", "1_48"));
         initializeSimplestGame(extraCards);
 
@@ -96,7 +93,7 @@ public class TimingAtTest extends AbstractAtTest {
 
     @Test
     public void playMultipleRequiredEffectsInOrder() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl elrond = new PhysicalCardImpl(100, "1_40", P1, _library.getLotroCardBlueprint("1_40"));
@@ -114,12 +111,12 @@ public class TimingAtTest extends AbstractAtTest {
         validateContents(new String[]{"1_40", "1_10"}, (String[]) requiredActionChoice.getDecisionParameters().get("blueprintId"));
         playerDecided(P1, "0");
 
-        assertTrue(_game.getGameState().getCurrentPhase() != Phase.BETWEEN_TURNS);
+        assertNotSame(_game.getGameState().getCurrentPhase(), Phase.BETWEEN_TURNS);
     }
 
     @Test
     public void playMultipleOptionalEffectsInOrder() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "1_365", P1, _library.getLotroCardBlueprint("1_365"));
@@ -142,12 +139,12 @@ public class TimingAtTest extends AbstractAtTest {
 
         playerDecided(P1, "0");
 
-        assertTrue(_game.getGameState().getCurrentPhase() != Phase.BETWEEN_TURNS);
+        assertNotSame(_game.getGameState().getCurrentPhase(), Phase.BETWEEN_TURNS);
     }
 
     @Test
     public void playEffectFromDiscard() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl gollum = new PhysicalCardImpl(100, "7_58", P2, _library.getLotroCardBlueprint("7_58"));
@@ -173,7 +170,7 @@ public class TimingAtTest extends AbstractAtTest {
 
     @Test
     public void playEffectFromStacked() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
@@ -208,7 +205,7 @@ public class TimingAtTest extends AbstractAtTest {
 
     @Test
     public void stackedCardAffectsGame() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
@@ -374,7 +371,7 @@ public class TimingAtTest extends AbstractAtTest {
 
     @Test
     public void twoBeforeRequiredEffectsPreventing() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
         LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_4");
         p1Deck.setRing("4_1");

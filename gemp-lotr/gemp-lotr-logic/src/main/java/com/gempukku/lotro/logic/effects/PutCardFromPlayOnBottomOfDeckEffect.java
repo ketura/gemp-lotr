@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PutCardFromPlayOnBottomOfDeckEffect extends AbstractEffect {
-    private PhysicalCard _physicalCard;
+    private final PhysicalCard _physicalCard;
 
     public PutCardFromPlayOnBottomOfDeckEffect(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
@@ -27,14 +27,14 @@ public class PutCardFromPlayOnBottomOfDeckEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
-            Set<PhysicalCard> toGoToDiscardCards = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> discardedCards = new HashSet<>();
+            Set<PhysicalCard> toGoToDiscardCards = new HashSet<>();
 
             DiscardUtils.cardsToChangeZones(game, Collections.singleton(_physicalCard), discardedCards, toGoToDiscardCards);
 
             GameState gameState = game.getGameState();
 
-            Set<PhysicalCard> removeFromPlay = new HashSet<PhysicalCard>(toGoToDiscardCards);
+            Set<PhysicalCard> removeFromPlay = new HashSet<>(toGoToDiscardCards);
             removeFromPlay.add(_physicalCard);
 
             gameState.removeCardsFromZone(_physicalCard.getOwner(), removeFromPlay);

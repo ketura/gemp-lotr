@@ -1,8 +1,8 @@
 package com.gempukku.lotro.logic.timing;
 
 public class CostResolution {
-    private EffectResult[] _effectResults;
-    private boolean _successful;
+    private final EffectResult[] _effectResults;
+    private final boolean _successful;
 
     public CostResolution(EffectResult[] effectResults, boolean successful) {
         _effectResults = effectResults;

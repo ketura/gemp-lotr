@@ -58,9 +58,9 @@ public class Card8_087 extends AbstractCompanion {
     }
 
     private static class PlayAnyNumberOfCardsFromDeckEffect extends ChooseAndPlayCardFromDeckEffect {
-        private CostToEffectAction _action;
-        private String _playerId;
-        private Collection<PhysicalCard> _cards;
+        private final CostToEffectAction _action;
+        private final String _playerId;
+        private final Collection<PhysicalCard> _cards;
 
         public PlayAnyNumberOfCardsFromDeckEffect(CostToEffectAction action, String playerId, Collection<PhysicalCard> cards) {
             super(playerId, Filters.in(cards));

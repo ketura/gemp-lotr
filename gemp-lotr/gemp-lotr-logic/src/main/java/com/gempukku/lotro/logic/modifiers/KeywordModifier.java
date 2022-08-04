@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class KeywordModifier extends AbstractModifier implements KeywordAffectingModifier {
-    private Keyword _keyword;
-    private Evaluator _evaluator;
+    private final Keyword _keyword;
+    private final Evaluator _evaluator;
 
     public KeywordModifier(PhysicalCard physicalCard, Filterable affectFilter, Keyword keyword) {
         this(physicalCard, affectFilter, keyword, 1);

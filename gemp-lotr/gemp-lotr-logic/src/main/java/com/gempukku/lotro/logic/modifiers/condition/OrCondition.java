@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class OrCondition implements Condition {
-    private Condition[] _conditions;
+    private final Condition[] _conditions;
 
     public OrCondition(Condition... conditions) {
         _conditions = conditions;

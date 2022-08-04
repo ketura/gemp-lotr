@@ -17,8 +17,7 @@ public class Card_02_028_Tests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("wielder", "2_28");
                     put("gandalf", "1_364");
 

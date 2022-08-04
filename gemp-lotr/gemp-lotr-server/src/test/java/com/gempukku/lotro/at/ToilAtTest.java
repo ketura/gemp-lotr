@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class ToilAtTest extends AbstractAtTest {
     @Test
     public void cantPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -40,7 +40,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -66,7 +66,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void cantPlayIfNotEnoughAndCanExertOneMinion() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -91,7 +91,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfNotEnoughAndCanExertOneMinion() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -122,7 +122,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfEnoughAndCanExertOneMinionExertingLowers() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -161,7 +161,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfEnoughAndCanExertOneMinionNotExertingDoesntLower() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -200,7 +200,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfEnoughAndCanExertTwoMinionsExertingBothLowers() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -242,7 +242,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfEnoughAndCanExertTwoMinionsExertingOneLowers() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));
@@ -284,7 +284,7 @@ public class ToilAtTest extends AbstractAtTest {
 
     @Test
     public void canPlayIfEnoughAndCanExertMinionsBelowZero() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _library.getLotroCardBlueprint("11_88"));

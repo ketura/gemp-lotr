@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public abstract class AbstractCostToEffectAction implements CostToEffectAction {
-    private LinkedList<DiscountEffect> _potentialDiscounts = new LinkedList<DiscountEffect>();
-    private LinkedList<DiscountEffect> _processedDiscounts = new LinkedList<DiscountEffect>();
-    private LinkedList<Effect> _costs = new LinkedList<Effect>();
-    private LinkedList<Effect> _processedCosts = new LinkedList<Effect>();
-    private LinkedList<Effect> _effects = new LinkedList<Effect>();
-    private LinkedList<Effect> _processedEffects = new LinkedList<Effect>();
+    private final LinkedList<DiscountEffect> _potentialDiscounts = new LinkedList<>();
+    private final LinkedList<DiscountEffect> _processedDiscounts = new LinkedList<>();
+    private final LinkedList<Effect> _costs = new LinkedList<>();
+    private final LinkedList<Effect> _processedCosts = new LinkedList<>();
+    private final LinkedList<Effect> _effects = new LinkedList<>();
+    private final LinkedList<Effect> _processedEffects = new LinkedList<>();
 
     private String text;
 

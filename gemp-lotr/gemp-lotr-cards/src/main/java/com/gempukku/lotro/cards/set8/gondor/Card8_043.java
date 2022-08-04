@@ -45,7 +45,7 @@ public class Card8_043 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
+        return List.of(
                 new KeywordModifier(self, Filters.and(self, Filters.exhausted), Keyword.DEFENDER, 1));
     }
 }

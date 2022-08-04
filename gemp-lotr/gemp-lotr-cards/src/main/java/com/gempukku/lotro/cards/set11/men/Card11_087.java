@@ -39,7 +39,7 @@ public class Card11_087 extends AbstractAttachable {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new CancelStrengthBonusTargetModifier(self,
                         Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),

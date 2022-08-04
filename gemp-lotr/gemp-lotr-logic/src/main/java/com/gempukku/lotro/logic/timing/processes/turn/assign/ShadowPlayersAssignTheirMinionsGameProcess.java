@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.Set;
 
 public class ShadowPlayersAssignTheirMinionsGameProcess implements GameProcess {
-    private GameProcess _followingProcess;
-    private Set<PhysicalCard> _leftoverMinions;
+    private final GameProcess _followingProcess;
+    private final Set<PhysicalCard> _leftoverMinions;
     private PlayOrder _shadowOrder;
     private String _firstShadowPlayer;
 

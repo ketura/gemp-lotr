@@ -13,7 +13,7 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
     private int _minimalThreatsToRemove;
     private int _threatsRemoved;
 
-    private Action _action;
+    private final Action _action;
 
     public RemoveThreatsToDiscountEffect(Action action) {
         _action = action;

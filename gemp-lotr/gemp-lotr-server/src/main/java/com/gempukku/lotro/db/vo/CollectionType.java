@@ -13,7 +13,7 @@ public final class CollectionType {
     private final String _code;
     private final String _fullName;
 
-    private final static Map<String, CollectionType> DEFINED_COLLECTION_TYPES = new HashMap<String, CollectionType>();
+    private final static Map<String, CollectionType> DEFINED_COLLECTION_TYPES = new HashMap<>();
 
     static {
         DEFINED_COLLECTION_TYPES.put(MY_CARDS.getCode(), MY_CARDS);

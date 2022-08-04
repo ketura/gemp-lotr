@@ -13,14 +13,14 @@ import java.util.Map;
 import java.util.Set;
 
 public class AssignmentPhaseEffect extends AbstractEffect {
-    private Map<PhysicalCard, Set<PhysicalCard>> _assignments;
-    private String _text;
-    private String _playerId;
+    private final Map<PhysicalCard, Set<PhysicalCard>> _assignments;
+    private final String _text;
+    private final String _playerId;
 
     public AssignmentPhaseEffect(String playerId, Map<PhysicalCard, Set<PhysicalCard>> assignments, String text) {
         _playerId = playerId;
         // Sanitize the assignments
-        _assignments = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+        _assignments = new HashMap<>();
         for (Map.Entry<PhysicalCard, Set<PhysicalCard>> physicalCardListEntry : assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             Set<PhysicalCard> minions = physicalCardListEntry.getValue();

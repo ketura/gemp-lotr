@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantDiscardFromPlayByPlayerModifier extends AbstractModifier {
-    private String _notPlayer;
+    private final String _notPlayer;
 
     public CantDiscardFromPlayByPlayerModifier(PhysicalCard source, String text, Filterable affectFilter, String notPlayer) {
         super(source, text, affectFilter, ModifierEffect.DISCARD_FROM_PLAY_MODIFIER);

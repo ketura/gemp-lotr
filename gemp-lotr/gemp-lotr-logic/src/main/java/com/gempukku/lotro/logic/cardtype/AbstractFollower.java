@@ -5,9 +5,9 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 
 public abstract class AbstractFollower extends AbstractPermanent {
-    private int _strength;
-    private int _vitality;
-    private int _resistance;
+    private final int _strength;
+    private final int _vitality;
+    private final int _resistance;
 
     public AbstractFollower(Side side, int twilightCost, int strength, int vitality, int resistance, Culture culture, String name) {
         this(side, twilightCost, strength, vitality, resistance, culture, name, null, false);

@@ -14,13 +14,13 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import java.util.Collection;
 
 public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
-    private int _discount;
+    private final int _discount;
     private boolean _paid;
     private int _minimalDiscount;
-    private String _playerId;
-    private int _discardCount;
-    private Filterable[] _discardFilters;
-    private Action _action;
+    private final String _playerId;
+    private final int _discardCount;
+    private final Filterable[] _discardFilters;
+    private final Action _action;
 
     public OptionalDiscardDiscountEffect(Action action, int discount, String playerId, int discardCount, Filterable... discardFilters) {
         _action = action;

@@ -52,7 +52,7 @@ public class Card15_061 extends AbstractCompanion {
                 || PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN))) {
             final ActivateCardAction action = new ActivateCardAction(self);
 
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 1, Filters.any) {
                         @Override

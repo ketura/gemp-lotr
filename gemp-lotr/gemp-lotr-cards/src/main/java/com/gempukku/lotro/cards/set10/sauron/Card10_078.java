@@ -38,7 +38,7 @@ public class Card10_078 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && (PlayConditions.canSelfExert(self, game) || PlayConditions.canSelfDiscard(self, game))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SelfExertEffect(action, self));
             possibleCosts.add(

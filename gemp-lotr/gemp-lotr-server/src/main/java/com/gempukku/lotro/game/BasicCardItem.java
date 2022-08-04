@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game;
 
 public class BasicCardItem implements CardItem {
-    private String _blueprintId;
+    private final String _blueprintId;
 
     public BasicCardItem(String blueprintId) {
         _blueprintId = blueprintId;

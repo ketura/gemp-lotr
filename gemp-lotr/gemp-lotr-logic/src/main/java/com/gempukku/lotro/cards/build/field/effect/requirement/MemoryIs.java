@@ -1,16 +1,10 @@
 package com.gempukku.lotro.cards.build.field.effect.requirement;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
 import org.json.simple.JSONObject;
-
-import java.util.Collection;
 
 public class MemoryIs implements RequirementProducer {
     @Override

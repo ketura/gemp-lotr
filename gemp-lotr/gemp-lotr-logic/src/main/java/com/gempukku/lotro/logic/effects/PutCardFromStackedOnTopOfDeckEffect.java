@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import java.util.Collections;
 
 public class PutCardFromStackedOnTopOfDeckEffect extends AbstractEffect {
-    private PhysicalCard _physicalCard;
+    private final PhysicalCard _physicalCard;
 
     public PutCardFromStackedOnTopOfDeckEffect(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;

@@ -1,7 +1,5 @@
 package com.gempukku.lotro.async;
 
-import com.gempukku.lotro.async.handler.RootUriRequestHandler;
-import com.gempukku.lotro.async.handler.UriRequestHandler;
 import com.gempukku.lotro.builder.DaoBuilder;
 import com.gempukku.lotro.builder.PacksStorageBuilder;
 import com.gempukku.lotro.builder.ServerBuilder;
@@ -14,10 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GempukkuServer {
-    private Map<Type, Object> context;
+    private final Map<Type, Object> context;
 
     public GempukkuServer() {
-        Map<Type, Object> objects = new HashMap<Type, Object>();
+        Map<Type, Object> objects = new HashMap<>();
         final CardSets cardSets = new CardSets();
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();

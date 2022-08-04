@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class PlayersCantPlayPhaseEventsModifier extends AbstractModifier {
-    private Phase _phase;
+    private final Phase _phase;
 
     public PlayersCantPlayPhaseEventsModifier(PhysicalCard source, Phase phase) {
         this(source, null, phase);

@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.timing.results.WhenMoveToResult;
 import com.gempukku.lotro.logic.timing.results.WhenMovesResult;
 
 public class MovementGameProcess implements GameProcess {
-    private GameProcess _afterMovementGameProcess;
+    private final GameProcess _afterMovementGameProcess;
 
     public MovementGameProcess(GameProcess afterMovementGameProcess) {
         _afterMovementGameProcess = afterMovementGameProcess;

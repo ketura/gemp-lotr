@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class InitiativeCondition implements Condition {
-    private Side _side;
+    private final Side _side;
 
     public InitiativeCondition(Side side) {
         _side = side;

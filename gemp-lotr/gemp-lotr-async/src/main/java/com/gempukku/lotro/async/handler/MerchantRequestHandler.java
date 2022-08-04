@@ -23,12 +23,12 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class MerchantRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private Map<String, SetDefinition> _rarities;
-    private CollectionsManager _collectionsManager;
-    private SortAndFilterCards _sortAndFilterCards;
-    private MerchantService _merchantService;
-    private LotroCardBlueprintLibrary _library;
-    private LotroFormatLibrary _formatLibrary;
+    private final Map<String, SetDefinition> _rarities;
+    private final CollectionsManager _collectionsManager;
+    private final SortAndFilterCards _sortAndFilterCards;
+    private final MerchantService _merchantService;
+    private final LotroCardBlueprintLibrary _library;
+    private final LotroFormatLibrary _formatLibrary;
 
     public MerchantRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -45,13 +45,13 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("") && request.method() == HttpMethod.GET) {
             getMerchantOffers(request, responseWriter);
-        } else if (uri.equals("/buy") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/buy") && request.method() == HttpMethod.POST) {
             buy(request, responseWriter);
-        } else if (uri.equals("/sell") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/sell") && request.method() == HttpMethod.POST) {
             sell(request, responseWriter);
-        } else if (uri.equals("/tradeFoil") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/tradeFoil") && request.method() == HttpMethod.POST) {
             tradeInFoil(request, responseWriter);
         } else {
             throw new HttpProcessingException(404);
@@ -115,7 +115,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
     }
 
     private void getMerchantOffers(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String filter = getQueryParameterSafely(queryDecoder, "filter");
         int ownedMin = Integer.parseInt(getQueryParameterSafely(queryDecoder, "ownedMin"));
@@ -141,7 +141,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
         List<BasicCardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
 
-        List<CardItem> pageToDisplay = new ArrayList<CardItem>();
+        List<CardItem> pageToDisplay = new ArrayList<>();
         for (int i = start; i < start + count; i++) {
             if (i >= 0 && i < filteredResult.size())
                 pageToDisplay.add(filteredResult.get(i));

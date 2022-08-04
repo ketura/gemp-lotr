@@ -37,7 +37,7 @@ public class Card2_100 extends AbstractPermanent {
 
         @Override
         public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
+        return List.of(
                 new TwilightCostModifier(self, Filters.or(Keyword.SEARCH, Keyword.TRACKER), 2));
     }
 }

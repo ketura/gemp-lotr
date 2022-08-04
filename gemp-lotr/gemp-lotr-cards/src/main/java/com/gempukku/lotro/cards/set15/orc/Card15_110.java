@@ -42,7 +42,7 @@ public class Card15_110 extends AbstractMinion {
 
         @Override
         public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
+        return List.of(
                 new KeywordModifier(self, self, new SpotCondition(2, Filters.not(self), Culture.ORC, CardType.MINION), Keyword.FIERCE, 1));
     }
 }

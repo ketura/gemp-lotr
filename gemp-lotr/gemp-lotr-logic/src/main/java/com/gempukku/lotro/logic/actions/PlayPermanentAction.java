@@ -13,9 +13,9 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class PlayPermanentAction extends AbstractCostToEffectAction {
-    private PhysicalCard _permanentPlayed;
+    private final PhysicalCard _permanentPlayed;
     private int _twilightModifier;
-    private boolean _ignoreRoamingPenalty;
+    private final boolean _ignoreRoamingPenalty;
 
     private boolean _cardRemoved;
 
@@ -28,8 +28,8 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     private boolean _discountApplied;
 
     private boolean _skipShuffling;
-    private Zone _fromZone;
-    private Zone _toZone;
+    private final Zone _fromZone;
+    private final Zone _toZone;
     private PhysicalCard _playedFromCard;
 
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {

@@ -23,8 +23,8 @@ public class ParametrizedMerchant implements Merchant {
     private final long _decreaseHalfedMs = 90 * DAY;
 
     private MerchantDAO _merchantDao;
-    private Map<String, SetDefinition> _rarity;
-    private LotroCardBlueprintLibrary _library;
+    private final Map<String, SetDefinition> _rarity;
+    private final LotroCardBlueprintLibrary _library;
 
     public ParametrizedMerchant(LotroCardBlueprintLibrary library, CardSets cardSets) {
         _library = library;

@@ -4,8 +4,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class AddBurdenResult extends EffectResult {
-    private String _performingPlayer;
-    private PhysicalCard _source;
+    private final String _performingPlayer;
+    private final PhysicalCard _source;
 
     public AddBurdenResult(String performingPlayer, PhysicalCard source) {
         super(EffectResult.Type.ADD_BURDEN);

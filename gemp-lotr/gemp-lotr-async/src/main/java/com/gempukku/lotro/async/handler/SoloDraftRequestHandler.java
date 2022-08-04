@@ -28,10 +28,10 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class SoloDraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private CollectionsManager _collectionsManager;
-    private SoloDraftDefinitions _soloDraftDefinitions;
-    private CardSets _cardSets;
-    private LeagueService _leagueService;
+    private final CollectionsManager _collectionsManager;
+    private final SoloDraftDefinitions _soloDraftDefinitions;
+    private final CardSets _cardSets;
+    private final LeagueService _leagueService;
 
     public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -43,9 +43,9 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
+        if (uri.startsWith("/") && request.method() == HttpMethod.POST) {
             makePick(request, uri.substring(1), responseWriter);
-        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
             getAvailablePicks(request, uri.substring(1), responseWriter);
         } else {
             throw new HttpProcessingException(404);
@@ -53,7 +53,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
     }
 
     private void getAvailablePicks(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         League league = findLeagueByType(leagueType);
@@ -157,14 +157,14 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
             throw new HttpProcessingException(400);
 
         CardCollection selectedCards = soloDraft.getCardsForChoiceId(selectedChoiceId, playerSeed, stage);
-        Map<String, Object> extraInformationChanges = new HashMap<String, Object>();
+        Map<String, Object> extraInformationChanges = new HashMap<>();
         boolean hasNextStage = soloDraft.hasNextStage(playerSeed, stage);
         extraInformationChanges.put("stage", stage + 1);
         if (!hasNextStage)
             extraInformationChanges.put("finished", true);
 
         if (draftPoolList != null) {
-            List<String> draftPoolListUpdate = new ArrayList<String>();
+            List<String> draftPoolListUpdate = new ArrayList<>();
             for (CardCollection.Item item : draftPool.getAll()) {
                 String blueprint = item.getBlueprintId();
                 for (int i = 0; i < draftPool.getItemCount(blueprint); i++)

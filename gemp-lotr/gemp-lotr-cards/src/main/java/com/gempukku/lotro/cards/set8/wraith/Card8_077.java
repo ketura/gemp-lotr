@@ -39,7 +39,7 @@ public class Card8_077 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             if (PlayConditions.canSelfDiscard(self, game)
                     && PlayConditions.canPlayFromDiscard(playerId, game, Culture.WRAITH, CardType.MINION)) {
                 final ActivateCardAction action = new ActivateCardAction(self);

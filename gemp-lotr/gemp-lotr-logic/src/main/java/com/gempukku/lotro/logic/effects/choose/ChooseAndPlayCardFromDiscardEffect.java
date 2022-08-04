@@ -19,9 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChooseAndPlayCardFromDiscardEffect implements Effect {
-    private String _playerId;
-    private Filter _filter;
-    private int _twilightModifier;
+    private final String _playerId;
+    private final Filter _filter;
+    private final int _twilightModifier;
     private CostToEffectAction _playCardAction;
 
     public ChooseAndPlayCardFromDiscardEffect(String playerId, LotroGame game, Filterable... filter) {
@@ -61,7 +61,7 @@ public class ChooseAndPlayCardFromDiscardEffect implements Effect {
         Collection<PhysicalCard> discard = getPlayableInDiscard(game);
         if (discard.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(discard), 1, 1) {
+                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<>(discard), 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

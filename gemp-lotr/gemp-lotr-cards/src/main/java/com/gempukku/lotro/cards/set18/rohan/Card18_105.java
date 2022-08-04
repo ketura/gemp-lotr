@@ -29,7 +29,7 @@ public class Card18_105 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new ResistanceModifier(self, self, new SpotCondition(Filters.gandalf), 2));
         modifiers.add(

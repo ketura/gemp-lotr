@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DbTransferDAO implements TransferDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbTransferDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -92,7 +92,7 @@ public class DbTransferDAO implements TransferDAO {
     public synchronized Map<String, ? extends CardCollection> consumeUndeliveredPackages(String player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-                Map<String, DefaultCardCollection> result = new HashMap<String, DefaultCardCollection>();
+                Map<String, DefaultCardCollection> result = new HashMap<>();
 
                 String sql = "select name, currency, collection from transfer where player=? and notify=1";
 

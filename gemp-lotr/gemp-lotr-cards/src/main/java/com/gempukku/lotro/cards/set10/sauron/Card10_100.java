@@ -41,7 +41,7 @@ public class Card10_100 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, CardType.MINION));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, CardType.CONDITION) {
                     @Override

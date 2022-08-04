@@ -44,7 +44,7 @@ public class Card13_033 extends AbstractCompanion {
         if (TriggerConditions.moves(game, effectResult)
                 && game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()) == self) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new AddBurdenEffect(self.getOwner(), self, 3));
             if (PlayConditions.canSpot(game, 2, Filters.not(self), CardType.COMPANION))

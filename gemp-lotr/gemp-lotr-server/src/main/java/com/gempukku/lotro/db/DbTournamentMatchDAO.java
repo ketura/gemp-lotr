@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DbTournamentMatchDAO implements TournamentMatchDAO {
-    private DbAccess _dbAccess;
+    private final DbAccess _dbAccess;
 
     public DbTournamentMatchDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -60,7 +60,7 @@ public class DbTournamentMatchDAO implements TournamentMatchDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select player_one, player_two, winner, round from tournament_match where tournament_id=? and player_two <> 'bye'")) {
                     statement.setString(1, tournamentId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        List<TournamentMatch> result = new ArrayList<TournamentMatch>();
+                        List<TournamentMatch> result = new ArrayList<>();
                         while (rs.next()) {
                             String playerOne = rs.getString(1);
                             String playerTwo = rs.getString(2);
@@ -90,7 +90,7 @@ public class DbTournamentMatchDAO implements TournamentMatchDAO {
                 try (PreparedStatement statement = connection.prepareStatement("select player_one from tournament_match where tournament_id=? and player_two = 'bye'")) {
                     statement.setString(1, tournamentId);
                     try (ResultSet rs = statement.executeQuery()) {
-                        Map<String, Integer> result = new HashMap<String, Integer>();
+                        Map<String, Integer> result = new HashMap<>();
                         while (rs.next()) {
                             String player = rs.getString(1);
                             Integer count = result.get(player);

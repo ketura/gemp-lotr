@@ -17,7 +17,7 @@ import java.util.Map;
 import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 
 public class ReplayRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private GameRecorder _gameRecorder;
+    private final GameRecorder _gameRecorder;
 
     public ReplayRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -27,7 +27,7 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
+        if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
             String replayId = uri.substring(1);
 
             if (!replayId.contains("$"))
@@ -42,20 +42,18 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
             final InputStream recordedGame = _gameRecorder.getRecordedGame(split[0], split[1]);
-            if (recordedGame == null)
-                throw new HttpProcessingException(404);
-            try {
+            try (recordedGame) {
+                if (recordedGame == null)
+                    throw new HttpProcessingException(404);
                 byte[] bytes = new byte[1024];
                 int count;
                 while ((count = recordedGame.read(bytes)) != -1)
                     baos.write(bytes, 0, count);
             } catch (IOException exp) {
                 throw new HttpProcessingException(404);
-            } finally {
-                recordedGame.close();
             }
 
-            Map<AsciiString, String> headers = new HashMap<AsciiString, String>();
+            Map<AsciiString, String> headers = new HashMap<>();
             headers.put(CONTENT_TYPE, "application/html; charset=UTF-8");
 
             responseWriter.writeByteResponse(baos.toByteArray(), headers);

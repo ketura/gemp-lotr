@@ -44,7 +44,7 @@ public class Card8_035 extends AbstractPermanent {
                 PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN)
                         || PlayConditions.canSpot(game, 3, Keyword.KNIGHT))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Culture.GONDOR, Race.MAN) {
                         @Override

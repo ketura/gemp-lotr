@@ -33,7 +33,7 @@ public class Card7_053 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
+        List<Effect> possibleCosts = new LinkedList<>();
         possibleCosts.add(
                 new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gollum) {
                     @Override

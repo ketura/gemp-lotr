@@ -11,11 +11,11 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 
 public class ToilDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
-    private CostToEffectAction _action;
-    private PhysicalCard _payingFor;
-    private String _ownerId;
-    private Culture _culture;
-    private int _toilCount;
+    private final CostToEffectAction _action;
+    private final PhysicalCard _payingFor;
+    private final String _ownerId;
+    private final Culture _culture;
+    private final int _toilCount;
     private int _minimalDiscount;
 
     private int _exertedCount;

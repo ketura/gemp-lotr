@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class AddBurdenExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int count;
+    private final int count;
 
     public AddBurdenExtraPlayCostModifier(PhysicalCard source, int count, Condition condition, Filterable ...affects) {
         super(source, "Add "+count+" burden(s) to play", Filters.and(affects), condition);

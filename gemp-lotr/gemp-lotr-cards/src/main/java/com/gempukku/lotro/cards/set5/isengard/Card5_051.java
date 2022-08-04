@@ -51,7 +51,7 @@ public class Card5_051 extends AbstractMinion {
                         new ChooseActiveCardEffect(self, playerId, "Choose companion", Filters.unboundCompanion) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                Set<PhysicalCard> cardsToReturn = new HashSet<PhysicalCard>();
+                                Set<PhysicalCard> cardsToReturn = new HashSet<>();
 
                                 action.insertEffect(
                                         new ReturnCardsToHandEffect(self, Filters.or(Filters.sameCard(card), Filters.attachedTo(Filters.sameCard(card)))));
@@ -63,8 +63,8 @@ public class Card5_051 extends AbstractMinion {
         return null;
     }
 
-    private class CountCulturesVisitor extends CompletePhysicalCardVisitor {
-        private Set<Culture> _cultures = new HashSet<Culture>();
+    private static class CountCulturesVisitor extends CompletePhysicalCardVisitor {
+        private final Set<Culture> _cultures = new HashSet<>();
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {

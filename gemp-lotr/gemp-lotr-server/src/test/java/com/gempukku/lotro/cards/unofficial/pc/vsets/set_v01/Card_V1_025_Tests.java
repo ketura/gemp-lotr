@@ -20,37 +20,36 @@ public class Card_V1_025_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("flock", "151_25");
-					put("flock2", "151_25");
-					put("flock3", "151_25");
-					put("flock4", "151_25");
+                new HashMap<>() {{
+                    put("flock", "151_25");
+                    put("flock2", "151_25");
+                    put("flock3", "151_25");
+                    put("flock4", "151_25");
 
-					put("weather1", "1_134");
-					put("weather2", "1_134");
-					put("weather3", "1_134");
+                    put("weather1", "1_134");
+                    put("weather2", "1_134");
+                    put("weather3", "1_134");
 
-					put("saruman", "3_69");
+                    put("saruman", "3_69");
 
-					put("aragorn", "1_89");
-					put("arwen", "1_30");
-					put("gimli", "1_12");
-					put("gandalf", "1_364");
+                    put("aragorn", "1_89");
+                    put("arwen", "1_30");
+                    put("gimli", "1_12");
+                    put("gandalf", "1_364");
 
-					//Since we will go multiple rounds and need to manipulate the draw deck,
-					// these are here to ensure reconciliation doesn't screw us over.
-					put("filler1", "1_12");
-					put("filler2", "1_12");
-					put("filler3", "1_12");
-					put("filler4", "1_12");
-					put("filler5", "1_12");
-					put("filler6", "1_12");
-					put("filler7", "1_12");
-					put("filler8", "1_12");
-					put("filler9", "1_12");
+                    //Since we will go multiple rounds and need to manipulate the draw deck,
+                    // these are here to ensure reconciliation doesn't screw us over.
+                    put("filler1", "1_12");
+                    put("filler2", "1_12");
+                    put("filler3", "1_12");
+                    put("filler4", "1_12");
+                    put("filler5", "1_12");
+                    put("filler6", "1_12");
+                    put("filler7", "1_12");
+                    put("filler8", "1_12");
+                    put("filler9", "1_12");
 
-				}},
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

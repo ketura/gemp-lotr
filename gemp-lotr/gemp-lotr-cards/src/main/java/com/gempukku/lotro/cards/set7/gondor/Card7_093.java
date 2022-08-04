@@ -47,7 +47,7 @@ public class Card7_093 extends AbstractAttachableFPPossession {
                 if (PlayConditions.canDiscardFromPlay(self, game, Culture.GONDOR, Keyword.FORTIFICATION)
                         || PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
                     ActivateCardAction action = new ActivateCardAction(self);
-                    List<Effect> possibleCosts = new LinkedList<Effect>();
+                    List<Effect> possibleCosts = new LinkedList<>();
                     possibleCosts.add(
                             new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.GONDOR, Keyword.FORTIFICATION) {
                                 @Override

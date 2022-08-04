@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class StatModifiersRule {
-    private ModifiersLogic modifiersLogic;
+    private final ModifiersLogic modifiersLogic;
 
     public StatModifiersRule(ModifiersLogic modifiersLogic) {
         this.modifiersLogic = modifiersLogic;

@@ -5,9 +5,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import java.util.*;
 
 public abstract class CardsSelectionDecision extends AbstractAwaitingDecision {
-    private List<? extends PhysicalCard> _physicalCards;
-    private int _minimum;
-    private int _maximum;
+    private final List<? extends PhysicalCard> _physicalCards;
+    private final int _minimum;
+    private final int _maximum;
 
     public CardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCard) {
         this(id, text, physicalCard, 0, physicalCard.size());
@@ -41,7 +41,7 @@ public abstract class CardsSelectionDecision extends AbstractAwaitingDecision {
         if (cardIds.length < _minimum || cardIds.length > _maximum)
             throw new DecisionResultInvalidException();
 
-        Set<PhysicalCard> result = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> result = new HashSet<>();
         try {
             for (String cardId : cardIds) {
                 PhysicalCard card = getSelectedCardById(Integer.parseInt(cardId));

@@ -42,7 +42,7 @@ public class Card17_028 extends AbstractCompanion {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.ringBearer, Filters.inSkirmish)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new AddBurdenEffect(self.getOwner(), self, 2));
             possibleEffects.add(

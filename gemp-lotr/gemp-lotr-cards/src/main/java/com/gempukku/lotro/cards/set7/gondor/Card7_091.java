@@ -50,7 +50,7 @@ public class Card7_091 extends AbstractCompanion {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
 
             if (PlayConditions.canSelfExert(self, game)) {
                 ActivateCardAction action = new ActivateCardAction(self);

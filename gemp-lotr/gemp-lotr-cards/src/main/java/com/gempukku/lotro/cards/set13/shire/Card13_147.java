@@ -48,7 +48,7 @@ public class Card13_147 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveTokenEffect(self, self, Token.SHIRE));
             possibleCosts.add(

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 public class AdminService {
     public static final int DAY_IN_MILIS = 1000 * 60 * 60 * 24;
-    private PlayerDAO _playerDAO;
-    private LoggedUserHolder _loggedUserHolder;
-    private IpBanDAO _ipBanDAO;
+    private final PlayerDAO _playerDAO;
+    private final LoggedUserHolder _loggedUserHolder;
+    private final IpBanDAO _ipBanDAO;
 
     public AdminService(PlayerDAO playerDAO, IpBanDAO ipBanDAO, LoggedUserHolder loggedUserHolder) {
         _playerDAO = playerDAO;

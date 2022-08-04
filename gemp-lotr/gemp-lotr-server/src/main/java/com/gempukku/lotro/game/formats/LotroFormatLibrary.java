@@ -7,12 +7,11 @@ import com.alibaba.fastjson.JSON;
 import org.sql2o.tools.IOUtils;
 
 import java.io.InputStreamReader;
-import java.text.Normalizer;
 import java.util.*;
 
 public class LotroFormatLibrary {
-    private Map<String, LotroFormat> _allFormats = new HashMap<String, LotroFormat>();
-    private Map<String, LotroFormat> _hallFormats = new LinkedHashMap<String, LotroFormat>();
+    private final Map<String, LotroFormat> _allFormats = new HashMap<>();
+    private final Map<String, LotroFormat> _hallFormats = new LinkedHashMap<>();
 
 
     public static class FormatDefinition {
@@ -32,37 +31,36 @@ public class LotroFormatLibrary {
         public int maximumSameName = 4;
         public boolean mulliganRule = true;
         public ArrayList<Integer> set;
-        public ArrayList<String> banned = new ArrayList<String>();
-        public ArrayList<String> restricted = new ArrayList<String>();
-        public ArrayList<String> valid = new ArrayList<String>();
-        public ArrayList<String> limit2 = new ArrayList<String>();
-        public ArrayList<String> limit3 = new ArrayList<String>();
-        public ArrayList<String> restrictedName = new ArrayList<String>();
+        public ArrayList<String> banned = new ArrayList<>();
+        public ArrayList<String> restricted = new ArrayList<>();
+        public ArrayList<String> valid = new ArrayList<>();
+        public ArrayList<String> limit2 = new ArrayList<>();
+        public ArrayList<String> limit3 = new ArrayList<>();
+        public ArrayList<String> restrictedName = new ArrayList<>();
         public Map<String, String> errata = new HashMap<>();
         public boolean hall = true;
 
         public FormatDefinition() {
             set = new ArrayList<>();
-            banned = new ArrayList<String>();
-            restricted = new ArrayList<String>();
-            valid = new ArrayList<String>();
-            limit2 = new ArrayList<String>();
-            limit3 = new ArrayList<String>();
-            restrictedName = new ArrayList<String>();
+            banned = new ArrayList<>();
+            restricted = new ArrayList<>();
+            valid = new ArrayList<>();
+            limit2 = new ArrayList<>();
+            limit3 = new ArrayList<>();
+            restrictedName = new ArrayList<>();
             errata = new HashMap<>();
         }
     }
 
     public LotroFormatLibrary(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary bpLibrary) {
         try {
-            final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrFormats.json"), "UTF-8");
-            try {
+            try (InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrFormats.json"), "UTF-8")) {
                 String json = IOUtils.toString(reader);
 
                 FormatDefinition[] formatDefs = JSON.parseObject(json, FormatDefinition[].class);
 
-                for(FormatDefinition def : formatDefs) {
-                    if(def == null)
+                for (FormatDefinition def : formatDefs) {
+                    if (def == null)
                         continue;
 
                     DefaultLotroFormat format = new DefaultLotroFormat(adventureLibrary, bpLibrary, def);
@@ -73,8 +71,6 @@ public class LotroFormatLibrary {
                     }
                 }
 
-            } finally {
-                reader.close();
             }
         } catch (Exception exp) {
             throw new RuntimeException("Problem loading LotR formats", exp);
@@ -90,9 +86,8 @@ public class LotroFormatLibrary {
     }
 
     public LotroFormat getFormatByName(String formatName) {
-        return _allFormats.entrySet().stream()
-                .filter(x -> x.getValue().getName().equals(formatName))
-                .map(Map.Entry::getValue)
+        return _allFormats.values().stream()
+                .filter(lotroFormat -> lotroFormat.getName().equals(formatName))
                 .findFirst()
                 .get();
     }

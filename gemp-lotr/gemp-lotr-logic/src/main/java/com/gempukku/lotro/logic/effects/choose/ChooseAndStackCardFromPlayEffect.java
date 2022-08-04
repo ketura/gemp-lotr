@@ -11,10 +11,10 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class ChooseAndStackCardFromPlayEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private Filterable _stackOnFilter;
-    private Filterable[] _cardFilter;
+    private final Action _action;
+    private final String _playerId;
+    private final Filterable _stackOnFilter;
+    private final Filterable[] _cardFilter;
 
     public ChooseAndStackCardFromPlayEffect(Action action, String playerId, Filterable stackOn, Filterable... filter) {
         _action = action;

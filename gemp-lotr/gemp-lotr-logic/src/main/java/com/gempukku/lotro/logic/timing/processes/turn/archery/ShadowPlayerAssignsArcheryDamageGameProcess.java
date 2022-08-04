@@ -4,17 +4,15 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess {
-    private String _playerId;
-    private int _woundsToAssign;
-    private GameProcess _followingGameProcess;
+    private final String _playerId;
+    private final int _woundsToAssign;
+    private final GameProcess _followingGameProcess;
 
     public ShadowPlayerAssignsArcheryDamageGameProcess(String playerId, int woundsToAssign, GameProcess followingGameProcess) {
         _playerId = playerId;

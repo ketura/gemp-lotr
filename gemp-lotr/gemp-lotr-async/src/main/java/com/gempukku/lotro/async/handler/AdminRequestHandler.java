@@ -28,6 +28,7 @@ import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -37,17 +38,17 @@ import java.util.Map;
 
 public class AdminRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final LotroCardBlueprintLibrary lotroCardBlueprintLibrary;
-    private SoloDraftDefinitions _soloDraftDefinitions;
-    private LeagueService _leagueService;
-    private TournamentService _tournamentService;
-    private CacheManager _cacheManager;
-    private HallServer _hallServer;
-    private LotroFormatLibrary _formatLibrary;
-    private LeagueDAO _leagueDao;
-    private CollectionsManager _collectionManager;
-    private CardSets _cardSets;
-    private PlayerDAO _playerDAO;
-    private AdminService _adminService;
+    private final SoloDraftDefinitions _soloDraftDefinitions;
+    private final LeagueService _leagueService;
+    private final TournamentService _tournamentService;
+    private final CacheManager _cacheManager;
+    private final HallServer _hallServer;
+    private final LotroFormatLibrary _formatLibrary;
+    private final LeagueDAO _leagueDao;
+    private final CollectionsManager _collectionManager;
+    private final CardSets _cardSets;
+    private final PlayerDAO _playerDAO;
+    private final AdminService _adminService;
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -67,39 +68,39 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("/clearCache") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("/clearCache") && request.method() == HttpMethod.GET) {
             clearCache(request, responseWriter);
-        } else if (uri.equals("/shutdown") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/shutdown") && request.method() == HttpMethod.GET) {
             shutdown(request, responseWriter);
-        } else if (uri.equals("/reloadCards") && request.getMethod() == HttpMethod.GET) {
+        } else if (uri.equals("/reloadCards") && request.method() == HttpMethod.GET) {
             reloadCards(request, responseWriter);
-        } else if (uri.equals("/setMotd") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/setMotd") && request.method() == HttpMethod.POST) {
             setMotd(request, responseWriter);
-        } else if (uri.equals("/previewSealedLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/previewSealedLeague") && request.method() == HttpMethod.POST) {
             previewSealedLeague(request, responseWriter);
-        } else if (uri.equals("/addSealedLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/addSealedLeague") && request.method() == HttpMethod.POST) {
             addSealedLeague(request, responseWriter);
-        } else if (uri.equals("/previewConstructedLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/previewConstructedLeague") && request.method() == HttpMethod.POST) {
             previewConstructedLeague(request, responseWriter);
-        } else if (uri.equals("/addConstructedLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/addConstructedLeague") && request.method() == HttpMethod.POST) {
             addConstructedLeague(request, responseWriter);
-        } else if (uri.equals("/previewSoloDraftLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/previewSoloDraftLeague") && request.method() == HttpMethod.POST) {
             previewSoloDraftLeague(request, responseWriter);
-        } else if (uri.equals("/addSoloDraftLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/addSoloDraftLeague") && request.method() == HttpMethod.POST) {
             addSoloDraftLeague(request, responseWriter);
-        } else if (uri.equals("/addItems") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/addItems") && request.method() == HttpMethod.POST) {
             addItems(request, responseWriter);
-        } else if (uri.equals("/addItemsToCollection") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/addItemsToCollection") && request.method() == HttpMethod.POST) {
             addItemsToCollection(request, responseWriter);
-        } else if (uri.equals("/banUser") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/banUser") && request.method() == HttpMethod.POST) {
             banUser(request, responseWriter);
-        } else if (uri.equals("/banMultiple") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/banMultiple") && request.method() == HttpMethod.POST) {
             banMultiple(request, responseWriter);
-        } else if (uri.equals("/banUserTemp") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/banUserTemp") && request.method() == HttpMethod.POST) {
             banUserTemp(request, responseWriter);
-        } else if (uri.equals("/unBanUser") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/unBanUser") && request.method() == HttpMethod.POST) {
             unBanUser(request, responseWriter);
-        } else if (uri.equals("/findMultipleAccounts") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/findMultipleAccounts") && request.method() == HttpMethod.POST) {
             findMultipleAccounts(request, responseWriter);
         } else {
             throw new HttpProcessingException(404);
@@ -248,7 +249,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
     }
 
-    private void addItems(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
+    private void addItems(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, IOException {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
@@ -274,7 +275,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     private List<String> getItems(String values) {
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String pack : values.split("\n")) {
             String blueprint = pack.trim();
             if (blueprint.length() > 0)
@@ -284,7 +285,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     private Collection<CardCollection.Item> getProductItems(String values) {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         for (String item : values.split("\n")) {
             item = item.trim();
             if (item.length() > 0) {
@@ -415,10 +416,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         String code = String.valueOf(System.currentTimeMillis());
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(format+","+start+","+serieDuration+","+maxMatches+","+code+","+name);
-
-        String parameters = sb.toString();
+        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
         LeagueData leagueData = new SoloDraftLeagueData(_cardSets, _soloDraftDefinitions, parameters);
         List<LeagueSerieData> series = leagueData.getSeries();
         int leagueStart = series.get(0).getStart();
@@ -448,10 +446,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         String code = String.valueOf(System.currentTimeMillis());
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(format+","+start+","+serieDuration+","+maxMatches+","+code+","+name);
-
-        String parameters = sb.toString();
+        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
         LeagueData leagueData = new SoloDraftLeagueData(_cardSets, _soloDraftDefinitions, parameters);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -575,7 +570,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
     }
 
-    private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
+    private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, IOException {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
@@ -593,8 +588,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private void shutdown(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
         validateAdmin(request);
 
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
-        boolean shutdown = Boolean.valueOf(getQueryParameterSafely(queryDecoder, "shutdown"));
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
+        boolean shutdown = Boolean.parseBoolean(getQueryParameterSafely(queryDecoder, "shutdown"));
 
         _hallServer.setShutdown(shutdown);
 

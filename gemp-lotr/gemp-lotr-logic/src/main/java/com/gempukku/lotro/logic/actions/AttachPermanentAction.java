@@ -12,11 +12,11 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.Collections;
 
 public class AttachPermanentAction extends AbstractCostToEffectAction {
-    private PhysicalCard _cardToAttach;
+    private final PhysicalCard _cardToAttach;
 
     private boolean _cardRemoved;
 
-    private ChooseActiveCardEffect _chooseTargetEffect;
+    private final ChooseActiveCardEffect _chooseTargetEffect;
     private boolean _targetChosen;
 
     private Effect _playCardEffect;
@@ -30,7 +30,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     private boolean _discountApplied;
 
     private int _twilightModifier;
-    private Zone _playedFrom;
+    private final Zone _playedFrom;
     private PhysicalCard _target;
 
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final int twilightModifier) {

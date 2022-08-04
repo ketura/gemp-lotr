@@ -53,7 +53,7 @@ return Collections.singletonList(new CantBeAssignedToSkirmishModifier(self, Filt
                 && PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN)) {
             final PreventableCardEffect woundEffect = (PreventableCardEffect) effect;
             Collection<PhysicalCard> woundedCharacters = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game, Culture.ROHAN, Race.MAN);
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             for (PhysicalCard woundedCharacter : woundedCharacters) {
                 if (PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN, Filters.not(woundedCharacter))) {
                     ActivateCardAction action = new ActivateCardAction(self);

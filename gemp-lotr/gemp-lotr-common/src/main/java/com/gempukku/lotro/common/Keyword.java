@@ -35,10 +35,10 @@ public enum Keyword implements Filterable {
     //PC Keywords
     CONCEALED("Concealed", true), EXPOSED("Exposed", true);
 
-    private String _humanReadable;
-    private boolean _infoDisplayable;
-    private boolean _multiples;
-    private boolean _terrain;
+    private final String _humanReadable;
+    private final boolean _infoDisplayable;
+    private final boolean _multiples;
+    private final boolean _terrain;
 
     private Keyword(String humanReadable) {
         this(humanReadable, false);

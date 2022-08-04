@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 
 public class CancelActivatedEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private ActivateCardResult _effect;
+    private final PhysicalCard _source;
+    private final ActivateCardResult _effect;
 
     public CancelActivatedEffect(PhysicalCard source, ActivateCardResult effect) {
         _source = source;

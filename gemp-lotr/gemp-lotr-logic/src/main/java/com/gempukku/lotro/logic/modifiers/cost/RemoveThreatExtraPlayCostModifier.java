@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class RemoveThreatExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int count;
+    private final int count;
 
     public RemoveThreatExtraPlayCostModifier(PhysicalCard source, int count, Condition condition, Filterable ...affects) {
         super(source, "Remove "+count+" threat(s) to play", Filters.and(affects), condition);

@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GameHistoryService {
-    private GameHistoryDAO _gameHistoryDAO;
-    private Map<String, Integer> _playerGameCount = new ConcurrentHashMap<String, Integer>();
+    private final GameHistoryDAO _gameHistoryDAO;
+    private final Map<String, Integer> _playerGameCount = new ConcurrentHashMap<>();
 
     public GameHistoryService(GameHistoryDAO gameHistoryDAO) {
         _gameHistoryDAO = gameHistoryDAO;

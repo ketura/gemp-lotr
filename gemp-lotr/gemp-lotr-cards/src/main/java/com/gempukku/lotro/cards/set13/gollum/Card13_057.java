@@ -52,10 +52,10 @@ public class Card13_057 extends AbstractEvent {
         return action;
     }
 
-    private class RepeatEffect extends UnrespondableEffect {
-        private CostToEffectAction _action;
-        private String _playerId;
-        private PhysicalCard _self;
+    private static class RepeatEffect extends UnrespondableEffect {
+        private final CostToEffectAction _action;
+        private final String _playerId;
+        private final PhysicalCard _self;
 
         private RepeatEffect(CostToEffectAction action, String playerId, PhysicalCard self) {
             _action = action;

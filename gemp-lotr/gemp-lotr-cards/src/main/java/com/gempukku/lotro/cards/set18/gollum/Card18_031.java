@@ -37,7 +37,7 @@ public class Card18_031 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseAndPlayCardFromHandEffect(playerId, game, -1, CardType.MINION, Filters.not(Keyword.ROAMING)) {
                     @Override

@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class PlayAdventureShadowActionsGameProcess implements GameProcess {
-    private ShadowAI _shadowAI;
-    private GameProcess _followingGameProcess;
+    private final ShadowAI _shadowAI;
+    private final GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 

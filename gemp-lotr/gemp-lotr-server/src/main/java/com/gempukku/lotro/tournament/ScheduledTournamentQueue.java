@@ -8,14 +8,14 @@ import java.util.Date;
 
 public class ScheduledTournamentQueue extends AbstractTournamentQueue implements TournamentQueue {
     private static final long _signupTimeBeforeStart = 1000 * 60 * 60; // 60 minutes before start
-    private long _startTime;
-    private int _minimumPlayers;
-    private String _startCondition;
-    private TournamentService _tournamentService;
-    private String _tournamentName;
-    private CollectionType _collectionType;
-    private Tournament.Stage _stage;
-    private String _scheduledTournamentId;
+    private final long _startTime;
+    private final int _minimumPlayers;
+    private final String _startCondition;
+    private final TournamentService _tournamentService;
+    private final String _tournamentName;
+    private final CollectionType _collectionType;
+    private final Tournament.Stage _stage;
+    private final String _scheduledTournamentId;
 
     public ScheduledTournamentQueue(String scheduledTournamentId, int cost, boolean requiresDeck, TournamentService tournamentService, long startTime,
                                     String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage,

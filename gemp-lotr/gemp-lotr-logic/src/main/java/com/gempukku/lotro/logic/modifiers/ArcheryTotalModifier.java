@@ -7,8 +7,8 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class ArcheryTotalModifier extends AbstractModifier {
-    private Side _side;
-    private Evaluator _evaluator;
+    private final Side _side;
+    private final Evaluator _evaluator;
 
     public ArcheryTotalModifier(PhysicalCard source, Side side, int modifier) {
         this(source, side, null, modifier);

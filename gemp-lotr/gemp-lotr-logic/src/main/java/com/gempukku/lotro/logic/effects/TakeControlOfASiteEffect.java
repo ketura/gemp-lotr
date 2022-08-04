@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.TakeControlOfSiteResult;
 
 public class TakeControlOfASiteEffect extends AbstractEffect implements Preventable {
-    private PhysicalCard _source;
-    private String _playerId;
+    private final PhysicalCard _source;
+    private final String _playerId;
 
     private boolean _prevented;
 

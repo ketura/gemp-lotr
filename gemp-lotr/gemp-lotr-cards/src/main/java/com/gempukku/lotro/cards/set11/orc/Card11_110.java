@@ -46,7 +46,7 @@ public class Card11_110 extends AbstractEvent {
                 new RevealHandEffect(self, playerId, fpPlayer) {
                     @Override
                     protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                        List<Effect> possibleEffects = new LinkedList<Effect>();
+                        List<Effect> possibleEffects = new LinkedList<>();
                         possibleEffects.add(
                                 new ChooseAndDiscardCardsFromHandEffect(action, fpPlayer, false, 1, Side.FREE_PEOPLE, CardType.EVENT) {
                                     @Override

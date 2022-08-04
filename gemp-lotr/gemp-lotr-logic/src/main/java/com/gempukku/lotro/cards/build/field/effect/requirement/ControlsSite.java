@@ -17,9 +17,7 @@ public class ControlsSite implements RequirementProducer {
         final String player = FieldUtils.getString(object.get("player"), "player", "you");
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
-        return (actionContext) -> {
-            return PlayConditions.controlsSite(actionContext.getGame(),
-                    playerSource.getPlayer(actionContext));
-        };
+        return (actionContext) -> PlayConditions.controlsSite(actionContext.getGame(),
+                playerSource.getPlayer(actionContext));
     }
 }

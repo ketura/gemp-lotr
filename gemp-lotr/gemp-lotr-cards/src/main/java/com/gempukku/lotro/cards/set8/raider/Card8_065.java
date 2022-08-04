@@ -34,7 +34,7 @@ public class Card8_065 extends AbstractPermanent {
                 && (PlayConditions.canRemoveThreat(game, self, 1)
                 || PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.RAIDER))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveThreatsEffect(self, 1) {
                         @Override

@@ -37,7 +37,7 @@ public class Card2_088 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Race.ORC));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY) {
                     @Override

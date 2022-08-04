@@ -6,11 +6,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.*;
@@ -37,7 +35,7 @@ public class Card6_055 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
-            final Set<Culture> cultureTokens = new HashSet<Culture>();
+            final Set<Culture> cultureTokens = new HashSet<>();
             for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.hasAnyCultureTokens(1))) {
                 Map<Token, Integer> tokens = game.getGameState().getTokens(physicalCard);
                 for (Map.Entry<Token, Integer> tokenIntegerEntry : tokens.entrySet()) {

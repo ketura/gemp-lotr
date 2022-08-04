@@ -10,8 +10,8 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 
 public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCardEffect {
-    private Token _token;
-    private int _count;
+    private final Token _token;
+    private final int _count;
 
     public ChooseAndRemoveCultureTokensFromCardEffect(PhysicalCard source, String playerId, Token token, int count, Filterable... filters) {
         super(source, playerId, "Choose card to remove tokens from", filters);

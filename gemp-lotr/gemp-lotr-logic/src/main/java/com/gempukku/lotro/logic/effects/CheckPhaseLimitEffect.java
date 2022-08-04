@@ -9,12 +9,12 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class CheckPhaseLimitEffect extends UnrespondableEffect {
-    private Action _action;
-    private PhysicalCard _card;
-    private String _limitPrefix;
-    private int _limit;
-    private Phase _phase;
-    private Effect _limitedEffect;
+    private final Action _action;
+    private final PhysicalCard _card;
+    private final String _limitPrefix;
+    private final int _limit;
+    private final Phase _phase;
+    private final Effect _limitedEffect;
 
     public CheckPhaseLimitEffect(Action action, PhysicalCard card, int limit, Effect limitedEffect) {
         this(action, card, limit, null, limitedEffect);

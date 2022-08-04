@@ -46,7 +46,7 @@ public class Card7_067 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
-        return Arrays.asList(
+        return List.of(
                 new StrengthModifier(self, Filters.gollum, 2));
     }
 

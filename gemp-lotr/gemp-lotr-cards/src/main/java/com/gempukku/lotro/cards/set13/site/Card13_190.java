@@ -50,7 +50,7 @@ public class Card13_190 extends AbstractShadowsSite {
         if (race == null)
             return false;
 
-        Map<Race, Integer> counts = new HashMap<Race, Integer>();
+        Map<Race, Integer> counts = new HashMap<>();
         for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION)) {
             final Race companionRace = companion.getBlueprint().getRace();
             if (companionRace != null) {

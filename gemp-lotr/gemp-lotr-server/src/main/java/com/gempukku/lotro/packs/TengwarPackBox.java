@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TengwarPackBox implements PackBox {
-    private List<CardCollection.Item> _cards = new ArrayList<CardCollection.Item>();
+    private final List<CardCollection.Item> _cards = new ArrayList<>();
 
     public TengwarPackBox(int[] sets, CardSets cardSets) {
         final Map<String,SetDefinition> setDefinitions = cardSets.getSetDefinitions();

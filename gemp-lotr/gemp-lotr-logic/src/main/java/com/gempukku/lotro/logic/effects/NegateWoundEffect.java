@@ -8,8 +8,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class NegateWoundEffect extends UnrespondableEffect {
-    private WoundCharactersEffect _effect;
-    private Filter _filter;
+    private final WoundCharactersEffect _effect;
+    private final Filter _filter;
 
     public NegateWoundEffect(WoundCharactersEffect effect, Filterable... filter) {
         _effect =effect;

@@ -46,7 +46,7 @@ public class Card7_237 extends AbstractEvent {
                     protected void opponentChosen(String opponentId) {
                         int cardCount = game.getGameState().getHand(opponentId).size();
                         for (int i = 0; i < cardCount; i++) {
-                            List<Effect> possibleEffects = new LinkedList<Effect>();
+                            List<Effect> possibleEffects = new LinkedList<>();
                             possibleEffects.add(
                                     new RemoveTwilightEffect(1));
                             possibleEffects.add(

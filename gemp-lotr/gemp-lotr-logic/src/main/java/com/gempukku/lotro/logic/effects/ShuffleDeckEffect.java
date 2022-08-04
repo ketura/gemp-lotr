@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class ShuffleDeckEffect extends UnrespondableEffect {
-    private String _playerId;
+    private final String _playerId;
 
     public ShuffleDeckEffect(String playerId) {
         _playerId = playerId;

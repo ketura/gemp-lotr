@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class StorageBasedMerchantTest {
     private StorageBasedMerchant _merchant;
-    private CardSets _cardSets = new CardSets();
+    private final CardSets _cardSets = new CardSets();
     private static final long DAY = 1000 * 60 * 60 * 24;
     private MockMerchantDAO _merchantDao;
 

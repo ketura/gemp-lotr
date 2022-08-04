@@ -3,8 +3,8 @@ package com.gempukku.lotro.logic;
 import java.util.List;
 
 public class PlayOrder {
-    private List<String> _playOrder;
-    private boolean _looped;
+    private final List<String> _playOrder;
+    private final boolean _looped;
     private String _lastPlayer;
     private int _nextPlayerIndex;
 

@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Set;
 
 public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private int _minimum;
-    private int _maximum;
-    private Filterable _stackedOnFilter;
-    private Filterable _stackedCardFilter;
+    private final Action _action;
+    private final String _playerId;
+    private final int _minimum;
+    private final int _maximum;
+    private final Filterable _stackedOnFilter;
+    private final Filterable _stackedCardFilter;
 
     public ChooseAndDiscardStackedCardsEffect(Action action, String playerId, int minimum, int maximum, Filterable stackedOnFilter, Filterable stackedCardFilter) {
         _action = action;
@@ -51,7 +51,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
 
     @Override
     public void playEffect(final LotroGame game) {
-        List<PhysicalCard> discardableCards = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> discardableCards = new LinkedList<>();
 
         for (PhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOnFilter))
             discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _stackedCardFilter));

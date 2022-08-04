@@ -22,8 +22,8 @@ import java.util.Properties;
 import java.util.Set;
 
 public class ImageGenerator {
-    private Properties properties;
-    private JSONImageRecipe jsonImageRecipe;
+    private final Properties properties;
+    private final JSONImageRecipe jsonImageRecipe;
 
     public ImageGenerator(Properties properties, File recipeFile) {
         this.properties = properties;

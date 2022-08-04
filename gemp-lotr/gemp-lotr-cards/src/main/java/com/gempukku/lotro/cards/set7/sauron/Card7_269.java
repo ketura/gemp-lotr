@@ -31,7 +31,7 @@ public class Card7_269 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new MinionSiteNumberModifier(self, Filters.and(Culture.SAURON, Race.ORC), null, new NegativeEvaluator(new ForEachThreatEvaluator())));
         modifiers.add(

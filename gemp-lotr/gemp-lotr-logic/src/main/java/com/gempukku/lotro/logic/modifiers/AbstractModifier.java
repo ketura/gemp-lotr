@@ -15,11 +15,11 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractModifier implements Modifier {
-    private PhysicalCard _physicalCard;
-    private String _text;
-    private Filter _affectFilter;
-    private Condition _condition;
-    private ModifierEffect _effect;
+    private final PhysicalCard _physicalCard;
+    private final String _text;
+    private final Filter _affectFilter;
+    private final Condition _condition;
+    private final ModifierEffect _effect;
 
     protected AbstractModifier(PhysicalCard source, String text, Filterable affectFilter, ModifierEffect effect) {
         this(source, text, affectFilter, null, effect);

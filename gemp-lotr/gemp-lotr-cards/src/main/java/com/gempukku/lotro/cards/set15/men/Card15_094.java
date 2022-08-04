@@ -54,7 +54,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(self, Fi
                 && (PlayConditions.canRemoveBurdens(game, self, 2)
                 || PlayConditions.canRemoveThreat(game, self, 2))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new RemoveBurdenEffect(playerId, self, 2));
             possibleCosts.add(

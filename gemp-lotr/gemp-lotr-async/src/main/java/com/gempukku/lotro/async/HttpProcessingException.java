@@ -1,7 +1,7 @@
 package com.gempukku.lotro.async;
 
 public class HttpProcessingException extends Exception {
-    private int _status;
+    private final int _status;
 
     public HttpProcessingException(int status) {
         _status = status;

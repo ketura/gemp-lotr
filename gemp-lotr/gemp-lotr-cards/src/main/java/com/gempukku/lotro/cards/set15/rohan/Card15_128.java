@@ -29,7 +29,7 @@ public class Card15_128 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, self, new SpotCondition(2, PossessionClass.MOUNT), 2));
         modifiers.add(

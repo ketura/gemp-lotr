@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import java.util.Collections;
 
 public class PlayEventEffect extends PlayCardEffect {
-    private PhysicalCard _cardPlayed;
-    private PlayEventResult _playEventResult;
+    private final PhysicalCard _cardPlayed;
+    private final PlayEventResult _playEventResult;
 
     public PlayEventEffect(PlayEventAction action, Zone playedFrom, PhysicalCard cardPlayed, boolean requiresRanger, boolean paidToil) {
         super(playedFrom, cardPlayed, (Zone) null, null, paidToil);

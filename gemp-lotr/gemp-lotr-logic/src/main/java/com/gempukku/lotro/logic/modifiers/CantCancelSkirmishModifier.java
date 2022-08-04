@@ -1,8 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 

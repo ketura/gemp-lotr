@@ -1,5 +1,4 @@
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.game.CardNotFoundException;
@@ -16,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class CreateCardStubs {
-    private static String[] _packageNames =
+    private static final String[] _packageNames =
             new String[]{
                     "", ".dwarven", ".dunland", ".elven", ".fallenRealms", ".gandalf", ".gollum", ".gondor", ".isengard", ".men", ".orc",
                     ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site", ".uruk_hai",

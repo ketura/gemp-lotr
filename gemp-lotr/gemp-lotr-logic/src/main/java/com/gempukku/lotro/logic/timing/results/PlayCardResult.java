@@ -5,11 +5,11 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class PlayCardResult extends EffectResult {
-    private Zone _playedFrom;
-    private PhysicalCard _playedCard;
-    private PhysicalCard _attachedTo;
-    private PhysicalCard _attachedOrStackedPlayedFrom;
-    private boolean _paidToil;
+    private final Zone _playedFrom;
+    private final PhysicalCard _playedCard;
+    private final PhysicalCard _attachedTo;
+    private final PhysicalCard _attachedOrStackedPlayedFrom;
+    private final boolean _paidToil;
 
     public PlayCardResult(Zone playedFrom, PhysicalCard playedCard, PhysicalCard attachedTo, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
         super(EffectResult.Type.PLAY);

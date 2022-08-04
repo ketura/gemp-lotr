@@ -39,7 +39,7 @@ public class Card11_068 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 2)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
 
             ActivateCardAction action1 = new ActivateCardAction(self);
             action1.setText("Make lurker strength +1");

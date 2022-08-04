@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 
 public class OptionalTriggerAction extends AbstractCostToEffectAction {
     private PhysicalCard _physicalCard;
-    private PhysicalCard _actionAttachedToCard;
+    private final PhysicalCard _actionAttachedToCard;
 
     private String _message;
 

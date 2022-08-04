@@ -7,11 +7,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RarityPackBox implements PackBox {
-    private SetDefinition _setRarity;
-    private List<String> _possibleRareCards = new ArrayList<String>();
-    private List<String> _possibleFoilRareSlot = new ArrayList<String>();
-    private List<String> _possibleFoilUncommonSlot = new ArrayList<String>();
-    private List<String> _possibleFoilCommonSlot = new ArrayList<String>();
+    private final SetDefinition _setRarity;
+    private final List<String> _possibleRareCards = new ArrayList<>();
+    private final List<String> _possibleFoilRareSlot = new ArrayList<>();
+    private final List<String> _possibleFoilUncommonSlot = new ArrayList<>();
+    private final List<String> _possibleFoilCommonSlot = new ArrayList<>();
 
     public RarityPackBox(SetDefinition setDefinition) {
         _setRarity = setDefinition;
@@ -33,7 +33,7 @@ public class RarityPackBox implements PackBox {
 
     @Override
     public List<CardCollection.Item> openPack() {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         boolean hasFoil = (ThreadLocalRandom.current().nextInt(6) == 0);
         if (hasFoil) {
             int foilRarity = ThreadLocalRandom.current().nextInt(11);
@@ -68,7 +68,7 @@ public class RarityPackBox implements PackBox {
     }
 
     private Set<Integer> getRandomIndices(int count, int elementCount) {
-        Set<Integer> addedIndices = new HashSet<Integer>();
+        Set<Integer> addedIndices = new HashSet<>();
         for (int i = 0; i < count; i++) {
             int index;
             do {

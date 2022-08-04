@@ -12,14 +12,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DefaultActionContext implements ActionContext {
-    private Multimap<String, PhysicalCard> cardMemory = HashMultimap.create();
-    private Map<String, String> valueMemory = new HashMap<>();
+    private final Multimap<String, PhysicalCard> cardMemory = HashMultimap.create();
+    private final Map<String, String> valueMemory = new HashMap<>();
 
-    private String performingPlayer;
-    private LotroGame game;
-    private PhysicalCard source;
-    private EffectResult effectResult;
-    private Effect effect;
+    private final String performingPlayer;
+    private final LotroGame game;
+    private final PhysicalCard source;
+    private final EffectResult effectResult;
+    private final Effect effect;
 
     public DefaultActionContext(String performingPlayer, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
         this.performingPlayer = performingPlayer;

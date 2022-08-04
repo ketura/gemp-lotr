@@ -14,8 +14,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class StackCardFromPlayEffect extends AbstractEffect {
-    private PhysicalCard _card;
-    private PhysicalCard _stackOn;
+    private final PhysicalCard _card;
+    private final PhysicalCard _stackOn;
 
     public StackCardFromPlayEffect(PhysicalCard card, PhysicalCard stackOn) {
         _card = card;
@@ -42,12 +42,12 @@ public class StackCardFromPlayEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
 
-            Set<PhysicalCard> discardedFromPlayCards = new HashSet<PhysicalCard>();
-            Set<PhysicalCard> toMoveToDiscardCards = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> discardedFromPlayCards = new HashSet<>();
+            Set<PhysicalCard> toMoveToDiscardCards = new HashSet<>();
 
             DiscardUtils.cardsToChangeZones(game, Collections.singleton(_card), discardedFromPlayCards, toMoveToDiscardCards);
 
-            Set<PhysicalCard> removeFromPlay = new HashSet<PhysicalCard>(toMoveToDiscardCards);
+            Set<PhysicalCard> removeFromPlay = new HashSet<>(toMoveToDiscardCards);
             removeFromPlay.add(_card);
 
             gameState.removeCardsFromZone(_card.getOwner(), removeFromPlay);

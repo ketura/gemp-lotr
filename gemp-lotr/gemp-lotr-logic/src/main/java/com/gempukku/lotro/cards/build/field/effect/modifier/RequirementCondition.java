@@ -6,8 +6,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class RequirementCondition implements Condition {
-    private Requirement[] requirements;
-    private ActionContext actionContext;
+    private final Requirement[] requirements;
+    private final ActionContext actionContext;
 
     public RequirementCondition(Requirement[] requirements, ActionContext actionContext) {
         this.requirements = requirements;

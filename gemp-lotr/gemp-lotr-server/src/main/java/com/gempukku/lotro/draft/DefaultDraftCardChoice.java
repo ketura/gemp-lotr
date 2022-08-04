@@ -3,8 +3,8 @@ package com.gempukku.lotro.draft;
 import com.gempukku.lotro.game.CardCollection;
 
 public class DefaultDraftCardChoice implements DraftCardChoice {
-    private CardCollection _cardCollection;
-    private long _pickEnd;
+    private final CardCollection _cardCollection;
+    private final long _pickEnd;
 
     public DefaultDraftCardChoice(CardCollection cardCollection, long pickEnd) {
         _cardCollection = cardCollection;

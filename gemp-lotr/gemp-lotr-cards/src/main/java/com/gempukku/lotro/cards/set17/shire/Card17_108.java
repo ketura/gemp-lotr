@@ -37,7 +37,7 @@ public class Card17_108 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canDiscardFromPlay(self, game, Keyword.PIPEWEED)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             ActivateCardAction action1 = new ActivateCardAction(self);
             action1.setText("Remove a threat");
             action1.appendCost(

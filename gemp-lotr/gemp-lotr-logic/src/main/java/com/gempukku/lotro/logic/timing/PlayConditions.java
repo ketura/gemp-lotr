@@ -285,7 +285,7 @@ public class PlayConditions {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return game.getModifiersQuerying().getVitality(game, physicalCard) >= times
-                                && game.getModifiersQuerying().canTakeWounds(game, (source != null) ? Collections.singleton(source) : Collections.<PhysicalCard>emptySet(), physicalCard, times);
+                                && game.getModifiersQuerying().canTakeWounds(game, (source != null) ? Collections.singleton(source) : Collections.emptySet(), physicalCard, times);
                     }
                 }) >= count;
     }

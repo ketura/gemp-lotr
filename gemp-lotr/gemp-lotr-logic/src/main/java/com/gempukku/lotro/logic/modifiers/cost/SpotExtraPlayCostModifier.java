@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 public class SpotExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
-    private int count;
-    private Filterable[] spotFilter;
+    private final int count;
+    private final Filterable[] spotFilter;
 
     public SpotExtraPlayCostModifier(PhysicalCard source, Filterable affects, Condition condition, Filterable ...spotFilter) {
         this(source, affects, condition, 1, spotFilter);

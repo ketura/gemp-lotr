@@ -42,7 +42,7 @@ public class Card4_064 extends AbstractAttachableFPPossession {
                 || game.getGameState().getHand(playerId).size() >= 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
 
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()) {
                         @Override

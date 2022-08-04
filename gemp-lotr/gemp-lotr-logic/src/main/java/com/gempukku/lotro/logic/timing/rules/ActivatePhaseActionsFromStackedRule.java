@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActivatePhaseActionsFromStackedRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public ActivatePhaseActionsFromStackedRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class CostAtTest extends AbstractAtTest {
     @Test
     public void playOnCostReduction() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        Map<String, LotroDeck> decks = new HashMap<>();
 
         LotroDeck deck = createSimplestDeck();
         // Frodo, Reluctant Adventurer

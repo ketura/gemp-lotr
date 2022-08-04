@@ -39,7 +39,7 @@ public class Card18_067 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)) {
-            List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+            List<ActivateCardAction> actions = new LinkedList<>();
             if (PlayConditions.canSelfExert(self, game)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Grima to add (2)");

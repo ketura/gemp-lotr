@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class RemoveCardsFromDiscardEffect extends AbstractEffect {
-    private String _playerPerforming;
-    private PhysicalCard _source;
-    private Collection<? extends PhysicalCard> _cardsToRemove;
+    private final String _playerPerforming;
+    private final PhysicalCard _source;
+    private final Collection<? extends PhysicalCard> _cardsToRemove;
 
     public RemoveCardsFromDiscardEffect(String playerPerforming, PhysicalCard source, Collection<? extends PhysicalCard> cardsToRemove) {
         _playerPerforming = playerPerforming;
@@ -43,7 +43,7 @@ public class RemoveCardsFromDiscardEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        Set<PhysicalCard> removedCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> removedCards = new HashSet<>();
         for (PhysicalCard physicalCard : _cardsToRemove)
             if (physicalCard.getZone() == Zone.DISCARD)
                 removedCards.add(physicalCard);

@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 
 public class LocationCondition implements Condition {
-    private Filter _filter;
+    private final Filter _filter;
 
     public LocationCondition(Filterable... filters) {
         _filter = Filters.and(filters);

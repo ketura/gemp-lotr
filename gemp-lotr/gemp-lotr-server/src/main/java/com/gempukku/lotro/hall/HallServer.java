@@ -39,35 +39,35 @@ public class HallServer extends AbstractServer {
     // Repeat tournaments every 2 days
     private static final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
 
-    private ChatServer _chatServer;
-    private LeagueService _leagueService;
-    private TournamentService _tournamentService;
-    private LotroCardBlueprintLibrary _library;
-    private LotroFormatLibrary _formatLibrary;
-    private CollectionsManager _collectionsManager;
-    private LotroServer _lotroServer;
-    private PairingMechanismRegistry _pairingMechanismRegistry;
-    private CardSets _cardSets;
-    private AdminService _adminService;
-    private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
+    private final ChatServer _chatServer;
+    private final LeagueService _leagueService;
+    private final TournamentService _tournamentService;
+    private final LotroCardBlueprintLibrary _library;
+    private final LotroFormatLibrary _formatLibrary;
+    private final CollectionsManager _collectionsManager;
+    private final LotroServer _lotroServer;
+    private final PairingMechanismRegistry _pairingMechanismRegistry;
+    private final CardSets _cardSets;
+    private final AdminService _adminService;
+    private final TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
-    private CollectionType _defaultCollectionType = CollectionType.ALL_CARDS;
-    private CollectionType _tournamentCollectionType = CollectionType.OWNED_TOURNAMENT_CARDS;
+    private final CollectionType _defaultCollectionType = CollectionType.ALL_CARDS;
+    private final CollectionType _tournamentCollectionType = CollectionType.OWNED_TOURNAMENT_CARDS;
 
     private String _motd;
 
     private boolean _shutdown;
 
-    private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
+    private final ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
 
-    private TableHolder tableHolder;
+    private final TableHolder tableHolder;
 
-    private Map<Player, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<Player, HallCommunicationChannel>();
+    private final Map<Player, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<>();
     private int _nextChannelNumber = 0;
 
-    private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
+    private final Map<String, Tournament> _runningTournaments = new LinkedHashMap<>();
 
-    private Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<String, TournamentQueue>();
+    private final Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<>();
     private final ChatRoomMediator _hallChat;
     private final GameResultListener _notifyHallListeners = new NotifyHallListenersGameResultListener();
 
@@ -128,7 +128,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("ignore",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (!from.equals(playerName) && ignoreDAO.addIgnoredUser(from, playerName)) {
@@ -165,7 +165,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("unignore",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (ignoreDAO.removeIgnoredUser(from, playerName)) {
@@ -181,7 +181,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("listIgnores",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(from);
                         _hallChat.sendToUser("System", from, "Your ignores: " + Arrays.toString(ignoredUsers.toArray(new String[0])));
                     }
@@ -189,7 +189,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("incognito",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         _hallChat.setIncognito(from, true);
                         _hallChat.sendToUser("System", from, "You are now incognito (do not appear in user list)");
                     }
@@ -197,7 +197,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("endIncognito",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         _hallChat.setIncognito(from, false);
                         _hallChat.sendToUser("System", from, "You are no longer incognito");
                     }
@@ -205,7 +205,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("help",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         _hallChat.sendToUser("System", from, "List of available commands:");
                         _hallChat.sendToUser("System", from, "/ignore username - Adds user 'username' to list of your ignores");
                         _hallChat.sendToUser("System", from, "/unignore username - Removes user 'username' from list of your ignores");
@@ -223,7 +223,7 @@ public class HallServer extends AbstractServer {
         _hallChat.addChatCommandCallback("nocommand",
                 new ChatCommandCallback() {
                     @Override
-                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                    public void commandReceived(String from, String parameters, boolean admin) {
                         _hallChat.sendToUser("System", from, "\"" + parameters + "\" is not a recognized command.");
                     }
                 });
@@ -390,12 +390,13 @@ public class HallServer extends AbstractServer {
 
     private GameTimer resolveTimer(String timer) {
         if (timer != null) {
-            if (timer.equals("blitz")) {
-                return BLITZ_TIMER;
-            } else if (timer.equals("slow")) {
-                return SLOW_TIMER;
-            } else if (timer.equals("glacial")) {
-                return GLACIAL_TIMER;
+            switch (timer) {
+                case "blitz":
+                    return BLITZ_TIMER;
+                case "slow":
+                    return SLOW_TIMER;
+                case "glacial":
+                    return GLACIAL_TIMER;
             }
         }
         return DEFAULT_TIMER;
@@ -741,7 +742,7 @@ public class HallServer extends AbstractServer {
             tableHolder.removeFinishedGames();
 
             long currentTime = System.currentTimeMillis();
-            Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<Player, HallCommunicationChannel>(_playerChannelCommunication);
+            Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<>(_playerChannelCommunication);
             for (Map.Entry<Player, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
                 if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerInactivityPeriod) {
                     Player player = lastVisitedPlayer.getKey();
@@ -753,7 +754,7 @@ public class HallServer extends AbstractServer {
                 }
             }
 
-            for (Map.Entry<String, TournamentQueue> runningTournamentQueue : new HashMap<String, TournamentQueue>(_tournamentQueues).entrySet()) {
+            for (Map.Entry<String, TournamentQueue> runningTournamentQueue : new HashMap<>(_tournamentQueues).entrySet()) {
                 String tournamentQueueKey = runningTournamentQueue.getKey();
                 TournamentQueue tournamentQueue = runningTournamentQueue.getValue();
                 HallTournamentQueueCallback queueCallback = new HallTournamentQueueCallback();
@@ -764,7 +765,7 @@ public class HallServer extends AbstractServer {
                 }
             }
 
-            for (Map.Entry<String, Tournament> tournamentEntry : new HashMap<String, Tournament>(_runningTournaments).entrySet()) {
+            for (Map.Entry<String, Tournament> tournamentEntry : new HashMap<>(_runningTournaments).entrySet()) {
                 Tournament runningTournament = tournamentEntry.getValue();
                 boolean changed = runningTournament.advanceTournament(new HallTournamentCallback(runningTournament), _collectionsManager);
                 if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED)
@@ -805,8 +806,8 @@ public class HallServer extends AbstractServer {
     }
 
     private class HallTournamentCallback implements TournamentCallback {
-        private Tournament _tournament;
-        private GameSettings tournamentGameSettings;
+        private final Tournament _tournament;
+        private final GameSettings tournamentGameSettings;
 
         private HallTournamentCallback(Tournament tournament) {
             _tournament = tournament;

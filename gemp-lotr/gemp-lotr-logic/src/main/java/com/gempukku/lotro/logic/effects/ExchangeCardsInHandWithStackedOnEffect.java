@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Set;
 
 public class ExchangeCardsInHandWithStackedOnEffect extends AbstractEffect {
-    private String _performingPlayer;
-    private PhysicalCard _source;
-    private String _playerHand;
-    private PhysicalCard _stackedOn;
+    private final String _performingPlayer;
+    private final PhysicalCard _source;
+    private final String _playerHand;
+    private final PhysicalCard _stackedOn;
 
     public ExchangeCardsInHandWithStackedOnEffect(String performingPlayer, PhysicalCard source, String playerHand, PhysicalCard stackedOn) {
         _performingPlayer = performingPlayer;
@@ -31,10 +31,10 @@ public class ExchangeCardsInHandWithStackedOnEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            final List<PhysicalCard> stackedCards = new LinkedList<PhysicalCard>(game.getGameState().getStackedCards(_stackedOn));
-            final List<PhysicalCard> hand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_playerHand));
+            final List<PhysicalCard> stackedCards = new LinkedList<>(game.getGameState().getStackedCards(_stackedOn));
+            final List<PhysicalCard> hand = new LinkedList<>(game.getGameState().getHand(_playerHand));
 
-            Set<PhysicalCard> toRemove = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> toRemove = new HashSet<>();
             toRemove.addAll(stackedCards);
             toRemove.addAll(hand);
 

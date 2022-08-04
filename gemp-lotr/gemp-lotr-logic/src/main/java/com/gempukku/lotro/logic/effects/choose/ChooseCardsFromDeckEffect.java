@@ -14,11 +14,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public abstract class ChooseCardsFromDeckEffect extends AbstractEffect {
-    private String _playerId;
-    private String _deckId;
-    private int _minimum;
-    private int _maximum;
-    private Filter _filter;
+    private final String _playerId;
+    private final String _deckId;
+    private final int _minimum;
+    private final int _maximum;
+    private final Filter _filter;
 
     public ChooseCardsFromDeckEffect(String playerId, int minimum, int maximum, Filterable... filters) {
         _playerId = playerId;
@@ -61,12 +61,12 @@ public abstract class ChooseCardsFromDeckEffect extends AbstractEffect {
         int minimum = Math.min(_minimum, cards.size());
 
         if (_maximum == 0) {
-            cardsSelected(game, Collections.<PhysicalCard>emptySet());
+            cardsSelected(game, Collections.emptySet());
         } else if (cards.size() == minimum) {
             cardsSelected(game, cards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Choose card from deck", new LinkedList<PhysicalCard>(cards), minimum, _maximum) {
+                    new ArbitraryCardsSelectionDecision(1, "Choose card from deck", new LinkedList<>(cards), minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             cardsSelected(game, getSelectedCardsByResponse(result));

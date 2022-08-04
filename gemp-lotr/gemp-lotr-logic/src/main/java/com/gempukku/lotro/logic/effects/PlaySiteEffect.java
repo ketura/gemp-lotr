@@ -24,11 +24,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PlaySiteEffect extends AbstractEffect {
-    private Action _action;
-    private String _playerId;
-    private SitesBlock _siteBlock;
-    private int _siteNumber;
-    private Filterable[] _extraSiteFilters;
+    private final Action _action;
+    private final String _playerId;
+    private final SitesBlock _siteBlock;
+    private final int _siteNumber;
+    private final Filterable[] _extraSiteFilters;
 
     public PlaySiteEffect(Action action, String playerId, SitesBlock siteBlock, int siteNumber) {
         this(action, playerId, siteBlock, siteNumber, Filters.any);
@@ -114,7 +114,7 @@ public class PlaySiteEffect extends AbstractEffect {
                                 controlled = oldSite.getCardController();
                                 if (controlled != null)
                                     zone = oldSite.getZone();
-                                stacked = new LinkedList<PhysicalCard>(gameState.getStackedCards(oldSite));
+                                stacked = new LinkedList<>(gameState.getStackedCards(oldSite));
 
                                 gameState.removeCardsFromZone(_playerId, Collections.singleton(oldSite));
                                 oldSite.setSiteNumber(null);

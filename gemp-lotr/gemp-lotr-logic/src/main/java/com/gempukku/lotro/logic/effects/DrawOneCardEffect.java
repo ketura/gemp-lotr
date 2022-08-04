@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.DrawCardOrPutIntoHandResult;
 
 public class DrawOneCardEffect extends AbstractEffect implements Preventable {
-    private String _playerId;
+    private final String _playerId;
     private boolean _prevented;
 
     public DrawOneCardEffect(String playerId) {

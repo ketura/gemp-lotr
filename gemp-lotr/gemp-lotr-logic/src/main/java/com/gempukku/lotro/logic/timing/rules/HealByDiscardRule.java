@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class HealByDiscardRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public HealByDiscardRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

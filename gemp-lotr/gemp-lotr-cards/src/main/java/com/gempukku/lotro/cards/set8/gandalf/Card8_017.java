@@ -42,7 +42,7 @@ public class Card8_017 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
+        List<Effect> possibleCosts = new LinkedList<>();
         possibleCosts.add(
                 new SpotEffect(1, Filters.name("Shadowfax")) {
                     @Override

@@ -19,10 +19,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
-    private PlayOrder _shadowOrder;
-    private String _playerId;
-    private Set<PhysicalCard> _leftoverMinions;
-    private GameProcess _followingGameProcess;
+    private final PlayOrder _shadowOrder;
+    private final String _playerId;
+    private final Set<PhysicalCard> _leftoverMinions;
+    private final GameProcess _followingGameProcess;
 
     public ShadowPlayerAssignsHisMinionsGameProcess(PlayOrder shadowOrder, String playerId, Set<PhysicalCard> leftoverMinions, GameProcess followingGameProcess) {
         _shadowOrder = shadowOrder;

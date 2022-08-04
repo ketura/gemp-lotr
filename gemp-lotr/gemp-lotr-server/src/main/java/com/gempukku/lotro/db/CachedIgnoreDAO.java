@@ -8,8 +8,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CachedIgnoreDAO implements IgnoreDAO, Cached {
-    private Map<String, Set<String>> ignores = new ConcurrentHashMap<>();
-    private IgnoreDAO delegate;
+    private final Map<String, Set<String>> ignores = new ConcurrentHashMap<>();
+    private final IgnoreDAO delegate;
 
     public CachedIgnoreDAO(IgnoreDAO delegate) {
         this.delegate = delegate;

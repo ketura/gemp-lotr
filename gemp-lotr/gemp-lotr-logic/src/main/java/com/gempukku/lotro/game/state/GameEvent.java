@@ -21,7 +21,7 @@ public class GameEvent {
         GAME_STATS("GS"),
         CARD_AFFECTED_BY_CARD("CAC"), SHOW_CARD_ON_SCREEN("EP"), FLASH_CARD_IN_PLAY("CA"), DECISION("D");
 
-        private String code;
+        private final String code;
 
         private Type(String code) {
             this.code = code;
@@ -34,7 +34,7 @@ public class GameEvent {
 
     private String _message;
     private String _side;
-    private Type _type;
+    private final Type _type;
     private Zone _zone;
     private String _participantId;
     private String _controllerId;

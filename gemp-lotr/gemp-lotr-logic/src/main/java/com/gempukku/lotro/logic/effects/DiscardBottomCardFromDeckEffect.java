@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
-    private String _playerId;
+    private final String _playerId;
 
     public DiscardBottomCardFromDeckEffect(String playerId) {
         _playerId = playerId;

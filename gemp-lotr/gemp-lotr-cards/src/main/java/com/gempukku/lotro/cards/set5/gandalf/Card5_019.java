@@ -41,7 +41,7 @@ public class Card5_019 extends AbstractCompanion {
                 PlayConditions.canExert(self, game, Race.HOBBIT, Filters.unboundCompanion)
                         || game.getGameState().getHand(playerId).size() >= 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion) {
                         @Override

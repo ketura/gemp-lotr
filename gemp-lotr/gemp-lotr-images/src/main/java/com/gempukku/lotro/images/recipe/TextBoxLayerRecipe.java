@@ -12,13 +12,13 @@ import java.text.AttributedString;
 import java.util.function.Function;
 
 public class TextBoxLayerRecipe implements LayerRecipe {
-    private Function<String, Function<RenderContext, Font>> fontStyleProvider;
-    private Function<String, String> glyphProvider;
-    private Function<RenderContext, Paint> paint;
-    private Function<String, Float> yShifts;
-    private Function<RenderContext, String[]> text;
-    private Function<RenderContext, TextBox> textBox;
-    private Function<RenderContext, Float> minYStart;
+    private final Function<String, Function<RenderContext, Font>> fontStyleProvider;
+    private final Function<String, String> glyphProvider;
+    private final Function<RenderContext, Paint> paint;
+    private final Function<String, Float> yShifts;
+    private final Function<RenderContext, String[]> text;
+    private final Function<RenderContext, TextBox> textBox;
+    private final Function<RenderContext, Float> minYStart;
 
     public TextBoxLayerRecipe(
             Function<String, Function<RenderContext, Font>> fontStyleProvider,

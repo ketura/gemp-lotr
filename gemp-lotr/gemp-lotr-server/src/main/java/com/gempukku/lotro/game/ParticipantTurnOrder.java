@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParticipantTurnOrder {
-    private List<String> _participants;
+    private final List<String> _participants;
     private int _currentPlayerIndex = -1;
 
     public ParticipantTurnOrder(List<String> participants) {
-        _participants = new ArrayList<String>(participants);
+        _participants = new ArrayList<>(participants);
     }
 
     public void startNewTurn() {

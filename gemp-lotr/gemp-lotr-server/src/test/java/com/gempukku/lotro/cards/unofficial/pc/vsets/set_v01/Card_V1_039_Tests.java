@@ -6,8 +6,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -21,8 +19,7 @@ public class Card_V1_039_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
+				new HashMap<>() {{
 					put("crown", "151_39");
 					put("crown2", "151_39");
 					put("nazgul1", "1_232");

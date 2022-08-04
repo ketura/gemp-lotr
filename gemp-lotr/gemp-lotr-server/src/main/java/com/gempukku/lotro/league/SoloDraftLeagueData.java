@@ -15,12 +15,12 @@ import java.util.Map;
 
 public class SoloDraftLeagueData implements LeagueData {
     public static final int HIGH_ENOUGH_PRIME_NUMBER = 8963;
-    private SoloDraft _draft;
-    private CollectionType _collectionType;
-    private long _code;
-    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
-    private LeaguePrizes _leaguePrizes;
-    private LeagueSerieData _serie;
+    private final SoloDraft _draft;
+    private final CollectionType _collectionType;
+    private final long _code;
+    private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
+    private final LeaguePrizes _leaguePrizes;
+    private final LeagueSerieData _serie;
 
     public SoloDraftLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
@@ -78,7 +78,7 @@ public class SoloDraftLeagueData implements LeagueData {
     }
 
     private Map<String, Object> createExtraInformation(long seed) {
-        Map<String, Object> extraInformation = new HashMap<String, Object>();
+        Map<String, Object> extraInformation = new HashMap<>();
         extraInformation.put("finished", false);
         extraInformation.put("stage", 0);
         extraInformation.put("seed", seed);

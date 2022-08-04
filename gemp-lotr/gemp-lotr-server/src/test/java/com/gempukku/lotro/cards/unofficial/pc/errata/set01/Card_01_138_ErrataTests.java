@@ -19,8 +19,7 @@ public class Card_01_138_ErrataTests
 {
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("boromir", "1_97");
                     put("event", "1_116");
 

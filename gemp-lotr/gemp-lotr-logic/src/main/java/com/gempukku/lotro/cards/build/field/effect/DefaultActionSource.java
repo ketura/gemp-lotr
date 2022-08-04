@@ -9,10 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DefaultActionSource implements ActionSource {
-    private List<Requirement> requirements = new LinkedList<>();
+    private final List<Requirement> requirements = new LinkedList<>();
 
-    private List<EffectAppender> costs = new LinkedList<>();
-    private List<EffectAppender> effects = new LinkedList<>();
+    private final List<EffectAppender> costs = new LinkedList<>();
+    private final List<EffectAppender> effects = new LinkedList<>();
 
     private boolean requiresRanger;
     private String text;

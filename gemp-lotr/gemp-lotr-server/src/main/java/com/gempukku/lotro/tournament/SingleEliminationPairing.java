@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SingleEliminationPairing implements PairingMechanism {
-    private String _registryRepresentation;
+    private final String _registryRepresentation;
 
     public SingleEliminationPairing(String registryRepresentation) {
         _registryRepresentation = registryRepresentation;
@@ -34,7 +34,7 @@ public class SingleEliminationPairing implements PairingMechanism {
         if (isFinished(round, players, droppedPlayers))
             return true;
 
-        Set<String> playersInContention = new HashSet<String>(players);
+        Set<String> playersInContention = new HashSet<>(players);
         playersInContention.removeAll(droppedPlayers);
 
         int maxByes = 0;
@@ -51,7 +51,7 @@ public class SingleEliminationPairing implements PairingMechanism {
                 int count = playerByeCount.getValue();
                 List<String> playersWithThisNumberOfByes = playersGroupedByByes[maxByes - count];
                 if (playersWithThisNumberOfByes == null) {
-                    playersWithThisNumberOfByes = new ArrayList<String>();
+                    playersWithThisNumberOfByes = new ArrayList<>();
                     playersGroupedByByes[maxByes - count] = playersWithThisNumberOfByes;
                 }
                 playersWithThisNumberOfByes.add(player);
@@ -61,12 +61,12 @@ public class SingleEliminationPairing implements PairingMechanism {
 
         List<String> playersWithNoByes = playersGroupedByByes[maxByes];
         if (playersWithNoByes == null) {
-            playersWithNoByes = new ArrayList<String>();
+            playersWithNoByes = new ArrayList<>();
             playersGroupedByByes[maxByes] = playersWithNoByes;
         }
         playersWithNoByes.addAll(playersInContention);
 
-        List<String> playersRandomized = new ArrayList<String>();
+        List<String> playersRandomized = new ArrayList<>();
 
         for (List<String> playersGroupedByBye : playersGroupedByByes) {
             if (playersGroupedByBye != null) {

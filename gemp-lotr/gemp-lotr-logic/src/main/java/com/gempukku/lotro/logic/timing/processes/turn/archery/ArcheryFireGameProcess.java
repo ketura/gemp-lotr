@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class ArcheryFireGameProcess implements GameProcess {
-    private GameProcess _followingGameProcess;
+    private final GameProcess _followingGameProcess;
 
     private int _fellowshipArcheryTotal;
     private int _shadowArcheryTotal;

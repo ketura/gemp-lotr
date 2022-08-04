@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.effects.PutCardFromPlayOnTopOfDeckEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class ChooseAndPutCardFromPlayOnTopOfDeckEffect extends ChooseActiveCardEffect {
-    private Action _action;
+    private final Action _action;
     private CostToEffectAction _resultSubAction;
 
     public ChooseAndPutCardFromPlayOnTopOfDeckEffect(Action action, String playerId, Filterable... filters) {

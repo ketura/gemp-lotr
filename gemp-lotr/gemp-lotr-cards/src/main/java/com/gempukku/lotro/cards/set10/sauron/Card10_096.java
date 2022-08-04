@@ -52,7 +52,7 @@ public class Card10_096 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && (PlayConditions.canExert(self, game, Race.URUK_HAI) || PlayConditions.canDiscardFromPlay(self, game, Culture.SAURON, CardType.MINION))) {
             ActivateCardAction action = new ActivateCardAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI) {
                         @Override

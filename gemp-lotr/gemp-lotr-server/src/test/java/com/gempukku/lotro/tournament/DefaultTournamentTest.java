@@ -16,14 +16,14 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 
 public class DefaultTournamentTest {
-    private int _waitForPairingsTime = 100;
+    private final int _waitForPairingsTime = 100;
 
     @Test
     public void testTournament() throws InterruptedException {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
         String tournamentId = "t1";
-        Map<String, LotroDeck> playerDecks = new HashMap<String, LotroDeck>();
-        Set<String> allPlayers = new HashSet<String>(Arrays.asList("p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"));
+        Map<String, LotroDeck> playerDecks = new HashMap<>();
+        Set<String> allPlayers = new HashSet<>(Arrays.asList("p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"));
         playerDecks.put("p1", new LotroDeck("p1"));
         playerDecks.put("p2", new LotroDeck("p2"));
         playerDecks.put("p3", new LotroDeck("p3"));
@@ -33,9 +33,9 @@ public class DefaultTournamentTest {
         playerDecks.put("p7", new LotroDeck("p7"));
         playerDecks.put("p8", new LotroDeck("p8"));
 
-        Set<String> droppedAfterRoundOne = new HashSet<String>(Arrays.asList("p2", "p4", "p6", "p8"));
-        Set<String> droppedAfterRoundTwo = new HashSet<String>(Arrays.asList("p2", "p3", "p4", "p6", "p7", "p8"));
-        Set<String> droppedAfterRoundThree = new HashSet<String>(Arrays.asList("p2", "p3", "p4", "p5", "p6", "p7", "p8"));
+        Set<String> droppedAfterRoundOne = new HashSet<>(Arrays.asList("p2", "p4", "p6", "p8"));
+        Set<String> droppedAfterRoundTwo = new HashSet<>(Arrays.asList("p2", "p3", "p4", "p6", "p7", "p8"));
+        Set<String> droppedAfterRoundThree = new HashSet<>(Arrays.asList("p2", "p3", "p4", "p5", "p6", "p7", "p8"));
 
         Mockito.when(tournamentService.getPlayers(tournamentId)).thenReturn(allPlayers);
         Mockito.when(tournamentService.getPlayerDecks(tournamentId, "format")).thenReturn(playerDecks);
@@ -52,13 +52,13 @@ public class DefaultTournamentTest {
         Mockito.when(pairingMechanism.isFinished(Mockito.eq(3), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundThree)))
                 .thenReturn(true);
 
-        Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(1), Mockito.eq(allPlayers), Mockito.eq(Collections.<String>emptySet()),
-                Mockito.eq(Collections.<String, Integer>emptyMap()), Mockito.<List<PlayerStanding>>any(),
+        Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(1), Mockito.eq(allPlayers), Mockito.eq(Collections.emptySet()),
+                Mockito.eq(Collections.emptyMap()), Mockito.any(),
                 Mockito.any(Map.class),
-                Mockito.eq(Collections.<String, String>emptyMap()), Mockito.eq(Collections.<String>emptySet()))).then(
+                Mockito.eq(Collections.emptyMap()), Mockito.eq(Collections.emptySet()))).then(
                 new Answer<Boolean>() {
                     @Override
-                    public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
+                    public Boolean answer(InvocationOnMock invocationOnMock) {
                         Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[6];
                         pairings.put("p1", "p2");
                         pairings.put("p3", "p4");
@@ -69,12 +69,12 @@ public class DefaultTournamentTest {
                     }
                 });
         Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(2), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundOne),
-                Mockito.eq(Collections.<String, Integer>emptyMap()), Mockito.<List<PlayerStanding>>any(),
+                Mockito.eq(Collections.emptyMap()), Mockito.any(),
                 Mockito.any(Map.class),
-                Mockito.eq(Collections.<String, String>emptyMap()), Mockito.eq(Collections.<String>emptySet()))).then(
+                Mockito.eq(Collections.emptyMap()), Mockito.eq(Collections.emptySet()))).then(
                 new Answer<Boolean>() {
                     @Override
-                    public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
+                    public Boolean answer(InvocationOnMock invocationOnMock) {
                         Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[6];
                         pairings.put("p1", "p3");
                         pairings.put("p5", "p7");
@@ -83,12 +83,12 @@ public class DefaultTournamentTest {
                     }
                 });
         Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(3), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundTwo),
-                Mockito.eq(Collections.<String, Integer>emptyMap()), Mockito.<List<PlayerStanding>>any(),
+                Mockito.eq(Collections.emptyMap()), Mockito.any(),
                 Mockito.any(Map.class),
-                Mockito.eq(Collections.<String, String>emptyMap()), Mockito.eq(Collections.<String>emptySet()))).then(
+                Mockito.eq(Collections.emptyMap()), Mockito.eq(Collections.emptySet()))).then(
                 new Answer<Boolean>() {
                     @Override
-                    public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
+                    public Boolean answer(InvocationOnMock invocationOnMock) {
                         Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[6];
                         pairings.put("p1", "p5");
 
@@ -100,7 +100,7 @@ public class DefaultTournamentTest {
         Mockito.doAnswer(
                 new Answer<Void>() {
                     @Override
-                    public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+                    public Void answer(InvocationOnMock invocationOnMock) {
                         System.out.println("Broadcasted: "+invocationOnMock.getArguments()[0]);
                         return null;
                     }

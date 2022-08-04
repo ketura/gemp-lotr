@@ -20,35 +20,34 @@ public class Card_V1_026_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("crows", "151_26");
-					put("crows2", "151_26");
-					put("crows3", "151_26");
-					put("crows4", "151_26");
-					put("crows5", "151_26");
-					put("crows6", "151_26");
+                new HashMap<>() {{
+                    put("crows", "151_26");
+                    put("crows2", "151_26");
+                    put("crows3", "151_26");
+                    put("crows4", "151_26");
+                    put("crows5", "151_26");
+                    put("crows6", "151_26");
 
-					put("poss1", "3_55");
-					put("poss2", "3_55");
-					put("art1", "3_67");
+                    put("poss1", "3_55");
+                    put("poss2", "3_55");
+                    put("art1", "3_67");
 
-					put("saruman", "3_69");
+                    put("saruman", "3_69");
 
-					put("gimli", "1_12");
+                    put("gimli", "1_12");
 
-					//Since we will go multiple rounds and need to manipulate the draw deck,
-					// these are here to ensure reconciliation doesn't screw us over.
-					put("axe1", "2_10");
-					put("axe2", "1_12");
-					put("axe3", "1_12");
-					put("axe4", "1_12");
-					put("axe5", "1_12");
-					put("axe6", "1_12");
-					put("axe7", "1_12");
-					put("axe8", "1_12");
-					put("ring1", "9_6");
-				}},
+                    //Since we will go multiple rounds and need to manipulate the draw deck,
+                    // these are here to ensure reconciliation doesn't screw us over.
+                    put("axe1", "2_10");
+                    put("axe2", "1_12");
+                    put("axe3", "1_12");
+                    put("axe4", "1_12");
+                    put("axe5", "1_12");
+                    put("axe6", "1_12");
+                    put("axe7", "1_12");
+                    put("axe8", "1_12");
+                    put("ring1", "9_6");
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

@@ -6,8 +6,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CountStackedEvaluator implements Evaluator {
-    private Filterable _stackedOn;
-    private Filterable[] _stackedCard;
+    private final Filterable _stackedOn;
+    private final Filterable[] _stackedCard;
     private Integer _limit;
 
     public CountStackedEvaluator(Filterable stackedOn, Filterable... stackedCard) {

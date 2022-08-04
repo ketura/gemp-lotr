@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class AmbushAtTest extends AbstractAtTest {
     @Test
     public void cantPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException, CardNotFoundException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "5_7", P1, _library.getLotroCardBlueprint("5_7"));

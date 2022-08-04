@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class CachedTransferDAO implements TransferDAO, Cached {
-    private TransferDAO _delegate;
-    private Set<String> _playersWithoutDelivery = Collections.synchronizedSet(new HashSet<String>());
+    private final TransferDAO _delegate;
+    private final Set<String> _playersWithoutDelivery = Collections.synchronizedSet(new HashSet<>());
 
     public CachedTransferDAO(TransferDAO delegate) {
         _delegate = delegate;

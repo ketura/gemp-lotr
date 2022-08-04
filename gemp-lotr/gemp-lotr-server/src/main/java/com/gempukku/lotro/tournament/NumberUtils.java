@@ -1,7 +1,6 @@
 package com.gempukku.lotro.tournament;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NumberUtils {
@@ -29,7 +28,7 @@ public class NumberUtils {
         if (left>0)
             return null;
         else {
-            List<Integer> values = new ArrayList<Integer>(maxNumber);
+            List<Integer> values = new ArrayList<>(maxNumber);
             for (int i=0; i<maxNumber; i++)
                 values.add(i);
 

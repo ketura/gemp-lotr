@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectionSerializer {
-    private List<String> _doubleByteCountItems = new ArrayList<String>();
-    private List<String> _singleByteCountItems = new ArrayList<String>();
+    private final List<String> _doubleByteCountItems = new ArrayList<>();
+    private final List<String> _singleByteCountItems = new ArrayList<>();
 
     public CollectionSerializer() {
         try {
@@ -108,19 +108,15 @@ public class CollectionSerializer {
     }
 
     private void fillDoubleByteItems() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/packs.txt"), "UTF-8"));
-        try {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/packs.txt"), "UTF-8"))) {
             String line;
             while ((line = bufferedReader.readLine()) != null)
                 _doubleByteCountItems.add(line);
-        } finally {
-            bufferedReader.close();
         }
     }
 
     private void loadSet(String setId) throws IOException {
-        BufferedReader cardReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/set" + setId + "-rarity.txt"), "UTF-8"));
-        try {
+        try (BufferedReader cardReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/set" + setId + "-rarity.txt"), "UTF-8"))) {
             String line;
 
             while ((line = cardReader.readLine()) != null) {
@@ -131,8 +127,6 @@ public class CollectionSerializer {
                 // Foil
                 _singleByteCountItems.add(translateToBlueprintId(line) + "*");
             }
-        } finally {
-            cardReader.close();
         }
     }
 

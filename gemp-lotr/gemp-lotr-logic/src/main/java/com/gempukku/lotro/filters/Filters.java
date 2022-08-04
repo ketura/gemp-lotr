@@ -17,14 +17,14 @@ import com.gempukku.lotro.logic.timing.RuleUtils;
 import java.util.*;
 
 public class Filters {
-    private static final Map<CardType, Filter> _typeFilterMap = new HashMap<CardType, Filter>();
-    private static final Map<PossessionClass, Filter> _possessionClassFilterMap = new HashMap<PossessionClass, Filter>();
-    private static final Map<Signet, Filter> _signetFilterMap = new HashMap<Signet, Filter>();
-    private static final Map<Race, Filter> _raceFilterMap = new HashMap<Race, Filter>();
-    private static final Map<Zone, Filter> _zoneFilterMap = new HashMap<Zone, Filter>();
-    private static final Map<Side, Filter> _sideFilterMap = new HashMap<Side, Filter>();
-    private static final Map<Culture, Filter> _cultureFilterMap = new HashMap<Culture, Filter>();
-    private static final Map<Keyword, Filter> _keywordFilterMap = new HashMap<Keyword, Filter>();
+    private static final Map<CardType, Filter> _typeFilterMap = new HashMap<>();
+    private static final Map<PossessionClass, Filter> _possessionClassFilterMap = new HashMap<>();
+    private static final Map<Signet, Filter> _signetFilterMap = new HashMap<>();
+    private static final Map<Race, Filter> _raceFilterMap = new HashMap<>();
+    private static final Map<Zone, Filter> _zoneFilterMap = new HashMap<>();
+    private static final Map<Side, Filter> _sideFilterMap = new HashMap<>();
+    private static final Map<Culture, Filter> _cultureFilterMap = new HashMap<>();
+    private static final Map<Keyword, Filter> _keywordFilterMap = new HashMap<>();
 
     static {
         for (Culture culture : Culture.values())
@@ -76,7 +76,7 @@ public class Filters {
 
     public static Collection<PhysicalCard> filter(Iterable<? extends PhysicalCard> cards, LotroGame game, Filterable... filters) {
         Filter filter = Filters.and(filters);
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
+        List<PhysicalCard> result = new LinkedList<>();
         for (PhysicalCard card : cards) {
             if (filter.accepts(game, card))
                 result.add(card);
@@ -286,11 +286,11 @@ public class Filters {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                 if (againstCard.getBlueprint().getSide() == Side.FREE_PEOPLE) {
-                    Map<PhysicalCard, Set<PhysicalCard>> assignment = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+                    Map<PhysicalCard, Set<PhysicalCard>> assignment = new HashMap<>();
                     assignment.put(againstCard, Collections.singleton(physicalCard));
                     return game.getModifiersQuerying().isValidAssignments(game, assignedBySide, assignment);
                 } else {
-                    Map<PhysicalCard, Set<PhysicalCard>> assignment = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+                    Map<PhysicalCard, Set<PhysicalCard>> assignment = new HashMap<>();
                     assignment.put(physicalCard, Collections.singleton(againstCard));
                     return game.getModifiersQuerying().isValidAssignments(game, assignedBySide, assignment);
                 }
@@ -307,7 +307,7 @@ public class Filters {
                         for (PhysicalCard card : Filters.filterActive(game, againstFilter)) {
                             if (card.getBlueprint().getSide() != physicalCard.getBlueprint().getSide()
                                     && Filters.assignableToSkirmish(assignedBySide, ignoreUnassigned, allowAllyToSkirmish).accepts(game, card)) {
-                                Map<PhysicalCard, Set<PhysicalCard>> thisAssignment = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+                                Map<PhysicalCard, Set<PhysicalCard>> thisAssignment = new HashMap<>();
                                 if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
                                     if (thisAssignment.containsKey(card))
                                         thisAssignment.get(card).add(physicalCard);
@@ -458,16 +458,16 @@ public class Filters {
         }
     };
 
-    public static final Filter canTakeWounds(final PhysicalCard woundSource, final int count) {
+    public static Filter canTakeWounds(final PhysicalCard woundSource, final int count) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                return game.getModifiersQuerying().canTakeWounds(game, (woundSource != null)?Collections.singleton(woundSource):Collections.<PhysicalCard>emptySet(), physicalCard, count) && game.getModifiersQuerying().getVitality(game, physicalCard) >= count;
+                return game.getModifiersQuerying().canTakeWounds(game, (woundSource != null)?Collections.singleton(woundSource):Collections.emptySet(), physicalCard, count) && game.getModifiersQuerying().getVitality(game, physicalCard) >= count;
             }
         };
     }
 
-    public static final Filter canTakeWounds(final Collection<PhysicalCard> woundSources, final int count) {
+    public static Filter canTakeWounds(final Collection<PhysicalCard> woundSources, final int count) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -476,7 +476,7 @@ public class Filters {
         };
     }
 
-    public static final Filter canBeDiscarded(final PhysicalCard source) {
+    public static Filter canBeDiscarded(final PhysicalCard source) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -485,7 +485,7 @@ public class Filters {
         };
     }
 
-    public static final Filter canBeDiscarded(final String performingPlayer, final PhysicalCard source) {
+    public static Filter canBeDiscarded(final String performingPlayer, final PhysicalCard source) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -557,11 +557,11 @@ public class Filters {
 
     public static final Filter assignedToSkirmish = Filters.not(Filters.notAssignedToSkirmish);
 
-    public static final Filter assignedToSkirmishAgainst(final Filterable... againstFilters) {
+    public static Filter assignedToSkirmishAgainst(final Filterable... againstFilters) {
         return Filters.or(Filters.assignedAgainst(againstFilters), Filters.inSkirmishAgainst(againstFilters));
     }
 
-    public static final Filter assignedAgainst(final Filterable... againstFilters) {
+    public static Filter assignedAgainst(final Filterable... againstFilters) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -844,7 +844,7 @@ public class Filters {
     }
 
     public static Filter in(final Collection<? extends PhysicalCard> cards) {
-        final Set<Integer> cardIds = new HashSet<Integer>();
+        final Set<Integer> cardIds = new HashSet<>();
         for (PhysicalCard card : cards)
             cardIds.add(card.getCardId());
         return new Filter() {
@@ -1084,8 +1084,8 @@ public class Filters {
     public static Filter spottable = (game, physicalCard) -> true;
 
     private static class FindFirstActiveCardInPlayVisitor implements PhysicalCardVisitor {
-        private LotroGame game;
-        private Filter _filter;
+        private final LotroGame game;
+        private final Filter _filter;
         private PhysicalCard _card;
 
         private FindFirstActiveCardInPlayVisitor(LotroGame game, Filter filter) {
@@ -1108,10 +1108,10 @@ public class Filters {
     }
 
     private static class GetCardsMatchingFilterVisitor extends CompletePhysicalCardVisitor {
-        private LotroGame game;
-        private Filter _filter;
+        private final LotroGame game;
+        private final Filter _filter;
 
-        private Set<PhysicalCard> _physicalCards = new HashSet<PhysicalCard>();
+        private final Set<PhysicalCard> _physicalCards = new HashSet<>();
 
         private GetCardsMatchingFilterVisitor(LotroGame game, Filter filter) {
             this.game = game;

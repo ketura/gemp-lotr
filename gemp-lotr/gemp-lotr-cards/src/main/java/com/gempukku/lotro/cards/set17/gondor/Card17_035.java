@@ -45,7 +45,7 @@ public class Card17_035 extends AbstractPermanent {
                 (PlayConditions.canSpot(game, 3, Keyword.RANGER)
                         || PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SpotEffect(3, Keyword.RANGER) {
                         @Override

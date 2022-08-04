@@ -46,7 +46,7 @@ public class Card6_101 extends AbstractMinion {
                     new SelfExertEffect(action, self));
             action.appendCost(
                     new SelfExertEffect(action, self));
-            final Set<String> possibleCultures = new LinkedHashSet<String>();
+            final Set<String> possibleCultures = new LinkedHashSet<>();
             for (Culture culture : Culture.values())
                 if (culture.isOfficial())
                     possibleCultures.add(culture.getHumanReadable());

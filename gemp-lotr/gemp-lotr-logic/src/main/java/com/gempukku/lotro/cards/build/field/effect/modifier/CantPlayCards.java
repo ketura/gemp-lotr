@@ -16,10 +16,8 @@ public class CantPlayCards implements ModifierSourceProducer {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return (actionContext) -> {
-            return new CantPlayCardsModifier(actionContext.getSource(),
-                    new RequirementCondition(requirements, actionContext),
-                    filterableSource.getFilterable(actionContext));
-        };
+        return (actionContext) -> new CantPlayCardsModifier(actionContext.getSource(),
+                new RequirementCondition(requirements, actionContext),
+                filterableSource.getFilterable(actionContext));
     }
 }

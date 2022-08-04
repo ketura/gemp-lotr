@@ -41,7 +41,7 @@ public class Card12_146 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new DrawCardsEffect(action, playerId, 3));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2) {
                     @Override

@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantExertWithCardModifier extends AbstractModifier {
-    private Filter _preventExertWithFilter;
+    private final Filter _preventExertWithFilter;
 
     public CantExertWithCardModifier(PhysicalCard source, Filterable affectFilter, Filterable preventExertWithFilter) {
         this(source, affectFilter, null, preventExertWithFilter);

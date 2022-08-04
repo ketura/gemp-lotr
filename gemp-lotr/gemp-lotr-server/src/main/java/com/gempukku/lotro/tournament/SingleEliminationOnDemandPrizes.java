@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
-    private List<String> _promos = new ArrayList<String>();
-    private String _registryRepresentation;
+    private final List<String> _promos = new ArrayList<>();
+    private final String _registryRepresentation;
 
     public SingleEliminationOnDemandPrizes(CardSets cardSets, String registryRepresentation) {
         _registryRepresentation = registryRepresentation;

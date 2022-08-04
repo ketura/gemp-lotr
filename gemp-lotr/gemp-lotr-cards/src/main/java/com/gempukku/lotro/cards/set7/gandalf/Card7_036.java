@@ -42,7 +42,7 @@ public class Card7_036 extends AbstractCompanion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(LotroGame game) {
-                                Set<Culture> companionCultures = new HashSet<Culture>();
+                                Set<Culture> companionCultures = new HashSet<>();
                                 for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION))
                                     companionCultures.add(companion.getBlueprint().getCulture());
 

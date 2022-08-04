@@ -43,7 +43,7 @@ public class Card18_133 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new RemoveBurdenEffect(playerId, self, 1));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseActiveCardEffect(self, playerId, "Choose a WRAITH minion", Culture.WRAITH, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.SHADOW, Filters.and(CardType.COMPANION, Filters.maxResistance(0)))) {
                     @Override

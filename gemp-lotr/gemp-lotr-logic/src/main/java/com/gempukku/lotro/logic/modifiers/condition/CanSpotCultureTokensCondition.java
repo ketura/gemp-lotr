@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import java.util.Map;
 
 public class CanSpotCultureTokensCondition implements Condition {
-    private int _count;
+    private final int _count;
     private Token _token;
 
     public CanSpotCultureTokensCondition(int count) {

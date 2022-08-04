@@ -12,31 +12,31 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RootUriRequestHandler implements UriRequestHandler {
-    private String _serverContextPath = "/gemp-lotr-server/";
-    private String _webContextPath = "/gemp-lotr/";
-    private HallRequestHandler _hallRequestHandler;
-    private WebRequestHandler _webRequestHandler;
-    private LoginRequestHandler _loginRequestHandler;
-    private StatusRequestHandler _statusRequestHandler;
-    private DeckRequestHandler _deckRequestHandler;
-    private AdminRequestHandler _adminRequestHandler;
-    private ChatRequestHandler _chatRequestHandler;
-    private CollectionRequestHandler _collectionRequestHandler;
-    private DeliveryRequestHandler _deliveryRequestHandler;
-    private GameRequestHandler _gameRequestHandler;
-    private LeagueRequestHandler _leagueRequestHandler;
-    private MerchantRequestHandler _merchantRequestHandler;
-    private RegisterRequestHandler _registerRequestHandler;
-    private ReplayRequestHandler _replayRequestHandler;
-    private GameHistoryRequestHandler _gameHistoryRequestHandler;
-    private ServerStatsRequestHandler _serverStatsRequestHandler;
-    private PlayerStatsRequestHandler _playerStatsRequestHandler;
-    private TournamentRequestHandler _tournamentRequestHandler;
-    private SoloDraftRequestHandler _soloDraftRequestHandler;
-    private PlaytestRequestHandler _playtestRequestHandler;
-    private PlayerInfoRequestHandler _playerInfoRequestHandler;
+    private final String _serverContextPath = "/gemp-lotr-server/";
+    private final String _webContextPath = "/gemp-lotr/";
+    private final HallRequestHandler _hallRequestHandler;
+    private final WebRequestHandler _webRequestHandler;
+    private final LoginRequestHandler _loginRequestHandler;
+    private final StatusRequestHandler _statusRequestHandler;
+    private final DeckRequestHandler _deckRequestHandler;
+    private final AdminRequestHandler _adminRequestHandler;
+    private final ChatRequestHandler _chatRequestHandler;
+    private final CollectionRequestHandler _collectionRequestHandler;
+    private final DeliveryRequestHandler _deliveryRequestHandler;
+    private final GameRequestHandler _gameRequestHandler;
+    private final LeagueRequestHandler _leagueRequestHandler;
+    private final MerchantRequestHandler _merchantRequestHandler;
+    private final RegisterRequestHandler _registerRequestHandler;
+    private final ReplayRequestHandler _replayRequestHandler;
+    private final GameHistoryRequestHandler _gameHistoryRequestHandler;
+    private final ServerStatsRequestHandler _serverStatsRequestHandler;
+    private final PlayerStatsRequestHandler _playerStatsRequestHandler;
+    private final TournamentRequestHandler _tournamentRequestHandler;
+    private final SoloDraftRequestHandler _soloDraftRequestHandler;
+    private final PlaytestRequestHandler _playtestRequestHandler;
+    private final PlayerInfoRequestHandler _playerInfoRequestHandler;
 
-    private Pattern originPattern;
+    private final Pattern originPattern;
 
     public RootUriRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         _webRequestHandler = new WebRequestHandler(ApplicationConfiguration.getProperty("web.path"));

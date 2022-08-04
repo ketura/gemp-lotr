@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CharacterLostSkirmishResult extends EffectResult {
-    private PhysicalCard _loser;
-    private Set<PhysicalCard> _involving;
-    private SkirmishType _type;
+    private final PhysicalCard _loser;
+    private final Set<PhysicalCard> _involving;
+    private final SkirmishType _type;
 
     public enum SkirmishType {
         OVERWHELM, NORMAL
@@ -30,7 +30,7 @@ public class CharacterLostSkirmishResult extends EffectResult {
         super(Type.CHARACTER_LOST_SKIRMISH);
         _type = type;
         _loser = loser;
-        _involving = new HashSet<PhysicalCard>(involving);
+        _involving = new HashSet<>(involving);
     }
 
     public Set<PhysicalCard> getInvolving() {

@@ -42,7 +42,7 @@ public class Card15_107 extends AbstractMinion {
                 new AbstractExtraPlayCostModifier(self, "Extra cost to play", self, null) {
                     @Override
                     public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
-                        List<Effect> possibleCosts = new LinkedList<Effect>();
+                        List<Effect> possibleCosts = new LinkedList<>();
                         if (new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game, null) >= 3)
                             possibleCosts.add(
                                     new UnrespondableEffect() {

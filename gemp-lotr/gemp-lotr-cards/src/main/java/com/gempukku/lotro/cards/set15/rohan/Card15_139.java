@@ -43,7 +43,7 @@ public class Card15_139 extends AbstractCompanion {
                 && (PlayConditions.canSpot(game, CardType.MINION, Keyword.HUNTER)
                 || PlayConditions.canExert(self, game, 1, 2, Race.MAN, Keyword.VALIANT))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<>();
             possibleCosts.add(
                     new SpotEffect(1, CardType.MINION, Keyword.HUNTER) {
                         @Override

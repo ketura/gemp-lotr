@@ -14,33 +14,33 @@ import java.util.stream.Collectors;
 public class DefaultLotroFormat implements LotroFormat {
 
     public static final String CardRemovedError = "Deck contains card removed from the set";
-    private Adventure _adventure;
-    private LotroCardBlueprintLibrary _library;
-    private String _name;
-    private String _code;
-    private int _order;
-    private boolean _hallVisible;
-    private SitesBlock _siteBlock;
+    private final Adventure _adventure;
+    private final LotroCardBlueprintLibrary _library;
+    private final String _name;
+    private final String _code;
+    private final int _order;
+    private final boolean _hallVisible;
+    private final SitesBlock _siteBlock;
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
-    private boolean _mulliganRule;
-    private boolean _canCancelRingBearerSkirmish;
-    private boolean _hasRuleOfFour;
-    private boolean _winAtEndOfRegroup;
-    private boolean _winOnControlling5Sites;
+    private final boolean _mulliganRule;
+    private final boolean _canCancelRingBearerSkirmish;
+    private final boolean _hasRuleOfFour;
+    private final boolean _winAtEndOfRegroup;
+    private final boolean _winOnControlling5Sites;
     private int _minimumDeckSize = 60;
-    private List<String> _bannedCards = new ArrayList<String>();
-    private List<String> _restrictedCards = new ArrayList<String>();
-    private List<String> _validCards = new ArrayList<String>();
-    private List<Integer> _validSets = new ArrayList<Integer>();
-    private List<String> _restrictedCardNames = new ArrayList<String>();
-    private String _surveyUrl;
-    private boolean _isPlaytest;
+    private final List<String> _bannedCards = new ArrayList<>();
+    private final List<String> _restrictedCards = new ArrayList<>();
+    private final List<String> _validCards = new ArrayList<>();
+    private final List<Integer> _validSets = new ArrayList<>();
+    private final List<String> _restrictedCardNames = new ArrayList<>();
+    private final String _surveyUrl;
+    private final boolean _isPlaytest;
 
     //Additional Hobbit Draft parameters
-    private List<String> _limit2Cards = new ArrayList<String>();
-    private List<String> _limit3Cards = new ArrayList<String>();
-    private Map<String,String> _errataCardMap = new TreeMap<String,String>();
+    private final List<String> _limit2Cards = new ArrayList<>();
+    private final List<String> _limit3Cards = new ArrayList<>();
+    private final Map<String,String> _errataCardMap = new TreeMap<>();
 
     public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, LotroFormatLibrary.FormatDefinition def){
         this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
@@ -48,21 +48,21 @@ public class DefaultLotroFormat implements LotroFormat {
                 def.ruleOfFour, def.winAtEndOfRegroup, def.winOnControlling5Sites, def.playtest, def.hall);
 
         if(def.set != null)
-            def.set.stream().forEach(this::addValidSet);
+            def.set.forEach(this::addValidSet);
         if(def.banned != null)
-            def.banned.stream().forEach(this::addBannedCard);
+            def.banned.forEach(this::addBannedCard);
         if(def.restricted != null)
-            def.restricted.stream().forEach(this::addRestrictedCard);
+            def.restricted.forEach(this::addRestrictedCard);
         if(def.valid != null)
-            def.valid.stream().forEach(this::addValidCard);
+            def.valid.forEach(this::addValidCard);
         if(def.limit2 != null)
-            def.limit2.stream().forEach(this::addLimit2Card);
+            def.limit2.forEach(this::addLimit2Card);
         if(def.limit3 != null)
-            def.limit3.stream().forEach(this::addLimit3Card);
+            def.limit3.forEach(this::addLimit3Card);
         if(def.restrictedName != null)
-            def.restrictedName.stream().forEach(this::addRestrictedCardName);
+            def.restrictedName.forEach(this::addRestrictedCardName);
         if(def.errata != null)
-            def.errata.entrySet().stream().forEach(pair -> addCardErrata(pair.getKey(), pair.getValue()));
+            def.errata.entrySet().forEach(pair -> addCardErrata(pair.getKey(), pair.getValue()));
     }
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library,
@@ -307,7 +307,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
         String firstValidation = validations.stream().findFirst().get();
         long count = firstValidation.chars().filter(x -> x == '\n').count();
-        if(firstValidation.indexOf("\n") != -1)
+        if(firstValidation.contains("\n"))
         {
             firstValidation = firstValidation.substring(0, firstValidation.indexOf("\n"));
         }
@@ -376,8 +376,8 @@ public class DefaultLotroFormat implements LotroFormat {
 
 
         // Card count in deck and Ring-bearer
-        Map<String, Integer> cardCountByName = new HashMap<String, Integer>();
-        Map<String, Integer> cardCountByBaseBlueprintId = new HashMap<String, Integer>();
+        Map<String, Integer> cardCountByName = new HashMap<>();
+        Map<String, Integer> cardCountByBaseBlueprintId = new HashMap<>();
 
         if (deck.getRing() != null) {
             processCardCounts(deck.getRing(), cardCountByName, cardCountByBaseBlueprintId);
@@ -507,7 +507,7 @@ public class DefaultLotroFormat implements LotroFormat {
                 }
             }
         } else {
-            Set<LotroCardBlueprint> siteBlueprints = new HashSet<LotroCardBlueprint>();
+            Set<LotroCardBlueprint> siteBlueprints = new HashSet<>();
 
             List<String> sites = deck.getSites();
             int size = sites.size();
@@ -525,7 +525,7 @@ public class DefaultLotroFormat implements LotroFormat {
                 result += "Deck contains multiple of the same site.\n";
             }
 
-            Map<Integer, Integer> twilightCount = new HashMap<Integer, Integer>();
+            Map<Integer, Integer> twilightCount = new HashMap<>();
             for (LotroCardBlueprint siteBlueprint : siteBlueprints) {
                 int twilight = siteBlueprint.getTwilightCost();
                 Integer count = twilightCount.get(twilight);

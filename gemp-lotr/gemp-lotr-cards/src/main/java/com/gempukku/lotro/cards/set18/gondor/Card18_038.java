@@ -34,7 +34,7 @@ public class Card18_038 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new KeywordModifier(self, self, new CanSpotFPCulturesCondition(self.getOwner(), 3), Keyword.DEFENDER, 1));
         modifiers.add(

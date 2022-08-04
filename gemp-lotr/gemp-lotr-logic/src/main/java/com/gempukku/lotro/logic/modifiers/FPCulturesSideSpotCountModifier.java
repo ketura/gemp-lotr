@@ -6,8 +6,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 
 public class FPCulturesSideSpotCountModifier extends AbstractModifier {
-    private Side _sidePlayer;
-    private int _modifier;
+    private final Side _sidePlayer;
+    private final int _modifier;
 
     public FPCulturesSideSpotCountModifier(PhysicalCard source, Side sidePlayer, int modifier) {
         this(source, sidePlayer, null, modifier);

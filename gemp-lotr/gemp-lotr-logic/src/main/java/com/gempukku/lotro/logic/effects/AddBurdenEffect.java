@@ -11,9 +11,9 @@ import com.gempukku.lotro.logic.timing.Preventable;
 import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
 
 public class AddBurdenEffect extends AbstractEffect implements Preventable {
-    private String _performingPlayer;
-    private PhysicalCard _source;
-    private Evaluator _count;
+    private final String _performingPlayer;
+    private final PhysicalCard _source;
+    private final Evaluator _count;
     private int _prevented;
 
     public AddBurdenEffect(String performingPlayer, PhysicalCard source, int count) {

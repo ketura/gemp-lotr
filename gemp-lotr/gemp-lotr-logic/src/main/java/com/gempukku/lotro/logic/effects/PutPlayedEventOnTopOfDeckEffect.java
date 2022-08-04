@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import java.util.Collections;
 
 public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
-    private PlayEventAction _action;
+    private final PlayEventAction _action;
 
     public PutPlayedEventOnTopOfDeckEffect(PlayEventAction action) {
         _action = action;

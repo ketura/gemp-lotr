@@ -9,14 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CardAffectedPhaseLimitEvaluator implements Evaluator {
-    private Map<Integer, Integer> _evaluatedForCard = new HashMap<>();
+    private final Map<Integer, Integer> _evaluatedForCard = new HashMap<>();
 
-    private String prefix;
-    private Evaluator evaluator;
+    private final String prefix;
+    private final Evaluator evaluator;
 
-    private PhysicalCard source;
-    private Phase phase;
-    private int limit;
+    private final PhysicalCard source;
+    private final Phase phase;
+    private final int limit;
 
     public CardAffectedPhaseLimitEvaluator(PhysicalCard source, Phase phase, int limit, String prefix, Evaluator evaluator) {
         this.source = source;

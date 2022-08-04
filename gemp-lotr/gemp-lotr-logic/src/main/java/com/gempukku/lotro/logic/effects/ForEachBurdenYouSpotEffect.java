@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.decisions.ForEachBurdenYouSpotDecision;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public abstract class ForEachBurdenYouSpotEffect implements Effect {
-    private String _playerId;
+    private final String _playerId;
 
     protected ForEachBurdenYouSpotEffect(String playerId) {
         _playerId = playerId;

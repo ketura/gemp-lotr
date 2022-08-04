@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 public class RemoveThreatsEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private int _count;
+    private final PhysicalCard _source;
+    private final int _count;
 
     public RemoveThreatsEffect(PhysicalCard source, int count) {
         _source = source;

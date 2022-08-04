@@ -63,7 +63,7 @@ public class Card18_118 extends AbstractMinion {
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
                                                 public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
-                                                    List<Effect> possibleCosts = new LinkedList<Effect>();
+                                                    List<Effect> possibleCosts = new LinkedList<>();
                                                     possibleCosts.add(
                                                             new ExertCharactersEffect(action, self, companion));
                                                     possibleCosts.add(

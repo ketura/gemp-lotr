@@ -16,10 +16,10 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import java.util.*;
 
 public class ChooseAndPlayCardFromStackedEffect implements Effect {
-    private String _playerId;
-    private Filterable _stackedOn;
-    private Filter _filter;
-    private int _twilightModifier;
+    private final String _playerId;
+    private final Filterable _stackedOn;
+    private final Filter _filter;
+    private final int _twilightModifier;
     private CostToEffectAction _playCardAction;
 
     public ChooseAndPlayCardFromStackedEffect(String playerId, Filterable stackedOn, Filterable... filter) {
@@ -49,7 +49,7 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
     }
 
     private Collection<PhysicalCard> getPlayableFromStacked(LotroGame game) {
-        Set<PhysicalCard> possibleCards = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> possibleCards = new HashSet<>();
         for (PhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOn))
             possibleCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _filter, Filters.playable(game, _twilightModifier)));
 
@@ -61,7 +61,7 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
         Collection<PhysicalCard> playableFromStacked = getPlayableFromStacked(game);
         if (playableFromStacked.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(playableFromStacked), 1, 1) {
+                    new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<>(playableFromStacked), 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);

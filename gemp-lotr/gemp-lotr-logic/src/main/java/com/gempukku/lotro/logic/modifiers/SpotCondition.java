@@ -5,8 +5,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class SpotCondition implements Condition {
-    private Filterable[] _filter;
-    private int _count;
+    private final Filterable[] _filter;
+    private final int _count;
 
     public SpotCondition(Filterable... filter) {
         this(1, Filters.and(filter));

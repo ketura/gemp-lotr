@@ -43,7 +43,7 @@ public class Card18_006 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
+        List<Effect> possibleCosts = new LinkedList<>();
         possibleCosts.add(
                 new SpotEffect(1, Filters.arwen) {
                     @Override
@@ -66,7 +66,7 @@ public class Card18_006 extends AbstractEvent {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         final List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
-                        final ArrayList<PhysicalCard> cards = new ArrayList<PhysicalCard>(deck.subList(0, Math.min(5, deck.size())));
+                        final ArrayList<PhysicalCard> cards = new ArrayList<>(deck.subList(0, Math.min(5, deck.size())));
                         action.appendEffect(
                                 new ChooseArbitraryCardsEffect(playerId, "Choose cards to set aside", cards, 0, 5) {
                                     @Override

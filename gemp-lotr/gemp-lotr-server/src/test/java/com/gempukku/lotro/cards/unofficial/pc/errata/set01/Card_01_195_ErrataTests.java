@@ -20,8 +20,7 @@ public class Card_01_195_ErrataTests
 
     protected GenericCardTestHelper GetSimpleDeckScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
-                {{
+                new HashMap<>() {{
                     put("relics", "51_195");
                 }}
         );

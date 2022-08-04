@@ -7,11 +7,11 @@ import com.gempukku.lotro.logic.effects.ActivateCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class ActivateCardAction extends AbstractCostToEffectAction {
-    private PhysicalCard _physicalCard;
+    private final PhysicalCard _physicalCard;
 
     private ActivateCardEffect _activateCardEffect;
 
-    private String _message;
+    private final String _message;
 
     private boolean _sentMessage;
     private boolean _activated;

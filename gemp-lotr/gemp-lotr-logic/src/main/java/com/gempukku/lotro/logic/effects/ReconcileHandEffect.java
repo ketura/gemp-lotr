@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.actions.PlayerReconcilesAction;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 public class ReconcileHandEffect extends AbstractEffect {
-    private String _playerId;
+    private final String _playerId;
 
     public ReconcileHandEffect(String playerId) {
         _playerId = playerId;

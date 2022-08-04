@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess implements GameProcess {
-    private int _woundsToAssign;
-    private GameProcess _followingGameProcess;
+    private final int _woundsToAssign;
+    private final GameProcess _followingGameProcess;
 
     private GameProcess _nextProcess;
 
@@ -23,7 +23,7 @@ public class FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess impl
     @Override
     public void process(LotroGame game) {
         if (_woundsToAssign > 0) {
-            List<String> shadowPlayers = new LinkedList<String>();
+            List<String> shadowPlayers = new LinkedList<>();
 
             GameState gameState = game.getGameState();
             PlayOrder playOrder = gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false);

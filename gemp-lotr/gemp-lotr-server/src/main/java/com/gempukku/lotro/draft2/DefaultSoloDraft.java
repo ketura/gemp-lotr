@@ -8,10 +8,10 @@ import com.gempukku.lotro.game.DefaultCardCollection;
 import java.util.List;
 
 public class DefaultSoloDraft implements SoloDraft {
-    private String _format;
-    private CardCollectionProducer _newCollection;
-    private DraftPoolProducer _draftPool;
-    private List<DraftChoiceDefinition> _draftChoiceDefinitions;
+    private final String _format;
+    private final CardCollectionProducer _newCollection;
+    private final DraftPoolProducer _draftPool;
+    private final List<DraftChoiceDefinition> _draftChoiceDefinitions;
 
     public DefaultSoloDraft(String format, CardCollectionProducer newCollection, List<DraftChoiceDefinition> draftChoiceDefinitions, DraftPoolProducer draftPool) {
         _format = format;

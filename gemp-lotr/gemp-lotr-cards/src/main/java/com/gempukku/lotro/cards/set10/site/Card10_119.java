@@ -24,7 +24,7 @@ public class Card10_119 extends AbstractSite {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new CantHealModifier(self, Filters.character));
         modifiers.add(

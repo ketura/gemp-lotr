@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TriggerCheckerFactory {
-    private Map<String, TriggerCheckerProducer> triggerCheckers = new HashMap<>();
+    private final Map<String, TriggerCheckerProducer> triggerCheckers = new HashMap<>();
 
     public TriggerCheckerFactory() {
         triggerCheckers.put("abouttobekilled", new AboutToBeKilled());

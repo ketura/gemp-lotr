@@ -43,7 +43,7 @@ public class Card13_047 extends AbstractEvent {
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(String opponentId) {
-                        List<Effect> possibleEffects = new LinkedList<Effect>();
+                        List<Effect> possibleEffects = new LinkedList<>();
                         possibleEffects.add(
                                 new ChooseAndDiscardCardsFromHandEffect(action, opponentId, false, 1, Side.SHADOW) {
                                     @Override

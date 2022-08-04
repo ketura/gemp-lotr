@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EffectAppenderFactory {
-    private Map<String, EffectAppenderProducer> effectAppenderProducers = new HashMap<>();
+    private final Map<String, EffectAppenderProducer> effectAppenderProducers = new HashMap<>();
 
     public EffectAppenderFactory() {
         effectAppenderProducers.put("addburdens", new AddBurdens());

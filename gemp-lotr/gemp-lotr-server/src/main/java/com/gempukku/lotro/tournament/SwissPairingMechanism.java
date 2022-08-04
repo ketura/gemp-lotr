@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SwissPairingMechanism implements PairingMechanism {
-    private String _registryRepresentation;
+    private final String _registryRepresentation;
     private Integer _maxRounds;
 
     public SwissPairingMechanism(String registryRepresentation) {
@@ -53,7 +53,7 @@ public class SwissPairingMechanism implements PairingMechanism {
 
         Set<String> playersWithByes = getPlayersWithByes(playerByes);
 
-        boolean success = tryPairBracketAndFurther(0, new HashSet<String>(), new HashSet<String>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingResults, byeResults);
+        boolean success = tryPairBracketAndFurther(0, new HashSet<>(), new HashSet<>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingResults, byeResults);
         // Managed to pair with this carry over count - proceed with the pairings
         if (success) {
             return false;
@@ -101,7 +101,7 @@ public class SwissPairingMechanism implements PairingMechanism {
                         // This pairing might work
                         pairingsResult.put(firstPlayer, secondPlayer);
                         // Lets give it a try
-                        boolean success = tryPairBracketAndFurther(bracketIndex, Collections.<String>emptySet(), carryOverFromThisBracket, playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
+                        boolean success = tryPairBracketAndFurther(bracketIndex, Collections.emptySet(), carryOverFromThisBracket, playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
                         if (success) {
                             return true;
                         }
@@ -117,13 +117,13 @@ public class SwissPairingMechanism implements PairingMechanism {
         // We have to go to next bracket
         if (bracketIndex + 1 < playersGroupedByBracket.size()) {
             // Remaining players can't be paired within this bracket
-            Set<String> carryOverForNextBracket = new HashSet<String>(carryOverFromThisBracket);
+            Set<String> carryOverForNextBracket = new HashSet<>(carryOverFromThisBracket);
             carryOverForNextBracket.addAll(playersInBracket);
 
-            return tryPairBracketAndFurther(bracketIndex + 1, carryOverForNextBracket, new HashSet<String>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
+            return tryPairBracketAndFurther(bracketIndex + 1, carryOverForNextBracket, new HashSet<>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
         } else {
             // There is no more brackets left, whatever is left, has to get a bye
-            Set<String> leftoverPlayers = new HashSet<String>(carryOverFromThisBracket);
+            Set<String> leftoverPlayers = new HashSet<>(carryOverFromThisBracket);
             leftoverPlayers.addAll(playersInBracket);
 
             // We only accept one bye
@@ -148,7 +148,7 @@ public class SwissPairingMechanism implements PairingMechanism {
     }
 
     private Set<String> getPlayersWithByes(Map<String, Integer> playerByes) {
-        Set<String> playersWithByes = new HashSet<String>();
+        Set<String> playersWithByes = new HashSet<>();
         for (Map.Entry<String, Integer> playerByeCount : playerByes.entrySet()) {
             if (playerByeCount.getValue() != null && playerByeCount.getValue() > 0) {
                 playersWithByes.add(playerByeCount.getKey());
@@ -171,14 +171,14 @@ public class SwissPairingMechanism implements PairingMechanism {
                 int points = currentStanding.getPoints();
                 List<String> playersByPoint = playersByPoints[maxNumberOfPoints - points];
                 if (playersByPoint == null) {
-                    playersByPoint = new ArrayList<String>();
+                    playersByPoint = new ArrayList<>();
                     playersByPoints[maxNumberOfPoints - points] = playersByPoint;
                 }
                 playersByPoint.add(playerName);
             }
         }
 
-        List<List<String>> result = new ArrayList<List<String>>();
+        List<List<String>> result = new ArrayList<>();
         for (List<String> playersByPoint : playersByPoints) {
             if (playersByPoint != null) {
                 result.add(playersByPoint);

@@ -12,11 +12,11 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import java.util.*;
 
 public class TableHolder {
-    private LeagueService leagueService;
-    private IgnoreDAO ignoreDAO;
+    private final LeagueService leagueService;
+    private final IgnoreDAO ignoreDAO;
 
-    private Map<String, GameTable> awaitingTables = new LinkedHashMap<>();
-    private Map<String, GameTable> runningTables = new LinkedHashMap<>();
+    private final Map<String, GameTable> awaitingTables = new LinkedHashMap<>();
+    private final Map<String, GameTable> runningTables = new LinkedHashMap<>();
 
     private int _nextTableId = 1;
 
@@ -172,7 +172,7 @@ public class TableHolder {
 
             List<String> players;
             if (table.getGameSettings().getLeague() != null)
-                players = Collections.<String>emptyList();
+                players = Collections.emptyList();
             else
                 players = table.getPlayerNames();
 

@@ -14,9 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class RevealHandEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _actingPlayer;
-    private String _handPlayerId;
+    private final PhysicalCard _source;
+    private final String _actingPlayer;
+    private final String _handPlayerId;
 
     public RevealHandEffect(PhysicalCard source, String actingPlayer, String handPlayerId) {
         _source = source;
@@ -52,9 +52,9 @@ public class RevealHandEffect extends AbstractEffect {
             String nextPlayer;
             while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                 game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                        new ArbitraryCardsSelectionDecision(1, "Hand of " + _handPlayerId, hand, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                        new ArbitraryCardsSelectionDecision(1, "Hand of " + _handPlayerId, hand, Collections.emptySet(), 0, 0) {
                             @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                            public void decisionMade(String result) {
                             }
                         });
             }

@@ -5,23 +5,23 @@ import com.gempukku.lotro.game.PhysicalCard;
 import java.util.*;
 
 public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecision {
-    private List<PhysicalCard> _freeCharacters;
-    private List<PhysicalCard> _minions;
+    private final List<PhysicalCard> _freeCharacters;
+    private final List<PhysicalCard> _minions;
 
     public PlayerAssignMinionsDecision(int id, String text, Collection<PhysicalCard> freeCharacters, Collection<PhysicalCard> minions) {
         super(id, text, AwaitingDecisionType.ASSIGN_MINIONS);
-        _freeCharacters = new LinkedList<PhysicalCard>(freeCharacters);
-        _minions = new LinkedList<PhysicalCard>(minions);
+        _freeCharacters = new LinkedList<>(freeCharacters);
+        _minions = new LinkedList<>(minions);
         setParam("freeCharacters", getCardIds(_freeCharacters));
         setParam("minions", getCardIds(_minions));
     }
 
     protected Map<PhysicalCard, Set<PhysicalCard>> getAssignmentsBasedOnResponse(String response) throws DecisionResultInvalidException {
-        Map<PhysicalCard, Set<PhysicalCard>> assignments = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+        Map<PhysicalCard, Set<PhysicalCard>> assignments = new HashMap<>();
         if (response.equals(""))
             return assignments;
 
-        Set<PhysicalCard> assignedMinions = new HashSet<PhysicalCard>();
+        Set<PhysicalCard> assignedMinions = new HashSet<>();
 
         try {
             String[] groups = response.split(",");
@@ -31,7 +31,7 @@ public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecisi
                 if (assignments.containsKey(freeCard))
                     throw new DecisionResultInvalidException();
 
-                Set<PhysicalCard> minions = new HashSet<PhysicalCard>();
+                Set<PhysicalCard> minions = new HashSet<>();
                 for (int i = 1; i < cardIds.length; i++) {
                     PhysicalCard minion = getCardId(_minions, Integer.parseInt(cardIds[i]));
                     if (assignedMinions.contains(minion))

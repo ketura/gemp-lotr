@@ -5,10 +5,10 @@ import java.awt.geom.AffineTransform;
 import java.util.function.Function;
 
 public class RotateLayerRecipe implements LayerRecipe {
-    private LayerRecipe target;
-    private Function<RenderContext, Integer> angle;
-    private Function<RenderContext, Integer> x;
-    private Function<RenderContext, Integer> y;
+    private final LayerRecipe target;
+    private final Function<RenderContext, Integer> angle;
+    private final Function<RenderContext, Integer> x;
+    private final Function<RenderContext, Integer> y;
 
     public RotateLayerRecipe(LayerRecipe target, Function<RenderContext, Integer> angle, Function<RenderContext, Integer> x, Function<RenderContext, Integer> y) {
         this.target = target;

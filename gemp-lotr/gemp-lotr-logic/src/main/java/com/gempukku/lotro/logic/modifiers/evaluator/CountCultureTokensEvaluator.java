@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import java.util.Map;
 
 public class CountCultureTokensEvaluator implements Evaluator {
-    private Filterable[] _filters;
+    private final Filterable[] _filters;
     private Token _token;
 
     public CountCultureTokensEvaluator(Filterable... filters) {

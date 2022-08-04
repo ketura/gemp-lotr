@@ -9,15 +9,15 @@ import java.util.Date;
 public class RecurringScheduledQueue extends AbstractTournamentQueue implements TournamentQueue {
     private static final long _signupTimeBeforeStart = 1000 * 60 * 60; // 60 minutes before start
 
-    private long _repeatEvery;
+    private final long _repeatEvery;
     private long _nextStart;
     private String _nextStartText;
 
-    private String _tournamentIdPrefix;
-    private String _tournamentQueueName;
+    private final String _tournamentIdPrefix;
+    private final String _tournamentQueueName;
 
-    private int _minimumPlayers;
-    private TournamentService _tournamentService;
+    private final int _minimumPlayers;
+    private final TournamentService _tournamentService;
 
     public RecurringScheduledQueue(long originalStart, long repeatEvery, String tournamentIdPrefix,
                                               String tournamentQueueName, int cost, boolean requiresDeck,

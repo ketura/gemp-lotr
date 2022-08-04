@@ -11,9 +11,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class LookAtTopCardOfADeckEffect extends AbstractEffect {
-    private String _playerId;
-    private int _count;
-    private String _playerDeckId;
+    private final String _playerId;
+    private final int _count;
+    private final String _playerDeckId;
 
     public LookAtTopCardOfADeckEffect(String playerId, int count, String playerDeckId) {
         _playerId = playerId;
@@ -42,9 +42,9 @@ public class LookAtTopCardOfADeckEffect extends AbstractEffect {
         List<? extends PhysicalCard> cards = game.getGameState().getDeck(_playerDeckId).subList(0, Math.min(deck.size(), _count));
 
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, "Cards on top of deck (left is top)", cards, Collections.<PhysicalCard>emptyList(), 0, 0) {
+                new ArbitraryCardsSelectionDecision(1, "Cards on top of deck (left is top)", cards, Collections.emptyList(), 0, 0) {
                     @Override
-                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                    public void decisionMade(String result) {
                     }
                 });
         cardsLookedAt(cards);

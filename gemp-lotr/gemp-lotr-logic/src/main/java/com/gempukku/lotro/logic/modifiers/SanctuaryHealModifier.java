@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class SanctuaryHealModifier extends AbstractModifier {
-    private Evaluator evaluator;
+    private final Evaluator evaluator;
 
     public SanctuaryHealModifier(PhysicalCard source, Condition condition, Evaluator amount) {
         super(source, "Sanctuary heal modifier "+amount, null, condition, ModifierEffect.SANCTUARY_HEAL_MODIFIER);

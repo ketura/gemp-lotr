@@ -16,9 +16,9 @@ public interface CardCollection {
             PACK, CARD, SELECTION
         }
 
-        private Type _type;
-        private int _count;
-        private String _blueprintId;
+        private final Type _type;
+        private final int _count;
+        private final String _blueprintId;
 
         private Item(Type type, int count, String blueprintId) {
             _type = type;

@@ -1,10 +1,10 @@
 package com.gempukku.lotro.db;
 
 public class PlayerStatistic {
-    private String _deckName;
-    private String _formatName;
-    private int _wins;
-    private int _losses;
+    private final String _deckName;
+    private final String _formatName;
+    private final int _wins;
+    private final int _losses;
 
     public PlayerStatistic(String deckName, String formatName, int wins, int losses) {
         _deckName = deckName;

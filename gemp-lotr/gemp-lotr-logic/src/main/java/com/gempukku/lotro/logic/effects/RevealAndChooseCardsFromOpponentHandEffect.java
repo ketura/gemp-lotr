@@ -18,14 +18,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class RevealAndChooseCardsFromOpponentHandEffect extends AbstractSubActionEffect {
-    private Action _action;
-    private String _playerId;
-    private String _opponentId;
-    private PhysicalCard _source;
-    private String _text;
-    private Filterable _selectionFilter;
-    private int _minChosen;
-    private int _maxChosen;
+    private final Action _action;
+    private final String _playerId;
+    private final String _opponentId;
+    private final PhysicalCard _source;
+    private final String _text;
+    private final Filterable _selectionFilter;
+    private final int _minChosen;
+    private final int _maxChosen;
 
     protected RevealAndChooseCardsFromOpponentHandEffect(Action action, String playerId, String opponentId, PhysicalCard source, String text, Filterable selectionFilter, int minChosen, int maxChosen) {
         _action = action;
@@ -47,7 +47,7 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
     @Override
     public void playEffect(LotroGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId)) {
-            List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
+            List<PhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _opponentId + " cards in hand - " + getAppendedNames(opponentHand));
 
             final PlayOrder playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_opponentId, false);
@@ -60,7 +60,7 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
                     Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game, _selectionFilter);
 
                     game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                            new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
+                            new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
@@ -69,9 +69,9 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
                             });
                 } else if (!nextPlayer.equals(_opponentId)) {
                     game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                            new ArbitraryCardsSelectionDecision(1, "Hand of " + _opponentId, opponentHand, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                            new ArbitraryCardsSelectionDecision(1, "Hand of " + _opponentId, opponentHand, Collections.emptySet(), 0, 0) {
                                 @Override
-                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                public void decisionMade(String result) {
                                 }
                             });
                 }

@@ -37,7 +37,7 @@ public class Card6_054 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self, true);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Keyword.RANGER));
-        List<Effect> possibleEffects = new LinkedList<Effect>();
+        List<Effect> possibleEffects = new LinkedList<>();
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION) {
                     @Override

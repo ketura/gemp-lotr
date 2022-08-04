@@ -12,10 +12,10 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import java.util.Collection;
 
 public class SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private Filterable[] _filters;
-    private Evaluator _evaluator;
-    private Phase _phase;
+    private final PhysicalCard _source;
+    private final Filterable[] _filters;
+    private final Evaluator _evaluator;
+    private final Phase _phase;
 
     public SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect(PhysicalCard source, Evaluator evaluator, Phase phase, Filterable... filter) {
         _source = source;

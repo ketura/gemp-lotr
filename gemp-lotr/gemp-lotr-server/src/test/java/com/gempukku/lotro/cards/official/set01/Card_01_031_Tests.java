@@ -22,14 +22,13 @@ public class Card_01_031_Tests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
-				{{
-					put("asfaloth", "1_31");
-					put("arwen", "3_7");
-					put("legolas", "1_50");
-					put("erestor", "3_14");
-					put("orophin", "1_56");
-				}},
+                new HashMap<>() {{
+                    put("asfaloth", "1_31");
+                    put("arwen", "3_7");
+                    put("legolas", "1_50");
+                    put("erestor", "3_14");
+                    put("orophin", "1_56");
+                }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

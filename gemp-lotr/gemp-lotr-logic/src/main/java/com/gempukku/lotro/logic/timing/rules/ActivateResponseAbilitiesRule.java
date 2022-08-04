@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ActivateResponseAbilitiesRule {
-    private DefaultActionsEnvironment actionsEnvironment;
+    private final DefaultActionsEnvironment actionsEnvironment;
 
     public ActivateResponseAbilitiesRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

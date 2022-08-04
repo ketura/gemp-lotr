@@ -49,7 +49,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.FOLLOWER));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
+            List<Effect> possibleEffects = new LinkedList<>();
             possibleEffects.add(
                     new DrawCardsEffect(action, playerId, 1));
             possibleEffects.add(

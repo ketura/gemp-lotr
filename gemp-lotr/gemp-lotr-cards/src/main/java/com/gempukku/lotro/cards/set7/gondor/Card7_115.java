@@ -34,7 +34,7 @@ public class Card7_115 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
+        List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(
                 new StrengthModifier(self, Filters.and(self, Filters.inSkirmishAgainst(CardType.MINION, Keyword.ROAMING)), 2));
         modifiers.add(

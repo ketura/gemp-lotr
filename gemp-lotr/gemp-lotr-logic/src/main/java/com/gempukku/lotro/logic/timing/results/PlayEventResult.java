@@ -6,8 +6,8 @@ import com.gempukku.lotro.logic.actions.PlayEventAction;
 
 public class PlayEventResult extends PlayCardResult {
     private boolean _eventCancelled;
-    private PlayEventAction _action;
-    private boolean _requiresRanger;
+    private final PlayEventAction _action;
+    private final boolean _requiresRanger;
 
     public PlayEventResult(PlayEventAction action, Zone playedFrom, PhysicalCard playedCard, boolean requiresRanger, boolean paidToil) {
         super(playedFrom, playedCard, null, null, paidToil);

@@ -14,8 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class PreventAllWoundsActionProxy extends AbstractActionProxy {
-    private PhysicalCard _source;
-    private Filter _filters;
+    private final PhysicalCard _source;
+    private final Filter _filters;
 
     public PreventAllWoundsActionProxy(PhysicalCard source, Filterable... filters) {
         _source = source;

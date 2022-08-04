@@ -37,7 +37,7 @@ public class Card17_114 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Race.URUK_HAI) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
-                        List<Effect> possibleEffects = new LinkedList<Effect>();
+                        List<Effect> possibleEffects = new LinkedList<>();
                         possibleEffects.add(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, urukHai, 2)) {

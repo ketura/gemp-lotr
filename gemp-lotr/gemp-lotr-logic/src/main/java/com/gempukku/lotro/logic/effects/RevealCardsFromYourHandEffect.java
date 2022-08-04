@@ -15,9 +15,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class RevealCardsFromYourHandEffect extends AbstractEffect {
-    private PhysicalCard _source;
-    private String _handPlayerId;
-    private Collection<? extends PhysicalCard> _cards;
+    private final PhysicalCard _source;
+    private final String _handPlayerId;
+    private final Collection<? extends PhysicalCard> _cards;
 
     public RevealCardsFromYourHandEffect(PhysicalCard source, String handPlayerId, PhysicalCard card) {
         this(source, handPlayerId, Collections.singleton(card));
@@ -60,9 +60,9 @@ public class RevealCardsFromYourHandEffect extends AbstractEffect {
         String nextPlayer;
         while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
             game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                    new ArbitraryCardsSelectionDecision(1, _handPlayerId + " revealed card(s) in hand", _cards, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                    new ArbitraryCardsSelectionDecision(1, _handPlayerId + " revealed card(s) in hand", _cards, Collections.emptySet(), 0, 0) {
                         @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
+                        public void decisionMade(String result) {
                         }
                     });
         }

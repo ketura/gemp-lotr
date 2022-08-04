@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 public class RemoveTwilightEffect extends AbstractEffect {
-    private Evaluator _twilight;
+    private final Evaluator _twilight;
 
     public RemoveTwilightEffect(int twilight) {
         this(new ConstantEvaluator(twilight));

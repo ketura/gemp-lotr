@@ -7,9 +7,9 @@ import java.util.List;
 public class LotroDeck {
     private String _ringBearer;
     private String _ring;
-    private List<String> _siteCards = new ArrayList<String>();
-    private List<String> _nonSiteCards = new ArrayList<String>();
-    private String _deckName;
+    private final List<String> _siteCards = new ArrayList<>();
+    private final List<String> _nonSiteCards = new ArrayList<>();
+    private final String _deckName;
 
     private String _targetFormat = "Anything Goes";
 

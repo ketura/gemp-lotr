@@ -12,9 +12,9 @@ public enum Phase {
     REGROUP("Regroup", true, true),
     BETWEEN_TURNS("Between turns", false, false);
 
-    private String humanReadable;
-    private boolean realPhase;
-    private boolean cardsAffectGame;
+    private final String humanReadable;
+    private final boolean realPhase;
+    private final boolean cardsAffectGame;
 
     Phase(String humanReadable, boolean realPhase, boolean cardsAffectGame) {
         this.humanReadable = humanReadable;

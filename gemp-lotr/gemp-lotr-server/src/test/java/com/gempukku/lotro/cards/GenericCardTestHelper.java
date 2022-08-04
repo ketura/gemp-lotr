@@ -4,7 +4,6 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.filter.FilterFactory;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +13,6 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.cost.DiscardFromPlayExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -22,15 +20,11 @@ import org.junit.Assert;
 
 import java.util.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class GenericCardTestHelper extends AbstractAtTest {
 
-    private int LastCardID = 100;
+    private final int LastCardID = 100;
 
-    public static final HashMap<String, String> FellowshipSites = new HashMap<String, String>() {{
+    public static final HashMap<String, String> FellowshipSites = new HashMap<>() {{
         put("site1", "1_319");
         put("site2", "1_327");
         put("site3", "1_337");
@@ -42,7 +36,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
         put("site9", "1_360");
     }};
 
-    public static final HashMap<String, String> KingSites = new HashMap<String, String>() {{
+    public static final HashMap<String, String> KingSites = new HashMap<>() {{
         put("site1", "7_330");
         put("site2", "7_335");
         put("site3", "8_117");
@@ -83,7 +77,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
             initializeSimplestGame();
         }
         else {
-            Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+            Map<String, LotroDeck> decks = new HashMap<>();
             decks.put(P1, new LotroDeck(P1));
             decks.put(P2, new LotroDeck(P2));
 
@@ -170,7 +164,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public List<String> GetAvailableActions(String playerID) {
         AwaitingDecision decision = GetAwaitingDecision(playerID);
         if(decision == null) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
         return Arrays.asList((String[])decision.getDecisionParameters().get("actionText"));
     }
@@ -477,7 +471,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void RemoveCardZone(String player, PhysicalCardImpl card) {
         if(card.getZone() != null)
         {
-            _game.getGameState().removeCardsFromZone(player, new ArrayList<PhysicalCard>() {{ add(card); }});
+            _game.getGameState().removeCardsFromZone(player, new ArrayList<>() {{
+                add(card);
+            }});
         }
     }
 
@@ -634,8 +630,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void ChooseCardBPFromSelection(String player, PhysicalCardImpl...cards) throws DecisionResultInvalidException {
         String[] choices = GetAwaitingDecisionParam(player,"blueprintId");
-        ArrayList<String> bps = new ArrayList<String>();
-        ArrayList<PhysicalCardImpl> found = new ArrayList<PhysicalCardImpl>();
+        ArrayList<String> bps = new ArrayList<>();
+        ArrayList<PhysicalCardImpl> found = new ArrayList<>();
 
         for(int i = 0; i < choices.length; i++)
         {
@@ -736,8 +732,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsChooseToStay() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
 
-    public boolean FreepsHasOptionalTriggerAvailable() throws DecisionResultInvalidException { return FreepsDecisionAvailable("Optional"); }
-    public boolean ShadowHasOptionalTriggerAvailable() throws DecisionResultInvalidException { return ShadowDecisionAvailable("Optional"); }
+    public boolean FreepsHasOptionalTriggerAvailable() { return FreepsDecisionAvailable("Optional"); }
+    public boolean ShadowHasOptionalTriggerAvailable() { return ShadowDecisionAvailable("Optional"); }
 
     public void FreepsAcceptOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsDeclineOptionalTrigger() throws DecisionResultInvalidException { playerDecided(P1, ""); }

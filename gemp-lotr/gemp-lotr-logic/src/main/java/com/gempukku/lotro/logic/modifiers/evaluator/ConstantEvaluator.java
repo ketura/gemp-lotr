@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class ConstantEvaluator implements Evaluator {
-    private int _value;
+    private final int _value;
 
     public ConstantEvaluator(int value) {
         _value = value;
