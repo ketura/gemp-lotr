@@ -1,7 +1,7 @@
 {
   "12_22": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -13,7 +13,7 @@
   },
   "12_23": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Elven",
     "title": "Seclusion",
     "type": "event",
@@ -24,7 +24,7 @@
   },
   "12_20": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -36,7 +36,7 @@
   },
   "12_21": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Refuge",
     "type": "condition",
@@ -44,7 +44,7 @@
   },
   "12_16": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Attunement",
     "type": "event",
@@ -52,7 +52,7 @@
   },
   "12_24": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Taking the High Ground",
     "type": "condition",
@@ -63,7 +63,7 @@
   },
   "12_17": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 8,
     "culture": "Elven",
@@ -75,7 +75,7 @@
   },
   "12_18": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Elven",
     "itemclass": "Hand Weapon",

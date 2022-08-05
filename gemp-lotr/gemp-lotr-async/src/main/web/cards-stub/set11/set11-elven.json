@@ -1,7 +1,7 @@
 {
   "11_25": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Nocked",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "11_15": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -21,7 +21,7 @@
   },
   "11_26": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "*Uncertain Future",
     "type": "condition",
@@ -29,7 +29,7 @@
   },
   "11_23": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "itemclass": "Ranged Weapon",
     "title": "*Legolas' Bow",
@@ -37,7 +37,7 @@
   },
   "11_24": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Might of the Elf-lords",
     "type": "event",
@@ -45,7 +45,7 @@
   },
   "11_18": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -56,7 +56,7 @@
   },
   "11_19": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Elven",
     "title": "Farewell to Lorien",
     "type": "event",
@@ -64,7 +64,7 @@
   },
   "11_16": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
@@ -73,7 +73,7 @@
   },
   "11_27": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -84,7 +84,7 @@
   },
   "11_17": {
     "side": "free_people",
-    "cost": 6,
+    "twilight": 6,
     "culture": "Elven",
     "title": "Elven Marksmanship",
     "type": "condition",
@@ -95,7 +95,7 @@
   },
   "11_21": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -107,7 +107,7 @@
   },
   "11_22": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -119,7 +119,7 @@
   },
   "11_20": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "The Lady's Blessing",
     "type": "event",

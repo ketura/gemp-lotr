@@ -2,7 +2,7 @@
   "15_186": {
     "side": "shadow",
     "site": 3,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -14,7 +14,7 @@
   },
   "15_182": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "A Shadow Fell Over Them",
     "type": "condition",
@@ -22,7 +22,7 @@
   },
   "15_183": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "They Feel the Precious",
     "type": "condition",
@@ -31,7 +31,7 @@
   "15_184": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 12,
     "culture": "Wraith",
@@ -44,7 +44,7 @@
   "15_185": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -56,7 +56,7 @@
   },
   "15_181": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Wraith",
     "title": "Later Than You Think",
     "type": "event",

@@ -2,7 +2,7 @@
   "40_33": {
     "title": "Arrows of Light",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "archery",
     "requires": {
@@ -35,7 +35,7 @@
     "title": "*Arwen",
     "subtitle": "Fearless Rider",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -64,7 +64,7 @@
     "title": "*Arwen",
     "subtitle": "Lady of Imladris",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -109,7 +109,7 @@
     "title": "*Bow of the Galadhrim",
     "subtitle": "Galadriel's Gift",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "strength": 1,
@@ -139,7 +139,7 @@
   "40_37": {
     "title": "*Bruinen Unleashed",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -182,7 +182,7 @@
     "title": "*Celeborn",
     "subtitle": "Lord of the Golden Wood",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "race": "elf",
     "keyword": "lothlorien",
@@ -235,7 +235,7 @@
   "40_39": {
     "title": "Coordinated Strike",
     "culture": "elven",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": "support area",
     "text": [
@@ -280,7 +280,7 @@
   "40_40": {
     "title": "Crippling Arrows",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "maneuver",
     "requires": {
@@ -306,7 +306,7 @@
     "title": "*Elrond",
     "subtitle": "Peredhil",
     "culture": "elven",
-    "cost": 4,
+    "twilight": 4,
     "type": "ally",
     "race": "elf",
     "keyword": "rivendell",
@@ -397,7 +397,7 @@
   "40_42": {
     "title": "Elven Bow",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "target": "elf",
@@ -418,7 +418,7 @@
   "40_43": {
     "title": "Elven Reflexes",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -453,7 +453,7 @@
   "40_44": {
     "title": "Forewarned",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -499,7 +499,7 @@
     "title": "*Galadriel",
     "subtitle": "White Lady of Lorien",
     "culture": "elven",
-    "cost": 3,
+    "twilight": 3,
     "type": "ally",
     "race": "elf",
     "keyword": "lothlorien",
@@ -566,7 +566,7 @@
   "40_46": {
     "title": "Galadriel's Wisdom",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "regroup",
     "text": "Exert Galadriel and reveal the top card of your draw deck to discard a Shadow condition (or 2 Shadow conditions if you reveal an {elven} card).",
@@ -603,7 +603,7 @@
     "title": "*Glorfindel",
     "subtitle": "Emissary of the Valar",
     "culture": "elven",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "elf",
     "strength": 9,
@@ -648,7 +648,7 @@
     "title": "*Golradir",
     "subtitle": "Homely House Advisor",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "race": "elf",
     "keyword": "rivendell",
@@ -687,7 +687,7 @@
     "title": "*Gwemegil",
     "subtitle": "Elf-forged Blade",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -720,7 +720,7 @@
   "40_50": {
     "title": "Legacy of Elbereth",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "requires": {
@@ -743,7 +743,7 @@
     "title": "*Legolas",
     "subtitle": "Sindarin Marksman",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -782,7 +782,7 @@
     "title": "*Legolas",
     "subtitle": "Swiftshot",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -815,7 +815,7 @@
   "40_53": {
     "title": "*Lights of Caras Galadhon",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -857,7 +857,7 @@
     "title": "*Long-knives of Legolas",
     "subtitle": "Dancing Blades",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 1,
@@ -879,7 +879,7 @@
   "40_55": {
     "title": "Lórien Patrol",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "archery",
     "text": "Exert an {elven} ally and add a threat to wound a minion. If it is an {isengard} minion, wound it again.",
@@ -919,7 +919,7 @@
   "40_57": {
     "title": "*Peering Forward",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "text": "Each time you reveal a card from the top of your draw deck, you may exert an Elf to make a minion strength -1 until the regroup phase.",
@@ -945,7 +945,7 @@
   "40_58": {
     "title": "*Silent Scouts",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "text": "Each time the fellowship moves during the regroup phase, reveal the top card of your draw deck. If it is an {elven} card, you may make the Shadow player wound a minion.",
@@ -987,7 +987,7 @@
   "40_59": {
     "title": "*The Tale of Gil-Galad",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "target": "elf",
     "vitality": 1,
@@ -1022,7 +1022,7 @@
     "title": "*The Mirror of Galadriel",
     "subtitle": "Revealer of Portents",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "keyword": "support area",
     "text": [
@@ -1078,7 +1078,7 @@
   "40_61": {
     "title": "*Three for the Elven-kings",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "text": [
@@ -1144,7 +1144,7 @@
   "40_62": {
     "title": "We Could Have Shot Him in the Dark",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "archery",
     "requires": {

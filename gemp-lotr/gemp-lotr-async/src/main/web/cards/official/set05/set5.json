@@ -3,7 +3,7 @@
     "title": "*Gimli",
     "subtitle": "Skilled Defender",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,

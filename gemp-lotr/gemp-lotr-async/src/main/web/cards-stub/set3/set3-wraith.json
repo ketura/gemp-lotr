@@ -1,7 +1,7 @@
 {
   "3_84": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "They Will Never Stop Hunting You",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "3_85": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Wraith",
     "title": "Too Great and Terrible",
     "type": "event",
@@ -18,7 +18,7 @@
   "3_86": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -30,7 +30,7 @@
   },
   "3_81": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Gates of the Dead City",
     "type": "condition",
@@ -38,7 +38,7 @@
   },
   "3_82": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "News of Mordor",
     "type": "event",
@@ -46,7 +46,7 @@
   },
   "3_83": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "*The Ring Draws Them",
     "type": "condition",

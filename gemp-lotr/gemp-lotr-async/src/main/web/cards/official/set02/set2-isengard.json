@@ -1,7 +1,7 @@
 {
   "2_39": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Isengard",
     "title": "Beyond the Height of Men",
     "type": "event",
@@ -42,7 +42,7 @@
   },
   "2_40": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Isengard",
     "title": "Demands of the Sackville-Bagginses",
     "type": "condition",
@@ -65,7 +65,7 @@
   },
   "2_41": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Isengard",
     "title": "Evil Afoot",
     "type": "event",
@@ -95,7 +95,7 @@
   "2_42": {
     "side": "shadow",
     "site": 2,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Isengard",
@@ -133,7 +133,7 @@
   },
   "2_43": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Isengard",
     "itemclass": "Hand Weapon",
@@ -166,7 +166,7 @@
   },
   "2_44": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Isengard",
     "title": "No Business of Ours",
     "type": "condition",
@@ -186,7 +186,7 @@
   },
   "2_45": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Isengard",
     "title": "Too Much Attention",
     "type": "event",
@@ -211,7 +211,7 @@
   "2_46": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Uruk-Hai",
     "strength": 9,
     "culture": "Isengard",
@@ -241,7 +241,7 @@
   "2_47": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Uruk-Hai",
     "strength": 7,
     "culture": "Isengard",
@@ -280,7 +280,7 @@
   },
   "2_48": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Isengard",
     "title": "Wizard Storm",
     "type": "condition",

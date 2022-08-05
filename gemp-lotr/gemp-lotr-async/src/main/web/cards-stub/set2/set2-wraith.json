@@ -2,7 +2,7 @@
   "2_83": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 11,
     "culture": "Wraith",
@@ -15,7 +15,7 @@
   "2_84": {
     "side": "shadow",
     "site": 2,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -28,7 +28,7 @@
   "2_85": {
     "side": "shadow",
     "site": 3,
-    "cost": 8,
+    "twilight": 8,
     "race": "Nazgul",
     "strength": 14,
     "culture": "Wraith",
@@ -41,7 +41,7 @@
   "2_75": {
     "side": "shadow",
     "site": 2,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 4,
     "culture": "Wraith",
@@ -52,7 +52,7 @@
   },
   "2_86": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Wraith-world",
     "type": "event",
@@ -60,14 +60,14 @@
   },
   "2_76": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Wraith",
     "title": "Helpless",
     "type": "condition"
   },
   "2_77": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "His Terrible Servants",
     "type": "condition",
@@ -75,7 +75,7 @@
   },
   "2_78": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "It Wants to be Found",
     "type": "event",
@@ -83,7 +83,7 @@
   },
   "2_79": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Resistance Becomes Unbearable",
     "type": "event",
@@ -91,7 +91,7 @@
   },
   "2_80": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "Stricken Dumb",
     "type": "event",
@@ -99,7 +99,7 @@
   },
   "2_81": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "They Will Find the Ring",
     "type": "event",
@@ -108,7 +108,7 @@
   "2_82": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 12,
     "culture": "Wraith",

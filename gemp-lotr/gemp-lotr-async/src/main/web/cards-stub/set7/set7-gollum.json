@@ -1,7 +1,7 @@
 {
   "7_68": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Scouting",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "7_69": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Secret Paths",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "7_66": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "No Safe Places",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "7_67": {
     "side": "shadow",
-    "cost": 5,
+    "twilight": 5,
     "culture": "Gollum",
     "title": "*Plotting",
     "type": "condition",
@@ -33,7 +33,7 @@
   },
   "7_60": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Heavy Burden",
     "type": "condition",
@@ -41,7 +41,7 @@
   },
   "7_61": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Hobbitses Are Dead",
     "type": "event",
@@ -49,7 +49,7 @@
   },
   "7_64": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Nasty",
     "type": "event",
@@ -57,7 +57,7 @@
   },
   "7_65": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Never",
     "type": "condition",
@@ -65,7 +65,7 @@
   },
   "7_62": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "It's Mine",
     "type": "condition",
@@ -73,14 +73,14 @@
   },
   "7_63": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Let Her Deal With Them",
     "type": "condition"
   },
   "7_57": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "*Fat One Wants It",
     "type": "condition",
@@ -89,7 +89,7 @@
   "7_58": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "strength": 5,
     "culture": "Gollum",
     "vitality": 4,
@@ -99,7 +99,7 @@
   },
   "7_55": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Days Growing Dark",
     "type": "condition",
@@ -107,14 +107,14 @@
   },
   "7_77": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "*We Hates Them",
     "type": "condition"
   },
   "7_56": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gollum",
     "title": "The Dead City",
     "type": "condition",
@@ -122,7 +122,7 @@
   },
   "7_78": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Where Shall We Go",
     "type": "event",
@@ -131,7 +131,7 @@
   "7_59": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "strength": 5,
     "culture": "Gollum",
     "vitality": 4,
@@ -141,7 +141,7 @@
   },
   "7_71": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 3,
     "culture": "Gollum",
     "vitality": 4,
@@ -154,7 +154,7 @@
   },
   "7_72": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 3,
     "culture": "Gollum",
     "vitality": 4,
@@ -167,7 +167,7 @@
   },
   "7_70": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gollum",
     "title": "Serving the Precious",
     "type": "event",
@@ -175,7 +175,7 @@
   },
   "7_53": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Captured by the Ring",
     "type": "event",
@@ -183,7 +183,7 @@
   },
   "7_75": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Sweeter Meats",
     "type": "event",
@@ -191,7 +191,7 @@
   },
   "7_54": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Clever Hobbits",
     "type": "event",
@@ -199,7 +199,7 @@
   },
   "7_76": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Very Nice Friends",
     "type": "event",
@@ -207,7 +207,7 @@
   },
   "7_73": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Sneaking!",
     "type": "event",
@@ -218,7 +218,7 @@
   },
   "7_74": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "So Polite",
     "type": "event",

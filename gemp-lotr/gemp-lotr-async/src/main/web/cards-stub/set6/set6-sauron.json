@@ -2,7 +2,7 @@
   "6_99": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Wraith",
     "strength": 7,
     "culture": "Sauron",
@@ -13,7 +13,7 @@
   },
   "6_98": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 1,
     "culture": "Sauron",
     "itemclass": "Hand Weapon",
@@ -23,7 +23,7 @@
   "6_108": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Wraith",
     "strength": 8,
     "culture": "Sauron",
@@ -35,7 +35,7 @@
   "6_104": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Sauron",
@@ -45,7 +45,7 @@
   },
   "6_105": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Peril",
     "type": "condition",
@@ -54,7 +54,7 @@
   "6_106": {
     "side": "shadow",
     "site": 6,
-    "cost": 10,
+    "twilight": 10,
     "race": "Troll",
     "strength": 14,
     "culture": "Sauron",
@@ -65,7 +65,7 @@
   },
   "6_107": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Sauron",
     "itemclass": "Hand Weapon",
@@ -75,7 +75,7 @@
   "6_100": {
     "side": "shadow",
     "site": 4,
-    "cost": 1,
+    "twilight": 1,
     "race": "Wraith",
     "strength": 5,
     "culture": "Sauron",
@@ -90,7 +90,7 @@
   "6_101": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Sauron",
@@ -101,7 +101,7 @@
   "6_102": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -112,7 +112,7 @@
   "6_103": {
     "side": "shadow",
     "site": 6,
-    "cost": 8,
+    "twilight": 8,
     "race": "Troll",
     "strength": 13,
     "culture": "Sauron",

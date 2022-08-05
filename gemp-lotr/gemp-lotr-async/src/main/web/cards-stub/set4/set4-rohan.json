@@ -1,7 +1,7 @@
 {
   "4_278": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "itemclass": "Armor",
     "title": "Heavy Chain",
@@ -9,7 +9,7 @@
   },
   "4_279": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "Helm! Helm!",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "4_270": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -31,7 +31,7 @@
   },
   "4_292": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -44,7 +44,7 @@
   },
   "4_271": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -58,7 +58,7 @@
   },
   "4_293": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Valleys of the Mark",
     "type": "condition",
@@ -66,7 +66,7 @@
   },
   "4_272": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 3,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",
@@ -75,7 +75,7 @@
   },
   "4_294": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Weapon Store",
     "type": "condition",
@@ -83,7 +83,7 @@
   },
   "4_273": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Fight for the Villagers",
     "type": "event",
@@ -91,7 +91,7 @@
   },
   "4_295": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 4,
     "culture": "Rohan",
@@ -107,7 +107,7 @@
   },
   "4_274": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "itemclass": "Mount",
     "title": "*Firefoot",
@@ -115,7 +115,7 @@
   },
   "4_296": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Well Stored",
     "type": "condition",
@@ -123,7 +123,7 @@
   },
   "4_275": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Forth Eorlingas!",
     "type": "event",
@@ -131,7 +131,7 @@
   },
   "4_297": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Work for the Sword",
     "type": "event",
@@ -139,7 +139,7 @@
   },
   "4_276": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "*Fortress Never Fallen",
     "type": "condition",
@@ -147,7 +147,7 @@
   },
   "4_277": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 4,
     "culture": "Rohan",
@@ -163,7 +163,7 @@
   },
   "4_280": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Rohan",
     "vitality": 1,
@@ -173,7 +173,7 @@
   },
   "4_267": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -186,7 +186,7 @@
   },
   "4_289": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Simbelmyne",
     "type": "event",
@@ -194,7 +194,7 @@
   },
   "4_268": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",
@@ -203,7 +203,7 @@
   },
   "4_269": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -215,7 +215,7 @@
   },
   "4_281": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 4,
     "culture": "Rohan",
@@ -231,7 +231,7 @@
   },
   "4_282": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "An Honorable Charge",
     "type": "event",
@@ -239,7 +239,7 @@
   },
   "4_283": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "itemclass": "Mount",
     "title": "Horse of Rohan",
@@ -247,7 +247,7 @@
   },
   "4_262": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 3,
     "culture": "Rohan",
@@ -260,7 +260,7 @@
   },
   "4_284": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "itemclass": "Armor",
     "title": "*King's Mail",
@@ -268,7 +268,7 @@
   },
   "4_263": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "itemclass": "Mount",
     "title": "*Brego",
@@ -276,7 +276,7 @@
   },
   "4_285": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 4,
     "culture": "Rohan",
@@ -292,7 +292,7 @@
   },
   "4_264": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -304,7 +304,7 @@
   },
   "4_286": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Rohan",
@@ -315,7 +315,7 @@
   },
   "4_265": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -326,7 +326,7 @@
   },
   "4_287": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "itemclass": "Mount",
     "title": "Rider's Mount",
@@ -334,7 +334,7 @@
   },
   "4_266": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -347,7 +347,7 @@
   },
   "4_288": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",
@@ -356,7 +356,7 @@
   },
   "4_365": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -369,7 +369,7 @@
   },
   "4_290": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Rohan",
     "title": "Supplies of the Mark",
     "type": "condition",
@@ -377,7 +377,7 @@
   },
   "4_291": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",

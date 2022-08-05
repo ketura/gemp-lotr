@@ -1,7 +1,7 @@
 {
   "5_65": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "strength": 3,
     "culture": "Isengard",
     "vitality": 1,
@@ -11,7 +11,7 @@
   },
   "5_64": {
     "side": "shadow",
-    "cost": 4,
+    "twilight": 4,
     "strength": 4,
     "culture": "Isengard",
     "vitality": 2,
@@ -22,7 +22,7 @@
   "5_45": {
     "side": "shadow",
     "site": 5,
-    "cost": 5,
+    "twilight": 5,
     "race": "Uruk-Hai",
     "strength": 10,
     "culture": "Isengard",
@@ -34,7 +34,7 @@
   "5_67": {
     "side": "shadow",
     "site": 4,
-    "cost": 1,
+    "twilight": 1,
     "race": "Orc",
     "strength": 5,
     "culture": "Isengard",
@@ -45,7 +45,7 @@
   },
   "5_44": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Isengard",
     "title": "Battering Ram",
     "type": "condition",
@@ -57,7 +57,7 @@
   "5_66": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Isengard",
@@ -69,7 +69,7 @@
   "5_47": {
     "side": "shadow",
     "site": 5,
-    "cost": 7,
+    "twilight": 7,
     "race": "Uruk-Hai",
     "strength": 12,
     "culture": "Isengard",
@@ -80,7 +80,7 @@
   },
   "5_69": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Isengard",
     "title": "Wolves of Isengard",
     "type": "condition"
@@ -88,7 +88,7 @@
   "5_46": {
     "side": "shadow",
     "site": 5,
-    "cost": 6,
+    "twilight": 6,
     "race": "Uruk-Hai",
     "strength": 12,
     "culture": "Isengard",
@@ -99,7 +99,7 @@
   },
   "5_68": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Isengard",
     "title": "Wolf-voices",
     "type": "event",
@@ -107,7 +107,7 @@
   },
   "5_49": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Isengard",
     "title": "*Devilry of Orthanc",
     "type": "condition",
@@ -118,7 +118,7 @@
   },
   "5_48": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Isengard",
     "title": "Black Shapes Crawling",
     "type": "event",
@@ -127,7 +127,7 @@
   "5_61": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Uruk-Hai",
     "strength": 8,
     "culture": "Isengard",
@@ -138,7 +138,7 @@
   },
   "5_60": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Isengard",
     "title": "Siege Engine",
     "type": "condition",
@@ -150,7 +150,7 @@
   "5_63": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 7,
     "culture": "Isengard",
@@ -162,7 +162,7 @@
   "5_62": {
     "side": "shadow",
     "site": 5,
-    "cost": 2,
+    "twilight": 2,
     "race": "Uruk-Hai",
     "strength": 6,
     "culture": "Isengard",
@@ -173,7 +173,7 @@
   },
   "5_54": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Isengard",
     "itemclass": "Hand Weapon",
@@ -183,7 +183,7 @@
   "5_53": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Isengard",
@@ -195,7 +195,7 @@
   "5_56": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 8,
     "culture": "Isengard",
@@ -207,7 +207,7 @@
   "5_55": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 5,
     "culture": "Isengard",
@@ -219,7 +219,7 @@
   "5_58": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Isengard",
@@ -231,7 +231,7 @@
   },
   "5_57": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Isengard",
     "title": "Scaling Ladder",
     "type": "condition",
@@ -242,7 +242,7 @@
   },
   "5_59": {
     "side": "shadow",
-    "cost": 5,
+    "twilight": 5,
     "strength": 5,
     "culture": "Isengard",
     "vitality": 3,
@@ -253,7 +253,7 @@
   "5_50": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 9,
     "culture": "Isengard",
@@ -265,7 +265,7 @@
   "5_52": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Isengard",
@@ -277,7 +277,7 @@
   "5_51": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 4,
     "culture": "Isengard",

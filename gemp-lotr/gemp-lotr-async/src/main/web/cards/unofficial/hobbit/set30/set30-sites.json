@@ -4,7 +4,7 @@
     "type": "site",
     "block": "hobbit",
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "effects": {
       "type": "activated",
       "phase": "fellowship",
@@ -20,7 +20,7 @@
   },
   "30_50": {
     "title": "The Troll Hoard",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "block": "hobbit",
     "site": 2,
@@ -47,7 +47,7 @@
   },
   "30_51": {
     "title": "Rivendell",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "block": "hobbit",
     "site": 3,
@@ -61,7 +61,7 @@
   },
   "30_52": {
     "title": "Goblin Town",
-    "cost": 4,
+    "twilight": 4,
     "type": "site",
     "block": "hobbit",
     "site": 4,
@@ -81,7 +81,7 @@
   },
   "30_53": {
     "title": "Mirkwood",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "block": "hobbit",
     "site": 5,
@@ -100,7 +100,7 @@
   },
   "30_54": {
     "title": "Esgaroth",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "block": "hobbit",
     "site": 6,
@@ -124,7 +124,7 @@
   },
   "30_55": {
     "title": "Erebor",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "block": "hobbit",
     "site": 7,
@@ -153,7 +153,7 @@
   },
   "30_56": {
     "title": "Smaug's Den",
-    "cost": 8,
+    "twilight": 8,
     "type": "site",
     "block": "hobbit",
     "site": 8,
@@ -185,7 +185,7 @@
   },
   "30_57": {
     "title": "Battle of the Five Armies",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "block": "hobbit",
     "site": 9,
@@ -208,7 +208,7 @@
   },
   "30_58": {
     "title": "Bilbo's Kitchen",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "block": "hobbit",
     "site": 1,
@@ -235,7 +235,7 @@
   },
   "30_59": {
     "title": "Trollshaw Forest",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "block": "hobbit",
     "site": 2,
@@ -272,7 +272,7 @@
   },
   "30_60": {
     "title": "Rhudaur",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "block": "hobbit",
     "site": 3,
@@ -293,7 +293,7 @@
   },
   "30_61": {
     "title": "Wooded Steep Cliff",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "block": "hobbit",
     "site": 4,
@@ -330,7 +330,7 @@
   },
   "30_62": {
     "title": "Old Forest Road",
-    "cost": 5,
+    "twilight": 5,
     "type": "site",
     "block": "hobbit",
     "site": 5,
@@ -358,7 +358,7 @@
   },
   "30_63": {
     "title": "Lake-Town",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "block": "hobbit",
     "site": 6,
@@ -410,7 +410,7 @@
   },
   "30_64": {
     "title": "Dale",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "block": "hobbit",
     "site": 7,
@@ -439,7 +439,7 @@
   },
   "30_65": {
     "title": "Ravenhill",
-    "cost": 8,
+    "twilight": 8,
     "type": "site",
     "block": "hobbit",
     "site": 9,

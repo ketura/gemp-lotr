@@ -1,7 +1,7 @@
 {
   "12_30": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 4,
     "culture": "Gandalf",
@@ -13,7 +13,7 @@
   },
   "12_33": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "The Terror of His Coming",
     "type": "event",
@@ -21,7 +21,7 @@
   },
   "12_34": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Traveled Leader",
     "type": "event",
@@ -32,7 +32,7 @@
   },
   "12_32": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gandalf",
     "title": "Salve",
     "type": "condition",
@@ -40,7 +40,7 @@
   },
   "12_26": {
     "side": "free_people",
-    "cost": 7,
+    "twilight": 7,
     "culture": "Gandalf",
     "title": "Discoveries",
     "type": "event",
@@ -51,7 +51,7 @@
   },
   "12_27": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 7,
     "culture": "Gandalf",
@@ -63,14 +63,14 @@
   },
   "12_35": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "Watch and Wait",
     "type": "condition"
   },
   "12_36": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "With Doom We Come",
     "type": "condition",
@@ -78,14 +78,14 @@
   },
   "12_28": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gandalf",
     "title": "*Gandalf's Hat",
     "type": "possession"
   },
   "12_29": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "Introspection",
     "type": "event",

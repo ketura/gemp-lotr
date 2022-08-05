@@ -3,7 +3,7 @@
 	"151_44": {
 		"title": "Fell To Its Power",
 		"culture": "sauron",
-		"cost": 1,
+		"twilight": 1,
 		"type": "event",
 		"keyword": ["regroup"],
 		"effects": {
@@ -34,7 +34,7 @@
 	"151_45": {
 		"title": "*Gaze Of The Eye",
 		"culture": "sauron",
-		"cost": 1,
+		"twilight": 1,
 		"type": "condition",
 		"keyword": ["support area"],
 		"effects": [
@@ -60,7 +60,7 @@
 	"151_46": {
 		"title": "I See You",
 		"culture": "sauron",
-		"cost": 0,
+		"twilight": 0,
 		"type": "condition",
 		"keyword": ["support area"],
 		"effects": [
@@ -100,7 +100,7 @@
 	"151_47": {
 		"title": "It Betrayed Isildur",
 		"culture": "sauron",
-		"cost": 1,
+		"twilight": 1,
 		"type": "event",
 		"keyword": ["regroup"],
 		"requires": {
@@ -148,7 +148,7 @@
 	"151_48": {
 		"title": "Orc Ambush Troop",
 		"culture": "sauron",
-		"cost": 3,
+		"twilight": 3,
 		"type": "minion",
 		"race": "orc",
 		"strength": 8,
@@ -189,7 +189,7 @@
 	"151_49": {
 		"title": "*A Shadow of the Past",
 		"culture": "sauron",
-		"cost": 1,
+		"twilight": 1,
 		"type": "condition",
 		"keyword": ["support area"],
 		"effects": [

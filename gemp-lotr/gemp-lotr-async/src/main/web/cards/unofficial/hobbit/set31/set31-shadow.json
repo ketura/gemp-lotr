@@ -3,7 +3,7 @@
     "title": "*Better Than Nothing",
     "culture": "gollum",
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -58,7 +58,7 @@
     "subtitle": "Small Slimy Creature",
     "culture": "gollum",
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "strength": 5,
     "vitality": 4,
@@ -117,7 +117,7 @@
     "title": "If He Loses",
     "culture": "gollum",
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "skirmish",
     "effects": [
@@ -163,7 +163,7 @@
     "title": "*Riddles in the Dark",
     "culture": "gollum",
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -220,7 +220,7 @@
     "title": "*Azog",
     "subtitle": "The Defiler",
     "culture": "gundabad",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -245,7 +245,7 @@
     "title": "*Bolg",
     "subtitle": "Son of Azog",
     "culture": "gundabad",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -273,7 +273,7 @@
   "31_25": {
     "title": "Savage Warg",
     "culture": "gundabad",
-    "cost": 3,
+    "twilight": 3,
     "type": "possession",
     "itemclass": "mount",
     "strength": 2,
@@ -310,7 +310,7 @@
   "31_26": {
     "title": "Threatening Warg",
     "culture": "gundabad",
-    "cost": 4,
+    "twilight": 4,
     "type": "possession",
     "itemclass": "mount",
     "strength": 4,
@@ -357,7 +357,7 @@
   "31_27": {
     "title": "Warg",
     "culture": "gundabad",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "mount",
     "strength": 2,
@@ -393,7 +393,7 @@
   "31_28": {
     "title": "War-warg",
     "culture": "gundabad",
-    "cost": 3,
+    "twilight": 3,
     "type": "possession",
     "itemclass": "mount",
     "strength": 3,
@@ -432,7 +432,7 @@
     "culture": "gundabad",
     "type": "condition",
     "keyword": "support area",
-    "cost": 2,
+    "twilight": 2,
     "effects": [
       {
         "type": "trigger",
@@ -474,7 +474,7 @@
   "31_30": {
     "title": "Goblin Runner",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "orc",
     "strength": 5,
@@ -500,7 +500,7 @@
   "31_31": {
     "title": "Goblin Scimitar",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -524,7 +524,7 @@
   "31_32": {
     "title": "Goblin Sneak",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "orc",
     "strength": 5,
@@ -555,7 +555,7 @@
   "31_33": {
     "title": "Goblin Song",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": [
@@ -589,7 +589,7 @@
   "31_34": {
     "title": "Goblin Swarms",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -623,7 +623,7 @@
   "31_35": {
     "title": "Great Goblin's Power",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -676,7 +676,7 @@
     "title": "*The Great Goblin",
     "subtitle": "Chieftain of the Misty Mountains",
     "culture": "moria",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 10,
@@ -712,7 +712,7 @@
     "culture": "sauron",
     "type": "minion",
     "race": "orc",
-    "cost": 4,
+    "twilight": 4,
     "strength": 9,
     "vitality": 3,
     "site": 5,
@@ -762,7 +762,7 @@
     "subtitle": "King's Jewel",
     "culture": "smaug",
     "type": "artifact",
-    "cost": 2,
+    "twilight": 2,
     "strength": -2,
     "target": "name(Bilbo)",
     "effects": [
@@ -841,7 +841,7 @@
   "31_49": {
     "title": "*Crazy Cob",
     "culture": "spider",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "spider",
     "strength": 9,
@@ -887,7 +887,7 @@
   "31_50": {
     "title": "*Enchanted River",
     "culture": "spider",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -939,7 +939,7 @@
   "31_51": {
     "title": "Fat Spider",
     "culture": "spider",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "spider",
     "strength": 8,
@@ -971,7 +971,7 @@
   "31_52": {
     "title": "*Lazy Lob",
     "culture": "spider",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "spider",
     "strength": 9,
@@ -1005,7 +1005,7 @@
   "31_53": {
     "title": "Old Tomnoddy",
     "culture": "spider",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "spider",
     "strength": 8,
@@ -1033,7 +1033,7 @@
   "31_54": {
     "title": "Spider Nest",
     "culture": "spider",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -1087,7 +1087,7 @@
   "31_55": {
     "title": "Wicked Spider",
     "culture": "spider",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "spider",
     "strength": 7,
@@ -1122,7 +1122,7 @@
     "title": "*Bert",
     "subtitle": "Troll of Ettenmoors",
     "culture": "troll",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "troll",
     "strength": 11,
@@ -1163,7 +1163,7 @@
   "31_57": {
     "title": "Caught in a Sack",
     "culture": "troll",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -1218,7 +1218,7 @@
     "title": "*Tom",
     "subtitle": "Troll of Ettenmoors",
     "culture": "troll",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "troll",
     "strength": 11,
@@ -1259,7 +1259,7 @@
   "31_59": {
     "title": "*Troll Campfire",
     "culture": "troll",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -1283,7 +1283,7 @@
   "31_60": {
     "title": "Troll Knife",
     "culture": "troll",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 3,
@@ -1301,7 +1301,7 @@
     "title": "*William",
     "subtitle": "Troll of Ettenmoors",
     "culture": "troll",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "troll",
     "strength": 11,

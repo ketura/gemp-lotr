@@ -1,7 +1,7 @@
 {
   "6_79": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Raider",
     "itemclass": "Hand Weapon",
@@ -11,7 +11,7 @@
   "6_78": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 13,
     "culture": "Raider",
@@ -26,7 +26,7 @@
   "6_80": {
     "side": "shadow",
     "site": 4,
-    "cost": 8,
+    "twilight": 8,
     "race": "Man",
     "strength": 13,
     "culture": "Raider",
@@ -40,7 +40,7 @@
   },
   "6_82": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Raider",
     "title": "Trample",
     "type": "event",
@@ -49,7 +49,7 @@
   "6_81": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 10,
     "culture": "Raider",

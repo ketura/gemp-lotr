@@ -1,7 +1,7 @@
 {
   "18_106": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "A Dragon's Tale",
     "type": "condition",
@@ -12,7 +12,7 @@
   },
   "18_112": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Scouring of the Shire",
     "type": "condition",
@@ -23,7 +23,7 @@
   },
   "18_113": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Shire",
     "vitality": 1,
@@ -35,7 +35,7 @@
   },
   "18_110": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Prized Lagan",
     "type": "condition",
@@ -43,7 +43,7 @@
   },
   "18_111": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "subtitle": "Shirriff Cock-Robin",
     "title": "*Robin Smallburrow",
@@ -53,7 +53,7 @@
   },
   "18_109": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Make a Run For It",
     "type": "event",
@@ -61,7 +61,7 @@
   },
   "18_107": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -73,7 +73,7 @@
   },
   "18_108": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "*Golden Perch Ale",
     "type": "possession",

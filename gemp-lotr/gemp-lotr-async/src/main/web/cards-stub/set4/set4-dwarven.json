@@ -1,7 +1,7 @@
 {
   "4_49": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -15,7 +15,7 @@
   },
   "4_42": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Best Company",
     "type": "event",
@@ -23,7 +23,7 @@
   },
   "4_53": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Quick As May Be",
     "type": "event",
@@ -31,7 +31,7 @@
   },
   "4_41": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Dwarven",
     "itemclass": "Hand Weapon",
@@ -40,7 +40,7 @@
   },
   "4_52": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "*My Axe Is Notched",
     "type": "condition",
@@ -48,7 +48,7 @@
   },
   "4_44": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "*Courtesy of My Hall",
     "type": "condition",
@@ -56,7 +56,7 @@
   },
   "4_55": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "Restless Axe",
     "type": "event",
@@ -64,7 +64,7 @@
   },
   "4_43": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Come Here Lad",
     "type": "event",
@@ -72,7 +72,7 @@
   },
   "4_54": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Rest by Blind Night",
     "type": "event",
@@ -80,7 +80,7 @@
   },
   "4_57": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "*Stout and Strong",
     "type": "condition",
@@ -88,7 +88,7 @@
   },
   "4_45": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Dwarven Foresight",
     "type": "event",
@@ -96,7 +96,7 @@
   },
   "4_56": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Search Far and Wide",
     "type": "event",
@@ -104,7 +104,7 @@
   },
   "4_48": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -118,7 +118,7 @@
   },
   "4_47": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "From the Armory",
     "type": "condition",
@@ -126,7 +126,7 @@
   },
   "4_51": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Khazad Ai-menu",
     "type": "event",
@@ -134,7 +134,7 @@
   },
   "4_50": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "*Here Is Good Rock",
     "type": "condition",

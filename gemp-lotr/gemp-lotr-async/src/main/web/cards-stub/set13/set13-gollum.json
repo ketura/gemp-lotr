@@ -1,7 +1,7 @@
 {
   "13_49": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "*Gladden Homestead",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "13_48": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "vitality": 1,
     "title": "*Fishing Boat",
@@ -17,7 +17,7 @@
   },
   "13_47": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Duality",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "13_58": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Wild Light of Madness",
     "type": "event",
@@ -33,7 +33,7 @@
   },
   "13_53": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Naked Waste",
     "type": "event",
@@ -41,7 +41,7 @@
   },
   "13_52": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Little Snuffler",
     "type": "event",
@@ -49,7 +49,7 @@
   },
   "13_51": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "It's My Birthday",
     "type": "event",
@@ -58,7 +58,7 @@
   "13_50": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "strength": 5,
     "culture": "Gollum",
     "vitality": 4,
@@ -68,7 +68,7 @@
   },
   "13_46": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "subtitle": "Fateful Finder",
     "title": "*Deagol",
@@ -78,7 +78,7 @@
   },
   "13_57": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gollum",
     "title": "Trap Is Sprung",
     "type": "event",
@@ -86,7 +86,7 @@
   },
   "13_45": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Cunningly Hidden",
     "type": "event",
@@ -94,7 +94,7 @@
   },
   "13_56": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Softly Up Behind",
     "type": "event",
@@ -102,7 +102,7 @@
   },
   "13_44": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Chasm's Edge",
     "type": "condition",
@@ -110,7 +110,7 @@
   },
   "13_55": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 3,
     "culture": "Gollum",
     "vitality": 4,
@@ -122,7 +122,7 @@
   },
   "13_54": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Out of All Knowledge",
     "type": "event",

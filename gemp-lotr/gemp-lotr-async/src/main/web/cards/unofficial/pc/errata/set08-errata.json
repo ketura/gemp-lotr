@@ -2,7 +2,7 @@
   "58_1": {
     "title": "Aggression",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -39,7 +39,7 @@
     "title": "*Promise Keeping",
     "side": "shadow",
     "culture": "gollum",
-    "cost": 4,
+    "twilight": 4,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -58,7 +58,7 @@
   "58_51": {
     "title": "*Castamir of Umbar",
     "culture": "Raider",
-    "cost": 7,
+    "twilight": 7,
     "type": "minion",
     "race": "Man",
     "strength": 14,
@@ -94,7 +94,7 @@
   "58_57": {
     "title": "Corsair Marauder",
     "culture": "Raider",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "Man",
     "strength": 9,
@@ -127,7 +127,7 @@
   "58_59": {
     "title": "Corsair War Galley",
     "culture": "Raider",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": "Support Area",
     "effects": [
@@ -192,7 +192,7 @@
     "title": "*Grond",
     "subtitle": "Hammer of the Underworld",
     "culture": "Sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "possession",
     "keyword": [
       "Support Area",
@@ -258,7 +258,7 @@
   "58_102": {
     "side": "shadow",
     "site": 5,
-    "cost": 9,
+    "twilight": 9,
     "race": "Troll",
     "strength": 16,
     "culture": "Sauron",

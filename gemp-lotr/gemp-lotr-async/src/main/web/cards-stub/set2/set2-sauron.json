@@ -1,14 +1,14 @@
 {
   "2_94": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Sauron",
     "title": "Verily I Come",
     "type": "condition"
   },
   "2_95": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Sauron",
     "itemclass": "Hand Weapon",
@@ -17,7 +17,7 @@
   },
   "2_87": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "The Eye of Sauron",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "2_88": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Sauron",
     "title": "Memory of Many Things",
     "type": "event",
@@ -34,7 +34,7 @@
   "2_89": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Sauron",
@@ -46,7 +46,7 @@
   "2_90": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Sauron",
@@ -56,7 +56,7 @@
   },
   "2_91": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Sauron",
     "title": "Southern Spies",
     "type": "event",
@@ -64,7 +64,7 @@
   },
   "2_92": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Spies of Mordor",
     "type": "condition",
@@ -76,7 +76,7 @@
   "2_93": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Sauron",

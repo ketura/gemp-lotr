@@ -3,7 +3,7 @@
     "title": "Courtyard Parapet",
     "type": "site",
     "block": "Shadows",
-    "cost": 0,
+    "twilight": 0,
     "keyword": "Dwelling",
     "direction": "left",
     "effects": [

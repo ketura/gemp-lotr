@@ -1,7 +1,7 @@
 {
   "2_119": {
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "block": "Fellowship",
     "title": "Hollin",
     "type": "site",
@@ -10,7 +10,7 @@
   },
   "2_115": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Fellowship",
     "title": "Hobbiton Party Field",
     "type": "site",
@@ -18,7 +18,7 @@
   },
   "2_116": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Fellowship",
     "title": "Hobbiton Woods",
     "type": "site",
@@ -27,7 +27,7 @@
   },
   "2_117": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Fellowship",
     "title": "Town Center",
     "type": "site",
@@ -35,7 +35,7 @@
   },
   "2_118": {
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "block": "Fellowship",
     "title": "Great Chasm",
     "type": "site",
@@ -44,7 +44,7 @@
   },
   "2_120": {
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "block": "Fellowship",
     "title": "Valley of the Silverlode",
     "type": "site",

@@ -1,7 +1,7 @@
 {
   "6_1": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Dunland",
     "title": "*Bound By Rage",
     "type": "condition",
@@ -10,7 +10,7 @@
   "6_2": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 7,
     "culture": "Dunland",
@@ -21,7 +21,7 @@
   "6_3": {
     "side": "shadow",
     "site": 3,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 11,
     "culture": "Dunland",
@@ -32,7 +32,7 @@
   "6_4": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",
@@ -43,7 +43,7 @@
   "6_5": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",
@@ -54,7 +54,7 @@
   "6_6": {
     "side": "shadow",
     "site": 3,
-    "cost": 8,
+    "twilight": 8,
     "race": "Man",
     "strength": 17,
     "culture": "Dunland",
@@ -64,7 +64,7 @@
   },
   "6_7": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "Ready to Fall",
     "type": "condition",
@@ -72,7 +72,7 @@
   },
   "6_8": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dunland",
     "title": "Too Long Have These Peasants Stood",
     "type": "event",

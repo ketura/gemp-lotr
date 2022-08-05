@@ -1,7 +1,7 @@
 {
   "5_5": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Baruk Khazad",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "5_6": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Defending the Keep",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "5_7": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -31,7 +31,7 @@
   },
   "5_8": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "*Horn of Helm",
     "type": "possession",
@@ -39,7 +39,7 @@
   },
   "5_9": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "*More to My Liking",
     "type": "condition",

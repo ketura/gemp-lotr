@@ -1,7 +1,7 @@
 {
   "10_72": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -14,7 +14,7 @@
   },
   "10_74": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Unyielding",
     "type": "event",
@@ -22,7 +22,7 @@
   },
   "10_73": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "*Fell Deeds Awake",
     "type": "condition",

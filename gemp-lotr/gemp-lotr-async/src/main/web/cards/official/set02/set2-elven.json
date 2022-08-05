@@ -2,7 +2,7 @@
   "2_16": {
     "title": "A Blended Race",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "requires": {
       "type": "canSpot",
@@ -42,7 +42,7 @@
   "2_17": {
     "title": "Dismay Our Enemies",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -70,7 +70,7 @@
   "2_18": {
     "title": "Hosts of the Last Alliance",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": [
       "tale",
@@ -109,7 +109,7 @@
   "2_19": {
     "title": "Release the Angry Flood",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -136,7 +136,7 @@
   "2_20": {
     "title": "Secret Sentinels",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "maneuver",
     "effects": {

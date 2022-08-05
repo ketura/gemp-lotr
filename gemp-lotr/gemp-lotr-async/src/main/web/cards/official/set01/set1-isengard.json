@@ -2,7 +2,7 @@
   "1_120": {
     "title": "Alive and Unspoiled",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -55,7 +55,7 @@
   "1_121": {
     "title": "Bred for Battle",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -75,7 +75,7 @@
   "1_122": {
     "title": "Breeding Pit",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -94,7 +94,7 @@
   "1_123": {
     "title": "Caradhras Has Not Forgiven Us",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "spell",
@@ -121,7 +121,7 @@
   "1_124": {
     "title": "Cruel Caradhras",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "spell",
@@ -156,7 +156,7 @@
   "1_125": {
     "title": "Greed",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "requires": {
       "type": "canSpot",
@@ -184,7 +184,7 @@
   "1_126": {
     "title": "Hunt Them Down!",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -201,7 +201,7 @@
     "title": "*Lurtz",
     "subtitle": "Servant of Isengard",
     "culture": "isengard",
-    "cost": 7,
+    "twilight": 7,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 13,
@@ -229,7 +229,7 @@
   "1_128": {
     "title": "Lurtz's Battle Cry",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -252,7 +252,7 @@
   "1_129": {
     "title": "The Misadventure of Mr. Underhill",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -280,7 +280,7 @@
   "1_130": {
     "title": "No Ordinary Storm",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -298,7 +298,7 @@
   "1_131": {
     "title": "*Orthanc Assassin",
     "culture": "isengard",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 10,
@@ -312,7 +312,7 @@
   "1_132": {
     "title": "Parry",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "maneuver",
     "requires": {
@@ -342,7 +342,7 @@
   "1_133": {
     "title": "Saruman's Ambition",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -372,7 +372,7 @@
   "1_134": {
     "title": "Saruman's Chill",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "spell",
@@ -413,7 +413,7 @@
   "1_135": {
     "title": "Saruman's Frost",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": [
       "spell",
@@ -455,7 +455,7 @@
   "1_136": {
     "title": "Saruman's Power",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "spell",
@@ -476,7 +476,7 @@
   "1_137": {
     "title": "Saruman's Reach",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "search",
@@ -511,7 +511,7 @@
   "1_138": {
     "title": "Saruman's Snows",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": [
       "spell",
@@ -552,7 +552,7 @@
   "1_139": {
     "title": "Savagery To Match Their Numbers",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -599,7 +599,7 @@
   "1_140": {
     "title": "Spies of Saruman",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "target": "site",
     "effects": [
@@ -636,7 +636,7 @@
   "1_141": {
     "title": "Their Arrows Enrage",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -655,7 +655,7 @@
   "1_142": {
     "title": "Traitor's Voice",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": [
       "search",
@@ -708,7 +708,7 @@
   "1_143": {
     "title": "Troop of Uruk-hai",
     "culture": "isengard",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -727,7 +727,7 @@
   "1_144": {
     "title": "Uruk Bloodlust",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -749,7 +749,7 @@
   "1_145": {
     "title": "Uruk Brood",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -783,7 +783,7 @@
   "1_146": {
     "title": "Uruk Fighter",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 8,
@@ -809,7 +809,7 @@
   "1_147": {
     "title": "Uruk Guard",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -845,7 +845,7 @@
   "1_148": {
     "title": "Uruk Lieutenant",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 8,
@@ -867,7 +867,7 @@
   "1_149": {
     "title": "Uruk Messenger",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 6,
@@ -890,7 +890,7 @@
   "1_150": {
     "title": "Uruk Rager",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -914,7 +914,7 @@
   "1_151": {
     "title": "Uruk Savage",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 5,
@@ -925,7 +925,7 @@
   "1_152": {
     "title": "Uruk Shaman",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 8,
@@ -948,7 +948,7 @@
   "1_153": {
     "title": "Uruk Slayer",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -976,7 +976,7 @@
   "1_154": {
     "title": "Uruk Soldier",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 7,
@@ -1001,7 +1001,7 @@
   "1_155": {
     "title": "Uruk Spy",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 7,
@@ -1045,7 +1045,7 @@
   "1_156": {
     "title": "Uruk Warrior",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -1071,7 +1071,7 @@
   "1_157": {
     "title": "Uruk-hai Armory",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -1090,7 +1090,7 @@
   "1_158": {
     "title": "Uruk-hai Raiding Party",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -1101,7 +1101,7 @@
   "1_159": {
     "title": "Uruk-hai Rampage",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "requires": {
       "type": "canSpot",
@@ -1130,7 +1130,7 @@
   "1_160": {
     "title": "Uruk-hai Sword",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -1152,7 +1152,7 @@
   "1_161": {
     "title": "Wariness",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "search",
@@ -1189,7 +1189,7 @@
   "1_162": {
     "title": "*Worry",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [

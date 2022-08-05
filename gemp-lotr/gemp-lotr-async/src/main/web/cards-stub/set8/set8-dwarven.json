@@ -1,7 +1,7 @@
 {
   "8_7": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Unheard of",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "8_8": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Wish For Our Kinfolk",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "8_1": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Aggression",
     "type": "condition",
@@ -25,7 +25,7 @@
   },
   "8_2": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Battle in Earnest",
     "type": "event",
@@ -33,7 +33,7 @@
   },
   "8_3": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "Blood Runs Chill",
     "type": "event",
@@ -41,7 +41,7 @@
   },
   "8_4": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "Counts But One",
     "type": "event",
@@ -49,7 +49,7 @@
   },
   "8_5": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -63,7 +63,7 @@
   },
   "8_6": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Honed",
     "type": "event",

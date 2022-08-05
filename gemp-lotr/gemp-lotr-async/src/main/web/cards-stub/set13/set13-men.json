@@ -2,7 +2,7 @@
   "13_100": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -13,7 +13,7 @@
   "13_101": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 11,
     "culture": "Men",
@@ -24,7 +24,7 @@
   },
   "13_102": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Men",
     "itemclass": "Hand Weapon",
@@ -34,7 +34,7 @@
   "13_86": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 12,
     "culture": "Men",
@@ -45,7 +45,7 @@
   "13_97": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 12,
     "culture": "Men",
@@ -56,7 +56,7 @@
   "13_85": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -67,7 +67,7 @@
   "13_96": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -78,7 +78,7 @@
   "13_84": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 11,
     "culture": "Men",
@@ -88,7 +88,7 @@
   },
   "13_95": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Men",
     "title": "Lying in Wait",
     "type": "condition",
@@ -96,7 +96,7 @@
   },
   "13_83": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Caravan From the South",
     "type": "condition",
@@ -104,7 +104,7 @@
   },
   "13_94": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Men",
     "title": "Howdah",
     "type": "condition",
@@ -113,7 +113,7 @@
   "13_89": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Men",
@@ -125,7 +125,7 @@
   "13_88": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 13,
     "culture": "Men",
@@ -135,7 +135,7 @@
   },
   "13_99": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Stragglers",
     "type": "condition",
@@ -143,7 +143,7 @@
   },
   "13_87": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Men",
     "title": "Driven From the Plains",
     "type": "condition",
@@ -152,7 +152,7 @@
   "13_98": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -163,7 +163,7 @@
   },
   "13_82": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Bring Down the Wall",
     "type": "event",
@@ -171,7 +171,7 @@
   },
   "13_93": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Men",
     "title": "Harmless",
     "type": "condition",
@@ -181,7 +181,7 @@
   "13_92": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 4,
     "culture": "Men",
@@ -193,7 +193,7 @@
   },
   "13_91": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Men",
     "title": "Fires Brightly Burning",
     "type": "event",
@@ -202,7 +202,7 @@
   "13_90": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",

@@ -2,7 +2,7 @@
   "5_1": {
     "side": "shadow",
     "site": 3,
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -13,7 +13,7 @@
   "5_2": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",
@@ -23,7 +23,7 @@
   },
   "5_3": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "Leaping Blaze",
     "type": "event",
@@ -32,7 +32,7 @@
   "5_4": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 18,
     "culture": "Dunland",

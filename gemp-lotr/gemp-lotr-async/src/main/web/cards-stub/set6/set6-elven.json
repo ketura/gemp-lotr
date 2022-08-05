@@ -1,7 +1,7 @@
 {
   "6_22": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Elf",
     "strength": 8,
     "culture": "Elven",
@@ -12,7 +12,7 @@
   },
   "6_21": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Ranged Weapon",
@@ -21,7 +21,7 @@
   },
   "6_13": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -34,7 +34,7 @@
   },
   "6_12": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "*Agility",
     "type": "condition",
@@ -42,7 +42,7 @@
   },
   "6_23": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 9,
     "culture": "Elven",
@@ -53,7 +53,7 @@
   },
   "6_15": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 8,
     "culture": "Elven",
@@ -66,7 +66,7 @@
   },
   "6_14": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
     "title": "Banner of Elbereth",
@@ -74,7 +74,7 @@
   },
   "6_17": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Forewarned",
     "type": "condition",
@@ -82,7 +82,7 @@
   },
   "6_16": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Forearmed",
     "type": "event",
@@ -90,7 +90,7 @@
   },
   "6_19": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Gift of Foresight",
     "type": "event",
@@ -98,7 +98,7 @@
   },
   "6_18": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Elf",
     "strength": 3,
     "culture": "Elven",
@@ -111,7 +111,7 @@
   },
   "6_20": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Must Be a Dream",
     "type": "event",

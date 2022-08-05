@@ -3,7 +3,7 @@
     "title": "*Ancient Chieftain",
     "subtitle": "Elder Goblin",
     "culture": "moria",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "goblin",
     "strength": 9,
@@ -25,7 +25,7 @@
   "40_154": {
     "title": "*Awoken in the Darkness",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -60,7 +60,7 @@
   "40_155": {
     "title": "*Balin's Fate",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -89,7 +89,7 @@
     "title": "*The Balrog",
     "subtitle": "Demon of Might",
     "culture": "moria",
-    "cost": 14,
+    "twilight": 14,
     "type": "minion",
     "race": "balrog",
     "strength": 17,
@@ -118,7 +118,7 @@
     "title": "*Cave Troll of Moria",
     "subtitle": "Monstrous Fiend",
     "culture": "moria",
-    "cost": 10,
+    "twilight": 10,
     "type": "minion",
     "race": "troll",
     "strength": 15,
@@ -143,7 +143,7 @@
   "40_158": {
     "title": "*Cave Troll's Hammer",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 3,
@@ -160,7 +160,7 @@
   "40_159": {
     "title": "Foul Things",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -174,7 +174,7 @@
   "40_160": {
     "title": "Goblin Armory",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -209,7 +209,7 @@
   "40_161": {
     "title": "Goblin Grudgebearer",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "goblin",
     "strength": 8,
@@ -230,7 +230,7 @@
   "40_162": {
     "title": "Goblin Howler",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "goblin",
     "strength": 5,
@@ -255,7 +255,7 @@
   "40_163": {
     "title": "*Goblin Messenger",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "goblin",
     "strength": 5,
@@ -278,7 +278,7 @@
   "40_164": {
     "title": "Goblin Patrol",
     "culture": "moria",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "goblin",
     "strength": 11,
@@ -300,7 +300,7 @@
   "40_165": {
     "title": "Goblin Rallyer",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "goblin",
     "strength": 5,
@@ -323,7 +323,7 @@
   "40_166": {
     "title": "*Goblin Ransacker",
     "culture": "moria",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "goblin",
     "strength": 8,
@@ -354,7 +354,7 @@
   "40_167": {
     "title": "*Goblin Reclaimer",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "goblin",
     "strength": 6,
@@ -380,7 +380,7 @@
   "40_168": {
     "title": "*Goblin Reinforcements",
     "culture": "moria",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "goblin",
     "strength": 10,
@@ -410,7 +410,7 @@
   "40_169": {
     "title": "Goblin Runner",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "goblin",
     "strength": 5,
@@ -436,7 +436,7 @@
   "40_170": {
     "title": "Goblin Scavengers",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "goblin",
     "strength": 8,
@@ -459,7 +459,7 @@
   "40_171": {
     "title": "Goblin Scimitar",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -479,7 +479,7 @@
   "40_172": {
     "title": "Goblin Scrapper",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "goblin",
     "strength": 6,
@@ -504,7 +504,7 @@
   "40_173": {
     "title": "Goblin Senses",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "requires": {
@@ -530,7 +530,7 @@
   "40_174": {
     "title": "Goblin Strategist",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "goblin",
     "strength": 7,
@@ -551,7 +551,7 @@
   "40_175": {
     "title": "Goblin Swarms",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -582,7 +582,7 @@
     "title": "*Guard Commander",
     "subtitle": "Captain of the Underdeeps",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "goblin",
     "strength": 7,
@@ -608,7 +608,7 @@
   "40_177": {
     "title": "Host of Goblins",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -623,7 +623,7 @@
   "40_178": {
     "title": "Memories of Moria",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -646,7 +646,7 @@
   "40_179": {
     "title": "*The Long Dark of Moria",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -680,7 +680,7 @@
   "40_180": {
     "title": "They Are Coming",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -702,7 +702,7 @@
     "title": "*Troll's Keyward",
     "subtitle": "Ruthless Taskmaster",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "goblin",
     "strength": 8,
@@ -739,7 +739,7 @@
   "40_182": {
     "title": "War Drums",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "requires": {
@@ -760,7 +760,7 @@
   "40_316": {
     "title": "Deep Places of the World",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -783,7 +783,7 @@
   "40_317": {
     "title": "Scurrying Away",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": {

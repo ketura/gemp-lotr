@@ -2,7 +2,7 @@
   "15_110": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 12,
     "culture": "Orc",
@@ -13,7 +13,7 @@
   "15_111": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 7,
     "culture": "Orc",
@@ -24,7 +24,7 @@
   "15_112": {
     "side": "shadow",
     "site": 5,
-    "cost": 10,
+    "twilight": 10,
     "race": "Troll",
     "strength": 22,
     "culture": "Orc",
@@ -35,7 +35,7 @@
   "15_117": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Troll",
     "strength": 15,
     "culture": "Orc",
@@ -45,7 +45,7 @@
   },
   "15_118": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Orc",
     "title": "*Unmistakable Omen",
     "type": "condition",
@@ -53,7 +53,7 @@
   },
   "15_119": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Orc",
     "title": "Unreasonable Choice",
     "type": "event",
@@ -61,7 +61,7 @@
   },
   "15_113": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Orc",
     "title": "Orkish Camp",
     "type": "condition",
@@ -69,7 +69,7 @@
   },
   "15_114": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Orc",
     "itemclass": "Hand Weapon",
@@ -78,7 +78,7 @@
   },
   "15_115": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "*Pummeling Blow",
     "type": "condition"
@@ -86,7 +86,7 @@
   "15_116": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -97,7 +97,7 @@
   "15_96": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Orc",
@@ -107,7 +107,7 @@
   },
   "15_97": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "Beasts of Burden",
     "type": "condition",
@@ -116,7 +116,7 @@
   "15_98": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Orc",
@@ -127,7 +127,7 @@
   "15_99": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Orc",
@@ -138,7 +138,7 @@
   "15_95": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Orc",
@@ -149,7 +149,7 @@
   "15_120": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Orc",
@@ -160,7 +160,7 @@
   "15_100": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -171,7 +171,7 @@
   "15_101": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -181,7 +181,7 @@
   },
   "15_106": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "Coordinated Effort",
     "type": "condition",
@@ -190,7 +190,7 @@
   "15_107": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 12,
     "culture": "Orc",
@@ -201,7 +201,7 @@
   "15_108": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Orc",
     "strength": 14,
     "culture": "Orc",
@@ -212,7 +212,7 @@
   "15_109": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Orc",
     "strength": 13,
     "culture": "Orc",
@@ -225,7 +225,7 @@
   "15_102": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Orc",
@@ -236,7 +236,7 @@
   "15_103": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 9,
     "culture": "Orc",
@@ -247,7 +247,7 @@
   "15_104": {
     "side": "shadow",
     "site": 4,
-    "cost": 8,
+    "twilight": 8,
     "race": "Orc",
     "strength": 20,
     "culture": "Orc",
@@ -258,7 +258,7 @@
   "15_105": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",

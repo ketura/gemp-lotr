@@ -1,7 +1,7 @@
 {
   "4_333": {
     "site": 2,
-    "cost": 1,
+    "twilight": 1,
     "block": "Towers",
     "title": "Plains of Rohan Camp",
     "type": "site",
@@ -10,7 +10,7 @@
   },
   "4_355": {
     "site": 7,
-    "cost": 7,
+    "twilight": 7,
     "block": "Towers",
     "title": "Cavern Entrance",
     "type": "site",
@@ -19,7 +19,7 @@
   },
   "4_334": {
     "site": 2,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "Rohirrim Village",
     "type": "site",
@@ -27,7 +27,7 @@
   },
   "4_356": {
     "site": 7,
-    "cost": 6,
+    "twilight": 6,
     "block": "Towers",
     "title": "Hornburg Causeway",
     "type": "site",
@@ -36,7 +36,7 @@
   },
   "4_335": {
     "site": 2,
-    "cost": 1,
+    "twilight": 1,
     "block": "Towers",
     "title": "Uruk Camp",
     "type": "site",
@@ -48,7 +48,7 @@
   },
   "4_357": {
     "site": 7,
-    "cost": 6,
+    "twilight": 6,
     "block": "Towers",
     "title": "King's Room",
     "type": "site",
@@ -56,7 +56,7 @@
   },
   "4_336": {
     "site": 2,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "Wold of Rohan",
     "type": "site",
@@ -65,7 +65,7 @@
   },
   "4_358": {
     "site": 8,
-    "cost": 7,
+    "twilight": 7,
     "block": "Towers",
     "title": "Ring of Isengard",
     "type": "site",
@@ -73,7 +73,7 @@
   },
   "4_337": {
     "site": 3,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Barrows of Edoras",
     "type": "site",
@@ -81,7 +81,7 @@
   },
   "4_359": {
     "site": 8,
-    "cost": 6,
+    "twilight": 6,
     "block": "Towers",
     "title": "Wizard's Vale",
     "type": "site",
@@ -89,7 +89,7 @@
   },
   "4_338": {
     "site": 3,
-    "cost": 1,
+    "twilight": 1,
     "block": "Towers",
     "title": "Golden Hall",
     "type": "site",
@@ -97,7 +97,7 @@
   },
   "4_339": {
     "site": 3,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Stables",
     "type": "site",
@@ -105,7 +105,7 @@
   },
   "4_350": {
     "site": 5,
-    "cost": 8,
+    "twilight": 8,
     "block": "Towers",
     "title": "Hornburg Courtyard",
     "type": "site",
@@ -114,7 +114,7 @@
   },
   "4_351": {
     "site": 5,
-    "cost": 8,
+    "twilight": 8,
     "block": "Towers",
     "title": "Hornburg Parapet",
     "type": "site",
@@ -123,7 +123,7 @@
   },
   "4_330": {
     "site": 2,
-    "cost": 2,
+    "twilight": 2,
     "block": "Towers",
     "title": "Derndingle",
     "type": "site",
@@ -132,7 +132,7 @@
   },
   "4_352": {
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "Caves of Aglarond",
     "type": "site",
@@ -141,7 +141,7 @@
   },
   "4_331": {
     "site": 2,
-    "cost": 2,
+    "twilight": 2,
     "block": "Towers",
     "title": "Eastfold",
     "type": "site",
@@ -150,7 +150,7 @@
   },
   "4_353": {
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "Great Hall",
     "type": "site",
@@ -159,7 +159,7 @@
   },
   "4_332": {
     "site": 2,
-    "cost": 2,
+    "twilight": 2,
     "block": "Towers",
     "title": "Fangorn Forest",
     "type": "site",
@@ -168,7 +168,7 @@
   },
   "4_354": {
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "Hornburg Armory",
     "type": "site",
@@ -176,7 +176,7 @@
   },
   "4_344": {
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "Westemnet Hills",
     "type": "site",
@@ -185,7 +185,7 @@
   },
   "4_323": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "East Wall of Rohan",
     "type": "site",
@@ -193,7 +193,7 @@
   },
   "4_345": {
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "White Mountains",
     "type": "site",
@@ -202,7 +202,7 @@
   },
   "4_324": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Eastemnet Downs",
     "type": "site",
@@ -210,7 +210,7 @@
   },
   "4_346": {
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "block": "Towers",
     "title": "White Rocks",
     "type": "site",
@@ -219,7 +219,7 @@
   },
   "4_325": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Eastemnet Gullies",
     "type": "site",
@@ -227,7 +227,7 @@
   },
   "4_347": {
     "site": 5,
-    "cost": 6,
+    "twilight": 6,
     "block": "Towers",
     "title": "Deep of Helm",
     "type": "site",
@@ -239,7 +239,7 @@
   },
   "4_326": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Horse-country",
     "type": "site",
@@ -248,7 +248,7 @@
   },
   "4_348": {
     "site": 5,
-    "cost": 7,
+    "twilight": 7,
     "block": "Towers",
     "title": "Deeping Wall",
     "type": "site",
@@ -257,7 +257,7 @@
   },
   "4_327": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Plains of Rohan",
     "type": "site",
@@ -266,7 +266,7 @@
   },
   "4_349": {
     "site": 5,
-    "cost": 6,
+    "twilight": 6,
     "block": "Towers",
     "title": "Helm's Gate",
     "type": "site",
@@ -275,7 +275,7 @@
   },
   "4_328": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "The Riddermark",
     "type": "site",
@@ -284,7 +284,7 @@
   },
   "4_329": {
     "site": 1,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Western Emyn Muil",
     "type": "site",
@@ -292,7 +292,7 @@
   },
   "4_360": {
     "site": 9,
-    "cost": 9,
+    "twilight": 9,
     "block": "Towers",
     "title": "Fortress of Orthanc",
     "type": "site",
@@ -301,7 +301,7 @@
   },
   "4_361": {
     "site": 9,
-    "cost": 8,
+    "twilight": 8,
     "block": "Towers",
     "title": "Orthanc Balcony",
     "type": "site",
@@ -310,7 +310,7 @@
   },
   "4_340": {
     "site": 3,
-    "cost": 0,
+    "twilight": 0,
     "block": "Towers",
     "title": "Streets of Edoras",
     "type": "site",
@@ -318,7 +318,7 @@
   },
   "4_362": {
     "site": 9,
-    "cost": 9,
+    "twilight": 9,
     "block": "Towers",
     "title": "Orthanc Library",
     "type": "site",
@@ -326,7 +326,7 @@
   },
   "4_341": {
     "site": 3,
-    "cost": 1,
+    "twilight": 1,
     "block": "Towers",
     "title": "Throne Room",
     "type": "site",
@@ -334,7 +334,7 @@
   },
   "4_363": {
     "site": 9,
-    "cost": 9,
+    "twilight": 9,
     "block": "Towers",
     "title": "Palantir Chamber",
     "type": "site",
@@ -342,7 +342,7 @@
   },
   "4_342": {
     "site": 3,
-    "cost": 1,
+    "twilight": 1,
     "block": "Towers",
     "title": "Westemnet Plains",
     "type": "site",
@@ -351,7 +351,7 @@
   },
   "4_343": {
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "block": "Towers",
     "title": "Ered Nimrais",
     "type": "site",

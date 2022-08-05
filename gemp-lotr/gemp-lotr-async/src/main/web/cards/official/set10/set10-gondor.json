@@ -4,7 +4,7 @@
     "side": "free_people",
     "culture": "Gondor",
     "type": "event",
-    "cost": 0,
+    "twilight": 0,
     "keyword": "Skirmish",
     "effects": {
       "type": "event",

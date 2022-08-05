@@ -3,7 +3,7 @@
     "title": "*Albert Dreary",
     "subtitle": "Entertainer From Bree",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "man",
@@ -30,7 +30,7 @@
     "title": "*Barliman Butterbur",
     "subtitle": "Prancing Pony Proprietor",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "man",
@@ -52,7 +52,7 @@
   "1_71": {
     "title": "Durin's Secret",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "fellowship",
     "requires": [
@@ -85,7 +85,7 @@
     "title": "*Gandalf",
     "subtitle": "Friend of the Shirefolk",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "wizard",
     "strength": 6,
@@ -144,7 +144,7 @@
   "1_73": {
     "title": "*Gandalf's Cart",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": "support area",
     "effects": {
@@ -173,7 +173,7 @@
   "1_74": {
     "title": "*Gandalf's Pipe",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "pipe",
     "target": "name(Gandalf)",
@@ -203,7 +203,7 @@
   "1_75": {
     "title": "*Glamdring",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -248,7 +248,7 @@
   "1_76": {
     "title": "Intimidate",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "spell",
@@ -273,7 +273,7 @@
   "1_77": {
     "title": "Let Folly Be Our Cloak",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -296,7 +296,7 @@
   "1_78": {
     "title": "Mysterious Wizard",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "skirmish",
@@ -322,7 +322,7 @@
   "1_79": {
     "title": "The Nine Walkers",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "requires": {
       "type": "canSpot",
@@ -342,7 +342,7 @@
     "title": "*Ottar",
     "subtitle": "Man of Laketown",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "man",
@@ -379,7 +379,7 @@
   "1_81": {
     "title": "Questions That Need Answering",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "spell",
@@ -419,7 +419,7 @@
   "1_82": {
     "title": "Risk a Little Light",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "spell",
@@ -459,7 +459,7 @@
   "1_83": {
     "title": "Servant of the Secret Fire",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "spell",
@@ -481,7 +481,7 @@
   "1_84": {
     "title": "Sleep, Caradhras",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "spell",
@@ -502,7 +502,7 @@
   "1_85": {
     "title": "Strength of Spirit",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "spell",
@@ -527,7 +527,7 @@
   "1_86": {
     "title": "Treachery Deeper Than You Know",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "spell",
@@ -548,7 +548,7 @@
   "1_87": {
     "title": "A Wizard is Never Late",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -564,7 +564,7 @@
     "title": "*Gandalf",
     "subtitle": "The Grey Wizard",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "wizard",
     "strength": 7,

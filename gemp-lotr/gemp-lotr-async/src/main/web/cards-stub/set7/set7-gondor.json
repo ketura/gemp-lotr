@@ -1,7 +1,7 @@
 {
   "7_90": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -15,7 +15,7 @@
   },
   "7_88": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -26,7 +26,7 @@
   },
   "7_89": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Duty of Two",
     "type": "event",
@@ -34,7 +34,7 @@
   },
   "7_120": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Stand to Arms",
     "type": "event",
@@ -42,7 +42,7 @@
   },
   "7_82": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -53,7 +53,7 @@
   },
   "7_123": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Support of the City",
     "type": "condition",
@@ -61,7 +61,7 @@
   },
   "7_83": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "City of Men",
     "type": "event",
@@ -69,7 +69,7 @@
   },
   "7_124": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -81,7 +81,7 @@
   },
   "7_80": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "strength": 2,
     "culture": "Gondor",
     "subtitle": "King's Blade",
@@ -91,7 +91,7 @@
   },
   "7_121": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Stout Resistance",
     "type": "event",
@@ -99,7 +99,7 @@
   },
   "7_364": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -112,7 +112,7 @@
   },
   "7_81": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -126,7 +126,7 @@
   },
   "7_122": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "*Strong and Old",
     "type": "condition",
@@ -134,7 +134,7 @@
   },
   "7_86": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -147,7 +147,7 @@
   },
   "7_127": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -158,7 +158,7 @@
   },
   "7_87": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -169,7 +169,7 @@
   },
   "7_128": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "While We Yet Live",
     "type": "event",
@@ -178,7 +178,7 @@
   "7_125": {
     "side": "free_people",
     "site": 4,
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Third Level",
     "type": "condition",
@@ -189,7 +189,7 @@
   },
   "7_85": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -202,7 +202,7 @@
   },
   "7_126": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "*Unexpected Visitor",
     "type": "condition"
@@ -210,7 +210,7 @@
   "7_118": {
     "side": "free_people",
     "site": 2,
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Second Level",
     "type": "condition",
@@ -221,7 +221,7 @@
   },
   "7_119": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "strength": -2,
     "culture": "Gondor",
     "vitality": -2,
@@ -234,7 +234,7 @@
   },
   "7_99": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Great Gate",
     "type": "event",
@@ -242,7 +242,7 @@
   },
   "7_93": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Armor",
     "title": "Footman's Armor",
@@ -250,7 +250,7 @@
   },
   "7_112": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "*Noble Leaders",
     "type": "condition",
@@ -258,7 +258,7 @@
   },
   "7_94": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Ranged Weapon",
     "title": "Gondor Bow",
@@ -266,7 +266,7 @@
   },
   "7_113": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Gondor",
     "vitality": -1,
@@ -276,7 +276,7 @@
   },
   "7_91": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -290,7 +290,7 @@
   },
   "7_110": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -303,7 +303,7 @@
   },
   "7_92": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": -1,
     "culture": "Gondor",
     "title": "First Level",
@@ -315,7 +315,7 @@
   },
   "7_111": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Man the Walls",
     "type": "condition",
@@ -323,7 +323,7 @@
   },
   "7_97": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -335,7 +335,7 @@
   },
   "7_116": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -347,7 +347,7 @@
   },
   "7_98": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -356,7 +356,7 @@
   },
   "7_117": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Reckless Counter",
     "type": "event",
@@ -364,7 +364,7 @@
   },
   "7_95": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "*Gondor Still Stands",
     "type": "condition",
@@ -372,7 +372,7 @@
   },
   "7_114": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -381,7 +381,7 @@
   },
   "7_96": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -393,7 +393,7 @@
   },
   "7_115": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -405,7 +405,7 @@
   },
   "7_109": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "Long Prepared",
     "type": "condition",
@@ -413,7 +413,7 @@
   },
   "7_107": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -424,7 +424,7 @@
   },
   "7_108": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -433,7 +433,7 @@
   },
   "7_101": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Guarded",
     "type": "condition",
@@ -441,7 +441,7 @@
   },
   "7_102": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Hasty Repairs",
     "type": "condition",
@@ -449,7 +449,7 @@
   },
   "7_100": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "Greatest Stronghold",
     "type": "event",
@@ -457,14 +457,14 @@
   },
   "7_105": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "*I Will Go",
     "type": "condition"
   },
   "7_106": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -476,7 +476,7 @@
   },
   "7_103": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "Hearts Raised",
     "type": "condition",
@@ -484,7 +484,7 @@
   },
   "7_104": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Hidden Knowledge",
     "type": "event",
@@ -492,7 +492,7 @@
   },
   "7_79": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "strength": 2,
     "culture": "Gondor",
     "vitality": 1,

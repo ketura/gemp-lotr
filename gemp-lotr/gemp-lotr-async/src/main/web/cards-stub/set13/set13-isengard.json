@@ -1,7 +1,7 @@
 {
   "13_79": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "race": "Wizard",
     "culture": "Isengard",
     "title": "*Pallando Deceived",
@@ -10,7 +10,7 @@
   },
   "13_78": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "race": "Wizard",
     "culture": "Isengard",
     "title": "*Alatar Deceived",
@@ -19,7 +19,7 @@
   },
   "13_81": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Isengard",
     "vitality": 1,
@@ -30,7 +30,7 @@
   },
   "13_80": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "race": "Wizard",
     "culture": "Isengard",
     "title": "*Radagast Deceived",

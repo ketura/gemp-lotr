@@ -1,7 +1,7 @@
 {
   "5_10": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -13,7 +13,7 @@
   },
   "5_121": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -27,7 +27,7 @@
   },
   "5_12": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
@@ -36,7 +36,7 @@
   },
   "5_11": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Break the Charge",
     "type": "event",
@@ -44,7 +44,7 @@
   },
   "5_14": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "That Is No Orc Horn",
     "type": "event",
@@ -52,7 +52,7 @@
   },
   "5_13": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",

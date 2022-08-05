@@ -3,7 +3,7 @@
     "title": "*Bilbo",
     "subtitle": "Retired Adventurer",
     "culture": "shire",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "hobbit",
@@ -25,7 +25,7 @@
   "1_285": {
     "title": "*Bilbo's Pipe",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "pipe",
     "target": "hobbit",
@@ -56,7 +56,7 @@
   "1_286": {
     "title": "Bounder",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,2",
     "race": "hobbit",
@@ -78,7 +78,7 @@
   "1_287": {
     "title": "Extraordinary Resilience",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -100,7 +100,7 @@
     "title": "*Farmer Maggot",
     "subtitle": "Chaser of Rascals",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "hobbit",
@@ -123,7 +123,7 @@
     "title": "*Frodo",
     "subtitle": "Old Bilbo's Heir",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -147,7 +147,7 @@
     "title": "*Frodo",
     "subtitle": "Son of Drogo",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -172,7 +172,7 @@
     "title": "*The Gaffer",
     "subtitle": "Sam's Father",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "hobbit",
@@ -194,7 +194,7 @@
   "1_292": {
     "title": "*The Gaffer's Pipe",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "pipe",
     "target": "hobbit",
@@ -224,7 +224,7 @@
   "1_293": {
     "title": "Halfling Deftness",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -244,7 +244,7 @@
   "1_294": {
     "title": "Hobbit Appetite",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -266,7 +266,7 @@
   "1_295": {
     "title": "Hobbit Farmer",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "hobbit",
@@ -299,7 +299,7 @@
   "1_296": {
     "title": "Hobbit Intuition",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "stealth",
@@ -337,7 +337,7 @@
   "1_297": {
     "title": "Hobbit Party Guest",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "hobbit",
@@ -371,7 +371,7 @@
   "1_298": {
     "title": "Hobbit Stealth",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "stealth",
@@ -409,7 +409,7 @@
   "1_299": {
     "title": "Hobbit Sword",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -418,7 +418,7 @@
   "1_300": {
     "title": "Longbottom Leaf",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": [
       "pipeweed",
@@ -442,7 +442,7 @@
     "title": "*Master Proudfoot",
     "subtitle": "Distant Relative of Bilbo",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "hobbit",
@@ -481,7 +481,7 @@
     "title": "*Merry",
     "subtitle": "Friend to Sam",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -514,7 +514,7 @@
     "title": "*Merry",
     "subtitle": "From O'er the Brandywine",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -533,7 +533,7 @@
   "1_304": {
     "title": "Noble Intentions",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -552,7 +552,7 @@
   "1_305": {
     "title": "Old Toby",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": [
       "pipeweed",
@@ -575,7 +575,7 @@
     "title": "*Pippin",
     "subtitle": "Friend to Frodo",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -594,7 +594,7 @@
     "title": "*Pippin",
     "subtitle": "Hobbit of Some Intelligence",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -629,7 +629,7 @@
   "1_308": {
     "title": "Power According to His Stature",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -648,7 +648,7 @@
     "title": "*Rosie Cotton",
     "subtitle": "Hobbiton Lass",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,1",
     "race": "hobbit",
@@ -681,7 +681,7 @@
     "title": "*Sam",
     "subtitle": "Faithful Companion",
     "culture": "shire",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -714,7 +714,7 @@
     "title": "*Sam",
     "subtitle": "Son of Hamfast",
     "culture": "shire",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -750,7 +750,7 @@
   "1_312": {
     "title": "Sorry About Everything",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -768,7 +768,7 @@
   "1_313": {
     "title": "*Sting",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -808,7 +808,7 @@
   "1_314": {
     "title": "Stone Trolls",
     "culture": "shire",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "tale",
     "requires": {
@@ -828,7 +828,7 @@
   "1_315": {
     "title": "Stout and Sturdy",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -845,7 +845,7 @@
   "1_316": {
     "title": "*A Talent for Not Being Seen",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": [
       "stealth",
@@ -890,7 +890,7 @@
   "1_317": {
     "title": "*There and Back Again",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "tale",
     "target": "hobbit,companion",
@@ -912,7 +912,7 @@
   "1_318": {
     "title": "*Thror's Map",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "keyword": "support area",
     "effects": {

@@ -2,7 +2,7 @@
   "40_93": {
     "title": "Alliance of Old",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "target": "companion,elf",
     "keyword": "tale",
@@ -24,7 +24,7 @@
     "title": "*Aragorn",
     "subtitle": "Dunedain Ranger",
     "culture": "gondor",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "man",
     "strength": 8,
@@ -48,7 +48,7 @@
     "title": "*Aragorn",
     "subtitle": "Isildur's Heir",
     "culture": "gondor",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "man",
     "strength": 8,
@@ -73,7 +73,7 @@
     "title": "*Aragorn's Bow",
     "subtitle": "Swift and True",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "target": "name(Aragorn)",
@@ -113,7 +113,7 @@
   "40_97": {
     "title": "*Aragorn's Pipe",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "pipe",
     "target": "culture(gondor),man",
@@ -145,7 +145,7 @@
   "40_98": {
     "title": "Armor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "armor",
     "target": "man",
@@ -160,7 +160,7 @@
   "40_99": {
     "title": "Avoid Being Seen",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -185,7 +185,7 @@
     "title": "*Blade of Gondor",
     "subtitle": "Weapon of Honor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -217,7 +217,7 @@
     "title": "*Boromir",
     "subtitle": "Champion of Minas Tirith",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 7,
@@ -240,7 +240,7 @@
     "title": "*Boromir",
     "subtitle": "Son of Denethor",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 7,
@@ -263,7 +263,7 @@
   "40_103": {
     "title": "*Boromir's Gauntlets",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "gauntlets",
     "target": "culture(gondor),man",
@@ -291,7 +291,7 @@
   "40_104": {
     "title": "*Boromir's Shield",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "shield",
     "target": "culture(gondor),man",
@@ -325,7 +325,7 @@
   "40_105": {
     "title": "Bow of the North",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "strength": 1,
@@ -373,7 +373,7 @@
   "40_106": {
     "title": "Dagger Strike",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -396,7 +396,7 @@
   "40_108": {
     "title": "*Flaming Brand",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 1,
@@ -426,7 +426,7 @@
   "40_110": {
     "title": "*Into the Wild",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -468,7 +468,7 @@
   "40_111": {
     "title": "*Legacy of Numenor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -500,7 +500,7 @@
   "40_112": {
     "title": "Might of Numenor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -533,7 +533,7 @@
   "40_113": {
     "title": "pathfinder",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "fellowship",
@@ -554,7 +554,7 @@
   "40_114": {
     "title": "Ranger of the North",
     "culture": "gondor",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "man",
     "strength": 6,
@@ -602,7 +602,7 @@
   "40_115": {
     "title": "A Ranger's Adaptability",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -648,7 +648,7 @@
   "40_116": {
     "title": "Ranger's Guile",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -691,7 +691,7 @@
   "40_117": {
     "title": "*Ranger's Sword",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -709,7 +709,7 @@
     "title": "*Ring of Barahir",
     "subtitle": "Heirloom of Kings",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "itemclass": "ring",
     "target": "name(Aragorn)",
@@ -734,7 +734,7 @@
   "40_119": {
     "title": "*The Saga of Elendil",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "vitality": 1,
     "keyword": "tale",
@@ -763,7 +763,7 @@
   "40_120": {
     "title": "Sentinels of Numenor",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -793,7 +793,7 @@
   "40_121": {
     "title": "Sword of the North",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -814,7 +814,7 @@
   "40_122": {
     "title": "Swordarm of the White Tower",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -839,7 +839,7 @@
     "title": "Athelas",
     "subtitle": "Asëa Aranion",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "target": "companion",
     "requires": {

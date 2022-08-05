@@ -2,7 +2,7 @@
   "8_25": {
     "side": "shadow",
     "site": 8,
-    "cost": 6,
+    "twilight": 6,
     "race": "Spider",
     "strength": 8,
     "culture": "Gollum",
@@ -15,7 +15,7 @@
   "8_26": {
     "side": "shadow",
     "site": 8,
-    "cost": 6,
+    "twilight": 6,
     "race": "Spider",
     "strength": 8,
     "culture": "Gollum",
@@ -30,7 +30,7 @@
   },
   "8_23": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Larder",
     "type": "possession",
@@ -38,7 +38,7 @@
   },
   "8_24": {
     "side": "shadow",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Gollum",
     "title": "*Promise Keeping",
     "type": "condition",
@@ -46,7 +46,7 @@
   },
   "8_29": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Still Far Ahead",
     "type": "event",
@@ -57,7 +57,7 @@
   },
   "8_27": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 3,
     "culture": "Gollum",
     "vitality": 4,
@@ -70,7 +70,7 @@
   },
   "8_28": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Spider Poison",
     "type": "possession",
@@ -78,7 +78,7 @@
   },
   "8_22": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Hidden Even From Her",
     "type": "condition",
@@ -86,7 +86,7 @@
   },
   "8_30": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Web",
     "type": "possession",

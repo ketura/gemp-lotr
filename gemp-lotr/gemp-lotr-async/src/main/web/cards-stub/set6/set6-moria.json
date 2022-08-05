@@ -1,7 +1,7 @@
 {
   "6_77": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Moria",
     "title": "*Durin's Tower",
     "type": "condition",
@@ -10,7 +10,7 @@
   "6_76": {
     "side": "shadow",
     "site": 4,
-    "cost": 14,
+    "twilight": 14,
     "race": "Balrog",
     "strength": 17,
     "culture": "Moria",

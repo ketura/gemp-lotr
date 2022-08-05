@@ -1,7 +1,7 @@
 {
   "7_129": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "*Bold Men and Grim",
     "type": "condition",
@@ -10,7 +10,7 @@
   "7_160": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -22,7 +22,7 @@
   "7_141": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Raider",
@@ -34,7 +34,7 @@
   "7_163": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -46,7 +46,7 @@
   "7_142": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -58,7 +58,7 @@
   "7_164": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 10,
     "culture": "Raider",
@@ -73,7 +73,7 @@
   "7_161": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -85,7 +85,7 @@
   "7_140": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -97,7 +97,7 @@
   "7_162": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 13,
     "culture": "Raider",
@@ -109,7 +109,7 @@
   "7_145": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 11,
     "culture": "Raider",
@@ -124,7 +124,7 @@
   "7_167": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 10,
     "culture": "Raider",
@@ -140,7 +140,7 @@
   "7_146": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -152,7 +152,7 @@
   "7_168": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -164,7 +164,7 @@
   "7_143": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -176,7 +176,7 @@
   "7_165": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 11,
     "culture": "Raider",
@@ -191,7 +191,7 @@
   "7_144": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -203,7 +203,7 @@
   "7_166": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 10,
     "culture": "Raider",
@@ -214,7 +214,7 @@
   },
   "7_149": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Raider",
     "title": "Great Beasts",
     "type": "condition",
@@ -223,7 +223,7 @@
   "7_147": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 10,
     "culture": "Raider",
@@ -234,7 +234,7 @@
   },
   "7_169": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "Surging Up",
     "type": "condition",
@@ -242,7 +242,7 @@
   },
   "7_148": {
     "side": "shadow",
-    "cost": 7,
+    "twilight": 7,
     "culture": "Raider",
     "title": "Fierce in Despair",
     "type": "event",
@@ -251,7 +251,7 @@
   "7_170": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 11,
     "culture": "Raider",
@@ -265,7 +265,7 @@
   },
   "7_171": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Raider",
     "title": "Thrice Outnumbered",
     "type": "event",
@@ -273,7 +273,7 @@
   },
   "7_130": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "Dark Tidings",
     "type": "condition",
@@ -282,7 +282,7 @@
   "7_152": {
     "side": "shadow",
     "site": 4,
-    "cost": 8,
+    "twilight": 8,
     "race": "Man",
     "strength": 16,
     "culture": "Raider",
@@ -294,7 +294,7 @@
   "7_131": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -305,7 +305,7 @@
   },
   "7_153": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "Mumakil of the Harad",
     "type": "event",
@@ -313,7 +313,7 @@
   },
   "7_150": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "Harsh Tongues",
     "type": "condition",
@@ -322,7 +322,7 @@
   "7_172": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 10,
     "culture": "Raider",
@@ -333,7 +333,7 @@
   },
   "7_151": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Raider",
     "title": "Hosts Still Unfought",
     "type": "event",
@@ -341,7 +341,7 @@
   },
   "7_173": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "War Towers",
     "type": "event",
@@ -350,7 +350,7 @@
   "7_134": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -364,7 +364,7 @@
   },
   "7_156": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Raider",
     "itemclass": "Hand Weapon",
@@ -374,7 +374,7 @@
   "7_135": {
     "side": "shadow",
     "site": 4,
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 5,
     "culture": "Raider",
@@ -388,7 +388,7 @@
   },
   "7_157": {
     "side": "shadow",
-    "cost": 5,
+    "twilight": 5,
     "culture": "Raider",
     "title": "Red Wrath",
     "type": "event",
@@ -397,7 +397,7 @@
   "7_132": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -408,7 +408,7 @@
   },
   "7_154": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Raider",
     "title": "New Strength Came Now",
     "type": "event",
@@ -417,7 +417,7 @@
   "7_133": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Raider",
@@ -431,7 +431,7 @@
   },
   "7_155": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Raider",
     "itemclass": "Ranged Weapon",
     "title": "Raider Bow",
@@ -440,7 +440,7 @@
   "7_138": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Raider",
@@ -452,7 +452,7 @@
   "7_139": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -463,7 +463,7 @@
   },
   "7_158": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "Rout",
     "type": "condition",
@@ -471,7 +471,7 @@
   },
   "7_159": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Raider",
     "title": "Small Hope",
     "type": "condition",

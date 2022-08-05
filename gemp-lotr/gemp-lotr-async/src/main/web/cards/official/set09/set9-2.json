@@ -4,7 +4,7 @@
     "subtitle": "Dark as Darkness",
     "side": "shadow",
     "culture": "gollum",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "strength": 5,
     "vitality": 4,
@@ -78,7 +78,7 @@
     "title": "Slippery as Fishes",
     "side": "shadow",
     "culture": "gollum",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -130,7 +130,7 @@
     "subtitle": "Bearer of Great Secrets",
     "side": "free people",
     "culture": "gollum",
-    "cost": 0,
+    "twilight": 0,
     "type": "companion",
     "strength": 3,
     "vitality": 4,
@@ -178,7 +178,7 @@
     "title": "*Boromir",
     "subtitle": "Bearer of Council",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 7,
@@ -232,7 +232,7 @@
     "title": "*Elendil",
     "subtitle": "The Tall",
     "culture": "gondor",
-    "cost": 5,
+    "twilight": 5,
     "type": "companion",
     "race": "man",
     "strength": 8,
@@ -278,7 +278,7 @@
     "title": "*Isildur",
     "subtitle": "Bearer of Heirlooms",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 7,
@@ -333,7 +333,7 @@
     "title": "*Narsil",
     "subtitle": "Blade of the Faithful",
     "culture": "gondor",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "itemclass": "hand weapon",
     "vitality": 1,
@@ -372,7 +372,7 @@
   "9_35": {
     "title": "Sapling of the White Tree",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "artifact",
     "keyword": "support area",
     "requires": {
@@ -398,7 +398,7 @@
   "9_36": {
     "title": "*Scroll of Isildur",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "artifact",
     "keyword": [
       "support area",
@@ -438,7 +438,7 @@
   "9_37": {
     "title": "*Seeing Stone of Minas Anor",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -509,7 +509,7 @@
   "9_38": {
     "title": "*Seeing Stone of Orthanc",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -584,7 +584,7 @@
   "9_39": {
     "title": "*Library of Orthanc",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -636,7 +636,7 @@
   "9_40": {
     "title": "Sack of the Shire",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -681,7 +681,7 @@
     "title": "*Host of Moria",
     "subtitle": "Legion of the Underdeeps",
     "culture": "moria",
-    "cost": 7,
+    "twilight": 7,
     "type": "minion",
     "race": "orc",
     "strength": 15,
@@ -703,7 +703,7 @@
   "9_42": {
     "title": "*Ring of Asperity",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "itemclass": "ring",
     "strength": 1,
@@ -736,7 +736,7 @@
   "9_43": {
     "title": "*Ring of Ire",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "itemclass": "ring",
     "strength": 1,
@@ -771,7 +771,7 @@
   "9_44": {
     "title": "*Ring of Rancor",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "itemclass": "ring",
     "vitality": 1,
@@ -803,7 +803,7 @@
   "9_45": {
     "title": "*Horn of the Mark",
     "culture": "rohan",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "strength": 1,
     "target": "or(name(Merry),name(Pippin))",
@@ -837,7 +837,7 @@
   "9_46": {
     "title": "*The Red Arrow",
     "culture": "rohan",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "effects": {
@@ -879,7 +879,7 @@
   "9_47": {
     "title": "*Ithil Stone",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -920,7 +920,7 @@
     "title": "*Sauron",
     "subtitle": "The Lord of the Rings",
     "culture": "sauron",
-    "cost": 18,
+    "twilight": 18,
     "type": "minion",
     "race": "maia",
     "strength": 24,
@@ -960,7 +960,7 @@
     "title": "*Bilbo",
     "subtitle": "Bearer of Things Burgled",
     "culture": "shire",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -1017,7 +1017,7 @@
   "9_50": {
     "title": "Everyone Knows",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "support area",
@@ -1055,7 +1055,7 @@
     "title": "*Goldberry",
     "subtitle": "River-daughter",
     "culture": "shire",
-    "cost": 3,
+    "twilight": 3,
     "type": "ally",
     "allyHome": "fellowship,2",
     "strength": 4,
@@ -1095,7 +1095,7 @@
     "title": "*Tom Bombadil",
     "subtitle": "The Master",
     "culture": "shire",
-    "cost": 5,
+    "twilight": 5,
     "type": "ally",
     "allyHome": "fellowship,2",
     "strength": 14,

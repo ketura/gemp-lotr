@@ -1,7 +1,7 @@
 {
   "7_35": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "Fool's Hope",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "7_46": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Gandalf",
     "title": "Peace of Mind",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "7_36": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 9,
     "culture": "Gandalf",
@@ -30,7 +30,7 @@
   },
   "7_47": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Sharpen Your Swords",
     "type": "event",
@@ -38,7 +38,7 @@
   },
   "7_33": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "culture": "Gandalf",
     "title": "Citadel to Gate",
     "type": "event",
@@ -46,7 +46,7 @@
   },
   "7_44": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "*Moment of Respite",
     "type": "condition",
@@ -54,7 +54,7 @@
   },
   "7_34": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Echoes of Valinor",
     "type": "condition",
@@ -62,7 +62,7 @@
   },
   "7_45": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Numenor's Pride",
     "type": "condition",
@@ -70,7 +70,7 @@
   },
   "7_39": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Gandalf",
     "subtitle": "Elven Blade",
@@ -80,7 +80,7 @@
   },
   "7_37": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 7,
     "culture": "Gandalf",
@@ -93,7 +93,7 @@
   },
   "7_48": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gandalf",
     "title": "Stay This Madness",
     "type": "condition",
@@ -101,7 +101,7 @@
   },
   "7_38": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "vitality": 1,
     "subtitle": "Focus of Power",
@@ -111,14 +111,14 @@
   },
   "7_49": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "*Steadfast Champion",
     "type": "condition"
   },
   "7_50": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "Terrible and Evil",
     "type": "event",
@@ -129,7 +129,7 @@
   },
   "7_31": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "All Save One",
     "type": "event",
@@ -137,7 +137,7 @@
   },
   "7_42": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "King's Advisor",
     "type": "event",
@@ -145,7 +145,7 @@
   },
   "7_32": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gandalf",
     "title": "The Board Is Set",
     "type": "event",
@@ -156,7 +156,7 @@
   },
   "7_43": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "Light the Beacons",
     "type": "event",
@@ -164,7 +164,7 @@
   },
   "7_51": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "Undaunted",
     "type": "event",

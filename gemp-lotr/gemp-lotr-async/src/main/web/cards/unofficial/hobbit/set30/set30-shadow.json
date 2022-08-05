@@ -2,7 +2,7 @@
   "30_32": {
     "title": "Anger",
     "culture": "gundabad",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -28,7 +28,7 @@
     "title": "*Fimbul",
     "subtitle": "Orkish Assassin",
     "culture": "gundabad",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 7,
@@ -60,7 +60,7 @@
   "30_34": {
     "title": "Hatred Rekindled",
     "culture": "gundabad",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -81,7 +81,7 @@
   "30_35": {
     "title": "Host of Thousands",
     "culture": "gundabad",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -96,7 +96,7 @@
     "title": "*Narzug",
     "subtitle": "Orkish Assassin",
     "culture": "gundabad",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 6,
@@ -132,7 +132,7 @@
   "30_37": {
     "title": "*Not at Home",
     "culture": "gundabad",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -171,7 +171,7 @@
   "30_38": {
     "title": "Orkish Marauder",
     "culture": "gundabad",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -217,7 +217,7 @@
   "30_39": {
     "title": "Orkish Aggressor",
     "culture": "gundabad",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 6,
@@ -254,7 +254,7 @@
   "30_40": {
     "title": "Watchful Orc",
     "culture": "gundabad",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -300,7 +300,7 @@
     "title": "*Yazneg",
     "subtitle": "Orkish Assassin",
     "culture": "gundabad",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "orc",
     "strength": 5,
@@ -328,7 +328,7 @@
   "30_42": {
     "title": "Goblin Footman",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -352,7 +352,7 @@
     "title": "*Smaug",
     "subtitle": "The Golden",
     "culture": "smaug",
-    "cost": 16,
+    "twilight": 16,
     "type": "minion",
     "race": "dragon",
     "strength": 17,

@@ -1,7 +1,7 @@
 {
   "2_31": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "Blood of Numenor",
     "type": "condition",
@@ -48,7 +48,7 @@
   },
   "2_32": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 1,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -79,7 +79,7 @@
   },
   "2_33": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Flee in Terror",
     "type": "event",
@@ -115,7 +115,7 @@
   },
   "2_34": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Gondor Will See It Done",
     "type": "event",
@@ -138,7 +138,7 @@
   },
   "2_35": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Natural Cover",
     "type": "condition",
@@ -162,7 +162,7 @@
   },
   "2_36": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "No Mere Ranger",
     "type": "event",
@@ -192,7 +192,7 @@
   },
   "2_37": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Sentinels of Numenor",
     "type": "event",
@@ -216,7 +216,7 @@
   },
   "2_38": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Shield",
     "title": "*Shield of Boromir",

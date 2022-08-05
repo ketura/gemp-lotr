@@ -3,7 +3,7 @@
     "title": "*Alfrid",
     "subtitle": "Lickspittle",
     "culture": "men",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "man",
     "strength": 4,
@@ -51,7 +51,7 @@
   "32_26": {
     "title": "*War for Gold",
     "culture": "mirkwood",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -99,7 +99,7 @@
   "32_27": {
     "title": "Assaulting Goblin",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 7,
@@ -129,7 +129,7 @@
     "title": "*Azog",
     "subtitle": "Commander of the Wolves Army",
     "culture": "moria",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -157,7 +157,7 @@
   "32_29": {
     "title": "*Azog's Mace",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -197,7 +197,7 @@
   "32_30": {
     "title": "Dark Bats",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "creature",
     "strength": 4,
@@ -236,7 +236,7 @@
   "32_31": {
     "title": "Demolition Troll",
     "culture": "moria",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "troll",
     "strength": 10,
@@ -263,7 +263,7 @@
   "32_32": {
     "title": "Vicious Warg",
     "culture": "moria",
-    "cost": 3,
+    "twilight": 3,
     "type": "possession",
     "itemclass": "mount",
     "strength": 3,
@@ -299,7 +299,7 @@
   "32_33": {
     "title": "*Were-worms",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -353,7 +353,7 @@
   "32_34": {
     "title": "*The Wolves Army",
     "culture": "moria",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "orc",
     "strength": 10,
@@ -389,7 +389,7 @@
     "title": "*Azog",
     "subtitle": "Servant of Sauron",
     "culture": "sauron",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -434,7 +434,7 @@
     "title": "*Bolg",
     "subtitle": "Captain of the Orc Army",
     "culture": "sauron",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -472,7 +472,7 @@
   "32_37": {
     "title": "Danger Wrapped in Shadows",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -536,7 +536,7 @@
   "32_38": {
     "title": "Hidden Attack",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "regroup",
     "requires": {
@@ -567,7 +567,7 @@
   "32_39": {
     "title": "Jail",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -614,7 +614,7 @@
   "32_40": {
     "title": "*The Orc Army",
     "culture": "sauron",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "orc",
     "strength": 10,
@@ -656,7 +656,7 @@
   "32_41": {
     "title": "Orkish Bow",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "strength": 1,
@@ -709,7 +709,7 @@
   "32_42": {
     "title": "Orkish Pursuer",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -754,7 +754,7 @@
   "32_43": {
     "title": "Orkish Veteran",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 7,
@@ -792,7 +792,7 @@
     "title": "*Ring of Thror",
     "subtitle": "Last of the Seven Rings",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "itemclass": "ring",
     "vitality": 1,
@@ -830,7 +830,7 @@
     "title": "*Sauron",
     "subtitle": "The Necromancer",
     "culture": "sauron",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "maia",
     "strength": 13,
@@ -907,7 +907,7 @@
   "32_50": {
     "title": "Dissention",
     "culture": "smaug",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "skirmish",
     "effects": [
@@ -945,7 +945,7 @@
   "32_51": {
     "title": "*Dragon's Malice",
     "culture": "smaug",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -998,7 +998,7 @@
   "32_52": {
     "title": "Smaug's Awakening",
     "culture": "smaug",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -1059,7 +1059,7 @@
   "32_53": {
     "title": "*Terrifying Legend",
     "culture": "smaug",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -1111,7 +1111,7 @@
   "32_54": {
     "title": "*Twisted Gold of Dragon",
     "culture": "smaug",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -1160,7 +1160,7 @@
   "32_55": {
     "title": "*Wrath of the Dragon",
     "culture": "smaug",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -1211,7 +1211,7 @@
   "32_56": {
     "title": "Dol Guldur Blade",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -1258,7 +1258,7 @@
   "32_57": {
     "title": "The Great Enemy",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -1283,7 +1283,7 @@
   "32_58": {
     "title": "*He Is Summoning His Servants",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -1319,7 +1319,7 @@
     "title": "*Úlairë Attëa",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 12,
@@ -1359,7 +1359,7 @@
     "title": "*Úlairë Cantëa",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "nazgul",
     "strength": 10,
@@ -1388,7 +1388,7 @@
     "title": "*Úlairë Enquëa",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 11,
@@ -1424,7 +1424,7 @@
     "title": "*Úlairë Lemenya",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -1459,7 +1459,7 @@
     "title": "*Úlairë Nelya",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "nazgul",
     "strength": 10,
@@ -1483,7 +1483,7 @@
     "title": "*Úlairë Nertëa",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -1522,7 +1522,7 @@
     "title": "*Úlairë Otsëa",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -1556,7 +1556,7 @@
     "title": "*Úlairë Toldëa",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 12,
@@ -1596,7 +1596,7 @@
     "title": "*The Witch-king",
     "subtitle": "Revived",
     "culture": "wraith",
-    "cost": 8,
+    "twilight": 8,
     "type": "minion",
     "race": "nazgul",
     "strength": 14,

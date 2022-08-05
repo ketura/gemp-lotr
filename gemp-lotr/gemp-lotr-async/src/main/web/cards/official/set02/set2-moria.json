@@ -2,7 +2,7 @@
   "2_49": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 8,
     "culture": "Moria",
@@ -21,7 +21,7 @@
   },
   "2_50": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 3,
     "culture": "Moria",
     "itemclass": "Hand Weapon",
@@ -45,7 +45,7 @@
   "2_51": {
     "side": "shadow",
     "site": 4,
-    "cost": 12,
+    "twilight": 12,
     "race": "Balrog",
     "strength": 17,
     "culture": "Moria",
@@ -101,7 +101,7 @@
   "2_52": {
     "side": "shadow",
     "site": 4,
-    "cost": 14,
+    "twilight": 14,
     "race": "Balrog",
     "strength": 17,
     "culture": "Moria",
@@ -158,7 +158,7 @@
   },
   "2_53": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Moria",
     "title": "*Cave Troll's Chain",
@@ -216,7 +216,7 @@
   },
   "2_54": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": -2,
     "culture": "Moria",
     "title": "Dark Fire",
@@ -239,7 +239,7 @@
   },
   "2_55": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Moria",
     "title": "Dark Places",
     "type": "condition",

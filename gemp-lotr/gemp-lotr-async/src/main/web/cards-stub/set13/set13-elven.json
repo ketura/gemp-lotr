@@ -1,7 +1,7 @@
 {
   "13_17": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Kindreds Estranged",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "13_16": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Inside a Song",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "13_27": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "*Wells of Deep Memory",
     "type": "condition",
@@ -25,7 +25,7 @@
   },
   "13_15": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Elf",
     "strength": 3,
     "culture": "Elven",
@@ -37,7 +37,7 @@
   },
   "13_26": {
     "side": "free_people",
-    "cost": 6,
+    "twilight": 6,
     "culture": "Elven",
     "title": "Take Up the Bow",
     "type": "condition",
@@ -48,7 +48,7 @@
   },
   "13_9": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -60,7 +60,7 @@
   },
   "13_14": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Final Shot",
     "type": "event",
@@ -68,7 +68,7 @@
   },
   "13_25": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Standing Tall",
     "type": "condition",
@@ -76,7 +76,7 @@
   },
   "13_19": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Elven",
     "title": "Let Fly",
     "type": "event",
@@ -84,7 +84,7 @@
   },
   "13_18": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -97,7 +97,7 @@
   },
   "13_20": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -108,7 +108,7 @@
   },
   "13_13": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Crashing Cavalry",
     "type": "condition",
@@ -116,7 +116,7 @@
   },
   "13_24": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Spring Forth Nimbly",
     "type": "event",
@@ -124,7 +124,7 @@
   },
   "13_12": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "City of the Trees",
     "type": "condition",
@@ -132,7 +132,7 @@
   },
   "13_23": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -143,7 +143,7 @@
   },
   "13_11": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -155,7 +155,7 @@
   },
   "13_22": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "*Secluded Homestead",
     "type": "condition",
@@ -163,7 +163,7 @@
   },
   "13_10": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "subtitle": "Swift Blossom",
     "itemclass": "Mount",
@@ -173,7 +173,7 @@
   },
   "13_21": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Many Miles",
     "type": "event",

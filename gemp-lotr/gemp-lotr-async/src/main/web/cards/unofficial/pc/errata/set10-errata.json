@@ -2,7 +2,7 @@
   "60_2": {
     "title": "*Memories of Darkness",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "requires": {
@@ -32,7 +32,7 @@
     "title": "*Cirdan",
     "subtitle": "The Shipwright",
     "culture": "Elven",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "Elf",
     "strength": 7,
@@ -84,7 +84,7 @@
     "title": "*Galadriel",
     "subtitle": "Lady Redeemed",
     "culture": "elven",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "elf",
     "strength": 3,
@@ -121,7 +121,7 @@
   },
   "60_17": {
     "title": "Out of the High Airs",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "type": "event",
     "keyword": "response",
@@ -149,7 +149,7 @@
   "60_91": {
     "title": "Mordor Fiend",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 9,

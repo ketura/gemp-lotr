@@ -1,6 +1,6 @@
 {
   "18_138": {
-    "cost": 4,
+    "twilight": 4,
     "block": "Shadows and onwards",
     "title": "Sirannon Ruins",
     "type": "site",
@@ -8,14 +8,14 @@
     "direction": "right"
   },
   "18_139": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Steward's Tomb",
     "type": "site",
     "direction": "right"
   },
   "18_136": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Mithlond",
     "type": "site",
@@ -23,7 +23,7 @@
     "direction": "left"
   },
   "18_137": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Morannon Plains",
     "type": "site",
@@ -34,7 +34,7 @@
     "direction": "right"
   },
   "18_134": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Doorway to Doom",
     "type": "site",
@@ -42,7 +42,7 @@
     "direction": "right"
   },
   "18_135": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Foot of Mount Doom",
     "type": "site",
@@ -50,7 +50,7 @@
     "direction": "left"
   },
   "18_140": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Streets of Bree",
     "type": "site",

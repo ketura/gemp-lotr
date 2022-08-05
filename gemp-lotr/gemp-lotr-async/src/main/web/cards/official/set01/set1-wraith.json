@@ -2,7 +2,7 @@
   "1_203": {
     "title": "All Blades Perish",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -20,7 +20,7 @@
   "1_204": {
     "title": "All Veils Removed",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -42,7 +42,7 @@
   "1_205": {
     "title": "Beauty is Fading",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -87,7 +87,7 @@
   "1_206": {
     "title": "Bent on Discovery",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "search",
@@ -133,7 +133,7 @@
   "1_207": {
     "title": "Black Breath",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -179,7 +179,7 @@
   "1_208": {
     "title": "Black Steed",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "mount",
     "strength": 2,
@@ -216,7 +216,7 @@
   "1_209": {
     "title": "Blade Tip",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -269,7 +269,7 @@
   "1_210": {
     "title": "Dark Whispers",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "requires": {
@@ -332,7 +332,7 @@
   "1_211": {
     "title": "Drawn to Its Power",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -353,7 +353,7 @@
   "1_212": {
     "title": "Fear",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "search",
@@ -374,7 +374,7 @@
   "1_213": {
     "title": "Frozen by Fear",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -397,7 +397,7 @@
   "1_214": {
     "title": "In the Ringwraith's Wake",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -428,7 +428,7 @@
   "1_215": {
     "title": "The Master's Will",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "search",
@@ -465,7 +465,7 @@
   "1_216": {
     "title": "Morgul Blade",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 1,
@@ -513,7 +513,7 @@
   "1_217": {
     "title": "Morgul Gates",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -528,7 +528,7 @@
   "1_218": {
     "title": "Nazgul Sword",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -549,7 +549,7 @@
   "1_219": {
     "title": "The Nine Servants of Sauron",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "search",
@@ -571,7 +571,7 @@
   "1_220": {
     "title": "Not Easily Destroyed",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -593,7 +593,7 @@
   "1_221": {
     "title": "*The Pale Blade",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 3,
@@ -627,7 +627,7 @@
   "1_222": {
     "title": "Paths Seldom Trodden",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "search",
@@ -656,7 +656,7 @@
   "1_223": {
     "title": "Relentless Charge",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -674,7 +674,7 @@
   "1_224": {
     "title": "Return to Its Master",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "requires": {
@@ -715,7 +715,7 @@
   "1_225": {
     "title": "*Sword of Minas Morgul",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -746,7 +746,7 @@
   "1_226": {
     "title": "Their Power Is In Terror",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -764,7 +764,7 @@
   "1_227": {
     "title": "Threshold of Shadow",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -787,7 +787,7 @@
   "1_228": {
     "title": "The Twilight World",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -809,7 +809,7 @@
     "title": "*Úlairë Attëa",
     "subtitle": "Keeper of Dol Guldur",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 12,
@@ -846,7 +846,7 @@
     "title": "*Úlairë Cantëa",
     "subtitle": "Lieutenant of Dol Guldur",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "nazgul",
     "strength": 10,
@@ -870,7 +870,7 @@
     "title": "*Úlairë Enquëa",
     "subtitle": "Lieutenant of Morgul",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 11,
@@ -908,7 +908,7 @@
     "title": "*Úlairë Lemenya",
     "subtitle": "Lieutenant of Morgul",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -927,7 +927,7 @@
     "title": "*Úlairë Nelya",
     "subtitle": "Lieutenant of Morgul",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "nazgul",
     "strength": 10,
@@ -962,7 +962,7 @@
     "title": "*Úlairë Nertëa",
     "subtitle": "Messenger of Dol Guldur",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -996,7 +996,7 @@
     "title": "*Úlairë Otsëa",
     "subtitle": "Lieutenant of Morgul",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -1021,7 +1021,7 @@
     "title": "*Úlairë Toldëa",
     "subtitle": "Messenger of Morgul",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 12,
@@ -1046,7 +1046,7 @@
     "title": "*The Witch-king",
     "subtitle": "Lord of Angmar",
     "culture": "wraith",
-    "cost": 8,
+    "twilight": 8,
     "type": "minion",
     "race": "nazgul",
     "strength": 14,
@@ -1069,7 +1069,7 @@
   "1_238": {
     "title": "Wreathed in Shadow",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "requires": {
       "type": "canSpot",

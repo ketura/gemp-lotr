@@ -4,7 +4,7 @@
     "subtitle": "Duplicitous Lieutenant",
     "side": "shadow",
     "culture": "Wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "Shadow",
     "requires": {

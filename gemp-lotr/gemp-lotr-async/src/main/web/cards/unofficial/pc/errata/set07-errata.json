@@ -2,7 +2,7 @@
   "57_49": {
     "title": "*Steadfast Champion",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "target": "name(gandalf)",
     "effects": [
@@ -48,7 +48,7 @@
   "57_96": {
     "title": "Gondorian Captain",
     "culture": "gondor",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "man",
     "strength": 6,
@@ -71,7 +71,7 @@
     "title": "Northern Ithilien",
     "type": "site",
     "block": "King",
-    "cost": 8,
+    "twilight": 8,
     "site": 8,
     "direction": "right",
     "effects": {

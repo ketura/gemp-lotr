@@ -1,7 +1,7 @@
 {
   "18_132": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "All Life Flees",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "18_133": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Wraith",
     "title": "Pull of the Ring",
     "type": "event",

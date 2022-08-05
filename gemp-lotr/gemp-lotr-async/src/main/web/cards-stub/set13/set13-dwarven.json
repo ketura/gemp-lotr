@@ -1,7 +1,7 @@
 {
   "13_4": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "Dwarf-lords",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "13_3": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Deep Hatred",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "13_2": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Awkward Moment",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "13_1": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "subtitle": "Rohirrim Steed",
     "itemclass": "Mount",
@@ -35,7 +35,7 @@
   },
   "13_8": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "*Subterranean Homestead",
     "type": "condition",
@@ -43,7 +43,7 @@
   },
   "13_7": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Sorrow Shared",
     "type": "event",
@@ -51,7 +51,7 @@
   },
   "13_6": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Honoring His Kinfolk",
     "type": "event",
@@ -59,7 +59,7 @@
   },
   "13_5": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",

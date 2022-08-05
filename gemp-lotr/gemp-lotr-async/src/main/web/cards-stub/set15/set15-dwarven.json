@@ -1,7 +1,7 @@
 {
   "15_10": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Whatever End",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "15_9": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "itemclass": "Armor",
     "title": "Well-crafted Armor",
@@ -17,7 +17,7 @@
   },
   "15_8": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Sturdy Stock",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "15_7": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "strength": 3,
     "culture": "Dwarven",
     "itemclass": "Hand Weapon",
@@ -34,7 +34,7 @@
   },
   "15_6": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -46,7 +46,7 @@
   },
   "15_5": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -62,7 +62,7 @@
   },
   "15_4": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "The Fortunes of Balin's Folk",
     "type": "event",
@@ -70,7 +70,7 @@
   },
   "15_3": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "Chamber of Records",
     "type": "condition",
@@ -78,7 +78,7 @@
   },
   "15_204": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "subtitle": "Dwarf Version",
     "title": "Forth the Three Hunters!",

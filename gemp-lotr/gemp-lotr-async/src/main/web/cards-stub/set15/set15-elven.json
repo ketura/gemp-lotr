@@ -1,7 +1,7 @@
 {
   "15_205": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "subtitle": "Elf Version",
     "title": "Forth the Three Hunters!",
@@ -10,7 +10,7 @@
   },
   "15_16": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "subtitle": "Blessed Light",
     "title": "*Gift of the Evenstar",
@@ -19,7 +19,7 @@
   },
   "15_17": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -31,7 +31,7 @@
   },
   "15_18": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -44,7 +44,7 @@
   },
   "15_19": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -60,7 +60,7 @@
   },
   "15_12": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "subtitle": "Mirkwood Archer",
     "title": "*Dinendal",
@@ -69,7 +69,7 @@
   },
   "15_23": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Point Blank Range",
     "type": "event",
@@ -77,7 +77,7 @@
   },
   "15_24": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Spied From Afar",
     "type": "condition",
@@ -85,7 +85,7 @@
   },
   "15_14": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -96,7 +96,7 @@
   },
   "15_25": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
@@ -105,7 +105,7 @@
   },
   "15_15": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Focus",
     "type": "condition",
@@ -113,7 +113,7 @@
   },
   "15_26": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "subtitle": "Woodland Maid",
     "title": "*Uruviel",
@@ -123,7 +123,7 @@
   },
   "15_20": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Lorien's Blessing",
     "type": "event",
@@ -131,7 +131,7 @@
   },
   "15_21": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Mighty Shot",
     "type": "event",
@@ -139,7 +139,7 @@
   },
   "15_11": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -151,7 +151,7 @@
   },
   "15_22": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "subtitle": "Dangerous Guide",
     "title": "*The Mirror of Galadriel",

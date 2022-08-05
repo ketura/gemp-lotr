@@ -3,7 +3,7 @@
 	"151_31": {
 		"title": "Guided by One Purpose",
 		"culture": "moria",
-		"cost": 0,
+		"twilight": 0,
 		"type": "condition",
 		"keyword": "support area",
 		"effects": [
@@ -43,7 +43,7 @@
 	"151_32": {
 		"title": "*Terror at Its Coming",
 		"culture": "moria",
-		"cost": 0,
+		"twilight": 0,
 		"type": "condition",
 		"keyword": "support area",
 		"effects": [
@@ -69,7 +69,7 @@
 	"151_33": {
 		"title": "Thrashing Tentacle",
 		"culture": "moria",
-		"cost": 2,
+		"twilight": 2,
 		"type": "minion",
 		"race": "creature",
 		"keyword": ["tentacle"],
@@ -119,7 +119,7 @@
 	"151_34": {
     "title": "Out of Dark Waters",
     "culture": "moria",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": ["support area"],
     "effects": [
@@ -192,7 +192,7 @@
   "151_35": {
     "title": "The Darkness Grew",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": ["support area"],
     "effects": [
@@ -259,7 +259,7 @@
   "151_36": {
     "title": "Vile Tentacle",
     "culture": "moria",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "creature",
     "keyword": ["tentacle"],

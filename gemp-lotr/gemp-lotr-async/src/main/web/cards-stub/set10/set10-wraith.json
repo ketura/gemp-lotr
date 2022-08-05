@@ -2,7 +2,7 @@
   "10_56": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 9,
     "culture": "Wraith",
@@ -13,7 +13,7 @@
   "10_67": {
     "side": "shadow",
     "site": 3,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -29,7 +29,7 @@
   "10_55": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Wraith",
@@ -39,7 +39,7 @@
   },
   "10_66": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Ten Times Outnumbered",
     "type": "event",
@@ -47,7 +47,7 @@
   },
   "10_58": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Dark Swooping Shadows",
     "type": "event",
@@ -56,7 +56,7 @@
   "10_69": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -72,7 +72,7 @@
   "10_57": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 9,
     "culture": "Wraith",
@@ -83,7 +83,7 @@
   "10_68": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 11,
     "culture": "Wraith",
@@ -96,7 +96,7 @@
   "10_59": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 11,
     "culture": "Wraith",
@@ -108,7 +108,7 @@
   "10_70": {
     "side": "shadow",
     "site": 2,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -123,7 +123,7 @@
   },
   "10_61": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Houses of Lamentation",
     "type": "event",
@@ -131,7 +131,7 @@
   },
   "10_60": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Wraith",
     "itemclass": "Hand Weapon",
@@ -141,7 +141,7 @@
   "10_71": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 12,
     "culture": "Wraith",
@@ -154,7 +154,7 @@
   "10_63": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Orc",
     "strength": 12,
     "culture": "Wraith",
@@ -165,7 +165,7 @@
   "10_62": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Wraith",
@@ -176,7 +176,7 @@
   "10_54": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Wraith",
@@ -186,7 +186,7 @@
   },
   "10_65": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Wraith",
     "title": "Swarming Like Beetles",
     "type": "condition",
@@ -194,7 +194,7 @@
   },
   "10_53": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Black Marshal",
     "type": "condition",
@@ -202,7 +202,7 @@
   },
   "10_64": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "*Stooping to the Kill",
     "type": "condition",

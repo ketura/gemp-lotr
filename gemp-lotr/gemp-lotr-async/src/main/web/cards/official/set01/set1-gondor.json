@@ -2,7 +2,7 @@
   "1_88": {
     "title": "An Able Guide",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "regroup",
     "requires": {
@@ -22,7 +22,7 @@
     "title": "*Aragorn",
     "subtitle": "Ranger of the North",
     "culture": "gondor",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "man",
     "strength": 8,
@@ -48,7 +48,7 @@
   "1_90": {
     "title": "*Aragorn's Bow",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "target": "name(Aragorn)",
@@ -84,7 +84,7 @@
   "1_91": {
     "title": "*Aragorn's Pipe",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "pipe",
     "target": "culture(gondor),companion",
@@ -115,7 +115,7 @@
   "1_92": {
     "title": "Armor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "armor",
     "target": "man",
@@ -132,7 +132,7 @@
   "1_93": {
     "title": "Arwen's Fate",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -175,7 +175,7 @@
   "1_94": {
     "title": "Athelas",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "target": "culture(gondor),man",
     "effects": {
@@ -207,7 +207,7 @@
   "1_95": {
     "title": "*Blade of Gondor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -239,7 +239,7 @@
     "title": "*Boromir",
     "subtitle": "Lord of Gondor",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 7,
@@ -259,7 +259,7 @@
     "title": "*Boromir",
     "subtitle": "Son of Denethor",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 7,
@@ -283,7 +283,7 @@
   "1_98": {
     "title": "*Boromir's Cloak",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "cloak",
     "target": "name(Boromir)",
@@ -303,7 +303,7 @@
   "1_99": {
     "title": "Change of Plans",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "regroup",
     "effects": {
@@ -329,7 +329,7 @@
   "1_100": {
     "title": "*The Choice of Luthien",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "tale",
@@ -374,7 +374,7 @@
   "1_101": {
     "title": "Coat of Mail",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "armor",
     "target": "man",
@@ -389,7 +389,7 @@
   "1_102": {
     "title": "Dagger Strike",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -412,7 +412,7 @@
   "1_103": {
     "title": "Elendil's Valor",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -428,7 +428,7 @@
   "1_104": {
     "title": "Eregion's Trails",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -449,7 +449,7 @@
   "1_105": {
     "title": "Foes of Mordor",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -468,7 +468,7 @@
   "1_106": {
     "title": "Gondor's Vengeance",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "regroup",
     "effects": {
@@ -487,7 +487,7 @@
   "1_107": {
     "title": "Great Shield",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "shield",
     "target": "man",
@@ -503,7 +503,7 @@
   "1_108": {
     "title": "No Stranger to the Shadows",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "target": "ranger,not(hasAttached(name(No Stranger to the Shadows)))",
     "effects": {
@@ -518,7 +518,7 @@
   "1_109": {
     "title": "One Whom Men Would Follow",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -546,7 +546,7 @@
   "1_110": {
     "title": "Pathfinder",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "fellowship",
@@ -567,7 +567,7 @@
   "1_111": {
     "title": "Pursuit Just Behind",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "regroup",
     "effects": {
@@ -586,7 +586,7 @@
   "1_112": {
     "title": "*Ranger's Sword",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -603,7 +603,7 @@
   "1_113": {
     "title": "A Ranger's Versatility",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "requires": {
@@ -626,7 +626,7 @@
   "1_114": {
     "title": "*The Saga of Elendil",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "vitality": 1,
     "keyword": "tale",
@@ -655,7 +655,7 @@
   "1_115": {
     "title": "Strength of Kings",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "requires": {
@@ -676,7 +676,7 @@
   "1_116": {
     "title": "Swordarm of the White Tower",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -700,7 +700,7 @@
   "1_117": {
     "title": "Swordsman of the Northern Kingdom",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -724,7 +724,7 @@
   "1_118": {
     "title": "Valiant Man of the West",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -749,7 +749,7 @@
   "1_119": {
     "title": "What Are They?",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "requires": {
@@ -769,7 +769,7 @@
     "title": "*Aragorn",
     "subtitle": "King in Exile",
     "culture": "gondor",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "man",
     "strength": 8,

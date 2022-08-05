@@ -1,7 +1,7 @@
 {
   "10_108": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "*A Light in His Mind",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "10_107": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "vitality": -1,
     "title": "Great Heart",
@@ -17,7 +17,7 @@
   },
   "10_109": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Make Haste",
     "type": "event",
@@ -28,7 +28,7 @@
   },
   "10_104": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Birthday Present",
     "type": "condition",
@@ -36,7 +36,7 @@
   },
   "10_115": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Slunk Out of Sight",
     "type": "event",
@@ -47,7 +47,7 @@
   },
   "10_114": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Shadowplay",
     "type": "condition",
@@ -55,7 +55,7 @@
   },
   "10_106": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Chance Observation",
     "type": "event",
@@ -63,7 +63,7 @@
   },
   "10_105": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Brave and Loyal",
     "type": "event",
@@ -71,7 +71,7 @@
   },
   "10_116": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "*The Tale of the Great Ring",
     "type": "condition",
@@ -82,7 +82,7 @@
   },
   "10_111": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Narrow Escape",
     "type": "event",
@@ -90,7 +90,7 @@
   },
   "10_122": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -104,7 +104,7 @@
   },
   "10_110": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "A Marvel",
     "type": "event",
@@ -112,7 +112,7 @@
   },
   "10_121": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -126,7 +126,7 @@
   },
   "10_113": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "itemclass": "Armor",
     "title": "Orc Armor",
@@ -134,7 +134,7 @@
   },
   "10_112": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Nine-fingered Frodo and the Ring of Doom",
     "type": "event",

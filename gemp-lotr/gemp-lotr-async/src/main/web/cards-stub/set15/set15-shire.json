@@ -1,7 +1,7 @@
 {
   "15_153": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -14,7 +14,7 @@
   },
   "15_143": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Community Living",
     "type": "event",
@@ -22,7 +22,7 @@
   },
   "15_154": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Second Breakfast",
     "type": "event",
@@ -30,7 +30,7 @@
   },
   "15_144": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -46,7 +46,7 @@
   },
   "15_150": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "No Visitors",
     "type": "event",
@@ -54,7 +54,7 @@
   },
   "15_151": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -66,7 +66,7 @@
   },
   "15_152": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Relaxation",
     "type": "condition",
@@ -74,7 +74,7 @@
   },
   "15_146": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Maker of Fine Ales",
@@ -84,7 +84,7 @@
   },
   "15_147": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Shire",
     "subtitle": "Lover of Pipeweed",
@@ -95,7 +95,7 @@
   },
   "15_148": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Shire",
     "title": "*Little Golden Flower",
     "type": "condition",
@@ -103,7 +103,7 @@
   },
   "15_149": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",

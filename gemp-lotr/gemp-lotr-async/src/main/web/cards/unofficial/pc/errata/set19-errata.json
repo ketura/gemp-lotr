@@ -3,7 +3,7 @@
     "title": "*Úlairë Nertëa",
     "subtitle": "Dark Horseman",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,

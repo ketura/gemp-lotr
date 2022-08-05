@@ -2,7 +2,7 @@
   "16_1": {
     "title": "*Barrow-wight Stalker",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "wraith",
     "strength": 11,
@@ -41,7 +41,7 @@
   "16_2": {
     "title": "Candle Corpses",
     "culture": "wraith",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "wraith",
     "strength": 8,
@@ -75,7 +75,7 @@
   "16_3": {
     "title": "*Covetous Wisp",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "wraith",
     "strength": 4,
@@ -107,7 +107,7 @@
   "16_4": {
     "title": "Dead Faces",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "wraith",
     "strength": 4,
@@ -140,7 +140,7 @@
   "16_5": {
     "title": "*Spirit of Dread",
     "culture": "wraith",
-    "cost": 7,
+    "twilight": 7,
     "type": "minion",
     "race": "wraith",
     "strength": 14,
@@ -188,7 +188,7 @@
   "16_6": {
     "title": "*Undead of Angmar",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "wraith",
     "strength": 9,

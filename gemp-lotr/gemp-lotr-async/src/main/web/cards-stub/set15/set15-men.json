@@ -2,7 +2,7 @@
   "15_78": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -12,7 +12,7 @@
   },
   "15_89": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Rapid Reload",
     "type": "condition",
@@ -21,7 +21,7 @@
   "15_79": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 12,
     "culture": "Men",
@@ -32,7 +32,7 @@
   "15_74": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 11,
     "culture": "Men",
@@ -43,7 +43,7 @@
   },
   "15_85": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Lying Counsel",
     "type": "event",
@@ -52,7 +52,7 @@
   "15_75": {
     "side": "shadow",
     "site": 4,
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 5,
     "culture": "Men",
@@ -63,7 +63,7 @@
   "15_86": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 14,
     "culture": "Men",
@@ -74,7 +74,7 @@
   },
   "15_76": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Men",
     "title": "Destroyed Homestead",
     "type": "condition",
@@ -83,7 +83,7 @@
   "15_87": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 13,
     "culture": "Men",
@@ -94,7 +94,7 @@
   "15_77": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -104,7 +104,7 @@
   },
   "15_88": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Men",
     "title": "Pursuing Horde",
     "type": "condition",
@@ -112,7 +112,7 @@
   },
   "15_81": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Grieving the Fallen",
     "type": "condition",
@@ -121,7 +121,7 @@
   "15_92": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -132,7 +132,7 @@
   "15_82": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -143,7 +143,7 @@
   "15_93": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 7,
     "culture": "Men",
@@ -154,7 +154,7 @@
   "15_72": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 4,
     "culture": "Men",
@@ -166,7 +166,7 @@
   "15_83": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -178,7 +178,7 @@
   "15_94": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -189,7 +189,7 @@
   "15_73": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -199,7 +199,7 @@
   },
   "15_84": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Men",
     "title": "Last Gasp",
     "type": "event",
@@ -208,7 +208,7 @@
   "15_90": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -218,7 +218,7 @@
   },
   "15_80": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Men",
     "itemclass": "Hand Weapon",
@@ -228,7 +228,7 @@
   "15_91": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",

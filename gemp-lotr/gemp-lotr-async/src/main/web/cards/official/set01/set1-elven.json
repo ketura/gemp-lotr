@@ -2,7 +2,7 @@
   "1_29": {
     "title": "Ancient Enmity",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -36,7 +36,7 @@
     "title": "*Arwen",
     "subtitle": "Daughter of Elrond",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -56,7 +56,7 @@
   "1_31": {
     "title": "*Asfaloth",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "mount",
     "strength": 2,
@@ -104,7 +104,7 @@
   "1_32": {
     "title": "Border Defenses",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -128,7 +128,7 @@
   "1_33": {
     "title": "*Bow of the Galadhrim",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "strength": 1,
@@ -150,7 +150,7 @@
     "title": "*Celeborn",
     "subtitle": "Lord of Lorien",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,6",
     "race": "elf",
@@ -172,7 +172,7 @@
   "1_35": {
     "title": "The Council of Elrond",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "fellowship",
     "requires": {
@@ -190,7 +190,7 @@
   "1_36": {
     "title": "Curse Their Foul Feet!",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -234,7 +234,7 @@
   "1_37": {
     "title": "Defiance",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -258,7 +258,7 @@
   "1_38": {
     "title": "Double Shot",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "archery",
     "requires": {
@@ -277,7 +277,7 @@
   "1_39": {
     "title": "Elf-song",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "requires": {
@@ -295,7 +295,7 @@
     "title": "*Elrond",
     "subtitle": "Lord of Rivendell",
     "culture": "elven",
-    "cost": 4,
+    "twilight": 4,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "elf",
@@ -332,7 +332,7 @@
   "1_41": {
     "title": "Elven Bow",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "ranged weapon",
     "target": "elf",
@@ -348,7 +348,7 @@
   "1_42": {
     "title": "Elven Cloak",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "cloak",
     "requires": {
@@ -368,7 +368,7 @@
   "1_43": {
     "title": "*Far-seeing Eyes",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -388,7 +388,7 @@
   "1_44": {
     "title": "Foul Creation",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -428,7 +428,7 @@
     "title": "*Galadriel",
     "subtitle": "Lady of Light",
     "culture": "elven",
-    "cost": 3,
+    "twilight": 3,
     "type": "ally",
     "allyHome": "fellowship,6",
     "race": "elf",
@@ -463,7 +463,7 @@
   "1_46": {
     "title": "*Gift of Boats",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -498,7 +498,7 @@
   "1_47": {
     "title": "*Gwemegil",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -545,7 +545,7 @@
     "title": "*Haldir",
     "subtitle": "Elf of the Golden Wood",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 5,
@@ -571,7 +571,7 @@
   "1_49": {
     "title": "The Last Alliance of Elves and Men",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "tale",
     "target": "culture(gondor),man,not(hasAttached(name(The Last Alliance of Elves and Men)))",
@@ -592,7 +592,7 @@
     "title": "*Legolas",
     "subtitle": "Greenleaf",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -623,7 +623,7 @@
     "title": "*Legolas",
     "subtitle": "Prince of Mirkwood",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -643,7 +643,7 @@
   "1_52": {
     "title": "Lightfootedness",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "archery",
     "requires": {
@@ -662,7 +662,7 @@
   "1_53": {
     "title": "Lorien Elf",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "elf",
     "strength": 4,
@@ -676,7 +676,7 @@
   "1_54": {
     "title": "Mallorn-trees",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -698,7 +698,7 @@
   "1_55": {
     "title": "*The Mirror of Galadriel",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "keyword": "support area",
     "effects": [
@@ -738,7 +738,7 @@
     "title": "*Orophin",
     "subtitle": "Lorien Bowman",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,6",
     "race": "elf",
@@ -762,7 +762,7 @@
     "title": "*Rúmil",
     "subtitle": "Elven Protector",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,6",
     "race": "elf",
@@ -785,7 +785,7 @@
   "1_58": {
     "title": "The Seen and the Unseen",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -804,7 +804,7 @@
   "1_59": {
     "title": "Shoulder to Shoulder",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -857,7 +857,7 @@
     "title": "*Silinde",
     "subtitle": "Elf of Mirkwood",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "elf",
@@ -871,7 +871,7 @@
   "1_61": {
     "title": "Songs of the Blessed Realm",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -889,7 +889,7 @@
   "1_62": {
     "title": "*The Splendor of Their Banners",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "tale",
     "target": "elf,companion",
@@ -914,7 +914,7 @@
   "1_63": {
     "title": "Stand Against Darkness",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -932,7 +932,7 @@
   "1_64": {
     "title": "Support of the Last Homely House",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -960,7 +960,7 @@
   "1_65": {
     "title": "Swan-ship of the Galadhrim",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -988,7 +988,7 @@
   "1_66": {
     "title": "*The Tale of Gil-galad",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "vitality": 1,
     "keyword": "tale",
@@ -1018,7 +1018,7 @@
     "title": "*Uruviel",
     "subtitle": "Maid of Lorien",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,6",
     "race": "elf",
@@ -1032,7 +1032,7 @@
   "1_68": {
     "title": "The White Arrows of Lorien",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "tale",
     "target": "elf,companion",

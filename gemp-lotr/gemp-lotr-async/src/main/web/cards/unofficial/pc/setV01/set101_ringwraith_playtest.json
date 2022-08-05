@@ -3,7 +3,7 @@
 	"151_37": {
 		"title": "Fell Voices Call",
 		"culture": "wraith",
-		"cost": 0,
+		"twilight": 0,
 		"type": "event",
 		"keyword": ["shadow"],
 		"effects": {
@@ -33,7 +33,7 @@
 		"title": "*Harry Goatleaf",
 		"subtitle": "In Thrall To The Nine",
 		"culture": "wraith",
-		"cost": 1,
+		"twilight": 1,
 		"type": "minion",
 		"race": "man",
 		"strength": 3,
@@ -70,7 +70,7 @@
 	"151_39": {
 		"title": "Pale Crown",
 		"culture": "wraith",
-		"cost": 1,
+		"twilight": 1,
 		"type": "artifact",
 		"itemclass": "helm",
 		"keyword": "support area",
@@ -125,7 +125,7 @@
 	"151_40": {
 		"title": "Ringwraith In Twilight",
 		"culture": "wraith",
-		"cost": 4,
+		"twilight": 4,
 		"type": "minion",
 		"race": "nazgul",
 		"keyword": ["twilight"],
@@ -179,7 +179,7 @@
 	"151_41": {
 		"title": "Their Eyes Fell Upon Him",
 		"culture": "wraith",
-		"cost": 1,
+		"twilight": 1,
 		"type": "condition",
 		"keyword": ["support area"],
 		"requires": {
@@ -222,7 +222,7 @@
 	"151_42": {
 		"title": "*Walks In Twilight",
 		"culture": "wraith",
-		"cost": 2,
+		"twilight": 2,
 		"type": "condition",
 		"keyword": ["support area"],
 		"effects": [
@@ -250,7 +250,7 @@
 	"151_43": {
 		"title": "White Faces Burned",
 		"culture": "wraith",
-		"cost": 1,
+		"twilight": 1,
 		"type": "event",
 		"keyword": ["skirmish"],
 		"effects": {

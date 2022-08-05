@@ -1,7 +1,7 @@
 {
   "3_37": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Answering the Cries",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "3_48": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "We Must Go Warily",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "3_38": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -31,7 +31,7 @@
   },
   "3_39": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Banner of the White Tree",
     "type": "event",
@@ -42,7 +42,7 @@
   },
   "3_40": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Citadel of Minas Tirith",
     "type": "condition",
@@ -50,7 +50,7 @@
   },
   "3_41": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Gondor Bowmen",
     "type": "condition",
@@ -61,14 +61,14 @@
   },
   "3_42": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "*Horn of Boromir",
     "type": "possession"
   },
   "3_43": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Might of Numenor",
     "type": "event",
@@ -79,7 +79,7 @@
   },
   "3_44": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "*The Shards of Narsil",
     "type": "artifact",
@@ -87,7 +87,7 @@
   },
   "3_45": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Some Who Resisted",
     "type": "event",
@@ -98,7 +98,7 @@
   },
   "3_46": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Still Sharp",
     "type": "event",
@@ -106,7 +106,7 @@
   },
   "3_47": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Voice of Rauros",
     "type": "event",
@@ -114,7 +114,7 @@
   },
   "3_122": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",

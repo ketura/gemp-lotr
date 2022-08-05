@@ -3,7 +3,7 @@
 	"151_25": {
 		"title": "Crebain Flock",
 		"culture": "isengard",
-		"cost": 2,
+		"twilight": 2,
 		"type": "minion",
 		"race": "crow",
 		"strength": 2,
@@ -69,7 +69,7 @@
 	"151_26": {
 		"title": "Crows of Isengard",
 		"culture": "isengard",
-		"cost": 3,
+		"twilight": 3,
 		"type": "minion",
 		"race": "crow",
 		"strength": 3,
@@ -155,7 +155,7 @@
 	"151_27": {
 		"title": "Frostbite",
 		"culture": "isengard",
-		"cost": 1,
+		"twilight": 1,
 		"type": "condition",
 		"target": "companion,not(hasAttached(name(Frostbite)))",
 		"requires": {
@@ -194,7 +194,7 @@
 	"151_28": {
 		"title": "Just A Wisp Of Cloud",
 		"culture": "isengard",
-		"cost": 1,
+		"twilight": 1,
 		"type": "event",
 		"keyword": ["maneuver","spell","weather"],
 		"effects": {
@@ -241,7 +241,7 @@
 	"151_29": {
 		"title": "*A Murder Of Crows",
 		"culture": "isengard",
-		"cost": 4,
+		"twilight": 4,
 		"type": "minion",
 		"race": "crow",
 		"strength": 4,
@@ -306,7 +306,7 @@
 		"title": "*Saruman",
 		"subtitle": "Fell Voice",
 		"culture": "isengard",
-		"cost": 4,
+		"twilight": 4,
 		"type": "minion",
 		"race": "wizard",
 		"strength": 6,

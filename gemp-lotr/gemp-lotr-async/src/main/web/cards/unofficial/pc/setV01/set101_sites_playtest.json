@@ -1,7 +1,7 @@
 {
   "151_57": {
     "title": "Bag End Study",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 1,
     "block": "fellowship",
@@ -25,7 +25,7 @@
   },
   "151_58": {
     "title": "Prancing Pony Spare Room",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -57,7 +57,7 @@
   },
   "151_59": {
     "title": "Rivendell Gateway",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -92,7 +92,7 @@
   },
   "151_60": {
     "title": "Moria Crossroads",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -117,7 +117,7 @@
   },
   "151_61": {
     "title": "Lorien Throne Room",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 6,
     "block": "fellowship",
@@ -144,7 +144,7 @@
   
   "151_62": {
     "title": "Valley of the Anduin",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 7,
     "block": "fellowship",
@@ -166,7 +166,7 @@
   
   "151_63": {
     "title": "Nen Hithoel",
-    "cost": 7,
+    "twilight": 7,
     "type": "site",
     "site": 8,
     "block": "fellowship",
@@ -196,7 +196,7 @@
   
   "151_64": {
     "title": "Henneth Anun Glade",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "site": 9,
     "block": "fellowship",

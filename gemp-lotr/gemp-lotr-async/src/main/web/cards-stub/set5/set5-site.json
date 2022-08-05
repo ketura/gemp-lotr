@@ -1,7 +1,7 @@
 {
   "5_120": {
     "site": 9,
-    "cost": 9,
+    "twilight": 9,
     "block": "Towers",
     "title": "Caverns of Isengard",
     "type": "site",
@@ -10,7 +10,7 @@
   },
   "5_118": {
     "site": 7,
-    "cost": 6,
+    "twilight": 6,
     "block": "Towers",
     "title": "Hornburg Wall",
     "type": "site",
@@ -18,7 +18,7 @@
   },
   "5_119": {
     "site": 8,
-    "cost": 8,
+    "twilight": 8,
     "block": "Towers",
     "title": "Nan Curunir",
     "type": "site",

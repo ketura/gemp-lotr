@@ -1,7 +1,7 @@
 {
   "8_14": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "A Fool",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "8_15": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 7,
     "culture": "Gandalf",
@@ -22,7 +22,7 @@
   },
   "8_18": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Not the First Halfling",
     "type": "condition",
@@ -30,7 +30,7 @@
   },
   "8_19": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "On Your Doorstep",
     "type": "event",
@@ -38,7 +38,7 @@
   },
   "8_16": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "Let Us Not Tarry",
     "type": "event",
@@ -46,7 +46,7 @@
   },
   "8_17": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "Mighty Steed",
     "type": "event",
@@ -54,7 +54,7 @@
   },
   "8_21": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "subtitle": "Greatheart",
     "itemclass": "Mount",
@@ -63,7 +63,7 @@
   },
   "8_20": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "Saved From the Fire",
     "type": "event",

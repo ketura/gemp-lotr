@@ -1,7 +1,7 @@
 {
   "7_208": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "There Came a Cry",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "7_209": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Too Late",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "7_206": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "*Stronghold of Minas Morgul",
     "type": "condition",
@@ -25,7 +25,7 @@
   },
   "7_181": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "*Held Ground",
     "type": "condition",
@@ -33,7 +33,7 @@
   },
   "7_182": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "Loathsome",
     "type": "event",
@@ -42,7 +42,7 @@
   "7_180": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 11,
     "culture": "Wraith",
@@ -53,7 +53,7 @@
   },
   "7_185": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Morgul Answers",
     "type": "condition",
@@ -61,7 +61,7 @@
   },
   "7_186": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Wraith",
     "itemclass": "Hand Weapon",
@@ -70,7 +70,7 @@
   },
   "7_183": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Mind and Body",
     "type": "event",
@@ -78,7 +78,7 @@
   },
   "7_184": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "More Unbearable",
     "type": "condition",
@@ -87,7 +87,7 @@
   "7_189": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Wraith",
@@ -98,7 +98,7 @@
   "7_200": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 9,
     "culture": "Wraith",
@@ -109,7 +109,7 @@
   "7_201": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Wraith",
@@ -120,7 +120,7 @@
   "7_187": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Wraith",
@@ -130,7 +130,7 @@
   },
   "7_220": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "War Long Planned",
     "type": "event",
@@ -139,7 +139,7 @@
   "7_188": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Wraith",
@@ -150,7 +150,7 @@
   "7_221": {
     "side": "shadow",
     "site": 3,
-    "cost": 8,
+    "twilight": 8,
     "race": "Nazgul",
     "strength": 14,
     "culture": "Wraith",
@@ -162,7 +162,7 @@
   },
   "7_204": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "*Out of Sight and Shot",
     "type": "condition",
@@ -170,7 +170,7 @@
   },
   "7_205": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Put Forth His Strength",
     "type": "condition",
@@ -179,7 +179,7 @@
   "7_202": {
     "side": "shadow",
     "site": 4,
-    "cost": 1,
+    "twilight": 1,
     "race": "Orc",
     "strength": 3,
     "culture": "Wraith",
@@ -189,7 +189,7 @@
   },
   "7_203": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Wraith",
     "itemclass": "Hand Weapon",
@@ -199,7 +199,7 @@
   "7_219": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 12,
     "culture": "Wraith",
@@ -212,7 +212,7 @@
   "7_217": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -224,7 +224,7 @@
   "7_218": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -236,7 +236,7 @@
   "7_192": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 5,
     "culture": "Wraith",
@@ -247,7 +247,7 @@
   "7_193": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Wraith",
@@ -258,7 +258,7 @@
   "7_190": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Wraith",
@@ -269,7 +269,7 @@
   "7_191": {
     "side": "shadow",
     "site": 4,
-    "cost": 7,
+    "twilight": 7,
     "race": "Orc",
     "strength": 15,
     "culture": "Wraith",
@@ -279,7 +279,7 @@
   },
   "7_174": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Called",
     "type": "condition",
@@ -288,7 +288,7 @@
   "7_196": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 11,
     "culture": "Wraith",
@@ -298,7 +298,7 @@
   },
   "7_175": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Corrupt",
     "type": "event",
@@ -307,7 +307,7 @@
   "7_197": {
     "side": "shadow",
     "site": 4,
-    "cost": 7,
+    "twilight": 7,
     "race": "Orc",
     "strength": 15,
     "culture": "Wraith",
@@ -318,7 +318,7 @@
   "7_194": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 7,
     "culture": "Wraith",
@@ -328,7 +328,7 @@
   },
   "7_195": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "*Morgul on the March",
     "type": "condition",
@@ -336,7 +336,7 @@
   },
   "7_178": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Foul Clutches",
     "type": "event",
@@ -345,7 +345,7 @@
   "7_211": {
     "side": "shadow",
     "site": 3,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -357,7 +357,7 @@
   },
   "7_179": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "Ghastly Host",
     "type": "condition",
@@ -366,7 +366,7 @@
   "7_212": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 11,
     "culture": "Wraith",
@@ -378,7 +378,7 @@
   },
   "7_176": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Disposable Servants",
     "type": "event",
@@ -387,7 +387,7 @@
   "7_198": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Wraith",
@@ -397,7 +397,7 @@
   },
   "7_177": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Wraith",
     "title": "Feel His Blade",
     "type": "condition",
@@ -406,7 +406,7 @@
   "7_199": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Wraith",
@@ -417,7 +417,7 @@
   "7_210": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 12,
     "culture": "Wraith",
@@ -430,7 +430,7 @@
   "7_215": {
     "side": "shadow",
     "site": 2,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -443,7 +443,7 @@
   "7_216": {
     "side": "shadow",
     "site": 2,
-    "cost": 5,
+    "twilight": 5,
     "race": "Nazgul",
     "strength": 10,
     "culture": "Wraith",
@@ -456,7 +456,7 @@
   "7_213": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -468,7 +468,7 @@
   "7_214": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",

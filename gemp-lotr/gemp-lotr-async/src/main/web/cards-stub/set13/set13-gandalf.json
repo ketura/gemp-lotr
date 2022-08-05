@@ -1,7 +1,7 @@
 {
   "13_28": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "subtitle": "Final Envoy",
     "title": "*Alatar",
@@ -10,7 +10,7 @@
   },
   "13_39": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Return to Us",
     "type": "event",
@@ -18,7 +18,7 @@
   },
   "13_38": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "subtitle": "Tender of Beasts",
     "title": "*Radagast",
@@ -28,7 +28,7 @@
   },
   "13_37": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Gandalf",
     "subtitle": "Far-travelling One",
@@ -38,7 +38,7 @@
   },
   "13_36": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gandalf",
     "subtitle": "Recovered Seeing Stone",
     "itemclass": "Palantir",
@@ -48,7 +48,7 @@
   },
   "13_29": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gandalf",
@@ -60,7 +60,7 @@
   },
   "13_31": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "The Flame of Anor",
     "type": "event",
@@ -71,7 +71,7 @@
   },
   "13_42": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "*Traveler's Homestead",
     "type": "condition",
@@ -79,7 +79,7 @@
   },
   "13_30": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "*Fear and Great Wonder",
     "type": "condition",
@@ -87,7 +87,7 @@
   },
   "13_41": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Strange Meeting",
     "type": "condition",
@@ -95,7 +95,7 @@
   },
   "13_40": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Gandalf",
     "subtitle": "Roaring Wind",
@@ -105,7 +105,7 @@
   },
   "13_35": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "No Colour Now",
     "type": "event",
@@ -113,7 +113,7 @@
   },
   "13_34": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "Look to My Coming",
     "type": "event",
@@ -121,7 +121,7 @@
   },
   "13_33": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 7,
     "culture": "Gandalf",
@@ -134,7 +134,7 @@
   },
   "13_32": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "For a While Less Dark",
     "type": "event",
@@ -145,7 +145,7 @@
   },
   "13_43": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Vapour and Steam",
     "type": "condition",

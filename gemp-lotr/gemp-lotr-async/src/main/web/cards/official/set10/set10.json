@@ -3,7 +3,7 @@
     "title": "*Frodo",
     "subtitle": "Resolute Hobbit",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,

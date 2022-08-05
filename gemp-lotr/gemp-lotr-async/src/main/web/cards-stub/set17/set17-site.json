@@ -1,13 +1,13 @@
 {
   "17_145": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Dol Guldur",
     "type": "site",
     "direction": "left"
   },
   "17_146": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Falls of Rauros",
     "type": "site",
@@ -15,7 +15,7 @@
     "direction": "left"
   },
   "17_147": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Imladris",
     "type": "site",
@@ -23,7 +23,7 @@
     "direction": "left"
   },
   "17_148": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Nurn",
     "type": "site",

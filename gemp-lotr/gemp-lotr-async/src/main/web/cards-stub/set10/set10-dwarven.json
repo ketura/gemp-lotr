@@ -1,7 +1,7 @@
 {
   "10_3": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "More Yet To Come",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "10_2": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "*Memories of Darkness",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "10_1": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Dwarven",
     "title": "Great Day, Great Hour",
     "type": "event",

@@ -1,7 +1,7 @@
 {
   "18_3": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Thorin's Harp",
     "type": "condition",
@@ -12,7 +12,7 @@
   },
   "18_2": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Run Until Found",
     "type": "condition",
@@ -20,7 +20,7 @@
   },
   "18_1": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",

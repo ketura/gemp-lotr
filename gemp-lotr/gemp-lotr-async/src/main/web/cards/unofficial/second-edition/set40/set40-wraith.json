@@ -2,7 +2,7 @@
   "40_183": {
     "title": "Black Breath",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -39,7 +39,7 @@
     "title": "Black Steed",
     "subtitle": "Bred to Serve",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "mount",
     "strength": 2,
@@ -56,7 +56,7 @@
   "40_185": {
     "title": "Blade Tip",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -105,7 +105,7 @@
   "40_186": {
     "title": "Dark Whispers",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "requires": {
@@ -149,7 +149,7 @@
   "40_187": {
     "title": "DarklySwift",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "regroup",
     "requires": {
@@ -179,7 +179,7 @@
   "40_188": {
     "title": "Its Master's Call",
     "culture": "wraith",
-    "cost": 8,
+    "twilight": 8,
     "type": "event",
     "keyword": "maneuver",
     "requires": [
@@ -224,7 +224,7 @@
   "40_189": {
     "title": "Lost in the Woods",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -253,7 +253,7 @@
   "40_190": {
     "title": "Morgul Blade",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 1,
@@ -301,7 +301,7 @@
   "40_191": {
     "title": "Morgul Gates",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -316,7 +316,7 @@
   "40_192": {
     "title": "Nazgul Sword",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -337,7 +337,7 @@
   "40_193": {
     "title": "*Nine for Mortal Men",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -388,7 +388,7 @@
   "40_194": {
     "title": "*Ominous Landscape",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -424,7 +424,7 @@
     "title": "*The Pale Blade",
     "subtitle": "Weapon of Woe",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 3,
@@ -455,7 +455,7 @@
   "40_196": {
     "title": "Relentless Pursuit",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -495,7 +495,7 @@
   "40_197": {
     "title": "The Ring's Compulsion",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -527,7 +527,7 @@
   "40_198": {
     "title": "Shadowy Pursuit",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "requires": {
@@ -548,7 +548,7 @@
   "40_199": {
     "title": "Shire! Baggins!",
     "culture": "wraith",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -583,7 +583,7 @@
   "40_200": {
     "title": "Stricken Dumb",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -601,7 +601,7 @@
   "40_201": {
     "title": "Succumb to Despair",
     "culture": "wraith",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -627,7 +627,7 @@
   "40_202": {
     "title": "To Morder We Will Take You!",
     "culture": "wraith",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -670,7 +670,7 @@
     "title": "*Úlairë Attëa",
     "subtitle": "Fallen King of Men",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 12,
@@ -694,7 +694,7 @@
     "title": "*Úlairë Cantëa",
     "subtitle": "Morgul Predator",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "nazgul",
     "strength": 10,
@@ -732,7 +732,7 @@
     "title": "*Úlairë Enquëa",
     "subtitle": "Morgul Assassin",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 11,
@@ -776,7 +776,7 @@
     "title": "*Úlairë Lemenya",
     "subtitle": "Shadowy Wraith",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -804,7 +804,7 @@
     "title": "*Úlairë Nelya",
     "subtitle": "Drawn to the Ring",
     "culture": "wraith",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "nazgul",
     "strength": 10,
@@ -829,7 +829,7 @@
     "title": "*Úlairë Nertëa",
     "subtitle": "Morgul Fiend",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -867,7 +867,7 @@
     "title": "*Úlairë Otsëa",
     "subtitle": "Shadowy Servant",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -886,7 +886,7 @@
     "title": "*Úlairë Toldëa",
     "subtitle": "Rider in Black",
     "culture": "wraith",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "nazgul",
     "strength": 12,
@@ -910,7 +910,7 @@
     "title": "*The Witch-king",
     "subtitle": "Greatest of the Nine",
     "culture": "wraith",
-    "cost": 8,
+    "twilight": 8,
     "type": "minion",
     "race": "nazgul",
     "strength": 14,

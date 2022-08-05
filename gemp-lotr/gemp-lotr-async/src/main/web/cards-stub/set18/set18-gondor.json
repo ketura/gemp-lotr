@@ -1,7 +1,7 @@
 {
   "18_38": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -14,7 +14,7 @@
   },
   "18_49": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "*Faramir's Company",
     "type": "follower",
@@ -22,7 +22,7 @@
   },
   "18_48": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -38,7 +38,7 @@
   },
   "18_59": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -51,7 +51,7 @@
   },
   "18_39": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Gondor",
     "itemclass": "Armor",
@@ -60,7 +60,7 @@
   },
   "18_45": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Gondor",
     "itemclass": "Ranged Weapon",
@@ -69,7 +69,7 @@
   },
   "18_56": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -81,7 +81,7 @@
   },
   "18_44": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Defenses Long Held",
     "type": "event",
@@ -89,14 +89,14 @@
   },
   "18_55": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "*Ranger of the North",
     "type": "condition"
   },
   "18_47": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Gondor",
     "title": "*Elendil's Army",
@@ -105,7 +105,7 @@
   },
   "18_46": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": -1,
     "culture": "Gondor",
     "title": "Disarmed",
@@ -114,7 +114,7 @@
   },
   "18_57": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Shield",
     "title": "Shield of the White Tree",
@@ -122,7 +122,7 @@
   },
   "18_41": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Gondor",
     "title": "*Crown of Gondor",
     "type": "artifact",
@@ -130,7 +130,7 @@
   },
   "18_52": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "subtitle": "Denethor's Handman",
     "title": "*Gondorian Servant",
@@ -140,7 +140,7 @@
   },
   "18_40": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -153,7 +153,7 @@
   },
   "18_51": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "For Gondor!",
     "type": "event",
@@ -161,7 +161,7 @@
   },
   "18_43": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -170,7 +170,7 @@
   },
   "18_54": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -183,7 +183,7 @@
   },
   "18_42": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -195,7 +195,7 @@
   },
   "18_53": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "subtitle": "The Great Horn",
     "title": "*Horn of Boromir",
@@ -204,7 +204,7 @@
   },
   "18_50": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "The Faithful Stone",
     "type": "condition",

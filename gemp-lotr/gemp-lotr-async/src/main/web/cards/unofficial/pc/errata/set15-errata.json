@@ -1,7 +1,7 @@
 {
   "65_15": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Focus",
     "type": "condition",
@@ -35,7 +35,7 @@
   },
   "65_62": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -75,7 +75,7 @@
     "title": "*Madril",
     "subtitle": "Defender of Osgiliath",
     "culture": "gondor",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "man",
     "strength": 5,

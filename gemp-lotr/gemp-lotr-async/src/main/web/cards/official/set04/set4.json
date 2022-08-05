@@ -2,7 +2,7 @@
   "4_138": {
     "title": "Band of Uruk Bowmen",
     "culture": "isengard",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 7,
@@ -28,7 +28,7 @@
   "4_218": {
     "title": "*Desert Legion",
     "culture": "raider",
-    "cost": 6,
+    "twilight": 6,
     "type": "minion",
     "race": "man",
     "strength": 13,

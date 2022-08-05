@@ -2,7 +2,7 @@
   "1_1": {
     "title": "*The One Ring",
     "subtitle": "Isildur's Bane",
-    "cost": 0,
+    "twilight": 0,
     "type": "the one ring",
     "strength": 1,
     "vitality": 1,
@@ -60,7 +60,7 @@
   "1_2": {
     "title": "*The One Ring",
     "subtitle": "The Ruling Ring",
-    "cost": 0,
+    "twilight": 0,
     "type": "the one ring",
     "strength": 1,
     "effects": [
@@ -127,7 +127,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "activated",
@@ -147,7 +147,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "modifier",
@@ -163,7 +163,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "activated",
@@ -183,7 +183,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "activated",
@@ -203,7 +203,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "modifier",
@@ -219,7 +219,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "activated",
@@ -238,7 +238,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "activated",
@@ -258,7 +258,7 @@
     "type": "site",
     "site": 1,
     "block": "fellowship",
-    "cost": 0,
+    "twilight": 0,
     "direction": "left",
     "effects": {
       "type": "activated",
@@ -276,7 +276,7 @@
   },
   "1_327": {
     "title": "Bree Gate",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -312,7 +312,7 @@
   },
   "1_328": {
     "title": "Bree Streets",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -328,7 +328,7 @@
   },
   "1_329": {
     "title": "Breeland Forest",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -344,7 +344,7 @@
   },
   "1_330": {
     "title": "Buckleberry Ferry",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -377,7 +377,7 @@
   },
   "1_331": {
     "title": "Ettenmoors",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -400,7 +400,7 @@
   },
   "1_332": {
     "title": "Midgewater Marshes",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -424,7 +424,7 @@
   },
   "1_333": {
     "title": "Midgewater Moors",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -447,7 +447,7 @@
   },
   "1_334": {
     "title": "Trollshaw Forest",
-    "cost": 1,
+    "twilight": 1,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -469,7 +469,7 @@
   },
   "1_335": {
     "title": "Weatherhills",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -485,7 +485,7 @@
   },
   "1_336": {
     "title": "Weathertop",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 2,
     "block": "fellowship",
@@ -501,7 +501,7 @@
   },
   "1_337": {
     "title": "Council Courtyard",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -520,7 +520,7 @@
   },
   "1_338": {
     "title": "Ford of Bruinen",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -588,7 +588,7 @@
   },
   "1_339": {
     "title": "Frodo's Bedroom",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -608,7 +608,7 @@
   },
   "1_340": {
     "title": "Rivendell Terrace",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -628,7 +628,7 @@
   },
   "1_341": {
     "title": "Rivendell Valley",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -648,7 +648,7 @@
   },
   "1_342": {
     "title": "Rivendell Waterfall",
-    "cost": 0,
+    "twilight": 0,
     "type": "site",
     "site": 3,
     "block": "fellowship",
@@ -685,7 +685,7 @@
   },
   "1_343": {
     "title": "Balin's Tomb",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -720,7 +720,7 @@
   },
   "1_344": {
     "title": "Dwarrowdelf Chamber",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -755,7 +755,7 @@
   },
   "1_345": {
     "title": "Mithril Mine",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -776,7 +776,7 @@
   },
   "1_346": {
     "title": "Moria Lake",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -811,7 +811,7 @@
   },
   "1_347": {
     "title": "Moria Stairway",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -828,7 +828,7 @@
   },
   "1_348": {
     "title": "Pass of Caradhras",
-    "cost": 2,
+    "twilight": 2,
     "type": "site",
     "site": 4,
     "block": "fellowship",
@@ -861,7 +861,7 @@
   },
   "1_349": {
     "title": "The Bridge of Khazad-dum",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 5,
     "block": "fellowship",
@@ -893,7 +893,7 @@
   },
   "1_350": {
     "title": "Dimrill Dale",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 6,
     "block": "fellowship",
@@ -947,7 +947,7 @@
   },
   "1_351": {
     "title": "Galadriel's Glade",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 6,
     "block": "fellowship",
@@ -967,7 +967,7 @@
   },
   "1_352": {
     "title": "Lothlorien Woods",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "site": 6,
     "block": "fellowship",
@@ -984,7 +984,7 @@
   },
   "1_353": {
     "title": "Anduin Confluence",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 7,
     "block": "fellowship",
@@ -1004,7 +1004,7 @@
   },
   "1_354": {
     "title": "Anduin Wilderland",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 7,
     "block": "fellowship",
@@ -1023,7 +1023,7 @@
   },
   "1_355": {
     "title": "Silverlode Banks",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 7,
     "block": "fellowship",
@@ -1047,7 +1047,7 @@
   },
   "1_356": {
     "title": "Anduin Banks",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 8,
     "block": "fellowship",
@@ -1069,7 +1069,7 @@
   },
   "1_357": {
     "title": "Brown Lands",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 8,
     "block": "fellowship",
@@ -1090,7 +1090,7 @@
   },
   "1_358": {
     "title": "Pillars of the Kings",
-    "cost": 6,
+    "twilight": 6,
     "type": "site",
     "site": 8,
     "block": "fellowship",
@@ -1112,7 +1112,7 @@
   },
   "1_359": {
     "title": "Shores of Nen Hithoel",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "site": 8,
     "block": "fellowship",
@@ -1138,7 +1138,7 @@
   },
   "1_360": {
     "title": "Emyn Muil",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "site": 9,
     "block": "fellowship",
@@ -1160,7 +1160,7 @@
   },
   "1_361": {
     "title": "Slopes of Amon Hen",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "site": 9,
     "block": "fellowship",
@@ -1175,7 +1175,7 @@
   },
   "1_362": {
     "title": "Summit of Amon Hen",
-    "cost": 8,
+    "twilight": 8,
     "type": "site",
     "site": 9,
     "block": "fellowship",
@@ -1200,7 +1200,7 @@
   },
   "1_363": {
     "title": "Tol Brandir",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "site": 9,
     "block": "fellowship",

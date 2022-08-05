@@ -3,7 +3,7 @@
     "title": "*Erestor",
     "subtitle": "Chief Advisor to Elrond",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "elf",

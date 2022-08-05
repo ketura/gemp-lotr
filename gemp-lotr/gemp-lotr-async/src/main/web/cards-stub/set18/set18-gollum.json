@@ -1,7 +1,7 @@
 {
   "18_37": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Trusted Promise",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "18_29": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Deceit",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "18_28": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Countless Cords",
     "type": "event",
@@ -26,7 +26,7 @@
   "18_34": {
     "side": "shadow",
     "site": 8,
-    "cost": 6,
+    "twilight": 6,
     "race": "Spider",
     "strength": 8,
     "culture": "Gollum",
@@ -38,7 +38,7 @@
   },
   "18_33": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gollum",
     "title": "Set Up",
     "type": "event",
@@ -46,7 +46,7 @@
   },
   "18_36": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Time for Food",
     "type": "event",
@@ -54,7 +54,7 @@
   },
   "18_35": {
     "side": "shadow",
-    "cost": 10,
+    "twilight": 10,
     "culture": "Gollum",
     "title": "Sting of Shelob",
     "type": "event",
@@ -62,7 +62,7 @@
   },
   "18_30": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Enemy in Your Midst",
     "type": "event",
@@ -70,7 +70,7 @@
   },
   "18_32": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gollum",
     "title": "Not Easily Avoided",
     "type": "condition",
@@ -78,7 +78,7 @@
   },
   "18_31": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "It Draws Him",
     "type": "event",

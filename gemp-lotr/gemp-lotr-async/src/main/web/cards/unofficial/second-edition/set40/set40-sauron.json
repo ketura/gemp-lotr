@@ -2,7 +2,7 @@
   "40_213": {
     "title": "*Barad-dur Captain",
     "culture": "sauron",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "orc",
     "strength": 11,
@@ -42,7 +42,7 @@
   "40_214": {
     "title": "*Bound to This Fate",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -82,7 +82,7 @@
   "40_215": {
     "title": "Enduring Evil",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -108,7 +108,7 @@
   "40_216": {
     "title": "Ever Watchful",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "target": "companion,not(hasAttached(name(Ever Watchful)))",
     "effects": [
@@ -149,7 +149,7 @@
   "40_217": {
     "title": "Fires Raged Unchecked",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -181,7 +181,7 @@
   "40_218": {
     "title": "*Gathering Evil",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -218,7 +218,7 @@
     "title": "*The Great Eye",
     "subtitle": "Wreathed in Flame",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "strength": 6,
     "vitality": 4,
@@ -272,7 +272,7 @@
   "40_220": {
     "title": "Hate",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -290,7 +290,7 @@
   "40_221": {
     "title": "It Will Destroy Them All",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "target": "companion,not(hasAttached(name(It Will Destroy Them All)))",
     "effects": [
@@ -347,7 +347,7 @@
   "40_222": {
     "title": "*Morder Archer Captain",
     "culture": "sauron",
-    "cost": 7,
+    "twilight": 7,
     "type": "minion",
     "race": "orc",
     "strength": 13,
@@ -381,7 +381,7 @@
   "40_223": {
     "title": "Orc Ambusher",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "orc",
     "strength": 5,
@@ -416,7 +416,7 @@
   "40_224": {
     "title": "Orc Assassin",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 6,
@@ -452,7 +452,7 @@
   "40_225": {
     "title": "Orc Bowcaster",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "minion",
     "race": "orc",
     "strength": 5,
@@ -486,7 +486,7 @@
   "40_226": {
     "title": "Orc Brute",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -514,7 +514,7 @@
   "40_227": {
     "title": "*Orc Marksman",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 6,
@@ -538,7 +538,7 @@
   "40_228": {
     "title": "Orc Miscreant",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -573,7 +573,7 @@
   "40_229": {
     "title": "Orc Monstrosity",
     "culture": "sauron",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 11,
@@ -601,7 +601,7 @@
   "40_230": {
     "title": "Orc Ravager",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -630,7 +630,7 @@
   "40_231": {
     "title": "*Orc Raveners",
     "culture": "sauron",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 11,
@@ -672,7 +672,7 @@
   "40_232": {
     "title": "Orc Savage",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 7,
@@ -700,7 +700,7 @@
   "40_233": {
     "title": "Orc Scouting Party",
     "culture": "sauron",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -733,7 +733,7 @@
   "40_234": {
     "title": "Orc Sharpshooter",
     "culture": "sauron",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "orc",
     "strength": 7,
@@ -767,7 +767,7 @@
   "40_236": {
     "title": "Orc Stalker",
     "culture": "sauron",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "orc",
     "strength": 10,
@@ -791,7 +791,7 @@
   "40_237": {
     "title": "*Orc Villain",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,
@@ -824,7 +824,7 @@
   "40_238": {
     "title": "*Sauron's Forces",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -890,7 +890,7 @@
   "40_239": {
     "title": "Shadow in the East",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "requires": {
@@ -917,7 +917,7 @@
   "40_240": {
     "title": "*Thin and Stretched",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "target": "ring bearer",
     "effects": [
@@ -956,7 +956,7 @@
   "40_241": {
     "title": "Threat of Mordor",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -973,7 +973,7 @@
   "40_242": {
     "title": "War Cry of Mordor",
     "culture": "sauron",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -996,7 +996,7 @@
   "40_318": {
     "title": "*Orc Flanker",
     "culture": "sauron",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "orc",
     "strength": 8,

@@ -33,8 +33,6 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("itemclass", new PossessionClassFieldProcessor());
         fieldProcessors.put("keyword", new KeywordFieldProcessor());
         fieldProcessors.put("keywords", new KeywordFieldProcessor());
-        //Deprecated: use "twilight" instead.
-        fieldProcessors.put("cost", new CostFieldProcessor());
         fieldProcessors.put("twilight", new CostFieldProcessor());
         fieldProcessors.put("strength", new StrengthFieldProcessor());
         fieldProcessors.put("vitality", new VitalityFieldProcessor());

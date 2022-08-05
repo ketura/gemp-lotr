@@ -1,14 +1,14 @@
 {
   "4_75": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Lembas",
     "type": "possession"
   },
   "4_74": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -22,7 +22,7 @@
   },
   "4_77": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Lorien Is Most Welcome",
     "type": "condition",
@@ -30,7 +30,7 @@
   },
   "4_76": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -41,7 +41,7 @@
   },
   "4_79": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Night Without End",
     "type": "event",
@@ -49,7 +49,7 @@
   },
   "4_78": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -60,7 +60,7 @@
   },
   "4_59": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Arrow and Blade",
     "type": "event",
@@ -68,7 +68,7 @@
   },
   "4_58": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Elven",
     "title": "Alliance Reforged",
     "type": "event",
@@ -79,7 +79,7 @@
   },
   "4_71": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -91,7 +91,7 @@
   },
   "4_70": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Flashing Steel",
     "type": "event",
@@ -99,7 +99,7 @@
   },
   "4_73": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -113,7 +113,7 @@
   },
   "4_72": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Killing Field",
     "type": "condition",
@@ -121,7 +121,7 @@
   },
   "4_64": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
@@ -130,7 +130,7 @@
   },
   "4_86": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -142,7 +142,7 @@
   },
   "4_63": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "itemclass": "Brooch",
     "title": "Elven Brooch",
@@ -150,7 +150,7 @@
   },
   "4_85": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -162,7 +162,7 @@
   },
   "4_66": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Feathered",
     "type": "event",
@@ -170,7 +170,7 @@
   },
   "4_65": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -182,7 +182,7 @@
   },
   "4_87": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Valor",
     "type": "event",
@@ -190,7 +190,7 @@
   },
   "4_68": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -202,7 +202,7 @@
   },
   "4_67": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -214,7 +214,7 @@
   },
   "4_69": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "*Final Count",
     "type": "condition",
@@ -222,7 +222,7 @@
   },
   "4_80": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -234,7 +234,7 @@
   },
   "4_60": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Blades Drawn",
     "type": "condition",
@@ -242,7 +242,7 @@
   },
   "4_82": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "*Strength of Arms",
     "type": "condition",
@@ -250,7 +250,7 @@
   },
   "4_81": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -262,7 +262,7 @@
   },
   "4_84": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Sword-wall",
     "type": "event",
@@ -273,7 +273,7 @@
   },
   "4_61": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Company of Archers",
     "type": "event",
@@ -281,7 +281,7 @@
   },
   "4_83": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Supporting Fire",
     "type": "event",

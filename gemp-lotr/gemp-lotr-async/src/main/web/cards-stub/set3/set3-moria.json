@@ -1,7 +1,7 @@
 {
   "3_76": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Moria",
     "title": "Dangerous Gamble",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "3_77": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Moria",
     "title": "Depths of Moria",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "3_78": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Moria",
     "title": "Hide and Seek",
     "type": "event",
@@ -28,7 +28,7 @@
   },
   "3_79": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Moria",
     "title": "Malice",
     "type": "event",
@@ -36,7 +36,7 @@
   },
   "3_80": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Moria",
     "title": "Such a Little Thing",
     "type": "event",

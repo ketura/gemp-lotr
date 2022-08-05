@@ -1,7 +1,7 @@
 {
   "13_148": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Fates Entwined",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "13_149": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -22,7 +22,7 @@
   },
   "13_151": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Shire",
     "subtitle": "Master Gardener",
@@ -32,7 +32,7 @@
   },
   "13_152": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "*Humble Homestead",
     "type": "condition",
@@ -40,7 +40,7 @@
   },
   "13_142": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -53,7 +53,7 @@
   },
   "13_153": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "subtitle": "Dwarf-mail",
     "itemclass": "Armor",
@@ -62,7 +62,7 @@
   },
   "13_143": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "subtitle": "Dearly-loved",
     "itemclass": "Mount",
@@ -71,7 +71,7 @@
   },
   "13_154": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "New Chapter",
     "type": "condition",
@@ -79,7 +79,7 @@
   },
   "13_144": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "subtitle": "Next-door Neighbor",
     "title": "*Daddy Twofoot",
@@ -89,7 +89,7 @@
   },
   "13_155": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "subtitle": "The Light of Earendil",
     "itemclass": "Phial",
@@ -99,7 +99,7 @@
   },
   "13_145": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Don't Let Go",
     "type": "condition",
@@ -107,7 +107,7 @@
   },
   "13_156": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -123,7 +123,7 @@
   },
   "13_146": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Everything but My Bones",
     "type": "event",
@@ -131,7 +131,7 @@
   },
   "13_157": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -142,7 +142,7 @@
   },
   "13_147": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "*Faith in Friendship",
     "type": "condition",
@@ -150,7 +150,7 @@
   },
   "13_150": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "vitality": 1,
     "subtitle": "Son of Samwise",

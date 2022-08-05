@@ -1,7 +1,7 @@
 {
   "10_7": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -13,7 +13,7 @@
   },
   "10_6": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -26,7 +26,7 @@
   },
   "10_5": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -39,7 +39,7 @@
   },
   "10_4": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -51,7 +51,7 @@
   },
   "10_10": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Fleet-footed",
     "type": "event",
@@ -59,7 +59,7 @@
   },
   "10_12": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "*Glimpse of Fate",
     "type": "condition",
@@ -67,7 +67,7 @@
   },
   "10_11": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Elf",
     "strength": 3,
     "culture": "Elven",
@@ -79,7 +79,7 @@
   },
   "10_13": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "subtitle": "Star-glass",
     "title": "*Phial of Galadriel",
@@ -87,7 +87,7 @@
   },
   "10_9": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 8,
     "culture": "Elven",
@@ -99,7 +99,7 @@
   },
   "10_8": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 7,
     "culture": "Elven",

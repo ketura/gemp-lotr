@@ -1,7 +1,7 @@
 {
   "12_84": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Orc",
     "title": "Bloodstained Field",
     "type": "event",
@@ -10,7 +10,7 @@
   "12_106": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 10,
     "culture": "Orc",
@@ -21,7 +21,7 @@
   "12_85": {
     "side": "shadow",
     "site": 4,
-    "cost": 12,
+    "twilight": 12,
     "race": "Troll",
     "strength": 15,
     "culture": "Orc",
@@ -38,7 +38,7 @@
   "12_105": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -50,7 +50,7 @@
   },
   "12_82": {
     "side": "shadow",
-    "cost": 5,
+    "twilight": 5,
     "culture": "Orc",
     "title": "Barrage",
     "type": "event",
@@ -61,7 +61,7 @@
   },
   "12_83": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "The Beckoning Shadow",
     "type": "condition",
@@ -69,7 +69,7 @@
   },
   "12_88": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "Great Cost",
     "type": "condition",
@@ -78,7 +78,7 @@
   "12_89": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Orc",
@@ -88,7 +88,7 @@
   },
   "12_86": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "strength": 3,
     "culture": "Orc",
     "subtitle": "Unwieldy Cudgel",
@@ -99,7 +99,7 @@
   "12_87": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -110,7 +110,7 @@
   "12_100": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Orc",
@@ -122,7 +122,7 @@
   "12_102": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -132,7 +132,7 @@
   },
   "12_81": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "Abiding Evil",
     "type": "event",
@@ -140,7 +140,7 @@
   },
   "12_101": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Orc",
     "title": "*Retribution",
     "type": "condition",
@@ -148,7 +148,7 @@
   },
   "12_104": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Orc",
     "title": "Taunt",
     "type": "event",
@@ -156,7 +156,7 @@
   },
   "12_103": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Orc",
     "title": "Storming the Ramparts",
     "type": "event",
@@ -168,7 +168,7 @@
   "12_95": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 5,
     "culture": "Orc",
@@ -179,7 +179,7 @@
   },
   "12_96": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Orc",
     "itemclass": "Hand Weapon",
@@ -189,7 +189,7 @@
   "12_93": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Orc",
@@ -200,7 +200,7 @@
   "12_94": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Orc",
@@ -211,7 +211,7 @@
   "12_99": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 7,
     "culture": "Orc",
@@ -222,7 +222,7 @@
   "12_97": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Orc",
@@ -234,7 +234,7 @@
   "12_98": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Orc",
@@ -245,7 +245,7 @@
   "12_91": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Orc",
@@ -256,7 +256,7 @@
   "12_92": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 10,
     "culture": "Orc",
@@ -267,7 +267,7 @@
   "12_90": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Orc",

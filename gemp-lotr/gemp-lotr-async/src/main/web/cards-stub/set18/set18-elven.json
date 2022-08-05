@@ -1,7 +1,7 @@
 {
   "18_7": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "strength": 2,
     "culture": "Elven",
     "subtitle": "Elven-smith",
@@ -11,7 +11,7 @@
   },
   "18_6": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Back to the Light",
     "type": "event",
@@ -19,7 +19,7 @@
   },
   "18_5": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
@@ -28,7 +28,7 @@
   },
   "18_4": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Ranged Weapon",
@@ -37,7 +37,7 @@
   },
   "18_16": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Miruvore",
     "type": "event",
@@ -45,14 +45,14 @@
   },
   "18_15": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Lembas Bread",
     "type": "possession"
   },
   "18_17": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "subtitle": "Exile",
     "title": "*Woodhall Elf",
@@ -62,7 +62,7 @@
   },
   "18_12": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "race": "Elf",
     "strength": 9,
     "culture": "Elven",
@@ -74,7 +74,7 @@
   },
   "18_11": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "*Galadriel's Silver Ewer",
     "type": "artifact",
@@ -82,7 +82,7 @@
   },
   "18_9": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -93,7 +93,7 @@
   },
   "18_14": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -105,7 +105,7 @@
   },
   "18_8": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Elven",
     "vitality": 1,
@@ -118,7 +118,7 @@
   },
   "18_13": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 9,
     "culture": "Elven",
@@ -131,7 +131,7 @@
   },
   "18_10": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Elven Supplies",
     "type": "condition",

@@ -1,7 +1,7 @@
 {
   "12_119": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -14,7 +14,7 @@
   },
   "12_129": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 2,
     "culture": "Shire",
@@ -26,7 +26,7 @@
   },
   "12_120": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Diversion",
     "type": "event",
@@ -37,7 +37,7 @@
   },
   "12_131": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Stand Together",
     "type": "condition",
@@ -45,7 +45,7 @@
   },
   "12_130": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "*Simple Living",
     "type": "condition",
@@ -53,7 +53,7 @@
   },
   "12_122": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Home and Hearth",
     "type": "condition",
@@ -61,7 +61,7 @@
   },
   "12_133": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 4,
     "culture": "Shire",
@@ -73,7 +73,7 @@
   },
   "12_121": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Flotsam and Jetsam",
     "type": "event",
@@ -81,7 +81,7 @@
   },
   "12_132": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Sudden Fury",
     "type": "condition",
@@ -89,7 +89,7 @@
   },
   "12_124": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Long Live the Halflings",
     "type": "condition",
@@ -97,7 +97,7 @@
   },
   "12_123": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Hope is Kindled",
     "type": "event",
@@ -105,7 +105,7 @@
   },
   "12_126": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "No Worse for Wear",
     "type": "event",
@@ -113,7 +113,7 @@
   },
   "12_125": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Measure of Comfort",
     "type": "condition",

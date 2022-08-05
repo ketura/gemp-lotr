@@ -2,7 +2,7 @@
   "51_7": {
     "title": "Dwarf Guard",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "dwarf",
     "strength": 5,
@@ -17,7 +17,7 @@
     "title": "*Farin",
     "subtitle": "Dwarven Emissary",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,
@@ -40,7 +40,7 @@
     "title": "*Gimli",
     "subtitle": "Dwarf of Erebor",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,
@@ -73,7 +73,7 @@
     "title": "*Elrond",
     "subtitle": "Lord of Rivendell",
     "culture": "elven",
-    "cost": 4,
+    "twilight": 4,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "elf",
@@ -122,7 +122,7 @@
     "title": "*Galadriel",
     "subtitle": "Lady of Light",
     "culture": "elven",
-    "cost": 3,
+    "twilight": 3,
     "type": "ally",
     "allyHome": "fellowship,6",
     "race": "elf",
@@ -159,7 +159,7 @@
   "51_53": {
     "title": "Lorien Elf",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "companion",
     "race": "elf",
     "strength": 5,
@@ -173,7 +173,7 @@
   "51_55": {
     "title": "*The Mirror of Galadriel",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "keyword": "support area",
     "effects": [
@@ -218,7 +218,7 @@
     "title": "*Ottar",
     "subtitle": "Man of Laketown",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "man",
@@ -249,7 +249,7 @@
   "51_108": {
     "title": "*No Stranger to the Shadows",
     "culture": "gondor",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": [
       "stealth"
@@ -267,7 +267,7 @@
   "51_138": {
     "title": "Saruman's Snows",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": [
       "spell",
@@ -314,7 +314,7 @@
   "51_139": {
     "title": "Savagery To Match Their Numbers",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -360,7 +360,7 @@
   "51_195": {
     "title": "*Relics of Moria",
     "culture": "moria",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -381,7 +381,7 @@
     "title": "*Úlairë Nertëa",
     "subtitle": "Messenger of Dol Guldur",
     "culture": "wraith",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "nazgul",
     "strength": 9,
@@ -414,7 +414,7 @@
   "51_248": {
     "title": "Forces of Mordor",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -436,7 +436,7 @@
   "51_254": {
     "title": "Mordor Enraged",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "target": "archer,companion",
     "effects": [
@@ -467,7 +467,7 @@
   "51_282": {
     "title": "The Weight of a Legacy",
     "culture": "sauron",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "strength": -1,
     "target": "culture(gondor),companion,not(hasAttached(name(The Weight of a Legacy)))",
@@ -499,7 +499,7 @@
     "title": "*Sam",
     "subtitle": "Son of Hamfast",
     "culture": "shire",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,
@@ -541,7 +541,7 @@
   "51_313": {
     "title": "*Sting",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -583,7 +583,7 @@
   "51_316": {
     "title": "A Talent for Not Being Seen",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "target": "or(name(Merry),name(Pippin)),not(hasAttached(name(A Talent for Not Being Seen)))",
     "keyword": [

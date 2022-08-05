@@ -1,7 +1,7 @@
 {
   "31_39": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "An Invisible Ring",
     "type": "event",

@@ -3,7 +3,7 @@
     "title": "*Legolas",
     "subtitle": "Dauntless Hunter",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "elf",
     "strength": 6,
@@ -27,7 +27,7 @@
   "54_192": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Uruk-Hai",
     "strength": 8,
     "culture": "Isengard",
@@ -57,7 +57,7 @@
   "54_276": {
     "title": "*Fortress Never Fallen",
     "culture": "rohan",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -109,7 +109,7 @@
   "54_304": {
     "title": "Get On and Get Away",
     "culture": "shire",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "requires": {

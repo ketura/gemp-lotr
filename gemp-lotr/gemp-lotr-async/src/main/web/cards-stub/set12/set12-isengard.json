@@ -2,7 +2,7 @@
   "12_54": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 8,
     "culture": "Isengard",

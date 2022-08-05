@@ -1,7 +1,7 @@
 {
   "7_280": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Great Peril of Fire",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "7_281": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Great Siege-towers",
     "type": "condition",
@@ -21,7 +21,7 @@
   "7_284": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -32,7 +32,7 @@
   "7_285": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Sauron",
@@ -43,7 +43,7 @@
   "7_282": {
     "side": "shadow",
     "site": 6,
-    "cost": 10,
+    "twilight": 10,
     "race": "Orc",
     "strength": 21,
     "culture": "Sauron",
@@ -53,7 +53,7 @@
   },
   "7_283": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Sauron",
     "title": "*Legions of Morgul",
     "type": "condition",
@@ -62,7 +62,7 @@
   "7_288": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Sauron",
@@ -73,7 +73,7 @@
   "7_289": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -84,7 +84,7 @@
   "7_286": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Sauron",
@@ -95,7 +95,7 @@
   "7_287": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -105,7 +105,7 @@
   },
   "7_316": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "*Troop Tower",
     "type": "condition",
@@ -117,7 +117,7 @@
   "7_270": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -129,7 +129,7 @@
   "7_273": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -141,7 +141,7 @@
   "7_274": {
     "side": "shadow",
     "site": 5,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Sauron",
@@ -153,7 +153,7 @@
   "7_271": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -165,7 +165,7 @@
   "7_272": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -177,7 +177,7 @@
   "7_277": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -189,7 +189,7 @@
   "7_311": {
     "side": "shadow",
     "site": 5,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Sauron",
@@ -201,7 +201,7 @@
   "7_278": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -212,7 +212,7 @@
   },
   "7_310": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Sauron",
     "title": "Sauron's Hatred",
     "type": "condition",
@@ -221,7 +221,7 @@
   "7_275": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -233,7 +233,7 @@
   "7_276": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -244,7 +244,7 @@
   },
   "7_315": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "*Tower Walkway",
     "type": "condition",
@@ -255,7 +255,7 @@
   },
   "7_314": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "*Stronghold of Cirith Ungol",
     "type": "condition",
@@ -264,7 +264,7 @@
   "7_279": {
     "side": "shadow",
     "site": 5,
-    "cost": 6,
+    "twilight": 6,
     "race": "Orc",
     "strength": 14,
     "culture": "Sauron",
@@ -275,7 +275,7 @@
   },
   "7_313": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Some Secret Art of Flame",
     "type": "condition",
@@ -283,7 +283,7 @@
   },
   "7_312": {
     "side": "shadow",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Sauron",
     "title": "Siegecraft",
     "type": "event",
@@ -291,7 +291,7 @@
   },
   "7_308": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Sauron",
     "title": "Rally the Host",
     "type": "condition",
@@ -300,7 +300,7 @@
   "7_307": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 8,
     "culture": "Sauron",
@@ -312,7 +312,7 @@
   "7_306": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Sauron",
@@ -324,7 +324,7 @@
   "7_305": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -334,7 +334,7 @@
   },
   "7_309": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Rope and Winch",
     "type": "event",
@@ -342,7 +342,7 @@
   },
   "7_262": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Sauron",
     "title": "Above the Battlement",
     "type": "event",
@@ -350,7 +350,7 @@
   },
   "7_263": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Anguish",
     "type": "event",
@@ -358,7 +358,7 @@
   },
   "7_266": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Breached",
     "type": "event",
@@ -367,7 +367,7 @@
   "7_300": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Sauron",
@@ -377,7 +377,7 @@
   },
   "7_267": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Sauron",
     "title": "Din of Arms",
     "type": "event",
@@ -386,7 +386,7 @@
   "7_264": {
     "side": "shadow",
     "site": 6,
-    "cost": 9,
+    "twilight": 9,
     "race": "Orc",
     "strength": 19,
     "culture": "Sauron",
@@ -396,7 +396,7 @@
   },
   "7_265": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Sauron",
     "itemclass": "Hand Weapon",
@@ -406,7 +406,7 @@
   "7_304": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -417,7 +417,7 @@
   "7_303": {
     "side": "shadow",
     "site": 6,
-    "cost": 1,
+    "twilight": 1,
     "race": "Orc",
     "strength": 5,
     "culture": "Sauron",
@@ -428,7 +428,7 @@
   },
   "7_268": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Sauron",
     "title": "*Encirclement",
     "type": "condition",
@@ -437,7 +437,7 @@
   "7_302": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -447,7 +447,7 @@
   },
   "7_269": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Fires Raged Unchecked",
     "type": "condition",
@@ -456,7 +456,7 @@
   "7_301": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 11,
     "culture": "Sauron",
@@ -467,7 +467,7 @@
   "7_291": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Sauron",
@@ -478,7 +478,7 @@
   "7_292": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -489,7 +489,7 @@
   "7_290": {
     "side": "shadow",
     "site": 6,
-    "cost": 1,
+    "twilight": 1,
     "race": "Orc",
     "strength": 3,
     "culture": "Sauron",
@@ -500,7 +500,7 @@
   "7_295": {
     "side": "shadow",
     "site": 6,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -511,7 +511,7 @@
   "7_296": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Sauron",
@@ -522,7 +522,7 @@
   "7_293": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -533,7 +533,7 @@
   "7_294": {
     "side": "shadow",
     "site": 6,
-    "cost": 6,
+    "twilight": 6,
     "race": "Orc",
     "strength": 15,
     "culture": "Sauron",
@@ -545,7 +545,7 @@
   "7_299": {
     "side": "shadow",
     "site": 6,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -556,7 +556,7 @@
   "7_298": {
     "side": "shadow",
     "site": 6,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 6,
     "culture": "Sauron",

@@ -1,7 +1,7 @@
 {
   "6_91": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Blood Has Been Spilled",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "6_90": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",
     "title": "Banner of the Mark",
@@ -17,7 +17,7 @@
   },
   "6_93": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Rohan",
     "title": "Ever the Hope of Men",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "6_92": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -39,7 +39,7 @@
   },
   "6_95": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -51,7 +51,7 @@
   },
   "6_94": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -63,7 +63,7 @@
   },
   "6_97": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "*We Left None Alive",
     "type": "condition",
@@ -71,7 +71,7 @@
   },
   "6_96": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "News From the Mark",
     "type": "event",

@@ -2,7 +2,7 @@
   "4_17": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 11,
     "culture": "Dunland",
@@ -12,7 +12,7 @@
   },
   "4_39": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "Wild Man Raid",
     "type": "event",
@@ -21,7 +21,7 @@
   "4_16": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -32,7 +32,7 @@
   "4_38": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -42,7 +42,7 @@
   },
   "4_19": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "Hides",
     "type": "possession",
@@ -51,7 +51,7 @@
   "4_18": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -61,7 +61,7 @@
   },
   "4_31": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "*Over the Isen",
     "type": "condition",
@@ -69,7 +69,7 @@
   },
   "4_30": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "No Retreat",
     "type": "condition"
@@ -77,7 +77,7 @@
   "4_11": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -88,7 +88,7 @@
   "4_33": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 8,
     "culture": "Dunland",
@@ -100,7 +100,7 @@
   "4_10": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 8,
     "culture": "Dunland",
@@ -110,7 +110,7 @@
   },
   "4_32": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "Ravage the Defeated",
     "type": "event",
@@ -119,7 +119,7 @@
   "4_13": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -129,7 +129,7 @@
   },
   "4_35": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "Wake of Destruction",
     "type": "event",
@@ -138,7 +138,7 @@
   "4_12": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 7,
     "culture": "Dunland",
@@ -148,7 +148,7 @@
   },
   "4_34": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dunland",
     "title": "*Secret Folk",
     "type": "condition",
@@ -157,7 +157,7 @@
   "4_15": {
     "side": "shadow",
     "site": 3,
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 5,
     "culture": "Dunland",
@@ -167,7 +167,7 @@
   },
   "4_37": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "War Cry of Dunland",
     "type": "event",
@@ -176,7 +176,7 @@
   "4_14": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 7,
     "culture": "Dunland",
@@ -186,7 +186,7 @@
   },
   "4_36": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Dunland",
     "itemclass": "Hand Weapon",
@@ -195,7 +195,7 @@
   },
   "4_3": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "Anger",
     "type": "event",
@@ -203,7 +203,7 @@
   },
   "4_28": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "No Defense",
     "type": "condition",
@@ -212,7 +212,7 @@
   "4_4": {
     "side": "shadow",
     "site": 3,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 11,
     "culture": "Dunland",
@@ -222,7 +222,7 @@
   },
   "4_27": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "Living Off Rock",
     "type": "condition",
@@ -230,7 +230,7 @@
   },
   "4_5": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "Burn Every Village",
     "type": "event",
@@ -238,7 +238,7 @@
   },
   "4_6": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dunland",
     "title": "Constantly Threatening",
     "type": "condition",
@@ -246,7 +246,7 @@
   },
   "4_29": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "*No Refuge",
     "type": "condition",
@@ -254,7 +254,7 @@
   },
   "4_7": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dunland",
     "title": "Dark Fury",
     "type": "event",
@@ -262,7 +262,7 @@
   },
   "4_8": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Dunland",
     "title": "Death to the Strawheads",
     "type": "event",
@@ -271,7 +271,7 @@
   "4_9": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",
@@ -282,7 +282,7 @@
   "4_20": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",
@@ -293,7 +293,7 @@
   "4_22": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 14,
     "culture": "Dunland",
@@ -304,7 +304,7 @@
   "4_21": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -315,7 +315,7 @@
   "4_24": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",
@@ -326,7 +326,7 @@
   "4_23": {
     "side": "shadow",
     "site": 3,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 12,
     "culture": "Dunland",
@@ -336,7 +336,7 @@
   },
   "4_26": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 3,
     "culture": "Dunland",
     "itemclass": "Hand Weapon",
@@ -346,7 +346,7 @@
   "4_25": {
     "side": "shadow",
     "site": 3,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Dunland",
@@ -357,7 +357,7 @@
   "4_40": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Dunland",

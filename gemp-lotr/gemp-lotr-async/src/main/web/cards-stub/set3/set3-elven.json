@@ -1,7 +1,7 @@
 {
   "3_15": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Forests of Lothlorien",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "3_26": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Something Draws Near",
     "type": "event",
@@ -20,7 +20,7 @@
   },
   "3_16": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Friends of Old",
     "type": "event",
@@ -28,7 +28,7 @@
   },
   "3_27": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "vitality": 1,
     "itemclass": "Ring",
@@ -37,7 +37,7 @@
   },
   "3_17": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Elf",
     "strength": 3,
     "culture": "Elven",
@@ -50,7 +50,7 @@
   },
   "3_28": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Voice of Nimrodel",
     "type": "event",
@@ -61,7 +61,7 @@
   },
   "3_7": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -75,7 +75,7 @@
   },
   "3_18": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -88,7 +88,7 @@
   },
   "3_8": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -101,14 +101,14 @@
   },
   "3_19": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "*Gift of the Evenstar",
     "type": "condition"
   },
   "3_9": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Beren and Luthien",
     "type": "condition",
@@ -119,7 +119,7 @@
   },
   "3_20": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 4,
     "culture": "Elven",
@@ -132,7 +132,7 @@
   },
   "3_10": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 3,
     "culture": "Elven",
@@ -148,7 +148,7 @@
   },
   "3_21": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Elven",
     "itemclass": "Hand Weapon",
@@ -157,7 +157,7 @@
   },
   "3_11": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Cast It Into the Fire!",
     "type": "event",
@@ -165,7 +165,7 @@
   },
   "3_22": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Master of Healing",
     "type": "event",
@@ -176,7 +176,7 @@
   },
   "3_12": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 3,
     "culture": "Elven",
@@ -192,7 +192,7 @@
   },
   "3_23": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "vitality": 1,
     "itemclass": "Ring",
@@ -201,7 +201,7 @@
   },
   "3_13": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Elf",
     "strength": 8,
     "culture": "Elven",
@@ -214,14 +214,14 @@
   },
   "3_24": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "*Phial of Galadriel",
     "type": "possession"
   },
   "3_14": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 5,
     "culture": "Elven",
@@ -234,7 +234,7 @@
   },
   "3_25": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 4,
     "culture": "Elven",
@@ -247,7 +247,7 @@
   },
   "3_121": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",

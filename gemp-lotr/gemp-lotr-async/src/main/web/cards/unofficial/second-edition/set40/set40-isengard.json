@@ -2,7 +2,7 @@
   "40_123": {
     "title": "Find the Halfling!",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -25,7 +25,7 @@
   "40_124": {
     "title": "Isengard Unleashed",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "target": "site",
     "effects": [
@@ -58,7 +58,7 @@
     "title": "*Lurtz",
     "subtitle": "Champion of the White Hand",
     "culture": "isengard",
-    "cost": 7,
+    "twilight": 7,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 13,
@@ -107,7 +107,7 @@
   "40_126": {
     "title": "Marauding Uruk",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 8,
@@ -131,7 +131,7 @@
   "40_127": {
     "title": "Might of Saruman",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "skirmish",
@@ -153,7 +153,7 @@
   "40_128": {
     "title": "My Fighting Uruk-hai",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -175,7 +175,7 @@
   "40_129": {
     "title": "Now Perfected",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -222,7 +222,7 @@
   "40_130": {
     "title": "One Ill Turn Deseres Another",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -254,7 +254,7 @@
   "40_131": {
     "title": "Open War",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -273,7 +273,7 @@
     "title": "*The Palantir of Orthanc",
     "subtitle": "Corruptor of Wizards",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "requires": {
@@ -316,7 +316,7 @@
   "40_133": {
     "title": "Relentless Uruk",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -340,7 +340,7 @@
     "title": "*Saruman",
     "subtitle": "Mind of Metal",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "wizard",
     "strength": 8,
@@ -380,7 +380,7 @@
     "title": "*Saruman",
     "subtitle": "The White Wizard",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "wizard",
     "strength": 8,
@@ -418,7 +418,7 @@
   "40_136": {
     "title": "Saruman's Ambition",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -449,7 +449,7 @@
     "title": "*Saruman's Staff",
     "subtitle": "Instrument of War",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "itemclass": "staff",
     "strength": 2,
@@ -491,7 +491,7 @@
   "40_138": {
     "title": "Seeking My Counsel",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "shadow",
     "effects": {
@@ -524,7 +524,7 @@
   "40_139": {
     "title": "Sword of Orthanc",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -547,7 +547,7 @@
   "40_140": {
     "title": "*Ten Thousand Strong",
     "culture": "isengard",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "target": "site",
     "effects": [
@@ -591,7 +591,7 @@
   "40_141": {
     "title": "The Hour Grows Late",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -620,7 +620,7 @@
   "40_142": {
     "title": "*Throne of Orthanc",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -666,7 +666,7 @@
   "40_143": {
     "title": "Treachery Runs Deep",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "response",
     "effects": {
@@ -689,7 +689,7 @@
   "40_144": {
     "title": "Uruk Battlefiend",
     "culture": "isengard",
-    "cost": 3,
+    "twilight": 3,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 8,
@@ -711,7 +711,7 @@
   "40_145": {
     "title": "Uruk Bloodthirster",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -734,7 +734,7 @@
   "40_146": {
     "title": "Uruk Brute",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,
@@ -757,7 +757,7 @@
   "40_147": {
     "title": "Uruk Grunt",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 6,
@@ -780,7 +780,7 @@
   "40_148": {
     "title": "*Uruk Howlers",
     "culture": "isengard",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 10,
@@ -817,7 +817,7 @@
   "40_149": {
     "title": "Uruk Hunting Party",
     "culture": "isengard",
-    "cost": 5,
+    "twilight": 5,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 10,
@@ -836,7 +836,7 @@
   "40_150": {
     "title": "Voice of Saruman",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -867,7 +867,7 @@
   "40_151": {
     "title": "Wizard's Grasp",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -889,7 +889,7 @@
   "40_152": {
     "title": "Wizard's Wrath",
     "culture": "isengard",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "response",
@@ -916,7 +916,7 @@
     "title": "*Saruman",
     "subtitle": "The White Wizard",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "wizard",
     "strength": 8,
@@ -954,7 +954,7 @@
   "40_314": {
     "title": "Brute Force",
     "culture": "isengard",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -978,7 +978,7 @@
   "40_315": {
     "title": "*Uruk Taskmaster",
     "culture": "isengard",
-    "cost": 4,
+    "twilight": 4,
     "type": "minion",
     "race": "uruk-hai",
     "strength": 9,

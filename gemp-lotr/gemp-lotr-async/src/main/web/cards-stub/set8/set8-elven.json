@@ -1,7 +1,7 @@
 {
   "8_9": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "A Grey Ship",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "8_12": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Reckless We Rode",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "8_13": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Shake Off the Shadow",
     "type": "condition",
@@ -25,7 +25,7 @@
   },
   "8_10": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -39,7 +39,7 @@
   },
   "8_11": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Elven",
     "title": "Life of the Eldar",
     "type": "event",

@@ -1,6 +1,6 @@
 {
   "12_191": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Shores of Nen Hithoel",
     "type": "site",
@@ -8,7 +8,7 @@
     "direction": "right"
   },
   "12_190": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Northern Pelennor",
     "type": "site",
@@ -19,7 +19,7 @@
     "direction": "right"
   },
   "12_193": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Starkhorn",
     "type": "site",
@@ -27,7 +27,7 @@
     "direction": "right"
   },
   "12_192": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Slopes of Orodruin",
     "type": "site",
@@ -35,7 +35,7 @@
     "direction": "right"
   },
   "12_194": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Wold Battlefield",
     "type": "site",
@@ -43,7 +43,7 @@
     "direction": "left"
   },
   "12_186": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "The Bridge of Khazad-dum",
     "type": "site",
@@ -54,7 +54,7 @@
     "direction": "left"
   },
   "12_185": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "The Angle",
     "type": "site",
@@ -62,7 +62,7 @@
     "direction": "left"
   },
   "12_188": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Hill of Sight",
     "type": "site",
@@ -73,7 +73,7 @@
     "direction": "right"
   },
   "12_187": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Emyn Muil",
     "type": "site",
@@ -81,7 +81,7 @@
     "direction": "left"
   },
   "12_189": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Hobbiton Market",
     "type": "site",

@@ -1,7 +1,7 @@
 {
   "32_46": {
     "title": "Dol Guldur",
-    "cost": 8,
+    "twilight": 8,
     "type": "site",
     "block": "hobbit",
     "site": 5,
@@ -30,7 +30,7 @@
   },
   "32_47": {
     "title": "Town Hall",
-    "cost": 3,
+    "twilight": 3,
     "type": "site",
     "block": "hobbit",
     "site": 6,
@@ -51,7 +51,7 @@
   },
   "32_48": {
     "title": "Secret Door",
-    "cost": 8,
+    "twilight": 8,
     "type": "site",
     "block": "hobbit",
     "site": 7,
@@ -71,7 +71,7 @@
   },
   "32_49": {
     "title": "Northern Slopes",
-    "cost": 9,
+    "twilight": 9,
     "type": "site",
     "block": "hobbit",
     "site": 9,

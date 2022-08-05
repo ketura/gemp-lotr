@@ -1,7 +1,7 @@
 {
   "5_111": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -15,7 +15,7 @@
   },
   "5_116": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Baggins Heirloom",
@@ -25,7 +25,7 @@
   },
   "5_117": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "You Must Help Us",
     "type": "event",
@@ -33,7 +33,7 @@
   },
   "5_114": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "vitality": 1,
     "title": "*Rare Good Ballast",
@@ -41,7 +41,7 @@
   },
   "5_115": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -55,7 +55,7 @@
   },
   "5_112": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "No Help For It",
     "type": "event",
@@ -63,7 +63,7 @@
   },
   "5_113": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "No Use That Way",
     "type": "event",

@@ -2,7 +2,7 @@
   "13_140": {
     "side": "shadow",
     "site": 6,
-    "cost": 16,
+    "twilight": 16,
     "race": "Maia",
     "strength": 24,
     "culture": "Sauron",
@@ -17,7 +17,7 @@
   },
   "13_141": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Sauron",
     "vitality": 1,

@@ -1,7 +1,7 @@
 {
   "17_108": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Hornblower Leaf",
     "type": "condition",
@@ -12,7 +12,7 @@
   },
   "17_109": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -24,7 +24,7 @@
   },
   "17_110": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Southfarthing Leaf",
     "type": "condition",
@@ -35,7 +35,7 @@
   },
   "17_111": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Southlinch Leaf",
     "type": "condition",
@@ -46,7 +46,7 @@
   },
   "17_106": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Halfling Leaf",
     "type": "condition",
@@ -57,7 +57,7 @@
   },
   "17_107": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",

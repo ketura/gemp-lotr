@@ -1,7 +1,7 @@
 {
   "12_40": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "There's Another Way",
     "type": "condition",
@@ -9,14 +9,14 @@
   },
   "12_41": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Treacherous Little Toad",
     "type": "condition"
   },
   "12_37": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Come Away",
     "type": "condition",
@@ -24,7 +24,7 @@
   },
   "12_38": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "From Deep in Shadow",
     "type": "event",
@@ -32,7 +32,7 @@
   },
   "12_39": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gollum",
     "title": "Not Alone",
     "type": "condition",

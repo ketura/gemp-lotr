@@ -1,7 +1,7 @@
 {
   "13_126": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Rohan",
     "subtitle": "Mearas of the Mark",
@@ -11,7 +11,7 @@
   },
   "13_137": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -23,7 +23,7 @@
   },
   "13_127": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "*Freely Across Our Land",
     "type": "condition",
@@ -31,7 +31,7 @@
   },
   "13_138": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -43,7 +43,7 @@
   },
   "13_128": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -55,7 +55,7 @@
   },
   "13_139": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "*Wind-swept Homestead",
     "type": "condition",
@@ -63,7 +63,7 @@
   },
   "13_129": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Hamstrung",
     "type": "event",
@@ -71,7 +71,7 @@
   },
   "13_130": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "Hurried Barrows",
     "type": "event",
@@ -79,7 +79,7 @@
   },
   "13_131": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "*King's Board",
     "type": "condition",
@@ -87,7 +87,7 @@
   },
   "13_132": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -98,7 +98,7 @@
   },
   "13_122": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "Bitter Tidings",
     "type": "event",
@@ -106,7 +106,7 @@
   },
   "13_133": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -117,7 +117,7 @@
   },
   "13_123": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -129,7 +129,7 @@
   },
   "13_134": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Ride With Me",
     "type": "event",
@@ -137,7 +137,7 @@
   },
   "13_124": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -149,7 +149,7 @@
   },
   "13_135": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "itemclass": "Ranged Weapon",
     "title": "Rider's Bow",
@@ -157,7 +157,7 @@
   },
   "13_125": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Ferthu Theoden Hal",
     "type": "event",
@@ -165,7 +165,7 @@
   },
   "13_136": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Rohan",
     "subtitle": "Noble Mearas",

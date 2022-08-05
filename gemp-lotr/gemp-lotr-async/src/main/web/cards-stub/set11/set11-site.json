@@ -1,6 +1,6 @@
 {
   "11_239": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Fangorn Glade",
     "type": "site",
@@ -8,7 +8,7 @@
     "direction": "left"
   },
   "11_238": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Expanding Marshland",
     "type": "site",
@@ -16,7 +16,7 @@
     "direction": "right"
   },
   "11_233": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Chamber of Mazarbul",
     "type": "site",
@@ -24,7 +24,7 @@
     "direction": "left"
   },
   "11_255": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Pinnacle of Zirakzigil",
     "type": "site",
@@ -32,7 +32,7 @@
     "direction": "right"
   },
   "11_232": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Cavern Entrance",
     "type": "site",
@@ -40,7 +40,7 @@
     "direction": "right"
   },
   "11_254": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Pelennor Flat",
     "type": "site",
@@ -48,7 +48,7 @@
     "direction": "right"
   },
   "11_231": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Caras Galadhon",
     "type": "site",
@@ -56,7 +56,7 @@
     "direction": "left"
   },
   "11_253": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Pelennor Fields",
     "type": "site",
@@ -64,7 +64,7 @@
     "direction": "right"
   },
   "11_230": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Buckland Homestead",
     "type": "site",
@@ -72,7 +72,7 @@
     "direction": "left"
   },
   "11_252": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Osgiliath Reclaimed",
     "type": "site",
@@ -80,7 +80,7 @@
     "direction": "left"
   },
   "11_237": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Ettenmoors",
     "type": "site",
@@ -88,14 +88,14 @@
     "direction": "right"
   },
   "11_259": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Stables",
     "type": "site",
     "direction": "left"
   },
   "11_236": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "East Road",
     "type": "site",
@@ -103,7 +103,7 @@
     "direction": "left"
   },
   "11_258": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Slag Mounds",
     "type": "site",
@@ -111,7 +111,7 @@
     "direction": "right"
   },
   "11_235": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Dammed Gate-stream",
     "type": "site",
@@ -119,7 +119,7 @@
     "direction": "right"
   },
   "11_257": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Rohan Uplands",
     "type": "site",
@@ -127,7 +127,7 @@
     "direction": "right"
   },
   "11_234": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Crags of Emyn Muil",
     "type": "site",
@@ -135,7 +135,7 @@
     "direction": "left"
   },
   "11_256": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "The Prancing Pony",
     "type": "site",
@@ -143,7 +143,7 @@
     "direction": "right"
   },
   "11_251": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Old Forest Road",
     "type": "site",
@@ -151,7 +151,7 @@
     "direction": "right"
   },
   "11_250": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "North Undeep",
     "type": "site",
@@ -159,7 +159,7 @@
     "direction": "right"
   },
   "11_229": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Barazinbar",
     "type": "site",
@@ -167,7 +167,7 @@
     "direction": "left"
   },
   "11_228": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Anduin Confluence",
     "type": "site",
@@ -175,7 +175,7 @@
     "direction": "right"
   },
   "11_227": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Anduin Banks",
     "type": "site",
@@ -183,7 +183,7 @@
     "direction": "left"
   },
   "11_249": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Neekerbreekers' Bog",
     "type": "site",
@@ -191,7 +191,7 @@
     "direction": "right"
   },
   "11_244": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Heights of Isengard",
     "type": "site",
@@ -199,7 +199,7 @@
     "direction": "right"
   },
   "11_266": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Woody-End",
     "type": "site",
@@ -207,7 +207,7 @@
     "direction": "left"
   },
   "11_243": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Harrowdale",
     "type": "site",
@@ -215,7 +215,7 @@
     "direction": "right"
   },
   "11_265": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Window on the West",
     "type": "site",
@@ -223,7 +223,7 @@
     "direction": "left"
   },
   "11_242": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Green Dragon Inn",
     "type": "site",
@@ -231,7 +231,7 @@
     "direction": "right"
   },
   "11_264": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Westemnet Village",
     "type": "site",
@@ -239,7 +239,7 @@
     "direction": "left"
   },
   "11_241": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Fortress of Orthanc",
     "type": "site",
@@ -247,7 +247,7 @@
     "direction": "left"
   },
   "11_263": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "West Gate of Moria",
     "type": "site",
@@ -255,7 +255,7 @@
     "direction": "left"
   },
   "11_248": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Moria Stairway",
     "type": "site",
@@ -263,7 +263,7 @@
     "direction": "left"
   },
   "11_247": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Moria Guardroom",
     "type": "site",
@@ -271,7 +271,7 @@
     "direction": "right"
   },
   "11_246": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Mere of Dead Faces",
     "type": "site",
@@ -279,7 +279,7 @@
     "direction": "left"
   },
   "11_245": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Helm's Gate",
     "type": "site",
@@ -287,7 +287,7 @@
     "direction": "left"
   },
   "11_240": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Flats of Rohan",
     "type": "site",
@@ -295,7 +295,7 @@
     "direction": "left"
   },
   "11_262": {
-    "cost": 1,
+    "twilight": 1,
     "block": "Shadows and onwards",
     "title": "Watch-tower of Cirith Ungol",
     "type": "site",
@@ -303,7 +303,7 @@
     "direction": "right"
   },
   "11_261": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Valley of the Silverlode",
     "type": "site",
@@ -314,7 +314,7 @@
     "direction": "right"
   },
   "11_260": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Trollshaw Forest",
     "type": "site",

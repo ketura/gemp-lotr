@@ -1,7 +1,7 @@
 {
   "11_167": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Incognito",
     "type": "event",
@@ -12,7 +12,7 @@
   },
   "11_165": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Shire",
     "title": "Habits of Home",
     "type": "condition",
@@ -20,7 +20,7 @@
   },
   "11_176": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Unharmed",
     "type": "event",
@@ -28,7 +28,7 @@
   },
   "11_164": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -44,7 +44,7 @@
   },
   "11_175": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "A Task Now to Be Done",
     "type": "event",
@@ -52,7 +52,7 @@
   },
   "11_169": {
     "side": "free_people",
-    "cost": 6,
+    "twilight": 6,
     "culture": "Shire",
     "title": "The More, The Merrier",
     "type": "event",
@@ -63,7 +63,7 @@
   },
   "11_168": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -75,7 +75,7 @@
   },
   "11_170": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -87,7 +87,7 @@
   },
   "11_163": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -99,7 +99,7 @@
   },
   "11_174": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Sworn Companion",
     "type": "event",
@@ -107,7 +107,7 @@
   },
   "11_162": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "Crouched Down",
     "type": "event",
@@ -118,7 +118,7 @@
   },
   "11_173": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Weapon of Heritage",
@@ -128,7 +128,7 @@
   },
   "11_161": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Concerning Hobbits",
     "type": "event",
@@ -136,7 +136,7 @@
   },
   "11_172": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -149,7 +149,7 @@
   },
   "11_171": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "itemclass": "Box",
     "title": "Salt from the Shire",

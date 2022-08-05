@@ -2,7 +2,7 @@
   "12_79": {
     "side": "shadow",
     "site": 4,
-    "cost": 12,
+    "twilight": 12,
     "race": "Balrog",
     "strength": 17,
     "culture": "Moria",
@@ -14,7 +14,7 @@
   },
   "12_80": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Moria",
     "subtitle": "Weapon of Flame and Shadow",

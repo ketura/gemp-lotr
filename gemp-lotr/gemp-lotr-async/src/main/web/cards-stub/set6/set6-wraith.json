@@ -2,7 +2,7 @@
   "6_88": {
     "side": "shadow",
     "site": 3,
-    "cost": 6,
+    "twilight": 6,
     "race": "Nazgul",
     "strength": 12,
     "culture": "Wraith",
@@ -15,7 +15,7 @@
   "6_87": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -26,7 +26,7 @@
   },
   "6_89": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Winged and Ominous",
     "type": "condition",
@@ -34,7 +34,7 @@
   },
   "6_84": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Wraith",
     "title": "Spied From Above",
     "type": "condition",
@@ -43,7 +43,7 @@
   "6_122": {
     "side": "shadow",
     "site": 3,
-    "cost": 8,
+    "twilight": 8,
     "race": "Nazgul",
     "strength": 14,
     "culture": "Wraith",
@@ -55,7 +55,7 @@
   },
   "6_83": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "strength": 2,
     "culture": "Wraith",
     "itemclass": "Mount",
@@ -65,7 +65,7 @@
   "6_86": {
     "side": "shadow",
     "site": 3,
-    "cost": 4,
+    "twilight": 4,
     "race": "Nazgul",
     "strength": 9,
     "culture": "Wraith",
@@ -76,7 +76,7 @@
   },
   "6_85": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Wraith",
     "itemclass": "Hand Weapon",

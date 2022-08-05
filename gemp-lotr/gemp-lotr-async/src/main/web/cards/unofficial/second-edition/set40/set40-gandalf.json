@@ -3,7 +3,7 @@
     "title": "*Albert Dreary",
     "subtitle": "Entertainer from Bree",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "race": "man",
     "keyword": "bree",
@@ -35,7 +35,7 @@
   "40_64": {
     "title": "Answers in the Fire",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -71,7 +71,7 @@
     "title": "*Barliman Butterbur",
     "subtitle": "Forgetful Innkeep",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "ally",
     "race": "man",
     "keyword": "bree",
@@ -106,7 +106,7 @@
   "40_66": {
     "title": "Binding Light",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "skirmish",
@@ -142,7 +142,7 @@
   "40_67": {
     "title": "Bolstered Spirits",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "skirmish",
@@ -179,7 +179,7 @@
   "40_68": {
     "title": "Discernment",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "fellowship",
@@ -237,7 +237,7 @@
     "title": "*Gandalf",
     "subtitle": "Disturber of the Peace",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "wizard",
     "strength": 6,
@@ -261,7 +261,7 @@
     "title": "*Gandalf",
     "subtitle": "Wisest of the Istari",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "wizard",
     "strength": 7,
@@ -284,7 +284,7 @@
   "40_71": {
     "title": "*Gandalf's Pipe",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "pipe",
     "target": "name(Gandalf)",
@@ -321,7 +321,7 @@
     "title": "*Gandalf's Staff",
     "subtitle": "Dispeller of Darkness",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "itemclass": "staff",
     "vitality": 1,
@@ -364,7 +364,7 @@
     "title": "*Glamdring",
     "subtitle": "Turgon's Blade",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -396,7 +396,7 @@
   "40_74": {
     "title": "*Grace of the Valar",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "strength": 1,
     "keyword": "spell",
@@ -440,7 +440,7 @@
     "title": "*Gwaihir",
     "subtitle": "Great Eagle",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "ally",
     "race": "eagle",
     "strength": 7,
@@ -504,7 +504,7 @@
   "40_76": {
     "title": "He's Remembered!",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "regroup",
@@ -530,7 +530,7 @@
   "40_77": {
     "title": "I Will Help You Bear This Burden",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "strength": 1,
     "resistance": 1,
@@ -571,7 +571,7 @@
   "40_78": {
     "title": "Illuminate",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -625,7 +625,7 @@
   "40_79": {
     "title": "Introspection",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "text": [
@@ -671,7 +671,7 @@
   "40_80": {
     "title": "Keep it Secret, Keep it Safe",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "text": [
@@ -722,7 +722,7 @@
   "40_81": {
     "title": "*Might of the Maiar",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "strength": 1,
     "keyword": "spell",
@@ -766,7 +766,7 @@
   "40_82": {
     "title": "*Mithrandir's Touch",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "vitality": 1,
     "requires": {
@@ -804,7 +804,7 @@
   "40_83": {
     "title": "My Brave Hobbits",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "maneuver",
@@ -852,7 +852,7 @@
   "40_84": {
     "title": "Mysterious Wizard",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": [
       "skirmish",
@@ -883,7 +883,7 @@
   "40_86": {
     "title": "Protector of the West",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "skirmish",
     "text": "If Gandalf is not assigned to a skirmish, have him replace another unbound companion in a skirmish. Gandalf is strength +2 while in that skirmish.",
@@ -912,7 +912,7 @@
   "40_87": {
     "title": "Roll of Thunder",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "fellowship",
@@ -935,7 +935,7 @@
   "40_88": {
     "title": "Speak \"Friend\" and Enter",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "fellowship",
@@ -974,7 +974,7 @@
   "40_89": {
     "title": "Trusted Advisor",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "requires": {
@@ -999,7 +999,7 @@
   "40_90": {
     "title": "A Wizard is Never Late",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "text": "Play a {gandalf} character from your draw deck.",
@@ -1015,7 +1015,7 @@
   "40_91": {
     "title": "Wizard Staff",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "staff",
     "strength": 1,
@@ -1043,7 +1043,7 @@
     "title": "*Gandalf",
     "subtitle": "Wisest of the Istari",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "wizard",
     "strength": 7,
@@ -1066,7 +1066,7 @@
   "40_312": {
     "title": "Go Back to the Shadow!",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "requires": {

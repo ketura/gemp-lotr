@@ -2,7 +2,7 @@
   "4_46": {
     "title": "*Ever My Heart Rises",
     "culture": "Dwarven",
-    "cost": 3,
+    "twilight": 3,
     "type": "condition",
     "keyword": [
       "Support Area",

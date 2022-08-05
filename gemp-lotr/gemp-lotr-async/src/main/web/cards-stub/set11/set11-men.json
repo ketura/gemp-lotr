@@ -2,7 +2,7 @@
   "11_69": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 11,
     "culture": "Men",
@@ -13,7 +13,7 @@
   "11_67": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Men",
@@ -24,7 +24,7 @@
   },
   "11_89": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Men",
     "itemclass": "Ranged Weapon",
@@ -34,7 +34,7 @@
   "11_68": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -45,7 +45,7 @@
   "11_72": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -56,7 +56,7 @@
   },
   "11_94": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Men",
     "vitality": 2,
     "itemclass": "Shield",
@@ -66,7 +66,7 @@
   "11_73": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -76,7 +76,7 @@
   },
   "11_95": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Men",
     "itemclass": "Hand Weapon",
@@ -85,7 +85,7 @@
   },
   "11_70": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Bloodthirsty",
     "type": "event",
@@ -93,7 +93,7 @@
   },
   "11_92": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Overrun",
     "type": "event",
@@ -101,7 +101,7 @@
   },
   "11_71": {
     "side": "shadow",
-    "cost": 5,
+    "twilight": 5,
     "culture": "Men",
     "title": "Bold and Cunning",
     "type": "event",
@@ -113,7 +113,7 @@
   "11_93": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -124,7 +124,7 @@
   "11_76": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -136,7 +136,7 @@
   "11_98": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Men",
@@ -148,7 +148,7 @@
   "11_77": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -159,7 +159,7 @@
   "11_99": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -170,7 +170,7 @@
   "11_74": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 12,
     "culture": "Men",
@@ -180,7 +180,7 @@
   },
   "11_96": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Precision Targeting",
     "type": "event",
@@ -189,7 +189,7 @@
   "11_75": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 13,
     "culture": "Men",
@@ -201,7 +201,7 @@
   "11_97": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -212,7 +212,7 @@
   "11_90": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 4,
     "culture": "Men",
@@ -222,7 +222,7 @@
   },
   "11_91": {
     "side": "shadow",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Men",
     "title": "Oath Sworn",
     "type": "condition",
@@ -231,7 +231,7 @@
   "11_101": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -242,7 +242,7 @@
   "11_100": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -252,7 +252,7 @@
   },
   "11_78": {
     "side": "shadow",
-    "cost": 7,
+    "twilight": 7,
     "culture": "Men",
     "title": "Elevated Fire",
     "type": "event",
@@ -264,7 +264,7 @@
   "11_79": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -275,7 +275,7 @@
   },
   "11_105": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Men",
     "title": "Wielding the Ring",
     "type": "condition",
@@ -283,7 +283,7 @@
   },
   "11_104": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Men",
     "title": "Whistling Death",
     "type": "event",
@@ -292,7 +292,7 @@
   "11_103": {
     "side": "shadow",
     "site": 4,
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -304,7 +304,7 @@
   "11_102": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 11,
     "culture": "Men",
@@ -315,7 +315,7 @@
   "11_83": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 11,
     "culture": "Men",
@@ -326,7 +326,7 @@
   "11_84": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 10,
     "culture": "Men",
@@ -337,7 +337,7 @@
   "11_81": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 9,
     "culture": "Men",
@@ -348,7 +348,7 @@
   "11_82": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Men",
@@ -358,7 +358,7 @@
   },
   "11_87": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Men",
     "title": "Lathspell",
     "type": "condition"
@@ -366,7 +366,7 @@
   "11_88": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 14,
     "culture": "Men",
@@ -378,7 +378,7 @@
   "11_85": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 13,
     "culture": "Men",
@@ -389,7 +389,7 @@
   "11_86": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Men",
@@ -400,7 +400,7 @@
   "11_80": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 12,
     "culture": "Men",

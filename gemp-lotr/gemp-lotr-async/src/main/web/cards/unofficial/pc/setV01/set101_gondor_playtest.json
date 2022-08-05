@@ -3,7 +3,7 @@
     "title": "*Aragorn",
     "subtitle": "Estel",
     "culture": "gondor",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "man",
     "strength": 8,
@@ -43,7 +43,7 @@
     "title": "*Boromir",
     "subtitle": "Redeemed",
     "culture": "gondor",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "man",
     "strength": 5,
@@ -89,7 +89,7 @@
   "151_21": {
     "title": "*The Sons of Gondor Have Returned",
     "culture": "gondor",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -124,7 +124,7 @@
   "151_22": {
     "title": "*Gilraen's Memorial",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -184,7 +184,7 @@
   "151_23": {
     "title": "*I Would Have Gone With You to the End",
     "culture": "gondor",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "effects": [
@@ -251,7 +251,7 @@
   "151_24": {
     "title": "*You Have My Sword",
     "culture": "gondor",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "target": "companion,signet(aragorn),not(name(Aragorn))",
     "strength": 2,

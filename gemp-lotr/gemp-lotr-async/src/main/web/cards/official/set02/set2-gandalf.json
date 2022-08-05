@@ -3,7 +3,7 @@
     "title": "*Erland",
     "subtitle": "Advisor to Brand",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "man",
@@ -25,7 +25,7 @@
   "2_22": {
     "title": "*Gandalf's Staff",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "itemclass": "staff",
     "vitality": 1,
@@ -57,7 +57,7 @@
   "2_23": {
     "title": "Gandalf's Wisdom",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -74,7 +74,7 @@
     "title": "*Hugin",
     "subtitle": "Emissary from Laketown",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "man",
@@ -113,7 +113,7 @@
     "title": "*Jarnsmid",
     "subtitle": "Merchant from Dale",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "fellowship,3",
     "race": "man",
@@ -135,7 +135,7 @@
   "2_26": {
     "title": "Speak \"Friend\" and Enter",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "fellowship",
@@ -169,7 +169,7 @@
   "2_27": {
     "title": "Staff Asunder",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": [
       "spell",
@@ -197,7 +197,7 @@
   "2_28": {
     "title": "Wielder of the Flame",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "spell",
@@ -229,7 +229,7 @@
   "2_29": {
     "title": "Wizard Staff",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "staff",
     "strength": 1,
@@ -252,7 +252,7 @@
   "2_30": {
     "title": "You Cannot Pass!",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": [
       "spell",
@@ -276,7 +276,7 @@
     "title": "*Gandalf",
     "subtitle": "The Grey Pilgrim",
     "culture": "gandalf",
-    "cost": 4,
+    "twilight": 4,
     "type": "companion",
     "race": "wizard",
     "strength": 7,

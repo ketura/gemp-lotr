@@ -1,7 +1,7 @@
 {
   "10_14": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Borne Far Away",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "10_16": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gandalf",
     "title": "Gathering Wind",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "10_15": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "*Brooding on Tomorrow",
     "type": "condition",
@@ -25,7 +25,7 @@
   },
   "10_18": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "race": "Ent",
     "strength": 12,
     "culture": "Gandalf",
@@ -37,7 +37,7 @@
   },
   "10_17": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gandalf",
     "title": "Out of the High Airs",
     "type": "event",

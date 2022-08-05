@@ -1,6 +1,6 @@
 {
   "13_190": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Doors of Durin",
     "type": "site",
@@ -8,7 +8,7 @@
     "direction": "left"
   },
   "13_191": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Fords of Isen",
     "type": "site",
@@ -16,7 +16,7 @@
     "direction": "left"
   },
   "13_192": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "The Great Gates",
     "type": "site",
@@ -24,7 +24,7 @@
     "direction": "left"
   },
   "13_193": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Isenwash",
     "type": "site",
@@ -35,7 +35,7 @@
     "direction": "left"
   },
   "13_194": {
-    "cost": 2,
+    "twilight": 2,
     "block": "Shadows and onwards",
     "title": "Redhorn Pass",
     "type": "site",
@@ -43,7 +43,7 @@
     "direction": "left"
   },
   "13_185": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Abandoned Mine Shaft",
     "type": "site",
@@ -51,7 +51,7 @@
     "direction": "left"
   },
   "13_186": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Caves of Aglarond",
     "type": "site",
@@ -59,7 +59,7 @@
     "direction": "right"
   },
   "13_187": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "City of Kings",
     "type": "site",
@@ -67,7 +67,7 @@
     "direction": "right"
   },
   "13_188": {
-    "cost": 0,
+    "twilight": 0,
     "block": "Shadows and onwards",
     "title": "Courtyard Parapet",
     "type": "site",
@@ -75,7 +75,7 @@
     "direction": "left"
   },
   "13_189": {
-    "cost": 3,
+    "twilight": 3,
     "block": "Shadows and onwards",
     "title": "Crossroads of the Fallen Kings",
     "type": "site",

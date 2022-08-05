@@ -1,7 +1,7 @@
 {
   "8_89": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "Fury of the Northmen",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "8_90": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "No Living Man",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "8_91": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 9,
     "culture": "Rohan",
@@ -28,7 +28,7 @@
   },
   "8_92": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -42,7 +42,7 @@
   },
   "8_87": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Rohan",
@@ -56,7 +56,7 @@
   },
   "8_88": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "itemclass": "Shield",
     "title": "*Eowyn's Shield",
@@ -64,7 +64,7 @@
   },
   "8_85": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Charged Headlong",
     "type": "event",
@@ -72,7 +72,7 @@
   },
   "8_86": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Doom Drove Them",
     "type": "condition",

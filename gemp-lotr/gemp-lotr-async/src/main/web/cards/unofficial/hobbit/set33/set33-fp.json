@@ -2,7 +2,7 @@
   "33_1": {
     "title": "*Ancient Forges",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "keyword": [
       "support area",
@@ -56,7 +56,7 @@
   "33_2": {
     "title": "At Your Service!",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -80,7 +80,7 @@
   "33_3": {
     "title": "*Balin's Armor",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "armor",
     "vitality": 1,
@@ -115,7 +115,7 @@
   "33_4": {
     "title": "Blunt the Knives!",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -147,7 +147,7 @@
   "33_5": {
     "title": "*Dwarven Cooking Pot",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": "support area",
     "effects": [
@@ -186,7 +186,7 @@
   "33_6": {
     "title": "*Dwarven Ponies",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": "support area",
     "effects": [
@@ -219,7 +219,7 @@
   "33_7": {
     "title": "Dwarven Warhammer",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -242,7 +242,7 @@
   "33_8": {
     "title": "Eager to Brawl",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "response",
     "requires": [
@@ -291,7 +291,7 @@
   "33_9": {
     "title": "*Horn of Erebor",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "keyword": [
       "support area",
@@ -332,7 +332,7 @@
   "33_10": {
     "title": "*Iron Hills Chariot",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": "support area",
     "effects": [
@@ -378,7 +378,7 @@
   "33_11": {
     "title": "*Ori's Slingshot",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "keyword": "support area",
     "effects": [
@@ -417,7 +417,7 @@
     "title": "*Thror",
     "subtitle": "Overthrown King",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "companion",
     "race": "dwarf",
     "strength": 7,
@@ -452,7 +452,7 @@
   "33_13": {
     "title": "*Hadafang",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "artifact",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -506,7 +506,7 @@
     "title": "*Lindir",
     "subtitle": "Elven Minstrel",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "hobbit,3",
     "race": "elf",
@@ -542,7 +542,7 @@
   "33_15": {
     "title": "Moon-letters",
     "culture": "elven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -596,7 +596,7 @@
   "33_16": {
     "title": "*Rivendell Scout",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "hobbit,3",
     "race": "elf",
@@ -623,7 +623,7 @@
   "33_17": {
     "title": "*Vilya",
     "culture": "elven",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "itemclass": "ring",
     "vitality": 1,
@@ -660,7 +660,7 @@
   "33_18": {
     "title": "Wise Advice",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "fellowship",
     "requires": {
@@ -685,7 +685,7 @@
     "title": "*Betsy Butterbur",
     "subtitle": "Prancing Pony Proprietor",
     "culture": "gandalf",
-    "cost": 0,
+    "twilight": 0,
     "type": "ally",
     "allyHome": "hobbit,1",
     "race": "man",
@@ -716,7 +716,7 @@
   "33_20": {
     "title": "Burning Fir Cones",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "keyword": "support area",
     "effects": {
@@ -757,7 +757,7 @@
   "33_21": {
     "title": "No Finer Blade",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -790,7 +790,7 @@
   "33_52": {
     "title": "*Bilbo's Pony",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "mount",
     "strength": 1,
@@ -821,7 +821,7 @@
     "title": "*Master Worrywort",
     "subtitle": "Hobbit Farmer",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "ally",
     "allyHome": "hobbit,1",
     "race": "hobbit",
@@ -858,7 +858,7 @@
   "33_54": {
     "title": "*There and Back Again",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "resistance": 1,
     "target": "name(bilbo)",

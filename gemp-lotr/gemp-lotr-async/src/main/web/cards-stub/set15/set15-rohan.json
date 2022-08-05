@@ -1,7 +1,7 @@
 {
   "15_131": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "Our Inspiration",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "15_142": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Swift Stroke",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "15_121": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Brilliant Light",
     "type": "event",
@@ -25,7 +25,7 @@
   },
   "15_132": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Last Days of My House",
     "type": "event",
@@ -33,7 +33,7 @@
   },
   "15_122": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Burial Mounds",
     "type": "event",
@@ -41,7 +41,7 @@
   },
   "15_123": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Rohan",
@@ -57,7 +57,7 @@
   },
   "15_134": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 1,
     "culture": "Rohan",
     "title": "Rohan Stable Master",
@@ -66,7 +66,7 @@
   },
   "15_140": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",
@@ -76,7 +76,7 @@
   },
   "15_130": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 5,
     "culture": "Rohan",
@@ -87,7 +87,7 @@
   },
   "15_141": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "itemclass": "Shield",
     "title": "Sturdy Shield",
@@ -95,7 +95,7 @@
   },
   "15_128": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Rohan",
@@ -107,7 +107,7 @@
   },
   "15_139": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -119,7 +119,7 @@
   },
   "15_129": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "itemclass": "Mount",
     "title": "Horse of Great Stature",
@@ -127,7 +127,7 @@
   },
   "15_124": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Rohan",
     "subtitle": "Trusty Weapon",
@@ -137,7 +137,7 @@
   },
   "15_135": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Rohan Worker",
     "type": "follower",
@@ -145,7 +145,7 @@
   },
   "15_125": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -158,7 +158,7 @@
   },
   "15_136": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Rohan",
     "itemclass": "Hand Weapon",
@@ -167,7 +167,7 @@
   },
   "15_126": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",
@@ -183,7 +183,7 @@
   },
   "15_137": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Rohan",
     "title": "*Rohirrim Doorwarden",
     "type": "follower",
@@ -191,7 +191,7 @@
   },
   "15_127": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Rohan",
     "title": "Grim Trophy",
     "type": "event",
@@ -199,7 +199,7 @@
   },
   "15_138": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 6,
     "culture": "Rohan",

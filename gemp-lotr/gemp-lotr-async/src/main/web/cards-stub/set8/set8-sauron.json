@@ -2,7 +2,7 @@
   "8_101": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -14,7 +14,7 @@
   "8_100": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -25,7 +25,7 @@
   },
   "8_103": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Sauron",
     "subtitle": "Hammer of the Underworld",
     "title": "*Grond",
@@ -38,7 +38,7 @@
   "8_102": {
     "side": "shadow",
     "site": 5,
-    "cost": 9,
+    "twilight": 9,
     "race": "Troll",
     "strength": 16,
     "culture": "Sauron",
@@ -53,7 +53,7 @@
   "8_105": {
     "side": "shadow",
     "site": 5,
-    "cost": 10,
+    "twilight": 10,
     "race": "Troll",
     "strength": 18,
     "culture": "Sauron",
@@ -67,7 +67,7 @@
   },
   "8_104": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Sauron",
     "title": "*Morgai",
     "type": "condition",
@@ -75,7 +75,7 @@
   },
   "8_107": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Sauron",
     "title": "Their Marching Companies",
     "type": "condition",
@@ -87,7 +87,7 @@
   "8_106": {
     "side": "shadow",
     "site": 5,
-    "cost": 8,
+    "twilight": 8,
     "race": "Orc",
     "strength": 20,
     "culture": "Sauron",
@@ -99,7 +99,7 @@
   "8_108": {
     "side": "shadow",
     "site": 5,
-    "cost": 10,
+    "twilight": 10,
     "race": "Troll",
     "strength": 14,
     "culture": "Sauron",
@@ -115,7 +115,7 @@
   "8_94": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -127,7 +127,7 @@
   "8_95": {
     "side": "shadow",
     "site": 5,
-    "cost": 2,
+    "twilight": 2,
     "race": "Orc",
     "strength": 7,
     "culture": "Sauron",
@@ -138,7 +138,7 @@
   },
   "8_93": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Sauron",
     "title": "Called Away",
     "type": "condition",
@@ -147,7 +147,7 @@
   "8_98": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",
@@ -159,7 +159,7 @@
   "8_99": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Orc",
     "strength": 10,
     "culture": "Sauron",
@@ -171,7 +171,7 @@
   "8_96": {
     "side": "shadow",
     "site": 5,
-    "cost": 5,
+    "twilight": 5,
     "race": "Orc",
     "strength": 12,
     "culture": "Sauron",
@@ -186,7 +186,7 @@
   "8_97": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Orc",
     "strength": 9,
     "culture": "Sauron",

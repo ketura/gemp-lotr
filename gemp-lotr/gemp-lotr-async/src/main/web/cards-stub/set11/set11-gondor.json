@@ -1,7 +1,7 @@
 {
   "11_58": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Gondor",
     "itemclass": "Ranged Weapon",
@@ -10,7 +10,7 @@
   },
   "11_59": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -19,7 +19,7 @@
   },
   "11_56": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Battle Cry",
     "type": "event",
@@ -27,7 +27,7 @@
   },
   "11_57": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -40,7 +40,7 @@
   },
   "11_61": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "*Houses of Healing",
     "type": "condition",
@@ -48,7 +48,7 @@
   },
   "11_62": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -61,7 +61,7 @@
   },
   "11_60": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "The Highest Quality",
     "type": "event",
@@ -69,7 +69,7 @@
   },
   "11_54": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -82,7 +82,7 @@
   },
   "11_65": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -94,7 +94,7 @@
   },
   "11_55": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "itemclass": "Armor",
     "title": "Armor of the Citadel",
@@ -102,7 +102,7 @@
   },
   "11_66": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Well-traveled",
     "type": "event",
@@ -113,7 +113,7 @@
   },
   "11_63": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "Much-needed Rest",
     "type": "event",
@@ -121,7 +121,7 @@
   },
   "11_53": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -134,7 +134,7 @@
   },
   "11_64": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Pledge of Loyalty",
     "type": "event",

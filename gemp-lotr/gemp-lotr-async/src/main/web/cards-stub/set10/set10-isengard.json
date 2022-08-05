@@ -1,7 +1,7 @@
 {
   "10_35": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Isengard",
     "title": "Suffered Much Loss",
     "type": "condition",

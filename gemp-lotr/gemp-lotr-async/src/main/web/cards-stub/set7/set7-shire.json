@@ -1,7 +1,7 @@
 {
   "7_318": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -18,7 +18,7 @@
   },
   "7_317": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -35,14 +35,14 @@
   },
   "7_328": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "*Slow-kindled Courage",
     "type": "condition"
   },
   "7_327": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -56,7 +56,7 @@
   },
   "7_321": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -69,7 +69,7 @@
   },
   "7_320": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -82,7 +82,7 @@
   },
   "7_326": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -96,7 +96,7 @@
   },
   "7_325": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Pressing On",
     "type": "condition",
@@ -104,7 +104,7 @@
   },
   "7_324": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -117,7 +117,7 @@
   },
   "7_323": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",

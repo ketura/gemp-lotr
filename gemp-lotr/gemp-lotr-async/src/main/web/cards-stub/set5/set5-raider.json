@@ -2,7 +2,7 @@
   "5_76": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Raider",
@@ -17,7 +17,7 @@
   "5_75": {
     "side": "shadow",
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 4,
     "culture": "Raider",
@@ -31,7 +31,7 @@
   },
   "5_78": {
     "side": "shadow",
-    "cost": 3,
+    "twilight": 3,
     "strength": 4,
     "culture": "Raider",
     "itemclass": "Mount",
@@ -40,7 +40,7 @@
   },
   "5_77": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Raider",
     "title": "Strength in Numbers",
     "type": "condition",
@@ -49,7 +49,7 @@
   "5_70": {
     "side": "shadow",
     "site": 4,
-    "cost": 7,
+    "twilight": 7,
     "race": "Man",
     "strength": 14,
     "culture": "Raider",
@@ -61,7 +61,7 @@
   "5_72": {
     "side": "shadow",
     "site": 4,
-    "cost": 5,
+    "twilight": 5,
     "race": "Man",
     "strength": 11,
     "culture": "Raider",
@@ -76,7 +76,7 @@
   "5_71": {
     "side": "shadow",
     "site": 4,
-    "cost": 6,
+    "twilight": 6,
     "race": "Man",
     "strength": 13,
     "culture": "Raider",
@@ -88,7 +88,7 @@
   "5_74": {
     "side": "shadow",
     "site": 4,
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 6,
     "culture": "Raider",
@@ -102,7 +102,7 @@
   },
   "5_73": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "strength": 3,
     "culture": "Raider",
     "itemclass": "Mount",

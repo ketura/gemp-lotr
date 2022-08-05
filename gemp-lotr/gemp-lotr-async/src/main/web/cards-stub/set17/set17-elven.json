@@ -1,7 +1,7 @@
 {
   "17_14": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Elven",
     "title": "Weapons of Lothlorien",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "17_10": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Namarie",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "17_11": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -30,7 +30,7 @@
   },
   "17_12": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",
@@ -43,7 +43,7 @@
   },
   "17_9": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Elven",
     "title": "Lothlorien Guides",
     "type": "event",
@@ -51,7 +51,7 @@
   },
   "17_13": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "culture": "Elven",
     "title": "The World Ahead",
     "type": "condition",
@@ -59,7 +59,7 @@
   },
   "17_8": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Elven",
     "title": "Hearth and Hall",
     "type": "event",
@@ -67,7 +67,7 @@
   },
   "17_7": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Elf",
     "strength": 6,
     "culture": "Elven",

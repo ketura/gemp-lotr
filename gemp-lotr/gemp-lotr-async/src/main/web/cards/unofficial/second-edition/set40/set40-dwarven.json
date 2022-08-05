@@ -2,7 +2,7 @@
   "40_3": {
     "title": "Balin's Lament",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "Condition",
     "keyword": [
       "support area",
@@ -46,7 +46,7 @@
   "40_4": {
     "title": "Balin's Revenge",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -69,7 +69,7 @@
   "40_5": {
     "title": "Battle Fever",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -112,7 +112,7 @@
   "40_6": {
     "title": "Battle Tested",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -137,7 +137,7 @@
   "40_7": {
     "title": "Brothers in Arms",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -171,7 +171,7 @@
   "40_8": {
     "title": "Crushing Blow",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -198,7 +198,7 @@
   "40_9": {
     "title": "Dwarf Soldier",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 5,
@@ -230,7 +230,7 @@
     "culture": "dwarven",
     "type": "possession",
     "itemclass": "hand weapon",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "vitality": 1,
     "target": "dwarf",
@@ -259,7 +259,7 @@
   "40_11": {
     "title": "Dwarven Bracers",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "bracers",
     "strength": 1,
@@ -295,7 +295,7 @@
   "40_12": {
     "title": "Dwarven Frenzy",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "text": "Exert X Dwarves twice to take X {dwarven} cards stacked on {dwarven} condition into hand (and draw X cards if the fellowship is at a mountain or underground site.)",
@@ -339,7 +339,7 @@
   "40_13": {
     "title": "*Dwarven Ire",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "text": "Each Dwarf is [keyword]damage +1[/keyword] for each card stacked on this condition (limit +2).",
@@ -364,7 +364,7 @@
   "40_14": {
     "title": "*Dwarven Vigor",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "text": "While a {dwarven} card is stacked on this condition, each Dwarf is strength +1 for each point of vitality over 3 he has.",
@@ -388,7 +388,7 @@
   "40_15": {
     "title": "Endurance of Dwarves",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "vitality": 1,
     "target": "dwarf",
@@ -421,7 +421,7 @@
   "40_16": {
     "title": "Festive Folk",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "text": "Exert a Dwarf and discard a card stacked on a {dwarven} condition to remove a burden.",
@@ -449,7 +449,7 @@
     "title": "*Gimli",
     "subtitle": "Dwarven Emissary",
     "culture": "dwarven",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,
@@ -494,7 +494,7 @@
     "title": "*Gimli",
     "subtitle": "Stalwart Protector",
     "culture": "dwarven",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,
@@ -547,7 +547,7 @@
     "title": "*Gimli's Battle Axe",
     "subtitle": "Weapon of Erebor",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -586,7 +586,7 @@
     "title": "*Glóin",
     "subtitle": "Venerable Dwarf",
     "culture": "dwarven",
-    "cost": 3,
+    "twilight": 3,
     "type": "companion",
     "race": "dwarf",
     "strength": 5,
@@ -653,7 +653,7 @@
   "40_21": {
     "title": "Killing Blow",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "skirmish",
     "text": "Make a Dwarf strength +2 (and [keyword]damage +1[/keyword] if you can spot a card stacked on a {dwarven} condition.)",
@@ -685,7 +685,7 @@
   "40_22": {
     "title": "Lethal Strike",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "text": "Exert a Dwarf to make him strength +3 and [keyword]damage +1[/keyword].",
@@ -714,7 +714,7 @@
   "40_23": {
     "title": "Memories of Khazad-dum",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "text": [
@@ -753,7 +753,7 @@
   "40_24": {
     "title": "Miners of Mithril",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "fellowship",
     "text": "Stack a Free Peoples card from hand on a {dwarven} support are condition to draw a card.",
@@ -773,7 +773,7 @@
   "40_25": {
     "title": "Resourcefulness",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "maneuver",
     "text": "Until the start of the regroup phase, each time you play a {dwarven} event, stack that event on a {dwarven} support area condition.",
@@ -797,7 +797,7 @@
   "40_26": {
     "title": "Retribution",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "skirmish",
     "text": [
@@ -832,7 +832,7 @@
   "40_27": {
     "title": "*Second Wind",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "text": "At the beginning of the maneuver phase, you may discard a card stacked on this condition to heal a Dwarf companion.",
@@ -857,7 +857,7 @@
   "40_28": {
     "title": "*Seven for the Dwarf-lords",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "artifact",
     "keyword": "support area",
     "text": [
@@ -920,7 +920,7 @@
   "40_29": {
     "title": "*Staunch Defenders",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "condition",
     "keyword": "support area",
     "text": "While you can spot 3 cards stacked on this condition, Dwarves may not be exerted by Shadow cards.",
@@ -941,7 +941,7 @@
   "40_30": {
     "title": "Take Cover!",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "archery",
     "text": "Discard a {dwarven} condition to make the minion archery total -X, where X is the number of cards that were stacked on that condition.",
@@ -971,7 +971,7 @@
     "title": "*Thorin III",
     "subtitle": "Lord of the Longbeards",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,
@@ -999,7 +999,7 @@
   "40_32": {
     "title": "*Well Prepared",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "text": "While there are 3 cards stacked on this condition, each time a Shadow event is played the Shadow player must exert a minion.",

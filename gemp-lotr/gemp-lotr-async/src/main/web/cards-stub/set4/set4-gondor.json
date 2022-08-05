@@ -1,7 +1,7 @@
 {
   "4_113": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Curse Them",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "4_135": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "War and Valor",
     "type": "event",
@@ -17,7 +17,7 @@
   },
   "4_114": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -33,7 +33,7 @@
   },
   "4_115": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Defend It and Hope",
     "type": "event",
@@ -41,7 +41,7 @@
   },
   "4_116": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -58,7 +58,7 @@
   },
   "4_117": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -75,7 +75,7 @@
   },
   "4_118": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Ranged Weapon",
     "title": "*Faramir's Bow",
@@ -83,7 +83,7 @@
   },
   "4_119": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "itemclass": "Cloak",
     "title": "*Faramir's Cloak",
@@ -91,7 +91,7 @@
   },
   "4_130": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -106,7 +106,7 @@
   },
   "4_131": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Ranged Weapon",
     "title": "Ranger's Bow",
@@ -114,7 +114,7 @@
   },
   "4_110": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "Arrows Thick in the Air",
     "type": "event",
@@ -125,7 +125,7 @@
   },
   "4_132": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "subtitle": "Blade of Aragorn",
@@ -135,7 +135,7 @@
   },
   "4_111": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "vitality": 1,
     "title": "*Boromir, My Brother",
@@ -143,7 +143,7 @@
   },
   "4_133": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "*Ruins of Osgiliath",
     "type": "condition",
@@ -151,7 +151,7 @@
   },
   "4_112": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "itemclass": "Gauntlets",
     "title": "*Boromir's Gauntlets",
@@ -159,7 +159,7 @@
   },
   "4_134": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -168,7 +168,7 @@
   },
   "4_124": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "Help in Doubt and Need",
     "type": "condition",
@@ -176,7 +176,7 @@
   },
   "4_125": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "*Henneth Annun",
     "type": "condition",
@@ -184,7 +184,7 @@
   },
   "4_126": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "*Ithilien Trap",
     "type": "condition",
@@ -192,7 +192,7 @@
   },
   "4_127": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -208,7 +208,7 @@
   },
   "4_128": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "New Errand",
     "type": "event",
@@ -216,7 +216,7 @@
   },
   "4_109": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -230,7 +230,7 @@
   },
   "4_120": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "*Forbidden Pool",
     "type": "condition",
@@ -238,7 +238,7 @@
   },
   "4_121": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "*Forests of Ithilien",
     "type": "condition",
@@ -246,7 +246,7 @@
   },
   "4_122": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -261,7 +261,7 @@
   },
   "4_364": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -275,7 +275,7 @@
   },
   "4_123": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Hard Choice",
     "type": "event",

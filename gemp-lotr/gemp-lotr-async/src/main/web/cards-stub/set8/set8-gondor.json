@@ -1,7 +1,7 @@
 {
   "8_36": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 8,
     "culture": "Gondor",
@@ -16,7 +16,7 @@
   },
   "8_47": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Stronger and More Terrible",
     "type": "condition",
@@ -24,7 +24,7 @@
   },
   "8_37": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -37,7 +37,7 @@
   },
   "8_48": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Swept Away",
     "type": "condition",
@@ -45,7 +45,7 @@
   },
   "8_34": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -59,7 +59,7 @@
   },
   "8_45": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Wraith",
     "strength": 7,
     "culture": "Gondor",
@@ -72,7 +72,7 @@
   },
   "8_35": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": -1,
     "culture": "Gondor",
     "title": "Fourth Level",
@@ -84,7 +84,7 @@
   },
   "8_46": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 1,
     "culture": "Gondor",
     "itemclass": "Hand Weapon",
@@ -93,7 +93,7 @@
   },
   "8_38": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wraith",
     "strength": 7,
     "culture": "Gondor",
@@ -107,7 +107,7 @@
   },
   "8_39": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -119,7 +119,7 @@
   },
   "8_40": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Gondor",
     "itemclass": "Mount",
@@ -128,7 +128,7 @@
   },
   "8_32": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Catapult",
     "type": "possession",
@@ -136,7 +136,7 @@
   },
   "8_43": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "race": "Wraith",
     "strength": 9,
     "culture": "Gondor",
@@ -149,7 +149,7 @@
   },
   "8_33": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Elessar's Edict",
     "type": "event",
@@ -157,7 +157,7 @@
   },
   "8_44": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Gondor",
     "title": "Sixth Level",
     "type": "condition",
@@ -168,7 +168,7 @@
   },
   "8_41": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Wraith",
     "strength": 6,
     "culture": "Gondor",
@@ -181,7 +181,7 @@
   },
   "8_31": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "At His Command",
     "type": "event",
@@ -189,7 +189,7 @@
   },
   "8_42": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "A Path Appointed",
     "type": "condition",

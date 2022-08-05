@@ -2,7 +2,7 @@
   "2_1": {
     "title": "Beneath the Mountains",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": [
       "tale",
@@ -54,7 +54,7 @@
   "2_2": {
     "title": "Disquiet of Our People",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "maneuver",
     "effects": {
@@ -84,7 +84,7 @@
   "2_3": {
     "title": "Dwarven Bracers",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "bracers",
     "strength": 1,
@@ -115,7 +115,7 @@
   "2_4": {
     "title": "Endurance of Dwarves",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "vitality": 1,
     "target": "dwarf",
@@ -143,7 +143,7 @@
   "2_5": {
     "title": "Flurry of Blows",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "skirmish",
     "effects": {
@@ -184,7 +184,7 @@
     "title": "*Fror",
     "subtitle": "Gimli's Kinsman",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 5,
@@ -207,7 +207,7 @@
     "title": "*Gloin",
     "subtitle": "Friend to Thorin",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 5,
@@ -229,7 +229,7 @@
   "2_8": {
     "title": "Golden Light on the Land",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "requires": {
       "type": "canSpot",
@@ -265,7 +265,7 @@
   "2_9": {
     "title": "Great Works Begun There",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": ["tale","support area"],
     "effects": {
@@ -289,7 +289,7 @@
   "2_10": {
     "title": "Hand Axe",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 1,
@@ -316,7 +316,7 @@
   "2_11": {
     "title": "Make Light of Burdens",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -342,7 +342,7 @@
   "2_12": {
     "title": "*Realm of Dwarrowdelf",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "condition",
     "keyword": "support area",
     "effects": {
@@ -389,7 +389,7 @@
   "2_13": {
     "title": "Tidings of Erebor",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "event",
     "keyword": "regroup",
     "requires": {
@@ -416,7 +416,7 @@
   "2_14": {
     "title": "Till Durin Wakes Again",
     "culture": "dwarven",
-    "cost": 0,
+    "twilight": 0,
     "type": "condition",
     "keyword": ["tale","support area"],
     "effects": {
@@ -440,7 +440,7 @@
   "2_15": {
     "title": "What Are We Waiting For?",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -486,7 +486,7 @@
     "title": "*Gimli",
     "subtitle": "Dwarf of the Mountain-race",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "companion",
     "race": "dwarf",
     "strength": 6,

@@ -1,7 +1,7 @@
 {
   "4_300": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "vitality": 1,
     "title": "Escape",
@@ -10,7 +10,7 @@
   },
   "4_311": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -23,7 +23,7 @@
   },
   "4_322": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Warmed Up a Bit",
     "type": "event",
@@ -34,7 +34,7 @@
   },
   "4_301": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -48,7 +48,7 @@
   },
   "4_312": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Mind Your Own Affairs",
     "type": "event",
@@ -56,7 +56,7 @@
   },
   "4_302": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -70,7 +70,7 @@
   },
   "4_313": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -83,7 +83,7 @@
   },
   "4_303": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "itemclass": "Cloak",
     "title": "*Frodo's Cloak",
@@ -91,7 +91,7 @@
   },
   "4_314": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -104,7 +104,7 @@
   },
   "4_304": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Get On and Get Away",
     "type": "event",
@@ -112,7 +112,7 @@
   },
   "4_315": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -126,7 +126,7 @@
   },
   "4_305": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "*Good Work",
     "type": "condition",
@@ -134,7 +134,7 @@
   },
   "4_316": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -148,14 +148,14 @@
   },
   "4_317": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "*Sam's Pack",
     "type": "possession"
   },
   "4_307": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Impatient and Angry",
     "type": "event",
@@ -163,7 +163,7 @@
   },
   "4_318": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Seven We Had",
     "type": "event",
@@ -171,14 +171,14 @@
   },
   "4_298": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Brace of Coneys",
     "type": "possession"
   },
   "4_320": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Store-room",
     "type": "event",
@@ -186,7 +186,7 @@
   },
   "4_299": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "*Cliffs of Emyn Muil",
     "type": "condition",
@@ -194,7 +194,7 @@
   },
   "4_310": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -207,7 +207,7 @@
   },
   "4_321": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Swiftly and Softly",
     "type": "event",
@@ -218,7 +218,7 @@
   },
   "4_308": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Knocked on the Head",
     "type": "event",
@@ -226,7 +226,7 @@
   },
   "4_319": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Severed His Bonds",
     "type": "event",
@@ -237,7 +237,7 @@
   },
   "4_309": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Light Shining Faintly",
     "type": "event",

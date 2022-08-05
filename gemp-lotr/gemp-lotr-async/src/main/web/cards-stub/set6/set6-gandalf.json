@@ -1,7 +1,7 @@
 {
   "6_29": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Gandalf",
     "title": "Ent Moot",
@@ -9,7 +9,7 @@
   },
   "6_33": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Ent",
     "strength": 8,
     "culture": "Gandalf",
@@ -21,7 +21,7 @@
   },
   "6_32": {
     "side": "free_people",
-    "cost": 13,
+    "twilight": 13,
     "race": "Ent",
     "strength": 10,
     "culture": "Gandalf",
@@ -32,7 +32,7 @@
   },
   "6_24": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gandalf",
     "title": "Boomed and Trumpeted",
     "type": "event",
@@ -40,7 +40,7 @@
   },
   "6_35": {
     "side": "free_people",
-    "cost": 7,
+    "twilight": 7,
     "race": "Ent",
     "strength": 8,
     "culture": "Gandalf",
@@ -52,7 +52,7 @@
   },
   "6_34": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Roused",
     "type": "event",
@@ -60,7 +60,7 @@
   },
   "6_26": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 4,
     "culture": "Gandalf",
     "title": "Enraged",
@@ -68,7 +68,7 @@
   },
   "6_37": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "race": "Ent",
     "strength": 12,
     "culture": "Gandalf",
@@ -81,7 +81,7 @@
   },
   "6_25": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Crack Into Rubble",
     "type": "event",
@@ -89,7 +89,7 @@
   },
   "6_36": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gandalf",
     "title": "Threw Down My Enemy",
     "type": "event",
@@ -100,7 +100,7 @@
   },
   "6_28": {
     "side": "free_people",
-    "cost": 15,
+    "twilight": 15,
     "race": "Ent",
     "strength": 10,
     "culture": "Gandalf",
@@ -111,7 +111,7 @@
   },
   "6_27": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Ent",
     "strength": 6,
     "culture": "Gandalf",
@@ -122,7 +122,7 @@
   },
   "6_31": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "strength": 2,
     "culture": "Gandalf",
     "subtitle": "Lightning Brand",
@@ -132,7 +132,7 @@
   },
   "6_30": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "race": "Wizard",
     "strength": 10,
     "culture": "Gandalf",

@@ -1,7 +1,7 @@
 {
 	"68_12": {
     "side": "free_people",
-    "cost": 5,
+    "twilight": 5,
     "race": "Elf",
     "strength": 9,
     "culture": "Elven",
@@ -48,7 +48,7 @@
   },
   "68_29": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "*Deceit",
     "type": "condition",
@@ -72,7 +72,7 @@
   },
   "68_50": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "*The Faithful Stone",
     "type": "condition",
@@ -127,7 +127,7 @@
   
   "68_79": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Orc",
     "title": "Frenzy of Arrows",
     "type": "event",
@@ -156,7 +156,7 @@
   
   "68_96": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Rohan",
     "title": "*Erkenbrand's Horn",
     "type": "possession",
@@ -192,7 +192,7 @@
   
   "68_112": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "*Scouring of the Shire",
     "type": "condition",

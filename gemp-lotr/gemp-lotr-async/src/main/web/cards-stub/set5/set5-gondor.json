@@ -1,7 +1,7 @@
 {
   "5_39": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "vitality": -2,
     "title": "*Stone Tower",
@@ -13,7 +13,7 @@
   },
   "5_32": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": -2,
     "culture": "Gondor",
     "vitality": -1,
@@ -26,7 +26,7 @@
   },
   "5_43": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "War Must Be",
     "type": "event",
@@ -34,7 +34,7 @@
   },
   "5_31": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Man",
     "strength": 7,
     "culture": "Gondor",
@@ -47,7 +47,7 @@
   },
   "5_42": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -60,7 +60,7 @@
   },
   "5_34": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Fall Back",
     "type": "event",
@@ -68,7 +68,7 @@
   },
   "5_33": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": -3,
     "culture": "Gondor",
     "title": "City Wall",
@@ -80,7 +80,7 @@
   },
   "5_36": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 5,
     "culture": "Gondor",
@@ -92,7 +92,7 @@
   },
   "5_35": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Man",
     "strength": 6,
     "culture": "Gondor",
@@ -104,7 +104,7 @@
   },
   "5_38": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gondor",
     "title": "Rally Point",
     "type": "condition",
@@ -112,7 +112,7 @@
   },
   "5_37": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Men of Numenor",
     "type": "event",
@@ -120,7 +120,7 @@
   },
   "5_41": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Gondor",
     "title": "These Are My People",
     "type": "event",
@@ -128,7 +128,7 @@
   },
   "5_40": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gondor",
     "title": "Take Cover",
     "type": "event",

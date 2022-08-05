@@ -1,7 +1,7 @@
 {
   "5_21": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Be Back Soon",
     "type": "event",
@@ -9,14 +9,14 @@
   },
   "5_23": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Follow Smeagol",
     "type": "condition"
   },
   "5_22": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Gollum",
     "title": "Evil-smelling Fens",
     "type": "condition",
@@ -25,7 +25,7 @@
   "5_25": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "strength": 5,
     "culture": "Gollum",
     "vitality": 4,
@@ -36,7 +36,7 @@
   "5_24": {
     "side": "shadow",
     "site": 3,
-    "cost": 2,
+    "twilight": 2,
     "strength": 5,
     "culture": "Gollum",
     "vitality": 4,
@@ -46,7 +46,7 @@
   },
   "5_27": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "culture": "Gollum",
     "title": "Poor Wretch",
@@ -54,7 +54,7 @@
   },
   "5_26": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "Look at Him",
     "type": "event",
@@ -62,7 +62,7 @@
   },
   "5_29": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 3,
     "culture": "Gollum",
     "vitality": 4,
@@ -75,7 +75,7 @@
   },
   "5_28": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "strength": 3,
     "culture": "Gollum",
     "vitality": 4,
@@ -88,7 +88,7 @@
   },
   "5_30": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Gollum",
     "title": "We Must Have It",
     "type": "event",

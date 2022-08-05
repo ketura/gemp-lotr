@@ -2,7 +2,7 @@
   "13_159": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 9,
     "culture": "Uruk-hai",
@@ -13,7 +13,7 @@
   },
   "13_162": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Uruk-hai",
     "title": "Enemy Without Number",
     "type": "condition",
@@ -22,7 +22,7 @@
   "13_173": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 8,
     "culture": "Uruk-hai",
@@ -37,7 +37,7 @@
   "13_163": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 9,
     "culture": "Uruk-hai",
@@ -52,7 +52,7 @@
   "13_174": {
     "side": "shadow",
     "site": 5,
-    "cost": 5,
+    "twilight": 5,
     "race": "Uruk-Hai",
     "strength": 12,
     "culture": "Uruk-hai",
@@ -63,7 +63,7 @@
   },
   "13_164": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Uruk-hai",
     "title": "Fearless Approach",
     "type": "condition",
@@ -72,7 +72,7 @@
   "13_175": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 7,
     "culture": "Uruk-hai",
@@ -84,7 +84,7 @@
   "13_165": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Uruk-Hai",
     "strength": 7,
     "culture": "Uruk-hai",
@@ -95,7 +95,7 @@
   },
   "13_176": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Uruk-hai",
     "title": "War Machine",
     "type": "event",
@@ -103,7 +103,7 @@
   },
   "13_166": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Uruk-hai",
     "title": "New Enemy",
     "type": "event",
@@ -111,7 +111,7 @@
   },
   "13_177": {
     "side": "shadow",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Uruk-hai",
     "title": "Weapons of Control",
     "type": "condition",
@@ -119,7 +119,7 @@
   },
   "13_167": {
     "side": "shadow",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Uruk-hai",
     "title": "*Signs of War",
     "type": "condition",
@@ -128,7 +128,7 @@
   "13_168": {
     "side": "shadow",
     "site": 5,
-    "cost": 3,
+    "twilight": 3,
     "race": "Uruk-Hai",
     "strength": 8,
     "culture": "Uruk-hai",
@@ -140,7 +140,7 @@
   "13_158": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 9,
     "culture": "Uruk-hai",
@@ -152,7 +152,7 @@
   "13_169": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 12,
     "culture": "Uruk-hai",
@@ -163,7 +163,7 @@
   "13_170": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 9,
     "culture": "Uruk-hai",
@@ -175,7 +175,7 @@
   "13_160": {
     "side": "shadow",
     "site": 5,
-    "cost": 2,
+    "twilight": 2,
     "race": "Uruk-Hai",
     "strength": 6,
     "culture": "Uruk-hai",
@@ -187,7 +187,7 @@
   "13_171": {
     "side": "shadow",
     "site": 5,
-    "cost": 4,
+    "twilight": 4,
     "race": "Uruk-Hai",
     "strength": 9,
     "culture": "Uruk-hai",
@@ -198,7 +198,7 @@
   },
   "13_161": {
     "side": "shadow",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Uruk-hai",
     "title": "Endless Assault",
     "type": "condition",
@@ -207,7 +207,7 @@
   "13_172": {
     "side": "shadow",
     "site": 5,
-    "cost": 5,
+    "twilight": 5,
     "race": "Uruk-Hai",
     "strength": 15,
     "culture": "Uruk-hai",

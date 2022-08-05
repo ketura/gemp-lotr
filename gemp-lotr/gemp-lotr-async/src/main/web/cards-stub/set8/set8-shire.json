@@ -1,7 +1,7 @@
 {
   "8_109": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Closer and Closer He Bent",
     "type": "condition",
@@ -9,7 +9,7 @@
   },
   "8_110": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "*Morgai Foothills",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "8_121": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 5,
     "culture": "Shire",
@@ -30,7 +30,7 @@
   },
   "8_112": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Song of the Shire",
     "type": "condition",
@@ -38,7 +38,7 @@
   },
   "8_111": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "So Fair, So Desperate",
     "type": "event",
@@ -46,7 +46,7 @@
   },
   "8_122": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Hobbit",
     "strength": 5,
     "culture": "Shire",
@@ -59,7 +59,7 @@
   },
   "8_114": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Straining Towards Us",
     "type": "event",
@@ -67,7 +67,7 @@
   },
   "8_113": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Bane of the Eight Legs",
@@ -77,7 +77,7 @@
   },
   "8_116": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "We Shall Meet Again Soon",
     "type": "event",
@@ -85,7 +85,7 @@
   },
   "8_115": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Shire",
     "title": "Unheeded",
     "type": "event",

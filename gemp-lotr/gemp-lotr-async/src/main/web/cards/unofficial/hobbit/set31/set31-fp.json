@@ -2,7 +2,7 @@
   "31_1": {
     "title": "Dwarven Axe",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "hand weapon",
     "strength": 2,
@@ -23,7 +23,7 @@
   "31_2": {
     "title": "Dwarven Song",
     "culture": "dwarven",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": "fellowship",
     "effects": {
@@ -93,7 +93,7 @@
   "31_3": {
     "title": "*Emeralds of Girion",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -128,7 +128,7 @@
   "31_4": {
     "title": "*Great Barricade",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "possession",
     "keyword": [
       "support area",
@@ -173,7 +173,7 @@
   "31_5": {
     "title": "*Mithril-coat",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "vitality": 1,
     "target": "name(Bilbo)",
@@ -203,7 +203,7 @@
   "31_6": {
     "title": "*Oakenshield",
     "culture": "dwarven",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "itemclass": "shield",
     "strength": 1,
@@ -244,7 +244,7 @@
   "31_7": {
     "title": "*The Arkenstone",
     "culture": "dwarven",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "keyword": "support area",
     "effects": [
@@ -292,7 +292,7 @@
   "31_8": {
     "title": "*Elf Army",
     "culture": "elven",
-    "cost": 3,
+    "twilight": 3,
     "type": "ally",
     "allyHome": "hobbit,5",
     "race": "elf",
@@ -328,7 +328,7 @@
     "title": "*Legolas",
     "subtitle": "Prince of Mirkwood",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "hobbit,5",
     "race": "elf",
@@ -365,7 +365,7 @@
     "title": "*Tauriel",
     "subtitle": "Staunch Defender",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "ally",
     "allyHome": "hobbit,5",
     "race": "elf",
@@ -388,7 +388,7 @@
   "31_11": {
     "title": "The Evil Becomes Stronger",
     "culture": "elven",
-    "cost": 2,
+    "twilight": 2,
     "type": "event",
     "keyword": "archery",
     "effects": {
@@ -421,7 +421,7 @@
     "title": "*Thranduil",
     "subtitle": "Elven King",
     "culture": "elven",
-    "cost": 4,
+    "twilight": 4,
     "type": "ally",
     "allyHome": "hobbit,5",
     "race": "elf",
@@ -459,7 +459,7 @@
     "title": "*Beorn",
     "subtitle": "Skin-Changer",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "follower",
     "race": "man",
     "strength": 2,
@@ -501,7 +501,7 @@
   "31_14": {
     "title": "The Eagles Are Coming",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "spell",
@@ -547,7 +547,7 @@
     "title": "*Gwaihir",
     "subtitle": "Lord of the Eagles",
     "culture": "gandalf",
-    "cost": 1,
+    "twilight": 1,
     "type": "follower",
     "race": "eagle",
     "strength": 1,
@@ -595,7 +595,7 @@
   "31_16": {
     "title": "His Wrath Was Redoubled",
     "culture": "gandalf",
-    "cost": 3,
+    "twilight": 3,
     "type": "event",
     "keyword": [
       "assignment",
@@ -626,7 +626,7 @@
     "type": "ally",
     "allyHome": "hobbit,5",
     "race": "wizard",
-    "cost": 4,
+    "twilight": 4,
     "strength": 8,
     "vitality": 4,
     "keyword": "wise",
@@ -661,7 +661,7 @@
   "31_18": {
     "title": "*Wizard Staff",
     "culture": "gandalf",
-    "cost": 2,
+    "twilight": 2,
     "type": "artifact",
     "itemclass": "staff",
     "vitality": 1,
@@ -685,7 +685,7 @@
   "31_38": {
     "title": "An Acorn from Beorn's House",
     "culture": "shire",
-    "cost": 1,
+    "twilight": 1,
     "type": "possession",
     "target": "name(Bilbo)",
     "effects": {
@@ -712,7 +712,7 @@
     "culture": "shire",
     "type": "event",
     "keyword": "skirmish",
-    "cost": 1,
+    "twilight": 1,
     "requires": {
       "type": "ringIsOn"
     },
@@ -735,7 +735,7 @@
     "culture": "shire",
     "type": "event",
     "keyword": "regroup",
-    "cost": 1,
+    "twilight": 1,
     "effects": {
       "type": "event",
       "cost": {
@@ -775,7 +775,7 @@
     "title": "*Burglar's Contract",
     "culture": "shire",
     "type": "possession",
-    "cost": 1,
+    "twilight": 1,
     "resistance": 1,
     "target": "name(Bilbo)",
     "effects": {
@@ -807,7 +807,7 @@
     "culture": "shire",
     "type": "follower",
     "race": "bird",
-    "cost": 1,
+    "twilight": 1,
     "strength": 1,
     "effects": [
       {
@@ -853,7 +853,7 @@
     "culture": "shire",
     "type": "event",
     "keyword": "maneuver",
-    "cost": 1,
+    "twilight": 1,
     "effects": {
       "type": "event",
       "cost": [

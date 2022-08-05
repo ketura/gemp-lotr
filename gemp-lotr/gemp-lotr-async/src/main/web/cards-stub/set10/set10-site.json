@@ -1,7 +1,7 @@
 {
   "10_120": {
     "site": 8,
-    "cost": 8,
+    "twilight": 8,
     "block": "King",
     "title": "Watchers of Cirith Ungol",
     "type": "site",
@@ -9,7 +9,7 @@
   },
   "10_119": {
     "site": 5,
-    "cost": 8,
+    "twilight": 8,
     "block": "King",
     "title": "Steward's Tomb",
     "type": "site",
@@ -17,7 +17,7 @@
   },
   "10_118": {
     "site": 4,
-    "cost": 3,
+    "twilight": 3,
     "block": "King",
     "title": "Pelennor Prairie",
     "type": "site",
@@ -26,7 +26,7 @@
   },
   "10_117": {
     "site": 3,
-    "cost": 0,
+    "twilight": 0,
     "block": "King",
     "title": "Base of Mindolluin",
     "type": "site",

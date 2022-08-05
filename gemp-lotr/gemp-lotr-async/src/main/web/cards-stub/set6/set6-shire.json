@@ -1,7 +1,7 @@
 {
   "6_110": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "It Burns Us",
     "type": "event",
@@ -9,14 +9,14 @@
   },
   "6_109": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Held",
     "type": "condition"
   },
   "6_111": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Shire",
     "title": "*Kept Safe",
     "type": "condition",
@@ -24,7 +24,7 @@
   },
   "6_112": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Shire",
     "title": "Long Slow Wrath",
     "type": "event",
@@ -32,7 +32,7 @@
   },
   "6_113": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",
@@ -45,7 +45,7 @@
   },
   "6_114": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "race": "Hobbit",
     "strength": 3,
     "culture": "Shire",

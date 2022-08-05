@@ -1,7 +1,7 @@
 {
   "12_4": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Durability",
     "type": "event",
@@ -9,7 +9,7 @@
   },
   "12_3": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "A Clamour of Many Voices",
     "type": "condition",
@@ -17,7 +17,7 @@
   },
   "12_2": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "itemclass": "Armor",
     "title": "Belt of Erebor",
@@ -25,7 +25,7 @@
   },
   "12_1": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Argument Ready to Hand",
     "type": "event",
@@ -33,7 +33,7 @@
   },
   "12_15": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "race": "Dwarf",
     "strength": 7,
     "culture": "Dwarven",
@@ -45,7 +45,7 @@
   },
   "12_13": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Sharp Defense",
     "type": "event",
@@ -53,7 +53,7 @@
   },
   "12_14": {
     "side": "free_people",
-    "cost": 0,
+    "twilight": 0,
     "culture": "Dwarven",
     "title": "Stalwart Support",
     "type": "condition",
@@ -61,7 +61,7 @@
   },
   "12_9": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "Loud and Strong",
     "type": "condition",
@@ -69,7 +69,7 @@
   },
   "12_8": {
     "side": "free_people",
-    "cost": 1,
+    "twilight": 1,
     "culture": "Dwarven",
     "title": "His Father's Charge",
     "type": "condition",
@@ -77,7 +77,7 @@
   },
   "12_7": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "race": "Dwarf",
     "strength": 6,
     "culture": "Dwarven",
@@ -88,7 +88,7 @@
   },
   "12_6": {
     "side": "free_people",
-    "cost": 3,
+    "twilight": 3,
     "culture": "Dwarven",
     "title": "Dwarven Skill",
     "type": "condition",
@@ -99,7 +99,7 @@
   },
   "12_12": {
     "side": "free_people",
-    "cost": 2,
+    "twilight": 2,
     "culture": "Dwarven",
     "title": "*Proud and Able",
     "type": "condition",
@@ -107,7 +107,7 @@
   },
   "12_10": {
     "side": "free_people",
-    "cost": 4,
+    "twilight": 4,
     "culture": "Dwarven",
     "title": "No Pauses, No Spills",
     "type": "event",
