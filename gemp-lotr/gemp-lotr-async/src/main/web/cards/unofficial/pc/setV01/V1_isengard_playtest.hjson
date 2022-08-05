@@ -1,0 +1,389 @@
+{
+
+	151_25: {
+		title: Crebain Flock
+		culture: isengard
+		twilight: 2
+		type: minion
+		race: crow
+		strength: 2
+		vitality: 3
+		site: 4
+		effects: [
+			{
+				type: modifyowncost
+				amount: {
+					type: multiply
+					multiplier: -1
+					source: {
+						type: forEachYouCanSpot
+						filter: companion
+						over: 3
+					}
+				}
+			}
+			{
+				type: activated
+				phase: maneuver
+				requires: {
+					type: or
+					requires: [
+						{
+							type: canSpot
+							filter: companion,wounded
+							count: 2
+						}
+						{
+							type: canSpot
+							filter: title(Saruman)
+						}
+					]
+				}
+				cost: {
+					type: discard
+					filter: self
+				}
+				effect: {
+					type: choice
+					texts: [
+						Choose an {isengard} weather card from your draw deck
+						Choose an {isengard} weather card from your discard pile
+					]
+					effects: [
+						{
+							type: putCardsFromDeckOnTopOfDeck
+							filter: choose(culture(isengard),weather)
+							count: 1
+						}
+						{
+							type: putCardsFromDiscardOnTopOfDeck
+							filter: choose(culture(isengard),weather)
+							count: 1
+						}
+					]
+				}
+			}
+		]
+	}
+
+	151_26: {
+		title: Crows of Isengard
+		culture: isengard
+		twilight: 3
+		type: minion
+		race: crow
+		strength: 3
+		vitality: 3
+		site: 4
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: played
+					filter: self
+				}
+				effect: [
+					{
+						type: spot
+						filter: choose(companion)
+						memorize: spottedComp
+					}
+					{
+						type: memorizeNumber
+						memory: attachedItems
+						amount: {
+							type: forEachYouCanSpot
+							filter: side(free people),attachedTo(memory(spottedComp))
+						}
+					}
+					{
+						type: addTwilight
+						amount: {
+							type: fromMemory
+							memory: attachedItems
+							limit: 3
+						}
+					}
+				]
+			}
+			{
+				type: activated
+				phase: maneuver
+				requires: {
+					type: or
+					requires: [
+						{
+							type: canSpot
+							filter: item,side(free people)
+							count: 2
+						}
+						{
+							type: canSpot
+							filter: title(Saruman)
+						}
+					]
+				}
+				cost: {
+					type: discard
+					filter: self
+				}
+				effect: {
+					type: choice
+					texts: [
+						Choose an {isengard} item card from your draw deck
+						Choose an {isengard} item card from your discard pile
+					]
+					effects: [
+						{
+							type: putCardsFromDeckOnTopOfDeck
+							filter: choose(culture(isengard),item)
+							count: 1
+						}
+						{
+							type: putCardsFromDiscardOnTopOfDeck
+							filter: choose(culture(isengard),item)
+							count: 1
+						}
+					]
+				}
+			}
+
+		]
+	}
+
+
+	151_27: {
+		title: Frostbite
+		culture: isengard
+		twilight: 1
+		type: condition
+		target: companion,not(hasAttached(name(Frostbite)))
+		requires: {
+			type: canSpot
+			filter: weather,condition
+		}
+		effects: [
+
+			{
+				type: trigger
+				trigger: {
+					type: played
+					filter: weather
+				}
+				effect:	{
+					type: addTwilight
+					amount: 2
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: aboutToDiscard
+					filter: self
+					source: side(free people)
+				}
+				effect:	{
+					type: wound
+					filter: bearer
+				}
+			}
+		]
+	}
+
+
+	151_28: {
+		title: Just A Wisp Of Cloud
+		culture: isengard
+		twilight: 1
+		type: event
+		keyword: [
+			maneuver
+			spell
+			weather
+		]
+		effects: {
+			type: event
+			
+			effect: [
+				{
+					type: choice
+					texts: [
+						Choose Saruman from your draw deck
+						Choose Saruman from your discard pile
+					]
+					effects: [
+						{
+							type: putCardsFromDeckOnTopOfDeck
+							filter: choose(title(Saruman))
+							count: 1
+						}
+						{
+							type: putCardsFromDiscardOnTopOfDeck
+							filter: choose(title(Saruman))
+							count: 1
+						}
+					]
+				}
+				{
+					type: DiscardFromHand
+					forced: false
+					filter: choose(any)
+					count: {
+						type: range
+						from: 0
+						to: {
+							type: forEachYouCanSpot
+							filter: crow
+						}
+					}
+				}
+			]
+		}
+	}
+
+
+	151_29: {
+		title: A Murder Of Crows
+		unique: true
+		culture: isengard
+		twilight: 4
+		type: minion
+		race: crow
+		strength: 4
+		vitality: 3
+		site: 4
+		effects: [
+			{
+				type: modifyowncost
+				requires: {
+					type: canSpot
+					filter: side(free people),condition
+					count: 3
+				}
+				amount: -3
+			}
+			{
+				type: activated
+				phase: maneuver
+				requires: {
+					type: or
+					requires: [
+						{
+							type: canSpot
+							filter: condition,side(free people)
+							count: 3
+						}
+						{
+							type: canSpot
+							filter: title(Saruman)
+						}
+					]
+				}
+				cost: {
+					type: discard
+					filter: self
+				}
+				effect: {
+					type: choice
+					texts: [
+						Choose an {isengard} condition from your draw deck
+						Choose an {isengard} condition from your discard pile
+					]
+					effects: [
+						{
+							type: putCardsFromDeckOnTopOfDeck
+							filter: choose(culture(isengard),condition)
+							count: 1
+						}
+						{
+							type: putCardsFromDiscardOnTopOfDeck
+							filter: choose(culture(isengard),condition)
+							count: 1
+						}
+					]
+				}
+			}
+			
+		]
+	}
+
+	151_30: {
+		title: Saruman
+		subtitle: Fell Voice
+		unique: true
+		culture: isengard
+		twilight: 4
+		type: minion
+		race: wizard
+		strength: 6
+		vitality: 4
+		site: 4
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: cantTakeWounds
+					filter: self
+					requires: [
+						{
+							type: cantspot
+							filter: weather
+						}
+						{
+							type: phase
+							phase: archery
+						}
+						{
+							type: sarumanfirstsentenceactive
+						}
+					]
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: cantbeassignedtoskirmish
+					filter: self
+					requires: [
+						{
+							type: cantspot
+							filter: weather
+						}
+						{
+							type: sarumanfirstsentenceactive
+						}
+					]
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: modifystrength
+					filter: culture(isengard),minion
+					amount: 2
+					requires: {
+						type: canSpot
+						filter: weather,attachedTo(site)
+					}
+				}
+			}
+			{
+				type: activatedtrigger
+				trigger: {
+					type: movesFrom
+					filter: site,hasAttached(weather,condition)
+				}
+				cost: {
+					type: discard
+					filter: self
+				}
+				effect: {
+					type: exert
+					filter: all(companion)
+				}
+			}
+		]
+	}
+
+}
+

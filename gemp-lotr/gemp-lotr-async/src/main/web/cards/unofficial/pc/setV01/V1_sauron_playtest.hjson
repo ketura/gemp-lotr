@@ -1,0 +1,236 @@
+{
+
+	151_44: {
+		title: Fell To Its Power
+		culture: sauron
+		twilight: 1
+		type: event
+		keyword: regroup
+		effects: {
+			type: event
+			cost: {
+				type: discard
+				filter: choose(culture(sauron),orc)
+			}
+			effect: [
+				{
+					type: preventable
+					text: Would you like to discard a Free Peoples condition to prevent adding a burden?
+					player: fp
+ 					cost: {
+						type: discard
+						filter: choose(side(free people),condition)
+					}
+					effect: {
+						type: addBurdens
+						amount: 1
+					}
+				}
+			]
+		}
+	}
+
+
+	151_45: {
+		title: Gaze Of The Eye
+		unique: true
+		culture: sauron
+		twilight: 1
+		type: condition
+		keyword: support area
+		effects: [
+			{
+			type: activatedTrigger
+				trigger: {
+					type: abouttodiscard
+					filter: culture(sauron),condition
+				}
+				cost: {
+					type: removeburdens
+					amount: 1
+				}
+				effect: {
+					type: preventdiscard
+					filter: choose(culture(sauron),condition)
+				}
+			}
+		]
+	}
+
+
+	151_46: {
+		title: I See You
+		culture: sauron
+		twilight: 0
+		type: condition
+		keyword: support area
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: modifysitenumber
+					filter: culture(sauron),minion
+					amount: {
+						type: forEachBurden
+						multiplier: -1
+					}
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: modifystrength
+					filter: culture(sauron),minion,siteNumber(0-1)
+					amount: 1
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: takesoffring
+ 			}
+				effect: {
+				type: discard
+				filter: self
+				}
+			}
+		]
+	}
+
+
+	151_47: {
+		title: It Betrayed Isildur
+		culture: sauron
+		twilight: 1
+		type: event
+		keyword: regroup
+		requires: {
+			type: canSpotburdens
+			amount: 5
+		}
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: discard
+					filter: choose(culture(sauron),orc)
+				}
+			}
+			{
+				type: event
+				effect: {
+					type: choice
+					player: shadowPlayer
+					texts: [
+						Make the move limit -1
+						Make the free peoples player choose to move again
+					]
+					effects: [
+						{
+							type: addModifier
+							modifier: {
+								type: modifyMoveLimit
+								amount: -1
+							}
+							until: endOfTurn
+						}
+						{
+							type: addModifier
+							modifier: {
+								type: hasToMoveIfAble
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+
+	151_48: {
+		title: Orc Ambush Troop
+		culture: sauron
+		twilight: 3
+		type: minion
+		race: orc
+		strength: 8
+		vitality: 2
+		site: 6
+		keyword: [
+			tracker
+		]
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: addKeyword
+					filter: self
+					keyword: archer
+					requires: {
+						type: canSpot
+						filter: companion,exhausted
+					}
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: modifystrength
+					filter: self
+					amount: 3
+					requires: {
+						type: canSpot
+						filter: companion,exhausted
+						count: 3
+					}
+				}
+			}
+		]
+	}
+
+	151_49: {
+		title: A Shadow of the Past
+		unique: true
+		culture: sauron
+		twilight: 1
+		type: condition
+		keyword: support area
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: addKeyword
+					filter: culture(sauron),orc
+					keyword: fierce
+					requires: {
+						type: canSpotburdens
+						amount: 4
+					}
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: addKeyword
+					filter: culture(sauron),orc
+					keyword: damage+1
+					requires: {
+						type: canSpotburdens
+						amount: 6
+					}
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: startOfPhase
+					phase: regroup
+				}
+				effect: {
+					type: discard
+					filter: self
+				}
+			}
+		]
+	}
+
+}
