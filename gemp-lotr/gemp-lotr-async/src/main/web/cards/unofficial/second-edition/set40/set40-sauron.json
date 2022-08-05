@@ -8,7 +8,7 @@
     "strength": 11,
     "vitality": 3,
     "site": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),minion"
     },
@@ -18,7 +18,7 @@
         "modifier": {
           "type": "modifyStrength",
           "amount": 2,
-          "condition": {
+          "requires": {
             "type": "cantSpotFPCultures",
             "amount": 3
           },
@@ -168,7 +168,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpotThreats",
             "amount": 3
           },
@@ -191,7 +191,7 @@
         "type": "startOfPhase",
         "phase": "shadow"
       },
-      "condition": {
+      "requires": {
         "type": "cantSpotFPCultures",
         "amount": 3
       },
@@ -304,8 +304,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "ring bearer,bearer"
           }
@@ -435,7 +435,7 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 2,
           "filter": "hobbit,companion"
@@ -459,7 +459,7 @@
     "vitality": 1,
     "site": 6,
     "keyword": "archer",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),minion"
     },
@@ -469,7 +469,7 @@
         "type": "aboutToBeKilled",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "phase",
         "phase": "archery"
       },
@@ -496,7 +496,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "another,culture(sauron),minion"
@@ -525,7 +525,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyArcheryTotal",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 3,
           "filter": "tracker"
@@ -551,7 +551,7 @@
         "type": "startOfPhase",
         "phase": "skirmish"
       },
-      "condition": [
+      "requires": [
         {
           "type": "canSpot",
           "filter": "self,inSkirmish"
@@ -583,7 +583,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "another,culture(sauron),orc"
@@ -612,7 +612,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "another,culture(sauron),orc"
@@ -645,7 +645,7 @@
           "type": "played",
           "filter": "self"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "another,culture(sauron),minion"
         },
@@ -682,7 +682,7 @@
     "effects": {
       "type": "activated",
       "phase": "regroup",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(sauron),orc"
       },
@@ -743,7 +743,7 @@
     "effects": {
       "type": "activated",
       "phase": "archery",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "tracker",
         "count": 3
@@ -778,7 +778,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "tracker",
           "count": 3
@@ -805,7 +805,7 @@
         "against": "companion",
         "memorizeAgainst": "assignedAgainst"
       },
-      "condition": [
+      "requires": [
         {
           "type": "canSpot",
           "filter": "another,culture(sauron),minion"
@@ -852,7 +852,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "culture(sauron),minion"
@@ -893,7 +893,7 @@
     "cost": 1,
     "type": "event",
     "keyword": "maneuver",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),minion"
     },
@@ -933,10 +933,10 @@
         "trigger": {
           "type": "endOfTurn"
         },
-        "condition": [
+        "requires": [
           {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "wasAssignedToSkirmish",
               "filter": "bearer"
             }
@@ -982,8 +982,8 @@
         "type": "modifyStrength",
         "filter": "choose(culture(sauron),minion)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "cantSpotFPCultures",
             "amount": 3
           },
@@ -1006,7 +1006,7 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "not(self),tracker"
       },

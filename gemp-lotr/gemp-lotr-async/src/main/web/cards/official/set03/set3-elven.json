@@ -9,7 +9,7 @@
     "race": "elf",
     "strength": 5,
     "vitality": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },

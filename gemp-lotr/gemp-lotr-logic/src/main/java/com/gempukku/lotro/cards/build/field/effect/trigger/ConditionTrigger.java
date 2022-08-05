@@ -10,9 +10,9 @@ import org.json.simple.JSONObject;
 public class ConditionTrigger implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "condition");
+        FieldUtils.validateAllowedFields(value, "requires");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("requires"), "requires");
 
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 

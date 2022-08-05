@@ -11,8 +11,8 @@
         "type": "modifyStrength",
         "filter": "choose(uruk-hai)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "hobbit,companion,notAssignedToSkirmish"
           },
@@ -89,7 +89,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "exertedCompanion",
               "filter": "hobbit"
@@ -118,7 +118,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 6,
           "filter": "companion"
@@ -137,7 +137,7 @@
       "skirmish",
       "spell"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Saruman)"
     },
@@ -194,7 +194,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "count": 6,
               "filter": "companion"
@@ -276,7 +276,7 @@
     "cost": 0,
     "type": "artifact",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(isengard),minion"
     },
@@ -287,7 +287,7 @@
           "type": "played",
           "filter": "spell,event"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Saruman)"
         },
@@ -299,7 +299,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Saruman)"
         },
@@ -327,7 +327,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "battleground"
         },
@@ -534,9 +534,9 @@
       "modifier": {
         "type": "cantTakeWounds",
         "filter": "bearer",
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "phase",
             "phase": "skirmish"
           }
@@ -564,7 +564,7 @@
           "type": "addKeyword",
           "filter": "uruk-hai",
           "keyword": "fierce",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "hasAttached(self)"
           }
@@ -573,7 +573,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "uruk-hai"
         },
@@ -597,7 +597,7 @@
       "maneuver",
       "spell"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Saruman)"
     },
@@ -722,7 +722,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "battleground"
         },
@@ -745,7 +745,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "battleground"
         },
@@ -768,7 +768,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Saruman)"
         },
@@ -792,7 +792,7 @@
         "type": "modifier",
         "modifier": {
           "type": "addKeyword",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "another,uruk-hai"
           },
@@ -804,7 +804,7 @@
         "type": "modifier",
         "modifier": {
           "type": "skipPhase",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "count": 2,
             "filter": "another,uruk-hai"
@@ -826,7 +826,7 @@
     "keyword": "damage+1",
     "effects": {
       "type": "modifyOwnCost",
-      "condition": {
+      "requires": {
         "type": "moveCountMinimum",
         "amount": 2
       },

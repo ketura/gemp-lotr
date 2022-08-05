@@ -51,7 +51,7 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "companion,strengthMoreThan(4)",
           "count": 1
@@ -83,7 +83,7 @@
 					"filter": "inSkirmishAgainst(bearer)",
 					"from": "attachedTo(inSkirmishAgainst(bearer))",
 					"keyword": "damage",
-					"condition": {
+					"requires": {
 	          "type": "canSpot",
 	          "filter": "bearer,twilight"
 	        },
@@ -94,7 +94,7 @@
 				"modifier": {
 					"type": "cancelstrengthbonusfrom",
 					"filter": "attachedTo(inSkirmishAgainst(bearer))",
-					"condition": {
+					"requires": {
 	          "type": "canSpot",
 	          "filter": "bearer,twilight"
 	        },
@@ -108,7 +108,7 @@
 					"type": "removeTwilight",
 					"amount": 1
 				},
-				"condition": {
+				"requires": {
           "type": "canSpot",
           "filter": "self,zone(support)"
         },
@@ -182,7 +182,7 @@
 		"cost": 1,
 		"type": "condition",
 		"keyword": ["support area"],
-		"condition": {
+		"requires": {
       "type": "canSpot",
       "filter": "twilight,nazgul"
     },
@@ -192,7 +192,7 @@
         "trigger": {
           "type": "moves",
         },
-        "condition": {
+        "requires": {
           "type": "canspotwounds",
           "filter": "ring bearer",
           "amount": 1
@@ -204,7 +204,7 @@
 					},
         	{
 	          "type": "conditional",
-	          "condition": {
+	          "requires": {
 	            "type": "canSpot",
 	            "filter": "exhausted,ring bearer"
 	          },
@@ -269,7 +269,7 @@
         },
         {
         	"type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memorymatches",
             "memory": "chosenNazzy",
             "filter": "name(The Witch-king)"

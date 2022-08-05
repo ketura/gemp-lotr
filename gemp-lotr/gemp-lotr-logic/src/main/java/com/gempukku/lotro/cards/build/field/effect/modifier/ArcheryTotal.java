@@ -10,9 +10,9 @@ import org.json.simple.JSONObject;
 public class ArcheryTotal implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "amount", "condition", "side");
+        FieldUtils.validateAllowedFields(object, "amount", "requires", "side");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final int amount = FieldUtils.getInteger(object.get("amount"), "amount");
         final Side side = FieldUtils.getEnum(Side.class, object.get("side"), "side");
 

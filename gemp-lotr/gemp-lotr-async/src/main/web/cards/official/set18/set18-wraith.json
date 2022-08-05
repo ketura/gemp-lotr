@@ -7,7 +7,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "Shadow",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "nazgul"
     },

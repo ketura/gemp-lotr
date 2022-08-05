@@ -4,7 +4,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -82,7 +82,7 @@
         "modifier": {
           "type": "modifyArcheryTotal",
           "side": "shadow",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "elf,companion"
           },
@@ -122,8 +122,8 @@
         "type": "wound",
         "filter": "all(nazgul)",
         "times": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "river"
           },
@@ -153,7 +153,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "orc"
           },

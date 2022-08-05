@@ -101,7 +101,7 @@
       "weather",
       "maneuver"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 5,
       "filter": "companion"
@@ -158,7 +158,7 @@
     "culture": "isengard",
     "cost": 1,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "uruk-hai"
     },
@@ -166,7 +166,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "count": 6,
         "filter": "companion"
@@ -214,7 +214,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,uruk-hai"
       },
@@ -268,7 +268,7 @@
         "modifier": {
           "type": "modifyCost",
           "filter": "companion",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "not(sanctuary)"
           },
@@ -315,7 +315,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "maneuver",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "uruk-hai"
     },
@@ -433,7 +433,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "hobbit,companion",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "hasAttached(self)"
           },
@@ -530,7 +530,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantPlayPhaseEventsOrPhaseSpecialAbilities",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "hasAttached(self)"
           },
@@ -571,7 +571,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "count": 5,
               "filter": "companion"
@@ -614,7 +614,7 @@
         "type": "modifier",
         "modifier": {
           "type": "skipPhase",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "hasAttached(self)"
           },
@@ -639,7 +639,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "or(name(Saruman),uruk-hai)"
     },
@@ -661,22 +661,22 @@
       "search",
       "support area"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "uruk-hai"
     },
     "effects": {
       "type": "trigger",
       "trigger": {
-        "type": "condition",
-        "condition": [
+        "type": "requires",
+        "requires": [
           {
             "type": "perTurnLimit",
             "limit": 1
           },
           {
             "type": "or",
-            "condition": [
+            "requires": [
               {
                 "type": "canSpotBurdens",
                 "amount": 5
@@ -793,7 +793,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "count": 5,
         "filter": "companion"
@@ -880,7 +880,7 @@
         "type": "modifyStrength",
         "filter": "self",
         "amount": 3,
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "weather,condition"
         }
@@ -1055,7 +1055,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "count": 6,
         "filter": "companion"
@@ -1079,7 +1079,7 @@
       "modifier": {
         "type": "modifyArcheryTotal",
         "side": "free people",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "uruk-hai"
         },
@@ -1103,7 +1103,7 @@
     "culture": "isengard",
     "cost": 0,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "uruk-hai"
     },

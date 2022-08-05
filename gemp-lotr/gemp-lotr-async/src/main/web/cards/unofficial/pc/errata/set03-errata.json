@@ -55,7 +55,7 @@
       "trigger": {
         "type": "moves"
       },
-      "condition": {
+      "requires": {
         "type": "phase",
         "phase": "fellowship"
       },
@@ -125,7 +125,7 @@
         "modifier": {
           "type": "cantTakeWounds",
           "filter": "self",
-          "condition": [
+          "requires": [
             {
               "type": "phase",
               "phase": "archery"
@@ -141,7 +141,7 @@
         "modifier": {
           "type": "cantbeassignedtoskirmish",
           "filter": "self",
-          "condition": {
+          "requires": {
             "type": "sarumanfirstsentenceactive"
           }
         }
@@ -187,7 +187,7 @@
     "type": "artifact",
     "possession": "palantir",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(isengard),minion"
     },
@@ -200,7 +200,7 @@
           "amount": 2
         }
       ],
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "culture(isengard),minion",
         "count": 2,
@@ -243,8 +243,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "underground"
           }
@@ -283,7 +283,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 2,
       "filter": "culture(shire),companion"
@@ -295,7 +295,7 @@
         "type": "removesBurden",
         "filter": "your,not(hobbit)"
       },
-      "condition": {
+      "requires": {
         "type": "perPhaseLimit",
         "limit": 1
       },
@@ -339,7 +339,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "count": 6,
               "filter": "companion"

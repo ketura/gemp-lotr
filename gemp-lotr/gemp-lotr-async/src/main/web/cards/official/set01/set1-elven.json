@@ -72,7 +72,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "bearer",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "plains"
           },
@@ -82,8 +82,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": [
+          "type": "requires",
+          "requires": [
             {
               "type": "location",
               "filter": "underground"
@@ -114,8 +114,8 @@
         "filter": "choose(elf)",
         "memorize": "chosenElf",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "memory(chosenElf),inSkirmishAgainst(archer)"
           },
@@ -175,7 +175,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "fellowship",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -207,7 +207,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "isGreaterThan",
             "firstNumber": {
               "type": "forEachMatchingInMemory",
@@ -244,8 +244,8 @@
         "filter": "choose(elf)",
         "memorize": "chosenElf",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "memory(chosenElf),inSkirmishAgainst(nazgul)"
           },
@@ -261,7 +261,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "archery",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf,archer,companion"
     },
@@ -280,7 +280,7 @@
     "cost": 1,
     "type": "event",
     "keyword": "fellowship",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -301,7 +301,7 @@
     "race": "elf",
     "strength": 8,
     "vitality": 4,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "or(name(Gandalf),elf)"
     },
@@ -351,7 +351,7 @@
     "cost": 1,
     "type": "possession",
     "possession": "cloak",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -480,7 +480,7 @@
           "type": "movesFrom",
           "filter": "river"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "fellowship"
         },
@@ -551,7 +551,7 @@
     "strength": 5,
     "vitality": 3,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -560,7 +560,7 @@
       "modifier": {
         "type": "modifyStrength",
         "amount": 2,
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "siteBlock(fellowship),or(siteNumber(6),siteNumber(7),siteNumber(8))"
         },
@@ -646,7 +646,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "archery",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf,companion"
     },
@@ -668,7 +668,7 @@
     "strength": 4,
     "vitality": 2,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     }
@@ -713,7 +713,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": {
+        "requires": {
           "type": "cardsInHandMoreThan",
           "player": "shadowPlayer",
           "count": 6
@@ -896,7 +896,7 @@
     "effects": {
       "type": "activated",
       "phase": "archery",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "bearer,archer"
       },
@@ -1039,7 +1039,7 @@
     "effects": {
       "type": "activated",
       "phase": "archery",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "bearer,archer"
       },

@@ -15,9 +15,9 @@
         "modifier": {
           "type": "cantTakeWounds",
           "filter": "culture(wraith),wraith",
-          "condition": {
+          "requires": {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "phase",
               "phase": "skirmish"
             }
@@ -58,7 +58,7 @@
         "against": "companion",
         "memorizeAgainst": "assignedToCompanion"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(wraith),wraith"
       },
@@ -91,7 +91,7 @@
         "filter": "self",
         "against": "companion"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(wraith),wraith"
       },
@@ -123,7 +123,7 @@
         "filter": "self",
         "against": "companion"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(wraith),wraith"
       },
@@ -152,7 +152,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantHeal",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "another,culture(wraith),wraith"
           },
@@ -163,7 +163,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantRemoveBurdens",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "another,culture(wraith),wraith"
           },
@@ -201,7 +201,7 @@
         "modifier": {
           "type": "modifyResistance",
           "filter": "wounded,companion",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "another,culture(wraith),wraith"
           },

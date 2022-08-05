@@ -112,9 +112,9 @@
     "cost": 0,
     "type": "event",
     "keyword": "fellowship",
-    "condition": {
+    "requires": {
       "type": "or",
-      "condition": [
+      "requires": [
         {
           "type": "canSpot",
           "filter": "name(smeagol)"

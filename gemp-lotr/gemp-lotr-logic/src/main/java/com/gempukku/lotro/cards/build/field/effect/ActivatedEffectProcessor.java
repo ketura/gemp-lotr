@@ -18,7 +18,7 @@ import org.json.simple.JSONObject;
 public class ActivatedEffectProcessor implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "phase", "condition", "cost", "effect", "limitPerPhase", "limitPerTurn", "text");
+        FieldUtils.validateAllowedFields(value, "phase", "requires", "cost", "effect", "limitPerPhase", "limitPerTurn", "text");
 
         final String text = FieldUtils.getString(value.get("text"), "text");
         final String[] phaseArray = FieldUtils.getStringArray(value.get("phase"), "phase");

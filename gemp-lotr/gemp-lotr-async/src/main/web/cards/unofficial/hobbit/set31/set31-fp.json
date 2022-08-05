@@ -12,7 +12,7 @@
       "modifier": {
         "type": "addKeyword",
         "filter": "bearer",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "mountain"
         },
@@ -37,7 +37,7 @@
         "effects": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "siteNumber(1-5),siteBlock(hobbit)"
             },
@@ -49,7 +49,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "not(siteNumber(1-5),siteBlock(hobbit))"
             }
@@ -59,7 +59,7 @@
       "effect": [
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "siteNumber(1-5),siteBlock(hobbit)"
           },
@@ -77,7 +77,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "not(siteNumber(1-5),siteBlock(hobbit))"
           },
@@ -147,7 +147,7 @@
         "trigger": {
           "type": "moves"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "regroup"
         },
@@ -161,7 +161,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "minion,inSkirmishAgainst(culture(dwarven),companion)",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "siteNumber(7-8)"
           },
@@ -190,7 +190,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyCost",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "bearer,inSkirmish"
           },
@@ -269,7 +269,7 @@
         },
         "effect": {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "perPhaseLimit",
             "limit": 1
           },
@@ -302,7 +302,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
@@ -338,7 +338,7 @@
     "effects": {
       "type": "activated",
       "phase": "archery",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "orc"
       },
@@ -350,8 +350,8 @@
         "type": "modifyArcheryTotal",
         "side": "free people",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "or(river,forest)"
           },
@@ -478,7 +478,7 @@
           "type": "cantBeDiscarded",
           "filter": "self",
           "by": "side(shadow)",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "self,attachedTo(any)"
           }
@@ -563,7 +563,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,attachedTo(any)"
         },
@@ -580,7 +580,7 @@
         ],
         "effect": {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "inSkirmish,mounted,orc"
           },
@@ -713,7 +713,7 @@
     "type": "event",
     "keyword": "skirmish",
     "cost": 1,
-    "condition": {
+    "requires": {
       "type": "ringIsOn"
     },
     "effects": {
@@ -755,7 +755,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "river"
           },
@@ -820,7 +820,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,attachedTo(any)"
         },

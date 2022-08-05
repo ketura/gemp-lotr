@@ -49,7 +49,7 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("effects", new EffectFieldProcessor());
         fieldProcessors.put("target", new TargetFieldProcessor());
         //Deprecated: use "requires" instead.
-        fieldProcessors.put("condition", new RequirementFieldProcessor());
+        fieldProcessors.put("requires", new RequirementFieldProcessor());
         fieldProcessors.put("requires", new RequirementFieldProcessor());
         fieldProcessors.put("allyhome", new AllyHomeFieldProcessor());
 

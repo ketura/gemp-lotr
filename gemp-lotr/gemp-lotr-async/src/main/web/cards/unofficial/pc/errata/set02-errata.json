@@ -9,7 +9,7 @@
     "strength": 6,
     "vitality": 3,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -61,7 +61,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "bearer,inSkirmishAgainst(Nazgul)"
         },
@@ -114,7 +114,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeAssignedToSkirmishAgainst",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "hobbit"
           },
@@ -126,8 +126,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "underground"
           }
@@ -237,7 +237,7 @@
         "modifier": {
           "type": "modifyStrength",
           "amount": 1,
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "underground"
           },

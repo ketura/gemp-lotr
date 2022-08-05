@@ -105,7 +105,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "location",
         "filter": "underground"
       },
@@ -335,7 +335,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "not(self),culture(moria),goblin"
       },
@@ -367,7 +367,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(moria),goblin"
       },
@@ -423,7 +423,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(moria),goblin"
       },
@@ -507,7 +507,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "shadow",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(moria),goblin"
     },
@@ -632,8 +632,8 @@
         "type": "modifyStrength",
         "filter": "choose(culture(moria),goblin)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "dwarf"
           },
@@ -665,7 +665,7 @@
           "filter": "goblin",
           "memorize": "discardedGoblin"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "shadow"
         },
@@ -714,7 +714,7 @@
         "modifier": {
           "type": "modifyCost",
           "filter": "name(Cave Troll of Moria)",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "underground"
           },
@@ -742,7 +742,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "shadow",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(moria),condition,hasStacked(goblin)"
     },

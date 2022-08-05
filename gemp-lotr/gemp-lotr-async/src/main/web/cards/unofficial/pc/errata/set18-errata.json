@@ -10,7 +10,7 @@
     "title": "*Gil-galad",
     "type": "companion",
     "resistance": 7,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf,companion",
       "count":2
@@ -87,7 +87,7 @@
 	        "type": "played",
 	        "filter": "minion,not(culture(wraith))"
 	      },
-	      "condition": {
+	      "requires": {
 	        "type": "canSpot",
 	        "filter": "man"
 	      },
@@ -204,8 +204,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "self,hasTokenCount(3,shire)"
           }

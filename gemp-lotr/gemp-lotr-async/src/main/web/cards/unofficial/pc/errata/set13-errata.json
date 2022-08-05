@@ -13,7 +13,7 @@
           "type": "movesTo",
           "filter": "self"
         },
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "siteinregion2"
         },

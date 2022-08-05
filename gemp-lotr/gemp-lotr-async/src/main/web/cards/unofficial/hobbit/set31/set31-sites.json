@@ -56,7 +56,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "perPhaseLimit",
         "limit": 1,
         "perPlayer": true
@@ -110,7 +110,7 @@
       "modifier": {
         "type": "modifyCost",
         "filter": "minion",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "culture(dwarven),name(The Arkenstone)"
         },

@@ -9,7 +9,7 @@
     "effects": {
       "type": "trigger",
       "optional": true,
-      "condition": {
+      "requires": {
         "type": "isSide",
         "side": "shadow"
       },
@@ -61,7 +61,7 @@
       "modifier": {
         "type": "modifyCost",
         "filter": "self",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Thror's Key)"
         },

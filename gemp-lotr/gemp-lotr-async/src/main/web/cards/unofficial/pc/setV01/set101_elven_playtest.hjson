@@ -8,7 +8,7 @@
 			skirmish
 			tale
 		]
-		condition: {
+		requires: {
 			type: canSpot
 			filter: elf,inskirmish
 		}
@@ -37,7 +37,7 @@
 		type: condition
 		keyword: support area
 		target: companion,unbound
-		condition: {
+		requires: {
 			type: canSpotInDeadPile
 			filter: companion,unique
 		}
@@ -78,7 +78,7 @@
 					type: startOfPhase
 					phase: regroup
 				}
-				condition: [
+				requires: [
 					{
 						type: canspotindeadpile
 						filter: name(Gandalf)
@@ -315,7 +315,7 @@
 				trigger: {
 					type: moves
 				}
-				condition: {
+				requires: {
 					type: canSpot
 					filter: or(culture(elven),culture(gandalf)),ring
 					count: 1
@@ -338,7 +338,7 @@
 				trigger: {
 					type: moves
 				}
-				condition: {
+				requires: {
 					type: canSpot
 					filter: or(culture(elven),culture(gandalf)),ring
 					count: 3

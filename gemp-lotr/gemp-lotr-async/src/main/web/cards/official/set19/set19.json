@@ -7,7 +7,7 @@
     "effects": [
       {
         "type": "trigger",
-        "condition": [
+        "requires": [
           {
             "type": "ringIsOn"
           },
@@ -31,7 +31,7 @@
       },
       {
         "type": "activated",
-        "condition": {
+        "requires": {
           "type": "ringIsActive"
         },
         "phase": "maneuver",
@@ -41,7 +41,7 @@
       },
       {
         "type": "activated",
-        "condition": {
+        "requires": {
           "type": "ringIsActive"
         },
         "phase": "skirmish",
@@ -115,9 +115,9 @@
         "trigger": {
           "type": "endOfTurn"
         },
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "didWinSkirmish",
             "filter": "bearer"
           }
@@ -135,7 +135,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "regroup",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gimli)"
     },
@@ -217,7 +217,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "count": 2,
             "filter": "culture(elven),follower"
@@ -305,7 +305,7 @@
     "cost": 2,
     "type": "condition",
     "strength": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(gandalf),wizard"
     },
@@ -435,7 +435,7 @@
         "type": "modifier",
         "modifier": {
           "type": "addKeyword",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "filter": "companion,not(self),not(ring bearer)"
           },
@@ -447,7 +447,7 @@
         "type": "modifier",
         "modifier": {
           "type": "addKeyword",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "filter": "companion,not(self),not(ring bearer)"
           },
@@ -459,7 +459,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantTakeMoreWoundsThan",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "filter": "companion,not(self),not(ring bearer)"
           },
@@ -486,7 +486,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 2,
           "filter": "unbound,hobbit"
@@ -537,7 +537,7 @@
         "trigger": {
           "type": "endOfTurn"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "bearer,not(name(Aragorn))"
         },
@@ -560,7 +560,7 @@
       "modifier": {
         "type": "addKeyword",
         "filter": "bearer",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "bearer,culture(gondor),companion"
         },
@@ -696,7 +696,7 @@
         "type": "modifier",
         "modifier": {
           "type": "skipPhase",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "underground"
           },
@@ -707,7 +707,7 @@
         "type": "modifier",
         "modifier": {
           "type": "skipPhase",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "underground"
           },
@@ -718,7 +718,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeAssignedToSkirmishAgainst",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "underground"
           },
@@ -750,8 +750,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "not(marsh)"
           }
@@ -796,8 +796,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "not(marsh)"
           }
@@ -834,8 +834,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "minion,not(self),not(tentacle)"
           }
@@ -881,7 +881,7 @@
     "vitality": 4,
     "site": 4,
     "keyword": "hunter+2",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(orc),orc"
     },
@@ -918,7 +918,7 @@
     "strength": 13,
     "vitality": 3,
     "site": 4,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(orc),orc"
     },
@@ -961,9 +961,9 @@
         "trigger": {
           "type": "endOfTurn"
         },
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "didWinSkirmish",
             "filter": "bearer"
           }
@@ -1070,9 +1070,9 @@
       "type": "modifier",
       "modifier": {
         "type": "cantDiscardCardsFromHandOrTopOfDrawDeck",
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "canSpotThreats",
             "amount": 4
           }
@@ -1095,7 +1095,7 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "self,notAssignedToSkirmish"
       },
@@ -1192,7 +1192,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "count": 3,
             "filter": "culture(shire),companion"
@@ -1336,7 +1336,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": [
+        "requires": [
           {
             "type": "canSpotTwilight",
             "amount": 5
@@ -1365,7 +1365,7 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "companion",
         "count": 6
@@ -1472,7 +1472,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeAssignedToSkirmishAgainst",
-          "condition": {
+          "requires": {
             "type": "fierceSkirmish"
           },
           "fpCharacter": "companion,idInStored",
@@ -1505,8 +1505,8 @@
         "type": "modifyStrength",
         "filter": "self",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "nameFromMemory(discardedNazgul)"
           },

@@ -15,7 +15,7 @@
       "effect": [
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "companion",
             "count": 6
@@ -27,7 +27,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "filter": "companion",
             "count": 6
@@ -47,7 +47,7 @@
     "title": "Demands of the Sackville-Bagginses",
     "type": "condition",
     "keyword": "Support Area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(isengard),minion"
     },
@@ -106,8 +106,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "underground"
           }
@@ -171,7 +171,7 @@
     "title": "No Business of Ours",
     "type": "condition",
     "keyword": "Support Area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(isengard),minion"
     },
@@ -191,7 +191,7 @@
     "title": "Too Much Attention",
     "type": "event",
     "keyword": "Response",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(isengard),minion"
     },

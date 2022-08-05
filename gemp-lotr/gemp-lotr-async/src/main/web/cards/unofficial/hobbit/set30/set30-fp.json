@@ -15,8 +15,8 @@
         "type": "discard",
         "filter": "choose(condition)",
         "count": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "side(shadow),condition",
             "count": 4
@@ -63,8 +63,8 @@
         "filter": "choose(dwarf,character)",
         "memorize": "chosenDwarf",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "memoryMatches",
             "memory": "chosenDwarf",
             "filter": "hasAttached(culture(dwarven),follower)"
@@ -131,7 +131,7 @@
           "type": "winsSkirmish",
           "filter": "bearer"
         },
-        "condition": {
+        "requires": {
           "type": "fierceSkirmish"
         },
         "effect": {
@@ -367,7 +367,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "name(Elrond)"
             },
@@ -653,7 +653,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memoryMatches",
             "memory": "chosenMinion",
             "filter": "name(Smaug)"
@@ -748,7 +748,7 @@
           "type": "reconciles",
           "player": "you"
         },
-        "condition": {
+        "requires": {
           "type": "sarumanfirstsentenceactive"
         },
         "effect": {
@@ -807,7 +807,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeDiscarded",
-          "condition": [
+          "requires": [
             {
               "type": "canSpot",
               "filter": "culture(dwarven),follower",
@@ -867,7 +867,7 @@
           "type": "played",
           "filter": "your,culture(gandalf),event"
         },
-        "condition": {
+        "requires": {
           "type": "sarumanfirstsentenceactive"
         },
         "effect": {
@@ -918,7 +918,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantBeDiscarded",
-          "condition": {
+          "requires": {
             "type": "sarumanfirstsentenceactive"
           },
           "filter": "self"
@@ -969,7 +969,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "maneuver",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -1016,7 +1016,7 @@
       "spell",
       "skirmish"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -1067,8 +1067,8 @@
           "type": "modifyStrength",
           "filter": "self",
           "amount": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpot",
               "filter": "name(Gollum)"
             },
@@ -1089,8 +1089,8 @@
           "type": "modifyStrength",
           "filter": "self",
           "amount": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpot",
               "filter": "name(Gollum)"
             },
@@ -1132,7 +1132,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,inSkirmishAgainst(or(name(Smaug),name(Gollum)))"
         },
@@ -1182,7 +1182,7 @@
           "type": "heals",
           "filter": "companion"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "minion"
         },
@@ -1225,8 +1225,8 @@
         "effect": {
           "type": "drawCards",
           "count": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpot",
               "filter": "self,inSkirmish"
             },
@@ -1252,7 +1252,7 @@
         "type": "winsSkirmish",
         "filter": "bearer"
       },
-      "condition": {
+      "requires": {
         "type": "playedCardThisPhase",
         "filter": "your,culture(dwarven),event"
       },
@@ -1276,7 +1276,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": [
+          "requires": [
             {
               "type": "ringIsOn"
             },
@@ -1290,7 +1290,7 @@
       },
       {
         "type": "trigger",
-        "condition": [
+        "requires": [
           {
             "type": "ringIsOn"
           },
@@ -1319,7 +1319,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "ringIsActive"
         },
         "cost": {

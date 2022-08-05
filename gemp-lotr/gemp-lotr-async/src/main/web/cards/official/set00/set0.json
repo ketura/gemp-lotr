@@ -15,7 +15,7 @@
         "modifier": {
           "type": "cantBeOverwhelmedMultiplier",
           "filter": "self",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "another,man",
             "count": 2
@@ -27,7 +27,7 @@
         "modifier": {
           "type": "addKeyword",
           "filter": "self",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "forest"
           },
@@ -51,7 +51,7 @@
       "trigger": {
         "type": "moves"
       },
-      "condition": {
+      "requires": {
         "type": "phase",
         "phase": "regroup"
       },
@@ -103,7 +103,7 @@
       {
         "type": "playedInOtherPhase",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "culture(rohan),man"
         }
@@ -128,7 +128,7 @@
     "cost": 1,
     "type": "possession",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(shire),companion",
       "count": 2
@@ -247,7 +247,7 @@
     "effects": {
       "type": "modifyOwnCost",
       "amount": -1,
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "culture(rohan),man"
       }

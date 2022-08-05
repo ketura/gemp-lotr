@@ -143,7 +143,7 @@
     "title": "Natural Cover",
     "type": "condition",
     "keyword": "Support Area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "ranger"
     },
@@ -151,7 +151,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyArcheryTotal",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "forest"
         },
@@ -178,8 +178,8 @@
         "filter": "choose(companion,not(name(Aragorn)))",
         "memorize": "chosenCompanion",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "memoryMatches",
             "memory": "chosenCompanion",
             "filter": "signet(aragorn)"
@@ -204,8 +204,8 @@
         "filter": "choose(culture(gondor),companion)",
         "memorize": "chosenCompanion",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "fierceSkirmish"
           },
           "true": 4,

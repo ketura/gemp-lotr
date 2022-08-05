@@ -103,7 +103,7 @@
 		"cost": 1,
 		"type": "event",
 		"keyword": ["regroup"],
-		"condition": {
+		"requires": {
 			"type": "canSpotburdens",
 			"amount": 5
 		},
@@ -164,7 +164,7 @@
 					"type": "addKeyword",
 					"filter": "self",
 					"keyword": "archer",
-					"condition": {
+					"requires": {
 						"type": "canSpot",
 						"filter": "companion,exhausted"
 					}
@@ -176,7 +176,7 @@
 					"type": "modifystrength",
 					"filter": "self",
 					"amount": 3,
-					"condition": {
+					"requires": {
 						"type": "canSpot",
 						"filter": "companion,exhausted",
 						"count": 3
@@ -199,7 +199,7 @@
 					"type": "addKeyword",
 					"filter": "culture(sauron),orc",
 					"keyword": "fierce",
-					"condition": {
+					"requires": {
 						"type": "canSpotburdens",
 						"amount": 4
 					}
@@ -211,7 +211,7 @@
 					"type": "addKeyword",
 					"filter": "culture(sauron),orc",
 					"keyword": "damage+1",
-					"condition": {
+					"requires": {
 						"type": "canSpotburdens",
 						"amount": 6
 					}

@@ -37,8 +37,8 @@
           "type": "discard",
           "filter": "choose(condition,side(free people))",
           "count": {
-            "type":"condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpot",
               "filter": "condition,side(free people)",
               "count": 5

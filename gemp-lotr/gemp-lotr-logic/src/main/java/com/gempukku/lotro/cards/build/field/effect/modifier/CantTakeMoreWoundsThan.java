@@ -10,10 +10,10 @@ import org.json.simple.JSONObject;
 public class CantTakeMoreWoundsThan implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "filter", "phase", "condition", "amount");
+        FieldUtils.validateAllowedFields(object, "filter", "phase", "requires", "amount");
 
         final ValueSource objectSource = ValueResolver.resolveEvaluator(object.get("amount"), 1, environment);
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final Phase phase = FieldUtils.getEnum(Phase.class, object.get("phase"), "phase");
 

@@ -11,11 +11,11 @@ import org.json.simple.JSONObject;
 public class ModifyOwnCost implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "amount", "condition", "on");
+        FieldUtils.validateAllowedFields(value, "amount", "requires", "on");
 
         final String onFilter = FieldUtils.getString(value.get("on"), "on", "any");
         final ValueSource amountSource = ValueResolver.resolveEvaluator(value.get("amount"), environment);
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("requires"), "requires");
 
         final FilterableSource onFilterableSource = environment.getFilterFactory().generateFilter(onFilter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

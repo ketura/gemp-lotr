@@ -10,7 +10,7 @@
       {
         "type": "activated",
         "phase": "fellowship",
-        "condition": {
+        "requires": {
           "type": "ringIsActive"
         },
         "cost": {
@@ -25,7 +25,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": {
+        "requires": {
           "type": "ringIsActive"
         },
         "cost": {
@@ -38,7 +38,7 @@
       },
       {
         "type": "trigger",
-        "condition": [
+        "requires": [
           {
             "type": "ringIsOn"
           },
@@ -80,7 +80,7 @@
           "type": "played",
           "filter": "self"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "another,culture(dunland),man"
         },
@@ -91,7 +91,7 @@
       {
         "type": "killedTrigger",
         "optional": true,
-        "condition": {
+        "requires": {
           "type": "isSide",
           "side": "free people"
         },
@@ -115,7 +115,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "dwarf",
           "count": 2
@@ -156,7 +156,7 @@
           "type": "startOfPhase",
           "phase": "skirmish"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,ring bearer,inSkirmish"
         },
@@ -211,7 +211,7 @@
           "filter": "dwarf",
           "memorize": "winner"
         },
-        "condition": {
+        "requires": {
           "type": "fierceSkirmish"
         },
         "effect": {
@@ -403,7 +403,7 @@
         "type": "canPlayStackedCards",
         "filter": "culture(dwarven),skirmish,event",
         "on": "culture(dwarven),condition",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "skirmish"
         }
@@ -423,7 +423,7 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "self,damage"
       },
@@ -496,7 +496,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -548,7 +548,7 @@
     "strength": 9,
     "vitality": 4,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(elven),companion",
       "count": 2
@@ -579,7 +579,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "play starting fellowship"
         },
@@ -810,7 +810,7 @@
     "cost": 1,
     "type": "possession",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -857,7 +857,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "revealedCards",
               "filter": "or(culture(dwarven),culture(elven))"
@@ -916,7 +916,7 @@
     "cost": 1,
     "type": "condition",
     "vitality": 1,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "ent"
     },
@@ -998,7 +998,7 @@
             "type": "startOfTurn"
           }
         ],
-        "condition": {
+        "requires": {
           "type": "perTurnLimit",
           "limit": 1
         },
@@ -1022,7 +1022,7 @@
         "trigger": {
           "type": "moves"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "regroup"
         },

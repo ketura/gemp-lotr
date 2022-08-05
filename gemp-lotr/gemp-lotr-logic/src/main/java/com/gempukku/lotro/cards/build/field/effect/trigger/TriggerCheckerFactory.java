@@ -23,7 +23,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("assignedagainst", new AssignedAgainst());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
         triggerCheckers.put("cancelledskirmish", new CancelledSkirmish());
-        triggerCheckers.put("condition", new ConditionTrigger());
+        triggerCheckers.put("requires", new ConditionTrigger());
         triggerCheckers.put("discarded", new Discarded());
         triggerCheckers.put("discardfromdeck", new DiscardFromDeck());
         triggerCheckers.put("discardfromhand", new DiscardFromHand());

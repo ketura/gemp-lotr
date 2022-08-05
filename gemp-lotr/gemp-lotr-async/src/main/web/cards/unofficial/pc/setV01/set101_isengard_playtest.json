@@ -25,9 +25,9 @@
 			{
 	      "type": "activated",
 	      "phase": "maneuver",
-	      "condition": {
+	      "requires": {
 	      	"type": "or",
-	      	"condition": [
+	      	"requires": [
 	      		{
 		          "type": "canSpot",
 		          "filter": "companion,wounded",
@@ -109,9 +109,9 @@
 	    {
 	      "type": "activated",
 	      "phase": "maneuver",
-	      "condition": {
+	      "requires": {
 	      	"type": "or",
-	      	"condition": [
+	      	"requires": [
 	      		{
 		          "type": "canSpot",
 		          "filter": "item,side(free people)",
@@ -158,7 +158,7 @@
 		"cost": 1,
 		"type": "condition",
 		"target": "companion,not(hasAttached(name(Frostbite)))",
-		"condition": {
+		"requires": {
       "type": "canSpot",
       "filter": "weather,condition"
     },
@@ -250,7 +250,7 @@
 		"effects": [
 			{
 				"type": "modifyowncost",
-				"condition": {
+				"requires": {
 					"type": "canSpot",
 					"filter": "side(free people),condition",
 					"count": 3
@@ -260,9 +260,9 @@
 			{
 	      "type": "activated",
 	      "phase": "maneuver",
-	      "condition": {
+	      "requires": {
 	      	"type": "or",
-	      	"condition": [
+	      	"requires": [
 	      		{
 		          "type": "canSpot",
 		          "filter": "condition,side(free people)",
@@ -318,7 +318,7 @@
         "modifier": {
           "type": "cantTakeWounds",
           "filter": "self",
-          "condition": [
+          "requires": [
           	{
           		"type": "cantspot",
           		"filter": "weather"
@@ -338,7 +338,7 @@
         "modifier": {
           "type": "cantbeassignedtoskirmish",
           "filter": "self",
-          "condition": [
+          "requires": [
           	{
           		"type": "cantspot",
           		"filter": "weather"
@@ -355,7 +355,7 @@
 					"type": "modifystrength",
 					"filter": "culture(isengard),minion",
 					"amount": 2,
-					"condition": {
+					"requires": {
 	          "type": "canSpot",
 	          "filter": "weather,attachedTo(site)"
 	        },

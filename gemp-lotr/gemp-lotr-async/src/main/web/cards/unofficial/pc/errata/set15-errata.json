@@ -48,7 +48,7 @@
         "modifier": {
           "type": "modifystrength",
           "filter": "self",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "roaming,minion"
           },
@@ -88,7 +88,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 2,
           "filter": "culture(gondor),ranger"
@@ -102,7 +102,7 @@
           "type": "startOfPhase",
           "phase": "maneuver"
         },
-        "condition": {
+        "requires": {
           "type": "canSpotThreats"
         },
         "effect": {

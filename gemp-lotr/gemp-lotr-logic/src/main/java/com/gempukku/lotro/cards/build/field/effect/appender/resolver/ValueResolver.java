@@ -75,9 +75,9 @@ public class ValueResolver {
                         return toValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     }
                 };
-            } else if (type.equalsIgnoreCase("condition")) {
-                FieldUtils.validateAllowedFields(object, "condition", "true", "false");
-                final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+            } else if (type.equalsIgnoreCase("requires")) {
+                FieldUtils.validateAllowedFields(object, "requires", "true", "false");
+                final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
                 final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
                 ValueSource trueValue = resolveEvaluator(object.get("true"), environment);
                 ValueSource falseValue = resolveEvaluator(object.get("false"), environment);

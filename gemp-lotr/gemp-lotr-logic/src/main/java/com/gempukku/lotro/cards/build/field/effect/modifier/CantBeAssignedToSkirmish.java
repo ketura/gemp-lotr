@@ -11,9 +11,9 @@ public class CantBeAssignedToSkirmish implements ModifierSourceProducer {
 
     @Override
     public ModifierSource getModifierSource(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "condition");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "requires");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(effectObject.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(effectObject.get("requires"), "requires");
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

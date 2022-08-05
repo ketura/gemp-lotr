@@ -184,8 +184,8 @@
         "type": "modifyStrength",
         "filter": "choose(dwarf)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "culture(dwarven),condition,hasStacked(any)"
           },
@@ -321,7 +321,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "or(mountain,underground)"
           },
@@ -373,7 +373,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,hasStacked(culture(dwarven))"
         },
@@ -465,7 +465,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "play starting fellowship"
         },
@@ -510,7 +510,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "play starting fellowship"
         },
@@ -520,7 +520,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "or(mountain,underground)"
           },
@@ -532,7 +532,7 @@
         "type": "modifier",
         "modifier": {
           "type": "canttakemorewoundsthan",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "or(mountain,underground)"
           },
@@ -603,7 +603,7 @@
       {
         "type": "modifier",
         "modifier": {
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "name(Gimli)"
           },
@@ -613,7 +613,7 @@
         }
       },
       {
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Gimli)"
         },
@@ -636,7 +636,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "underground"
             },
@@ -669,7 +669,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "culture(dwarven),condition,hasStacked(any)"
           },
@@ -929,7 +929,7 @@
       "type": "modifier",
       "modifier": {
         "type": "cantBeExerted",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,hasStackedCount(3,any)"
         },
@@ -989,7 +989,7 @@
         "type": "modifyStrength",
         "filter": "self",
         "amount": 2,
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "culture(dwarven),condition,hasStackedCount(3,culture(dwarven))"
         }
@@ -1010,7 +1010,7 @@
         "type": "played",
         "filter": "side(shadow),event"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "self,hasStackedCount(3,any)"
       },

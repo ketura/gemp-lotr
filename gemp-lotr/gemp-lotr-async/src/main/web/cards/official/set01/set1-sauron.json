@@ -8,7 +8,7 @@
       "search",
       "maneuver"
     ],
-    "condition": [
+    "requires": [
       {
         "type": "canSpot",
         "filter": "culture(sauron),orc"
@@ -68,7 +68,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "shadow",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),orc"
     },
@@ -89,7 +89,7 @@
       "search",
       "support area"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),orc"
     },
@@ -117,7 +117,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memoryMatches",
             "memory": "revealedCards",
             "filter": "not(culture(sauron))"
@@ -137,7 +137,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "maneuver",
-    "condition": [
+    "requires": [
       {
         "type": "isGreaterThan",
         "firstNumber": {
@@ -213,7 +213,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "maneuver",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),orc"
     },
@@ -351,7 +351,7 @@
       "search",
       "maneuver"
     ],
-    "condition": [
+    "requires": [
       {
         "type": "canSpot",
         "filter": "culture(sauron),orc"
@@ -395,8 +395,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": [
+          "type": "requires",
+          "requires": [
             {
               "type": "canSpotBurdens",
               "amount": 5
@@ -435,7 +435,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyCost",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "count": 5,
             "filter": "companion"
@@ -586,8 +586,8 @@
     "effects": {
       "type": "trigger",
       "trigger": {
-        "type": "condition",
-        "condition": [
+        "type": "requires",
+        "requires": [
           {
             "type": "perTurnLimit",
             "limit": 1
@@ -640,7 +640,7 @@
           "type": "played",
           "filter": "side(free people),regroup,event"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "regroup"
         },
@@ -676,7 +676,7 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "hobbit,companion",
           "count": 2
@@ -722,7 +722,7 @@
       "modifier": {
         "type": "modifyArcheryTotal",
         "side": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "culture(sauron),orc"
         },
@@ -736,7 +736,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "response",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),orc,inSkirmish"
     },
@@ -773,7 +773,7 @@
         "filter": "your,weapon",
         "on": "self"
       },
-      "condition": {
+      "requires": {
         "type": "perTurnLimit",
         "limit": 1
       },
@@ -845,7 +845,7 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
+      "requires": {
         "type": "perPhaseLimit",
         "limit": 3
       },
@@ -948,7 +948,7 @@
     "cost": 3,
     "type": "event",
     "keyword": "response",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),orc,inSkirmish"
     },
@@ -961,8 +961,8 @@
       "effect": {
         "type": "addBurdens",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "ringIsOn"
           },
           "true": 3,
@@ -988,8 +988,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": [
+          "type": "requires",
+          "requires": [
             {
               "type": "perTurnLimit",
               "limit": 1
@@ -1126,10 +1126,10 @@
         "trigger": {
           "type": "endOfTurn"
         },
-        "condition": [
+        "requires": [
           {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "wasAssignedToSkirmish",
               "filter": "bearer"
             }
@@ -1219,7 +1219,7 @@
     "culture": "sauron",
     "cost": 1,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),orc"
     },
@@ -1229,7 +1229,7 @@
       "modifier": {
         "type": "cantHeal",
         "filter": "bearer",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "sanctuary"
         }

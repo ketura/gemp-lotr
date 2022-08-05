@@ -20,9 +20,9 @@ import org.json.simple.JSONObject;
 public class SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "condition", "side", "phase", "until");
+        FieldUtils.validateAllowedFields(effectObject, "requires", "side", "phase", "until");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(effectObject.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(effectObject.get("requires"), "requires");
         final Side side = FieldUtils.getEnum(Side.class, effectObject.get("side"), "side");
         final Phase phase = FieldUtils.getEnum(Phase.class, effectObject.get("phase"), "phase");
         final TimeResolver.Time until = TimeResolver.resolveTime(effectObject.get("until"), "end(current)");

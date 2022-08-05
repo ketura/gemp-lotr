@@ -24,7 +24,7 @@ import java.util.List;
 public class AddActivated implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "filter", "phase", "condition", "cost", "effect", "limitPerPhase", "limitPerTurn", "text");
+        FieldUtils.validateAllowedFields(object, "filter", "phase", "requires", "cost", "effect", "limitPerPhase", "limitPerTurn", "text");
 
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final String text = FieldUtils.getString(object.get("text"), "text");

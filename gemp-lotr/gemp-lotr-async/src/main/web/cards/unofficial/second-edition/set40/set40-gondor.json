@@ -35,7 +35,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "your"
         },
@@ -307,7 +307,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "bearer,name(Boromir)"
         },
@@ -346,7 +346,7 @@
         "effects": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "not(your)"
             },
@@ -357,7 +357,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "your"
             },
@@ -434,7 +434,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifySiteNumber",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "ranger"
           },
@@ -506,7 +506,7 @@
       "maneuver",
       "tale"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(gondor),companion"
     },
@@ -539,7 +539,7 @@
       "fellowship",
       "regroup"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "ranger"
     },
@@ -565,7 +565,7 @@
       {
         "type": "modifyOwnCost",
         "amount": -1,
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "culture(gondor),man"
@@ -582,7 +582,7 @@
           "type": "startOfPhase",
           "phase": "skirmish"
         },
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "self,inSkirmish"
@@ -621,7 +621,7 @@
         "effects": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "not(your)"
             },
@@ -632,7 +632,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "your"
             },
@@ -773,8 +773,8 @@
         "filter": "choose(culture(gondor),companion)",
         "memorize": "chosenCompanion",
         "amount": {
-          "type": "condition",
-          "condition": [
+          "type": "requires",
+          "requires": [
             {
               "type": "fierceSkirmish"
             },
@@ -802,7 +802,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "your"
         },
@@ -824,8 +824,8 @@
         "filter": "choose(culture(gondor),companion)",
         "memorize": "chosenCompanion",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "memory(chosenCompanion),defender"
           },
@@ -842,7 +842,7 @@
     "cost": 1,
     "type": "possession",
     "target": "companion",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(gondor),man"
     },

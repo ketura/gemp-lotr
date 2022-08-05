@@ -12,7 +12,7 @@
           "type": "addKeyword",
           "filter": "dwarf",
           "keyword": "damage+1",
-          "condition": {
+          "requires": {
             "type": "haveInitiative",
             "side": "free_people"
           }
@@ -21,7 +21,7 @@
       {
         "type": "activated",
         "phase": "fellowship",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "dwarf"
         },
@@ -108,7 +108,7 @@
         "type": "assignedToSkirmish",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "not(self),corsair"
       },
@@ -148,7 +148,7 @@
         "type": "modifier",
         "modifier": {
           "type": "shadowhasinitiative",
-          "condition": [
+          "requires": [
             {
               "type": "canSpot",
               "filter": "self,hasTokenCount(4,raider)"
@@ -236,7 +236,7 @@
         "effect": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memorymatches",
               "memory": "chosenCard",
               "filter": "or(not(zone(SUPPORT),attachedTo(not(zone(SUPPORT)))))"
@@ -286,7 +286,7 @@
           "type": "played",
           "filter": "self"
         },
-        "condition": [
+        "requires": [
           {
             "type": "location",
             "filter": "siteNumber(5-9)"

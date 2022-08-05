@@ -12,9 +12,9 @@ import org.json.simple.JSONObject;
 public class AddKeyword implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "filter", "condition", "keyword", "amount");
+        FieldUtils.validateAllowedFields(object, "filter", "requires", "keyword", "amount");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final String keywordString = FieldUtils.getString(object.get("keyword"), "keyword");
 

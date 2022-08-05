@@ -9,7 +9,7 @@
     "effects": [
       {
         "type": "activatedTrigger",
-        "condition": {
+        "requires": {
           "type": "ringIsActive"
         },
         "trigger": {
@@ -32,7 +32,7 @@
       },
       {
         "type": "trigger",
-        "condition": [
+        "requires": [
           {
             "type": "ringIsOn"
           },
@@ -66,7 +66,7 @@
     "effects": [
       {
         "type": "trigger",
-        "condition": [
+        "requires": [
           {
             "type": "ringIsOn"
           },
@@ -98,7 +98,7 @@
           "type": "aboutToTakeWound",
           "filter": "bearer"
         },
-        "condition": [
+        "requires": [
           {
             "type": "phase",
             "phase": "skirmish"
@@ -243,7 +243,7 @@
     "effects": {
       "type": "activated",
       "phase": "fellowship",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "name(Gandalf)"
       },
@@ -284,13 +284,13 @@
     "effects": {
       "type": "trigger",
       "trigger": {
-        "type": "condition",
-        "condition": {
+        "type": "requires",
+        "requires": {
           "type": "canSpot",
           "filter": "ranger"
         }
       },
-      "condition": {
+      "requires": {
         "type": "perTurnLimit",
         "limit": 1
       },
@@ -355,7 +355,7 @@
         "type": "modifier",
         "modifier": {
           "type": "skipPhase",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "filter": "companion,not(hobbit)"
           },
@@ -366,7 +366,7 @@
         "type": "modifier",
         "modifier": {
           "type": "skipPhase",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "filter": "companion,not(hobbit)"
           },
@@ -412,7 +412,7 @@
         "type": "movesTo",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "hobbit,companion"
       },
@@ -531,9 +531,9 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyCost",
-          "condition": {
+          "requires": {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "hasInZoneData",
               "filter": "self"
             }
@@ -549,9 +549,9 @@
           "filter": "nazgul",
           "memorize": "playedNazgul"
         },
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "hasInZoneData",
             "filter": "self"
           }
@@ -576,7 +576,7 @@
           "type": "movesFrom",
           "filter": "self"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "regroup"
         },
@@ -657,13 +657,13 @@
     "effects": {
       "type": "trigger",
       "trigger": {
-        "type": "condition",
-        "condition": {
+        "type": "requires",
+        "requires": {
           "type": "canSpot",
           "filter": "ranger"
         }
       },
-      "condition": {
+      "requires": {
         "type": "perTurnLimit",
         "limit": 1
       },
@@ -837,7 +837,7 @@
     "effects": {
       "type": "activated",
       "phase": "shadow",
-      "condition": [
+      "requires": [
         {
           "type": "perTurnLimit",
           "limit": 1
@@ -903,9 +903,9 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyCost",
-          "condition": {
+          "requires": {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "hasInZoneData",
               "filter": "self"
             }
@@ -921,9 +921,9 @@
           "filter": "culture(moria),orc",
           "memorize": "playedOrc"
         },
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "hasInZoneData",
             "filter": "self"
           }
@@ -1035,7 +1035,7 @@
         "type": "movesTo",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "cantSpot",
         "filter": "ranger"
       },
@@ -1121,7 +1121,7 @@
     "effects": {
       "type": "activated",
       "phase": "shadow",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "count": 5,
         "filter": "orc,minion"
@@ -1186,7 +1186,7 @@
         "type": "movesTo",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "isSide",
         "side": "shadow"
       },

@@ -12,7 +12,7 @@
         "type": "startOfPhase",
         "phase": "fellowship"
       },
-      "condition": {
+      "requires": {
         "type": "isSide",
         "side": "free people"
       },
@@ -40,7 +40,7 @@
         "type": "startOfPhase",
         "phase": "fellowship"
       },
-      "condition": {
+      "requires": {
         "type": "isSide",
         "side": "free people"
       },
@@ -98,7 +98,7 @@
           "effects": [
             {
               "type": "conditional",
-              "condition": {
+              "requires": {
                 "type": "memoryIs",
                 "memory": "choice",
                 "value": "yes"
@@ -118,7 +118,7 @@
                   },
                   "effect": {
                     "type": "conditional",
-                    "condition": {
+                    "requires": {
                       "type": "memoryIs",
                       "memory": "choice",
                       "value": "yes"
@@ -131,7 +131,7 @@
                       },
                       {
                         "type": "conditional",
-                        "condition": {
+                        "requires": {
                           "type": "memoryIs",
                           "memory": "choice",
                           "value": "yes"

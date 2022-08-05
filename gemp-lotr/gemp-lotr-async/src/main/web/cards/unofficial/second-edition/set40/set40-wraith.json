@@ -19,7 +19,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantRemoveBurdens",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "self,attachedTo(ring bearer)"
           },
@@ -79,7 +79,7 @@
           "type": "startOfPhase",
           "phase": "fellowship"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,attachedTo(any)"
         },
@@ -90,7 +90,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "hasAttached(self),ring bearer"
             },
@@ -108,7 +108,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
-    "condition": {
+    "requires": {
       "type": "canSpotBurdens",
       "amount": 3
     },
@@ -119,8 +119,8 @@
           "type": "modifyStrength",
           "filter": "choose(nazgul)",
           "amount": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpotBurdens",
               "amount": 6
             },
@@ -134,8 +134,8 @@
           "filter": "memory(chosenNazgul)",
           "keyword": "damage",
           "amount": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpotBurdens",
               "amount": 6
             },
@@ -152,7 +152,7 @@
     "cost": 1,
     "type": "event",
     "keyword": "regroup",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "companion,resistanceLessThan(4)"
     },
@@ -165,8 +165,8 @@
       "effect": {
         "type": "addBurdens",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "companion,resistanceLessThan(1)"
           },
@@ -182,7 +182,7 @@
     "cost": 8,
     "type": "event",
     "keyword": "maneuver",
-    "condition": [
+    "requires": [
       {
         "type": "canSpot",
         "filter": "nazgul"
@@ -325,7 +325,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "canSpotBurdens",
           "amount": 3
         },
@@ -344,7 +344,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "nazgul"
         },
@@ -477,7 +477,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "nazgul"
         },
@@ -530,7 +530,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "response",
-    "condition": {
+    "requires": {
       "type": "phase",
       "phase": "regroup"
     },
@@ -708,7 +708,7 @@
         "type": "startOfPhase",
         "phase": "skirmish"
       },
-      "condition": [
+      "requires": [
         {
           "type": "canSpot",
           "filter": "self,inSkirmish"
@@ -742,10 +742,10 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": [
+      "requires": [
         {
           "type": "or",
-          "condition": [
+          "requires": [
             {
               "type": "canSpot",
               "count": 6,
@@ -789,7 +789,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "companion,resistanceLessThan(4)"
       },
@@ -814,7 +814,7 @@
     "effects": {
       "type": "activated",
       "phase": "assignment",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "companion,resistanceLessThan(3),not(ring bearer)"
       },
@@ -842,7 +842,7 @@
         "type": "exert",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "location",
         "filter": "forest"
       },

@@ -69,8 +69,8 @@
         "filter": "memory(exertedDwarf)",
         "keyword": "defender",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "orc"
           },
@@ -154,8 +154,8 @@
           "filter": "choose(dwarf)",
           "memorize": "chosenDwarf",
           "amount": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpot",
               "count": 2,
               "filter": "hand weapon,attachedTo(memory(chosenDwarf))"
@@ -166,7 +166,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "count": 2,
             "filter": "hand weapon,attachedTo(memory(chosenDwarf))"
@@ -190,7 +190,7 @@
     "strength": 5,
     "vitality": 3,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -231,7 +231,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -241,7 +241,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyCost",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "not(underground)"
           },
@@ -367,7 +367,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "underground"
           },
@@ -392,7 +392,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "regroup",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -422,7 +422,7 @@
     "effects": {
       "type": "trigger",
       "optional": true,
-      "condition": {
+      "requires": {
           "type": "canSpot",
           "filter": "dwarf,companion"
       },

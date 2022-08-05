@@ -8,7 +8,7 @@
     "strength": 5,
     "vitality": 2,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     }
@@ -23,7 +23,7 @@
     "strength": 6,
     "vitality": 3,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -51,7 +51,7 @@
     "effects": {
       "type": "activated",
       "phase": "fellowship",
-      "condition": {
+      "requires": {
         "type": "twilightPoolLessThan",
         "amount": 2
       },
@@ -79,7 +79,7 @@
     "race": "elf",
     "strength": 8,
     "vitality": 4,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "or(name(Gandalf),elf)"
     },
@@ -102,8 +102,8 @@
           "type": "exert",
           "filter": "self",
           "times": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "canSpot",
               "count": 2,
               "filter": "not(self),culture(elven),ally"
@@ -165,7 +165,7 @@
     "strength": 5,
     "vitality": 2,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     }
@@ -188,7 +188,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": {
+        "requires": {
           "type": "cardsInHandMoreThan",
           "player": "shadowPlayer",
           "count": 6
@@ -224,7 +224,7 @@
     "race": "man",
     "strength": 2,
     "vitality": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -286,7 +286,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantPlayPhaseEventsOrPhaseSpecialAbilities",
-          "condition": [
+          "requires": [
             {
               "type": "location",
               "filter": "hasAttached(self)"
@@ -333,7 +333,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "count": 5,
               "filter": "companion"
@@ -453,7 +453,7 @@
           "type": "usesspecialability",
           "filter": "side(free people)"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "archery"
         },
@@ -483,7 +483,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "count": 2,
             "filter": "tale"

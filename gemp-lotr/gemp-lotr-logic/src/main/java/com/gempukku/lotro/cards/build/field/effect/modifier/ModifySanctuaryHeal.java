@@ -9,10 +9,10 @@ import org.json.simple.JSONObject;
 public class ModifySanctuaryHeal implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "condition", "amount");
+        FieldUtils.validateAllowedFields(object, "requires", "amount");
 
         final ValueSource amountSource = ValueResolver.resolveEvaluator(object.get("amount"), environment);
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
 
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 

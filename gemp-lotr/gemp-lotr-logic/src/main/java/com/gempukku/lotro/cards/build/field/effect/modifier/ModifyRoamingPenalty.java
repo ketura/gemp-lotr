@@ -9,10 +9,10 @@ import org.json.simple.JSONObject;
 public class ModifyRoamingPenalty implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "filter", "condition", "amount");
+        FieldUtils.validateAllowedFields(object, "filter", "requires", "amount");
 
         final int amount = FieldUtils.getInteger(object.get("amount"), "amount");
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

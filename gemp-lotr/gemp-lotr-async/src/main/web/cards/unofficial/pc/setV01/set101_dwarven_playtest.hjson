@@ -11,7 +11,7 @@
 			{
 				type: activated
 				phase: maneuver
-				condition: {
+				requires: {
 					type: location
 					filter: or(siteNumber(4),siteNumber(5),siteNumber(6),siteNumber(7),siteNumber(8))
 				}
@@ -135,7 +135,7 @@
 				modifier: {
 					type: modifyStrength
 					filter: self
-					condition: {
+					requires: {
 						type: canspot
 						count: 2
 						filter: item,attachedTo(self)
@@ -148,7 +148,7 @@
 				modifier: {
 					type: addKeyword
 					filter: self
-					condition: {
+					requires: {
 						type: canspot
 						count: 3
 						filter: item,attachedTo(self)
@@ -195,7 +195,7 @@
 		twilight: 1
 		type: event
 		keyword: maneuver
-		condition: {
+		requires: {
 			type: canSpot
 			filter: dwarf,hasAttachedCount(2,item)
 		}

@@ -60,7 +60,7 @@
         "modifier": {
           "type": "modifyCost",
           "filter": "culture(elven),event",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "or(name(Elladan),name(Elrohir)),inSkirmish"
           },
@@ -94,7 +94,7 @@
           "type": "played",
           "filter": "culture(elven),event"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "or(name(Elladan),name(Elrohir)),inSkirmish"
         },
@@ -122,7 +122,7 @@
         "type": "startOfPhase",
         "phase": "archery"
       },
-      "condition": {
+      "requires": {
         "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
@@ -163,7 +163,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyArcheryTotal",
-          "condition": {
+          "requires": {
             "type": "isGreaterThan",
             "firstNumber": {
               "type": "forEachYouCanSpot",
@@ -259,7 +259,7 @@
       "modifier": {
         "type": "modifyStrength",
         "filter": "self",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "or(forest,river)"
         },
@@ -282,7 +282,7 @@
         "type": "modifier",
         "modifier": {
           "type": "addKeyword",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "mount"
           },
@@ -297,7 +297,7 @@
           "type": "winsSkirmish",
           "filter": "self"
         },
-        "condition": {
+        "requires": {
           "type": "isGreaterThan",
           "firstNumber": {
             "type": "forEachYouCanSpot",
@@ -333,7 +333,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "ring bearer,resistanceMoreThan(8)"
         },
@@ -373,7 +373,7 @@
         "type": "played",
         "filter": "side(free people),event"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(men)"
       },
@@ -401,7 +401,7 @@
         "type": "startOfPhase",
         "phase": "regroup"
       },
-      "condition": {
+      "requires": {
         "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",
@@ -438,7 +438,7 @@
         "type": "startOfPhase",
         "phase": "assignment"
       },
-      "condition": {
+      "requires": {
         "type": "isGreaterThan",
         "firstNumber": {
           "type": "forEachYouCanSpot",

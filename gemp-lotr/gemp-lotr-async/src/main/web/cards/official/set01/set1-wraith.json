@@ -29,8 +29,8 @@
         "type": "modifyStrength",
         "filter": "choose(nazgul)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "ringIsOn"
           },
           "true": 5,
@@ -60,7 +60,7 @@
         "effects": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "side(free people),or(possession,condition)"
             },
@@ -71,7 +71,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "cantSpot",
               "filter": "side(free people),or(possession,condition)"
             },
@@ -140,7 +140,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "self,zone(support)"
@@ -160,7 +160,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantRemoveBurdens",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "self,attachedTo(ring bearer)"
           },
@@ -190,7 +190,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "bearer",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "plains"
           },
@@ -200,8 +200,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "underground"
           }
@@ -227,7 +227,7 @@
           "filter": "nazgul",
           "memorize": "winner"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,zone(support)"
         },
@@ -243,7 +243,7 @@
           "type": "startOfPhase",
           "phase": "fellowship"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,attachedTo(any)"
         },
@@ -254,7 +254,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "hasAttached(self),ring bearer"
             },
@@ -272,7 +272,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
-    "condition": {
+    "requires": {
       "type": "canSpotBurdens",
       "amount": 3
     },
@@ -287,7 +287,7 @@
         "effects": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpotBurdens",
               "amount": 3
             },
@@ -307,7 +307,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpotBurdens",
               "amount": 6
             },
@@ -341,7 +341,7 @@
         "type": "killed",
         "filter": "companion"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "nazgul,inSkirmish"
       },
@@ -383,8 +383,8 @@
         "type": "modifyStrength",
         "filter": "choose(nazgul)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "ring bearer,notassignedtoskirmish"
           },
@@ -539,7 +539,7 @@
         "type": "addKeyword",
         "filter": "bearer",
         "keyword": "damage+1",
-        "condition": {
+        "requires": {
           "type": "canSpotBurdens",
           "amount": 3
         }
@@ -633,7 +633,7 @@
       "search",
       "support area"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "nazgul"
     },
@@ -677,7 +677,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "response",
-    "condition": {
+    "requires": {
       "type": "ringIsOn"
     },
     "effects": {
@@ -773,8 +773,8 @@
         "type": "modifyStrength",
         "filter": "choose(nazgul)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpotBurdens",
             "amount": 5
           },
@@ -824,7 +824,7 @@
       },
       "effect": {
         "type": "conditional",
-        "condition": {
+        "requires": {
           "type": "perPhaseLimit",
           "limit": 5
         },
@@ -880,9 +880,9 @@
     "effects": {
       "type": "activated",
       "phase": "maneuver",
-      "condition": {
+      "requires": {
         "type": "or",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "count": 6,
@@ -1031,7 +1031,7 @@
     "effects": {
       "type": "activated",
       "phase": "assignment",
-      "condition": {
+      "requires": {
         "type": "canSpotBurdens",
         "amount": 4
       },
@@ -1071,7 +1071,7 @@
     "culture": "wraith",
     "cost": 0,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "nazgul"
     },

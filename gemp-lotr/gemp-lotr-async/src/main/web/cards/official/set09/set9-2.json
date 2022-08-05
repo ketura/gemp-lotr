@@ -87,7 +87,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "name(Gollum)",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "or(mountain,river,underground)"
           },
@@ -97,7 +97,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Gollum)"
         },
@@ -159,7 +159,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,ring bearer"
         },
@@ -188,7 +188,7 @@
     "effects": [
       {
         "type": "trigger",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,ring bearer,inSkirmish"
         },
@@ -238,7 +238,7 @@
     "strength": 8,
     "vitality": 5,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 2,
       "filter": "culture(gondor),man"
@@ -288,7 +288,7 @@
     "effects": [
       {
         "type": "trigger",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "self,ring bearer,inSkirmish"
         },
@@ -319,7 +319,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "self,hasAttached(or(name(The One Ring),artifact))"
           },
@@ -375,7 +375,7 @@
     "cost": 1,
     "type": "artifact",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "unbound,culture(gondor),man"
     },
@@ -404,7 +404,7 @@
       "support area",
       "tale"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(gondor),man"
     },
@@ -453,14 +453,14 @@
           "effects": [
             {
               "type": "conditional",
-              "condition": {
+              "requires": {
                 "type": "canSpot",
                 "filter": "culture(gondor),man,vitalityMoreThan(2)"
               }
             },
             {
               "type": "conditional",
-              "condition": {
+              "requires": {
                 "type": "canSpot",
                 "filter": "culture(gondor),man"
               },
@@ -524,14 +524,14 @@
           "effects": [
             {
               "type": "conditional",
-              "condition": {
+              "requires": {
                 "type": "canSpot",
                 "filter": "culture(gondor),man,vitalityMoreThan(2)"
               }
             },
             {
               "type": "conditional",
-              "condition": {
+              "requires": {
                 "type": "canSpot",
                 "filter": "culture(gondor),man"
               },
@@ -976,9 +976,9 @@
         "trigger": {
           "type": "moves"
         },
-        "condition": {
+        "requires": {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "canSpotTwilight",
             "amount": 3
           }
@@ -1075,7 +1075,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "river"
         },
@@ -1124,7 +1124,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 2,
           "filter": "culture(shire),companion"

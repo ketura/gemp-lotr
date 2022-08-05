@@ -11,12 +11,12 @@ import org.json.simple.JSONObject;
 public class CantBeAssignedToSkirmishAgainst implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "condition", "fpCharacter", "minion", "side");
+        FieldUtils.validateAllowedFields(object, "requires", "fpCharacter", "minion", "side");
 
         final String filter = FieldUtils.getString(object.get("fpCharacter"), "fpCharacter");
         final String against = FieldUtils.getString(object.get("minion"), "minion");
         final Side side = FieldUtils.getEnum(Side.class, object.get("side"), "side");
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
 
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

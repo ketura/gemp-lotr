@@ -9,9 +9,9 @@ import org.json.simple.JSONObject;
 public class NotRequirementProducer implements RequirementProducer {
     @Override
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "condition");
+        FieldUtils.validateAllowedFields(object, "requires");
 
-        final Requirement condition = environment.getRequirementFactory().getRequirement((JSONObject) object.get("condition"), environment);
+        final Requirement condition = environment.getRequirementFactory().getRequirement((JSONObject) object.get("requires"), environment);
 
         return (actionContext) -> !condition.accepts(actionContext);
     }

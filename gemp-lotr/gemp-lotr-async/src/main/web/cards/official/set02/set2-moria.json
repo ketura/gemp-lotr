@@ -61,8 +61,8 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "another,minion"
           }
@@ -82,10 +82,10 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "underground"
             }
@@ -113,7 +113,7 @@
       "Damage",
       "Fierce"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(moria),orc"
     },
@@ -121,10 +121,10 @@
       {
         "type": "trigger",
         "trigger": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "not",
-            "condition": {
+            "requires": {
               "type": "location",
               "filter": "underground"
             }
@@ -180,7 +180,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryIs",
               "memory": "choice",
               "value": "yes"
@@ -202,7 +202,7 @@
           "type": "takesWound",
           "filter": "bearer"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "archery"
         },
@@ -221,7 +221,7 @@
     "culture": "Moria",
     "title": "Dark Fire",
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(The Balrog)"
     },
@@ -256,7 +256,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "not(your),site"
         },

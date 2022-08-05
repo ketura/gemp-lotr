@@ -13,7 +13,7 @@
       {
         "type": "activated",
         "phase": "fellowship",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "sanctuary"
         },
@@ -143,7 +143,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "companion,signet(frodo)",
               "count": 3
@@ -246,7 +246,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "fellowship",
-    "condition": [
+    "requires": [
       {
         "type": "canSpot",
         "filter": "name(Merry)"

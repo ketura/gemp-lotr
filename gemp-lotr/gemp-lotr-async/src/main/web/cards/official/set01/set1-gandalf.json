@@ -9,7 +9,7 @@
     "race": "man",
     "strength": 3,
     "vitality": 3,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -55,7 +55,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "fellowship",
-    "condition": [
+    "requires": [
       {
         "type": "canSpot",
         "filter": "name(Gandalf)"
@@ -101,8 +101,8 @@
           "type": "sum",
           "source": [
             {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "canSpot",
                 "filter": "hobbit,companion"
               },
@@ -110,8 +110,8 @@
               "false": 0
             },
             {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "canSpot",
                 "filter": "dwarf,companion"
               },
@@ -119,8 +119,8 @@
               "false": 0
             },
             {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "canSpot",
                 "filter": "elf,companion"
               },
@@ -128,8 +128,8 @@
               "false": 0
             },
             {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "canSpot",
                 "filter": "man,companion"
               },
@@ -254,7 +254,7 @@
       "spell",
       "response"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -308,8 +308,8 @@
         "type": "modifyStrength",
         "filter": "choose(name(Gandalf))",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpotBurdens",
             "amount": 5
           },
@@ -324,7 +324,7 @@
     "culture": "gandalf",
     "cost": 1,
     "type": "condition",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -348,7 +348,7 @@
     "race": "man",
     "strength": 2,
     "vitality": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -385,7 +385,7 @@
       "spell",
       "fellowship"
     ],
-    "condition": [
+    "requires": [
       {
         "type": "twilightPoolLessThan",
         "amount": 3
@@ -425,7 +425,7 @@
       "spell",
       "fellowship"
     ],
-    "condition": [
+    "requires": [
       {
         "type": "twilightPoolLessThan",
         "amount": 2
@@ -465,7 +465,7 @@
       "spell",
       "skirmish"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -508,7 +508,7 @@
       "spell",
       "response"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -533,7 +533,7 @@
       "spell",
       "fellowship"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },

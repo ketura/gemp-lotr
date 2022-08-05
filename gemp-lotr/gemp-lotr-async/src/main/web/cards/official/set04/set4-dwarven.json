@@ -25,7 +25,7 @@
         "type": "activated",
         "text": "Discard 1 card from the top of your draw deck to take a Free Peoples card stacked here into hand.",
         "phase": "fellowship",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "dwarf"
@@ -46,7 +46,7 @@
         "type": "activated",
         "text": "Discard cards from the top of your deck to no effect.",
         "phase": "fellowship",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "dwarf"

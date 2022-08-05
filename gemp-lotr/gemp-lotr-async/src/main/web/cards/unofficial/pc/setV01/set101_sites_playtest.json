@@ -39,7 +39,7 @@
       },
       "effect": {
         "type": "conditional",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "culture(gandalf)"
         },
@@ -102,7 +102,7 @@
       "type": "modifier",
       "modifier": {
         "type": "cantcancelskirmish",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "unique,culture(moria),minion"
@@ -179,7 +179,7 @@
         "type": "movesTo",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "isSide",
         "side": "shadow"
       },

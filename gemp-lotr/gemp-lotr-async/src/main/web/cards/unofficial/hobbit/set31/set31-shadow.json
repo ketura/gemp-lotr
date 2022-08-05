@@ -12,7 +12,7 @@
         "modifier": {
           "type": "extraCostToPlay",
           "filter": "culture(gandalf),event",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "name(Gollum)"
           },
@@ -79,7 +79,7 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "condition": {
+        "requires": {
           "type": "canspot",
           "filter": "self,assignableToSkirmishAgainst(name(Bilbo))"
         },
@@ -99,8 +99,8 @@
             "type": "modifyStrength",
             "filter": "self",
             "amount": {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "location",
                 "filter": "underground"
               },
@@ -375,7 +375,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "name(Thorin)"
         },
@@ -411,7 +411,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "name(Thorin)"
         },
@@ -487,7 +487,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "another,culture(moria)"
       },
@@ -504,7 +504,7 @@
     "type": "possession",
     "possession": "hand weapon",
     "strength": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(moria)"
     },
@@ -541,8 +541,8 @@
         "type": "putCardsFromDiscardOnBottomOfDeck",
         "filter": "choose(orc)",
         "count": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "underground"
           },
@@ -592,7 +592,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(moria)"
     },
@@ -626,7 +626,7 @@
     "cost": 0,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(moria)"
     },
@@ -744,7 +744,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "culture(elven),archer"
         },
@@ -768,7 +768,7 @@
     "effects": [
       {
         "type": "trigger",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "siteNumber(7-9)"
         },
@@ -779,7 +779,7 @@
         "effect": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "self,attachedTo(name(Bilbo))"
             },
@@ -790,7 +790,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "self,attachedTo(not(name(Bilbo)))"
             },
@@ -861,9 +861,9 @@
           "filter": "orc"
         }
       ],
-      "condition": {
+      "requires": {
         "type": "not",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "regroup"
         }
@@ -897,7 +897,7 @@
           "type": "played",
           "filter": "or(companion,follower)"
         },
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "siteNumber(5)"
         },
@@ -1036,7 +1036,7 @@
     "cost": 2,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "spider"
     },
@@ -1058,8 +1058,8 @@
             "type": "playCardFromDrawDeck",
             "filter": "choose(spider)",
             "cost": {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "location",
                 "filter": "forest"
               },
@@ -1071,8 +1071,8 @@
             "type": "playCardFromDiscard",
             "filter": "choose(spider)",
             "cost": {
-              "type": "condition",
-              "condition": {
+              "type": "requires",
+              "requires": {
                 "type": "location",
                 "filter": "forest"
               },
@@ -1105,8 +1105,8 @@
         "type": "modifyStrength",
         "filter": "choose(spider)",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "count": 6,
             "filter": "companion"
@@ -1262,7 +1262,7 @@
     "cost": 2,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "troll"
     },

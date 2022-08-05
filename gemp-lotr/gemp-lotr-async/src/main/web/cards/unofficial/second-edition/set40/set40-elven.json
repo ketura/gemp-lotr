@@ -5,7 +5,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "archery",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf,archer,companion"
     },
@@ -51,7 +51,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "or(river,forest)"
         },
@@ -82,7 +82,7 @@
           "type": "startOfTurn"
         },
         "optional": true,
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Elrond)"
         },
@@ -142,7 +142,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf,companion"
     },
@@ -206,7 +206,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "revealedCard",
               "filter": "culture(elven)"
@@ -283,7 +283,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "maneuver",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -344,7 +344,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "revealedCard",
               "filter": "culture(elven)"
@@ -368,7 +368,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "revealedCard",
               "filter": "side(shadow)"
@@ -456,7 +456,7 @@
     "cost": 0,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 2,
       "filter": "elf"
@@ -536,7 +536,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "revealedCard",
               "filter": "culture(elven)"
@@ -586,8 +586,8 @@
           "type": "discard",
           "filter": "choose(side(shadow),condition)",
           "count": {
-            "type": "condition",
-            "condition": {
+            "type": "requires",
+            "requires": {
               "type": "memoryMatches",
               "memory": "revealedCard",
               "filter": "culture(elven)"
@@ -609,7 +609,7 @@
     "strength": 9,
     "vitality": 3,
     "resistance": 9,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 3,
       "filter": "elf"
@@ -655,7 +655,7 @@
     "strength": 4,
     "vitality": 3,
     "allyHome": "second ed,3",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -723,7 +723,7 @@
     "cost": 1,
     "type": "event",
     "keyword": "skirmish",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 3,
       "filter": "elf"
@@ -797,7 +797,7 @@
     "effects": {
       "type": "activated",
       "phase": "archery",
-      "condition": {
+      "requires": {
         "type": "location",
         "filter": "battleground"
       },
@@ -818,7 +818,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -841,8 +841,8 @@
       "effect": {
         "type": "removeBurdens",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "memoryMatches",
             "memory": "exertedElf",
             "filter": "name(Galadriel)"
@@ -903,7 +903,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memoryMatches",
             "memory": "woundedMinion",
             "filter": "culture(isengard),minion"
@@ -955,7 +955,7 @@
       "trigger": {
         "type": "moves"
       },
-      "condition": {
+      "requires": {
         "type": "phase",
         "phase": "regroup"
       },
@@ -966,7 +966,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memoryMatches",
             "memory": "revealedCard",
             "filter": "culture(elven)"
@@ -1147,7 +1147,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "archery",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 2,
       "filter": "elf,archer"
@@ -1160,8 +1160,8 @@
         "type": "modifyArcheryTotal",
         "side": "free people",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "forest"
           },

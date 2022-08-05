@@ -10,9 +10,9 @@ import org.json.simple.JSONObject;
 public class SkipPhase implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "condition", "phase");
+        FieldUtils.validateAllowedFields(object, "requires", "phase");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final Phase phase = FieldUtils.getEnum(Phase.class, object.get("phase"), "phase");
 
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

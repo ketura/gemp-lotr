@@ -9,7 +9,7 @@
     "race": "man",
     "strength": 5,
     "vitality": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -80,7 +80,7 @@
     "race": "man",
     "strength": 4,
     "vitality": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -119,7 +119,7 @@
     "race": "man",
     "strength": 4,
     "vitality": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -141,7 +141,7 @@
       "fellowship",
       "regroup"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -154,7 +154,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memoryMatches",
             "memory": "playedSite",
             "filter": "underground"
@@ -203,7 +203,7 @@
       "spell",
       "maneuver"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
@@ -258,7 +258,7 @@
       "spell",
       "maneuver"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Gandalf),hasAttached(staff)"
     },

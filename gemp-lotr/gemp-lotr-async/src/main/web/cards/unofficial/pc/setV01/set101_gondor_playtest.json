@@ -97,7 +97,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "minion,assignedToSkirmish(name(Boromir))",
             "count": 2
@@ -110,7 +110,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "minion,assignedToSkirmish(name(Aragorn))",
             "count": 2
@@ -195,7 +195,7 @@
           "type": "played",
           "filter": "your,skirmish,event"
         },
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "companion,inSkirmish,signet(aragorn)"
@@ -213,7 +213,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": [
+        "requires": [
           {
             "type": "canSpot",
             "filter": "name(Aragorn)"
@@ -255,7 +255,7 @@
     "type": "condition",
     "target": "companion,signet(aragorn),not(name(Aragorn))",
     "strength": 2,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(aragorn)"
     },

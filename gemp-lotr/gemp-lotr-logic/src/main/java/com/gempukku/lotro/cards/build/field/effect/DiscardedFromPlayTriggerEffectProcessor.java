@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 public class DiscardedFromPlayTriggerEffectProcessor implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "optional", "condition", "cost", "effect");
+        FieldUtils.validateAllowedFields(value, "optional", "requires", "cost", "effect");
 
         final boolean optional = FieldUtils.getBoolean(value.get("optional"), "optional", false);
 

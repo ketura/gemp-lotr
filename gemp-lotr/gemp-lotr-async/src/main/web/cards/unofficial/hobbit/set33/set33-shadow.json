@@ -120,7 +120,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryMatches",
               "memory": "bottomCard",
               "filter": "minion"
@@ -248,7 +248,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "memoryMatches",
             "memory": "bottomCard",
             "filter": "minion"
@@ -273,7 +273,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "condition,culture(mirkwood)",
             "count": 3
@@ -311,7 +311,7 @@
           "type": "endOfPhase",
           "phase": "shadow"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "culture(gundabad),orc"
         },
@@ -323,7 +323,7 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "condition": [
+        "requires": [
           {
             "type": "location",
             "filter": "forest"
@@ -407,7 +407,7 @@
         "type": "modifier",
         "modifier": {
           "type": "cantRemoveBurdens",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "culture(mirkwood),condition,hasStacked(culture(dwarven))"
           },
@@ -715,7 +715,7 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "culture(dwarven),companion",
         "count": 3
@@ -750,9 +750,9 @@
         "type": "modifyArcheryTotal",
         "side": "shadow",
         "amount": 1,
-        "condition": {
+        "requires": {
           "type": "or",
-          "condition": [
+          "requires": [
             {
               "type": "canSpotBurdens",
               "amount": 2
@@ -789,7 +789,7 @@
         "modifier": {
           "type": "cantTakeWounds",
           "filter": "ally",
-          "condition": {
+          "requires": {
             "type": "phase",
             "phase": "archery"
           }
@@ -825,7 +825,7 @@
       "modifier": {
         "type": "modifyArcheryTotal",
         "side": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "culture(dwarven),artifact"
         },
@@ -846,7 +846,7 @@
       {
         "type": "activatedInDiscard",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "mountain"
         },
@@ -893,7 +893,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "bearer,name(The Great Goblin)"
         },
@@ -915,7 +915,7 @@
       {
         "type": "activatedInDiscard",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "mountain"
         },
@@ -951,7 +951,7 @@
             "effects": [
               {
                 "type": "conditional",
-                "condition": {
+                "requires": {
                   "type": "memoryMatches",
                   "memory": "revealedCard",
                   "filter": "side(shadow)"
@@ -964,7 +964,7 @@
               },
               {
                 "type": "conditional",
-                "condition": {
+                "requires": {
                   "type": "memoryMatches",
                   "memory": "revealedCard",
                   "filter": "side(free people)"
@@ -1028,7 +1028,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "assignment",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron)"
     },
@@ -1038,8 +1038,8 @@
         "type": "playCardFromDiscard",
         "filter": "choose(orc)",
         "cost": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "location",
             "filter": "forest"
           },
@@ -1092,7 +1092,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "another,culture(sauron),orc"
         },
@@ -1135,7 +1135,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "another,culture(sauron),orc"
         },
@@ -1199,7 +1199,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "skirmish",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(sauron),minion",
       "count": 2
@@ -1271,7 +1271,7 @@
     "effects": {
       "type": "activated",
       "phase": "regroup",
-      "condition": {
+      "requires": {
         "type": "location",
         "filter": "siteNumber(7-8)"
       },

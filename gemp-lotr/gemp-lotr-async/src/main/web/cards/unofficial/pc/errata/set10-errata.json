@@ -5,7 +5,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -15,9 +15,9 @@
         "type": "losesInitiative",
         "side": "free people"
       },
-      "condition": {
+      "requires": {
         "type": "not",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "fellowship"
         }
@@ -38,7 +38,7 @@
     "strength": 7,
     "vitality": 4,
     "resistance": 6,
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "elf",
       "count": 2
@@ -64,7 +64,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memorymatches",
               "memory": "chosenMinion",
               "filter": "strengthLessThan(7)"
@@ -93,7 +93,7 @@
     "effects": [
       {
         "type": "modifyOwnCost",
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "play starting fellowship"
         },
@@ -125,7 +125,7 @@
     "culture": "Gandalf",
     "type": "event",
     "keyword": "response",
-    "condition": {
+    "requires": {
       "type": "phase",
       "phase": "regroup"
     },
@@ -161,14 +161,14 @@
         "type": "played",
         "filter": "self"
       },
-      "condition": [
+      "requires": [
         {
           "type": "twilightPoolLessThan",
           "amount": 4
         },
         {
           "type": "not",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "not(self),minion"
           }
@@ -177,8 +177,8 @@
       "effect": {
         "type": "addTwilight",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "self,roaming"
           },

@@ -8,9 +8,9 @@ import org.json.simple.JSONObject;
 public class CantBeDiscarded implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "filter", "condition", "by");
+        FieldUtils.validateAllowedFields(object, "filter", "requires", "by");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final String byFilter = FieldUtils.getString(object.get("by"), "by", "any");
 

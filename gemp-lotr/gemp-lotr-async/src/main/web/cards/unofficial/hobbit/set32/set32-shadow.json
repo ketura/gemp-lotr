@@ -79,7 +79,7 @@
         "effect": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "cantSpot",
               "filter": "culture(dwarven),ally"
             },
@@ -111,7 +111,7 @@
         "type": "aboutToTakeWound",
         "filter": "another,orc"
       },
-      "condition": {
+      "requires": {
         "type": "location",
         "filter": "battleground"
       },
@@ -143,7 +143,7 @@
         "type": "exert",
         "filter": "self"
       },
-      "condition": {
+      "requires": {
         "type": "location",
         "filter": "battleground"
       },
@@ -216,7 +216,7 @@
         "text": "Would you like to add 2 doubts to prevent shadow player drawing 3 cards?",
         "cost": {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "count": 3,
             "filter": "orc"
@@ -285,7 +285,7 @@
           "type": "played",
           "filter": "self"
         },
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "battleground,not(siteNumber(9))"
         },
@@ -319,7 +319,7 @@
       {
         "type": "activated",
         "phase": "shadow",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "battleground"
         },
@@ -416,7 +416,7 @@
       {
         "type": "activated",
         "phase": "maneuver",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "count": 4,
           "filter": "minion"
@@ -453,7 +453,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "self,mounted"
         },
@@ -539,7 +539,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "regroup",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "orc"
     },
@@ -552,7 +552,7 @@
         },
         {
           "type": "conditional",
-          "condition": {
+          "requires": {
             "type": "canSpotInDeadPile",
             "filter": "character"
           },
@@ -637,7 +637,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "self,mounted"
         },
@@ -735,7 +735,7 @@
       {
         "type": "activated",
         "phase": "regroup",
-        "condition": {
+        "requires": {
           "type": "cantSpot",
           "filter": "self,mounted"
         },
@@ -765,7 +765,7 @@
         "type": "modifier",
         "modifier": {
           "type": "addKeyword",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "siteNumber(9)"
           },
@@ -968,7 +968,7 @@
           "type": "killed",
           "filter": "companion,culture(dwarven)"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Smaug),inSkirmish"
         },
@@ -982,7 +982,7 @@
         "modifier": {
           "type": "cantTakeWounds",
           "filter": "name(Bilbo)",
-          "condition": [
+          "requires": [
             {
               "type": "ringIsOn"
             },
@@ -1077,7 +1077,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "name(Smaug)"
             },
@@ -1171,7 +1171,7 @@
           "type": "killed",
           "filter": "character"
         },
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "name(Smaug),inSkirmish"
         },
@@ -1291,7 +1291,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "cantSpot",
             "count": 2,
             "filter": "wise,character"
@@ -1470,7 +1470,7 @@
       "type": "modifier",
       "modifier": {
         "type": "addKeyword",
-        "condition": {
+        "requires": {
           "type": "canSpot",
           "filter": "follower,attachedTo(companion)"
         },
@@ -1542,7 +1542,7 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyStrength",
-          "condition": {
+          "requires": {
             "type": "canSpot",
             "filter": "follower,attachedTo(companion)"
           },

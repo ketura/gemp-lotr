@@ -57,7 +57,7 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "culture(orc),minion"
     },
@@ -70,8 +70,8 @@
       "effect": {
         "type": "addTwilight",
         "amount": {
-          "type": "condition",
-          "condition": {
+          "type": "requires",
+          "requires": {
             "type": "canSpot",
             "filter": "companion",
             "count": 6

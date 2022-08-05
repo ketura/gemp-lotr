@@ -21,7 +21,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "name(Balin)",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "siteNumber(7-8)"
           },
@@ -31,7 +31,7 @@
       {
         "type": "activated",
         "phase": "skirmish",
-        "condition": {
+        "requires": {
           "type": "location",
           "filter": "siteNumber(8)"
         },
@@ -245,7 +245,7 @@
     "cost": 1,
     "type": "event",
     "keyword": "response",
-    "condition": [
+    "requires": [
       {
         "type": "canSpot",
         "filter": "culture(dwarven),follower"
@@ -297,7 +297,7 @@
       "support area",
       "fortification"
     ],
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "count": 2,
       "filter": "culture(dwarven),follower"
@@ -308,7 +308,7 @@
         "modifier": {
           "type": "modifyStrength",
           "filter": "culture(dwarven),companion,hasAttached(follower)",
-          "condition": {
+          "requires": {
             "type": "location",
             "filter": "siteNumber(7-8)"
           },
@@ -463,7 +463,7 @@
         "modifier": {
           "type": "allyCanParticipateInSkirmishes",
           "filter": "hasAttached(self)",
-          "condition": [
+          "requires": [
             {
               "type": "location",
               "filter": "siteNumber(5)"
@@ -556,7 +556,7 @@
         "effects": [
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "cantSpot",
               "filter": "culture(dwarven),possession"
             },
@@ -567,7 +567,7 @@
           },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "canSpot",
               "filter": "culture(dwarven),possession"
             }
@@ -644,7 +644,7 @@
           "filter": "companion",
           "memorize": "healedCompanion"
         },
-        "condition": {
+        "requires": {
           "type": "phase",
           "phase": "maneuver"
         },
@@ -663,7 +663,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "fellowship",
-    "condition": {
+    "requires": {
       "type": "canSpot",
       "filter": "name(Elrond)"
     },
@@ -722,7 +722,7 @@
     "effects": {
       "type": "activated",
       "phase": "archery",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "name(Gandalf)"
       },
@@ -798,7 +798,7 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "minion,assignedToSkirmish(name(Bilbo))"
       },
@@ -865,7 +865,7 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
+      "requires": {
         "type": "canSpot",
         "filter": "name(Bilbo),inSkirmish"
       },

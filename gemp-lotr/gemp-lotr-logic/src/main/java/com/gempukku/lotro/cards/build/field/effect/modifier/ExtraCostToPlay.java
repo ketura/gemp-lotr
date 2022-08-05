@@ -13,9 +13,9 @@ import org.json.simple.JSONObject;
 public class ExtraCostToPlay implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "condition", "cost", "filter");
+        FieldUtils.validateAllowedFields(object, "requires", "cost", "filter");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

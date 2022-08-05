@@ -43,7 +43,7 @@
 	        },
 	        {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryIs",
               "memory": "choice",
               "value": "no"
@@ -62,7 +62,7 @@
 			    },
           {
             "type": "conditional",
-            "condition": {
+            "requires": {
               "type": "memoryIs",
               "memory": "choice",
               "value": "yes"
