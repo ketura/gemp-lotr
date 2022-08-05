@@ -47,11 +47,7 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("requires", new RequirementFieldProcessor());
         fieldProcessors.put("allyhome", new AllyHomeFieldProcessor());
 
-        //Deprecated; use "gametext" instead.
-        fieldProcessors.put("text", new NullProcessor());
         fieldProcessors.put("gametext", new NullProcessor());
-        //Deprecated; use "lore" instead.
-        fieldProcessors.put("quote", new NullProcessor());
         fieldProcessors.put("lore", new NullProcessor());
         fieldProcessors.put("promotext", new NullProcessor());
     }

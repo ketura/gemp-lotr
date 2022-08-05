@@ -2,7 +2,7 @@
   151_13: {
     title: Counsel of the Wise
     culture: gandalf
-    cost: 0
+    twilight: 0
     type: event
     keyword: fellowship
     requires: {
@@ -43,7 +43,7 @@
 		unique: true
     subtitle: Olorin
     culture: gandalf
-    cost: 4
+    twilight: 4
     type: companion
     race: wizard
     strength: 6
@@ -115,7 +115,7 @@
 		unique: true
     subtitle: Lord of All Eagles
     culture: gandalf
-    cost: 4
+    twilight: 4
     type: ally
     allyHome: fellowship,4
     race: eagle
@@ -174,7 +174,7 @@
     title: My Heart Tells Me
 		unique: true
     culture: gandalf
-    cost: 1
+    twilight: 1
     type: condition
     keyword: support area
     effects: {
@@ -212,7 +212,7 @@
   151_17: {
     title: Two Eyes, As Often As I Can Spare Them
     culture: gandalf
-    cost: 3
+    twilight: 3
     type: event
     keyword: fellowship
     requires: [
@@ -240,7 +240,7 @@
     title: The White Council
 		unique: true
     culture: gandalf
-    cost: 1
+    twilight: 1
     type: condition
     keyword: support area
     effects: [

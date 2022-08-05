@@ -2,7 +2,7 @@
 	151_7: {
 		title: I Was There
 		culture: elven
-		cost: 1
+		twilight: 1
 		type: event
 		keyword: [
 			skirmish
@@ -33,7 +33,7 @@
 		title: Lament For The Fallen
 		unique: true
 		culture: elven
-		cost: 1
+		twilight: 1
 		type: condition
 		keyword: support area
 		target: companion,unbound
@@ -110,7 +110,7 @@
 		unique: true
 		subtitle: Keen-eyed
 		culture: elven
-		cost: 2
+		twilight: 2
 		type: companion
 		race: elf
 		keyword: [
@@ -158,7 +158,7 @@
 	151_10: {
 		title: Let Fly the Darts of Lindon
 		culture: elven
-		cost: 1
+		twilight: 1
 		type: condition
 		keyword: tale
 		target: unique,elf,companion
@@ -206,7 +206,7 @@
 		title: Library of Rivendell
 		unique: true
 		culture: elven
-		cost: 3
+		twilight: 3
 		type: artifact
 		keyword: support area
 		effects: [
@@ -301,7 +301,7 @@
 		title: Three Rings for the Elven Kings
 		unique: true
 		culture: elven
-		cost: 1
+		twilight: 1
 		type: condition
 		keyword: [
 			support area
