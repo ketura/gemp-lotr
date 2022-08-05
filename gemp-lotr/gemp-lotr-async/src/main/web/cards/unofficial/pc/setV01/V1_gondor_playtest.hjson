@@ -214,7 +214,7 @@
 					type: stackPlayedEvent
 					where: self
 				}
-			},				
+			}
 			{
 				type: activated
 				phase: skirmish

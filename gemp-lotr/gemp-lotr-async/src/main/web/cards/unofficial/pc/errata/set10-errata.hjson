@@ -1,0 +1,193 @@
+{
+	60_2: {
+		title: Memories of Darkness
+		unique: true
+		culture: dwarven
+		twilight: 1
+		type: condition
+		keyword: support area
+		requires: {
+			type: canSpot
+			filter: dwarf
+		}
+		effects: {
+			type: trigger
+			trigger: {
+				type: losesInitiative
+				side: free people
+			}
+			requires: {
+				type: not
+				requires: {
+					type: phase
+					phase: fellowship
+				}
+			}
+			effect: {
+				type: play
+				filter: choose(culture(dwarven),or(condition,possession))
+			}
+		}
+	}
+	60_8: {
+		title: Cirdan
+		subtitle: The Shipwright
+		unique: true
+		culture: Elven
+		twilight: 4
+		type: companion
+		race: Elf
+		strength: 7
+		vitality: 4
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: elf
+			count: 2
+		}
+		effects: [
+			{
+				type: activated
+				phase: skirmish
+				cost: {
+					type: exert
+					filter: self
+				}
+				effect: [
+					{
+						type: modifyStrength
+						filter: choose(minion,inSkirmishAgainst(self))
+						memorize: chosenMinion
+						amount: {
+							type: forEachInDiscard
+							filter: culture(elven),event
+							multiplier: -1
+						}
+					}
+					{
+						type: conditional
+						requires: {
+							type: memorymatches
+							memory: chosenMinion
+							filter: strengthLessThan(7)
+						}
+						effect: {
+							type: removeCardsInDiscardFromGame
+							count: 3
+							filter: choose(culture(elven),event)
+						}
+					}
+				]
+			}
+		]
+	}
+	60_11: {
+		title: Galadriel
+		subtitle: Lady Redeemed
+		unique: true
+		culture: elven
+		twilight: 3
+		type: companion
+		race: elf
+		strength: 3
+		vitality: 3
+		resistance: 6
+		effects: [
+			{
+				type: modifyOwnCost
+				requires: {
+					type: phase
+					phase: play starting fellowship
+				}
+				amount: -3
+			}
+			{
+				type: trigger
+				optional: true
+				trigger: {
+					type: startOfPhase
+					phase: regroup
+				}
+				cost: {
+					type: discardFromHand
+					count: 1
+					forced: false
+					filter: choose(culture(elven),event)
+				}
+				effect: {
+					type: discard
+					filter: choose(side(shadow),or(condition,possession))
+				}
+			}
+		]
+	}
+	60_17: {
+		title: Out of the High Airs
+		twilight: 3
+		culture: Gandalf
+		type: event
+		keyword: response
+		requires: {
+			type: phase
+			phase: regroup
+		}
+		effects: {
+			type: responseEvent
+			trigger: {
+				type: moves
+			}
+			cost: {
+				type: exert
+				filter: choose(your,wizard)
+				times: 2
+			}
+			effect: {
+				type: discard
+				count: 0-3
+				filter: choose(minion)
+			}
+		}
+	}
+	60_91: {
+		title: Mordor Fiend
+		culture: sauron
+		twilight: 3
+		type: minion
+		race: orc
+		strength: 9
+		vitality: 3
+		site: 6
+		effects: {
+			type: trigger
+			trigger: {
+				type: played
+				filter: self
+			}
+			requires: [
+				{
+					type: twilightPoolLessThan
+					amount: 4
+				}
+				{
+					type: not
+					requires: {
+						type: canSpot
+						filter: not(self),minion
+					}
+				}
+			]
+			effect: {
+				type: addTwilight
+				amount: {
+					type: requires
+					requires: {
+						type: canSpot
+						filter: self,roaming
+					}
+					true: 5
+					false: 3
+				}
+			}
+		}
+	}
+}

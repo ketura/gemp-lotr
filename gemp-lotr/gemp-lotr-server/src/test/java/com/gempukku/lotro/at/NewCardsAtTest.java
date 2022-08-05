@@ -53,7 +53,7 @@ public class NewCardsAtTest extends AbstractAtTest {
         // Start skirmish
         playerDecided(P1, String.valueOf(gimli.getCardId()));
 
-        assertEquals(0, ((String[]) _userFeedback.getAwaitingDecision(P1).getDecisionParameters().get("actionId")).length);
+        assertEquals(0, _userFeedback.getAwaitingDecision(P1).getDecisionParameters().get("actionId").length);
     }
 
     @Test

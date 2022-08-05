@@ -1,0 +1,611 @@
+{
+	51_7: {
+		title: Dwarf Guard
+		culture: dwarven
+		twilight: 1
+		type: companion
+		race: dwarf
+		strength: 5
+		vitality: 2
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: dwarf
+		}
+	}
+	51_11: {
+		title: Farin
+		subtitle: Dwarven Emissary
+		unique: true
+		culture: dwarven
+		twilight: 2
+		type: companion
+		race: dwarf
+		strength: 6
+		vitality: 3
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: dwarf
+		}
+		effects: {
+			type: modifier
+			modifier: {
+				type: modifyStrength
+				filter: self,inSkirmishAgainst(orc)
+				amount: 2
+			}
+		}
+	}
+	51_12: {
+		title: Gimli
+		subtitle: Dwarf of Erebor
+		unique: true
+		culture: dwarven
+		twilight: 2
+		type: companion
+		race: dwarf
+		strength: 6
+		vitality: 3
+		resistance: 6
+		signet: aragorn
+		keyword: damage+1
+		effects: {
+			type: activated
+			phase: fellowship
+			requires: {
+				type: twilightPoolLessThan
+				amount: 2
+			}
+			cost: [
+				{
+					type: addTwilight
+					amount: 2
+				}
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+	}
+	51_40: {
+		title: Elrond
+		subtitle: Lord of Rivendell
+		unique: true
+		culture: elven
+		twilight: 4
+		type: ally
+		allyHome: fellowship,3
+		race: elf
+		strength: 8
+		vitality: 4
+		requires: {
+			type: canSpot
+			filter: or(name(Gandalf),elf)
+		}
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: startOfTurn
+				}
+				effect: {
+					type: heal
+					filter: choose(ally,allyHome(fellowship,3))
+					count: 0-3
+				}
+			}
+			{
+				type: activated
+				phase: fellowship
+				cost: {
+					type: exert
+					filter: self
+					times: {
+						type: requires
+						requires: {
+							type: canSpot
+							count: 2
+							filter: not(self),culture(elven),ally
+						}
+						true: 1
+						false: 2
+					}
+				}
+				effect: {
+					type: drawCards
+				}
+			}
+		]
+	}
+	51_45: {
+		title: Galadriel
+		subtitle: Lady of Light
+		unique: true
+		culture: elven
+		twilight: 3
+		type: ally
+		allyHome: fellowship,6
+		race: elf
+		strength: 3
+		vitality: 3
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: startOfTurn
+				}
+				effect: {
+					type: heal
+					filter: choose(ally,allyHome(fellowship,6))
+					count: 0-3
+				}
+			}
+			{
+				type: activated
+				phase: fellowship
+				cost: {
+					type: exert
+					filter: self
+					times: 1
+				}
+				effect: {
+					type: play
+					filter: choose(elf)
+					cost: -1
+				}
+			}
+		]
+	}
+	51_53: {
+		title: Lorien Elf
+		culture: elven
+		twilight: 1
+		type: companion
+		race: elf
+		strength: 5
+		vitality: 2
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: elf
+		}
+	}
+	51_55: {
+		title: The Mirror of Galadriel
+		unique: true
+		culture: elven
+		twilight: 2
+		type: possession
+		keyword: support area
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: modifyStrength
+					filter: elf,ally,allyHome(fellowship,6)
+					amount: 1
+				}
+			}
+			{
+				type: activated
+				phase: maneuver
+				requires: {
+					type: cardsInHandMoreThan
+					player: shadowPlayer
+					count: 6
+				}
+				cost: {
+					type: exert
+					filter: choose(name(Galadriel))
+				}
+				effect: [
+					{
+						type: revealRandomCardsFromHand
+						forced: true
+						hand: shadowPlayer
+						count: 3
+						memorize: revealedCards
+					}
+					{
+						type: putCardsFromHandOnTopOfDeck
+						filter: choose(memory(revealedCards))
+						player: shadowPlayer
+					}
+				]
+			}
+		]
+	}
+	51_80: {
+		title: Ottar
+		subtitle: Man of Laketown
+		unique: true
+		culture: gandalf
+		twilight: 1
+		type: ally
+		allyHome: fellowship,3
+		race: man
+		strength: 2
+		vitality: 2
+		requires: {
+			type: canSpot
+			filter: name(Gandalf)
+		}
+		effects: {
+			type: activated
+			phase: fellowship
+			cost: [
+				{
+					type: exert
+					filter: self
+				}
+				{
+					type: discardFromHand
+					forced: false
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+	}
+	51_108: {
+		title: No Stranger to the Shadows
+		unique: true
+		culture: gondor
+		twilight: 0
+		type: condition
+		keyword: [
+			stealth
+		]
+		target: ranger
+		effects: {
+			type: modifier
+			modifier: {
+				type: modifyCost
+				filter: site
+				amount: -1
+			}
+		}
+	}
+	51_138: {
+		title: Saruman's Snows
+		culture: isengard
+		twilight: 2
+		type: condition
+		keyword: [
+			spell
+			weather
+		]
+		target: site
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(culture(isengard),minion)
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: cantPlayPhaseEventsOrPhaseSpecialAbilities
+					requires: [
+						{
+							type: location
+							filter: hasAttached(self)
+						}
+						{
+							type: canSpot
+							filter: culture(isengard),minion,inSkirmish
+						}
+					]
+					phase: skirmish
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: endOfTurn
+				}
+				effect: {
+					type: discard
+					filter: self
+				}
+			}
+		]
+	}
+	51_139: {
+		title: Savagery To Match Their Numbers
+		culture: isengard
+		twilight: 0
+		type: event
+		keyword: skirmish
+		effects: {
+			type: event
+			effect: {
+				type: choice
+				texts: [
+					Make an Uruk-hai strength +2
+					Make an Uruk-hai strength +3 (and fierce until the regroup phase)
+				]
+				effects: [
+					{
+						type: modifyStrength
+						filter: choose(uruk-hai)
+						amount: 2
+					}
+					{
+						type: conditional
+						requires: {
+							type: canSpot
+							count: 5
+							filter: companion
+						}
+						effect: [
+							{
+								type: modifyStrength
+								filter: choose(uruk-hai)
+								amount: 3
+								memorize: chosenUrukHai
+							}
+							{
+								type: addKeyword
+								filter: memory(chosenUrukHai)
+								keyword: fierce
+								until: start(regroup)
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+	51_195: {
+		title: Relics of Moria
+		unique: true
+		culture: moria
+		twilight: 1
+		type: condition
+		keyword: support area
+		effects: {
+			type: activated
+			phase: shadow
+			cost: {
+				type: removeTwilight
+				amount: 2
+			}
+			effect: {
+				type: playCardFromDiscard
+				removedTwilight: 2
+				filter: choose(culture(moria),possession)
+			}
+		}
+	}
+	51_234: {
+		title: Úlairë Nertëa
+		subtitle: Messenger of Dol Guldur
+		unique: true
+		culture: wraith
+		twilight: 4
+		type: minion
+		race: nazgul
+		strength: 9
+		vitality: 2
+		site: 3
+		effects: {
+			type: trigger
+			trigger: {
+				type: played
+				filter: self
+			}
+			effect: {
+				type: duplicate
+				amount: {
+					type: forEachYouCanSpot
+					filter: companion
+					over: 4
+				}
+				effect: {
+					type: optional
+					text: Would you like to play a unique wraith minion from your discard?
+					effect: {
+						type: playCardFromDiscard
+						filter: choose(unique,culture(wraith),minion)
+					}
+				}
+			}
+		}
+	}
+	51_248: {
+		title: Forces of Mordor
+		culture: sauron
+		twilight: 0
+		type: event
+		keyword: shadow
+		effects: {
+			type: event
+			cost: {
+				type: exert
+				filter: choose(culture(sauron),minion)
+			}
+			effect: {
+				type: addTwilight
+				amount: {
+					type: forEachYouCanSpot
+					filter: culture(sauron),orc
+					limit: 3
+				}
+			}
+		}
+	}
+	51_254: {
+		title: Mordor Enraged
+		culture: sauron
+		twilight: 0
+		type: condition
+		target: archer,companion
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(culture(sauron),orc)
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: usesspecialability
+					filter: side(free people)
+				}
+				requires: {
+					type: phase
+					phase: archery
+				}
+				effect: {
+					type: exert
+					filter: bearer
+				}
+			}
+		]
+	}
+	51_282: {
+		title: The Weight of a Legacy
+		culture: sauron
+		twilight: 0
+		type: condition
+		strength: -1
+		target: culture(gondor),companion,not(hasAttached(name(The Weight of a Legacy)))
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(culture(sauron),orc)
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: modifyStrength
+					requires: {
+						type: canSpot
+						count: 2
+						filter: tale
+					}
+					filter: bearer
+					amount: -2
+				}
+			}
+		]
+	}
+	51_311: {
+		title: Sam
+		subtitle: Son of Hamfast
+		unique: true
+		culture: shire
+		twilight: 2
+		type: companion
+		race: hobbit
+		strength: 3
+		vitality: 4
+		resistance: 5
+		signet: aragorn
+		effects: [
+			{
+				type: activated
+				phase: fellowship
+				cost: [
+					{
+						type: exert
+						filter: self
+					}
+					{
+						type: exert
+						filter: choose(another,companion)
+					}
+				]
+				effect: {
+					type: removeBurdens
+					amount: 1
+				}
+			}
+			{
+				type: trigger
+				optional: true
+				trigger: {
+					type: killed
+					filter: name(Frodo),ring bearer
+				}
+				effect: {
+					type: makeSelfRingBearer
+				}
+			}
+		]
+	}
+	51_313: {
+		title: Sting
+		unique: true
+		culture: shire
+		twilight: 1
+		type: possession
+		itemclass: hand weapon
+		strength: 2
+		target: name(Frodo)
+		effects: {
+			type: activated
+			phase: [
+				fellowship
+				regroup
+			]
+			cost: {
+				type: exert
+				filter: bearer
+			}
+			effect: [
+				{
+					type: revealrandomcardsfromhand
+					hand: shadowPlayer
+					forced: true
+					memorize: revealedCards
+					count: 4
+				}
+				{
+					type: removeTwilight
+					amount: {
+						type: cardPhaseLimit
+						limit: 2
+						amount: {
+							type: forEachMatchingInMemory
+							memory: revealedCards
+							filter: orc
+							limit: 2
+						}
+					}
+				}
+			]
+		}
+	}
+	51_316: {
+		title: A Talent for Not Being Seen
+		culture: shire
+		twilight: 0
+		type: condition
+		target: or(name(Merry),name(Pippin)),not(hasAttached(name(A Talent for Not Being Seen)))
+		keyword: [
+			stealth
+		]
+		effects: {
+			type: modifier
+			modifier: {
+				type: modifyCost
+				filter: site
+				amount: -1
+			}
+		}
+	}
+}
