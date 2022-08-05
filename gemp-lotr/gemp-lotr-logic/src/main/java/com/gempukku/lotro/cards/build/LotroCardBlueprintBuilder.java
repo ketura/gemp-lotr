@@ -25,30 +25,41 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
     public LotroCardBlueprintBuilder() {
         fieldProcessors.put("title", new TitleFieldProcessor());
         fieldProcessors.put("subtitle", new SubtitleFieldProcessor());
+        fieldProcessors.put("unique", new UniqueFieldProcessor());
         fieldProcessors.put("side", new SideFieldProcessor());
-        fieldProcessors.put("type", new CardTypeFieldProcessor());
         fieldProcessors.put("culture", new CultureFieldProcessor());
+        fieldProcessors.put("type", new CardTypeFieldProcessor());
         fieldProcessors.put("race", new RaceFieldProcessor());
-        fieldProcessors.put("signet", new SignetFieldProcessor());
+        //Deprecated: use "itemclass" instead.
+        fieldProcessors.put("possession", new PossessionClassFieldProcessor());
+        fieldProcessors.put("itemclass", new PossessionClassFieldProcessor());
         fieldProcessors.put("keyword", new KeywordFieldProcessor());
+        fieldProcessors.put("keywords", new KeywordFieldProcessor());
+        //Deprecated: use "twilight" instead.
         fieldProcessors.put("cost", new CostFieldProcessor());
+        fieldProcessors.put("twilight", new CostFieldProcessor());
         fieldProcessors.put("strength", new StrengthFieldProcessor());
         fieldProcessors.put("vitality", new VitalityFieldProcessor());
         fieldProcessors.put("resistance", new ResistanceFieldProcessor());
+        fieldProcessors.put("signet", new SignetFieldProcessor());
         fieldProcessors.put("block", new SiteBlockFieldProcessor());
         fieldProcessors.put("site", new SiteNumberFieldProcessor());
-        fieldProcessors.put("possession", new PossessionClassFieldProcessor());
+
         fieldProcessors.put("direction", new DirectionFieldProcessor());
         fieldProcessors.put("effects", new EffectFieldProcessor());
         fieldProcessors.put("target", new TargetFieldProcessor());
+        //Deprecated: use "requires" instead.
         fieldProcessors.put("condition", new RequirementFieldProcessor());
+        fieldProcessors.put("requires", new RequirementFieldProcessor());
         fieldProcessors.put("allyhome", new AllyHomeFieldProcessor());
 
+        //Deprecated; use "gametext" instead.
         fieldProcessors.put("text", new NullProcessor());
         fieldProcessors.put("gametext", new NullProcessor());
+        //Deprecated; use "lore" instead.
+        fieldProcessors.put("quote", new NullProcessor());
         fieldProcessors.put("lore", new NullProcessor());
         fieldProcessors.put("promotext", new NullProcessor());
-        fieldProcessors.put("quote", new NullProcessor());
     }
 
     public LotroCardBlueprint buildFromJson(JSONObject json) throws InvalidCardDefinitionException {

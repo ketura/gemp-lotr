@@ -2,7 +2,7 @@
 	151_1: {
 		title: Hospitality of the Dwarves
 		culture: dwarven
-		cost: 1
+		twilight: 1
 		type: condition
 		keyword: [
 			support area
@@ -72,9 +72,10 @@
 	}
 	
 	151_2: {
-		title: *Deepest Delvings
+		title: Deepest Delvings
+		unique: true
 		culture: dwarven
-		cost: 1
+		twilight: 1
 		type: condition
 		keyword: [
 			support area
@@ -115,10 +116,12 @@
 	}
 	
 	151_3: {
-		title: *Gimli
+		# Hey look it's a comment because we're not in the stone age
+		title: Gimli
+		unique: true
 		subtitle: Vengeful Naugrim
 		culture: dwarven
-		cost: 2
+		twilight: 2
 		type: companion
 		race: dwarf
 		strength: 6
@@ -159,7 +162,7 @@
 	151_4: {
 		title: I Name You Elf-friend
 		culture: dwarven
-		cost: 1
+		twilight: 1
 		type: event
 		keyword: maneuver
 		effects: {
@@ -189,7 +192,7 @@
 	151_5: {
 		title: One Dwarf in Moria
 		culture: dwarven
-		cost: 1
+		twilight: 1
 		type: event
 		keyword: maneuver
 		condition: {
@@ -238,9 +241,10 @@
 	}
 	
 	151_6: {
-		title: *So Bold and So Courteous
+		title: So Bold and So Courteous
+		unique: true
 		culture: dwarven
-		cost: 0
+		twilight: 0
 		type: condition
 		keyword: [
 			support area
