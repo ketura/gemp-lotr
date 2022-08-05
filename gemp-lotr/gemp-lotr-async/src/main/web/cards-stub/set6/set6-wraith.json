@@ -58,7 +58,7 @@
     "cost": 0,
     "strength": 2,
     "culture": "Wraith",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Fell Beast",
     "type": "possession"
   },
@@ -79,7 +79,7 @@
     "cost": 2,
     "strength": 2,
     "culture": "Wraith",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Sword of Dol Guldur",
     "type": "possession"
   }

@@ -11,7 +11,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Sauron",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Vile Blade",
     "type": "possession"
   },

@@ -24,7 +24,7 @@
     "culture": "Isengard",
     "vitality": 1,
     "subtitle": "Fallen Istar's Stave",
-    "possession": "Staff",
+    "itemclass": "Staff",
     "title": "*Staff of Saruman",
     "type": "artifact"
   },

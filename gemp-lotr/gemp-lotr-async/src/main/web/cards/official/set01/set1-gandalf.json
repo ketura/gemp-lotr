@@ -175,7 +175,7 @@
     "culture": "gandalf",
     "cost": 0,
     "type": "possession",
-    "possession": "pipe",
+    "itemclass": "pipe",
     "target": "name(Gandalf)",
     "effects": {
       "type": "activated",
@@ -205,7 +205,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Gandalf)",
     "effects": [

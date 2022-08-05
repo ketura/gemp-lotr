@@ -27,7 +27,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "artifact",
-    "possession": "staff",
+    "itemclass": "staff",
     "vitality": 1,
     "target": "name(Gandalf)",
     "effects": [
@@ -231,7 +231,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "possession",
-    "possession": "staff",
+    "itemclass": "staff",
     "strength": 1,
     "target": "wizard",
     "effects": {

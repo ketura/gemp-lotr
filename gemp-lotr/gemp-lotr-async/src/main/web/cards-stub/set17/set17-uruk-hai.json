@@ -193,7 +193,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Uruk-hai",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Blade of the White Hand",
     "type": "possession"
   },
@@ -298,7 +298,7 @@
     "strength": 1,
     "culture": "Uruk-hai",
     "vitality": 1,
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Spear of the White Hand",
     "type": "possession"
   },

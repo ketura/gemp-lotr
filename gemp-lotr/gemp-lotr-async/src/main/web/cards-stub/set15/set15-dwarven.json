@@ -11,7 +11,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Dwarven",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Well-crafted Armor",
     "type": "possession"
   },
@@ -28,7 +28,7 @@
     "cost": 4,
     "strength": 3,
     "culture": "Dwarven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Heavy Axe",
     "type": "possession"
   },

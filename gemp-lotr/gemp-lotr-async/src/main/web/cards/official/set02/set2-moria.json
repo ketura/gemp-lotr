@@ -24,7 +24,7 @@
     "cost": 1,
     "strength": 3,
     "culture": "Moria",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*The Balrog's Sword",
     "type": "artifact",
     "target": "name(The Balrog)",

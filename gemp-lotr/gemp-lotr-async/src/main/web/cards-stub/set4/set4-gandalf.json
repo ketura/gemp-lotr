@@ -78,7 +78,7 @@
     "cost": 2,
     "strength": 2,
     "culture": "Gandalf",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Shadowfax",
     "type": "possession"
   },
@@ -158,7 +158,7 @@
     "culture": "Gandalf",
     "vitality": 1,
     "subtitle": "Walking Stick",
-    "possession": "Staff",
+    "itemclass": "Staff",
     "title": "*Gandalf's Staff",
     "type": "artifact"
   },

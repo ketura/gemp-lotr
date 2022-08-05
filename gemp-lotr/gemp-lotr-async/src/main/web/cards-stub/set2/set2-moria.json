@@ -86,7 +86,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Moria",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Whip of Many Thongs",
     "type": "artifact"
   },

@@ -29,7 +29,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Shire",
-    "possession": "Pipe",
+    "itemclass": "Pipe",
     "title": "*Frodo's Pipe",
     "type": "possession"
   },
@@ -38,7 +38,7 @@
     "cost": 0,
     "strength": 1,
     "culture": "Shire",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Frying Pan",
     "type": "possession"
   },

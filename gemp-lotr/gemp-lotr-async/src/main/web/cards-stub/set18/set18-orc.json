@@ -65,7 +65,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Orc",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Orkish Ax",
     "type": "possession"
   },
@@ -99,7 +99,7 @@
     "culture": "Orc",
     "vitality": 1,
     "subtitle": "Leader's Mount",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Gothmog's Warg",
     "type": "possession"
   },

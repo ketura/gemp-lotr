@@ -103,7 +103,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(dwarven),character",
     "effects": {
@@ -178,7 +178,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "culture(dwarven),companion",
     "effects": [
@@ -484,7 +484,7 @@
     "culture": "elven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "name(Galadriel)",
     "effects": [
@@ -561,7 +561,7 @@
     "culture": "esgaroth",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "strength": 1,
     "target": "name(Bard)",
     "effects": {
@@ -632,7 +632,7 @@
     "culture": "esgaroth",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "or(man,and(culture(dwarven),companion))",
     "effects": {

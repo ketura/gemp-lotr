@@ -5,7 +5,7 @@
     "strength": 1,
     "culture": "Rohan",
     "subtitle": "Mearas of the Mark",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Firefoot",
     "type": "possession"
   },
@@ -151,7 +151,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Rider's Bow",
     "type": "possession"
   },
@@ -169,7 +169,7 @@
     "strength": 1,
     "culture": "Rohan",
     "subtitle": "Noble Mearas",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Snowmane",
     "type": "possession",
     "resistance": 1

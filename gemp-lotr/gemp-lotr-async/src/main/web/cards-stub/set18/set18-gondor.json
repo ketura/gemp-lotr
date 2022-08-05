@@ -54,7 +54,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Gondor",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Armor of the White City",
     "type": "possession"
   },
@@ -63,7 +63,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Gondor",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Dunadan's Bow",
     "type": "possession"
   },
@@ -116,7 +116,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Shield",
+    "itemclass": "Shield",
     "title": "Shield of the White Tree",
     "type": "possession"
   },
@@ -164,7 +164,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Denethor's Sword",
     "type": "possession"
   },

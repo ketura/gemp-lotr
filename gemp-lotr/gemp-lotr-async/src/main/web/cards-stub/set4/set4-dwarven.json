@@ -34,7 +34,7 @@
     "cost": 2,
     "strength": 2,
     "culture": "Dwarven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Axe of Erebor",
     "type": "possession"
   },

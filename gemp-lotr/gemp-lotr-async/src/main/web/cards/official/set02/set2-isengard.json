@@ -136,7 +136,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Isengard",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Lurtz's Sword",
     "type": "possession",
     "target": "name(Lurtz)",

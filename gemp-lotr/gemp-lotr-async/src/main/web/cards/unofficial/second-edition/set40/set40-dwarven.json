@@ -229,7 +229,7 @@
     "title": "Dwarven Battle Axe",
     "culture": "dwarven",
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "cost": 1,
     "strength": 1,
     "vitality": 1,
@@ -261,7 +261,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "possession": "bracers",
+    "itemclass": "bracers",
     "strength": 1,
     "target": "dwarf",
     "text": [
@@ -549,7 +549,7 @@
     "culture": "dwarven",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "dwarf",
     "text": [

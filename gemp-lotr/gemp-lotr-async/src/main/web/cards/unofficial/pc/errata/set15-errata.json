@@ -38,7 +38,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Ithilien Blade",
     "type": "possession",
     "target": "culture(gondor),man",

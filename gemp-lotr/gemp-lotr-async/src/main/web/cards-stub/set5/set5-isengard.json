@@ -5,7 +5,7 @@
     "strength": 3,
     "culture": "Isengard",
     "vitality": 1,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Warg",
     "type": "possession"
   },
@@ -15,7 +15,7 @@
     "strength": 4,
     "culture": "Isengard",
     "vitality": 2,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "War-warg",
     "type": "possession"
   },
@@ -176,7 +176,7 @@
     "cost": 0,
     "strength": 2,
     "culture": "Isengard",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Isengard Scimitar",
     "type": "possession"
   },
@@ -246,7 +246,7 @@
     "strength": 5,
     "culture": "Isengard",
     "vitality": 3,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Sharku's Warg",
     "type": "possession"
   },

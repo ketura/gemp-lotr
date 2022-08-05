@@ -92,7 +92,7 @@
     "strength": 3,
     "culture": "Orc",
     "subtitle": "Unwieldy Cudgel",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Cave Troll's Hammer",
     "type": "possession"
   },
@@ -182,7 +182,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Orc",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Orc Spear",
     "type": "possession"
   },

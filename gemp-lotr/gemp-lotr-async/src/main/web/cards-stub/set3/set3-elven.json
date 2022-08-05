@@ -31,7 +31,7 @@
     "cost": 0,
     "culture": "Elven",
     "vitality": 1,
-    "possession": "Ring",
+    "itemclass": "Ring",
     "title": "*Vilya",
     "type": "artifact"
   },
@@ -151,7 +151,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Long-knives of Legolas",
     "type": "possession"
   },
@@ -195,7 +195,7 @@
     "cost": 0,
     "culture": "Elven",
     "vitality": 1,
-    "possession": "Ring",
+    "itemclass": "Ring",
     "title": "*Nenya",
     "type": "artifact"
   },

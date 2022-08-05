@@ -240,7 +240,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "strength": 1,
     "target": "dwarf",
     "effects": [
@@ -291,7 +291,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "strength": 1,
     "target": "dwarf",
     "effects": [
@@ -334,7 +334,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "strength": 1,
     "target": "dwarf",
     "effects": [
@@ -367,7 +367,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "strength": 1,
     "vitality": 1,
     "target": "dwarf",
@@ -447,7 +447,7 @@
     "culture": "elven",
     "cost": 2,
     "type": "artifact",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "vitality": 1,
     "target": "elf",
     "effects": [
@@ -623,7 +623,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 1,
     "target": "culture(gondor),man",
     "effects": [
@@ -657,7 +657,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Merry)",
     "effects": {
@@ -702,7 +702,7 @@
     "culture": "elven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "or(name(Cirdan),name(Gandalf))",
     "effects": {
@@ -733,7 +733,7 @@
     "culture": "elven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "name(Galadriel)",
     "effects": {
@@ -765,7 +765,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Pippin)",
     "effects": {
@@ -882,7 +882,7 @@
     "culture": "elven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "or(name(Elrond),name(Gil-galad))",
     "effects": {

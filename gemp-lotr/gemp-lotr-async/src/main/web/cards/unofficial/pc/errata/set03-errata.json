@@ -185,7 +185,7 @@
     "culture": "isengard",
     "cost": 0,
     "type": "artifact",
-    "possession": "palantir",
+    "itemclass": "palantir",
     "keyword": "support area",
     "requires": {
       "type": "canSpot",
@@ -261,7 +261,7 @@
     "culture": "Shire",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 1,
     "target": "hobbit",
     "effects": {

@@ -28,7 +28,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Dwarven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Axe of Khazad-dum",
     "type": "possession"
   },
@@ -82,7 +82,7 @@
     "strength": 2,
     "culture": "Dwarven",
     "subtitle": "Vicious Weapon",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Gimli's Battle Axe",
     "type": "possession"
   },

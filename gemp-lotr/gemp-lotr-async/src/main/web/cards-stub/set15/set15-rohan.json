@@ -69,7 +69,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Spear of the Mark",
     "type": "possession",
     "resistance": 1
@@ -89,7 +89,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Shield",
+    "itemclass": "Shield",
     "title": "Sturdy Shield",
     "type": "possession"
   },
@@ -121,7 +121,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Horse of Great Stature",
     "type": "possession"
   },
@@ -131,7 +131,7 @@
     "strength": 2,
     "culture": "Rohan",
     "subtitle": "Trusty Weapon",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Eomer's Spear",
     "type": "possession"
   },
@@ -161,7 +161,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Rohirrim Axe",
     "type": "possession"
   },

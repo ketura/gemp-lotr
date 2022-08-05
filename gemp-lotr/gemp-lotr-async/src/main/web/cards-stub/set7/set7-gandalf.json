@@ -74,7 +74,7 @@
     "strength": 2,
     "culture": "Gandalf",
     "subtitle": "Elven Blade",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Glamdring",
     "type": "possession"
   },
@@ -105,7 +105,7 @@
     "culture": "Gandalf",
     "vitality": 1,
     "subtitle": "Focus of Power",
-    "possession": "Staff",
+    "itemclass": "Staff",
     "title": "*Gandalf's Staff",
     "type": "artifact"
   },

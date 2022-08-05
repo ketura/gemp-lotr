@@ -91,7 +91,7 @@
     "culture": "Gandalf",
     "vitality": 1,
     "subtitle": "Greatest of the Mearas",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Shadowfax",
     "type": "possession",
     "resistance": 1
@@ -113,7 +113,7 @@
     "strength": 2,
     "culture": "Gandalf",
     "subtitle": "Orc Beater",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Glamdring",
     "type": "possession"
   },

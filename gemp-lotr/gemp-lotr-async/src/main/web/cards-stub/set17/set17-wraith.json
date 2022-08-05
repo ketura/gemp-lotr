@@ -30,7 +30,7 @@
     "cost": 0,
     "strength": 1,
     "culture": "Wraith",
-    "possession": "Ring",
+    "itemclass": "Ring",
     "title": "*Ring of Savagery",
     "type": "artifact"
   },
@@ -38,7 +38,7 @@
     "side": "shadow",
     "cost": 0,
     "culture": "Wraith",
-    "possession": "Ring",
+    "itemclass": "Ring",
     "title": "*Ring of Terror",
     "type": "artifact"
   },

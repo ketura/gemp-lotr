@@ -85,7 +85,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Shire",
-    "possession": "Cloak",
+    "itemclass": "Cloak",
     "title": "*Frodo's Cloak",
     "type": "possession"
   },

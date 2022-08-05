@@ -142,7 +142,7 @@
     "strength": 3,
     "culture": "Wraith",
     "subtitle": "Sword of Flame",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*The Pale Blade",
     "type": "possession"
   },

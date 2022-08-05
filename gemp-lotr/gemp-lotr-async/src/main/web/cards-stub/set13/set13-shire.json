@@ -56,7 +56,7 @@
     "cost": 2,
     "culture": "Shire",
     "subtitle": "Dwarf-mail",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "*Mithril-coat",
     "type": "artifact"
   },
@@ -65,7 +65,7 @@
     "cost": 2,
     "culture": "Shire",
     "subtitle": "Dearly-loved",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Bill the Pony",
     "type": "possession"
   },
@@ -92,7 +92,7 @@
     "cost": 0,
     "culture": "Shire",
     "subtitle": "The Light of Earendil",
-    "possession": "Phial",
+    "itemclass": "Phial",
     "title": "*Phial of Galadriel",
     "type": "artifact",
     "resistance": 1

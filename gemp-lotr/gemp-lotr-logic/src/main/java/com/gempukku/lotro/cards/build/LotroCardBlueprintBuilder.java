@@ -30,8 +30,6 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("culture", new CultureFieldProcessor());
         fieldProcessors.put("type", new CardTypeFieldProcessor());
         fieldProcessors.put("race", new RaceFieldProcessor());
-        //Deprecated: use "itemclass" instead.
-        fieldProcessors.put("possession", new PossessionClassFieldProcessor());
         fieldProcessors.put("itemclass", new PossessionClassFieldProcessor());
         fieldProcessors.put("keyword", new KeywordFieldProcessor());
         fieldProcessors.put("keywords", new KeywordFieldProcessor());

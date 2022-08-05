@@ -269,7 +269,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Uruk-hai",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Weapon of Opportunity",
     "type": "possession"
   },
@@ -277,7 +277,7 @@
     "side": "shadow",
     "cost": 3,
     "culture": "Uruk-hai",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Berserker Torch",
     "type": "possession",
     "keyword": "Toil"

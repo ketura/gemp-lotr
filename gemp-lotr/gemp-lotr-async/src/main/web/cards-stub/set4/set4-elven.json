@@ -124,7 +124,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Elven Sword",
     "type": "possession"
   },
@@ -144,7 +144,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Elven",
-    "possession": "Brooch",
+    "itemclass": "Brooch",
     "title": "Elven Brooch",
     "type": "possession"
   },

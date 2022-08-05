@@ -191,7 +191,7 @@
     "culture": "Uruk-hai",
     "vitality": 1,
     "subtitle": "Black-Fletch Bow",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Lurtz's Bow",
     "type": "possession"
   }

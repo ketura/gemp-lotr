@@ -162,7 +162,7 @@
     "cost": 0,
     "strength": 2,
     "culture": "Raider",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Corsair Ballista",
     "type": "possession"
   },
@@ -191,7 +191,7 @@
     "cost": 3,
     "strength": 3,
     "culture": "Raider",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Mumakil",
     "type": "possession"
   }

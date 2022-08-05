@@ -71,7 +71,7 @@
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Bane of the Eight Legs",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Sting",
     "type": "possession"
   },

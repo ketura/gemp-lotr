@@ -85,7 +85,7 @@
     "strength": 2,
     "culture": "Gondor",
     "subtitle": "King's Blade",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Anduril",
     "type": "artifact"
   },
@@ -244,7 +244,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Footman's Armor",
     "type": "possession"
   },
@@ -260,7 +260,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Gondor Bow",
     "type": "possession"
   },
@@ -270,7 +270,7 @@
     "strength": 2,
     "culture": "Gondor",
     "vitality": -1,
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "*Pippin's Armor",
     "type": "possession"
   },
@@ -350,7 +350,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Gondorian Sword",
     "type": "possession"
   },
@@ -375,7 +375,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Pippin's Sword",
     "type": "possession"
   },
@@ -427,7 +427,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Knight's Spear",
     "type": "possession"
   },
@@ -497,7 +497,7 @@
     "culture": "Gondor",
     "vitality": 1,
     "subtitle": "Flame of the West",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Anduril",
     "type": "artifact"
   }

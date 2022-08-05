@@ -22,7 +22,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Arwen's Dagger",
     "type": "possession"
   },
@@ -31,7 +31,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Arwen's Bow",
     "type": "possession"
   },
@@ -109,7 +109,7 @@
     "strength": 2,
     "culture": "Elven",
     "vitality": 1,
-    "possession": [
+    "itemclass": [
       "Hand Weapon",
       "Shield"
     ],

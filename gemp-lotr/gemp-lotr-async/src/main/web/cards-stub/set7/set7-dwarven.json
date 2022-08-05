@@ -3,7 +3,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Dwarven",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "*Gimli's Armor",
     "type": "possession"
   },
@@ -20,7 +20,7 @@
     "strength": 2,
     "culture": "Dwarven",
     "subtitle": "Trusted Weapon",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Gimli's Battle Axe",
     "type": "possession"
   },

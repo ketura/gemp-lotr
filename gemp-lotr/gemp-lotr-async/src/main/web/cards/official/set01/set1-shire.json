@@ -27,7 +27,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "possession",
-    "possession": "pipe",
+    "itemclass": "pipe",
     "target": "hobbit",
     "effects": {
       "type": "activated",
@@ -196,7 +196,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "possession",
-    "possession": "pipe",
+    "itemclass": "pipe",
     "target": "hobbit",
     "effects": {
       "type": "activated",
@@ -411,7 +411,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "hobbit"
   },
@@ -770,7 +770,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Frodo)",
     "effects": {

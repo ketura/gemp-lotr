@@ -21,7 +21,7 @@
     "strength": 2,
     "culture": "Sauron",
     "vitality": 1,
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Sceptre of the Dark Lord",
     "type": "artifact"
   }

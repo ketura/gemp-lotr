@@ -78,7 +78,7 @@
     "side": "shadow",
     "cost": 1,
     "culture": "Uruk-hai",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Isengard Sword",
     "type": "possession"
   },
@@ -87,7 +87,7 @@
     "cost": 1,
     "culture": "Uruk-hai",
     "vitality": 1,
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Isengard Siege Bow",
     "type": "possession"
   },

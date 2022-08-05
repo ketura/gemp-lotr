@@ -99,7 +99,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Sword of the Fallen",
     "type": "possession"
   },

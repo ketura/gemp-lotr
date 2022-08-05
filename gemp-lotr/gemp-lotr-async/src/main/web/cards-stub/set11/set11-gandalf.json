@@ -21,7 +21,7 @@
     "culture": "Gandalf",
     "vitality": 1,
     "subtitle": "Ash-Staff",
-    "possession": "Staff",
+    "itemclass": "Staff",
     "title": "*Gandalf's Staff",
     "type": "artifact"
   },
@@ -31,7 +31,7 @@
     "strength": 2,
     "culture": "Gandalf",
     "subtitle": "Foe-hammer",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Glamdring",
     "type": "possession"
   },
@@ -76,7 +76,7 @@
     "cost": 2,
     "culture": "Gandalf",
     "subtitle": "Unequaled Steed",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Shadowfax",
     "type": "possession",
     "resistance": 2

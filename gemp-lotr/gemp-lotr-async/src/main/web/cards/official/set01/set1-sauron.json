@@ -839,7 +839,7 @@
     "culture": "sauron",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(sauron),orc",
     "effects": {

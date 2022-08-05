@@ -86,7 +86,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "possession": "bracers",
+    "itemclass": "bracers",
     "strength": 1,
     "target": "dwarf",
     "effects": {
@@ -291,7 +291,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 1,
     "target": "dwarf",
     "effects": [

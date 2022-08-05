@@ -28,7 +28,7 @@
     "culture": "Shire",
     "vitality": 1,
     "subtitle": "Elven Long Knife",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Sting",
     "type": "possession",
     "resistance": 1

@@ -115,7 +115,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Primitive Brand",
     "type": "possession"
   },
@@ -173,7 +173,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Grima's Dagger",
     "type": "possession"
   },
@@ -217,7 +217,7 @@
     "cost": 3,
     "strength": 3,
     "culture": "Men",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Beast of War",
     "type": "possession"
   },

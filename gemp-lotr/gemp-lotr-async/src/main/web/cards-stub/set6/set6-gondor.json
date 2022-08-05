@@ -3,7 +3,7 @@
     "side": "free_people",
     "cost": 0,
     "culture": "Gondor",
-    "possession": "Ring",
+    "itemclass": "Ring",
     "title": "*Ring of Barahir",
     "type": "artifact"
   },
@@ -68,7 +68,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Banner of Westernesse",
     "type": "possession"
   },

@@ -122,7 +122,7 @@
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Weapon of Heritage",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Sting",
     "type": "possession"
   },
@@ -151,7 +151,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Shire",
-    "possession": "Box",
+    "itemclass": "Box",
     "title": "Salt from the Shire",
     "type": "possession",
     "resistance": 2

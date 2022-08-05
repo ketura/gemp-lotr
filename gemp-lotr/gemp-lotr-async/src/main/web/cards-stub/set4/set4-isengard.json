@@ -110,7 +110,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Isengard",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Uruk Spear",
     "type": "possession"
   },
@@ -519,7 +519,7 @@
     "strength": 2,
     "culture": "Isengard",
     "subtitle": "Wizard's Device",
-    "possession": "Staff",
+    "itemclass": "Staff",
     "title": "*Saruman's Staff",
     "type": "artifact"
   },
@@ -552,7 +552,7 @@
     "cost": 1,
     "strength": 3,
     "culture": "Isengard",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Ugluk's Sword",
     "type": "possession"
   },
@@ -715,7 +715,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Isengard",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Broad-bladed Sword",
     "type": "possession"
   },

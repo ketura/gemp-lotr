@@ -24,7 +24,7 @@
     "side": "free_people",
     "cost": 0,
     "culture": "Dwarven",
-    "possession": "Ring",
+    "itemclass": "Ring",
     "title": "*Ring of Artifice",
     "type": "artifact"
   },
@@ -48,7 +48,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Dwarven",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Armor of Khazad",
     "type": "possession"
   }

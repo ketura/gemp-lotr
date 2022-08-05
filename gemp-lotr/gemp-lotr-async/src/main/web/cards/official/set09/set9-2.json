@@ -335,7 +335,7 @@
     "culture": "gondor",
     "cost": 2,
     "type": "artifact",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "vitality": 1,
     "target": "culture(gondor),man",
     "effects": [
@@ -705,7 +705,7 @@
     "culture": "wraith",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "strength": 1,
     "target": "nazgul",
     "effects": [
@@ -738,7 +738,7 @@
     "culture": "wraith",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "strength": 1,
     "target": "name(The Witch-king)",
     "effects": [
@@ -773,7 +773,7 @@
     "culture": "wraith",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "nazgul",
     "effects": [

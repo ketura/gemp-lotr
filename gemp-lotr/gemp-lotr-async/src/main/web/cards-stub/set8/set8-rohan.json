@@ -58,7 +58,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Shield",
+    "itemclass": "Shield",
     "title": "*Eowyn's Shield",
     "type": "possession"
   },

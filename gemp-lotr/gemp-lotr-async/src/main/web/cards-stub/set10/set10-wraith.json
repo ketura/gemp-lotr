@@ -134,7 +134,7 @@
     "cost": 2,
     "strength": 2,
     "culture": "Wraith",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Gorbag's Sword",
     "type": "possession"
   },

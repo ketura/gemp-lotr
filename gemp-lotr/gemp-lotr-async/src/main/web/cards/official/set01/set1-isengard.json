@@ -1132,7 +1132,7 @@
     "culture": "isengard",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "uruk-hai",
     "effects": {

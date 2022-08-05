@@ -4,7 +4,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(dwarven),character",
     "effects": {
@@ -205,7 +205,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "possession": "shield",
+    "itemclass": "shield",
     "strength": 1,
     "target": "name(Thorin)",
     "effects": [
@@ -663,7 +663,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "artifact",
-    "possession": "staff",
+    "itemclass": "staff",
     "vitality": 1,
     "target": "wizard",
     "effects": {

@@ -77,7 +77,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Faramir's Bow",
     "type": "possession"
   },
@@ -85,7 +85,7 @@
     "side": "free_people",
     "cost": 0,
     "culture": "Gondor",
-    "possession": "Cloak",
+    "itemclass": "Cloak",
     "title": "*Faramir's Cloak",
     "type": "possession"
   },
@@ -108,7 +108,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Ranger's Bow",
     "type": "possession"
   },
@@ -129,7 +129,7 @@
     "strength": 2,
     "culture": "Gondor",
     "subtitle": "Blade of Aragorn",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Ranger's Sword",
     "type": "possession"
   },
@@ -153,7 +153,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Gondor",
-    "possession": "Gauntlets",
+    "itemclass": "Gauntlets",
     "title": "*Boromir's Gauntlets",
     "type": "possession"
   },
@@ -162,7 +162,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Sword of Gondor",
     "type": "possession"
   },

@@ -111,7 +111,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "strength": 1,
     "target": "name(Legolas)",
     "text": [
@@ -399,7 +399,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "target": "elf",
     "text": [
       "Bearer must be an Elf.",
@@ -689,7 +689,7 @@
     "culture": "elven",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "elf",
     "text": [
@@ -859,7 +859,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 1,
     "target": "name(Legolas)",
     "text": [

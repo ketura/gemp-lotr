@@ -41,7 +41,7 @@
     "culture": "wraith",
     "cost": 1,
     "type": "possession",
-    "possession": "mount",
+    "itemclass": "mount",
     "strength": 2,
     "target": "nazgul",
     "effects": {
@@ -255,7 +255,7 @@
     "culture": "wraith",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 1,
     "target": "nazgul",
     "effects": [
@@ -318,7 +318,7 @@
     "culture": "wraith",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "nazgul",
     "effects": {
@@ -426,7 +426,7 @@
     "culture": "wraith",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 3,
     "target": "nazgul",
     "effects": [

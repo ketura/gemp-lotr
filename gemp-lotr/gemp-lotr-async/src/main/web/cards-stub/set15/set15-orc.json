@@ -72,7 +72,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Orc",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Orkish Hunting Spear",
     "type": "possession"
   },

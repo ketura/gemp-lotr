@@ -77,7 +77,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Wraith",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Winged Mount",
     "type": "possession"
   },
@@ -107,7 +107,7 @@
     "cost": 2,
     "strength": 3,
     "culture": "Wraith",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Black Flail",
     "type": "possession"
   },

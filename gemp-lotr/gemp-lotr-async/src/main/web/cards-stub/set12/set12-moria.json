@@ -18,7 +18,7 @@
     "strength": 1,
     "culture": "Moria",
     "subtitle": "Weapon of Flame and Shadow",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Whip of Many Thongs",
     "type": "artifact"
   }

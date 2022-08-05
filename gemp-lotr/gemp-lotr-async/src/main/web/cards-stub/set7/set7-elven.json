@@ -51,7 +51,7 @@
     "strength": 2,
     "culture": "Elven",
     "subtitle": "Elven Steed",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Asfaloth",
     "type": "possession"
   },
@@ -69,7 +69,7 @@
     "strength": 1,
     "culture": "Elven",
     "subtitle": "Gift of Galadriel",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Bow of the Galadhrim",
     "type": "possession"
   },

@@ -31,7 +31,7 @@
     "cost": 0,
     "strength": 1,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Henchman's Dagger",
     "type": "possession"
   },
@@ -51,7 +51,7 @@
     "cost": 3,
     "strength": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Corsair Halberd",
     "type": "possession"
   },
@@ -71,7 +71,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Corsair Grappling Hook",
     "type": "possession"
   },
@@ -106,7 +106,7 @@
     "side": "shadow",
     "cost": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Corsair Scimitar",
     "type": "possession"
   },
@@ -135,7 +135,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Men",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Corsair Bow",
     "type": "possession"
   },
@@ -155,7 +155,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Corsair Boarding Axe",
     "type": "possession"
   },

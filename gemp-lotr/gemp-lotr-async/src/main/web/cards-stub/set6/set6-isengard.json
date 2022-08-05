@@ -59,7 +59,7 @@
     "cost": 0,
     "strength": 1,
     "culture": "Isengard",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Banner of Isengard",
     "type": "possession"
   },

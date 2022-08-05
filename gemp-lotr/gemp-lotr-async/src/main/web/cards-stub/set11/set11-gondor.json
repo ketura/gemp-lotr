@@ -4,7 +4,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Gondor",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Bow of Minas Tirith",
     "type": "possession"
   },
@@ -13,7 +13,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Gondorian Blade",
     "type": "possession"
   },
@@ -96,7 +96,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Gondor",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Armor of the Citadel",
     "type": "possession"
   },

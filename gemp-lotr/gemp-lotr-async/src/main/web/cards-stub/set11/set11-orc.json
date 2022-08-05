@@ -205,7 +205,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Orc",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Orc Hammer",
     "type": "possession"
   },
@@ -213,7 +213,7 @@
     "side": "shadow",
     "cost": 1,
     "culture": "Orc",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Bladed Gauntlets",
     "type": "possession"
   },
@@ -267,7 +267,7 @@
     "cost": 2,
     "strength": 3,
     "culture": "Orc",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Mordor Scimitar",
     "type": "possession"
   },

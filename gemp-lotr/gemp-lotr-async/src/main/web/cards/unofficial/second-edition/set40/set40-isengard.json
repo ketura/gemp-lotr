@@ -451,7 +451,7 @@
     "culture": "isengard",
     "cost": 2,
     "type": "artifact",
-    "possession": "staff",
+    "itemclass": "staff",
     "strength": 2,
     "vitality": 1,
     "target": "name(Saruman)",
@@ -526,7 +526,7 @@
     "culture": "isengard",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "uruk-hai",
     "effects": {

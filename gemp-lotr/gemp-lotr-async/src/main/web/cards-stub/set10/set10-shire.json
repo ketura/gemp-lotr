@@ -128,7 +128,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Shire",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Orc Armor",
     "type": "possession"
   },

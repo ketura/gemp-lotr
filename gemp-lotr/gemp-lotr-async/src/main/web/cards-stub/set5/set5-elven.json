@@ -30,7 +30,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Legolas' Sword",
     "type": "possession"
   },

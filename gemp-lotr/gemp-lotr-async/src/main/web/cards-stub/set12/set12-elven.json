@@ -78,7 +78,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Hadafang",
     "type": "possession"
   }

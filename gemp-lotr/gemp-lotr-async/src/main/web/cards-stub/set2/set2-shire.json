@@ -33,7 +33,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Shire",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "*Mithril-coat",
     "type": "artifact"
   },

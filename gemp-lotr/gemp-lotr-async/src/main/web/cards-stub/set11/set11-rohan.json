@@ -15,7 +15,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Rohirrim Mount",
     "type": "possession"
   },
@@ -134,7 +134,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Rohan",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Riddermark Javelin",
     "type": "possession"
   },

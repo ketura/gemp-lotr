@@ -25,7 +25,7 @@
     "strength": 2,
     "culture": "Gandalf",
     "vitality": 1,
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Beorning Axe",
     "type": "possession"
   },

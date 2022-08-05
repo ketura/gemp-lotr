@@ -19,7 +19,7 @@
     "strength": 2,
     "culture": "Shire",
     "subtitle": "Baggins Heirloom",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Sting",
     "type": "possession"
   },

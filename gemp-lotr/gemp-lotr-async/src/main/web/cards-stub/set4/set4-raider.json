@@ -271,7 +271,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Raider",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Southron Spear",
     "type": "possession"
   },
@@ -341,7 +341,7 @@
     "side": "shadow",
     "cost": 3,
     "culture": "Raider",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Southron Bow",
     "type": "possession"
   },

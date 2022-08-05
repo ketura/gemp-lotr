@@ -14,7 +14,7 @@
     "culture": "Gondor",
     "vitality": 1,
     "subtitle": "Sword That Was Broken",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Anduril",
     "type": "artifact"
   },
@@ -98,7 +98,7 @@
     "strength": 3,
     "culture": "Gondor",
     "subtitle": "Forged by Telchar",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Narsil",
     "type": "artifact"
   },
@@ -107,7 +107,7 @@
     "cost": 1,
     "culture": "Gondor",
     "subtitle": "Ithilien Longbow",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Faramir's Bow",
     "type": "possession"
   }

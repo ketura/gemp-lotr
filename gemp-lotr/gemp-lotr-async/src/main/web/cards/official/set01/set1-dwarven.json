@@ -110,7 +110,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "possession",
-    "possession": "armor",
+    "itemclass": "armor",
     "target": "dwarf",
     "effects": {
       "type": "modifier",
@@ -125,7 +125,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "dwarf",
     "effects": {
@@ -269,7 +269,7 @@
     "culture": "dwarven",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Gimli)",
     "effects": [
@@ -300,7 +300,7 @@
     "culture": "dwarven",
     "cost": 0,
     "type": "possession",
-    "possession": "helm",
+    "itemclass": "helm",
     "target": "name(Gimli)",
     "effects": [
       {

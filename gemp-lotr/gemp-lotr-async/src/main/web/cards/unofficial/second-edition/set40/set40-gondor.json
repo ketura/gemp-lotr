@@ -75,7 +75,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "target": "name(Aragorn)",
     "effects": [
       {
@@ -115,7 +115,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "pipe",
+    "itemclass": "pipe",
     "target": "culture(gondor),man",
     "effects": {
       "type": "activated",
@@ -147,7 +147,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "armor",
+    "itemclass": "armor",
     "target": "man",
     "effects": {
       "type": "modifier",
@@ -187,7 +187,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Boromir)",
     "effects": [
@@ -265,7 +265,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "gauntlets",
+    "itemclass": "gauntlets",
     "target": "culture(gondor),man",
     "effects": {
       "type": "activated",
@@ -293,7 +293,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "shield",
+    "itemclass": "shield",
     "target": "culture(gondor),man",
     "effects": [
       {
@@ -327,7 +327,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "strength": 1,
     "target": "culture(gondor),man",
     "effects": {
@@ -398,7 +398,7 @@
     "culture": "gondor",
     "cost": 0,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 1,
     "target": "culture(gondor),man",
     "effects": [
@@ -693,7 +693,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Aragorn)",
     "effects": {
@@ -711,7 +711,7 @@
     "culture": "gondor",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "target": "name(Aragorn)",
     "effects": {
       "type": "activated",
@@ -795,7 +795,7 @@
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(gondor),man",
     "effects": {

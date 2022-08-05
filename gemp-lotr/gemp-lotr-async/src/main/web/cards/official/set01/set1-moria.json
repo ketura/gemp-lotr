@@ -70,7 +70,7 @@
     "culture": "moria",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 3,
     "target": "name(Cave Troll of Moria)",
     "effects": {
@@ -381,7 +381,7 @@
     "culture": "moria",
     "cost": 0,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(moria),orc",
     "effects": {
@@ -423,7 +423,7 @@
     "culture": "moria",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(moria),minion",
     "effects": {
@@ -664,7 +664,7 @@
     "culture": "moria",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(moria),orc",
     "effects": [

@@ -286,7 +286,7 @@
     "culture": "gandalf",
     "cost": 1,
     "type": "possession",
-    "possession": "pipe",
+    "itemclass": "pipe",
     "target": "name(Gandalf)",
     "text": [
       "Bearer must be Gandalf.",
@@ -323,7 +323,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "artifact",
-    "possession": "staff",
+    "itemclass": "staff",
     "vitality": 1,
     "resistance": 1,
     "target": "name(Gandalf)",
@@ -366,7 +366,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Gandalf)",
     "text": [
@@ -1017,7 +1017,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "possession",
-    "possession": "staff",
+    "itemclass": "staff",
     "strength": 1,
     "target": "wizard",
     "text": [

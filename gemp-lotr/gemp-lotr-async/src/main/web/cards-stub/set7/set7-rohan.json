@@ -31,7 +31,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Long Spear",
     "type": "possession"
   },
@@ -41,7 +41,7 @@
     "strength": 2,
     "culture": "Rohan",
     "vitality": -1,
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "*Merry's Armor",
     "type": "possession"
   },
@@ -49,7 +49,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Windfola",
     "type": "possession"
   },
@@ -96,7 +96,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Riding Armor",
     "type": "possession"
   },
@@ -119,7 +119,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Merry's Sword",
     "type": "possession"
   },
@@ -147,7 +147,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Rohan",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Rohirrim Javelin",
     "type": "possession"
   },
@@ -241,7 +241,7 @@
     "strength": 3,
     "culture": "Rohan",
     "subtitle": "Dernhelm's Blade",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Éowyn's Sword",
     "type": "possession"
   },
@@ -256,7 +256,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Snowmane",
     "type": "possession"
   },
@@ -314,7 +314,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Swift Steed",
     "type": "possession"
   },
@@ -323,7 +323,7 @@
     "cost": 1,
     "culture": "Rohan",
     "subtitle": "Eomer's Steed",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Firefoot",
     "type": "possession"
   },
@@ -395,7 +395,7 @@
     "culture": "Rohan",
     "vitality": 1,
     "subtitle": "Sword of the Mark",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Herugrim",
     "type": "possession"
   },

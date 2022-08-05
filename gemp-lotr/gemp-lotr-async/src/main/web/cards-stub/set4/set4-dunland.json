@@ -189,7 +189,7 @@
     "cost": 0,
     "strength": 2,
     "culture": "Dunland",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "War Club",
     "type": "possession"
   },
@@ -339,7 +339,7 @@
     "cost": 1,
     "strength": 3,
     "culture": "Dunland",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Iron Axe",
     "type": "possession"
   },

@@ -48,7 +48,7 @@
     "strength": 2,
     "culture": "Gondor",
     "subtitle": "Sword of Boromir",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Blade of Gondor",
     "type": "possession"
   },
@@ -64,7 +64,7 @@
     "cost": 2,
     "strength": 2,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Faramir's Sword",
     "type": "possession"
   },
@@ -73,7 +73,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Gondor",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Gondorian Steed",
     "type": "possession",
     "resistance": 1

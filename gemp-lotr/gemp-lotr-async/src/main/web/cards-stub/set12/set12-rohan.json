@@ -59,7 +59,7 @@
     "cost": 0,
     "culture": "Rohan",
     "vitality": 1,
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Coif",
     "type": "possession"
   },

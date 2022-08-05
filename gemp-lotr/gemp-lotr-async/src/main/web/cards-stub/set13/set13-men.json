@@ -27,7 +27,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Worn Battleaxe",
     "type": "possession"
   },

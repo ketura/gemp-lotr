@@ -82,7 +82,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
-    "possession": "armor",
+    "itemclass": "armor",
     "vitality": 1,
     "target": "name(Balin)",
     "effects": [
@@ -221,7 +221,7 @@
     "culture": "dwarven",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(dwarven),companion",
     "effects": {
@@ -454,7 +454,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "artifact",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(elrond)",
     "effects": [
@@ -625,7 +625,7 @@
     "culture": "elven",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "name(elrond)",
     "effects": [
@@ -792,7 +792,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "possession",
-    "possession": "mount",
+    "itemclass": "mount",
     "strength": 1,
     "target": "name(bilbo)",
     "effects": {

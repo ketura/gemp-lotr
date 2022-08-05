@@ -11,7 +11,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Dwarven",
-    "possession": "Pipe",
+    "itemclass": "Pipe",
     "title": "*Gimli's Pipe",
     "type": "possession"
   },

@@ -27,7 +27,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Men",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Long Battle Bow",
     "type": "possession"
   },
@@ -59,7 +59,7 @@
     "cost": 3,
     "culture": "Men",
     "vitality": 2,
-    "possession": "Shield",
+    "itemclass": "Shield",
     "title": "Pavise",
     "type": "possession"
   },
@@ -79,7 +79,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Poleaxe",
     "type": "possession"
   },

@@ -44,7 +44,7 @@
     "cost": 2,
     "culture": "Gondor",
     "subtitle": "Loyal Steed",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Brego",
     "type": "possession"
   },

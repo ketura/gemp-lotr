@@ -92,7 +92,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Orc",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Rider's Gear",
     "type": "possession"
   },
@@ -102,7 +102,7 @@
     "strength": 2,
     "culture": "Orc",
     "vitality": 1,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Threatening Warg",
     "type": "possession"
   },
@@ -120,7 +120,7 @@
     "strength": 4,
     "culture": "Orc",
     "vitality": 2,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Vicious Warg",
     "type": "possession"
   },
@@ -181,7 +181,7 @@
     "strength": 2,
     "culture": "Orc",
     "vitality": 2,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Relentless Warg",
     "type": "possession"
   },

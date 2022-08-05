@@ -19,7 +19,7 @@
     "side": "free_people",
     "cost": 0,
     "culture": "Dwarven",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Belt of Erebor",
     "type": "possession"
   },

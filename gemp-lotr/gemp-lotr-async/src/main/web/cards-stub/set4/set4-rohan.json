@@ -3,7 +3,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "Heavy Chain",
     "type": "possession"
   },
@@ -69,7 +69,7 @@
     "cost": 1,
     "strength": 3,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Éowyn's Sword",
     "type": "possession"
   },
@@ -109,7 +109,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Firefoot",
     "type": "possession"
   },
@@ -167,7 +167,7 @@
     "strength": 2,
     "culture": "Rohan",
     "vitality": 1,
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Herugrim",
     "type": "possession"
   },
@@ -197,7 +197,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Eomer's Spear",
     "type": "possession"
   },
@@ -241,7 +241,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Horse of Rohan",
     "type": "possession"
   },
@@ -262,7 +262,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Rohan",
-    "possession": "Armor",
+    "itemclass": "Armor",
     "title": "*King's Mail",
     "type": "possession"
   },
@@ -270,7 +270,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Brego",
     "type": "possession"
   },
@@ -328,7 +328,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Rider's Mount",
     "type": "possession"
   },
@@ -350,7 +350,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Rider's Spear",
     "type": "possession"
   },
@@ -380,7 +380,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Sword of Rohan",
     "type": "possession"
   }

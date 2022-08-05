@@ -36,7 +36,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Helm",
+    "itemclass": "Helm",
     "title": "Rohirrim Helm",
     "type": "possession"
   },
@@ -45,7 +45,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Rohan",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Rohirrim Bow",
     "type": "possession"
   },
@@ -119,7 +119,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Shield",
+    "itemclass": "Shield",
     "title": "Rohirrim Shield",
     "type": "possession"
   },

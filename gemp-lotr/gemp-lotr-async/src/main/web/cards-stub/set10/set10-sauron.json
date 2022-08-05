@@ -136,7 +136,7 @@
     "strength": 1,
     "culture": "Sauron",
     "vitality": 1,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Gothmog's Warg",
     "type": "possession"
   },
@@ -291,7 +291,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Sauron",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Uruk Axe",
     "type": "possession"
   },

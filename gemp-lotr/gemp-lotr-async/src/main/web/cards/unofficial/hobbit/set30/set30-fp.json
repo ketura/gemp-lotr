@@ -466,7 +466,7 @@
     "culture": "dwarven",
     "cost": 2,
     "type": "artifact",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Thorin)",
     "effects": [
@@ -947,7 +947,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "artifact",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Gandalf)",
     "effects": {
@@ -1242,7 +1242,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "artifact",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Bilbo)",
     "effects": {
@@ -1267,7 +1267,7 @@
     "culture": "shire",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "resistance": 1,
     "target": "name(Bilbo)",

@@ -126,7 +126,7 @@
     "strength": 2,
     "culture": "Gandalf",
     "subtitle": "Lightning Brand",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "*Glamdring",
     "type": "possession"
   },

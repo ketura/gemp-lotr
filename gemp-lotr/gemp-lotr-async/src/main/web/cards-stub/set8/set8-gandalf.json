@@ -57,7 +57,7 @@
     "cost": 2,
     "culture": "Gandalf",
     "subtitle": "Greatheart",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Shadowfax",
     "type": "possession"
   },

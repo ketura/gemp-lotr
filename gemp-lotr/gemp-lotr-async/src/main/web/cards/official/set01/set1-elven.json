@@ -58,7 +58,7 @@
     "culture": "elven",
     "cost": 2,
     "type": "possession",
-    "possession": "mount",
+    "itemclass": "mount",
     "strength": 2,
     "target": "elf",
     "effects": [
@@ -130,7 +130,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "strength": 1,
     "target": "name(Legolas)",
     "effects": {
@@ -334,7 +334,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "target": "elf",
     "effects": {
       "type": "modifier",
@@ -350,7 +350,7 @@
     "culture": "elven",
     "cost": 1,
     "type": "possession",
-    "possession": "cloak",
+    "itemclass": "cloak",
     "requires": {
       "type": "canSpot",
       "filter": "elf"
@@ -500,7 +500,7 @@
     "culture": "elven",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "name(Arwen)",
     "effects": [

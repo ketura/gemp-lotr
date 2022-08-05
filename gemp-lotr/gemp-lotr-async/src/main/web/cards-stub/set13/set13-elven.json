@@ -166,7 +166,7 @@
     "cost": 2,
     "culture": "Elven",
     "subtitle": "Swift Blossom",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Asfaloth",
     "type": "possession",
     "resistance": 1

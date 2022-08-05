@@ -78,7 +78,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Eomer's Bow",
     "type": "possession"
   },
@@ -94,7 +94,7 @@
     "side": "free_people",
     "cost": 0,
     "culture": "Rohan",
-    "possession": "Shield",
+    "itemclass": "Shield",
     "title": "*Erkenbrand's Shield",
     "type": "possession"
   },

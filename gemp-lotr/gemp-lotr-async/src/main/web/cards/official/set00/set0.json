@@ -41,7 +41,7 @@
     "culture": "gandalf",
     "cost": 1,
     "type": "artifact",
-    "possession": "staff",
+    "itemclass": "staff",
     "strength": 1,
     "vitality": 1,
     "target": "name(Radagast)",

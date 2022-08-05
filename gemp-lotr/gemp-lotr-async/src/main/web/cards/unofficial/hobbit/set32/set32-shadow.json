@@ -159,7 +159,7 @@
     "culture": "moria",
     "cost": 1,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "orc",
     "effects": [
@@ -265,7 +265,7 @@
     "culture": "moria",
     "cost": 3,
     "type": "possession",
-    "possession": "mount",
+    "itemclass": "mount",
     "strength": 3,
     "vitality": 1,
     "target": "orc",
@@ -658,7 +658,7 @@
     "culture": "sauron",
     "cost": 1,
     "type": "possession",
-    "possession": "ranged weapon",
+    "itemclass": "ranged weapon",
     "strength": 1,
     "target": "culture(sauron),orc",
     "effects": [
@@ -794,7 +794,7 @@
     "culture": "sauron",
     "cost": 0,
     "type": "artifact",
-    "possession": "ring",
+    "itemclass": "ring",
     "vitality": 1,
     "target": "name(Sauron)",
     "effects": [
@@ -1213,7 +1213,7 @@
     "culture": "wraith",
     "cost": 0,
     "type": "possession",
-    "possession": "hand weapon",
+    "itemclass": "hand weapon",
     "strength": 2,
     "target": "culture(wraith),minion",
     "effects": [

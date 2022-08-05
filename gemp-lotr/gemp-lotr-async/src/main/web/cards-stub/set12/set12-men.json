@@ -136,7 +136,7 @@
     "cost": 2,
     "strength": 3,
     "culture": "Men",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Messenger's Mount",
     "type": "possession"
   },
@@ -167,7 +167,7 @@
     "cost": 1,
     "strength": 2,
     "culture": "Men",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "War Trident",
     "type": "possession"
   },

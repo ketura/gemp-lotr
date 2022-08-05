@@ -367,7 +367,7 @@
     "cost": 0,
     "strength": 2,
     "culture": "Raider",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Raider Halberd",
     "type": "possession"
   },
@@ -433,7 +433,7 @@
     "side": "shadow",
     "cost": 2,
     "culture": "Raider",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "Raider Bow",
     "type": "possession"
   },

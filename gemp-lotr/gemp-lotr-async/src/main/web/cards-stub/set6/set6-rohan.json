@@ -11,7 +11,7 @@
     "side": "free_people",
     "cost": 1,
     "culture": "Rohan",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Banner of the Mark",
     "type": "possession"
   },

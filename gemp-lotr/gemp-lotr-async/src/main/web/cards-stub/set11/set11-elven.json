@@ -31,7 +31,7 @@
     "side": "free_people",
     "cost": 2,
     "culture": "Elven",
-    "possession": "Ranged Weapon",
+    "itemclass": "Ranged Weapon",
     "title": "*Legolas' Bow",
     "type": "possession"
   },
@@ -67,7 +67,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Elven",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Blade of Lindon",
     "type": "possession"
   },

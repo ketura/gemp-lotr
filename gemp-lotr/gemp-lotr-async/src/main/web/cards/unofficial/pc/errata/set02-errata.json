@@ -50,7 +50,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Gondor",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Flaming Brand",
     "type": "possession",
     "target": "ranger",

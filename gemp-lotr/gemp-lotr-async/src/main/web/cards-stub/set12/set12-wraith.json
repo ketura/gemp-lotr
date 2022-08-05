@@ -17,7 +17,7 @@
     "cost": 2,
     "culture": "Wraith",
     "vitality": 1,
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Shadowy Mount",
     "type": "possession"
   },
@@ -71,7 +71,7 @@
     "strength": 2,
     "culture": "Wraith",
     "subtitle": "Fell Creature",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*The Witch-king's Beast",
     "type": "possession"
   },
@@ -92,7 +92,7 @@
     "cost": 2,
     "strength": 1,
     "culture": "Wraith",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "Steed of Mordor",
     "type": "possession"
   },
@@ -195,7 +195,7 @@
     "cost": 1,
     "strength": 1,
     "culture": "Wraith",
-    "possession": "Hand Weapon",
+    "itemclass": "Hand Weapon",
     "title": "Nazgul Blade",
     "type": "possession"
   },

@@ -41,7 +41,7 @@
     "cost": 0,
     "culture": "Gandalf",
     "subtitle": "Recovered Seeing Stone",
-    "possession": "Palantir",
+    "itemclass": "Palantir",
     "title": "*The Palantir of Orthanc",
     "type": "artifact",
     "resistance": -2
@@ -99,7 +99,7 @@
     "strength": 1,
     "culture": "Gandalf",
     "subtitle": "Roaring Wind",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Shadowfax",
     "type": "possession"
   },

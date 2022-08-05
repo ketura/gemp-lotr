@@ -28,7 +28,7 @@
     "cost": 1,
     "culture": "Dwarven",
     "subtitle": "Rohirrim Steed",
-    "possession": "Mount",
+    "itemclass": "Mount",
     "title": "*Arod",
     "type": "possession",
     "resistance": 1
