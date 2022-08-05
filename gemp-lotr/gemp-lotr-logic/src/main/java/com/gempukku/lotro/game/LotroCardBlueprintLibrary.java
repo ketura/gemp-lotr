@@ -3,7 +3,9 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
 import com.gempukku.lotro.game.packs.SetDefinition;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
+import org.hjson.JsonValue;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -84,17 +86,26 @@ public class LotroCardBlueprintLibrary {
     }
 
     private void loadCards(File path, boolean initial) {
-        if (path.isFile())
+        if (path.isFile()) {
             loadCardsFromFile(path, initial);
-        else if (path.isDirectory())
-            for (File file : path.listFiles())
+        }
+        else if (path.isDirectory()) {
+            for (File file : path.listFiles()) {
                 loadCards(file, initial);
+            }
+        }
     }
 
     private void loadCardsFromFile(File file, boolean validateNew) {
+        String ext = FilenameUtils.getExtension(file.getName());
+        if (!ext.equalsIgnoreCase("json") && !ext.equalsIgnoreCase("hjson"))
+            return;
+
         JSONParser parser = new JSONParser();
         try (Reader reader = new InputStreamReader(new FileInputStream(file), "UTF-8")) {
-            final JSONObject cardsFile = (JSONObject) parser.parse(reader);
+            //This will read both json and hjson, producing standard json
+            String json = JsonValue.readHjson(reader).toString();
+            final JSONObject cardsFile = (JSONObject) parser.parse(json);
             final Set<Map.Entry<String, JSONObject>> cardsInFile = cardsFile.entrySet();
             for (Map.Entry<String, JSONObject> cardEntry : cardsInFile) {
                 String blueprint = cardEntry.getKey();
