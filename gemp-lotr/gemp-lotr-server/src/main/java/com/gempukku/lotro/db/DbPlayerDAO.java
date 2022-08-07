@@ -232,7 +232,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     private boolean validateLogin(String login) throws SQLException, LoginInvalidException {
-        if (login.length() < 2 || login.length() > 10)
+        if (login.length() < 2 || login.length() > 30)
             throw new LoginInvalidException();
         for (int i = 0; i < login.length(); i++) {
             char c = login.charAt(i);

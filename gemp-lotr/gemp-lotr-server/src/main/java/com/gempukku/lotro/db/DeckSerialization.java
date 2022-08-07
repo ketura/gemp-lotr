@@ -26,12 +26,13 @@ public class DeckSerialization {
         return sb.toString();
     }
 
-    public static LotroDeck buildDeckFromContents(String deckName, String contents, String targetFormat) {
+    public static LotroDeck buildDeckFromContents(String deckName, String contents, String targetFormat, String notes) {
         // New format
         String[] parts = contents.split("\\|");
 
         LotroDeck deck = new LotroDeck(deckName);
         deck.setTargetFormat(targetFormat);
+        deck.setNotes(notes);
         if (parts.length > 0 && !parts[0].equals(""))
             deck.setRingBearer(parts[0]);
         if (parts.length > 1 && !parts[1].equals(""))

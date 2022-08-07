@@ -17,6 +17,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     collectionDiv:null,
     formatSelect:null,
     currentFormat:null,
+    notes:null,
 
     normalCollectionDiv:null,
     normalCollectionGroup:null,
@@ -44,6 +45,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     selectionGroup:null,
     packSelectionId:null,
     deckImportDialog:null,
+    notesDialog:null,
 
     cardFilter:null,
 
@@ -105,6 +107,8 @@ var GempLotrDeckBuildingUI = Class.extend({
         var libraryListBut = $("#libraryListBut").button();
 
         var deckListBut = $("#deckListBut").button();
+        
+        var notesBut = $("#notesBut").button();
 
         this.deckNameSpan = ("#editingDeck");
 
@@ -163,6 +167,11 @@ var GempLotrDeckBuildingUI = Class.extend({
                     that.deckName = null;
                     that.importDecklist();
                 });
+        
+        notesBut.click(
+               function () {
+                    that.editNotes();
+               });
 
         this.collectionDiv = $("#collectionDiv");
 
@@ -421,6 +430,32 @@ var GempLotrDeckBuildingUI = Class.extend({
             }
         });
     },
+    
+    editNotes:function() {
+        var that = this;
+        that.notesDialog = $('<div class="notesDialog"></div>')
+            .dialog({
+                title:"Edit Deck Notes",
+                autoOpen:false,
+                closeOnEscape:true,
+                resizable:true,
+                width:700,
+                height:400,
+                modal:true
+            });
+            
+        var notesElem = $("<textarea class='notesText'></textarea>");
+            
+        notesElem.val(that.notes);
+        that.notesDialog.append(notesElem);
+        
+        notesElem.change(function() {
+            that.notes = notesElem.val();
+            that.deckModified(true);
+        });
+        
+        that.notesDialog.dialog("open");
+    },
 
     loadDeckList:function () {
         var that = this;
@@ -455,7 +490,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     var formatName = deck.getAttribute("targetFormat");
                     var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
                     var renameDeckBut = $("<button title='Rename deck'><span class='ui-icon ui-icon-pencil'></span></button>").button();
-                    var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-clipboard'></span></button>").button();
+                    var deckListBut = $("<button title='Export deck list'><span class='ui-icon ui-icon-extlink'></span></button>").button();
                     var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
 
                     var deckElem = $("<div class='deckItem'></div>");
@@ -482,7 +517,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                     deckListBut.click(
                             (function (i) {
                                 return function () {
-                                    window.open('/gemp-lotr-server/deck/html?deckName=' + encodeURIComponent(deckNames[i]), "_blank");
+                                    that.comm.shareDeck(deckNames[i],
+                                        function(html) {
+                                            window.open('/share/deck?id=' + html, "_blank");
+                                        });
                                 };
                             })(i));
                     
@@ -779,7 +817,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         if (deckContents == null)
             alert("Deck must contain at least Ring-bearer, The One Ring and 9 sites");
         else
-            this.comm.saveDeck(this.deckName, $("#formatSelect :selected").text(), deckContents, function (xml) {
+            this.comm.saveDeck(this.deckName, $("#formatSelect :selected").text(), this.notes, deckContents, function (xml) {
                 that.deckModified(false);
                 alert("Deck was saved");
             }, {
@@ -991,6 +1029,9 @@ var GempLotrDeckBuildingUI = Class.extend({
                   }
                 });
             }
+            
+            var notes = root.getElementsByTagName("notes");
+            this.notes = notes[0].innerHTML;
 
             var ringBearer = root.getElementsByTagName("ringBearer");
             if (ringBearer.length > 0)

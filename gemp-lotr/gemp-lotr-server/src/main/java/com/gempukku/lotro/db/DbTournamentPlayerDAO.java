@@ -102,7 +102,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                             String deckName = rs.getString(2);
                             String contents = rs.getString(3);
 
-                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents, format));
+                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents, format, ""));
                         }
                         return result;
                     }
@@ -142,7 +142,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                     statement.setString(2, playerName);
                     try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
-                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2), format);
+                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2), format, "");
                         else
                             return null;
                     }

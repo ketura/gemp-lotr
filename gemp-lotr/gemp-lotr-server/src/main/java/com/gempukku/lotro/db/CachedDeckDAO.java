@@ -28,8 +28,8 @@ public class CachedDeckDAO implements DeckDAO, Cached {
     }
 
     @Override
-    public LotroDeck buildDeckFromContents(String deckName, String contents, String target_format) {
-        return _delegate.buildDeckFromContents(deckName, contents, target_format);
+    public LotroDeck buildDeckFromContents(String deckName, String contents, String target_format, String notes) {
+        return _delegate.buildDeckFromContents(deckName, contents, target_format, notes);
     }
 
     private String constructPlayerDeckNamesKey(Player player) {
@@ -78,8 +78,8 @@ public class CachedDeckDAO implements DeckDAO, Cached {
     }
 
     @Override
-    public void saveDeckForPlayer(Player player, String name, String target_format, LotroDeck deck) {
-        _delegate.saveDeckForPlayer(player, name, target_format, deck);
+    public void saveDeckForPlayer(Player player, String name, String target_format, String notes, LotroDeck deck) {
+        _delegate.saveDeckForPlayer(player, name, target_format, notes, deck);
         _playerDeckNames.remove(constructPlayerDeckNamesKey(player));
         _decks.put(constructDeckKey(player, name), deck);
     }

@@ -273,6 +273,19 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    shareDeck:function (deckName, callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/deck/share",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId"),
+                deckName:deckName },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
     getLibraryDeck:function (deckName, callback, errorMap) {
         $.ajax({
             type:"GET",
@@ -434,7 +447,7 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    saveDeck:function (deckName, targetFormat, contents, callback, errorMap) {
+    saveDeck:function (deckName, targetFormat, notes, contents, callback, errorMap) {
         $.ajax({
             type:"POST",
             url:this.url + "/deck",
@@ -444,6 +457,7 @@ var GempLotrCommunication = Class.extend({
                 participantId:getUrlParam("participantId"),
                 deckName:deckName,
                 targetFormat:targetFormat,
+                notes:notes,
                 deckContents:contents},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),

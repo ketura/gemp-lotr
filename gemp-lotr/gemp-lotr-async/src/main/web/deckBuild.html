@@ -79,6 +79,15 @@
 		#editingDeck {
 			flex-grow:  1;
 		}
+		
+		.notesText {
+			flex-grow: 1;
+			margin: 5px;
+		}
+		
+		.notesDialog {
+			display: flex;
+		}
         
         
     </style>
@@ -120,6 +129,10 @@
 			<select id="formatSelect" style="float: right; width: 100px;">
 				<option value="fotr_block">Fellowship Block</option>
 			</select>
+			
+			<button id="notesBut" title="Add/Edit Notes" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+				<span class="ui-icon ui-icon-plus"></span>
+			</button>
 			
 			<span id="editingDeck">New deck</span>
 			

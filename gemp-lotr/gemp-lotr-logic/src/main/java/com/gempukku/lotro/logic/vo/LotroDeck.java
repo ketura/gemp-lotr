@@ -10,6 +10,7 @@ public class LotroDeck {
     private final List<String> _siteCards = new ArrayList<>();
     private final List<String> _nonSiteCards = new ArrayList<>();
     private final String _deckName;
+    private String _notes;
 
     private String _targetFormat = "Anything Goes";
 
@@ -55,4 +56,12 @@ public class LotroDeck {
 
     public String getTargetFormat() { return _targetFormat; }
     public void setTargetFormat(String value) { _targetFormat = value; }
+
+    public String getNotes() {
+        return _notes;
+    }
+
+    public void setNotes(String value) {
+        _notes = value;
+    }
 }
