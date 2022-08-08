@@ -817,7 +817,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         if (deckContents == null)
             alert("Deck must contain at least Ring-bearer, The One Ring and 9 sites");
         else
-            this.comm.saveDeck(this.deckName, $("#formatSelect :selected").text(), this.notes, deckContents, function (xml) {
+            this.comm.saveDeck(this.deckName, that.formatSelect.val(), this.notes, deckContents, function (xml) {
                 that.deckModified(false);
                 alert("Deck was saved");
             }, {
@@ -1021,13 +1021,10 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (targetFormat.length > 0)
             {
                 var formatName = targetFormat[0].getAttribute("formatName");
+                var formatCode = targetFormat[0].getAttribute("formatCode");
                 //$('#formatSelect option[value="' + formatName + '"]').prop('selected', true);
  
-                $('#formatSelect option').each(function(){
-                  if($(this).text() == formatName){
-                     $(this).prop('selected', true);
-                  }
-                });
+                this.formatSelect.val(formatCode);
             }
             
             var notes = root.getElementsByTagName("notes");

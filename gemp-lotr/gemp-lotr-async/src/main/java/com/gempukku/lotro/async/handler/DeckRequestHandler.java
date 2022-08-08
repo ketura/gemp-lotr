@@ -128,7 +128,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             StringBuilder valid = new StringBuilder();
             StringBuilder invalid = new StringBuilder();
 
-            LotroFormat format = _formatLibrary.getHallFormats().get(targetFormat);
+            LotroFormat format = validateFormat(targetFormat);
             if(format == null || targetFormat == null)
             {
                 responseWriter.writeHtmlResponse("Invalid format: " + targetFormat);
@@ -207,11 +207,13 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(deckName, contents, targetFormat, notes);
+            LotroFormat validatedFormat = validateFormat(targetFormat);
+
+            LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(deckName, contents, validatedFormat.getName(), notes);
             if (lotroDeck == null)
                 throw new HttpProcessingException(400);
 
-            _deckDao.saveDeckForPlayer(resourceOwner, deckName, targetFormat, notes, lotroDeck);
+            _deckDao.saveDeckForPlayer(resourceOwner, deckName, validatedFormat.getName(), notes, lotroDeck);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -476,6 +478,23 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         return serializeDeck(deck);
     }
 
+    private LotroFormat validateFormat(String name)
+    {
+        LotroFormat validatedFormat = _formatLibrary.getFormat(name);
+        if(validatedFormat == null)
+        {
+            try {
+                validatedFormat = _formatLibrary.getFormatByName(name);
+            }
+            catch(Exception ex)
+            {
+                validatedFormat = _formatLibrary.getFormatByName("Anything Goes");
+            }
+        }
+
+        return validatedFormat;
+    }
+
     private Document serializeDeck(LotroDeck deck) throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -487,8 +506,11 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         if (deck == null)
             return doc;
 
+        LotroFormat validatedFormat = validateFormat(deck.getTargetFormat());
+
         Element targetFormat = doc.createElement("targetFormat");
-        targetFormat.setAttribute("formatName", deck.getTargetFormat());
+        targetFormat.setAttribute("formatName", validatedFormat.getName());
+        targetFormat.setAttribute("formatCode", validatedFormat.getCode());
         deckElem.appendChild(targetFormat);
 
         Element notes = doc.createElement("notes");
