@@ -58,7 +58,7 @@ public class CardResolver {
 
                     @Override
                     public String getText(LotroGame game) {
-                        return choiceText;
+                        return GameUtils.SubstituteText(choiceText, actionContext);
                     }
                 };
             };
@@ -121,12 +121,12 @@ public class CardResolver {
 
                         @Override
                         public String getText(LotroGame game) {
-                            return choiceText;
+                            return GameUtils.SubstituteText(choiceText, actionContext);
                         }
                     };
                 } else {
                     List<? extends PhysicalCard> cardsInHand = actionContext.getGame().getGameState().getHand(handId);
-                    return new ChooseArbitraryCardsEffect(choicePlayerId, choiceText, cardsInHand, Filters.in(possibleCards), min, max, false) {
+                    return new ChooseArbitraryCardsEffect(choicePlayerId, GameUtils.SubstituteText(choiceText, actionContext), cardsInHand, Filters.in(possibleCards), min, max, false) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             actionContext.setCardMemory(memory, selectedCards);
@@ -173,7 +173,7 @@ public class CardResolver {
 
                     @Override
                     public String getText(LotroGame game) {
-                        return choiceText;
+                        return GameUtils.SubstituteText(choiceText, actionContext);
                     }
                 };
             };
@@ -212,7 +212,7 @@ public class CardResolver {
 
                     @Override
                     public String getText(LotroGame game) {
-                        return choiceText;
+                        return GameUtils.SubstituteText(choiceText, actionContext);
                     }
                 };
             };
@@ -295,7 +295,7 @@ public class CardResolver {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             ChoiceEffectSource effectSource = (possibleCards, action, actionContext, min, max) -> {
                 String choicePlayerId = playerSource.getPlayer(actionContext);
-                return new ChooseActiveCardsEffect(actionContext.getSource(), choicePlayerId, choiceText, min, max, Filters.in(possibleCards)) {
+                return new ChooseActiveCardsEffect(actionContext.getSource(), choicePlayerId, GameUtils.SubstituteText(choiceText, actionContext), min, max, Filters.in(possibleCards)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);

@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
@@ -35,7 +36,7 @@ public class Optional implements EffectAppenderProducer {
                 SubAction subAction = new SubAction(action);
                 subAction.appendCost(
                         new PlayoutDecisionEffect(choosingPlayer,
-                        new YesNoDecision(text) {
+                        new YesNoDecision(GameUtils.SubstituteText(text, actionContext)) {
                             @Override
                             protected void yes() {
                                 ActionContext delegate = new DelegateActionContext(actionContext,

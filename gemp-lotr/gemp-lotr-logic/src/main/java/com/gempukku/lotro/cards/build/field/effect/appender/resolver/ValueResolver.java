@@ -129,15 +129,25 @@ public class ValueResolver {
                 return actionContext -> new MultiplyEvaluator(multiplier, new ForEachBurdenEvaluator());
             } else if (type.equalsIgnoreCase("forEachWound")) {
                 FieldUtils.validateAllowedFields(object, "filter", "multiplier");
-                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
-                return (actionContext) -> (Evaluator) (game, cardAffected) -> {
-                    int wounds = 0;
-                    for (PhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterableSource.getFilterable(actionContext))) {
-                        wounds += actionContext.getGame().getGameState().getWounds(physicalCard);
+                return (actionContext) -> {
+                    if (filter.equals("any")) {
+                        return new MultiplyEvaluator(multiplier,
+                            (game, cardAffected) -> actionContext.getGame().getGameState().getWounds(cardAffected));
+                    } else {
+                        return new MultiplyEvaluator(multiplier,
+                            (game, cardAffected) -> {
+                                final Filterable filterable = filterableSource.getFilterable(actionContext);
+                                int wounds = 0;
+                                for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                    wounds += actionContext.getGame().getGameState().getWounds(physicalCard);
+                                }
+
+                                return wounds;
+                            });
                     }
-                    return multiplier * wounds;
                 };
             } else if (type.equalsIgnoreCase("forEachKeyword")) {
                 FieldUtils.validateAllowedFields(object, "filter", "keyword");

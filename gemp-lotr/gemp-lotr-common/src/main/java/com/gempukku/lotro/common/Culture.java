@@ -42,4 +42,13 @@ public enum Culture implements Filterable {
         }
         return null;
     }
+
+    public static Culture findCulture(String name) {
+        String nameCaps = name.toUpperCase().replace(' ', '_').replace('-', '_');
+        for (Culture culture : values()) {
+            if (culture.getHumanReadable().equals(name) || culture.toString().equals(nameCaps))
+                return culture;
+        }
+        return null;
+    }
 }

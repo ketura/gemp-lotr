@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
@@ -31,15 +32,15 @@ public class ChooseYesOrNo implements EffectAppenderProducer {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 return new PlayoutDecisionEffect(playerSource.getPlayer(actionContext),
-                        new YesNoDecision(text) {
+                        new YesNoDecision(GameUtils.SubstituteText(text, actionContext)) {
                             @Override
                             protected void yes() {
-                                actionContext.setValueToMemory(memorize, yesAnswer);
+                                actionContext.setValueToMemory(memorize, GameUtils.SubstituteText(yesAnswer, actionContext));
                             }
 
                             @Override
                             protected void no() {
-                                actionContext.setValueToMemory(memorize, noAnswer);
+                                actionContext.setValueToMemory(memorize, GameUtils.SubstituteText(noAnswer, actionContext));
                             }
                         });
             }

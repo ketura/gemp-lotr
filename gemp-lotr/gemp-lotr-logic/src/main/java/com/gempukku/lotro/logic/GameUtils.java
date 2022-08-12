@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
@@ -118,6 +119,19 @@ public class GameUtils {
         return "<div class='cardHint' value='" + blueprintId + "'>" + (blueprint.isUnique() ? "·" : "") + GameUtils.getFullName(blueprint) + "</div>";
     }
 
+    public static String getCultureImage(String cultureName) {
+        Culture culture = Culture.findCulture(cultureName);
+        if(culture == null)
+            return null;
+
+        return getCultureImage(culture);
+    }
+
+    public static String getCultureImage(Culture culture) {
+        return "<span class='cultureHint' value='" + culture.toString() + "'><img src='images/cultures/" + culture.toString().toLowerCase() + ".png'> "
+                + culture.getHumanReadable() + "</span>";
+    }
+
     public static String getAppendedTextNames(Collection<? extends PhysicalCard> cards) {
         StringBuilder sb = new StringBuilder();
         for (PhysicalCard card : cards)
@@ -130,14 +144,41 @@ public class GameUtils {
     }
 
     public static String getAppendedNames(Collection<? extends PhysicalCard> cards) {
-        StringBuilder sb = new StringBuilder();
-        for (PhysicalCard card : cards)
-            sb.append(GameUtils.getCardLink(card) + ", ");
+        ArrayList<String> cardStrings = new ArrayList<>();
+        for (PhysicalCard card : cards) {
+            cardStrings.add(GameUtils.getCardLink(card));
+        }
 
-        if (sb.length() == 0)
+        if (cardStrings.size() == 0)
             return "none";
-        else
-            return sb.substring(0, sb.length() - 2);
+
+        return String.join(", ", cardStrings);
+    }
+
+
+    public static String SubstituteText(String text)
+    {
+        return SubstituteText(text, null);
+    }
+
+    public static String SubstituteText(String text, ActionContext context)
+    {
+        String result = text;
+        while (result.contains("{")) {
+            int startIndex = result.indexOf("{");
+            int endIndex = result.indexOf("}");
+            String memory = result.substring(startIndex + 1, endIndex);
+            String culture = getCultureImage(memory);
+            if(culture != null) {
+                result = result.replace("{" + memory + "}", culture);
+            }
+            else if(context != null){
+                final String cardNames = GameUtils.getAppendedNames(context.getCardsFromMemory(memory));
+                result = result.replace("{" + memory + "}", cardNames);
+            }
+        }
+
+        return result;
     }
 
     public static int getSpottableTokensTotal(LotroGame game, Token token) {

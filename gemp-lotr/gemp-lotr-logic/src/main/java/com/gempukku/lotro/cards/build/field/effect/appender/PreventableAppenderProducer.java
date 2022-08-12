@@ -41,16 +41,7 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                 if (areCostsPlayable(actionContext)) {
                     final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
 
-                    String textToUse = text;
-
-                    while (textToUse.contains("{")) {
-                        int startIndex = textToUse.indexOf("{");
-                        int endIndex = textToUse.indexOf("}");
-                        String memory = textToUse.substring(startIndex + 1, endIndex);
-                        final String cardNames = GameUtils.getAppendedNames(actionContext.getCardsFromMemory(memory));
-
-                        textToUse = textToUse.replace("{" + memory + "}", cardNames);
-                    }
+                    String textToUse = GameUtils.SubstituteText(text, actionContext);
 
                     SubAction subAction = new SubAction(action);
                     subAction.appendEffect(

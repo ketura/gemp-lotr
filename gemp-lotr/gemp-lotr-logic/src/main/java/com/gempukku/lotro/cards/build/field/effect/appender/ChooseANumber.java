@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
@@ -34,7 +35,7 @@ public class ChooseANumber implements EffectAppenderProducer {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
-                    new IntegerAwaitingDecision(1, displayText,
+                    new IntegerAwaitingDecision(1, GameUtils.SubstituteText(displayText, actionContext),
                         fromSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null),
                         toSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null))
                 {
