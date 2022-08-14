@@ -1,52 +1,44 @@
-TO DO:
-Critical:
 
-Next priority:
-
-Optional:
-10. Add active/all cards switch to the user interface.
-
-DONE:
-1. Introduce AbstractPermanent into Blueprint hierarchy.
-2. Migrate Race (Orc, Elf, etc) into separate enum from Keyword.
-3. Refactor Effect to return EffectResult upon playEffect, which will contain information about what actually
-happened. Modify the Blueprints to have the "before" methods to take Effect parameter only and the "after" to
-take the EffectResult parameter only. Effects which modify cards should take filters as parameters, use
-overloaded constructor for single cards for backward compatibility, this constructor will call another constructor
-with Filters.sameCard(...) filter.
-5. Introduce move card operation in communication between the server and client to change the zone/params of the card.
-7. Add chat.
-11. Merge Shadow and FP support area on the UI and extend the Shadow and FP characters window.
-12. Add rule of 4.
-6. Change how the assignments and skirmish are displayed in the user interface, to avoid using Dialogs.
-17. Timeout users from ChatServer the same way they are timed out of GameServer.
-9. Add checkbox option to auto-pass if there is no actions to be played.
-8. Add checkbox option to auto-accept choices on the client.
-18. Add display of site where player is on adventure path.
-21. Scale wounds, burdens, other tokens with the card size.
-22. If skirmish is in progress, the total strength of each side should be displayed.
-20. Display "chess-clock" for each player.
-15. Add join game screen, where players can choose to play and get paired automatically when a pair becomes available.
-27. Show list of players in the hall.
-28. Introduce deck validation for FotR block format.
-29. Player registration and login.
-32. Created tables do not disappear when the player closes the browser.
-33. When a player stops responding during preparation time of the game, the game is not properly finished.
-19. Add filtering cards to deck-builder.
-14. Add hand/deck card count displays.
-16. Add an option to watch an ongoing game (spectator).
-26. The game area should display chat from the start.
-13. Add dead/discard pile displays.
-25. Remove all non-essencial alerts, instead add warnings to chat panel.
-31. Allow to cancel selection to reset to none-selected and go with different selection if no auto-accept is set or
-multiple choices required.
-34. Player should be able to concede the game at any time.
-24. The events that are played and cards affected should be shown to the players briefly using animations to make it
- aestheticly pleasing.
-23. Add ghost cards attached to cards they are affecting in case of things (non-possessions) affecting only one card
- (like skirmish strength bonuses, etc)
-4. Modify the Blueprint hierarchy to return possible return objects (PlayEventAction), TriggeredAction, etc. Use
-final methods were possible to avoid implementation errors on new cards added.
-36. Ensure the append and insert cost/effect are used approprietly.
-35. Check that all effects check if they are playable before doing anything, otherwise we might be in trouble some day.
-30. Watching game replay after it's finished and sharing the game replay with others via code.
+- add email column to user
+- add email field to register form
+- create auth attempt database
+- create email authentication process
+	- generates temporary code, stores in auth attempt database along with creation time
+	- sends email to that requested address with code and link to email auth api
+	- email auth api accepts email, user, and code
+	- upon triggering within an acceptable time frame, auth flag is set on user's entry
+- add user account page
+	- show current email with auth/not auth image
+	- "enter code" button which calls email auth api
+	- "resend email" button which regenerates auth attempt entry (does not invalidate older entries)
+	- has user setting: "email me with Gemp news" which is opt-in.
+	- "reset my password" button with are-you-sure prompt
+		- if email is authorized, sends 
+	- hall settings 
+		- foil presentation (animated|static)
+		- auto-accept
+		- always display drop-down
+		- Phase auto-skip array
+- create password reset process
+	- if email is authenticated, email is sent to address with a link to password reset API
+	
+	
+	
+- Upon log-in, checks to see if an email is associated with an account. If not, produce a pop-up that bugs the user to go to the user page and authenticate an address
+- Add "forgot my password" link
+	- if email is authenticated, sends email to address with password reset link
+	- if email is not authenticated, posts a link to Discord and instructions to contact the moderation team
+		- asks user to describe the names and contents of their decks
+		- approving reset prompts user to change password and email upon attempting login
+		
+		
+		
+		
+Strategy:
+	- add email field + email auth dbs
+	- add account settings page
+		- and maybe public profile page just to sweeten the deal
+	- add password reset
+	- require all new accounts to register email before playing
+	- bug existing users to register email with a month's warning
+	- after a month or so, require all existing users to register email before playing 

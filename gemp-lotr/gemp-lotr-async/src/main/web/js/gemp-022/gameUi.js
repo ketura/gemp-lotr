@@ -324,13 +324,21 @@ var GempLotrGameUI = Class.extend({
             $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
                 (function (index) {
                     return function () {
-                        openSizeDialog(that.discardPileDialogs[that.bottomPlayerId]);
+                        var dialog = that.discardPileDialogs[that.bottomPlayerId];
+                        var group = that.discardPileGroups[that.allPlayerIds[index]];
+                        openSizeDialog(dialog);
+                        that.dialogResize(dialog, group);
+                        group.layoutCards();
                     };
                 })(i));
             $("#adventureDeck" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
                 (function (index) {
                     return function () {
-                        openSizeDialog(that.adventureDeckDialogs[that.bottomPlayerId]);
+                        var dialog = that.adventureDeckDialogs[that.bottomPlayerId];
+                        var group = that.adventureDeckGroups[that.allPlayerIds[index]];
+                        openSizeDialog(dialog);
+                        that.dialogResize(dialog, group);
+                        group.layoutCards();
                     };
                 })(i));
         }
@@ -339,7 +347,11 @@ var GempLotrGameUI = Class.extend({
             $("#deadPile" + i).addClass("clickable").click(
                 (function (index) {
                     return function () {
-                        openSizeDialog(that.deadPileDialogs[that.allPlayerIds[index]]);
+                        var dialog = that.deadPileDialogs[that.allPlayerIds[index]];
+                        var group = that.deadPileGroups[that.allPlayerIds[index]];
+                        openSizeDialog(dialog);
+                        that.dialogResize(dialog, group);
+                        group.layoutCards();
                     };
                 })(i));
         }

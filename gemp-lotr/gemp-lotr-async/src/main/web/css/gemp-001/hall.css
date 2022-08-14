@@ -1,6 +1,7 @@
-body {
+html, body {
     font-size: 12px;
     background-color: #000000;
+    height: 98%;
 }
 
 .eventHeader {
@@ -57,6 +58,8 @@ body {
     font-weight: bolder;
     text-align: right;
     opacity: 1;
+    height: 18px;
+    width: 95px;
 }
 
 .cardCount {
@@ -179,7 +182,8 @@ tr.played {
     grid-template-columns: auto 150px;
     position:relative;
     width:100%;
-    height:100%;
+    height:40%;
+    min-height: 300px;
     grid-gap: 3px;
     overflow: hidden;
 }
@@ -243,4 +247,70 @@ tr.played {
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+
+.highlight-new {
+    background-color: #aa2222 !important;
+}
+
+.flex-horiz {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-vert {
+    display: flex;
+    flex-direction: column;
+}
+#tabs{
+    position: sticky;
+}
+
+#buttonsDiv {
+    left:0px; 
+    top: 0px;
+    height: 40px;
+    background-color:#000000; 
+    border-top-width:1px; 
+    border-top-color:#ffffff; 
+    border-top-style:solid;
+    align-items: center;
+    gap: 4px;
+}
+
+#gameHall {
+    
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 5px;
+}
+
+#hall {
+    flex-grow: 1;
+}
+
+#main {
+    top: 5px;
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+#disclaimer {
+    font-size: 60%;
+    position: absolute;
+    bottom: -15px;
+}
+
+.ui-tabs-panel {
+    height: 100%;
+}
+
+#tablesDiv {
+    overflow: auto;
 }

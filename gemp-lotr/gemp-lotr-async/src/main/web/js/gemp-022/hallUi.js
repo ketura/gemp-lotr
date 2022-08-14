@@ -38,41 +38,29 @@ var GempLotrHallUI = Class.extend({
         var width = $(div).width();
         var height = $(div).height();
 
-        this.tablesDiv = $("<div></div>");
-        this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - 30) + "px"});
+        this.tablesDiv = $("#tablesDiv");
 
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
             hallSettingsStr = "1|1|0|0|0";
         var hallSettings = hallSettingsStr.split("|");
 
-        this.addWaitingTablesTable(hallSettings[0] == "1");
-        this.addPlayingTablesTable(hallSettings[1] == "1");
-        this.addFinishedTablesTable(hallSettings[2] == "1");
-        this.addQueuesTable(hallSettings[3] == "1");
-        this.addTournamentsTable(hallSettings[4] == "1");
+        this.initTable(hallSettings[0] == "1", "waitingTablesHeader", "waitingTablesContent");
+        this.initTable(hallSettings[1] == "1", "playingTablesHeader", "playingTablesContent");
+        this.initTable(hallSettings[2] == "1", "finishedTablesHeader", "finishedTablesContent");
+        this.initTable(hallSettings[3] == "1", "tournamentQueuesHeader", "tournamentQueuesContent");
+        this.initTable(hallSettings[4] == "1", "activeTournamentsHeader", "activeTournamentsContent");
 
-        this.div.append(this.tablesDiv);
-
-        this.buttonsDiv = $("<div></div>");
-        this.buttonsDiv.css({left:"0px", top:(height - 30) + "px", width:width + "px", height:29 + "px", align:"right", backgroundColor:"#000000", "border-top-width":"1px", "border-top-color":"#ffffff", "border-top-style":"solid"});
+        this.buttonsDiv = $("#buttonsDiv");
 
         var that = this;
 
-        this.buttonsDiv.append("<a href='deckBuild.html'>Deck builder</a>");
-        this.buttonsDiv.append(" | ");
+        this.pocketDiv = $("#pocketDiv");
 
-        this.buttonsDiv.append("<a href='merchant.html'>Merchant</a>");
-        this.buttonsDiv.append(" | ");
-
-        this.pocketDiv = $("<div class='pocket'></div>");
-        this.pocketDiv.css({"float":"right", width:95, height:18});
-        this.buttonsDiv.append(this.pocketDiv);
-
-        this.supportedFormatsSelect = $("<select style='width: 180px'></select>");
+        this.supportedFormatsSelect = $("#supportedFormatsSelect");
         this.supportedFormatsSelect.hide();
 
-        this.createTableButton = $('<button id="createTableBut">Create table</button>');
+        this.createTableButton = $("#createTableBut");
         $(this.createTableButton).button().click(
             function () {
                 //that.supportedFormatsSelect.hide();
@@ -92,37 +80,19 @@ var GempLotrHallUI = Class.extend({
             });
         this.createTableButton.hide();
 
-        this.decksSelect = $("<select style='width: 220px'></select>");
+        this.decksSelect = $("#decksSelect");
         this.decksSelect.hide();
 
-        this.timerSelect = $("<select style='width: 135px'></select>");
-        this.addTimer("default", "Default (80m/5m)");
-        this.addTimer("blitz", "Blitz! (30m/3m)");
-        this.addTimer("slow", "Slow (2h/10m)");
-        this.addTimer("glacial", "Glacial (3d/1d)");
-
-        this.buttonsDiv.append(this.supportedFormatsSelect);
-        this.buttonsDiv.append(this.decksSelect);
-        this.buttonsDiv.append(this.timerSelect);
-        this.buttonsDiv.append(this.createTableButton);
-
-        this.div.append(this.buttonsDiv);
+        this.timerSelect = $("#timerSelect");
 
         this.getHall();
         this.updateDecks();
     },
+    
+    initTable: function(displayed, headerID, tableID) {
+        var header = $("#" + headerID);
 
-    addTimer: function(value, text) {
-        var timerElem = $("<option></option>");
-        timerElem.attr("value", value);
-        timerElem.text(text);
-        this.timerSelect.append(timerElem);
-    },
-
-    addQueuesTable: function(displayed) {
-        var header = $("<div class='eventHeader queues'></div>");
-
-        var content = $("<div class='visibilityToggle'></div>");
+        var content = $("#" + tableID);
 
         var that = this;
         var toggle = function() {
@@ -133,17 +103,8 @@ var GempLotrHallUI = Class.extend({
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
-
-        header.append("Tournament queues");
-        header.append(" <span class='count'>(0)</span>");
+        
         header.click(toggle);
-
-        var table = $("<table class='tables queues'></table>");
-        table.append("<tr><th width='10%'>Format</th><th width='8%'>Collection</th><th width='20%'>Queue name</th><th width='16%'>Starts</th><th width='10%'>System</th><th width='6%'>Players</th><th width='8%'>Cost</th><th width='12%'>Prizes</th><th width='10%'>Actions</th></tr>");
-        content.append(table);
-
-        this.tablesDiv.append(header);
-        this.tablesDiv.append(content);
 
         if (displayed) {
             content.show();
@@ -153,137 +114,6 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
-    addTournamentsTable: function(displayed) {
-        var header = $("<div class='eventHeader tournaments'></div>");
-
-        var content = $("<div class='visibilityToggle'></div>");
-
-        var that = this;
-        var toggle = function() {
-            if (content.hasClass("hidden"))
-                content.removeClass("hidden");
-            else
-                content.addClass("hidden");
-            content.toggle("blind", {}, 200);
-            that.updateHallSettings();
-        };
-        header.append("Tournaments in progress");
-        header.append(" <span class='count'>(0)</span>");
-        header.click(toggle);
-
-        var table = $("<table class='tables tournaments'></table>");
-        table.append("<tr><th width='10%'>Format</th><th width='10%'>Collection</th><th width='25%'>Tournament name</th><th width='15%'>System</th><th width='10%'>Stage</th><th width='10%'>Round</th><th width='10%'>Players</th><th width='10%'>Actions</th></tr>");
-        content.append(table);
-
-        this.tablesDiv.append(header);
-        this.tablesDiv.append(content);
-
-        if (displayed) {
-            content.show();
-        } else {
-            content.addClass("hidden");
-            content.hide();
-        }
-    },
-
-    addWaitingTablesTable: function(displayed) {
-        var header = $("<div class='eventHeader waitingTables'></div>");
-
-        var content = $("<div class='visibilityToggle'></div>");
-
-        var that = this;
-        var toggle = function() {
-            if (content.hasClass("hidden"))
-                content.removeClass("hidden");
-            else
-                content.addClass("hidden");
-            content.toggle("blind", {}, 200);
-            that.updateHallSettings();
-        };
-        header.append("Waiting tables");
-        header.append(" <span class='count'>(0)</span>");
-        header.click(toggle);
-
-        var table = $("<table class='tables waitingTables'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
-        content.append(table);
-
-        this.tablesDiv.append(header);
-        this.tablesDiv.append(content);
-
-        if (displayed) {
-            content.show();
-        } else {
-            content.addClass("hidden");
-            content.hide();
-        }
-    },
-
-    addPlayingTablesTable: function(displayed) {
-        var header = $("<div class='eventHeader playingTables'></div>");
-
-        var content = $("<div class='visibilityToggle'></div>");
-
-        var that = this;
-        var toggle = function() {
-            if (content.hasClass("hidden"))
-                content.removeClass("hidden");
-            else
-                content.addClass("hidden");
-            content.toggle("blind", {}, 200);
-            that.updateHallSettings();
-        };
-        header.append("Playing tables");
-        header.append(" <span class='count'>(0)</span>");
-        header.click(toggle);
-
-        var table = $("<table class='tables playingTables'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
-        content.append(table);
-
-        this.tablesDiv.append(header);
-        this.tablesDiv.append(content);
-
-        if (displayed) {
-            content.show();
-        } else {
-            content.addClass("hidden");
-            content.hide();
-        }
-    },
-
-    addFinishedTablesTable: function(displayed) {
-        var header = $("<div class='eventHeader finishedTables'></div>");
-
-        var content = $("<div class='visibilityToggle'></div>");
-
-        var that = this;
-        var toggle = function() {
-            if (content.hasClass("hidden"))
-                content.removeClass("hidden");
-            else
-                content.addClass("hidden");
-            content.toggle("blind", {}, 200);
-            that.updateHallSettings();
-        };
-        header.append("Finished tables");
-        header.append(" <span class='count'>(0)</span>");
-        header.click(toggle);
-
-        var table = $("<table class='tables finishedTables'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Winner</th></tr>");
-        content.append(table);
-
-        this.tablesDiv.append(header);
-        this.tablesDiv.append(content);
-
-        if (displayed) {
-            content.show();
-        } else {
-            content.addClass("hidden");
-            content.hide();
-        }
-    },
 
     updateHallSettings: function() {
         var visibilityToggle = $(".visibilityToggle", this.tablesDiv);
@@ -295,11 +125,6 @@ var GempLotrHallUI = Class.extend({
         var newHallSettings = getSettingValue(0) + "|" + getSettingValue(1) + "|" + getSettingValue(2) + "|" + getSettingValue(3) + "|" + getSettingValue(4);
         console.log("New settings: " + newHallSettings);
         $.cookie("hallSettings", newHallSettings, { expires:365 });
-    },
-
-    hallResized:function (width, height) {
-        this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - 30) + "px"});
-        this.buttonsDiv.css({left:"0px", top:(height - 30) + "px", width:width + "px", height:29 + "px", align:"right", backgroundColor:"#000000", "border-top-width":"1px", "border-top-color":"#ffffff", "border-top-style":"solid"});
     },
 
     getHall: function() {
@@ -446,11 +271,11 @@ var GempLotrHallUI = Class.extend({
         if (root.tagName == "hall") {
             this.hallChannelId = root.getAttribute("channelNumber");
 
-            var currency = parseInt(root.getAttribute("currency"));
-            if (currency != this.pocketValue) {
-                this.pocketValue = currency;
-                this.pocketDiv.html(formatPrice(currency));
-            }
+            // var currency = parseInt(root.getAttribute("currency"));
+            // if (currency != this.pocketValue) {
+            //     this.pocketValue = currency;
+            //     this.pocketDiv.html(formatPrice(currency));
+            // }
 
             var motd = root.getAttribute("motd");
             if (motd != null)
