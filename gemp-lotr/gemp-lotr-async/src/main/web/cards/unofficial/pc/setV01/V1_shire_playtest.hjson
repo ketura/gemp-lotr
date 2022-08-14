@@ -92,7 +92,7 @@
 					{
 						type: exert
 						filter: self
-						times: 2
+						times: 3
 					}
 					{
 						type: chooseActiveCards

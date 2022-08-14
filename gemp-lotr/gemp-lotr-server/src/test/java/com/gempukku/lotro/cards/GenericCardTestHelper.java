@@ -255,6 +255,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int ShadowGetWoundsOn(String cardName) { return GetWoundsOn(GetShadowCard(cardName)); }
     public int GetWoundsOn(PhysicalCardImpl card) { return _game.getGameState().getWounds(card); }
 
+    public int FreepsGetCultureTokensOn(String cardName) { return GetCultureTokensOn(GetFreepsCard(cardName)); }
+    public int ShadowGetCultureTokensOn(String cardName) { return GetCultureTokensOn(GetShadowCard(cardName)); }
+    public int GetCultureTokensOn(PhysicalCardImpl card) { return _game.getGameState().getTokenCount(card, Token.findTokenForCulture(card.getBlueprint().getCulture())); }
+
     public int GetBurdens() { return _game.getGameState().getBurdens(); }
 
     public int GetFreepsArcheryTotal() { return RuleUtils.calculateFellowshipArcheryTotal(_game); }

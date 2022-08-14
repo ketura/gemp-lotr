@@ -508,25 +508,33 @@
 				type: exert
 				filter: choose(dwarf)
 			}
-			effect: {
-				type: choice
-				texts: [
-					Wound 2 Orcs
-					Wound 1 Orc twice
-				]
-				effects: [
-					{
-						type: wound
-						count: 2
-						filter: choose(orc)
-					}
-					{
-						type: wound
-						filter: choose(orc)
-						times: 2
-					}
-				]
-			}
+			effect: [
+				{
+					type: choice
+					texts: [
+						Wound 2 Orcs
+						Wound 1 Orc twice
+					]
+					effects: [
+						{
+							type: wound
+							count: 2
+							filter: choose(orc)
+						}
+						{
+							type: chooseActiveCards
+							memorize: chosenOrc
+							filter: choose(orc)
+							text: Choose an Orc to wound twice
+						}
+					]
+				}
+				{
+					type: wound
+					filter: memory(chosenOrc)
+					times: 2
+				}
+			]
 		}
 	}
 	1_20: {

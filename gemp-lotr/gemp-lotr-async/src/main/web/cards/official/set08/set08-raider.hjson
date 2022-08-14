@@ -1,5 +1,5 @@
 {
-	78_57: {
+	8_57: {
 		title: Corsair Marauder
 		culture: Raider
 		twilight: 4
@@ -22,7 +22,7 @@
 			}
 			cost: {
 				type: discard
-				filter: choose(possession,side(Shadow))
+				filter: choose(possession)
 			}
 			effect: {
 				type: addTokens

@@ -42,7 +42,7 @@ public class Card_V1_052_Tests
 		* Strength: 3
 		* Vitality: 4
 		* Signet: Frodo
-		* Game Text: Assignment: Exert Merry twice to prevent a minion from being assigned to a skirmish until the regroup phase.  The Shadow player may exhaust that minion to prevent this.
+		* Game Text: Assignment: Exert Merry 3 times to prevent a minion from being assigned to a skirmish until the regroup phase.  The Shadow player may exhaust that minion to prevent this.
 		*/
 
 		//Pre-game setup
@@ -66,7 +66,7 @@ public class Card_V1_052_Tests
 	}
 
 	@Test
-	public void MerryExertsTwiceToPreventMinionSkirmishing() throws DecisionResultInvalidException, CardNotFoundException {
+	public void MerryExertsThriceToPreventMinionSkirmishing() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -84,7 +84,7 @@ public class Card_V1_052_Tests
 		assertTrue(scn.FreepsCardActionAvailable(merry));
 
 		scn.FreepsUseCardAction(merry);
-		assertEquals(2, scn.GetWoundsOn(merry));
+		assertEquals(3, scn.GetWoundsOn(merry));
 		scn.ShadowChooseNo();
 		scn.ShadowPassCurrentPhaseAction();
 		scn.FreepsPassCurrentPhaseAction();
@@ -113,7 +113,7 @@ public class Card_V1_052_Tests
 		assertTrue(scn.FreepsCardActionAvailable(merry));
 
 		scn.FreepsUseCardAction(merry);
-		assertEquals(2, scn.GetWoundsOn(merry));
+		assertEquals(3, scn.GetWoundsOn(merry));
 		assertTrue(scn.ShadowDecisionAvailable("Would you like to exhaust"));
 
 		scn.ShadowChooseYes();

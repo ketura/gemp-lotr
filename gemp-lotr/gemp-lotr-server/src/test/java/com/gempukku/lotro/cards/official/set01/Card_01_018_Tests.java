@@ -39,16 +39,15 @@ public class Card_01_018_Tests
     public void HallsStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
         /**
-         * Set: V1
-         * Title: *A Shadow of the Past
+         * Set: 1
+         * Title: Halls of My Home
          * Side: Free Peoples
-         * Culture: sauron
+         * Culture: Dwarven
          * Twilight Cost: 1
-         * Type: condition
-         * Subtype: Support Area
-         * Game Text: While you can spot 4 burdens, each [sauron] Orc is <b>fierce</b>.
-         * 	While you can spot 6 burdens, each [Sauron] Orc is damage +1.
-         * 	Discard this condition at the start of the regroup phase.
+         * Type: Event
+         * Subtype: Fellowship
+         * Game Text: Fellowship: Exert a Dwarf to reveal the top 3 cards of any draw deck. You may discard 1 Shadow card revealed.
+         * Return the rest in any order.
          */
 
         //Pre-game setup

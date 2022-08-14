@@ -201,7 +201,7 @@
 	}
 	
 	151_64: {
-		title: Henneth Anun Glade
+		title: Amon Hen Ruins
 		twilight: 9
 		type: site
 		site: 9
@@ -212,16 +212,12 @@
 			{
 				type: modifier
 				modifier: {
-					type: canttakewounds
+					type: addKeyword
 					filter: minion,wounded
-				}
-			}
-			{
-				type: modifier
-				modifier: {
-					type: cantbeexerted
-					filter: companion,wounded
-					by: side(free peoples)
+					keyword: damage+1
+					amount: {
+						type: forEachWound
+					}
 				}
 			}
 		]
