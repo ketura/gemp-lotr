@@ -1,0 +1,82 @@
+{
+
+	68_112: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/68_112.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 18_112
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 18R112
+			rarity: R
+			setNum: "18"
+			cardNum: 112
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Scouring of the Shire
+		unique: true
+		culture: Shire
+		twilight: 1
+		type: Condition
+		keyword: [
+			Support Area
+			Tale
+		]
+		effects:[
+			{
+				type: trigger
+				trigger: {
+					type: requires
+					requires: {
+						type: canSpot
+						filter: self,hasTokenCount(3,shire)
+					}
+				}
+				effect: {
+					type: discard
+					filter: self
+				}
+			}
+			{
+				type: activatedTrigger
+				trigger: {
+					type: abouttodiscard
+					source: side(shadow)
+					filter: culture(shire),or(condition,possession)
+				}
+				cost: {
+					type: addtokens
+					amount: 1
+					culture: shire
+					filter: self
+				}
+				effect: {
+					type: preventdiscard
+					filter: choose(culture(shire),or(condition,possession))
+				}
+			}
+		]
+		gametext: <b>Tale.</b><br>When there are 3 [shire] tokens here, discard this condition from play.<br><b>Response:</b> If a [shire] condition or [shire] possession is about to be discarded from play by a Shadow card, add a [shire] token here to prevent that.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

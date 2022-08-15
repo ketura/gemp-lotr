@@ -55,6 +55,7 @@ public class Card_01_045_ErrataTests
          */
 
         //Pre-game setup
+
         GenericCardTestHelper scn = GetSimplePlayScenario();
 
         PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");

@@ -1,0 +1,68 @@
+{
+
+	63_188: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/63_188.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 13_188
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 13U188
+			rarity: U
+			setNum: "13"
+			cardNum: 188
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Courtyard Parapet
+		type: site
+		block: Shadows
+		twilight: 0
+		keyword: Dwelling
+		direction: left
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: movesTo
+					filter: self
+				}
+				requires: {
+					type: location
+					filter: siteinregion2
+				}
+				cost: {
+					type: discardFromHand
+					hand: shadowPlayer
+					player: shadowPlayer
+					forced: false
+					count: 2
+				}
+				effect: {
+					type: addBurdens
+				}
+			}
+		]
+		gametext: <b>Dwelling.</b>When the fellowship moves to this site in region 2, the <br>first Shadow player may discard 2 cards from hand to add a burden.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

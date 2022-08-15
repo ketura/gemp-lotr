@@ -1,0 +1,71 @@
+{
+
+	65_15: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/65_15.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 15_15
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 15C15
+			rarity: C
+			setNum: "15"
+			cardNum: 15
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Focus
+		unique: true
+		culture: Elven
+		twilight: 1
+		type: Condition
+		keyword: Support Area
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: winsskirmish
+					filter: name(legolas)
+				}
+				effect: {
+					type: heal
+					filter: choose(or(and(culture(dwarven),Dwarf,hunter),and(culture(gondor),man,hunter)))
+				}
+			}
+			{
+				type: activated
+				phase: skirmish
+				cost: {
+					type: discard
+					filter: self
+				}
+				effect: {
+					type: modifyStrength
+					filter: choose(culture(elven),elf)
+					amount: 2
+				}
+			}
+		]
+		gametext: Each time Legolas wins a skirmish, you may heal a hunter [dwarven] Dwarf or hunter [gondor] Man.<br><b>Skirmish:</b> Discard this condition to make an [elven] Elf strength +2.
+		lore: “‘...not even my eyes can see him, my good Legolas...'”
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

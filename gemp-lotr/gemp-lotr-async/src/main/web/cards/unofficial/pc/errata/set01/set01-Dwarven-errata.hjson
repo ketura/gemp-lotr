@@ -1,0 +1,179 @@
+{
+
+	51_7: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_7.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_7
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1C7
+			rarity: C
+			setNum: "1"
+			cardNum: 7
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Dwarf Guard
+		culture: Dwarven
+		twilight: 1
+		type: Companion
+		race: Dwarf
+		strength: 5
+		vitality: 2
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: dwarf
+		}
+		gametext: To play, spot a Dwarf.
+		lore: Dwarves from Dain's people are stout companions, trustworthy and loyal.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	51_11: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_11.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_11
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1C11
+			rarity: C
+			setNum: "1"
+			cardNum: 11
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Farin
+		subtitle: Dwarven Emissary
+		unique: true
+		culture: dwarven
+		twilight: 2
+		type: companion
+		race: dwarf
+		strength: 6
+		vitality: 3
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: dwarf
+		}
+		effects: {
+			type: modifier
+			modifier: {
+				type: modifyStrength
+				filter: self,inSkirmishAgainst(orc)
+				amount: 2
+			}
+		}
+		gametext: To play, spot a Dwarf.<br>While skirmishing an Orc, Farin is strength +2.
+		lore: Among the envoys sent to represent the Dwarves of Erebor at the Council of Elrond was Farin, a young but wise Dwarf, and a fierce foe in battle.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	51_12: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_12.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_12
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1U12
+			rarity: U
+			setNum: "1"
+			cardNum: 12
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Gimli
+		subtitle: Dwarf of Erebor
+		unique: true
+		culture: dwarven
+		twilight: 2
+		type: companion
+		race: dwarf
+		strength: 6
+		vitality: 3
+		resistance: 6
+		signet: aragorn
+		keyword: damage+1
+		effects: {
+			type: activated
+			phase: fellowship
+			requires: {
+				type: twilightPoolLessThan
+				amount: 2
+			}
+			cost: [
+				{
+					type: addTwilight
+					amount: 2
+				}
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+		gametext: <b>Damage +1</b> <br> <b>Fellowship: </b> If the twilight pool has fewer than 2 twilight tokens, add (2) and place a card from hand beneath your draw deck to draw a card.
+		lore: "Gimli now walked ahead by the wizard's side, so eager was he to come to Moria."
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}
