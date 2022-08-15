@@ -1,0 +1,89 @@
+{
+	1_12E: {
+		cardInfo: {
+			imagePath: errata/71_13.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 01_13
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			version: 0
+			collInfo: 1R13
+			rarity: R
+			setNum: "1"
+			cardNum: 12
+			// Standard, Masterwork, Tengwar, FullArt, etc
+			style: Standard
+		}
+		title: Gimli
+		subtitle: Son of Gloin
+		unique: true
+		culture: Dwarven
+		twilight: 2
+		type: Companion
+		requires: {
+			...
+		}
+		effects: [
+			...
+		]
+		gametext: <b>Damage +1</b> <br> <b>Fellowship: </b> If the twilight pool has fewer than 2 twilight tokens, add (2) and place a card from hand beneath your draw deck to draw a card.
+		lore: "Gimli now walked ahead by the wizard's side, so eager was he to come to Moria."
+		promotext: ""
+		alts: {
+			promos: {
+				//These are all CardInfo objects
+				tengwar: { 
+					imagePath: decipher/LOTR01013T.jpg
+					collInfo: 1R13T
+				}
+				legends: {
+					imagePath: decipher/LOTR01F013.jpg
+					collInfo: 1RF13
+				}
+				masterwork: {
+					imagePath: promos/masterworks/LOTR-EN01O013.0_card.jpg
+					collInfo: 1O13
+				}
+			}
+			errata: {
+				pc: [
+					{
+						imagePath: errata/LOTR-EN01E013.1_card.jpg
+						version: 1 
+						twilight: 4,
+						effects: [
+							...
+						]
+						alts: {
+							fullArt: promos/full-art/LOTR-EN01F013.1_card.jpg
+						}
+					}
+					{
+						imagePath: errata/LOTR-EN01E013.2_card.jpg
+						version: 1 
+						twilight: 3,
+						effects: [
+							...
+						]
+						alts: {
+							fullArt: promos/full-art/LOTR-EN01F013.2_card.jpg
+						}
+					}
+				]
+				decipher: {
+					imagePath: errata/decipher/LOTR-EN01S013.1_card.jpg
+					version: 1
+				}
+			}
+		}
+	}
+	
+	
+}

@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Side;
 public class CultureFieldProcessor implements FieldProcessor {
     @Override
     public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        final Culture culture = FieldUtils.getEnum(Culture.class, value, key);
+        final Culture culture = Culture.findCulture(FieldUtils.getString(value, key));
         blueprint.setCulture(culture);
 
         if (culture != Culture.GOLLUM)
