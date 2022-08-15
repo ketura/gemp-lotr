@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -21,8 +22,11 @@ public class Card_01_080_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "71_80");
-					// put other cards in here as needed for the test case
+					put("ottar", "71_80");
+					put("gandalf", "1_72");
+					put("chaff1", "71_80");
+					put("chaff2", "71_80");
+					put("chaff3", "71_80");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +34,7 @@ public class Card_01_080_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void OttarStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -41,10 +43,10 @@ public class Card_01_080_ErrataTests
 		* Side: Free Peoples
 		* Culture: Gandalf
 		* Twilight Cost: 1
-		* Type: ally
+		* Type: Ally
 		* Subtype: Man
 		* Strength: 2
-		* Vitality: 2
+		* Vitality: 4
 		* Site Number: 3
 		* Game Text: To play, spot Gandalf.
 		* 	<b>Fellowship:</b> Exert Ottar and discard a card from hand to draw a card.
@@ -53,34 +55,79 @@ public class Card_01_080_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl ottar = scn.GetFreepsCard("ottar");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.GANDALF, card.getBlueprint().getCulture());
-		assertEquals(CardType.ALLY, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		assertEquals(2, card.getBlueprint().getStrength());
-		assertEquals(2, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(3, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(ottar.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, ottar.getBlueprint().getSide());
+		assertEquals(Culture.GANDALF, ottar.getBlueprint().getCulture());
+		assertEquals(CardType.ALLY, ottar.getBlueprint().getCardType());
+		assertEquals(Race.MAN, ottar.getBlueprint().getRace());
+		assertEquals(1, ottar.getBlueprint().getTwilightCost());
+		assertEquals(2, ottar.getBlueprint().getStrength());
+		assertEquals(4, ottar.getBlueprint().getVitality());
+		//assertEquals(, ottar.getBlueprint().getResistance());
+		//assertEquals(Signet., ottar.getBlueprint().getSignet());
+		assertEquals(3, Arrays.stream(ottar.getBlueprint().getAllyHomeSiteNumbers()).findFirst().getAsInt()); // Change this to getAllyHomeSiteNumbers for allies
 
 	}
 
-	//@Test
-	public void OttarTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void OttarRequiresGandalfToPlay() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl ottar = scn.GetFreepsCard("ottar");
+		PhysicalCardImpl gandalf = scn.GetFreepsCard("gandalf");
+		scn.FreepsMoveCardToHand(ottar, gandalf);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		assertFalse(scn.FreepsCardPlayAvailable(ottar));
+		scn.FreepsPlayCard(gandalf);
+		assertTrue(scn.FreepsCardPlayAvailable(ottar));
+	}
 
-		assertEquals(1, scn.GetTwilight());
+	@Test
+	public void OttarExertsAndDiscardsACardFromHandToDraw() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl ottar = scn.GetFreepsCard("ottar");
+		PhysicalCardImpl chaff1 = scn.GetFreepsCard("chaff1");
+		PhysicalCardImpl chaff2 = scn.GetFreepsCard("chaff2");
+		scn.FreepsMoveCardToHand(chaff1);
+		scn.FreepsMoveCharToTable(ottar);
+		scn.FreepsMoveCardsToTopOfDeck(chaff2);
+
+		scn.StartGame();
+
+		assertEquals(0, scn.GetWoundsOn(ottar));
+		assertEquals(Zone.HAND, chaff1.getZone());
+		assertEquals(Zone.DECK, chaff2.getZone());
+		assertEquals(1, scn.GetFreepsHandCount());
+		assertTrue(scn.FreepsCardActionAvailable(ottar));
+
+		scn.FreepsUseCardAction(ottar);
+
+		assertEquals(1, scn.GetWoundsOn(ottar));
+		assertEquals(Zone.DISCARD, chaff1.getZone());
+		assertEquals(Zone.HAND, chaff2.getZone());
+		assertEquals(1, scn.GetFreepsHandCount()); // Discarded 1, drew 1
+	}
+
+	@Test
+	public void OttarRequiresCardInHandToDraw() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl ottar = scn.GetFreepsCard("ottar");
+		PhysicalCardImpl chaff1 = scn.GetFreepsCard("chaff1");
+		PhysicalCardImpl chaff2 = scn.GetFreepsCard("chaff2");
+		scn.FreepsMoveCharToTable(ottar);
+
+		scn.StartGame();
+
+		assertEquals(0, scn.GetWoundsOn(ottar));
+		assertEquals(0, scn.GetFreepsHandCount());
+		assertFalse(scn.FreepsCardActionAvailable(ottar));
 	}
 }
