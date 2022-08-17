@@ -862,8 +862,8 @@
         filter: choose(companion)
         count: {
           type: limit
-          value: 3
-          amount: {
+          limit: 3
+          value: {
             type: countStacked
             on: culture(isengard),artifact
             filter: culture(isengard),spell

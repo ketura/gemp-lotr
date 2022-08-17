@@ -87,7 +87,7 @@
 				type: exert
 				filter: choose(culture(dwarven),character)
 				count: {
-					type: forEachCultureOver
+					type: forEachCulture
 					filter: side(shadow)
 				}
 			}

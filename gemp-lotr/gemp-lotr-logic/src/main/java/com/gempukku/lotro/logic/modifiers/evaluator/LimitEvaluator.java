@@ -4,16 +4,16 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 public class LimitEvaluator implements Evaluator {
-    private final int _limit;
-    private final Evaluator _evaluator;
+    private final Evaluator _limit;
+    private final Evaluator _value;
 
-    public LimitEvaluator(Evaluator evaluator, int limit) {
-        _evaluator = evaluator;
-        _limit = limit;
+    public LimitEvaluator(Evaluator valueEvaluator, Evaluator limitEvaluator) {
+        _value = valueEvaluator;
+        _limit = limitEvaluator;
     }
 
     @Override
     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
-        return Math.min(_limit, _evaluator.evaluateExpression(game, cardAffected));
+        return Math.min( _limit.evaluateExpression(game, cardAffected), _value.evaluateExpression(game, cardAffected));
     }
 }

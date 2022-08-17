@@ -178,16 +178,16 @@ public class ValueResolver {
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("limit")) {
-                FieldUtils.validateAllowedFields(object, "value", "amount");
-                final int limit = FieldUtils.getInteger(object.get("value"), "value");
-                ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
-                return (actionContext) -> new LimitEvaluator(valueSource.getEvaluator(actionContext), limit);
+                FieldUtils.validateAllowedFields(object, "limit", "value");
+                ValueSource limitSource = resolveEvaluator(object.get("limit"), 1, environment);
+                ValueSource valueSource = resolveEvaluator(object.get("value"), 0, environment);
+                return (actionContext) -> new LimitEvaluator(valueSource.getEvaluator(actionContext), limitSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("cardphaselimit")) {
                 FieldUtils.validateAllowedFields(object, "limit", "amount");
-                final int limit = FieldUtils.getInteger(object.get("limit"), "limit");
+                ValueSource limitSource = resolveEvaluator(object.get("limit"), 0, environment);
                 ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
                 return (actionContext) -> new CardPhaseLimitEvaluator(actionContext.getGame(), actionContext.getSource(),
-                        actionContext.getGame().getGameState().getCurrentPhase(), limit,
+                        actionContext.getGame().getGameState().getCurrentPhase(), limitSource.getEvaluator(actionContext),
                         valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("countStacked")) {
                 FieldUtils.validateAllowedFields(object, "on", "filter");
@@ -227,7 +227,7 @@ public class ValueResolver {
                         return Math.min(limit, count);
                     }
                 });
-            } else if (type.equalsIgnoreCase("forEachCultureOver")) {
+            } else if (type.equalsIgnoreCase("forEachCulture")) {
                 FieldUtils.validateAllowedFields(object, "over", "filter");
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");

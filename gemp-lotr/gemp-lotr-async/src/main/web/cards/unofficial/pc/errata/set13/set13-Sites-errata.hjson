@@ -39,7 +39,7 @@
 				}
 				requires: {
 					type: location
-					filter: siteinregion2
+					filter: regionNumber(2)
 				}
 				cost: {
 					type: discardFromHand

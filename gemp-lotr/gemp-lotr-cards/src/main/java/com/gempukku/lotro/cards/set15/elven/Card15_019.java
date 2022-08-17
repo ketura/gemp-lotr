@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CardPhaseLimitEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -45,7 +46,7 @@ public class Card15_019 extends AbstractCompanion {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null,
-                                    new CardPhaseLimitEvaluator(game, self, Phase.ARCHERY, 3,
+                                    new CardPhaseLimitEvaluator(game, self, Phase.ARCHERY, new ConstantEvaluator(3),
                                             new CountActiveEvaluator(CardType.MINION, Keyword.HUNTER)))));
             return Collections.singletonList(action);
         }

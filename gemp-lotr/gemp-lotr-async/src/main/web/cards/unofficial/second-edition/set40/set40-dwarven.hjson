@@ -353,8 +353,8 @@
 				keyword: damage
 				amount: {
 					type: limit
-					value: 2
-					amount: {
+					limit: 2
+					value: {
 						type: countStacked
 						on: self
 					}
