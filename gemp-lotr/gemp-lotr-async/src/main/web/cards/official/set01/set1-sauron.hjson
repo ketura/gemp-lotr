@@ -22,7 +22,7 @@
 		effects: {
 			type: event
 			effect: {
-				type: duplicate
+				type: repeat
 				amount: {
 					type: forEachYouCanSpot
 					filter: companion
@@ -365,7 +365,7 @@
 		effects: {
 			type: event
 			effect: {
-				type: duplicate
+				type: repeat
 				amount: {
 					type: forEachYouCanSpot
 					filter: companion

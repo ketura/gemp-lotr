@@ -57,7 +57,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("discardtopcardsfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("doesnotaddtoarcherytotal", new DoesNotAddToArcheryTotal());
         effectAppenderProducers.put("drawcards", new DrawCards());
-        effectAppenderProducers.put("duplicate", new Duplicate());
+        effectAppenderProducers.put("repeat", new Repeat());
         effectAppenderProducers.put("endphase", new EndPhase());
         effectAppenderProducers.put("exert", new Exert());
         effectAppenderProducers.put("exhaust", new Exhaust());

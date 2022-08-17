@@ -108,7 +108,7 @@
 						filter: all(any)
 					}
 					{
-						type: duplicate
+						type: repeat
 						amount: {
 							type: forEachInHand
 							filter: side(shadow)

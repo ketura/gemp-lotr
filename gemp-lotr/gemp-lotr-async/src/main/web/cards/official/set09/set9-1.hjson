@@ -489,7 +489,7 @@
 						memorize: spottedElfCount
 					}
 					{
-						type: duplicate
+						type: repeat
 						amount: {
 							type: fromMemory
 							memory: spottedElfCount
@@ -728,7 +728,7 @@
 			phase: fellowship
 			effect: [
 				{
-					type: duplicate
+					type: repeat
 					amount: {
 						type: forEachVitality
 						filter: bearer

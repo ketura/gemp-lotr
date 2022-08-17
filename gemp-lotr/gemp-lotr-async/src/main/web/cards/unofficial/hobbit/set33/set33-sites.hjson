@@ -111,7 +111,7 @@
 									memorizeTransferred: transferredFollowers
 								}
 								{
-									type: duplicate
+									type: repeat
 									amount: {
 										type: forEachYouCanSpot
 										filter: follower,culture(dwarven),not(memory(transferredFollowers))
