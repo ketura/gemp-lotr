@@ -47,22 +47,36 @@
 				trigger: {
 					type: startOfTurn
 				}
+				requires: {
+					type: canSpot
+					filter: Elf,wounded,not(name(Galadriel))
+				}
 				effect: {
 					type: heal
 					filter: choose(another,elf)
 				}
 			}
 			{
-				type: activated
-				phase: fellowship
+				type: trigger
+				optional: true
+				trigger: {
+					type: aboutToMoveTo
+					filter: not(your),siteHasSiteNumber
+				}
+				requires: {
+					type: phase
+					phase: fellowship
+				}
 				cost: {
 					type: exert
 					filter: self
-					times: 1
 				}
 				effect: {
-					type: playNextSite
+					type: playSite
 					filter: forest
+					number: {
+						type: currentSiteNumber
+					}
 				}
 			}
 		]

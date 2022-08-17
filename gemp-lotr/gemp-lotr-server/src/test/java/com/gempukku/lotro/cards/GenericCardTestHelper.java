@@ -173,6 +173,11 @@ public class GenericCardTestHelper extends AbstractAtTest {
         List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(playerID);
         return advDeck.stream().filter(x -> x.getBlueprint().getSiteNumber() == siteNum).findFirst().get();
     }
+
+    public PhysicalCardImpl GetSite(int siteNum)
+    {
+        return (PhysicalCardImpl) _game.getGameState().getSite(siteNum);
+    }
     public PhysicalCardImpl GetFreepsSite(String name) { return GetSiteByName(P1, name); }
     public PhysicalCardImpl GetShadowSite(String name) { return GetSiteByName(P2, name); }
     public PhysicalCardImpl GetSiteByName(String player, String name)

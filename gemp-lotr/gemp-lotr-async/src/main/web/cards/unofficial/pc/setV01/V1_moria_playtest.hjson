@@ -216,7 +216,7 @@
 				effect: {
 					type: choice
 					texts: [
-						Stack a [Moria] item here.
+						Stack a [Moria] item from hand here.
 						Take a [Moria] card stacked here into hand.
 					]
 					effects: [

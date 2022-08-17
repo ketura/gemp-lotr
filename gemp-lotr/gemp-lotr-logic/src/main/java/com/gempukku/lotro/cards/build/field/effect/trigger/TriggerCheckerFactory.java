@@ -16,6 +16,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("abouttodiscard", new AboutToDiscardFromPlay());
         triggerCheckers.put("abouttoexert", new AboutToExert());
         triggerCheckers.put("abouttoheal", new AboutToHeal());
+        triggerCheckers.put("abouttomoveto", new AboutToMoveTo());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
         triggerCheckers.put("activated", new ActivatedTriggerCheckerProducer());
         triggerCheckers.put("addsburden", new AddsBurden());

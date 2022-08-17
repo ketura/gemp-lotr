@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.WhenMoveFromResult;
@@ -35,7 +36,7 @@ public class MovementGameProcess implements GameProcess {
                 });
         game.getFormat().getAdventure().appendNextSiteAction(action);
         action.appendEffect(
-                new TriggeringResultEffect(new WhenMoveFromResult(currentSite), "Fellowship moved from"));
+                new TriggeringResultEffect(Effect.Type.BEFORE_MOVE_FROM, new WhenMoveFromResult(currentSite), "Fellowship moved from"));
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
@@ -45,9 +46,9 @@ public class MovementGameProcess implements GameProcess {
                     }
                 });
         action.appendEffect(
-                new TriggeringResultEffect(new WhenMovesResult(), "Fellowship moves"));
+                new TriggeringResultEffect(Effect.Type.BEFORE_MOVE, new WhenMovesResult(), "Fellowship moves"));
         action.appendEffect(
-                new TriggeringResultEffect(new WhenMoveToResult(), "Fellowship moved to"));
+                new TriggeringResultEffect(Effect.Type.BEFORE_MOVE_TO, new WhenMoveToResult(), "Fellowship moved to"));
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
