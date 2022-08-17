@@ -104,11 +104,33 @@ public class GenericCardTestHelper extends AbstractAtTest {
                 String id = cardIDs.get(name);
                 PhysicalCardImpl card = createCard(P1, id);
                 Cards.get(P1).put(name, card);
-                FreepsMoveCardsToTopOfDeck(card);
+                FreepsMoveCardsToBottomOfDeck(card);
 
                 card = createCard(P2, id);
                 Cards.get(P2).put(name, card);
-                FreepsMoveCardsToTopOfDeck(card);
+                ShadowMoveCardsToBottomOfDeck(card);
+            }
+        }
+
+        if(siteIDs != null) {
+            for (var card : _game.getGameState().getAdventureDeck(P1)) {
+                String name = siteIDs.entrySet()
+                        .stream()
+                        .filter(x -> x.getValue().equals(card.getBlueprintId()))
+                        .map(Map.Entry::getKey)
+                        .findFirst().get();
+
+                Cards.get(P1).put(name, (PhysicalCardImpl) card);
+            }
+
+            for (var card : _game.getGameState().getAdventureDeck(P2)) {
+                String name = siteIDs.entrySet()
+                        .stream()
+                        .filter(x -> x.getValue().equals(card.getBlueprintId()))
+                        .map(Map.Entry::getKey)
+                        .findFirst().get();
+
+                Cards.get(P2).put(name, (PhysicalCardImpl) card);
             }
         }
     }
@@ -129,6 +151,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public PhysicalCardImpl GetFreepsCard(String cardName) { return Cards.get(P1).get(cardName); }
     public PhysicalCardImpl GetShadowCard(String cardName) { return Cards.get(P2).get(cardName); }
+    public PhysicalCardImpl GetCard(String player, String cardName) { return Cards.get(player).get(cardName); }
     public PhysicalCardImpl GetFreepsCardByID(String id) { return GetCardByID(P1, Integer.parseInt(id)); }
     public PhysicalCardImpl GetFreepsCardByID(int id) { return GetCardByID(P1, id); }
     public PhysicalCardImpl GetShadowCardByID(String id) { return GetCardByID(P2, Integer.parseInt(id)); }
@@ -152,10 +175,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
     }
     public PhysicalCardImpl GetFreepsSite(String name) { return GetSiteByName(P1, name); }
     public PhysicalCardImpl GetShadowSite(String name) { return GetSiteByName(P2, name); }
-    public PhysicalCardImpl GetSiteByName(String playerID, String name)
+    public PhysicalCardImpl GetSiteByName(String player, String name)
     {
+        var attempt = GetCard(player, name);
+        if(attempt != null)
+            return attempt;
+
         final String lowername = name.toLowerCase();
-        List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(playerID);
+        List<PhysicalCardImpl> advDeck = (List<PhysicalCardImpl>)_game.getGameState().getAdventureDeck(player);
         return advDeck.stream().filter(x -> x.getBlueprint().getTitle().toLowerCase().contains(lowername)).findFirst().get();
     }
 
@@ -686,7 +713,16 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return _game.getModifiersQuerying().getStrength(_game, card);
     }
     public int GetVitality(PhysicalCardImpl card) { return _game.getModifiersQuerying().getVitality(_game, card); }
-    public int GetSiteNumber(PhysicalCardImpl card) { return _game.getModifiersQuerying().getMinionSiteNumber(_game, card); }
+    public int GetMinionSiteNumber(PhysicalCardImpl card) { return _game.getModifiersQuerying().getMinionSiteNumber(_game, card); }
+    public int GetGeneralSiteNumber(PhysicalCardImpl card)
+    {
+        int bpNumber = card.getBlueprint().getSiteNumber();
+        Integer siteNumber = card.getSiteNumber();
+        if(siteNumber == null)
+            return bpNumber;
+
+        return siteNumber;
+    }
 
     public boolean HasKeyword(PhysicalCardImpl card, Keyword keyword)
     {

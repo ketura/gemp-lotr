@@ -276,7 +276,7 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
-		scn.ShadowChooseCard("gimli"); // reconciling a card away so we draw the item from the top
+		scn.ShadowChooseCard("axe5"); // reconciling a card away so we draw the item from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);

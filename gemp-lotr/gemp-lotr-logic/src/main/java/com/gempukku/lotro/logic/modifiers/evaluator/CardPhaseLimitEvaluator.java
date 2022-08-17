@@ -26,7 +26,7 @@ public class CardPhaseLimitEvaluator implements Evaluator {
     private int evaluateOnce(LotroGame game, PhysicalCard cardAffected) {
         LimitCounter limitCounter = game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(_source, _phase);
         int amountResult = _amount.evaluateExpression(game, cardAffected);
-        int limitResult = _amount.evaluateExpression(game, cardAffected);
+        int limitResult = _limit.evaluateExpression(game, cardAffected);
         return limitCounter.incrementToLimit(limitResult, amountResult);
     }
 

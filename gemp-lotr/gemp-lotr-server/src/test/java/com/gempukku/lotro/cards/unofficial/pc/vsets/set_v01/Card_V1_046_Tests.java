@@ -81,15 +81,15 @@ public class Card_V1_046_Tests
 		scn.StartGame();
 
 		scn.RemoveBurdens(1);
-		assertEquals(6, scn.GetSiteNumber(orc));
+		assertEquals(6, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(5, scn.GetSiteNumber(orc));
+		assertEquals(5, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(4, scn.GetSiteNumber(orc));
+		assertEquals(4, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(3, scn.GetSiteNumber(orc));
+		assertEquals(3, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(2, scn.GetSiteNumber(orc));
+		assertEquals(2, scn.GetMinionSiteNumber(orc));
 
 		scn.FreepsPassCurrentPhaseAction();
 

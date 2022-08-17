@@ -270,7 +270,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
 		//scn.ShadowDeclineReconciliation();
-		scn.ShadowChooseCard("aragorn"); // reconciling a card away so we draw the weather from the top
+		scn.ShadowChooseCard("arwen"); // reconciling a card away so we draw the weather from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);

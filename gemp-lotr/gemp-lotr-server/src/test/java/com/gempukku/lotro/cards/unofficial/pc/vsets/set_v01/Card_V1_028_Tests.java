@@ -156,7 +156,7 @@ public class Card_V1_028_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
 		//scn.ShadowDeclineReconciliation();
-		scn.ShadowChooseCard("filler1"); // reconciling a card away so we draw the saruman from the top
+		scn.ShadowChooseCard("filler5"); // reconciling a card away so we draw the saruman from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);
