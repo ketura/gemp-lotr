@@ -88,7 +88,7 @@ public class ValueResolver {
                     }
                     return trueValue.getEvaluator(actionContext).evaluateExpression(game, cardAffected);
                 };
-            } else if (type.equalsIgnoreCase("siteNumber")) {
+            } else if (type.equalsIgnoreCase("currentSiteNumber")) {
                 return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber();
             } else if (type.equalsIgnoreCase("nextSiteNumber")) {
                 return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber() + 1;

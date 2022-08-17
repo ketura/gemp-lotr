@@ -1154,7 +1154,7 @@
 					type: exert
 					filter: self
 					times: {
-						type: siteNumber
+						type: currentSiteNumber
 					}
 				}
 				effect: {

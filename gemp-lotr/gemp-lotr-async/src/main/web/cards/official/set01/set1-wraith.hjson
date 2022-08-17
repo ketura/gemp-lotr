@@ -649,7 +649,7 @@
 				type: playSite
 				block: fellowship
 				number: {
-					type: siteNumber
+					type: currentSiteNumber
 				}
 			}
 		}
