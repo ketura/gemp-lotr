@@ -282,11 +282,21 @@ public class SortAndFilterCards {
 
     public static String replaceSpecialCharacters(String text) {
         return text
+                .replace('á', 'a')
+                .replace('â', 'a')
+                .replace('ä', 'a')
                 .replace('é', 'e')
-                .replace('ú', 'u')
+                .replace('ê', 'e')
                 .replace('ë', 'e')
+                .replace('í', 'i')
+                .replace('ï', 'i')
+                .replace('ó', 'o')
+                .replace('ú', 'u')
                 .replace('û', 'u')
-                .replace('ó', 'o');
+                .replace('’', '\'')
+                .replace('‘', '\'')
+                .replace('”', '"')
+                .replace('“', '"');
     }
 
     private <T extends Enum> Set<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, Set<T> defaultResult, String[] filterParams) {
