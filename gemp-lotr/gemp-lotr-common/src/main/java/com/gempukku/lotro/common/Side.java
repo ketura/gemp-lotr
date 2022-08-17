@@ -6,12 +6,13 @@ public enum Side implements Filterable {
     public static Side Parse(String value) {
         value = value
                 .toLowerCase()
-                .replace("_", " ")
-                .replace("-", " ");
+                .replace(" ", "")
+                .replace("_", "")
+                .replace("-", "");
 
         if(value.contains("shadow"))
             return SHADOW;
-        if(value.contains("freeps") || value.contains("free people") || value.contains("free peoples"))
+        if(value.contains("freeps") || value.contains("free") || value.contains("people"))
             return FREE_PEOPLE;
 
         return null;
