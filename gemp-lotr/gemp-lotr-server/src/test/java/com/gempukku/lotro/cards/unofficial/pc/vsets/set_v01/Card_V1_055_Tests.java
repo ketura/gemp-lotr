@@ -92,7 +92,7 @@ public class Card_V1_055_Tests
 		scn.FreepsAssignToMinions(boromir, runner);
 		scn.FreepsResolveSkirmish(boromir);
 
-		assertTrue(scn.FreepsCardPlayAvailable(yet));
+		assertTrue(scn.FreepsPlayAvailable(yet));
 		assertEquals(0, scn.GetWoundsOn(boromir));
 		assertEquals(7, scn.GetStrength(boromir));
 
@@ -126,7 +126,7 @@ public class Card_V1_055_Tests
 		scn.FreepsAssignToMinions(sam, runner);
 		scn.FreepsResolveSkirmish(sam);
 
-		assertFalse(scn.FreepsCardPlayAvailable(yet));
+		assertFalse(scn.FreepsPlayAvailable(yet));
 
 	}
 }

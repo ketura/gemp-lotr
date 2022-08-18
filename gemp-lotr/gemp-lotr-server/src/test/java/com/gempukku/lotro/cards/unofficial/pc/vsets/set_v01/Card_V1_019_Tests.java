@@ -123,7 +123,7 @@ public class Card_V1_019_Tests
 		scn.FreepsAssignToMinions(aragorn, runner);
 		scn.FreepsResolveSkirmish(aragorn);
 
-		assertTrue(scn.FreepsCardActionAvailable(aragorn));
+		assertTrue(scn.FreepsActionAvailable(aragorn));
 		assertEquals(Zone.HAND, defiance.getZone());
 		assertEquals(8, scn.GetStrength(aragorn));
 

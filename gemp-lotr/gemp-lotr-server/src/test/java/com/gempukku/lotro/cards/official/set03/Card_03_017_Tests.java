@@ -123,7 +123,7 @@ public class Card_03_017_Tests
 
 		scn.FreepsDeclineOptionalTrigger();
 
-		assertTrue(scn.FreepsCardActionAvailable(galadriel));
+		assertTrue(scn.FreepsActionAvailable(galadriel));
 		assertEquals(Zone.ADVENTURE_DECK, shadowSite2.getZone());
 		assertEquals(Zone.ADVENTURE_DECK, forestSite.getZone());
 		assertEquals(null, scn.GetSite(2));
@@ -152,7 +152,7 @@ public class Card_03_017_Tests
 
 		scn.FreepsDeclineOptionalTrigger();
 
-		assertTrue(scn.FreepsCardActionAvailable(galadriel));
+		assertTrue(scn.FreepsActionAvailable(galadriel));
 		assertEquals(Zone.ADVENTURE_DECK, shadowSite2.getZone());
 		assertEquals(Zone.ADVENTURE_DECK, forestSite.getZone());
 		assertEquals(null, scn.GetSite(2));
@@ -184,7 +184,7 @@ public class Card_03_017_Tests
 
 		scn.FreepsDeclineOptionalTrigger();
 
-		assertTrue(scn.FreepsCardActionAvailable(galadriel));
+		assertTrue(scn.FreepsActionAvailable(galadriel));
 		assertEquals(Zone.ADVENTURE_DECK, shadowSite2.getZone());
 		assertEquals(Zone.ADVENTURE_DECK, forestSite.getZone());
 		assertEquals(null, scn.GetSite(2));
@@ -215,7 +215,7 @@ public class Card_03_017_Tests
 
 		scn.FreepsDeclineOptionalTrigger();
 
-		assertTrue(scn.FreepsCardActionAvailable(galadriel));
+		assertTrue(scn.FreepsActionAvailable(galadriel));
 		assertEquals(Zone.ADVENTURE_DECK, shadowSite2.getZone());
 		assertEquals(Zone.ADVENTURE_DECK, forestSite.getZone());
 		assertEquals(null, scn.GetSite(2));

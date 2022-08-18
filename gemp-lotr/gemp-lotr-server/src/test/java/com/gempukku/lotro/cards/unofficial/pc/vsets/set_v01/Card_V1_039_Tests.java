@@ -218,7 +218,7 @@ public class Card_V1_039_Tests
 
 		assertEquals(11, scn.GetTwilight());
 
-		assertTrue(scn.ShadowCardActionAvailable(crown));
+		assertTrue(scn.ShadowActionAvailable(crown));
 		scn.ShadowUseCardAction(crown);
 		assertEquals(10, scn.GetTwilight());
 		assertTrue(scn.ShadowDecisionAvailable("Choose cards to transfer to"));
@@ -228,7 +228,7 @@ public class Card_V1_039_Tests
 
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertTrue(scn.ShadowCardActionAvailable(crown2));
+		assertTrue(scn.ShadowActionAvailable(crown2));
 		scn.ShadowUseCardAction(crown2);
 		assertEquals(9, scn.GetTwilight());
 		assertEquals(4, scn.GetVitality(twigul1));

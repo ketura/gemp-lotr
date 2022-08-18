@@ -75,7 +75,7 @@ public class Card_10_030_Tests
         scn.FreepsResolveSkirmish(aragorn);
 
         //As Aragorn isn't exhausted (tho Frodo is), the event does nothing.
-        assertTrue(scn.FreepsCardPlayAvailable(endgame));
+        assertTrue(scn.FreepsPlayAvailable(endgame));
         assertEquals(8, scn.GetStrength(aragorn));
         scn.FreepsPlayCard(endgame);
         assertEquals(8, scn.GetStrength(aragorn));
@@ -108,7 +108,7 @@ public class Card_10_030_Tests
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
-        assertTrue(scn.FreepsCardPlayAvailable(endgame));
+        assertTrue(scn.FreepsPlayAvailable(endgame));
 
         assertEquals(8, scn.GetStrength(aragorn));
         scn.FreepsPlayCard(endgame);
@@ -137,7 +137,7 @@ public class Card_10_030_Tests
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
-        assertTrue(scn.FreepsCardPlayAvailable(endgame));
+        assertTrue(scn.FreepsPlayAvailable(endgame));
 
         assertEquals(8, scn.GetStrength(aragorn));
         scn.FreepsPlayCard(endgame);
@@ -174,7 +174,7 @@ public class Card_10_030_Tests
         scn.FreepsAssignToMinions(aragorn, troop);
         scn.FreepsResolveSkirmish(aragorn);
 
-        assertTrue(scn.FreepsCardPlayAvailable(endgame));
+        assertTrue(scn.FreepsPlayAvailable(endgame));
 
         assertEquals(8, scn.GetStrength(aragorn));
         scn.FreepsPlayCard(endgame);

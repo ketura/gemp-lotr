@@ -82,11 +82,11 @@ public class Card_V1_056_Tests
 		scn.AddWoundsToChar(gimli, 1);
 		scn.AddWoundsToChar(frodo, 1);
 
-		assertFalse(scn.FreepsCardPlayAvailable(coming));
+		assertFalse(scn.FreepsPlayAvailable(coming));
 		scn.FreepsPlayCard(merry);
-		assertFalse(scn.FreepsCardPlayAvailable(coming));
+		assertFalse(scn.FreepsPlayAvailable(coming));
 		scn.FreepsPlayCard(pippin);
-		assertTrue(scn.FreepsCardPlayAvailable(coming));
+		assertTrue(scn.FreepsPlayAvailable(coming));
 
 		assertEquals(1, scn.GetWoundsOn(gimli));
 		assertEquals(1, scn.GetWoundsOn(frodo));

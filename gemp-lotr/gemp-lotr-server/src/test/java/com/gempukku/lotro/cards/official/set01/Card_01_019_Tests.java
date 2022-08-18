@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -86,7 +85,7 @@ public class Card_01_019_Tests
         assertEquals(Zone.SHADOW_CHARACTERS, runner1.getZone());
         assertEquals(Zone.SHADOW_CHARACTERS, runner2.getZone());
 
-        assertTrue(scn.FreepsCardPlayAvailable(balin));
+        assertTrue(scn.FreepsPlayAvailable(balin));
         scn.FreepsPlayCard(balin);
 
         assertTrue(scn.FreepsDecisionAvailable("Choose action"));
@@ -120,7 +119,7 @@ public class Card_01_019_Tests
         assertEquals(Zone.SHADOW_CHARACTERS, scout.getZone());
         assertEquals(0, scn.GetWoundsOn(scout));
 
-        assertTrue(scn.FreepsCardPlayAvailable(balin));
+        assertTrue(scn.FreepsPlayAvailable(balin));
         scn.FreepsPlayCard(balin);
 
         assertEquals(1, scn.GetWoundsOn(gimli));
@@ -150,7 +149,7 @@ public class Card_01_019_Tests
         assertEquals(Zone.SHADOW_CHARACTERS, scout.getZone());
         assertEquals(0, scn.GetWoundsOn(scout));
 
-        assertTrue(scn.FreepsCardPlayAvailable(balin));
+        assertTrue(scn.FreepsPlayAvailable(balin));
         scn.FreepsPlayCard(balin);
 
         assertTrue(scn.FreepsDecisionAvailable("Choose action"));
@@ -180,7 +179,7 @@ public class Card_01_019_Tests
         assertEquals(Zone.SHADOW_CHARACTERS, runner1.getZone());
         assertEquals(0, scn.GetWoundsOn(runner1));
 
-        assertTrue(scn.FreepsCardPlayAvailable(balin));
+        assertTrue(scn.FreepsPlayAvailable(balin));
         scn.FreepsPlayCard(balin);
 
         //https://wiki.lotrtcgpc.net/wiki/Comprehensive_Rules_4.1#effect

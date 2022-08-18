@@ -168,7 +168,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 1 wounded companion, no saruman
-		assertFalse(scn.ShadowCardActionAvailable(flock));
+		assertFalse(scn.ShadowActionAvailable(flock));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -181,7 +181,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 2 wounded companions, no saruman
-		assertTrue(scn.ShadowCardActionAvailable(flock));
+		assertTrue(scn.ShadowActionAvailable(flock));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -196,7 +196,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 0 wounded companions, yes saruman
-		assertTrue(scn.ShadowCardActionAvailable(flock));
+		assertTrue(scn.ShadowActionAvailable(flock));
 
 	}
 
@@ -226,7 +226,7 @@ public class Card_V1_025_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(flock));
+		assertTrue(scn.ShadowActionAvailable(flock));
 		assertEquals(Zone.DECK, weather1.getZone());
 		assertEquals(weather1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, weather2.getZone());
@@ -250,7 +250,7 @@ public class Card_V1_025_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(flock2));
+		assertTrue(scn.ShadowActionAvailable(flock2));
 		assertEquals(Zone.DECK, weather1.getZone());
 		assertEquals(weather1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, weather2.getZone()); // it was drawn during regroup
@@ -275,7 +275,7 @@ public class Card_V1_025_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(flock3));
+		assertTrue(scn.ShadowActionAvailable(flock3));
 		assertEquals(Zone.DECK, weather1.getZone());
 		assertEquals(weather1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, weather2.getZone());

@@ -88,7 +88,7 @@ public class Card_01_040_ErrataTests
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsCardActionAvailable(elrond));
+        assertTrue(scn.FreepsActionAvailable(elrond));
 
         assertEquals(0, scn.GetWoundsOn(elrond));
         assertEquals(0, scn.GetFreepsHandCount());
@@ -114,7 +114,7 @@ public class Card_01_040_ErrataTests
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsCardActionAvailable(elrond));
+        assertTrue(scn.FreepsActionAvailable(elrond));
 
         assertEquals(0, scn.GetWoundsOn(elrond));
         assertEquals(0, scn.GetFreepsHandCount());
@@ -140,10 +140,10 @@ public class Card_01_040_ErrataTests
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertFalse(scn.FreepsCardPlayAvailable(elrond));
+        assertFalse(scn.FreepsPlayAvailable(elrond));
 
         scn.FreepsPlayCard(gandalf);
-        assertTrue(scn.FreepsCardPlayAvailable(elrond));
+        assertTrue(scn.FreepsPlayAvailable(elrond));
     }
 
     @Test
@@ -159,10 +159,10 @@ public class Card_01_040_ErrataTests
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertFalse(scn.FreepsCardPlayAvailable(elrond));
+        assertFalse(scn.FreepsPlayAvailable(elrond));
 
         scn.FreepsPlayCard(arwen);
-        assertTrue(scn.FreepsCardPlayAvailable(elrond));
+        assertTrue(scn.FreepsPlayAvailable(elrond));
     }
 
     @Test

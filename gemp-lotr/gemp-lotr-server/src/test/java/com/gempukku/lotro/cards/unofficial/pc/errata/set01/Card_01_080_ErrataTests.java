@@ -5,7 +5,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -81,9 +80,9 @@ public class Card_01_080_ErrataTests
 		scn.FreepsMoveCardToHand(ottar, gandalf);
 
 		scn.StartGame();
-		assertFalse(scn.FreepsCardPlayAvailable(ottar));
+		assertFalse(scn.FreepsPlayAvailable(ottar));
 		scn.FreepsPlayCard(gandalf);
-		assertTrue(scn.FreepsCardPlayAvailable(ottar));
+		assertTrue(scn.FreepsPlayAvailable(ottar));
 	}
 
 	@Test
@@ -104,7 +103,7 @@ public class Card_01_080_ErrataTests
 		assertEquals(Zone.HAND, chaff1.getZone());
 		assertEquals(Zone.DECK, chaff2.getZone());
 		assertEquals(1, scn.GetFreepsHandCount());
-		assertTrue(scn.FreepsCardActionAvailable(ottar));
+		assertTrue(scn.FreepsActionAvailable(ottar));
 
 		scn.FreepsUseCardAction(ottar);
 
@@ -128,6 +127,6 @@ public class Card_01_080_ErrataTests
 
 		assertEquals(0, scn.GetWoundsOn(ottar));
 		assertEquals(0, scn.GetFreepsHandCount());
-		assertFalse(scn.FreepsCardActionAvailable(ottar));
+		assertFalse(scn.FreepsActionAvailable(ottar));
 	}
 }
