@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -81,9 +80,9 @@ public class Card_01_080_Tests
 		scn.FreepsMoveCardToHand(ottar, gandalf);
 
 		scn.StartGame();
-		assertFalse(scn.FreepsCardPlayAvailable(ottar));
+		assertFalse(scn.FreepsPlayAvailable(ottar));
 		scn.FreepsPlayCard(gandalf);
-		assertTrue(scn.FreepsCardPlayAvailable(ottar));
+		assertTrue(scn.FreepsPlayAvailable(ottar));
 	}
 
 	@Test
@@ -106,7 +105,7 @@ public class Card_01_080_Tests
 
 		assertEquals(0, scn.GetWoundsOn(ottar));
 		assertEquals(3, scn.GetFreepsHandCount());
-		assertTrue(scn.FreepsCardActionAvailable(ottar));
+		assertTrue(scn.FreepsActionAvailable(ottar));
 
 		scn.FreepsUseCardAction(ottar);
 
@@ -143,7 +142,7 @@ public class Card_01_080_Tests
 
 		assertEquals(0, scn.GetWoundsOn(ottar));
 		assertEquals(3, scn.GetFreepsHandCount());
-		assertTrue(scn.FreepsCardActionAvailable(ottar));
+		assertTrue(scn.FreepsActionAvailable(ottar));
 
 		scn.FreepsUseCardAction(ottar);
 
@@ -182,7 +181,7 @@ public class Card_01_080_Tests
 
 		assertEquals(0, scn.GetWoundsOn(ottar));
 		assertEquals(3, scn.GetFreepsHandCount());
-		assertTrue(scn.FreepsCardActionAvailable(ottar));
+		assertTrue(scn.FreepsActionAvailable(ottar));
 
 		scn.FreepsUseCardAction(ottar);
 
@@ -217,6 +216,6 @@ public class Card_01_080_Tests
 
 		assertEquals(0, scn.GetWoundsOn(ottar));
 		assertEquals(0, scn.GetFreepsHandCount());
-		assertTrue(scn.FreepsCardActionAvailable(ottar));
+		assertTrue(scn.FreepsActionAvailable(ottar));
 	}
 }

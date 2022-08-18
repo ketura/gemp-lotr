@@ -86,18 +86,18 @@ public class Card_V1_027_Tests
 		scn.StartGame();
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertFalse(scn.ShadowCardPlayAvailable(frostbite));
+		assertFalse(scn.ShadowPlayAvailable(frostbite));
 		scn.ShadowPlayCard(weather_condition);
 		scn.ShadowChooseCard(scn.GetCurrentSite());
 
-		assertTrue(scn.ShadowCardPlayAvailable(frostbite));
+		assertTrue(scn.ShadowPlayAvailable(frostbite));
 		scn.ShadowPlayCard(frostbite);
 
 		assertEquals(Zone.ATTACHED, frostbite.getZone());
 		assertEquals(scn.GetRingBearer(), frostbite.getAttachedTo());
 
 		//limit 1 per bearer
-		assertFalse(scn.ShadowCardPlayAvailable(frostbite2));
+		assertFalse(scn.ShadowPlayAvailable(frostbite2));
 	}
 
 	@Test

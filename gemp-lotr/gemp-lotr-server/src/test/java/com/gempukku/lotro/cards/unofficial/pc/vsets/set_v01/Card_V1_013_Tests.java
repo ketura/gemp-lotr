@@ -71,9 +71,9 @@ public class Card_V1_013_Tests
 
 		scn.StartGame();
 
-		assertFalse(scn.FreepsCardPlayAvailable(counsel));
+		assertFalse(scn.FreepsPlayAvailable(counsel));
 		scn.FreepsPlayCard(gandalf);
-		assertTrue(scn.FreepsCardPlayAvailable(counsel));
+		assertTrue(scn.FreepsPlayAvailable(counsel));
 	}
 
 	@Test

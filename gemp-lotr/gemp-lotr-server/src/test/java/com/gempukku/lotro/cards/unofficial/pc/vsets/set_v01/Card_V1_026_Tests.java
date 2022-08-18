@@ -141,7 +141,7 @@ public class Card_V1_026_Tests
 		scn.ShadowChooseCard(gimli);
 		assertEquals(4, scn.GetTwilight()); //-3 cost, -2 roaming, +3 bonus, capped
 
-		assertFalse(scn.ShadowCardPlayAvailable(crows6)); //no longer have cost + roaming, in spite of bonus
+		assertFalse(scn.ShadowPlayAvailable(crows6)); //no longer have cost + roaming, in spite of bonus
 	}
 
 	@Test
@@ -176,7 +176,7 @@ public class Card_V1_026_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 1 freepsitem, no saruman
-		assertFalse(scn.ShadowCardActionAvailable(crows));
+		assertFalse(scn.ShadowActionAvailable(crows));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -189,7 +189,7 @@ public class Card_V1_026_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 2 freeps items, no saruman
-		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertTrue(scn.ShadowActionAvailable(crows));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -203,7 +203,7 @@ public class Card_V1_026_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 0 wounded companions, yes saruman
-		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertTrue(scn.ShadowActionAvailable(crows));
 
 	}
 
@@ -233,7 +233,7 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertTrue(scn.ShadowActionAvailable(crows));
 		assertEquals(Zone.DECK, poss1.getZone());
 		assertEquals(poss1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, poss2.getZone());
@@ -257,7 +257,7 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(crows2));
+		assertTrue(scn.ShadowActionAvailable(crows2));
 		assertEquals(Zone.DECK, poss1.getZone());
 		assertEquals(poss1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, poss2.getZone()); // it was drawn during regroup
@@ -281,7 +281,7 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(crows3));
+		assertTrue(scn.ShadowActionAvailable(crows3));
 		assertEquals(Zone.DECK, poss1.getZone());
 		assertEquals(poss1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, poss2.getZone());

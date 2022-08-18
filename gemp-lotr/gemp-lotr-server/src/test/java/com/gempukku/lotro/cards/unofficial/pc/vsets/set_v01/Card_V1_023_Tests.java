@@ -142,7 +142,7 @@ public class Card_V1_023_Tests
 
 		// 1
 		scn.FreepsResolveSkirmish(aragorn);
-		assertFalse(scn.FreepsCardActionAvailable(gone)); // no stacks yet
+		assertFalse(scn.FreepsActionAvailable(gone)); // no stacks yet
 		scn.FreepsPlayCard(gondorE);
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
@@ -156,7 +156,7 @@ public class Card_V1_023_Tests
 
 		// 2
 		scn.FreepsResolveSkirmish(gimli);
-		assertTrue(scn.FreepsCardActionAvailable(gone));
+		assertTrue(scn.FreepsActionAvailable(gone));
 		scn.FreepsPlayCard(dwarfE);
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
@@ -167,7 +167,7 @@ public class Card_V1_023_Tests
 
 		// 3
 		scn.FreepsResolveSkirmish(arwen);
-		assertTrue(scn.FreepsCardActionAvailable(gone));
+		assertTrue(scn.FreepsActionAvailable(gone));
 		scn.FreepsPlayCard(elfE);
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
@@ -178,7 +178,7 @@ public class Card_V1_023_Tests
 
 		// 4
 		scn.FreepsResolveSkirmish(gandalf);
-		assertTrue(scn.FreepsCardActionAvailable(gone));
+		assertTrue(scn.FreepsActionAvailable(gone));
 		scn.FreepsPlayCard(gandalfE);
 		assertTrue(scn.FreepsHasOptionalTriggerAvailable());
 		scn.FreepsAcceptOptionalTrigger();
@@ -189,7 +189,7 @@ public class Card_V1_023_Tests
 
 
 		scn.FreepsResolveSkirmish(sam);
-		assertTrue(scn.FreepsCardActionAvailable(gone));
+		assertTrue(scn.FreepsActionAvailable(gone));
 		scn.FreepsUseCardAction(gone);
 		assertTrue(scn.FreepsDecisionAvailable("Choose stacked cards to discard"));
 		assertEquals(3, scn.GetStrength(sam));

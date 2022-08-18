@@ -95,7 +95,7 @@ public class Card_V1_046_Tests
 
 		assertEquals(3, scn.GetTwilight()); // 1 from comp, 2 from site, not enough to play soldier normally
 
-		assertTrue(scn.ShadowCardPlayAvailable(orc2)); //home site reduced to 2, doesn't pay roaming and so can play
+		assertTrue(scn.ShadowPlayAvailable(orc2)); //home site reduced to 2, doesn't pay roaming and so can play
 	}
 
 	@Test

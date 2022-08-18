@@ -85,7 +85,7 @@ public class Card_V1_044_Tests
 
 		assertEquals(1, scn.GetBurdens()); // 1 from bidding
 		assertEquals(Zone.SHADOW_CHARACTERS, orc.getZone());
-		assertTrue(scn.ShadowCardPlayAvailable(fell));
+		assertTrue(scn.ShadowPlayAvailable(fell));
 		scn.ShadowPlayCard(fell);
 		assertEquals(2, scn.GetBurdens());
 		assertEquals(Zone.DISCARD, orc.getZone());
@@ -106,7 +106,7 @@ public class Card_V1_044_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertFalse(scn.ShadowCardPlayAvailable(fell));
+		assertFalse(scn.ShadowPlayAvailable(fell));
 
 	}
 

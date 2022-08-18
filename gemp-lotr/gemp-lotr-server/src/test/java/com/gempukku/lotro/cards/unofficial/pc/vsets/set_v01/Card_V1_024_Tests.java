@@ -79,11 +79,11 @@ public class Card_V1_024_Tests
 		scn.FreepsMoveCardToHand(mysword, aragorn, arwen);
 
 		scn.StartGame();
-		assertFalse(scn.FreepsCardPlayAvailable(mysword));
+		assertFalse(scn.FreepsPlayAvailable(mysword));
 		scn.FreepsPlayCard(aragorn);
-		assertFalse(scn.FreepsCardPlayAvailable(mysword));
+		assertFalse(scn.FreepsPlayAvailable(mysword));
 		scn.FreepsPlayCard(arwen);
-		assertTrue(scn.FreepsCardPlayAvailable(mysword));
+		assertTrue(scn.FreepsPlayAvailable(mysword));
 		scn.FreepsPlayCard(mysword);
 
 		assertEquals(Zone.ATTACHED, mysword.getZone());

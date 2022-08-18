@@ -91,7 +91,7 @@ public class Card_V1_009_Tests
 		scn.StartGame();
 
 		scn.SkipToPhase(Phase.ARCHERY);
-		assertTrue(scn.FreepsCardActionAvailable(legolas));
+		assertTrue(scn.FreepsActionAvailable(legolas));
 		assertEquals(3, scn.GetFreepsArcheryTotal());
 		assertEquals(6, scn.GetStrength(legolas));
 

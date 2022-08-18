@@ -83,9 +83,9 @@ public class Card_V1_041_Tests
 		scn.SetTwilight(10);
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertFalse(scn.ShadowCardPlayAvailable(eyes));
+		assertFalse(scn.ShadowPlayAvailable(eyes));
 		scn.ShadowPlayCard(twigul);
-		assertTrue(scn.ShadowCardPlayAvailable(eyes));
+		assertTrue(scn.ShadowPlayAvailable(eyes));
 	}
 
 	@Test

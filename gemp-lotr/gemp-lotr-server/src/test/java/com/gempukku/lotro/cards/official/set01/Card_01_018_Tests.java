@@ -92,7 +92,7 @@ public class Card_01_018_Tests
 
         scn.StartGame();
 
-        assertTrue(scn.FreepsCardPlayAvailable(halls));
+        assertTrue(scn.FreepsPlayAvailable(halls));
         assertEquals(0, scn.GetWoundsOn(gimli));
 
         scn.FreepsPlayCard(halls);
@@ -151,7 +151,7 @@ public class Card_01_018_Tests
 
         scn.StartGame();
 
-        assertTrue(scn.FreepsCardPlayAvailable(halls));
+        assertTrue(scn.FreepsPlayAvailable(halls));
         assertEquals(0, scn.GetWoundsOn(gimli));
 
         scn.FreepsPlayCard(halls);

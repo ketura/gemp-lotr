@@ -88,7 +88,7 @@ public class Card_V1_053_Tests
 		scn.FreepsResolveSkirmish(frodo);
 
 		assertEquals(2, scn.GetOverwhelmMultiplier(frodo)); // 2x is the default
-		assertTrue(scn.FreepsCardActionAvailable(pippin));
+		assertTrue(scn.FreepsActionAvailable(pippin));
 		assertEquals(0, scn.GetWoundsOn(pippin));
 
 		scn.FreepsUseCardAction(pippin);
@@ -124,7 +124,7 @@ public class Card_V1_053_Tests
 		scn.FreepsResolveSkirmish(sam);
 
 		assertEquals(3, scn.GetStrength(sam));
-		assertTrue(scn.FreepsCardActionAvailable(pippin));
+		assertTrue(scn.FreepsActionAvailable(pippin));
 		assertEquals(0, scn.GetWoundsOn(pippin));
 
 		scn.FreepsUseCardAction(pippin);

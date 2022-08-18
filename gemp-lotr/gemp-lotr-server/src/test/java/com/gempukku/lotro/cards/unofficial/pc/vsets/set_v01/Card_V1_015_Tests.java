@@ -86,9 +86,9 @@ public class Card_V1_015_Tests
 
 		scn.StartGame();
 
-		assertFalse(scn.FreepsCardPlayAvailable(gwaihir));
+		assertFalse(scn.FreepsPlayAvailable(gwaihir));
 		scn.FreepsPlayCard(gandalf);
-		assertTrue(scn.FreepsCardPlayAvailable(gwaihir));
+		assertTrue(scn.FreepsPlayAvailable(gwaihir));
 
 		assertEquals(4, scn.GetTwilight());
 		scn.FreepsPlayCard(gwaihir);
@@ -144,7 +144,7 @@ public class Card_V1_015_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 
-		assertTrue(scn.FreepsCardActionAvailable(gwaihir));
+		assertTrue(scn.FreepsActionAvailable(gwaihir));
 		assertEquals(Zone.FREE_CHARACTERS, gwaihir.getZone());
 		assertEquals(Zone.DISCARD, runner.getZone());
 		assertEquals(Zone.DISCARD, spear.getZone());

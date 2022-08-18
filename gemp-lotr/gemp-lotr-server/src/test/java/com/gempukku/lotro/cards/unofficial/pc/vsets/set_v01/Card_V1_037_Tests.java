@@ -85,7 +85,7 @@ public class Card_V1_037_Tests
 
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertTrue(scn.ShadowCardPlayAvailable(fell));
+		assertTrue(scn.ShadowPlayAvailable(fell));
 		assertEquals(Zone.DISCARD, ring.getZone());
 		assertEquals(Zone.DECK, blade.getZone());
 		scn.ShadowPlayCard(fell);
@@ -96,7 +96,7 @@ public class Card_V1_037_Tests
 		assertEquals(Zone.ATTACHED, ring.getZone());
 		assertEquals(nazgul, ring.getAttachedTo());
 
-		assertTrue(scn.ShadowCardPlayAvailable(fell2));
+		assertTrue(scn.ShadowPlayAvailable(fell2));
 		scn.ShadowPlayCard(fell2);
 
 		assertEquals(Zone.ATTACHED, blade.getZone());

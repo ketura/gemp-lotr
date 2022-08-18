@@ -80,7 +80,7 @@ public class Card_V1_035_Tests
 		scn.FreepsPassCurrentPhaseAction();
 
 		scn.ShadowPlayCard(darkness);
-		assertTrue(scn.ShadowCardActionAvailable(darkness));
+		assertTrue(scn.ShadowActionAvailable(darkness));
 		assertEquals(0, scn.GetStackedCards(darkness).size());
 		scn.ShadowUseCardAction(darkness);
 		scn.ShadowChooseCard(whip);
@@ -90,10 +90,10 @@ public class Card_V1_035_Tests
 		assertEquals(2, scn.GetStackedCards(darkness).size());
 		assertEquals(Zone.STACKED, spear.getZone());
 
-		assertFalse(scn.ShadowCardActionAvailable(darkness));
+		assertFalse(scn.ShadowActionAvailable(darkness));
 
 		scn.ShadowPlayCard(balrog);
-		assertTrue(scn.ShadowCardActionAvailable(darkness));
+		assertTrue(scn.ShadowActionAvailable(darkness));
 		scn.ShadowUseCardAction(darkness);
 		assertTrue(scn.ShadowDecisionAvailable("Choose cards to take into hand"));
 		assertEquals(2, scn.GetShadowCardChoiceCount());

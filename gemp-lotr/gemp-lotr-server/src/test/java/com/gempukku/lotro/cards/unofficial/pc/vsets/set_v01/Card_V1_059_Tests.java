@@ -91,7 +91,7 @@ public class Card_V1_059_Tests
 		scn.SkipToSite(3);
 		PhysicalCardImpl site3 = scn.GetCurrentSite();
 		assertEquals(3, scn.GetStrength(sam));
-		assertTrue(scn.FreepsCardActionAvailable(site3));
+		assertTrue(scn.FreepsActionAvailable(site3));
 
 		scn.FreepsUseCardAction(site3);
 		assertTrue(scn.FreepsDecisionAvailable("Choose cards to exert"));

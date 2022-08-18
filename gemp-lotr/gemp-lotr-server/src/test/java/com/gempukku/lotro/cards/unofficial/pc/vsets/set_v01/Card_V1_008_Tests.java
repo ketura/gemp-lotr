@@ -84,12 +84,12 @@ public class Card_V1_008_Tests
 		scn.FreepsMoveCardToHand(lament, guard, elrond);
 
 		scn.StartGame();
-		assertFalse(scn.FreepsCardPlayAvailable(lament));
+		assertFalse(scn.FreepsPlayAvailable(lament));
 		scn.FreepsPlayCard(elrond);
-		assertFalse(scn.FreepsCardPlayAvailable(lament));
+		assertFalse(scn.FreepsPlayAvailable(lament));
 		scn.AddWoundsToChar(gandalf, 4);
 		scn.FreepsPlayCard(guard);
-		assertTrue(scn.FreepsCardPlayAvailable(lament));
+		assertTrue(scn.FreepsPlayAvailable(lament));
 
 		assertEquals(0, scn.GetWoundsOn(elrond));
 		assertEquals(Zone.HAND, lament.getZone());
@@ -149,7 +149,7 @@ public class Card_V1_008_Tests
 		assertEquals(1, scn.FreepsGetADParam("freeCharacters").length); // gimli is not allowed to skirmish
 		scn.FreepsAssignToMinions(frodo, marksman);
 		scn.FreepsResolveSkirmish(frodo);
-		assertFalse(scn.FreepsCardActionAvailable(gimli)); // Can't use gimli's ability as he can't exert
+		assertFalse(scn.FreepsActionAvailable(gimli)); // Can't use gimli's ability as he can't exert
 	}
 
 	@Test

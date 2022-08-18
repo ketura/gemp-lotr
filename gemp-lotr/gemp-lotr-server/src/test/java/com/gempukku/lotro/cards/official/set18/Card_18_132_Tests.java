@@ -85,9 +85,9 @@ public class Card_18_132_Tests
         scn.SetTwilight(10);
         scn.FreepsPassCurrentPhaseAction();
 
-        assertFalse(scn.ShadowCardPlayAvailable(flees));
+        assertFalse(scn.ShadowPlayAvailable(flees));
         scn.ShadowPlayCard(nazgul);
-        assertTrue(scn.ShadowCardPlayAvailable(flees));
+        assertTrue(scn.ShadowPlayAvailable(flees));
     }
 
     @Test

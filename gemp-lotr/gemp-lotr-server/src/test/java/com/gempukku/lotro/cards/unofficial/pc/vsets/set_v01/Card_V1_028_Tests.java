@@ -113,7 +113,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp));
+		assertTrue(scn.ShadowPlayAvailable(wisp));
 		assertEquals(Zone.DECK, saruman1.getZone());
 		assertEquals(saruman1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, saruman2.getZone());
@@ -137,7 +137,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp2));
+		assertTrue(scn.ShadowPlayAvailable(wisp2));
 		assertEquals(Zone.DECK, saruman1.getZone());
 		assertEquals(saruman1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, saruman2.getZone()); // it was drawn during regroup
@@ -161,7 +161,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp3));
+		assertTrue(scn.ShadowPlayAvailable(wisp3));
 		assertEquals(Zone.DECK, saruman1.getZone());
 		assertEquals(saruman1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, saruman2.getZone());
@@ -199,7 +199,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp));
+		assertTrue(scn.ShadowPlayAvailable(wisp));
 
 		scn.ShadowPlayCard(wisp);
 		assertTrue(scn.ShadowDecisionAvailable("Choose cards from hand to discard"));

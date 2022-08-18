@@ -81,7 +81,7 @@ public class Card_V1_052_Tests
 		scn.SkipToPhase(Phase.ASSIGNMENT);
 		assertEquals(0, scn.GetWoundsOn(merry));
 		assertEquals(0, scn.GetWoundsOn(shelob));
-		assertTrue(scn.FreepsCardActionAvailable(merry));
+		assertTrue(scn.FreepsActionAvailable(merry));
 
 		scn.FreepsUseCardAction(merry);
 		assertEquals(3, scn.GetWoundsOn(merry));
@@ -110,7 +110,7 @@ public class Card_V1_052_Tests
 		scn.SkipToPhase(Phase.ASSIGNMENT);
 		assertEquals(0, scn.GetWoundsOn(merry));
 		assertEquals(0, scn.GetWoundsOn(shelob));
-		assertTrue(scn.FreepsCardActionAvailable(merry));
+		assertTrue(scn.FreepsActionAvailable(merry));
 
 		scn.FreepsUseCardAction(merry);
 		assertEquals(3, scn.GetWoundsOn(merry));

@@ -83,11 +83,11 @@ public class Card_V1_017_Tests
 
 		scn.StartGame();
 
-		assertFalse(scn.FreepsCardPlayAvailable(twoeyes));
+		assertFalse(scn.FreepsPlayAvailable(twoeyes));
 		scn.FreepsPlayCard(gandalf);
-		assertFalse(scn.FreepsCardPlayAvailable(twoeyes));
+		assertFalse(scn.FreepsPlayAvailable(twoeyes));
 		scn.FreepsPlayCard(frodo);
-		assertTrue(scn.FreepsCardPlayAvailable(twoeyes));
+		assertTrue(scn.FreepsPlayAvailable(twoeyes));
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class Card_V1_017_Tests
 
 		scn.StartGame();
 
-		assertTrue(scn.FreepsCardPlayAvailable(twoeyes));
+		assertTrue(scn.FreepsPlayAvailable(twoeyes));
 		assertEquals(3, scn.GetVitality(frodo));
 		assertEquals(1, scn.GetFreepsHandCount()); //only Two Eyes itself
 		assertEquals(4, scn.GetFreepsDeckCount());

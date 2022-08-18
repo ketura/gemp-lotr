@@ -116,7 +116,7 @@ public class Card_V1_038_Tests
 		scn.SkipToPhase(Phase.ASSIGNMENT);
 
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(harry));
+		assertTrue(scn.ShadowActionAvailable(harry));
 
 		scn.ShadowUseCardAction(harry);
 		assertTrue(scn.FreepsDecisionAvailable("assign"));
