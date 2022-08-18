@@ -27,32 +27,32 @@ public class DelegateActionContext implements ActionContext {
 
     @Override
     public void setValueToMemory(String memory, String value) {
-        delegate.setValueToMemory(memory.toLowerCase(), value);
+        delegate.setValueToMemory(memory, value);
     }
 
     @Override
     public String getValueFromMemory(String memory) {
-        return delegate.getValueFromMemory(memory.toLowerCase());
+        return delegate.getValueFromMemory(memory);
     }
 
     @Override
     public void setCardMemory(String memory, PhysicalCard card) {
-        delegate.setCardMemory(memory.toLowerCase(), card);
+        delegate.setCardMemory(memory, card);
     }
 
     @Override
     public void setCardMemory(String memory, Collection<? extends PhysicalCard> cards) {
-        delegate.setCardMemory(memory.toLowerCase(), cards);
+        delegate.setCardMemory(memory, cards);
     }
 
     @Override
     public Collection<? extends PhysicalCard> getCardsFromMemory(String memory) {
-        return delegate.getCardsFromMemory(memory.toLowerCase());
+        return delegate.getCardsFromMemory(memory);
     }
 
     @Override
     public PhysicalCard getCardFromMemory(String memory) {
-        return delegate.getCardFromMemory(memory.toLowerCase());
+        return delegate.getCardFromMemory(memory);
     }
 
     @Override
