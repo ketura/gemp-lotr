@@ -531,6 +531,19 @@ public class GenericCardTestHelper extends AbstractAtTest {
         _game.getGameState().addTokens(card, Token.findTokenForCulture(card.getBlueprint().getCulture()), count);
     }
 
+
+    public void AddThreats(int count) {
+        _game.getGameState().addThreats(_game.getGameState().getCurrentPlayerId(), count);
+    }
+
+    public void RemoveThreats(int count) {
+        _game.getGameState().removeThreats(_game.getGameState().getCurrentPlayerId(), count);
+    }
+
+    public int GetThreats() {
+        return _game.getGameState().getThreats();
+    }
+
     public void FreepsRemoveWoundsFromChar(String cardName, int count) { RemoveWoundsFromChar(GetFreepsCard(cardName), count); }
     public void ShadowRemoveWoundsFromChar(String cardName, int count) { RemoveWoundsFromChar(GetShadowCard(cardName), count); }
     public void RemoveWoundsFromChar(PhysicalCardImpl card, int count) {
@@ -592,6 +605,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
+    public void FreepsDeclineAssignments() throws DecisionResultInvalidException { FreepsPassCurrentPhaseAction(); }
+    public void ShadowDeclineAssignments() throws DecisionResultInvalidException { ShadowPassCurrentPhaseAction(); }
 
     public void FreepsAssignToMinions(PhysicalCardImpl comp, PhysicalCardImpl...minions) throws DecisionResultInvalidException { AssignToMinions(P1, comp, minions); }
     public void ShadowAssignToMinions(PhysicalCardImpl comp, PhysicalCardImpl...minions) throws DecisionResultInvalidException { AssignToMinions(P2, comp, minions); }

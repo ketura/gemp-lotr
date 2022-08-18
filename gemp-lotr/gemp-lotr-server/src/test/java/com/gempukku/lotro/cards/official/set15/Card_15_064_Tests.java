@@ -1,27 +1,25 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata.set15;
+package com.gempukku.lotro.cards.official.set15;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_15_064_ErrataTests
+public class Card_15_064_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("madril", "85_64");
+					put("madril", "15_64");
 					put("arwen", "1_30");
 					put("ranger1", "7_116");
 					put("ranger2", "7_116");
@@ -52,7 +50,7 @@ public class Card_15_064_ErrataTests
 		* Resistance: 6
 		* Game Text: <b>Ranger. Hunter 1.</b>
 		* 	While you can spot 2 [gondor] rangers, Madril is twilight cost -2.
-		* 	At the start of the maneuver phase, you may spot a threat to make each minion's site number +1 until the regroup phase.
+		* 	At the start of the maneuver phase, each minion is site number +1 for each threat you can spot until the start of the regroup phase.
 		*/
 
 		//Pre-game setup
@@ -117,7 +115,7 @@ public class Card_15_064_ErrataTests
 	}
 
 	@Test
-	public void ManeuverAbilityAllowsDistributionOfSiteNumberIncreases() throws DecisionResultInvalidException, CardNotFoundException {
+	public void ManeuverTriggerMakesEachMinionSiteNumberPlusOnePerThreatUntilRegroup() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -141,21 +139,15 @@ public class Card_15_064_ErrataTests
 		scn.SkipToPhase(Phase.MANEUVER);
 		assertEquals(5, scn.GetThreats());
 
-		scn.FreepsChooseCard(runner1);
-		scn.FreepsChooseCard(runner1);
-		scn.FreepsChooseCard(runner1);
-		scn.FreepsChooseCard(runner2);
-		scn.FreepsChooseCard(runner2);
-
-		assertEquals(7, scn.GetMinionSiteNumber(runner1));
-		assertEquals(6, scn.GetMinionSiteNumber(runner2));
-		assertEquals(4, scn.GetMinionSiteNumber(runner3));
+		assertEquals(9, scn.GetMinionSiteNumber(runner1));
+		assertEquals(9, scn.GetMinionSiteNumber(runner2));
+		assertEquals(9, scn.GetMinionSiteNumber(runner3));
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
 
-		assertEquals(7, scn.GetMinionSiteNumber(runner1));
-		assertEquals(6, scn.GetMinionSiteNumber(runner2));
-		assertEquals(4, scn.GetMinionSiteNumber(runner3));
+		assertEquals(9, scn.GetMinionSiteNumber(runner1));
+		assertEquals(9, scn.GetMinionSiteNumber(runner2));
+		assertEquals(9, scn.GetMinionSiteNumber(runner3));
 
 		scn.PassCurrentPhaseActions();
 		scn.FreepsDeclineAssignments();
@@ -181,7 +173,15 @@ public class Card_15_064_ErrataTests
 
 		scn.StartGame();
 
+		assertEquals(4, scn.GetMinionSiteNumber(runner1));
+		assertEquals(4, scn.GetMinionSiteNumber(runner2));
+		assertEquals(4, scn.GetMinionSiteNumber(runner3));
+
 		scn.SkipToPhase(Phase.MANEUVER);
 		assertTrue(scn.FreepsDecisionAvailable("Play Maneuver action or Pass"));
+
+		assertEquals(4, scn.GetMinionSiteNumber(runner1));
+		assertEquals(4, scn.GetMinionSiteNumber(runner2));
+		assertEquals(4, scn.GetMinionSiteNumber(runner3));
 	}
 }

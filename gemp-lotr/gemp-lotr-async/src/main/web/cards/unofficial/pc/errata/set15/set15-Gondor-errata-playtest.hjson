@@ -50,7 +50,6 @@
 			}
 			{
 				type: trigger
-				optional: true
 				trigger: {
 					type: startOfPhase
 					phase: maneuver
@@ -59,11 +58,20 @@
 					type: canSpotThreats
 				}
 				effect: {
-					type: modifySiteNumber
-					filter: all(minion)
-					amount: 1
-					until: start(regroup)
+					type: repeat
+					amount: {
+						type: forEachThreat
+					}
+					effect: {
+						type: modifySiteNumber
+						filter: choose(minion)
+						count: 1
+						amount: 1
+						until: start(regroup)
+					}
 				}
+				
+				
 			}
 		]
 		gametext: <b>Ranger. Hunter 1.</b><br>While you can spot 2 [gondor] rangers, Madril is twilight cost –2.<br>At the start of the Maneuver phase, for each threat you can spot, make a minion's site number +1 until the start of the regroup phase.
