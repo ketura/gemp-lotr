@@ -527,6 +527,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
     }
 
+    public void AddTokensToCard(PhysicalCardImpl card, int count) {
+        _game.getGameState().addTokens(card, Token.findTokenForCulture(card.getBlueprint().getCulture()), count);
+    }
+
     public void FreepsRemoveWoundsFromChar(String cardName, int count) { RemoveWoundsFromChar(GetFreepsCard(cardName), count); }
     public void ShadowRemoveWoundsFromChar(String cardName, int count) { RemoveWoundsFromChar(GetShadowCard(cardName), count); }
     public void RemoveWoundsFromChar(PhysicalCardImpl card, int count) {

@@ -413,7 +413,7 @@ public class ValueResolver {
             } else if (type.equalsIgnoreCase("forEachToken")) {
                 FieldUtils.validateAllowedFields(object, "filter", "culture");
 
-                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final Culture culture = FieldUtils.getEnum(Culture.class, object.get("culture"), "culture");
                 final Token tokenForCulture = Token.findTokenForCulture(culture);
 

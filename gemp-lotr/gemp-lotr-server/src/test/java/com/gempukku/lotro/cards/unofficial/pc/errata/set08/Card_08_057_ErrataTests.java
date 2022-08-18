@@ -23,6 +23,7 @@ public class Card_08_057_ErrataTests
 
                     put("blacksails1", "8_50");
                     put("blacksails2", "8_50");
+                    put("boldmen", "7_129");
                 }}
         );
     }
@@ -41,8 +42,8 @@ public class Card_08_057_ErrataTests
          * Strength: 9
          * Vitality: 2
          * Site Number: 4
-         * Errata Game Text: Corsair.  When you play this minion, if you can spot another corsair, you may discard a
-         * Shadow possession to add 2 [RAIDER] tokens to a card that already has a [RAIDER] token on it.
+         * Errata Game Text: Corsair.  When you play this minion, if you can spot another corsair, you may choose 1:
+         * discard a Shadow possession to reinforce a [RAIDER] token twice; or remove 2 [RAIDER] tokens to discard a possession.
          */
 
         //Pre-game setup
@@ -139,6 +140,78 @@ public class Card_08_057_ErrataTests
         assertEquals(Zone.SUPPORT, blacksails1.getZone());
         assertEquals(Zone.DISCARD, blacksails2.getZone());
         assertEquals(Zone.SUPPORT, cart.getZone());
+    }
+
+    @Test
+    public void IfAnotherCorsairOnPlayCanRemove2TokensToDiscardAnyPossession() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl marauder = scn.GetShadowCard("marauder");
+        PhysicalCardImpl corsair = scn.GetShadowCard("corsair");
+        var boldmen = scn.GetShadowCard("boldmen");
+        scn.ShadowMoveCardToHand(marauder);
+        scn.ShadowMoveCharToTable(corsair);
+        scn.ShadowMoveCardToSupportArea(boldmen);
+        scn.AddTokensToCard(boldmen, 2);
+
+        PhysicalCardImpl cart = scn.GetFreepsCard("cart");
+        scn.FreepsMoveCardToSupportArea(cart);
+
+        scn.StartGame();
+
+        scn.SetTwilight(10);
+        scn.FreepsPassCurrentPhaseAction();
+
+        assertEquals(2, scn.GetCultureTokensOn(boldmen));
+        assertEquals(Zone.SUPPORT, cart.getZone());
+
+        scn.ShadowPlayCard(marauder);
+
+        assertEquals(2, scn.GetCultureTokensOn(boldmen));
+
+        scn.ShadowAcceptOptionalTrigger();
+
+        assertEquals(0, scn.GetCultureTokensOn(boldmen));
+        assertEquals(Zone.DISCARD, cart.getZone());
+    }
+
+    @Test
+    public void ChoiceIsOfferedIfBothTokensAndPossessionsOnTable() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        var marauder = scn.GetShadowCard("marauder");
+        var corsair = scn.GetShadowCard("corsair");
+        var blacksails1 = scn.GetShadowCard("blacksails1");
+        var blacksails2 = scn.GetShadowCard("blacksails2");
+        scn.ShadowMoveCardToHand(marauder, blacksails1, blacksails2);
+        scn.ShadowMoveCharToTable(corsair);
+
+        var cart = scn.GetFreepsCard("cart");
+        scn.FreepsMoveCardToSupportArea(cart);
+
+        scn.StartGame();
+
+        scn.SetTwilight(10);
+        scn.FreepsPassCurrentPhaseAction();
+
+        scn.ShadowPlayCard(blacksails1);
+        scn.ShadowAcceptOptionalTrigger();
+        scn.ShadowPlayCard(blacksails2);
+        scn.ShadowAcceptOptionalTrigger();
+
+        assertEquals(1, scn.GetCultureTokensOn(blacksails1));
+        assertEquals(1, scn.GetCultureTokensOn(blacksails2));
+        assertEquals(Zone.SUPPORT, blacksails1.getZone());
+        assertEquals(Zone.SUPPORT, blacksails2.getZone());
+        assertEquals(Zone.SUPPORT, cart.getZone());
+
+        scn.ShadowPlayCard(marauder);
+
+        scn.ShadowAcceptOptionalTrigger();
+
+        assertTrue(scn.ShadowDecisionAvailable("Choose action to perform"));
     }
 
 

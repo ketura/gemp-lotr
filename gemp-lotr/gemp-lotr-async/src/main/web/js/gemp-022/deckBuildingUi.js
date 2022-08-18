@@ -490,7 +490,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     var formatName = deck.getAttribute("targetFormat");
                     var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
                     var renameDeckBut = $("<button title='Rename deck'><span class='ui-icon ui-icon-pencil'></span></button>").button();
-                    var deckListBut = $("<button title='Export deck list'><span class='ui-icon ui-icon-extlink'></span></button>").button();
+                    var deckListBut = $("<button title='Share deck list'><span class='ui-icon ui-icon-extlink'></span></button>").button();
                     var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
 
                     var deckElem = $("<div class='deckItem'></div>");

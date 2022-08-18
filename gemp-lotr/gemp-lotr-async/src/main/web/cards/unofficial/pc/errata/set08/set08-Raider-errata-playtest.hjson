@@ -46,17 +46,60 @@
 				type: canSpot
 				filter: not(self),corsair
 			}
-			cost: {
-				type: discard
-				filter: choose(possession,side(Shadow))
-			}
+
 			effect: {
-				type: addTokens
-				culture: raider
-				filter: choose(hasToken(raider))
-				amount: 2
+				type: choice
+				texts: [
+					Discard a Shadow possession to reinforce a {raider} token twice.
+					Remove 2 {raider} tokens to discard a possession.
+				]
+				effects: [
+					{
+						type: costToEffect
+						cost: {
+							type: discard
+							filter: choose(possession,side(Shadow))
+						}
+						effect: {
+							type: ReinforceTokens
+							culture: raider
+							filter: choose(culture(raider))
+							amount: 2
+						}
+					}
+					{
+						type: costToEffect
+						requires: {
+							type: IsGreaterThanOrEqual
+							firstNumber: {
+								type: forEachToken
+								culture: raider
+							}
+							secondNumber: 2
+						}
+						cost: [
+							{
+								type: ChooseAndRemoveTokens
+								culture: raider
+								filter: choose(any)
+								limit: 1
+							}
+							{
+								type: ChooseAndRemoveTokens
+								culture: raider
+								filter: choose(any)
+								limit: 1
+							}
+						]
+						effect: {
+							type: discard
+							filter: choose(possession)
+						}
+					}
+				]
 			}
 		}
+		
 		gametext: <b>Corsair.</b> <br>When you play this minion, if you can spot another corsair, you may discard a Shadow possession to reinforce a [raider] card twice.
 		lore: “Umbar remained at war with Gondor for many lives of men....”
 		promotext: ""

@@ -108,6 +108,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putstackedcardsintohand", new PutStackedCardsIntoHand());
         effectAppenderProducers.put("reconcilehand", new ReconcileHand());
         effectAppenderProducers.put("reducearcherytotal", new ReduceArcheryTotal());
+        effectAppenderProducers.put("reinforcetokens", new ReinforceTokens());
         effectAppenderProducers.put("removeburdens", new RemoveBurdens());
         effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
         effectAppenderProducers.put("removefromthegame", new RemoveFromTheGame());
