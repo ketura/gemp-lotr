@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
-public class ConditionEffect implements EffectAppenderProducer {
+public class ConditionalEffect implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "requires", "effect");
@@ -46,7 +46,6 @@ public class ConditionEffect implements EffectAppenderProducer {
                 return true;
             }
 
-            // TODO, maybe check the requirements, and if met, check if the effect is playable?
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
                 if (!checkConditions(actionContext))

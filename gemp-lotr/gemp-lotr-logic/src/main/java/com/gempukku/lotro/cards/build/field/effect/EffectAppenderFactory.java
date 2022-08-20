@@ -45,7 +45,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
         effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());
-        effectAppenderProducers.put("conditional", new ConditionEffect());
+        effectAppenderProducers.put("conditional", new ConditionalEffect());
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
         effectAppenderProducers.put("costtoeffect", new CostToEffect());
         effectAppenderProducers.put("discard", new DiscardFromPlay());
