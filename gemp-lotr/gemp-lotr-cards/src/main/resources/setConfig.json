@@ -514,7 +514,7 @@
   
   {
     "setId": "101",
-    "setName": "PC VSet1 - FOTR+",
+    "setName": "Shadow of the Past",
     "rarityFile": "/set101-rarity.txt",
     "originalSet": false,
     "merchantable": false,
@@ -524,7 +524,7 @@
   
   {
     "setId": "151",
-    "setName": "TEST-PC VSet1 - FOTR+",
+    "setName": "TEST-Shadow of the Past",
     "rarityFile": "/set151-rarity.txt",
     "originalSet": false,
     "merchantable": false,
