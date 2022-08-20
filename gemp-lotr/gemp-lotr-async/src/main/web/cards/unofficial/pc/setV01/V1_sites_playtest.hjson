@@ -1,5 +1,5 @@
 {
-	151_57: {
+	101_57: {
 		title: Bag End Study
 		twilight: 0
 		type: site
@@ -23,7 +23,7 @@
 			}
 		}
 	}
-	151_58: {
+	101_58: {
 		title: Prancing Pony Spare Room
 		twilight: 2
 		type: site
@@ -55,7 +55,7 @@
 			}
 		}
 	}
-	151_59: {
+	101_59: {
 		title: Rivendell Gateway
 		twilight: 0
 		type: site
@@ -93,7 +93,7 @@
 			]
 		}
 	}
-	151_60: {
+	101_60: {
 		title: Moria Crossroads
 		twilight: 3
 		type: site
@@ -118,7 +118,7 @@
 			}
 		}
 	}
-	151_61: {
+	101_61: {
 		title: Lorien Throne Room
 		twilight: 3
 		type: site
@@ -148,7 +148,7 @@
 		}
 	}
 	
-	151_62: {
+	101_62: {
 		title: Valley of the Anduin
 		twilight: 6
 		type: site
@@ -170,7 +170,7 @@
 		}
 	}
 	
-	151_63: {
+	101_63: {
 		title: Nen Hithoel
 		twilight: 7
 		type: site
@@ -200,7 +200,7 @@
 		}
 	}
 	
-	151_64: {
+	101_64: {
 		title: Amon Hen Ruins
 		twilight: 9
 		type: site

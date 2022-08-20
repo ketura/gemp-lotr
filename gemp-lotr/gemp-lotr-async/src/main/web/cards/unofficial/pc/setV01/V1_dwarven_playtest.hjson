@@ -1,5 +1,5 @@
 {
-	151_1: {
+	101_1: {
 		title: Hospitality of the Dwarves
 		culture: dwarven
 		twilight: 1
@@ -71,7 +71,7 @@
 		]
 	}
 	
-	151_2: {
+	101_2: {
 		title: Deepest Delvings
 		unique: true
 		culture: dwarven
@@ -115,7 +115,7 @@
 		]
 	}
 	
-	151_3: {
+	101_3: {
 		# Hey look it's a comment because we're not in the stone age
 		title: Gimli
 		unique: true
@@ -159,7 +159,7 @@
 		]
 	}
 	
-	151_4: {
+	101_4: {
 		title: I Name You Elf-friend
 		culture: dwarven
 		twilight: 1
@@ -189,7 +189,7 @@
 		}
 	}
 	
-	151_5: {
+	101_5: {
 		title: One Dwarf in Moria
 		culture: dwarven
 		twilight: 1
@@ -240,7 +240,7 @@
 		}
 	}
 	
-	151_6: {
+	101_6: {
 		title: So Bold and So Courteous
 		unique: true
 		culture: dwarven

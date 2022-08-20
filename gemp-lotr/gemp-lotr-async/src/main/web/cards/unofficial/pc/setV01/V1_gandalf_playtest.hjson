@@ -1,5 +1,5 @@
 {
-	151_13: {
+	101_13: {
 		title: Counsel of the Wise
 		culture: gandalf
 		twilight: 0
@@ -38,7 +38,7 @@
 			}
 		}
 	}
-	151_14: {
+	101_14: {
 		title: Gandalf
 		subtitle: Olorin
 		unique: true
@@ -110,7 +110,7 @@
 			}
 		]
 	}
-	151_15: {
+	101_15: {
 		title: Gwaihir
 		subtitle: Lord of All Eagles
 		unique: true
@@ -170,7 +170,7 @@
 			}
 		]
 	}
-	151_16: {
+	101_16: {
 		title: My Heart Tells Me
 		unique: true
 		culture: gandalf
@@ -209,7 +209,7 @@
 			]
 		}
 	}
-	151_17: {
+	101_17: {
 		title: Two Eyes, As Often As I Can Spare Them
 		culture: gandalf
 		twilight: 3
@@ -236,7 +236,7 @@
 			}
 		}
 	}
-	151_18: {
+	101_18: {
 		title: The White Council
 		unique: true
 		culture: gandalf

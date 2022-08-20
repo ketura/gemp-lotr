@@ -21,7 +21,7 @@ public class Card_03_017_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("galadriel", "73_17");
+					put("galadriel", "53_17");
 					put("celeborn", "1_34");
 					put("greenleaf", "1_50");
 				}},
@@ -48,7 +48,7 @@ public class Card_03_017_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("galadriel", "73_17");
+					put("galadriel", "53_17");
 					// put other cards in here as needed for the test case
 				}},
 				new HashMap<String, String>() {{

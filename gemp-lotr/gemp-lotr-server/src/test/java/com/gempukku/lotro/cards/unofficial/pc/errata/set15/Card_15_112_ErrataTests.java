@@ -22,7 +22,7 @@ public class Card_15_112_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("troll", "85_112");
+					put("troll", "65_112");
 					put("orc1", "13_118");
 					put("orc2", "13_118");
 					put("orc3", "13_118");

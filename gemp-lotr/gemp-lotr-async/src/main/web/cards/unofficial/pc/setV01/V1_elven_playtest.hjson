@@ -1,5 +1,5 @@
 {
-	151_7: {
+	101_7: {
 		title: I Was There
 		culture: elven
 		twilight: 1
@@ -29,7 +29,7 @@
 		}
 	}
 	
-	151_8: {
+	101_8: {
 		title: Lament For The Fallen
 		unique: true
 		culture: elven
@@ -105,7 +105,7 @@
 	}
 
 
-	151_9: {
+	101_9: {
 		title: Legolas
 		unique: true
 		subtitle: Keen-eyed
@@ -155,7 +155,7 @@
 	}
 
 
-	151_10: {
+	101_10: {
 		title: Let Fly the Darts of Lindon
 		culture: elven
 		twilight: 1
@@ -202,7 +202,7 @@
 	}
 
 
-	151_11: {
+	101_11: {
 		title: Library of Rivendell
 		unique: true
 		culture: elven
@@ -297,7 +297,7 @@
 	}
 
 
-	151_12: {
+	101_12: {
 		title: Three Rings for the Elven Kings
 		unique: true
 		culture: elven

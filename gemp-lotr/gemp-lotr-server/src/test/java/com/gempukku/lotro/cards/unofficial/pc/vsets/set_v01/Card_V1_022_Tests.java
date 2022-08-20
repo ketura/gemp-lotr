@@ -20,7 +20,7 @@ public class Card_V1_022_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("memorial", "151_22");
+					put("memorial", "101_22");
 					put("aragorn", "1_89");
 					put("sam", "1_311");
 				}},

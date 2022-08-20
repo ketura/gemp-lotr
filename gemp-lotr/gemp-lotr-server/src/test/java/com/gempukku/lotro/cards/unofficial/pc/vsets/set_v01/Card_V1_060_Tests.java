@@ -36,7 +36,7 @@ public class Card_V1_060_Tests
 					put("site1", "1_319");
 					put("site2", "1_327");
 					put("site3", "1_337");
-					put("site4", "151_60");
+					put("site4", "101_60");
 					put("site5", "1_349");
 					put("site6", "1_350");
 					put("site7", "1_353");

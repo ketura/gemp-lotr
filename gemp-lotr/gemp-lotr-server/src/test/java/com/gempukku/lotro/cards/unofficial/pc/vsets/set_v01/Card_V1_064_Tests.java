@@ -36,7 +36,7 @@ public class Card_V1_064_Tests
                     put("site6", "1_350");
                     put("site7", "1_353");
                     put("site8", "1_356");
-                    put("site9", "151_64");
+                    put("site9", "101_64");
                 }},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing

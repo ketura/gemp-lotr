@@ -1,5 +1,5 @@
 {
-	151_50: {
+	101_50: {
 		title: Bilbo
 		subtitle: Of Bag End
 		unique: true
@@ -41,7 +41,7 @@
 		]
 	}
 	
-	151_51: {
+	101_51: {
 		title: Griffo Boffin
 		subtitle: Uncouth Fellow
 		unique: true
@@ -72,7 +72,7 @@
 		]
 	}
 	
-	151_52: {
+	101_52: {
 		title: Merry
 		subtitle: Of Buckland
 		unique: true
@@ -119,7 +119,7 @@
 		]
 	}
 	
-	151_53: {
+	101_53: {
 		title: Pippin
 		subtitle: Of Tuckborough
 		unique: true
@@ -163,7 +163,7 @@
 		]
 	}
 	
-	151_54: {
+	101_54: {
 		title: Sam
 		subtitle: Of Bagshot Row
 		unique: true
@@ -220,7 +220,7 @@
 		]
 	}
 	
-	151_55: {
+	101_55: {
 		title: We May Yet
 		culture: shire
 		twilight: 1
@@ -245,7 +245,7 @@
 		}
 	}
 	
-	151_56: {
+	101_56: {
 		title: We're Coming Too
 		culture: shire
 		twilight: 2

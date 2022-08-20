@@ -22,7 +22,7 @@ public class Card_V1_001_Tests
                 new HashMap<>() {{
                     put("gimli", "1_13");
                     put("farin", "1_11");
-                    put("hosp", "151_1");
+                    put("hosp", "101_1");
                     put("handaxe1", "2_10");
                     put("handaxe2", "2_10");
                     put("handaxe3", "2_10");

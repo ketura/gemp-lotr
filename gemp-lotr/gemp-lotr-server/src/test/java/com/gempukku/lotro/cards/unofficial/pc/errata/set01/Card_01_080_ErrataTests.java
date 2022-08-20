@@ -21,11 +21,11 @@ public class Card_01_080_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("ottar", "71_80");
+					put("ottar", "51_80");
 					put("gandalf", "1_72");
-					put("chaff1", "71_80");
-					put("chaff2", "71_80");
-					put("chaff3", "71_80");
+					put("chaff1", "51_80");
+					put("chaff2", "51_80");
+					put("chaff3", "51_80");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
