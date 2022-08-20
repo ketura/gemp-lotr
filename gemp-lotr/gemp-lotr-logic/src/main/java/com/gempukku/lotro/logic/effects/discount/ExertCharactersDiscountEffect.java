@@ -10,6 +10,8 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collection;
+
 public class ExertCharactersDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
     private final Action _action;
     private final PhysicalCard _payingFor;
@@ -30,7 +32,7 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Exert characters to reduce twilight cost";
     }
 
     @Override
@@ -70,6 +72,11 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             _exertedCount++;
                         }
+
+                        @Override
+                        protected void cardsToBeExertedCallback(Collection<PhysicalCard> characters) {
+                            discountPaidCallback(_exertedCount);
+                        }
                     });
             processSubAction(game, subAction);
         }
@@ -79,4 +86,6 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
     public int getDiscountPaidFor() {
         return _exertedCount * _multiplier;
     }
+
+    protected void discountPaidCallback(int paid) {  }
 }

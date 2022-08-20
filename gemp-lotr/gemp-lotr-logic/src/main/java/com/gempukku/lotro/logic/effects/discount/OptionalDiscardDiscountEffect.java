@@ -42,7 +42,7 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Discard cards to get a twilight discount";
     }
 
     @Override
@@ -74,7 +74,7 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
                                     protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
                                         if (cards.size() == _discardCount) {
                                             _paid = true;
-                                            discountPaidCallback();
+                                            discountPaidCallback(_discardCount);
                                         }
                                     }
                                 }));
@@ -82,6 +82,5 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
         }
     }
 
-    protected void discountPaidCallback() {
-    }
+    protected void discountPaidCallback(int paid) {  }
 }

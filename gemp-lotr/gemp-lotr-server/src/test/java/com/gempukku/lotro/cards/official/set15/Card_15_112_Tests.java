@@ -1,28 +1,24 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata.set15;
+package com.gempukku.lotro.cards.official.set15;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class Card_15_112_ErrataTests
+public class Card_15_112_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("troll", "85_112");
+					put("troll", "15_112");
 					put("orc1", "13_118");
 					put("orc2", "13_118");
 					put("orc3", "13_118");
@@ -43,14 +39,14 @@ public class Card_15_112_ErrataTests
 		* Title: Mountain-troll
 		* Side: Free Peoples
 		* Culture: Orc
-		* Twilight Cost: 8
+		* Twilight Cost: 10
 		* Type: minion
 		* Subtype: Troll
 		* Strength: 13
 		* Vitality: 4
 		* Site Number: 5
-		* Game Text: When you play this minion, you may discard 5 [orc] minions from play to make it strength +10 and
-		 * <b>fierce</b> until the end of the turn.
+		* Game Text: When you play this minion, you may discard 5 [orc] minions from play to make it twilight cost -10 and
+		 * <b>fierce</b>.
 		 * Shadow: Remove (2) to play an [orc] Orc from your discard pile. It comes into play exhausted.
 		*/
 
@@ -64,9 +60,9 @@ public class Card_15_112_ErrataTests
 		assertEquals(Culture.ORC, troll.getBlueprint().getCulture());
 		assertEquals(CardType.MINION, troll.getBlueprint().getCardType());
 		assertEquals(Race.TROLL, troll.getBlueprint().getRace());
-		assertEquals(8, troll.getBlueprint().getTwilightCost());
-		assertEquals(13, troll.getBlueprint().getStrength());
-		assertEquals(4, troll.getBlueprint().getVitality());
+		assertEquals(10, troll.getBlueprint().getTwilightCost());
+		assertEquals(22, troll.getBlueprint().getStrength());
+		assertEquals(6, troll.getBlueprint().getVitality());
 		//assertEquals(, troll.getBlueprint().getResistance());
 		//assertEquals(Signet., troll.getBlueprint().getSignet());
 		assertEquals(5, troll.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
@@ -98,7 +94,7 @@ public class Card_15_112_ErrataTests
 	}
 
 	@Test
-	public void OnPlayTrollOptionallDiscards5OrcMinionsForFierceAndStrengthPluse10UntilEndOfTurn() throws DecisionResultInvalidException, CardNotFoundException {
+	public void OnPlayTrollOptionallDiscards5OrcMinionsForMinus10TwilightAndFierceUntilEndOfTurn() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -119,37 +115,32 @@ public class Card_15_112_ErrataTests
 		assertEquals(20, scn.GetTwilight());
 		scn.ShadowPlayCard(troll);
 
-		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
-		assertEquals(13, scn.GetStrength(troll));
+		assertTrue(scn.ShadowDecisionAvailable("choose cards to discard"));
 		assertFalse(scn.HasKeyword(troll, Keyword.FIERCE));
 
-		scn.ShadowAcceptOptionalTrigger();
-		assertEquals(23, scn.GetStrength(troll));
+		scn.ShadowChooseYes();
 		assertTrue(scn.HasKeyword(troll, Keyword.FIERCE));
 		assertEquals(Zone.DISCARD, orc1.getZone());
 		assertEquals(Zone.DISCARD, orc2.getZone());
 		assertEquals(Zone.DISCARD, orc3.getZone());
 		assertEquals(Zone.DISCARD, orc4.getZone());
 		assertEquals(Zone.DISCARD, orc5.getZone());
-		assertEquals(10, scn.GetTwilight()); //20 initial -8 for troll -2 for roaming
+		assertEquals(18, scn.GetTwilight()); //20 initial -2 for roaming, troll was otherwise free
 
 		scn.SkipToPhase(Phase.ASSIGNMENT);
-		assertEquals(23, scn.GetStrength(troll));
 		assertTrue(scn.HasKeyword(troll, Keyword.FIERCE));
 
 		scn.SkipToPhase(Phase.REGROUP);
-		assertEquals(23, scn.GetStrength(troll));
 		assertTrue(scn.HasKeyword(troll, Keyword.FIERCE));
 
 		scn.PassCurrentPhaseActions();
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
-		assertEquals(23, scn.GetStrength(troll));
 		assertTrue(scn.HasKeyword(troll, Keyword.FIERCE));
 	}
 
 	@Test
-	public void ShadowAbilityRemoves2AndPlaysExhaustedOrcFromDiscard() throws DecisionResultInvalidException, CardNotFoundException {
+	public void ShadowAbilityRemoves3AndPlaysDiscountedOrcFromDiscard() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -176,8 +167,9 @@ public class Card_15_112_ErrataTests
 		assertEquals(5, scn.GetShadowCardChoiceCount());
 		scn.ShadowChooseCardBPFromSelection(orc1);
 
-		assertEquals(13, scn.GetTwilight()); // -2 for ability, -3 for orc, -2 for roaming
+		// -3 for ability, -3 for orc, +2 for discount, -2 for roaming
+		assertEquals(14, scn.GetTwilight());
 		assertEquals(Zone.SHADOW_CHARACTERS, orc1.getZone());
-		assertEquals(1, scn.GetWoundsOn(orc1));
+		assertEquals(0, scn.GetWoundsOn(orc1));
 	}
 }

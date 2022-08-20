@@ -135,12 +135,12 @@
 		]
 		effects: {
 			type: discount
-			amount: {
+			max: {
 				type: forEachInHand
 				filter: culture(moria),goblin
 			}
 			discount: {
-				type: discardFromHand
+				type: perDiscardFromHand
 				filter: culture(moria),goblin
 			}
 		}

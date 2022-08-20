@@ -61,7 +61,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return _choiceText;
     }
 
     @Override

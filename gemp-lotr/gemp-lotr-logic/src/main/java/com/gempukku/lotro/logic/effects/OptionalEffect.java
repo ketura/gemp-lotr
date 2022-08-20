@@ -35,9 +35,12 @@ public class OptionalEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(final LotroGame game) {
-        if (_optionalEffect.isPlayableInFull(game))
+        if (_optionalEffect.isPlayableInFull(game)) {
+            String text = _optionalEffect.getText(game);
+            if(text != null)
+                text = text.toLowerCase();
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new MultipleChoiceAwaitingDecision(1, "Do you wish to " + _optionalEffect.getText(game) + "?", new String[]{"Yes", "No"}) {
+                    new MultipleChoiceAwaitingDecision(1, "Do you wish to " + text + "?", new String[]{"Yes", "No"}) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             if (index == 0) {
@@ -47,5 +50,6 @@ public class OptionalEffect extends AbstractSubActionEffect {
                             }
                         }
                     });
+        }
     }
 }

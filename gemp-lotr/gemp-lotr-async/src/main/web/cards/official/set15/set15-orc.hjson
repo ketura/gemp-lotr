@@ -1,22 +1,15 @@
 {
-
-	85_112: {
+	15_112: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
-			imagePath: errata/65_112.jpg
+			imagePath: decipher/LOTR15112.jpg
 			//If this is true, then all gameplay-related info outside this cardInfo definition
 			// will be ignored and the java class loaded instead.
 			javaClass: false
-			//This instructs the blueprint generator to insert this card as an alt of the listed
-			// parent blueprint. Can of course be ommitted if not an errata or promo.
-			parent: 15_112
-			//This is the tree path to use within the alts structure on the parent.
-			// Can of course be ommitted if parent is null. 
-			parentPath: errata/pc
 			//Versioning differentiates releases within a particular alt path, such as PC errata
 			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
 			//Top-level cards should always be version 0.
-			version: 1?
+			version: 0
 			collInfo: 15R112
 			rarity: R
 			setNum: "15"
@@ -28,46 +21,51 @@
 		unique: false
 		side: Shadow
 		culture: Orc
-		twilight: 8
+		twilight: 10
 		type: Minion
 		race: Troll
-		strength: 13
-		vitality: 4
+		strength: 22
+		vitality: 6
 		site: 5
 		effects: [
 			{
-				type: trigger
-				optional: true,
-				trigger: {
-					type: played
-					filter: self
-				},
-				cost: {
-					type: discard
-					count: 5
-					filter: choose(culture(orc), minion, another)
+				type: discount
+				memorize: DiscountPaid
+				max: {
+					type: requires
+					requires: {
+						type: CanSpot
+						filter: culture(orc),minion
+						count: 5
+					}
+					true: 10
+					false: 0
 				}
-				effect: [
-					{
-						type: addKeyword
-						keyword: fierce
+				discount: {
+					type: ifDiscardFromPlay
+					filter: culture(orc),minion
+					count: 5
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: addkeyword
+					keyword: fierce
+					filter: self
+					requires: {
+						#This is only set if the discount was paid for.
+						type: HasInZoneData
 						filter: self
-						until: endofturn
 					}
-					{
-						type: modifystrength
-						amount: 10
-						filter: self
-						until: endofturn
-					}
-				]
+				}
 			}
 			{
 				type: activated
 				phase: shadow
 				cost: {
 					type: removeTwilight
-					amount: 2
+					amount: 3
 				}
 				effect: [
 					{
@@ -75,10 +73,7 @@
 						removedTwilight: 2
 						filter: choose(culture(orc), orc)
 						memorize: PlayedOrc
-					}
-					{
-						type: exhaust
-						filter: memory(PlayedOrc)
+						cost: -2
 					}
 				]
 			}
