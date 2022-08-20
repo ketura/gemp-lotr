@@ -499,9 +499,9 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         assignmentActions = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions.getDecisionType());
-        validateContents(toCardIdArray(orcAssassin1, orcAssassin2), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
+        validateContents(toCardIdArray(orcAssassin2), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
 
-        playerDecided(P2, "1");
+        playerDecided(P2, "0");
 
         assertEquals(2, _game.getGameState().getAssignments().size());
         final Assignment secondAssignment = _game.getGameState().getAssignments().get(1);

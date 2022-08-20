@@ -677,11 +677,17 @@
 			{
 				type: activated
 				phase: assignment
-				requires: {
-					type: canSpot
-					filter: hobbit,companion
-					count: 2
-				}
+				requires: [
+					{
+						type: canSpot
+						filter: hobbit,companion
+						count: 2
+					}
+					{
+						type: cantspot
+						filter: AssignedToSkirmish(self)
+					}
+				]
 				effect: {
 					type: assignFpCharacterToSkirmish
 					player: fp
