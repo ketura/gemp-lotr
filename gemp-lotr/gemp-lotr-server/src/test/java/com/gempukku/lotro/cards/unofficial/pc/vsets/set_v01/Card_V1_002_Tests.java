@@ -23,7 +23,7 @@ public class Card_V1_002_Tests
                     put("gimli", "1_13");
                     put("axe", "1_9");
                     put("axe2", "1_9");
-                    put("deep", "151_2");
+                    put("deep", "101_2");
                     put("emhr", "4_46");
                     put("strike", "1_3");
 

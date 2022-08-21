@@ -20,7 +20,7 @@ public class Card_V1_056_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("coming", "151_56");
+					put("coming", "101_56");
 					put("pippin", "1_306");
 					put("merry", "1_302");
 					put("gimli", "2_121");
@@ -82,11 +82,11 @@ public class Card_V1_056_Tests
 		scn.AddWoundsToChar(gimli, 1);
 		scn.AddWoundsToChar(frodo, 1);
 
-		assertFalse(scn.FreepsCardPlayAvailable(coming));
+		assertFalse(scn.FreepsPlayAvailable(coming));
 		scn.FreepsPlayCard(merry);
-		assertFalse(scn.FreepsCardPlayAvailable(coming));
+		assertFalse(scn.FreepsPlayAvailable(coming));
 		scn.FreepsPlayCard(pippin);
-		assertTrue(scn.FreepsCardPlayAvailable(coming));
+		assertTrue(scn.FreepsPlayAvailable(coming));
 
 		assertEquals(1, scn.GetWoundsOn(gimli));
 		assertEquals(1, scn.GetWoundsOn(frodo));

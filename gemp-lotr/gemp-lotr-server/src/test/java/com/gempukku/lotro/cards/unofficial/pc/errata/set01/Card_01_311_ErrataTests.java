@@ -69,7 +69,7 @@ public class Card_01_311_ErrataTests
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsCardActionAvailable(sam));
+        assertTrue(scn.FreepsActionAvailable(sam));
 
         assertEquals(0, scn.GetWoundsOn(sam));
         assertEquals(0, scn.GetWoundsOn(frodo));

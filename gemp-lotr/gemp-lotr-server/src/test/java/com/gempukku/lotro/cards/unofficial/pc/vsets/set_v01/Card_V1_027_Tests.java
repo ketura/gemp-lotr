@@ -20,8 +20,8 @@ public class Card_V1_027_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("frostbite", "151_27");
-					put("frostbite2", "151_27");
+					put("frostbite", "101_27");
+					put("frostbite2", "101_27");
 					put("weather_condition", "1_134");
 					put("weather_event", "1_124");
 					put("saruman", "4_173");
@@ -86,18 +86,18 @@ public class Card_V1_027_Tests
 		scn.StartGame();
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertFalse(scn.ShadowCardPlayAvailable(frostbite));
+		assertFalse(scn.ShadowPlayAvailable(frostbite));
 		scn.ShadowPlayCard(weather_condition);
 		scn.ShadowChooseCard(scn.GetCurrentSite());
 
-		assertTrue(scn.ShadowCardPlayAvailable(frostbite));
+		assertTrue(scn.ShadowPlayAvailable(frostbite));
 		scn.ShadowPlayCard(frostbite);
 
 		assertEquals(Zone.ATTACHED, frostbite.getZone());
 		assertEquals(scn.GetRingBearer(), frostbite.getAttachedTo());
 
 		//limit 1 per bearer
-		assertFalse(scn.ShadowCardPlayAvailable(frostbite2));
+		assertFalse(scn.ShadowPlayAvailable(frostbite2));
 	}
 
 	@Test

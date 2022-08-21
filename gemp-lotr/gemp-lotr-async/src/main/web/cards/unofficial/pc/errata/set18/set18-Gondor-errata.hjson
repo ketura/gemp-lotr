@@ -1,0 +1,91 @@
+{
+
+	68_50: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/68_50.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 18_50
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 18R50
+			rarity: R
+			setNum: "18"
+			cardNum: 50
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: The Faithful Stone
+		unique: true
+		culture: Gondor
+		twilight: 3
+		type: Condition
+		keyword: [
+			Support Area
+			Tale
+		]
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: played
+					filter: minion,not(culture(wraith))
+				}
+				requires: {
+					type: canSpot
+					filter: man
+				}
+				effect: {
+					type: addtokens
+					amount: 1
+					culture: gondor
+					filter: self
+				}
+			}
+			{
+				type: activated
+				phase: maneuver
+				cost: {
+					type: removetokens
+					count: 3
+					culture: gondor
+					filter: self
+				}
+				effect: {
+					type: preventable
+					player: shadowPlayer
+					text: Would you like to add (2) to allow your minion to skirmish?
+					cost: {
+						type: removeTwilight
+						amount: 2
+					}
+					effect: {
+						type: cantBeAssignedToSkirmish
+						filter: choose(minion)
+						until: start(regroup)
+					}
+				}
+			}
+		]
+		gametext: <b>Tale.</b> Each time a non-[wraith] minion is played, you may spot a Man to put a [gondor] token here.<br><b>Maneuver:</b> Remove 3 [gondor] tokens from here to spot a minion. That minion cannot be assigned to a skirmish until the regroup phase.  Any Shadow player may remove (2) to prevent this.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

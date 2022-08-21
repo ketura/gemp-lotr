@@ -1,0 +1,82 @@
+{
+
+	53_120: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/53_120.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_120
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 3U120
+			rarity: U
+			setNum: "3"
+			cardNum: 120
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Wastes of Emyn Muil
+		twilight: 9
+		type: site
+		site: 9
+		block: fellowship
+		effects: {
+			type: activated
+			phase: skirmish
+			cost: {
+				type: exert
+				filter: choose(your,culture(isengard),orc)
+			}
+			effect: {
+				type: choice
+				texts: [
+					Make Free Peoples player wound a companion
+					Make Free Peoples player wound 2 companions
+				]
+				effects: [
+					{
+						type: wound
+						player: fp
+						filter: choose(companion)
+					}
+					{
+						type: conditional
+						requires: {
+							type: canSpot
+							count: 6
+							filter: companion
+						}
+						effect: [
+							{
+								type: wound
+								count: 2
+								player: fp
+								filter: choose(companion)
+							}
+						]
+					}
+				]
+			}
+		}
+		gametext: <b>Skirmish:</b> Exert your [isengard] Orc to make the Free Peoples player wound a companion (or 2 companions if you spot 6 companions).
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

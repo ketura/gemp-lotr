@@ -1,6 +1,6 @@
 {
 
-	151_31: {
+	101_31: {
 		title: Guided by One Purpose
 		culture: moria
 		twilight: 0
@@ -40,7 +40,7 @@
 	}
 
 
-	151_32: {
+	101_32: {
 		title: Terror at Its Coming
 		unique: true
 		culture: moria
@@ -67,7 +67,7 @@
 	}
 
 
-	151_33: {
+	101_33: {
 		title: Thrashing Tentacle
 		culture: moria
 		twilight: 2
@@ -117,7 +117,7 @@
 	}
 
 
-	151_34: {
+	101_34: {
 		title: Out of Dark Waters
 		culture: moria
 		twilight: 0
@@ -190,7 +190,7 @@
 	}
 
 
-	151_35: {
+	101_35: {
 		title: The Darkness Grew
 		culture: moria
 		twilight: 1
@@ -216,7 +216,7 @@
 				effect: {
 					type: choice
 					texts: [
-						Stack a [Moria] item here.
+						Stack a [Moria] item from hand here.
 						Take a [Moria] card stacked here into hand.
 					]
 					effects: [
@@ -257,7 +257,7 @@
 	}
 
 
-	151_36: {
+	101_36: {
 		title: Vile Tentacle
 		culture: moria
 		twilight: 2

@@ -21,10 +21,10 @@ public class Card_V1_025_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
                 new HashMap<>() {{
-                    put("flock", "151_25");
-                    put("flock2", "151_25");
-                    put("flock3", "151_25");
-                    put("flock4", "151_25");
+                    put("flock", "101_25");
+                    put("flock2", "101_25");
+                    put("flock3", "101_25");
+                    put("flock4", "101_25");
 
                     put("weather1", "1_134");
                     put("weather2", "1_134");
@@ -168,7 +168,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 1 wounded companion, no saruman
-		assertFalse(scn.ShadowCardActionAvailable(flock));
+		assertFalse(scn.ShadowActionAvailable(flock));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -181,7 +181,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 2 wounded companions, no saruman
-		assertTrue(scn.ShadowCardActionAvailable(flock));
+		assertTrue(scn.ShadowActionAvailable(flock));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -196,7 +196,7 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 0 wounded companions, yes saruman
-		assertTrue(scn.ShadowCardActionAvailable(flock));
+		assertTrue(scn.ShadowActionAvailable(flock));
 
 	}
 
@@ -226,7 +226,7 @@ public class Card_V1_025_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(flock));
+		assertTrue(scn.ShadowActionAvailable(flock));
 		assertEquals(Zone.DECK, weather1.getZone());
 		assertEquals(weather1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, weather2.getZone());
@@ -250,7 +250,7 @@ public class Card_V1_025_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(flock2));
+		assertTrue(scn.ShadowActionAvailable(flock2));
 		assertEquals(Zone.DECK, weather1.getZone());
 		assertEquals(weather1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, weather2.getZone()); // it was drawn during regroup
@@ -270,12 +270,12 @@ public class Card_V1_025_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
 		//scn.ShadowDeclineReconciliation();
-		scn.ShadowChooseCard("aragorn"); // reconciling a card away so we draw the weather from the top
+		scn.ShadowChooseCard("arwen"); // reconciling a card away so we draw the weather from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(flock3));
+		assertTrue(scn.ShadowActionAvailable(flock3));
 		assertEquals(Zone.DECK, weather1.getZone());
 		assertEquals(weather1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, weather2.getZone());

@@ -1,0 +1,64 @@
+{
+
+	57_359: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/57_359.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 7_359
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 7U359
+			rarity: U
+			setNum: "7"
+			cardNum: 359
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Northern Ithilien
+		type: site
+		block: King
+		twilight: 8
+		site: 8
+		direction: right
+		effects: {
+			type: activated
+			phase: shadow
+			limitPerPhase: 1
+			cost: [
+				{
+					type: removeThreats
+					amount: 2
+				}
+				{
+					type: playCardFromDiscard
+					filter: choose(name(Gollum))
+				}
+			]
+			effect: {
+				type: addBurdens
+				amount: 2
+			}
+		}
+		gametext: <b>Shadow:</b> Remove 2 threats and play Gollum from your<br> discard pile to add 2 burdens (limit once per phase).
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

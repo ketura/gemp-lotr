@@ -31,11 +31,17 @@ public class DefaultActionContext implements ActionContext {
 
     @Override
     public void setValueToMemory(String memory, String value) {
+        if(memory != null) {
+            memory = memory.toLowerCase();
+        }
         valueMemory.put(memory, value);
     }
 
     @Override
     public String getValueFromMemory(String memory) {
+        if(memory != null) {
+            memory = memory.toLowerCase();
+        }
         final String result = valueMemory.get(memory);
         if (result == null)
             throw new IllegalArgumentException("Memory not found - " + memory);
@@ -44,6 +50,9 @@ public class DefaultActionContext implements ActionContext {
 
     @Override
     public void setCardMemory(String memory, PhysicalCard card) {
+        if(memory != null) {
+            memory = memory.toLowerCase();
+        }
         cardMemory.removeAll(memory);
         if (card != null)
             cardMemory.put(memory, card);
@@ -51,17 +60,26 @@ public class DefaultActionContext implements ActionContext {
 
     @Override
     public void setCardMemory(String memory, Collection<? extends PhysicalCard> cards) {
+        if(memory != null) {
+            memory = memory.toLowerCase();
+        }
         cardMemory.removeAll(memory);
         cardMemory.putAll(memory, cards);
     }
 
     @Override
     public Collection<? extends PhysicalCard> getCardsFromMemory(String memory) {
+        if(memory != null) {
+            memory = memory.toLowerCase();
+        }
         return cardMemory.get(memory);
     }
 
     @Override
     public PhysicalCard getCardFromMemory(String memory) {
+        if(memory != null) {
+            memory = memory.toLowerCase();
+        }
         final Collection<PhysicalCard> physicalCards = cardMemory.get(memory);
         if (physicalCards.size() == 0)
             return null;

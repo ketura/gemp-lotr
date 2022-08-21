@@ -51,7 +51,7 @@ public class Card6_095 extends AbstractCompanion {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, self, null,
-                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(3)))));
+                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, new ConstantEvaluator(3), new ConstantEvaluator(3)))));
             return Collections.singletonList(action);
         }
         return null;

@@ -9,6 +9,6 @@ import com.gempukku.lotro.common.SitesBlock;
 public class SiteBlockFieldProcessor implements FieldProcessor {
     @Override
     public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        blueprint.setSiteBlock(FieldUtils.getEnum(SitesBlock.class, value, key));
+        blueprint.setSiteBlock(SitesBlock.findBlock(FieldUtils.getString(value, key)));
     }
 }

@@ -1,0 +1,289 @@
+{
+	51_40: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_40.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_40
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1R40
+			rarity: R
+			setNum: "1"
+			cardNum: 40
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Elrond
+		subtitle: Lord of Rivendell
+		unique: true
+		culture: elven
+		twilight: 4
+		type: ally
+		allyHome: fellowship,3
+		race: elf
+		strength: 8
+		vitality: 4
+		requires: {
+			type: canSpot
+			filter: or(name(Gandalf),elf)
+		}
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: startOfTurn
+				}
+				effect: {
+					type: heal
+					filter: choose(ally,allyHome(fellowship,3))
+					count: 0-3
+				}
+			}
+			{
+				type: activated
+				phase: fellowship
+				cost: {
+					type: exert
+					filter: self
+					times: {
+						type: requires
+						requires: {
+							type: canSpot
+							count: 2
+							filter: not(self),culture(elven),ally
+						}
+						true: 1
+						false: 2
+					}
+				}
+				effect: {
+					type: drawCards
+				}
+			}
+		]
+		gametext: To play, spot Gandalf or an Elf.<br>At the start of each of your turns, heal up to 3 allies whose home is site 3.<br>Fellowship: Exert Elrond twice (or once if you can spot 2 other [Elven] allies) to draw a card.
+		lore: "He was the Lord of Rivendell and mighty among both Elves and Men."
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	51_45: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_45.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_45
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1R45
+			rarity: R
+			setNum: "1"
+			cardNum: 45
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Galadriel
+		subtitle: Lady of Light
+		unique: true
+		culture: elven
+		twilight: 3
+		type: ally
+		allyHome: fellowship,6
+		race: elf
+		strength: 3
+		vitality: 3
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: startOfTurn
+				}
+				effect: {
+					type: heal
+					filter: choose(ally,allyHome(fellowship,6))
+					count: 0-3
+				}
+			}
+			{
+				type: activated
+				phase: fellowship
+				cost: {
+					type: exert
+					filter: self
+					times: 1
+				}
+				effect: {
+					type: play
+					filter: choose(elf)
+					cost: -1
+				}
+			}
+		]
+		gametext: At the start of each of your turns, heal up to 3 allies whose home is site 6.<br><b>Fellowship:</b> Exert Galadriel to play an Elf; that Elf's twilight cost is -1.
+		lore: "Very tall they were, and the Lady no less tall than the Lord; and they were grave and beautiful... and the hair of the Lady was of deep gold...."
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	51_53: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_53.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_53
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1C53
+			rarity: C
+			setNum: "1"
+			cardNum: 53
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Lorien Elf
+		culture: elven
+		twilight: 1
+		type: companion
+		race: elf
+		strength: 5
+		vitality: 2
+		resistance: 6
+		requires: {
+			type: canSpot
+			filter: elf
+		}
+		gametext: To play, spot an Elf.
+		lore: "'...we dwell now in the heart of the forest, and do not willingly have dealings with any other folk.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	51_55: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_55.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_55
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1R55
+			rarity: R
+			setNum: "1"
+			cardNum: 55
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: The Mirror of Galadriel
+		unique: true
+		culture: elven
+		twilight: 2
+		type: possession
+		keyword: support area
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: modifyStrength
+					filter: elf,ally,allyHome(fellowship,6)
+					amount: 1
+				}
+			}
+			{
+				type: activated
+				phase: maneuver
+				requires: {
+					type: cardsInHandMoreThan
+					player: shadowPlayer
+					count: 6
+				}
+				cost: {
+					type: exert
+					filter: choose(name(Galadriel))
+				}
+				effect: [
+					{
+						type: revealRandomCardsFromHand
+						forced: true
+						hand: shadowPlayer
+						count: 3
+						memorize: revealedCards
+					}
+					{
+						type: putCardsFromHandOnTopOfDeck
+						filter: choose(memory(revealedCards))
+						player: shadowPlayer
+					}
+				]
+			}
+		]
+		gametext: Plays to your support area.<br>Each Elf ally whose home is site 6 is strength +1.<br><b>Maneuver:</b> Exert Galadriel to reveal 3 cards at random from an opponent's hand. Place one on top of that player's draw deck.
+		lore: "'What you will see I cannot tell....'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

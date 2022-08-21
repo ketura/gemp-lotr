@@ -45,8 +45,12 @@ public enum Culture implements Filterable {
 
     public static Culture findCulture(String name) {
         String nameCaps = name.toUpperCase().replace(' ', '_').replace('-', '_');
+        String nameLower = name.toLowerCase();
+        if(nameLower.equals("ringwraith"))
+            return WRAITH;
+
         for (Culture culture : values()) {
-            if (culture.getHumanReadable().equals(name) || culture.toString().equals(nameCaps))
+            if (culture.getHumanReadable().toLowerCase().equals(nameLower) || culture.toString().equals(nameCaps))
                 return culture;
         }
         return null;

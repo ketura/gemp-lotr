@@ -649,7 +649,7 @@
 				type: playSite
 				block: fellowship
 				number: {
-					type: siteNumber
+					type: currentSiteNumber
 				}
 			}
 		}
@@ -983,7 +983,7 @@
 				filter: self
 			}
 			effect: {
-				type: duplicate
+				type: repeat
 				amount: {
 					type: forEachYouCanSpot
 					filter: companion

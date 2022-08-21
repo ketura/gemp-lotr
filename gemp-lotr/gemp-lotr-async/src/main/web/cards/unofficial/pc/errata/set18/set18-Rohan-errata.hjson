@@ -1,0 +1,72 @@
+{
+
+	68_96: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/68_96.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 18_96
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 18R96
+			rarity: R
+			setNum: "18"
+			cardNum: 96
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Erkenbrand's Horn
+		unique: true
+		culture: Rohan
+		twilight: 1
+		type: Possession
+		target: culture(rohan),man
+		effects:[
+			{
+				type: activated
+				phase: fellowship
+				cost: {
+					type: exert
+					filter: bearer
+					times: 1
+				}
+				effect: {
+					type: playcardfromdrawdeck
+					filter: choose(follower,culture(rohan))
+				}
+			}
+			{
+				type: activated
+				phase: skirmish
+				cost: {
+					type: discard
+					filter: choose(your,follower)
+				}
+				effect: {
+					type: playcardfromdrawdeck
+					filter: choose(follower,culture(rohan))
+				}
+			}
+		]
+		gametext: Bearer must be a [rohan] Man.<br><b>Fellowship:</b> Exert bearer to play a [rohan] follower from your draw deck. <br><b>Skirmish:</b> Discard your follower to make bearer strength +4 (or +5 if bearer is Erkenbrand).
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

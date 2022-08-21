@@ -19,7 +19,7 @@ public class Card_V1_011_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("library", "151_11");
+					put("library", "101_11");
 					put("gandalf", "1_364");
 					put("aragorn", "1_89");
 					put("galadriel", "1_45");
@@ -131,7 +131,7 @@ public class Card_V1_011_Tests
 		scn.FreepsPlayCard(gondorart);
 		scn.FreepsPlayCard(shireart);
 
-		assertTrue(scn.FreepsCardActionAvailable(library));
+		assertTrue(scn.FreepsActionAvailable(library));
 
 		assertEquals(0, scn.GetFreepsHandCount());
 		scn.FreepsUseCardAction(library);
@@ -171,7 +171,7 @@ public class Card_V1_011_Tests
 		assertEquals(4, scn.GetFreepsHandCount());
 
 		assertEquals(9, scn.GetStackedCards(library).size());
-		assertFalse(scn.FreepsCardActionAvailable(library));
+		assertFalse(scn.FreepsActionAvailable(library));
 	}
 
 	@Test
@@ -197,7 +197,7 @@ public class Card_V1_011_Tests
 
 		scn.StartGame();
 
-		assertTrue(scn.FreepsCardActionAvailable(library));
+		assertTrue(scn.FreepsActionAvailable(library));
 
 		assertEquals(9, scn.GetFreepsHandCount());
 		scn.FreepsUseCardAction(library);
@@ -237,7 +237,7 @@ public class Card_V1_011_Tests
 		assertEquals(4, scn.GetFreepsHandCount());
 
 		assertEquals(9, scn.GetStackedCards(library).size());
-		assertFalse(scn.FreepsCardActionAvailable(library));
+		assertFalse(scn.FreepsActionAvailable(library));
 	}
 
 	@Test
@@ -275,7 +275,7 @@ public class Card_V1_011_Tests
 
 		assertEquals(5, scn.GetStackedCards(library).size());
 
-		assertTrue(scn.FreepsCardActionAvailable(library));
+		assertTrue(scn.FreepsActionAvailable(library));
 		assertEquals(0, scn.GetWoundsOn(galadriel));
 		scn.FreepsUseCardAction(library);
 		assertEquals(1, scn.GetWoundsOn(galadriel));

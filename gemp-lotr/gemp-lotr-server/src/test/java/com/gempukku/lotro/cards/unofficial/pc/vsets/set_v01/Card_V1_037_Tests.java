@@ -20,8 +20,8 @@ public class Card_V1_037_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("fell", "151_37");
-					put("fell2", "151_37");
+					put("fell", "101_37");
+					put("fell2", "101_37");
 					put("nazgul", "1_232");
 					put("blade", "1_216");
 					put("ring", "9_44");
@@ -85,7 +85,7 @@ public class Card_V1_037_Tests
 
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertTrue(scn.ShadowCardPlayAvailable(fell));
+		assertTrue(scn.ShadowPlayAvailable(fell));
 		assertEquals(Zone.DISCARD, ring.getZone());
 		assertEquals(Zone.DECK, blade.getZone());
 		scn.ShadowPlayCard(fell);
@@ -96,7 +96,7 @@ public class Card_V1_037_Tests
 		assertEquals(Zone.ATTACHED, ring.getZone());
 		assertEquals(nazgul, ring.getAttachedTo());
 
-		assertTrue(scn.ShadowCardPlayAvailable(fell2));
+		assertTrue(scn.ShadowPlayAvailable(fell2));
 		scn.ShadowPlayCard(fell2);
 
 		assertEquals(Zone.ATTACHED, blade.getZone());

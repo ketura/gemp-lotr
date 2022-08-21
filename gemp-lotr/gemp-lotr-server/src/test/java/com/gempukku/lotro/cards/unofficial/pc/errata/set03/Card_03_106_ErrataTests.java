@@ -67,9 +67,9 @@ public class Card_03_106_ErrataTests
         scn.StartGame();
 
 
-        assertFalse(scn.FreepsCardPlayAvailable(bill));
+        assertFalse(scn.FreepsPlayAvailable(bill));
         scn.FreepsPlayCard(sam);
-        assertTrue(scn.FreepsCardPlayAvailable(bill));
+        assertTrue(scn.FreepsPlayAvailable(bill));
         scn.FreepsPlayCard(bill);
 
         Assert.assertTrue(scn.IsAttachedTo(bill, sam));

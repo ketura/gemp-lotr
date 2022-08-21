@@ -55,6 +55,7 @@ public class Card_01_045_ErrataTests
          */
 
         //Pre-game setup
+
         GenericCardTestHelper scn = GetSimplePlayScenario();
 
         PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
@@ -79,7 +80,7 @@ public class Card_01_045_ErrataTests
         scn.StartGame();
 
         assertEquals(Phase.FELLOWSHIP, scn.GetCurrentPhase());
-        assertTrue(scn.FreepsCardActionAvailable(galadriel));
+        assertTrue(scn.FreepsActionAvailable(galadriel));
 
         assertEquals(0, scn.GetWoundsOn(galadriel));
         assertEquals(1, scn.GetFreepsHandCount());

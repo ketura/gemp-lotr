@@ -20,7 +20,7 @@ public class Card_V1_055_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("yet", "151_55");
+					put("yet", "101_55");
 					put("boromir", "1_97");
 					put("sam", "1_311");
 					put("pippin", "1_306");
@@ -92,7 +92,7 @@ public class Card_V1_055_Tests
 		scn.FreepsAssignToMinions(boromir, runner);
 		scn.FreepsResolveSkirmish(boromir);
 
-		assertTrue(scn.FreepsCardPlayAvailable(yet));
+		assertTrue(scn.FreepsPlayAvailable(yet));
 		assertEquals(0, scn.GetWoundsOn(boromir));
 		assertEquals(7, scn.GetStrength(boromir));
 
@@ -126,7 +126,7 @@ public class Card_V1_055_Tests
 		scn.FreepsAssignToMinions(sam, runner);
 		scn.FreepsResolveSkirmish(sam);
 
-		assertFalse(scn.FreepsCardPlayAvailable(yet));
+		assertFalse(scn.FreepsPlayAvailable(yet));
 
 	}
 }

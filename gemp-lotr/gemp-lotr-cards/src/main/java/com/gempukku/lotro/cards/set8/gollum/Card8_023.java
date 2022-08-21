@@ -56,7 +56,7 @@ public class Card8_023 extends AbstractPermanent {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.name("Shelob"), null,
-                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 6,
+                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, new ConstantEvaluator(6),
                                             new ConstantEvaluator(3)))));
             return Collections.singletonList(action);
         }

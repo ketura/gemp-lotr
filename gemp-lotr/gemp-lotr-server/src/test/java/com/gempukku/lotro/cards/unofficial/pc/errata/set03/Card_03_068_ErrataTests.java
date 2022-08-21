@@ -91,7 +91,7 @@ public class Card_03_068_ErrataTests
         assertFalse(scn.FreepsCanChooseCharacter(saruman));
 
         scn.FreepsChooseCard(uruk1);
-        assertTrue(scn.ShadowCardActionAvailable(saruman));
+        assertTrue(scn.ShadowActionAvailable(saruman));
 
         //saruman blocks the uruk hit
         scn.ShadowUseCardAction(saruman);
@@ -134,7 +134,7 @@ public class Card_03_068_ErrataTests
         scn.SkipToPhase(Phase.MANEUVER);
         scn.FreepsPassCurrentPhaseAction();
 
-        assertTrue(scn.ShadowCardActionAvailable(saruman));
+        assertTrue(scn.ShadowActionAvailable(saruman));
 
         scn.ShadowUseCardAction(saruman);
 

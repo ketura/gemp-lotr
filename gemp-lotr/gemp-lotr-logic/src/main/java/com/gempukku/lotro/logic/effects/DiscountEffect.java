@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 public interface DiscountEffect extends Effect {
     int getMaximumPossibleDiscount(LotroGame game);
 
-    public void setMinimalRequiredDiscount(int minimalDiscount);
+    void setMinimalRequiredDiscount(int minimalDiscount);
 
-    public int getDiscountPaidFor();
+    int getDiscountPaidFor();
 }

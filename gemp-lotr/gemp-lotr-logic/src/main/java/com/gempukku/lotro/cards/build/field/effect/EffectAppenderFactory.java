@@ -45,7 +45,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
         effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());
-        effectAppenderProducers.put("conditional", new ConditionEffect());
+        effectAppenderProducers.put("conditional", new ConditionalEffect());
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
         effectAppenderProducers.put("costtoeffect", new CostToEffect());
         effectAppenderProducers.put("discard", new DiscardFromPlay());
@@ -57,7 +57,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("discardtopcardsfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("doesnotaddtoarcherytotal", new DoesNotAddToArcheryTotal());
         effectAppenderProducers.put("drawcards", new DrawCards());
-        effectAppenderProducers.put("duplicate", new Duplicate());
+        effectAppenderProducers.put("repeat", new Repeat());
         effectAppenderProducers.put("endphase", new EndPhase());
         effectAppenderProducers.put("exert", new Exert());
         effectAppenderProducers.put("exhaust", new Exhaust());
@@ -108,6 +108,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putstackedcardsintohand", new PutStackedCardsIntoHand());
         effectAppenderProducers.put("reconcilehand", new ReconcileHand());
         effectAppenderProducers.put("reducearcherytotal", new ReduceArcheryTotal());
+        effectAppenderProducers.put("reinforcetokens", new ReinforceTokens());
         effectAppenderProducers.put("removeburdens", new RemoveBurdens());
         effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
         effectAppenderProducers.put("removefromthegame", new RemoveFromTheGame());

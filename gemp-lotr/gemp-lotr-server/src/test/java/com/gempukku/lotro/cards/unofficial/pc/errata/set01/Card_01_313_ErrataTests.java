@@ -93,11 +93,11 @@ public class Card_01_313_ErrataTests
 
         scn.StartGame();
 
-        assertTrue(scn.FreepsCardActionAvailable(sting));
+        assertTrue(scn.FreepsActionAvailable(sting));
 
         scn.SkipToPhase(Phase.REGROUP);
 
-        assertTrue(scn.FreepsCardActionAvailable(sting));
+        assertTrue(scn.FreepsActionAvailable(sting));
     }
 
     @Test

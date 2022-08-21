@@ -1212,7 +1212,7 @@
 			phase: shadow
 			effect: [
 				{
-					type: duplicate
+					type: repeat
 					amount: 3
 					effect: {
 						type: playCardFromDiscard

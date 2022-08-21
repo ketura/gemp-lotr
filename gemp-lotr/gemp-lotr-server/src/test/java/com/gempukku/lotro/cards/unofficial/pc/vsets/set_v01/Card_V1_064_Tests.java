@@ -22,8 +22,10 @@ public class Card_V1_064_Tests
 		return new GenericCardTestHelper(
                 new HashMap<>() {{
                     put("greenleaf", "1_50");
-                    put("savage", "1_151");
-                    put("lord", "4_219");
+					put("moriatroop1", "1_177");
+					put("moriatroop2", "1_177");
+					put("moriatroop3", "1_177");
+					put("shelob", "8_26");
                 }},
                 new HashMap<>() {{
                     put("site1", "1_319");
@@ -34,7 +36,7 @@ public class Card_V1_064_Tests
                     put("site6", "1_350");
                     put("site7", "1_353");
                     put("site8", "1_356");
-                    put("site9", "151_64");
+                    put("site9", "101_64");
                 }},
 				GenericCardTestHelper.FOTRFrodo,
 				GenericCardTestHelper.FOTRRing
@@ -53,7 +55,7 @@ public class Card_V1_064_Tests
 		* Type: site
 		* Subtype: 
 		* Site Number: 9
-		* Game Text: Forest. Exhausted minions cannot take wounds.
+		* Game Text: Forest. Each minion is damage +1 per wound on that minion.
 		*/
 
 		//Pre-game setup
@@ -77,16 +79,15 @@ public class Card_V1_064_Tests
 	}
 
 	@Test
-	public void WoundedMinionsTakeNoWoundsAndWoundedCompsCannotExertFromFPCards() throws DecisionResultInvalidException, CardNotFoundException {
+	public void WoundedMinionsAreDamagePlusOnePerWound() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl greenleaf = scn.GetFreepsCard("greenleaf");
-		scn.FreepsMoveCharToTable(greenleaf);
-
-		PhysicalCardImpl savage = scn.GetShadowCard("savage");
-		PhysicalCardImpl lord = scn.GetShadowCard("lord");
-		scn.ShadowMoveCardToHand(savage, lord);
+		PhysicalCardImpl moriatroop1 = scn.GetShadowCard("moriatroop1");
+		PhysicalCardImpl moriatroop2 = scn.GetShadowCard("moriatroop2");
+		PhysicalCardImpl moriatroop3 = scn.GetShadowCard("moriatroop3");
+		PhysicalCardImpl shelob = scn.GetShadowCard("shelob");
+		scn.ShadowMoveCardToHand(moriatroop1, moriatroop2, moriatroop3, shelob);
 
 		//Max out the move limit so we don't have to juggle play back and forth
 		scn.ApplyAdHocModifier(new MoveLimitModifier(null, 10));
@@ -135,36 +136,31 @@ public class Card_V1_064_Tests
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
 
-		scn.ShadowMoveCharToTable(savage, lord);
+		scn.ShadowMoveCharToTable(moriatroop1, moriatroop2, moriatroop3, shelob);
+		scn.SkipToPhase(Phase.MANEUVER);
+
+		assertFalse(scn.HasKeyword(moriatroop1, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(moriatroop2, Keyword.DAMAGE));
+		assertFalse(scn.HasKeyword(moriatroop3, Keyword.DAMAGE));
+
+		scn.AddWoundsToChar(moriatroop2, 1);
+		scn.AddWoundsToChar(moriatroop3, 2);
+		scn.AddWoundsToChar(shelob, 7);
 
 		scn.SkipToPhase(Phase.ARCHERY);
 
-		assertEquals(0, scn.GetWoundsOn(greenleaf));
-		assertEquals(0, scn.GetWoundsOn(savage));
-		assertTrue(scn.FreepsCardActionAvailable(greenleaf));
-		scn.FreepsUseCardAction(greenleaf);
-		scn.FreepsChooseCard(savage);
+		assertEquals(0, scn.GetWoundsOn(moriatroop1));
+		assertEquals(1, scn.GetWoundsOn(moriatroop2));
+		assertEquals(2, scn.GetWoundsOn(moriatroop3));
+		assertEquals(7, scn.GetWoundsOn(shelob));
 
-		assertEquals(1, scn.GetWoundsOn(greenleaf));
-		// The Free Peoples player may not exert wounded companions, but Shadow cards may.
-		scn.ShadowUseCardAction(lord);
+		assertFalse(scn.HasKeyword(moriatroop1, Keyword.DAMAGE));
+		assertTrue(scn.HasKeyword(moriatroop2, Keyword.DAMAGE));
+		assertEquals(1, scn.GetKeywordCount(moriatroop2,  Keyword.DAMAGE));
+		assertTrue(scn.HasKeyword(moriatroop3, Keyword.DAMAGE));
+		assertEquals(2, scn.GetKeywordCount(moriatroop3,  Keyword.DAMAGE));
+		assertTrue(scn.HasKeyword(shelob, Keyword.DAMAGE));
+		assertEquals(7, scn.GetKeywordCount(shelob,  Keyword.DAMAGE));
 
-		assertFalse(scn.FreepsCardActionAvailable(greenleaf));
-		//pass remaining archery actions
-		scn.PassCurrentPhaseActions();
-		//pass assignment actions
-		scn.PassCurrentPhaseActions();
-
-		assertEquals(2, scn.GetWoundsOn(greenleaf));
-		assertEquals(1, scn.GetWoundsOn(savage));
-
-		scn.FreepsAssignToMinions(greenleaf, savage);
-		scn.ShadowPassCurrentPhaseAction();
-		scn.FreepsResolveSkirmish(greenleaf);
-		scn.PassCurrentPhaseActions();
-
-		//As a wounded minion, the Savage was barred from taking a wound
-		assertEquals(2, scn.GetWoundsOn(greenleaf));
-		assertEquals(1, scn.GetWoundsOn(savage));
 	}
 }

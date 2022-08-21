@@ -1,0 +1,191 @@
+{
+	51_248: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_248.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_248
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1C248
+			rarity: C
+			setNum: "1"
+			cardNum: 248
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Forces of Mordor
+		culture: sauron
+		twilight: 0
+		type: event
+		keyword: shadow
+		effects: {
+			type: event
+			cost: {
+				type: exert
+				filter: choose(culture(sauron),minion)
+			}
+			effect: {
+				type: addTwilight
+				amount: {
+					type: forEachYouCanSpot
+					filter: culture(sauron),orc
+					limit: 3
+				}
+			}
+		}
+		gametext: <b>Shadow:</b> Exert a [sauron] minion to add (1) for each [sauron] Orc you can spot (limit (3)).
+		lore: "'....the Dark Lord is not without allies. The Easterlings and Haradrim now pay tribute to Mordor.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	51_254: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_254.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_254
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1R254
+			rarity: R
+			setNum: "1"
+			cardNum: 254
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Mordor Enraged
+		culture: sauron
+		twilight: 0
+		type: condition
+		target: archer,companion
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(culture(sauron),orc)
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: usesspecialability
+					filter: side(free people)
+				}
+				requires: {
+					type: phase
+					phase: archery
+				}
+				effect: {
+					type: exert
+					filter: bearer
+				}
+			}
+		]
+		gametext: To play, exert a [sauron] minion. Plays on an archer companion.<br>Each time the Free Peoples player uses an archery special ability, bearer must exert.
+		lore: The armies of Elendil and Gil-galad inflamed Sauron's anger and hatred.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	51_282: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_282.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_282
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1R282
+			rarity: R
+			setNum: "1"
+			cardNum: 282
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: The Weight of a Legacy
+		culture: sauron
+		twilight: 0
+		type: condition
+		strength: -1
+		target: culture(gondor),companion,not(hasAttached(name(The Weight of a Legacy)))
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(culture(sauron),orc)
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: modifyStrength
+					requires: {
+						type: canSpot
+						count: 2
+						filter: tale
+					}
+					filter: bearer
+					amount: -2
+				}
+			}
+		]
+		gametext: To play, exert a [Sauron] Orc. Plays on a [Gondor] companion. Limit 1 per bearer.<br> While you can spot 2 tales, bearer is strength -2.
+		lore: "'It is because of Men, the Ring survives.... I was there the day the strength of Men failed.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	
+}

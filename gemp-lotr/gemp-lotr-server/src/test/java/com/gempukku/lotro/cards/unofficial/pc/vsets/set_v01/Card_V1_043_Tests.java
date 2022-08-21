@@ -20,7 +20,7 @@ public class Card_V1_043_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("faces", "151_43");
+					put("faces", "101_43");
 					put("twigul", "2_82");
 					put("wk", "2_85");
 				}},
@@ -88,7 +88,7 @@ public class Card_V1_043_Tests
 
 		assertEquals(12, scn.GetStrength(twigul));
 		assertEquals(3, scn.GetWoundsOn(frodo));
-		assertTrue(scn.ShadowCardPlayAvailable(faces));
+		assertTrue(scn.ShadowPlayAvailable(faces));
 		scn.ShadowPlayCard(faces);
 		assertEquals(15, scn.GetStrength(twigul));
 	}
@@ -116,7 +116,7 @@ public class Card_V1_043_Tests
 		assertEquals(14, scn.GetStrength(wk));
 		assertFalse(scn.HasKeyword(wk, Keyword.DAMAGE));
 		assertEquals(0, scn.GetWoundsOn(frodo));
-		assertTrue(scn.ShadowCardPlayAvailable(faces));
+		assertTrue(scn.ShadowPlayAvailable(faces));
 
 		scn.ShadowPlayCard(faces);
 		assertEquals(14, scn.GetStrength(wk));

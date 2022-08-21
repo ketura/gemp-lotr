@@ -26,7 +26,7 @@ public class Card_V1_059_Tests
 				new HashMap<>() {{
 					put("site1", "1_319");
 					put("site2", "1_327");
-					put("site3", "151_59");
+					put("site3", "101_59");
 					put("site4", "1_343");
 					put("site5", "1_349");
 					put("site6", "1_350");
@@ -91,7 +91,7 @@ public class Card_V1_059_Tests
 		scn.SkipToSite(3);
 		PhysicalCardImpl site3 = scn.GetCurrentSite();
 		assertEquals(3, scn.GetStrength(sam));
-		assertTrue(scn.FreepsCardActionAvailable(site3));
+		assertTrue(scn.FreepsActionAvailable(site3));
 
 		scn.FreepsUseCardAction(site3);
 		assertTrue(scn.FreepsDecisionAvailable("Choose cards to exert"));

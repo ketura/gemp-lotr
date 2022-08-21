@@ -506,7 +506,7 @@
 				phase: assignment
 			}
 			effect: {
-				type: duplicate
+				type: repeat
 				effect: {
 					type: heal
 					filter: choose(uruk-hai)

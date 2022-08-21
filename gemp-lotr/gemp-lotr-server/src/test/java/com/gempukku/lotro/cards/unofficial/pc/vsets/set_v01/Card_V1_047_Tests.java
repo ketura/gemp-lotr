@@ -21,7 +21,7 @@ public class Card_V1_047_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
                 new HashMap<>() {{
-                    put("betrayed", "151_47");
+                    put("betrayed", "101_47");
                     put("orc", "1_271");
                 }},
 				GenericCardTestHelper.FellowshipSites,
@@ -80,7 +80,7 @@ public class Card_V1_047_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.FreepsPassCurrentPhaseAction();
-		assertFalse(scn.ShadowCardPlayAvailable(betrayed));
+		assertFalse(scn.ShadowPlayAvailable(betrayed));
 		scn.ShadowPassCurrentPhaseAction();
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
@@ -89,7 +89,7 @@ public class Card_V1_047_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.FreepsPassCurrentPhaseAction();
-		assertFalse(scn.ShadowCardPlayAvailable(betrayed));
+		assertFalse(scn.ShadowPlayAvailable(betrayed));
 		scn.ShadowPassCurrentPhaseAction();
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
@@ -98,7 +98,7 @@ public class Card_V1_047_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(betrayed));
+		assertTrue(scn.ShadowPlayAvailable(betrayed));
 
 	}
 
@@ -119,7 +119,7 @@ public class Card_V1_047_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.FreepsPassCurrentPhaseAction();
 		assertEquals(2, scn.GetMoveLimit()); // 2 moves: 1 in fellowship, 1 in regroup
-		assertTrue(scn.ShadowCardPlayAvailable(betrayed));
+		assertTrue(scn.ShadowPlayAvailable(betrayed));
 		assertEquals(Zone.SHADOW_CHARACTERS, orc.getZone());
 
 		scn.ShadowPlayCard(betrayed);
@@ -152,7 +152,7 @@ public class Card_V1_047_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.FreepsPassCurrentPhaseAction();
 		assertEquals(2, scn.GetMoveLimit()); // 2 moves: 1 in fellowship, 1 in regroup
-		assertTrue(scn.ShadowCardPlayAvailable(betrayed));
+		assertTrue(scn.ShadowPlayAvailable(betrayed));
 		assertEquals(Zone.SHADOW_CHARACTERS, orc.getZone());
 
 		scn.ShadowPlayCard(betrayed);

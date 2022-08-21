@@ -21,18 +21,18 @@ public class Card_V1_028_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
                 new HashMap<>() {{
-                    put("wisp", "151_28");
-                    put("wisp2", "151_28");
-                    put("wisp3", "151_28");
+                    put("wisp", "101_28");
+                    put("wisp2", "101_28");
+                    put("wisp3", "101_28");
 
                     put("saruman1", "4_173");
                     put("saruman2", "4_173");
                     put("saruman3", "4_173");
 
-                    put("flock", "151_25");
-                    put("flock2", "151_25");
-                    put("flock3", "151_25");
-                    put("flock4", "151_25");
+                    put("flock", "101_25");
+                    put("flock2", "101_25");
+                    put("flock3", "101_25");
+                    put("flock4", "101_25");
 
                     put("filler1", "1_12");
                     put("filler2", "1_12");
@@ -113,7 +113,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp));
+		assertTrue(scn.ShadowPlayAvailable(wisp));
 		assertEquals(Zone.DECK, saruman1.getZone());
 		assertEquals(saruman1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, saruman2.getZone());
@@ -137,7 +137,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp2));
+		assertTrue(scn.ShadowPlayAvailable(wisp2));
 		assertEquals(Zone.DECK, saruman1.getZone());
 		assertEquals(saruman1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, saruman2.getZone()); // it was drawn during regroup
@@ -156,12 +156,12 @@ public class Card_V1_028_Tests
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
 		//scn.ShadowDeclineReconciliation();
-		scn.ShadowChooseCard("filler1"); // reconciling a card away so we draw the saruman from the top
+		scn.ShadowChooseCard("filler5"); // reconciling a card away so we draw the saruman from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp3));
+		assertTrue(scn.ShadowPlayAvailable(wisp3));
 		assertEquals(Zone.DECK, saruman1.getZone());
 		assertEquals(saruman1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, saruman2.getZone());
@@ -199,7 +199,7 @@ public class Card_V1_028_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardPlayAvailable(wisp));
+		assertTrue(scn.ShadowPlayAvailable(wisp));
 
 		scn.ShadowPlayCard(wisp);
 		assertTrue(scn.ShadowDecisionAvailable("Choose cards from hand to discard"));

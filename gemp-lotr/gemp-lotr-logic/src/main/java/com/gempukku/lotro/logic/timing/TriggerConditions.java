@@ -435,6 +435,14 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isMovingTo(Effect effect, LotroGame game, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_MOVE_TO
+                && Filters.and(filters).accepts(game, game.getGameState().getCurrentSite()))
+            return true;
+
+        return false;
+    }
+
     public static boolean movesFrom(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_FROM
                 && Filters.and(filters).accepts(game, ((WhenMoveFromResult) effectResult).getSite())) {

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 
 public class TimeResolver {
@@ -16,16 +17,21 @@ public class TimeResolver {
     private static Time parseTime(String value) throws InvalidCardDefinitionException {
         if (value.startsWith("start(") && value.endsWith(")")) {
             final String phaseName = value.substring(value.indexOf("(") + 1, value.lastIndexOf(")"));
-            return new Time(Phase.valueOf(phaseName.toUpperCase()), true, false);
+            return new Time(Phase.findPhase(phaseName), true, false);
         }
         else if (value.startsWith("end(") && value.endsWith(")")) {
             final String phaseName = value.substring(value.indexOf("(") + 1, value.lastIndexOf(")"));
             if (phaseName.equals("current"))
                 return new Time(null, false, false);
-            return new Time(Phase.valueOf(phaseName.toUpperCase()), false, false);
+            return new Time(Phase.findPhase(phaseName), false, false);
         }
         else if (value.equals("endofturn"))
             return new Time(null, false, true);
+        else {
+            Phase phase = Phase.findPhase(value);
+            if(phase != null)
+                return new Time(phase, true, false);
+        }
 
         throw new InvalidCardDefinitionException("Unable to resolve time: " + value);
     }

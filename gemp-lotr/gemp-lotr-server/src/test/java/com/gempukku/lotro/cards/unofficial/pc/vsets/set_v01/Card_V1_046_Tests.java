@@ -20,7 +20,7 @@ public class Card_V1_046_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("iseeyou", "151_46");
+					put("iseeyou", "101_46");
 					put("orc", "1_271");
 					put("orc2", "1_271");
 				}},
@@ -81,21 +81,21 @@ public class Card_V1_046_Tests
 		scn.StartGame();
 
 		scn.RemoveBurdens(1);
-		assertEquals(6, scn.GetSiteNumber(orc));
+		assertEquals(6, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(5, scn.GetSiteNumber(orc));
+		assertEquals(5, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(4, scn.GetSiteNumber(orc));
+		assertEquals(4, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(3, scn.GetSiteNumber(orc));
+		assertEquals(3, scn.GetMinionSiteNumber(orc));
 		scn.AddBurdens(1);
-		assertEquals(2, scn.GetSiteNumber(orc));
+		assertEquals(2, scn.GetMinionSiteNumber(orc));
 
 		scn.FreepsPassCurrentPhaseAction();
 
 		assertEquals(3, scn.GetTwilight()); // 1 from comp, 2 from site, not enough to play soldier normally
 
-		assertTrue(scn.ShadowCardPlayAvailable(orc2)); //home site reduced to 2, doesn't pay roaming and so can play
+		assertTrue(scn.ShadowPlayAvailable(orc2)); //home site reduced to 2, doesn't pay roaming and so can play
 	}
 
 	@Test

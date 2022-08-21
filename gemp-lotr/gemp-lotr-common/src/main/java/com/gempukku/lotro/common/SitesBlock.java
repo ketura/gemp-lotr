@@ -17,4 +17,14 @@ public enum SitesBlock {
     public String getHumanReadable() {
         return _humanReadable;
     }
+
+    public static SitesBlock findBlock(String name) {
+        String nameCaps = name.toUpperCase().replace(' ', '_').replace('-', '_');
+        String nameLower = name.toLowerCase();
+        for (SitesBlock block : values()) {
+            if (block.getHumanReadable().toLowerCase().equals(nameLower) || block.toString().equals(nameCaps))
+                return block;
+        }
+        return null;
+    }
 }

@@ -20,7 +20,7 @@ public class Card_V1_024_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("mysword", "151_24");
+					put("mysword", "101_24");
 					put("aragorn", "1_365");
 					put("arwen", "1_30");
 
@@ -79,11 +79,11 @@ public class Card_V1_024_Tests
 		scn.FreepsMoveCardToHand(mysword, aragorn, arwen);
 
 		scn.StartGame();
-		assertFalse(scn.FreepsCardPlayAvailable(mysword));
+		assertFalse(scn.FreepsPlayAvailable(mysword));
 		scn.FreepsPlayCard(aragorn);
-		assertFalse(scn.FreepsCardPlayAvailable(mysword));
+		assertFalse(scn.FreepsPlayAvailable(mysword));
 		scn.FreepsPlayCard(arwen);
-		assertTrue(scn.FreepsCardPlayAvailable(mysword));
+		assertTrue(scn.FreepsPlayAvailable(mysword));
 		scn.FreepsPlayCard(mysword);
 
 		assertEquals(Zone.ATTACHED, mysword.getZone());

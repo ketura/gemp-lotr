@@ -2,7 +2,6 @@
 package com.gempukku.lotro.cards.unofficial.pc.vsets.set_v01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -22,12 +21,12 @@ public class Card_V1_029_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("murder", "151_29");
-					put("murder2", "151_29");
-					put("murder3", "151_29");
-					put("murder4", "151_29");
-					put("murder5", "151_29");
-					put("murder6", "151_29");
+					put("murder", "101_29");
+					put("murder2", "101_29");
+					put("murder3", "101_29");
+					put("murder4", "101_29");
+					put("murder5", "101_29");
+					put("murder6", "101_29");
 
 					put("cond1", "1_120");
 					put("cond2", "1_120");
@@ -156,7 +155,7 @@ public class Card_V1_029_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 1 freeps condition, no saruman
-		assertFalse(scn.ShadowCardActionAvailable(murder));
+		assertFalse(scn.ShadowActionAvailable(murder));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -169,7 +168,7 @@ public class Card_V1_029_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 3 freeps conditions, no saruman
-		assertTrue(scn.ShadowCardActionAvailable(murder));
+		assertTrue(scn.ShadowActionAvailable(murder));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -183,7 +182,7 @@ public class Card_V1_029_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 0 freeps conditions, yes saruman
-		assertTrue(scn.ShadowCardActionAvailable(murder));
+		assertTrue(scn.ShadowActionAvailable(murder));
 
 	}
 
@@ -214,7 +213,7 @@ public class Card_V1_029_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(murder));
+		assertTrue(scn.ShadowActionAvailable(murder));
 		assertEquals(Zone.DECK, cond1.getZone());
 		assertEquals(cond1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, cond2.getZone());
@@ -238,7 +237,7 @@ public class Card_V1_029_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(murder2));
+		assertTrue(scn.ShadowActionAvailable(murder2));
 		assertEquals(Zone.DECK, cond1.getZone());
 		assertEquals(cond1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, cond2.getZone()); // it was drawn during regroup
@@ -257,12 +256,12 @@ public class Card_V1_029_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
-		scn.ShadowChooseCard("fcond1"); // reconciling a card away so we draw the item from the top
+		scn.ShadowChooseCard("fcond5"); // reconciling a card away so we draw the item from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(murder3));
+		assertTrue(scn.ShadowActionAvailable(murder3));
 		assertEquals(Zone.DECK, cond1.getZone());
 		assertEquals(cond1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, cond2.getZone());

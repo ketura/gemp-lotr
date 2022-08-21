@@ -749,7 +749,7 @@
           memorize: cardsInHand
         }
         {
-          type: duplicate
+          type: repeat
           amount: {
             type: forEachMatchingInMemory
             memory: cardsInHand

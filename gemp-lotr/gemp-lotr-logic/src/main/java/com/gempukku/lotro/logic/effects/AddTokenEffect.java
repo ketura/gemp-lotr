@@ -37,7 +37,10 @@ public class AddTokenEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        if (_token != null)
+            return "Add " + _count + " " + _token.getCulture().getHumanReadable() + " token" + (_count > 1 ? "s" : "");
+        else
+            return "Add " + _count + " culture token" + (_count > 1 ? "s" : "");
     }
 
     @Override

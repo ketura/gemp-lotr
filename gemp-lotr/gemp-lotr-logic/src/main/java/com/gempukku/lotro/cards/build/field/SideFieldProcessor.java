@@ -9,6 +9,6 @@ import com.gempukku.lotro.common.Side;
 public class SideFieldProcessor implements FieldProcessor {
     @Override
     public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        blueprint.setSide(FieldUtils.getEnum(Side.class, value, key));
+        blueprint.setSide(Side.Parse(FieldUtils.getString(value, key)));
     }
 }

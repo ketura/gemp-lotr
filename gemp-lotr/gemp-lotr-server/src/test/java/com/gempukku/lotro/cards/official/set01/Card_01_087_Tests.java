@@ -76,7 +76,7 @@ public class Card_01_087_Tests
 
 		scn.StartGame();
 
-		assertTrue(scn.FreepsCardPlayAvailable(late));
+		assertTrue(scn.FreepsPlayAvailable(late));
 		assertEquals(Zone.DECK, gandalf.getZone());
 		assertEquals(Zone.DECK, bb.getZone());
 
@@ -102,7 +102,7 @@ public class Card_01_087_Tests
 
 		scn.StartGame();
 
-		assertTrue(scn.FreepsCardPlayAvailable(late));
+		assertTrue(scn.FreepsPlayAvailable(late));
 		assertEquals(Zone.DECK, gandalf.getZone());
 		assertEquals(Zone.DECK, bb.getZone());
 
@@ -127,7 +127,7 @@ public class Card_01_087_Tests
 
 		scn.StartGame();
 
-		assertTrue(scn.FreepsCardPlayAvailable(late));
+		assertTrue(scn.FreepsPlayAvailable(late));
 		assertEquals(Zone.HAND, gandalf.getZone());
 		assertEquals(Zone.HAND, bb.getZone());
 

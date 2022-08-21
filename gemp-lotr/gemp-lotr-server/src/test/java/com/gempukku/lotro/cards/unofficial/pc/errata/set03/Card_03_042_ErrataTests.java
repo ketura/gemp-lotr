@@ -85,9 +85,9 @@ public class Card_03_042_ErrataTests
 
         scn.StartGame();
 
-        assertFalse(scn.FreepsCardPlayAvailable(horn));
+        assertFalse(scn.FreepsPlayAvailable(horn));
         scn.FreepsPlayCard(boromir);
-        assertTrue(scn.FreepsCardPlayAvailable(horn));
+        assertTrue(scn.FreepsPlayAvailable(horn));
         scn.FreepsPlayCard(horn);
 
         Assert.assertTrue(scn.IsAttachedTo(horn, boromir));
@@ -114,7 +114,7 @@ public class Card_03_042_ErrataTests
         scn.FreepsPlayCard(horn);
 
         scn.SkipToPhase(Phase.MANEUVER);
-        assertTrue(scn.FreepsCardActionAvailable(horn));
+        assertTrue(scn.FreepsActionAvailable(horn));
         scn.FreepsUseCardAction(horn);
 
         //discards

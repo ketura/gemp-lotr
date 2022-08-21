@@ -20,8 +20,8 @@ public class Card_V1_039_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("crown", "151_39");
-					put("crown2", "151_39");
+					put("crown", "101_39");
+					put("crown2", "101_39");
 					put("nazgul1", "1_232");
 					put("nazgul2", "1_232");
 					put("twigul1", "2_84");
@@ -218,7 +218,7 @@ public class Card_V1_039_Tests
 
 		assertEquals(11, scn.GetTwilight());
 
-		assertTrue(scn.ShadowCardActionAvailable(crown));
+		assertTrue(scn.ShadowActionAvailable(crown));
 		scn.ShadowUseCardAction(crown);
 		assertEquals(10, scn.GetTwilight());
 		assertTrue(scn.ShadowDecisionAvailable("Choose cards to transfer to"));
@@ -228,7 +228,7 @@ public class Card_V1_039_Tests
 
 		scn.FreepsPassCurrentPhaseAction();
 
-		assertTrue(scn.ShadowCardActionAvailable(crown2));
+		assertTrue(scn.ShadowActionAvailable(crown2));
 		scn.ShadowUseCardAction(crown2);
 		assertEquals(9, scn.GetTwilight());
 		assertEquals(4, scn.GetVitality(twigul1));

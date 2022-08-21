@@ -64,7 +64,7 @@
 						filter: siteNumber(1-5),siteBlock(hobbit)
 					}
 					effect: {
-						type: duplicate
+						type: repeat
 						amount: {
 							type: twilightCostInMemory
 							memory: discardedFollower

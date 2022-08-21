@@ -20,7 +20,7 @@ public class Card_V1_022_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("memorial", "151_22");
+					put("memorial", "101_22");
 					put("aragorn", "1_89");
 					put("sam", "1_311");
 				}},
@@ -77,9 +77,9 @@ public class Card_V1_022_Tests
 
 		scn.StartGame();
 
-		assertFalse(scn.FreepsCardPlayAvailable(memorial));
+		assertFalse(scn.FreepsPlayAvailable(memorial));
 		scn.FreepsPlayCard(aragorn);
-		assertTrue(scn.FreepsCardPlayAvailable(memorial));
+		assertTrue(scn.FreepsPlayAvailable(memorial));
 		assertEquals(0, scn.GetWoundsOn(aragorn));
 
 		scn.FreepsPlayCard(memorial);
@@ -126,7 +126,7 @@ public class Card_V1_022_Tests
 		//There is already 1 burden from bidding, we add enough for 2 actions
 		scn.AddBurdens(1);
 
-		assertTrue(scn.FreepsCardActionAvailable(memorial));
+		assertTrue(scn.FreepsActionAvailable(memorial));
 		assertEquals(2, scn.GetBurdens());
 		assertEquals(0, scn.GetWoundsOn(aragorn));
 		assertEquals(0, scn.GetWoundsOn(sam));

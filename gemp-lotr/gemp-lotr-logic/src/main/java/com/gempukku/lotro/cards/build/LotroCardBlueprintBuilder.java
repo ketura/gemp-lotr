@@ -49,6 +49,10 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("gametext", new NullProcessor());
         fieldProcessors.put("lore", new NullProcessor());
         fieldProcessors.put("promotext", new NullProcessor());
+
+        //Soon!  But not yet
+        fieldProcessors.put("cardinfo", new NullProcessor());
+        fieldProcessors.put("alts", new NullProcessor());
     }
 
     public LotroCardBlueprint buildFromJson(JSONObject json) throws InvalidCardDefinitionException {

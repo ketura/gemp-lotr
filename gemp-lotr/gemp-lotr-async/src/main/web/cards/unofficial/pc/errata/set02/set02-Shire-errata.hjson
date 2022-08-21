@@ -1,0 +1,145 @@
+{
+
+	52_101: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/52_101.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 2_101
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 2C101
+			rarity: C
+			setNum: "2"
+			cardNum: 101
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Filibert Bolger
+		subtitle: Wily Rascal
+		unique: true
+		culture: shire
+		twilight: 1
+		type: ally
+		allyHome: fellowship,1
+		race: hobbit
+		strength: 1
+		vitality: 2
+		effects: {
+			type: activated
+			phase: skirmish
+			cost: [
+				{
+					type: exert
+					filter: choose(hobbit,companion,not(ring bearer))
+					times: 2
+					memorize: exertedHobbit
+				}
+			]
+			effect: {
+				type: cancelSkirmish
+				filter: memory(exertedHobbit),infierceskirmish
+			}
+		}
+		gametext: <b>Skirmish:</b> Exert a Hobbit companion twice (except the Ring-bearer) to cancel a fierce skirmish involving that Hobbit.
+		lore: Filibert knows paths and tracks that few have trodden. He is not adventurous by nature, but his escapades often require rapid departures.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	52_108: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/52_108.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 2_108
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 2R108
+			rarity: R
+			setNum: "2"
+			cardNum: 108
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: O Elbereth! Gilthoniel!
+		unique: true
+		culture: shire
+		twilight: 1
+		type: condition
+		strength: 1
+		keyword: tale
+		target: ring bearer
+		effects: {
+			type: activated
+			phase: skirmish
+			cost: [
+				{
+					type: memorize
+					filter: bearer
+					memory: bearer
+				}
+				{
+					type: discard
+					filter: self
+				}
+			]
+			effect: {
+				type: choice
+				texts: [
+					Make the Ring-bearer strength +4 if skirmishing a Nazgul
+					Take off The One Ring
+				]
+				effects: [
+					{
+						type: addmodifier
+						modifier: {
+							type: modifyStrength
+							filter: memory(bearer),inSkirmishAgainst(nazgul)
+							amount: 4
+						}
+					}
+					{
+						type: takeOffRing
+					}
+				]
+			}
+		}
+		gametext: <b>Tale.</b>  Bearer must be the Ring-bearer.<br><b>Skirmish:</b> Discard this condition to make the Ring-bearer strength +4 if skirmishing a Nazgul or to take off The One Ring.
+		lore: "With a last effort Frodo... slipped the Ring from his finger and closed his right hand tight upon it."
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

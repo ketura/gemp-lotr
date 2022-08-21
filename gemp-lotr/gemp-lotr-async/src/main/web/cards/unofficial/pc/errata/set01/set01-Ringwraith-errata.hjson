@@ -1,0 +1,72 @@
+{
+
+	51_234: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_234.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_234
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1U234
+			rarity: U
+			setNum: "1"
+			cardNum: 234
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Úlairë Nertëa
+		subtitle: Messenger of Dol Guldur
+		unique: true
+		culture: wraith
+		twilight: 4
+		type: minion
+		race: nazgul
+		strength: 9
+		vitality: 2
+		site: 3
+		effects: {
+			type: trigger
+			trigger: {
+				type: played
+				filter: self
+			}
+			effect: {
+				type: repeat
+				amount: {
+					type: forEachYouCanSpot
+					filter: companion
+					over: 4
+				}
+				effect: {
+					type: optional
+					text: Would you like to play a unique wraith minion from your discard?
+					effect: {
+						type: playCardFromDiscard
+						filter: choose(unique,culture(wraith),minion)
+					}
+				}
+			}
+		}
+		gametext: When you play Ulaire Nertea, for each companion over 4, you may play a unique [Wraith] minion from your discard pile.
+		lore: Some accepted Sauron's gift for glory and a notion of great deeds.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

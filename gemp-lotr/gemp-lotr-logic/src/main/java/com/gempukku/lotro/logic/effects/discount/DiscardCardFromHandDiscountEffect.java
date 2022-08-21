@@ -64,9 +64,12 @@ public class DiscardCardFromHandDiscountEffect extends AbstractSubActionEffect i
                         @Override
                         protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
                             _discardedCount = cardsBeingDiscarded.size();
+                            discountPaidCallback(_discardedCount);
                         }
                     });
             processSubAction(game, subAction);
         }
     }
+
+    protected void discountPaidCallback(int paid) {  }
 }

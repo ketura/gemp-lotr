@@ -85,7 +85,7 @@ public class Card_09_039_Tests
         scn.FreepsPassCurrentPhaseAction();
 
         scn.ShadowPlayCard(library);
-        assertTrue(scn.ShadowCardActionAvailable(library));
+        assertTrue(scn.ShadowActionAvailable(library));
         assertEquals(5, scn.GetShadowDeckCount());
         assertEquals(0, scn.GetStackedCards(library).size());
 
@@ -128,7 +128,7 @@ public class Card_09_039_Tests
         scn.FreepsResolveSkirmish(scn.GetRingBearer());
         scn.FreepsPassCurrentPhaseAction();
 
-        assertTrue(scn.ShadowCardActionAvailable(library));
+        assertTrue(scn.ShadowActionAvailable(library));
         // 20 initially, +2 from move, the rest were all cheated in
         assertEquals(22, scn.GetTwilight());
         assertEquals(9, scn.GetStrength(troop1));
@@ -163,7 +163,7 @@ public class Card_09_039_Tests
         scn.SkipToPhase(Phase.REGROUP);
         scn.FreepsPassCurrentPhaseAction();
 
-        assertTrue(scn.ShadowCardActionAvailable(library));
+        assertTrue(scn.ShadowActionAvailable(library));
         // 20 initially, +2 from move, the rest were all cheated in
         assertEquals(22, scn.GetTwilight());
         assertEquals(0, scn.GetShadowHandCount());

@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CardPhaseLimitEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -53,7 +54,7 @@ public class Card7_293 extends AbstractMinion {
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, card, null,
                                                     new NegativeEvaluator(
-                                                            new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
+                                                            new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, new ConstantEvaluator(3),
                                                                     new CountActiveEvaluator(Filters.not(self), Culture.SAURON, Race.ORC))))));
                         }
                     });

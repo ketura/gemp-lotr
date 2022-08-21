@@ -24,7 +24,7 @@ public class Card_V1_057_Tests
 					put("farmer", "1_295");
 				}},
 				new HashMap<>() {{
-					put("site1", "151_57");
+					put("site1", "101_57");
 					put("site2", "1_327");
 					put("site3", "1_337");
 					put("site4", "1_343");

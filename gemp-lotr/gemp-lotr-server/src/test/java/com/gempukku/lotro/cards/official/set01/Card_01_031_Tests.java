@@ -82,9 +82,9 @@ public class Card_01_031_Tests
 
 		scn.StartGame();
 
-		assertFalse(scn.FreepsCardPlayAvailable(asfaloth));
+		assertFalse(scn.FreepsPlayAvailable(asfaloth));
 		scn.FreepsPlayCard(orophin);
-		assertTrue(scn.FreepsCardPlayAvailable(asfaloth));
+		assertTrue(scn.FreepsPlayAvailable(asfaloth));
 		scn.FreepsPlayCard(arwen);
 		scn.FreepsPlayCard(asfaloth);
 		assertEquals(2, scn.GetFreepsCardChoiceCount()); // can go on either arwen or orophin
@@ -210,7 +210,7 @@ public class Card_01_031_Tests
 		scn.SkipToSite(3);
 
 		assertEquals(0, scn.GetTwilight());
-		assertTrue(scn.FreepsCardTransferAvailable(asfaloth));
+		assertTrue(scn.FreepsTransferAvailable(asfaloth));
 		scn.FreepsTransferCard(asfaloth);
 		scn.FreepsChooseCard(legolas);
 		assertEquals(2, scn.GetTwilight());

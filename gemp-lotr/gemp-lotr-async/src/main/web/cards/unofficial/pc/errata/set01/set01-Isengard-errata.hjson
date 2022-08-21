@@ -1,0 +1,165 @@
+{
+
+	51_138: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_138.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_138
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1C138
+			rarity: C
+			setNum: "1"
+			cardNum: 138
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Saruman's Snows
+		culture: isengard
+		twilight: 2
+		type: condition
+		keyword: [
+			spell
+			weather
+		]
+		target: site
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(culture(isengard),minion)
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: cantPlayPhaseEventsOrPhaseSpecialAbilities
+					requires: [
+						{
+							type: location
+							filter: hasAttached(self)
+						}
+						{
+							type: canSpot
+							filter: culture(isengard),minion,inSkirmish
+						}
+					]
+					phase: skirmish
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: endOfTurn
+				}
+				effect: {
+					type: discard
+					filter: self
+				}
+			}
+		]
+		gametext: <b>Spell.</b> <b>Weather.</b> To play, exert an [isengard] minion. Plays on a site.<br>No player may play skirmish events or use skirmish special abilities during skirmishes involving an [isengard] minion at this site.<br>Discard this condition at the end of the turn.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
+	51_139: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/51_139.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_139
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1R139
+			rarity: R
+			setNum: "1"
+			cardNum: 139
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Savagery To Match Their Numbers
+		culture: isengard
+		twilight: 0
+		type: event
+		keyword: skirmish
+		effects: {
+			type: event
+			effect: {
+				type: choice
+				texts: [
+					Make an Uruk-hai strength +2
+					Make an Uruk-hai strength +3 (and fierce until the regroup phase)
+				]
+				effects: [
+					{
+						type: modifyStrength
+						filter: choose(uruk-hai)
+						amount: 2
+					}
+					{
+						type: conditional
+						requires: {
+							type: canSpot
+							count: 5
+							filter: companion
+						}
+						effect: [
+							{
+								type: modifyStrength
+								filter: choose(uruk-hai)
+								amount: 3
+								memorize: chosenUrukHai
+							}
+							{
+								type: addKeyword
+								filter: memory(chosenUrukHai)
+								keyword: fierce
+								until: start(regroup)
+							}
+						]
+					}
+				]
+			}
+		}
+		gametext: <b>Skirmish:</b> Make an Uruk-hai strength +2, or spot 5 companions to make an Uruk-hai strength +3 (and <b>fierce</b> until the regroup phase).
+		lore: Uruk-hai match their enemies' strength with their own feral rage.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

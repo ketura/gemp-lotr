@@ -340,7 +340,7 @@
 				player: fp
 				filter: choose(companion)
 				count: {
-					type: forEachCultureOver
+					type: forEachCulture
 					over: 2
 				}
 			}
@@ -466,7 +466,7 @@
 				modifier: {
 					type: modifyMoveLimit
 					amount: {
-						type: forEachCultureOver
+						type: forEachCulture
 						over: 2
 						filter: companion
 					}

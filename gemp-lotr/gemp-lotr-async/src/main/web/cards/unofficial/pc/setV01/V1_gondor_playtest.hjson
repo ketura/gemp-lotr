@@ -1,5 +1,5 @@
 {
-	151_19: {
+	101_19: {
 		title: Aragorn
 		subtitle: Estel
 		unique: true
@@ -40,7 +40,7 @@
 			}
 		]
 	}
-	151_20: {
+	101_20: {
 		title: Boromir
 		unique: true
 		subtitle: Redeemed
@@ -88,7 +88,7 @@
 			}
 		]
 	}
-	151_21: {
+	101_21: {
 		title: The Sons of Gondor Have Returned
 		unique: true
 		culture: gondor
@@ -124,7 +124,7 @@
 			}
 		]
 	}
-	151_22: {
+	101_22: {
 		title: Gilraen's Memorial
 		unique: true
 		culture: gondor
@@ -185,7 +185,7 @@
 			}
 		]
 	}
-	151_23: {
+	101_23: {
 		title: I Would Have Gone With You to the End
 		unique: true
 		culture: gondor
@@ -253,7 +253,7 @@
 			}
 		]
 	}
-	151_24: {
+	101_24: {
 		title: You Have My Sword
 		unique: true
 		culture: gondor

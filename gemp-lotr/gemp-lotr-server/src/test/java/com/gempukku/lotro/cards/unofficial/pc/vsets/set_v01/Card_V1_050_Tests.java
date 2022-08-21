@@ -23,7 +23,7 @@ public class Card_V1_050_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
                 new HashMap<>() {{
-                    put("bilbo", "151_50");
+                    put("bilbo", "101_50");
                     put("sam", "1_311");
                     put("coat", "13_153");
                     put("sting", "1_313");
@@ -94,10 +94,10 @@ public class Card_V1_050_Tests
 		{
 			PhysicalCardImpl site = scn.GetCurrentSite();
 			if(scn.HasKeyword(site, Keyword.SANCTUARY)) {
-				assertTrue(scn.FreepsCardActionAvailable(bilbo));
+				assertTrue(scn.FreepsActionAvailable(bilbo));
 			}
 			else {
-				assertFalse(scn.FreepsCardActionAvailable(bilbo));
+				assertFalse(scn.FreepsActionAvailable(bilbo));
 			}
 
 			scn.SkipToSite(i+1);
@@ -124,7 +124,7 @@ public class Card_V1_050_Tests
 
 		scn.StartGame();
 
-		assertTrue(scn.FreepsCardActionAvailable(bilbo));
+		assertTrue(scn.FreepsActionAvailable(bilbo));
 		assertEquals(0, scn.GetWoundsOn(bilbo));
 
 		scn.FreepsUseCardAction(bilbo);

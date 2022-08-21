@@ -1,0 +1,93 @@
+{
+	15_112: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: decipher/LOTR15112.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 0
+			collInfo: 15R112
+			rarity: R
+			setNum: "15"
+			cardNum: 112
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Mountain-troll
+		unique: false
+		side: Shadow
+		culture: Orc
+		twilight: 10
+		type: Minion
+		race: Troll
+		strength: 22
+		vitality: 6
+		site: 5
+		effects: [
+			{
+				type: discount
+				memorize: DiscountPaid
+				max: {
+					type: requires
+					requires: {
+						type: CanSpot
+						filter: culture(orc),minion
+						count: 5
+					}
+					true: 10
+					false: 0
+				}
+				discount: {
+					type: ifDiscardFromPlay
+					filter: culture(orc),minion
+					count: 5
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: addkeyword
+					keyword: fierce
+					filter: self
+					requires: {
+						#This is only set if the discount was paid for.
+						type: HasInZoneData
+						filter: self
+					}
+				}
+			}
+			{
+				type: activated
+				phase: shadow
+				cost: {
+					type: removeTwilight
+					amount: 3
+				}
+				effect: [
+					{
+						type: playCardFromDiscard
+						removedTwilight: 2
+						filter: choose(culture(orc), orc)
+						memorize: PlayedOrc
+						cost: -2
+					}
+				]
+			}
+		]
+		gametext: When you play this minion, you may discard 5 [orc] minions from play to make it strength +10 and <b>fierce</b> until the regroup phase. <br>Shadow: Remove (2) to play an [orc] Orc from your discard pile. It comes into play exhausted.
+		lore: “Suddenly on the last stroke the Gate of Gondor broke.”
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

@@ -21,12 +21,12 @@ public class Card_V1_026_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
                 new HashMap<>() {{
-                    put("crows", "151_26");
-                    put("crows2", "151_26");
-                    put("crows3", "151_26");
-                    put("crows4", "151_26");
-                    put("crows5", "151_26");
-                    put("crows6", "151_26");
+                    put("crows", "101_26");
+                    put("crows2", "101_26");
+                    put("crows3", "101_26");
+                    put("crows4", "101_26");
+                    put("crows5", "101_26");
+                    put("crows6", "101_26");
 
                     put("poss1", "3_55");
                     put("poss2", "3_55");
@@ -141,7 +141,7 @@ public class Card_V1_026_Tests
 		scn.ShadowChooseCard(gimli);
 		assertEquals(4, scn.GetTwilight()); //-3 cost, -2 roaming, +3 bonus, capped
 
-		assertFalse(scn.ShadowCardPlayAvailable(crows6)); //no longer have cost + roaming, in spite of bonus
+		assertFalse(scn.ShadowPlayAvailable(crows6)); //no longer have cost + roaming, in spite of bonus
 	}
 
 	@Test
@@ -176,7 +176,7 @@ public class Card_V1_026_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 1 freepsitem, no saruman
-		assertFalse(scn.ShadowCardActionAvailable(crows));
+		assertFalse(scn.ShadowActionAvailable(crows));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -189,7 +189,7 @@ public class Card_V1_026_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 2 freeps items, no saruman
-		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertTrue(scn.ShadowActionAvailable(crows));
 		scn.ShadowPassCurrentPhaseAction();
 
 		scn.SkipToPhase(Phase.REGROUP);
@@ -203,7 +203,7 @@ public class Card_V1_026_Tests
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
 		// 0 wounded companions, yes saruman
-		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertTrue(scn.ShadowActionAvailable(crows));
 
 	}
 
@@ -233,7 +233,7 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(crows));
+		assertTrue(scn.ShadowActionAvailable(crows));
 		assertEquals(Zone.DECK, poss1.getZone());
 		assertEquals(poss1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.DISCARD, poss2.getZone());
@@ -257,7 +257,7 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(crows2));
+		assertTrue(scn.ShadowActionAvailable(crows2));
 		assertEquals(Zone.DECK, poss1.getZone());
 		assertEquals(poss1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, poss2.getZone()); // it was drawn during regroup
@@ -276,12 +276,12 @@ public class Card_V1_026_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
-		scn.ShadowChooseCard("gimli"); // reconciling a card away so we draw the item from the top
+		scn.ShadowChooseCard("axe5"); // reconciling a card away so we draw the item from the top
 		scn.FreepsChooseToMove();
 
 		scn.SkipToPhase(Phase.MANEUVER);
 		scn.FreepsPassCurrentPhaseAction();
-		assertTrue(scn.ShadowCardActionAvailable(crows3));
+		assertTrue(scn.ShadowActionAvailable(crows3));
 		assertEquals(Zone.DECK, poss1.getZone());
 		assertEquals(poss1, scn.GetShadowBottomOfDeck());
 		assertEquals(Zone.HAND, poss2.getZone());

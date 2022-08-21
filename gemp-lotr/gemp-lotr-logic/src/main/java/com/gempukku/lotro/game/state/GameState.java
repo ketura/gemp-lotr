@@ -455,7 +455,10 @@ public class GameState {
                 removeFromSkirmish(card, false);
 
             removeAllTokens(card);
-            card.setWhileInZoneData(null);
+            //If this is reset, then there is no way for self-discounting effects (which are evaluated while in the void)
+            // to have any sort of permanent effect once the card is in play.
+            if(zone != Zone.VOID_FROM_HAND && zone != Zone.VOID)
+                card.setWhileInZoneData(null);
         }
 
         for (GameStateListener listener : getAllGameStateListeners())

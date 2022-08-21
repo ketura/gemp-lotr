@@ -20,8 +20,8 @@ public class Card_V1_018_Tests
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>() {{
-					put("council", "151_18");
-					put("gandalf", "151_14");
+					put("council", "101_18");
+					put("gandalf", "101_14");
 					put("elrond", "3_13");
 					put("galadriel", "1_45");
 					put("aragorn", "1_89");
@@ -121,7 +121,7 @@ public class Card_V1_018_Tests
 		scn.AddWoundsToChar(galadriel, 2);
 
 		scn.SkipToPhase(Phase.REGROUP);
-		assertFalse(scn.FreepsCardActionAvailable(council));
+		assertFalse(scn.FreepsActionAvailable(council));
 	}
 
 	@Test
@@ -144,7 +144,7 @@ public class Card_V1_018_Tests
 		scn.AddWoundsToChar(gandalf, 3);
 
 		scn.SkipToPhase(Phase.REGROUP);
-		assertTrue(scn.FreepsCardActionAvailable(council));
+		assertTrue(scn.FreepsActionAvailable(council));
 		assertEquals(0, scn.GetWoundsOn(galadriel));
 		assertEquals(0, scn.GetWoundsOn(elrond));
 		assertEquals(3, scn.GetWoundsOn(gandalf));
@@ -161,7 +161,7 @@ public class Card_V1_018_Tests
 
 		scn.ShadowPassCurrentPhaseAction();
 
-		assertTrue(scn.FreepsCardActionAvailable(council));
+		assertTrue(scn.FreepsActionAvailable(council));
 		scn.FreepsUseCardAction(council);
 		assertEquals(2, scn.GetFreepsCardChoiceCount());
 		scn.FreepsChooseCard(aragorn);
@@ -177,10 +177,10 @@ public class Card_V1_018_Tests
 		//limit of 2 means it won't let us even with healthy allies
 		assertEquals(1, scn.GetWoundsOn(galadriel));
 		assertEquals(2, scn.GetWoundsOn(elrond));
-		assertTrue(scn.FreepsCardActionAvailable(council));
+		assertTrue(scn.FreepsActionAvailable(council));
 
 		scn.SkipToPhase(Phase.REGROUP);
 
-		assertTrue(scn.FreepsCardActionAvailable(council));
+		assertTrue(scn.FreepsActionAvailable(council));
 	}
 }

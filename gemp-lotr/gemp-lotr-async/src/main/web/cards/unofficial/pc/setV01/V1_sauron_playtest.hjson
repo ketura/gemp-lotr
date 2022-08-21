@@ -1,6 +1,6 @@
 {
 
-	151_44: {
+	101_44: {
 		title: Fell To Its Power
 		culture: sauron
 		twilight: 1
@@ -31,7 +31,7 @@
 	}
 
 
-	151_45: {
+	101_45: {
 		title: Gaze Of The Eye
 		unique: true
 		culture: sauron
@@ -58,7 +58,7 @@
 	}
 
 
-	151_46: {
+	101_46: {
 		title: I See You
 		culture: sauron
 		twilight: 0
@@ -98,7 +98,7 @@
 	}
 
 
-	151_47: {
+	101_47: {
 		title: It Betrayed Isildur
 		culture: sauron
 		twilight: 1
@@ -146,7 +146,7 @@
 		]
 	}
 
-	151_48: {
+	101_48: {
 		title: Orc Ambush Troop
 		culture: sauron
 		twilight: 3
@@ -187,7 +187,7 @@
 		]
 	}
 
-	151_49: {
+	101_49: {
 		title: A Shadow of the Past
 		unique: true
 		culture: sauron

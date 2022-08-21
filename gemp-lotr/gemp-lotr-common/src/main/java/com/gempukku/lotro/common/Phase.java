@@ -33,4 +33,15 @@ public enum Phase {
     public boolean isCardsAffectGame() {
         return cardsAffectGame;
     }
+
+    public static Phase findPhase(String name) {
+        String nameCaps = name.toUpperCase().trim().replace(' ', '_').replace('-', '_');
+        String nameLower = name.toLowerCase();
+
+        for (Phase phase : values()) {
+            if (phase.getHumanReadable().toLowerCase().equals(nameLower) || phase.toString().equals(nameCaps))
+                return phase;
+        }
+        return null;
+    }
 }

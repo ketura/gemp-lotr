@@ -22,7 +22,7 @@ public class Card_V1_001_Tests
                 new HashMap<>() {{
                     put("gimli", "1_13");
                     put("farin", "1_11");
-                    put("hosp", "151_1");
+                    put("hosp", "101_1");
                     put("handaxe1", "2_10");
                     put("handaxe2", "2_10");
                     put("handaxe3", "2_10");
@@ -94,7 +94,7 @@ public class Card_V1_001_Tests
 
         //Site 2
         scn.SkipToPhase(Phase.MANEUVER);
-        assertFalse(scn.FreepsCardActionAvailable(hosp));
+        assertFalse(scn.FreepsActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.PassCurrentPhaseActions();
@@ -105,7 +105,7 @@ public class Card_V1_001_Tests
 
         //Site 3
         scn.SkipToPhase(Phase.MANEUVER);
-        assertFalse(scn.FreepsCardActionAvailable(hosp));
+        assertFalse(scn.FreepsActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.PassCurrentPhaseActions();
@@ -117,7 +117,7 @@ public class Card_V1_001_Tests
 
         //Site 4
         scn.SkipToPhase(Phase.MANEUVER);
-        assertTrue(scn.FreepsCardActionAvailable(hosp));
+        assertTrue(scn.FreepsActionAvailable(hosp));
         scn.FreepsUseCardAction(hosp);
         assertFalse(scn.HasKeyword(gimli, Keyword.DAMAGE));
 
@@ -135,7 +135,7 @@ public class Card_V1_001_Tests
 
         //Site 5
         scn.SkipToPhase(Phase.MANEUVER);
-        assertTrue(scn.FreepsCardActionAvailable(hosp));
+        assertTrue(scn.FreepsActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.PassCurrentPhaseActions();
@@ -152,7 +152,7 @@ public class Card_V1_001_Tests
 
         //Site 6
         scn.SkipToPhase(Phase.MANEUVER);
-        assertTrue(scn.FreepsCardActionAvailable(hosp));
+        assertTrue(scn.FreepsActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.PassCurrentPhaseActions();
@@ -164,7 +164,7 @@ public class Card_V1_001_Tests
 
         //Site 7
         scn.SkipToPhase(Phase.MANEUVER);
-        assertTrue(scn.FreepsCardActionAvailable(hosp));
+        assertTrue(scn.FreepsActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.PassCurrentPhaseActions();
@@ -176,7 +176,7 @@ public class Card_V1_001_Tests
 
         //Site 8
         scn.SkipToPhase(Phase.MANEUVER);
-        assertTrue(scn.FreepsCardActionAvailable(hosp));
+        assertTrue(scn.FreepsActionAvailable(hosp));
 
         scn.SkipToPhase(Phase.ASSIGNMENT);
         scn.PassCurrentPhaseActions();
@@ -188,6 +188,6 @@ public class Card_V1_001_Tests
 
         //Site 5
         scn.SkipToPhase(Phase.MANEUVER);
-        assertFalse(scn.FreepsCardActionAvailable(hosp));
+        assertFalse(scn.FreepsActionAvailable(hosp));
     }
 }

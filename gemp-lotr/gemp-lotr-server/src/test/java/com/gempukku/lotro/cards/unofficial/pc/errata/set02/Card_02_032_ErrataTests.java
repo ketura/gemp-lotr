@@ -72,7 +72,7 @@ public class Card_02_032_ErrataTests
         scn.StartGame();
 
 
-        assertTrue(scn.FreepsCardPlayAvailable(brand));
+        assertTrue(scn.FreepsPlayAvailable(brand));
 
         scn.FreepsPlayCard(brand);
 
@@ -99,7 +99,7 @@ public class Card_02_032_ErrataTests
         scn.StartGame();
 
         scn.FreepsPlayCard(brand);
-        assertTrue(scn.FreepsCardPlayAvailable(brand2));
+        assertTrue(scn.FreepsPlayAvailable(brand2));
         scn.FreepsPlayCard(brand2);
 
         assertEquals(2, scn.GetAttachedCards(aragorn).size());
@@ -146,7 +146,7 @@ public class Card_02_032_ErrataTests
         scn.FreepsResolveSkirmish(aragorn);
 
         assertEquals(1, scn.FreepsGetAvailableActions().size());
-        assertTrue(scn.FreepsCardActionAvailable(brand));
+        assertTrue(scn.FreepsActionAvailable(brand));
 
         assertFalse(scn.HasKeyword(aragorn, Keyword.DAMAGE));
         scn.FreepsUseCardAction(brand);

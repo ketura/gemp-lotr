@@ -135,12 +135,12 @@
 		]
 		effects: {
 			type: discount
-			amount: {
+			max: {
 				type: forEachInHand
 				filter: culture(moria),goblin
 			}
 			discount: {
-				type: discardFromHand
+				type: perDiscardFromHand
 				filter: culture(moria),goblin
 			}
 		}
@@ -404,7 +404,7 @@
 				filter: self
 			}
 			effect: {
-				type: duplicate
+				type: repeat
 				amount: {
 					type: forEachYouCanSpot
 					filter: companion

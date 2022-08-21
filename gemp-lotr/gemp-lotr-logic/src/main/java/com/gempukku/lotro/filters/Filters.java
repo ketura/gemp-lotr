@@ -751,6 +751,15 @@ public class Filters {
     public static Filter siteNumber(final int siteNumber) {
         return siteNumberBetweenInclusive(siteNumber, siteNumber);
     }
+    public static Filter siteHasSiteNumber = Filters.and(CardType.SITE,
+            new Filter() {
+                @Override
+                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                    int bpNumber = physicalCard.getBlueprint().getSiteNumber();
+                    Integer siteNumber = physicalCard.getSiteNumber();
+                    return Objects.requireNonNullElse(siteNumber, bpNumber) != 0;
+                }
+            });
 
     public static Filter siteNumberBetweenInclusive(final int minSiteNumber, final int maxSiteNumber) {
         return new Filter() {

@@ -1,6 +1,6 @@
 {
 
-	151_37: {
+	101_37: {
 		title: Fell Voices Call
 		culture: wraith
 		twilight: 0
@@ -29,7 +29,7 @@
 	}
 
 
-	151_38: {
+	101_38: {
 		title: Harry Goatleaf
 		subtitle: In Thrall To The Nine
 		unique: true
@@ -68,7 +68,7 @@
 	}
 
 
-	151_39: {
+	101_39: {
 		title: Pale Crown
 		culture: wraith
 		twilight: 1
@@ -123,7 +123,7 @@
 	}
 
 
-	151_40: {
+	101_40: {
 		title: Ringwraith In Twilight
 		unique: false
 		culture: wraith
@@ -178,7 +178,7 @@
 	}
 
 
-	151_41: {
+	101_41: {
 		title: Their Eyes Fell Upon Him
 		culture: wraith
 		twilight: 1
@@ -221,7 +221,7 @@
 	}
 
 
-	151_42: {
+	101_42: {
 		title: Walks In Twilight
 		unique: true
 		culture: wraith
@@ -250,7 +250,7 @@
 	}
 
 
-	151_43: {
+	101_43: {
 		title: White Faces Burned
 		culture: wraith
 		twilight: 1

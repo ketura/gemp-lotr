@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountCultureTokensEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.LimitEvaluator;
 
@@ -34,6 +35,6 @@ public class Card18_064 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
 return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(self), null,
-new LimitEvaluator(new CountCultureTokensEvaluator(Token.MEN, Filters.any), 5)));
+new LimitEvaluator(new CountCultureTokensEvaluator(Token.MEN, Filters.any), new ConstantEvaluator(5))));
 }
 }
