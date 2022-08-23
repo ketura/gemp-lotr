@@ -122,7 +122,6 @@ html, body {
 }
 
 .timestamp {
-    display: inline;
     color: #cfcfcf;
 }
 
@@ -235,6 +234,8 @@ tr.played {
 
 #chatTalk {
     flex-grow: 1;
+    resize: none;
+    max-height: 60px;
 }
 
 #discordChat {
@@ -257,11 +258,13 @@ tr.played {
 .flex-horiz {
     display: flex;
     flex-direction: row;
+    gap: 2px;
 }
 
 .flex-vert {
     display: flex;
     flex-direction: column;
+    gap: 2px;
 }
 #tabs{
     position: sticky;
@@ -279,26 +282,22 @@ tr.played {
     gap: 4px;
 }
 
-#gameHall {
-    
+.hall-tab {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     gap: 5px;
-}
-
-#hall {
-    flex-grow: 1;
+    overflow: scroll;
 }
 
 #main {
     top: 5px;
-    height: auto;
+    height: 100%;
     min-height: 100%;
+    max-height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-
 }
 
 #disclaimer {
@@ -313,4 +312,63 @@ tr.played {
 
 #tablesDiv {
     overflow: auto;
+}
+
+a {
+    color: orange !important;
+}
+
+.chatMessage h1, 
+.chatMessage h2, 
+.chatMessage h3, 
+.chatMessage h4, 
+.chatMessage h5,
+.chatMessage h6 {
+    display:  inline;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.chatMessage p {
+    margin-top: 0;
+    margin-bottom: 0; 
+}
+
+.chatMessage blockquote {
+    display:  inline-block;
+    border-left: 5px solid #505050;
+    margin-left: 5px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-style:  italic;
+}
+.chatMessage blockquote br {
+    line-height: 0px;
+    margin: 0px;
+    content: "";
+}
+
+.user-mention {
+    background-color: #FFFF0044;
+}
+
+.user-ping {
+    background-color: #FF000044;
+}
+
+.message {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items:  flex-start;
+}
+
+.msg-content p {
+    margin-left: 5px;
+    margin-top: 0px;
+    margin-bottom: 7px;
+}
+
+.msg-identifier {
+    min-width: 200px;
 }

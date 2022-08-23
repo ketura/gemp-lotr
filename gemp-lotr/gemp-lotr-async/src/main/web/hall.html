@@ -44,6 +44,7 @@
     <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
     
     <script type="text/javascript" src="js/lib/json2html/json2html.js"></script>
+    <!-- <script type="text/javascript" src="js/lib/fingerprintJS/fingerprintjspro.mini.js"></script> -->
 
     <audio id="gamestart" src="/gemp-lotr/fanfare_x.mp3" type="audio/mpeg" preload="metadata"></audio>
     
@@ -60,7 +61,7 @@
             chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr-server", true, null, false, true, null, true);
             chat.showTimestamps = true;
 
-            hall = new GempLotrHallUI($("#hall"), "/gemp-lotr-server", chat);
+            hall = new GempLotrHallUI("/gemp-lotr-server", chat);
 
             $("#main").tabs();
 
@@ -123,9 +124,9 @@
     
 </script>
 
-<script>
+<!-- <script >
     // Initialize the agent at application startup.
-    const fpPromise = import('https://fpcdn.io/v3/1nM2YaiFE7fxWB2cvWRA')
+    const fpPromise = import('./js/lib/fingerprintJS/fingerprintjspro.mini.js')
       .then(FingerprintJS => FingerprintJS.load())
 
     // Get the visitor identifier when you need it.
@@ -136,12 +137,12 @@
         const visitorId = result.visitorId
         console.log(visitorId)
       })
-  </script>
+  </script> -->
 
 </head>
 <body><script>0</script>
 <div id="main" >
-    <div id="tabs" width="100%">
+    <div id="tabs">
         <ul>
             <li><a href="#gameHall">Game Hall</a></li>
             <li><a href="includes/help.html">Help</a></li>
@@ -151,7 +152,7 @@
             <li><a href="includes/user.html">User Profile</a></li>
         </ul>
     </div>
-    <div id="gameHall" class="flex-horiz" style="flex-grow:1">
+    <div id="gameHall" class="flex-horiz hall-tab">
         <div id="serverInfo" class="flex-horiz" style="align-items:stretch">
             <div id="news" class="flex-vert">
                 <div id="bugReport">
@@ -237,7 +238,8 @@
                 
             </div>
         </div>
-        <div id="buttonsDiv" class="flex-horiz">
+    </div>
+    <div id="buttonsDiv" class="flex-horiz">
             <a href="deckBuild.html">Deck builder</a>
             | 
             <a href='merchant.html' style="text-decoration: line-through underline;">Merchant</a> 
@@ -258,7 +260,7 @@
                 <div id="legacyChat" class="grid-container">
                     <div id="chatMessages" class="grid-item"></div>
                     <div id="legacyChatInput" class="grid-item">
-                        <input type="text" id="chatTalk" class=""/>
+                        <textarea type="text" id="chatTalk" class="" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                         <button id="showSystemButton" class="ui-icon-zoomin"></button>
                         <button id="lockChatButton" class="ui-icon-locked">Toggle lock chat</button>
                         
@@ -277,7 +279,6 @@
                 <button id='toggleChatButt' class="grid-item">Switch to Discord</button>
             </div>
         </div>
-    </div>
     <div id="disclaimer">
         The information presented on this site about LotR TCG, both literal and graphical, is copyrighted by Decipher Inc.
         This website is not produced, endorsed, supported, or affiliated with Decipher.

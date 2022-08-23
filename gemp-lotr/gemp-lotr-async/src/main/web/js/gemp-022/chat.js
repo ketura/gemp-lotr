@@ -1,6 +1,9 @@
 var ChatBoxUI = Class.extend({
     name:null,
     userName:null,
+    pingRegex:null,
+    mentionRegex:null,
+    everyoneRegex:/(@everyone|@anyone)/,
     div:null,
     comm:null,
 
@@ -59,6 +62,13 @@ var ChatBoxUI = Class.extend({
             that.appendMessage("Unknown chat problem occured (error=" + xhr.status + ")", "warningMessage");
         });
         this.enableDiscord = allowDiscord;
+        
+        this.comm.getPlayerInfo(function(json)
+        { 
+            that.userName = json; 
+            that.pingRegex = new RegExp("@" + json);
+            that.mentionRegex = new RegExp("(?<!<b>)" + json );
+        }, this.chatErrorMap());
 
         
 
@@ -66,13 +76,7 @@ var ChatBoxUI = Class.extend({
             
             if(this.name == "Game Hall")
             {
-                
-                
                 this.discordDiv = $("#discordChat");
-                this.comm.getPlayerInfo(function(json)
-                { 
-                    that.userName = json; 
-                }, this.chatErrorMap());
 
                 this.chatTalkDiv = $("#chatTalk");
 
@@ -128,13 +132,16 @@ var ChatBoxUI = Class.extend({
                             that.processMessages(xml, true);
                         }, this.chatErrorMap());
 
-                this.chatTalkDiv.bind("keypress", function (e) {
-                    var code = (e.keyCode ? e.keyCode : e.which);
-                    if (code == 13) {
-                        var value = $(this).val();
-                        if (value != "")
-                            that.sendMessage(value);
-                        $(this).val("");
+                this.chatTalkDiv.keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        if(!e.shiftKey)
+                        {
+                            e.preventDefault();
+                            var value = $(this).val();
+                            if (value != "")
+                                that.sendMessage(value);
+                            $(this).val("").trigger("oninput");
+                        }
                     }
                 });
 
@@ -153,8 +160,6 @@ var ChatBoxUI = Class.extend({
             }
             else
             {
-                
-        
                 this.chatTalkDiv = $("<input type='text' class='chatTalk'>");
 
                 if (showHideSystemButton) {
@@ -240,10 +245,6 @@ var ChatBoxUI = Class.extend({
             this.hiddenClasses.splice(index, 1);
             $("div.message." + msgClass, this.chatMessagesDiv).show();
         }
-    },
-
-    escapeHtml:function (text) {
-        return $('<div/>').text(text).html();
     },
 
     setBounds:function (x, y, width, height) {
@@ -359,10 +360,21 @@ var ChatBoxUI = Class.extend({
             }
         }
     },
+    
 
     appendMessage:function (message, msgClass) {
         if (msgClass == undefined)
             msgClass = "chatMessage";
+        
+        if(this.pingRegex != null && this.pingRegex.test(message))
+        {
+            msgClass += " user-ping";
+        }
+        else if((this.mentionRegex != null && this.mentionRegex.test(message)) || this.everyoneRegex.test(message))
+        {
+            msgClass += " user-mention";
+        }
+        
         var messageDiv = $("<div class='message " + msgClass + "'>" + message + "</div>");
 
         this.chatMessagesDiv.append(messageDiv);
@@ -402,13 +414,17 @@ var ChatBoxUI = Class.extend({
                 var msgClass = "chatMessage";
                 if (from == "System")
                     msgClass = "systemMessage";
+                var prefix = "<div class='msg-identifier'>";
                 if (this.showTimestamps) {
                     var date = new Date(parseInt(message.getAttribute("date")));
                     var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + this.formatToTwoDigits(date.getHours()) + ":" + this.formatToTwoDigits(date.getMinutes()) + ":" + this.formatToTwoDigits(date.getSeconds());
-                    this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text, msgClass);
-                } else {
-                    this.appendMessage("<b>" + from + ":</b> " + text, msgClass);
+                    prefix += "<span class='timestamp'>[" + dateStr + "]</span>";
                 }
+                
+                prefix += "<span> <b>" + from + ": </b></span></div>";
+                var postfix = "<div class='msg-content'>" + text + "</div>";
+                    
+                this.appendMessage(prefix + postfix, msgClass);
             }
 
             var users = root.getElementsByTagName("user");

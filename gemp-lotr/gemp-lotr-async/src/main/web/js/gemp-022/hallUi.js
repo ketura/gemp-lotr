@@ -1,5 +1,4 @@
 var GempLotrHallUI = Class.extend({
-    div:null,
     comm:null,
     chat:null,
     supportedFormatsInitialized:false,
@@ -15,8 +14,7 @@ var GempLotrHallUI = Class.extend({
     pocketValue:null,
     hallChannelId: null,
 
-    init:function (div, url, chat) {
-        this.div = div;
+    init:function (url, chat) {
         this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
             if (thrownError != "abort") {
                 if (xhr != null) {
@@ -34,9 +32,6 @@ var GempLotrHallUI = Class.extend({
             }
         });
         this.chat = chat;
-
-        var width = $(div).width();
-        var height = $(div).height();
 
         this.tablesDiv = $("#tablesDiv");
 

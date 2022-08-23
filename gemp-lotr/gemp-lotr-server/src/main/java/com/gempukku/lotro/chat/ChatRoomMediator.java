@@ -90,8 +90,8 @@ public class ChatRoomMediator {
     }
 
     public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException, ChatCommandErrorException {
-        if (message.startsWith("/")) {
-            processIfKnownCommand(playerId, message.substring(1), admin);
+        if (message.trim().startsWith("/")) {
+            processIfKnownCommand(playerId, message.trim().substring(1), admin);
             return;
         }
 
