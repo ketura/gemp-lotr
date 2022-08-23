@@ -375,6 +375,11 @@ var ChatBoxUI = Class.extend({
             msgClass += " user-mention";
         }
         
+        if(msgClass == "gameMessage")
+        {
+            message = "<div class='msg-content'>" + message + "</div>";
+        }
+        
         var messageDiv = $("<div class='message " + msgClass + "'>" + message + "</div>");
 
         this.chatMessagesDiv.append(messageDiv);

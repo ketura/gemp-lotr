@@ -314,8 +314,11 @@ tr.played {
     overflow: auto;
 }
 
-a {
-    color: orange !important;
+#buttonsDiv a,
+#motd a,
+#bugReport a,
+.msg-content p a {
+    color: orange;
 }
 
 .chatMessage h1, 
@@ -370,5 +373,5 @@ a {
 }
 
 .msg-identifier {
-    min-width: 200px;
+    
 }

@@ -297,3 +297,66 @@ body {
     padding-top: 2px;
     padding-bottom: 2px;
 }
+
+.msg-content p a {
+    color: orange;
+}
+
+.chatMessage h1, 
+.chatMessage h2, 
+.chatMessage h3, 
+.chatMessage h4, 
+.chatMessage h5,
+.chatMessage h6 {
+    display:  inline;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.chatMessage p {
+    margin-top: 0;
+    margin-bottom: 0; 
+}
+
+.chatMessage blockquote {
+    display:  inline-block;
+    border-left: 5px solid #505050;
+    margin-left: 5px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-style:  italic;
+}
+.chatMessage blockquote br {
+    line-height: 0px;
+    margin: 0px;
+    content: "";
+}
+
+.gameMessage div {
+    display: inline;
+}
+
+.user-mention {
+    background-color: #FFFF0022;
+}
+
+.user-ping {
+    background-color: #FF000044;
+}
+
+.message {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items:  flex-start;
+}
+
+.msg-content p {
+    margin-left: 5px;
+    margin-top: 0px;
+    margin-bottom: 7px;
+}
+
+.msg-identifier {
+
+}
