@@ -1,245 +1,286 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Gemp-LotR</title>
+	<title>Gemp-LotR</title>
 
-    <style type="text/css">
-        html {
-            height: 100%;
-        }
-        body {
-            font-size: 100%;
-            height: 100%; 
-            background-image: url('images/dwarrowdelf.jpg'); 
-            background-size: auto 100%; 
-            background-repeat:no-repeat; 
-            background-position: center center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-        }
+	<style type="text/css">
+		html {
+			height: 100%;
+		}
+		body {
+			font-size: 100%;
+			height: 100%; 
+			background-image: url('images/dwarrowdelf.jpg'); 
+			background-size: auto 100%; 
+			background-repeat:no-repeat; 
+			background-position: center center;
+			overflow-x: hidden;
+			overflow-y: hidden;
+			margin: 0;
+		}
 
-        .ui-button-text-only .ui-button-text {
-            font-size: 70%;
-            padding: .2em .5em;
-        }
-        
-        .centerContainer {
-            margin: 0;
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            width: 70%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        
-        .interaction {
-            margin: 0;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .status, .error {
-            margin: 0;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        h1 {
-            color:#f2541a; 
-            font-size: 500%
-        }
-        
-        .banner {
-            text-align: center; 
-            background-color: #444444CC; 
-            margin-bottom: 150px; 
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-        }
-        
-        .login {
-            margin: 10px;
-            padding: 10px;
-            width: 90%;
-            position: absolute;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            font-size: 125%;
-            display:grid;
-            grid-row-gap: 10px;
-        }
-        
-        input {
-            font-size: 90%;
-        }
-    </style>
+		.centerContainer {
+			margin: 0;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			margin-top: 150px;
+		}
+		
+		.banner {
+			display: block;
+			text-align: center; 
+			background-color: #222222CC; 
+			width: 105vw;
+			left: -2.5vw;
+			padding: 10px;
+			color: #D98E04; 
+			font-size: 500%;
+			margin: -5px 0 0 0;
+		}
+		
+		.content {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			align-items: stretch;
+		}
+		
+		.login {
+			margin: 10px;
+			padding: 10px;
+			font-size: 125%;
+			display:grid;
+			grid-row-gap: 10px;
+		}
+		
+		.status, .error {
+			margin: 0;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		.status {
+			color:#ffffff; 
+			overflow:visible
+		}
+		
+		.error {
+			color: #ff0000
+		}
+		
+		.interaction {
+			margin: 0;
+			margin-left: auto;
+			margin-right: auto;
+			color: #ffffff;
+		}
+		
+		.info {
+			text-align: center; 
+			background-color: #222222CC; 
+			margin-bottom: 150px; 
+			width: 100vw;
+			margin-left: calc(-50vw + 50%);
+			color: #FFFFFF;
+		}
+		
+		.sw-shoutout {
+			margin: auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
-    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
-    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+		input {
+			font-size: 90%;
+		}
+		
+		.ui-button-text-only .ui-button-text {
+			font-size: 70%;
+			padding: .2em .5em;
+		}
+		
+		a {
+			color: #BF6B04;
+		}
+		
+		a:visited {
+			color: #A63F03;
+		}
 
-    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+	</style>
 
-    <script type="text/javascript" src="js/gemp-022/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-022/common.js"></script>
-    <script type="text/javascript" src="js/gemp-022/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-022/chat.js"></script>
-    <script type="text/javascript" src="js/gemp-022/communication.js"></script>
-    <script type="text/javascript" src="js/gemp-022/deliveryService.js"></script>
-    <script type="text/javascript" src="js/gemp-022/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+	<link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
 
-    <script type="text/javascript" src="js/gemp-022/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/gemp-022/hobbit.js"></script>
-    <script type="text/javascript" src="js/gemp-022/set40.js"></script>
-    <script type="text/javascript" src="js/gemp-022/jCards.js"></script>
-    <script type="text/javascript" src="js/gemp-022/PC_Cards.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+	<script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
 
-    <script type="text/javascript" src="js/gemp-022/hallUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/leagueResultsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/tournamentResultsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/statsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/playerStatsUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/gameHistoryUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/deckBuildingUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/gameUi.js"></script>
-    <script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
-    <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/inheritance.js"></script>
+	<script type="text/javascript" src="js/gemp-022/common.js"></script>
+	<script type="text/javascript" src="js/gemp-022/logging.js"></script>
+	<script type="text/javascript" src="js/gemp-022/chat.js"></script>
+	<script type="text/javascript" src="js/gemp-022/communication.js"></script>
+	<script type="text/javascript" src="js/gemp-022/deliveryService.js"></script>
+	<script type="text/javascript" src="js/gemp-022/commonUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>
 
-    <script type="text/javascript">
-        jQuery.fn.center = function () {
-            this.css("position", "absolute");
-            this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
-            this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
-            return this;
-        };
+	<script type="text/javascript" src="js/gemp-022/jCardGroup.js"></script>
+	<script type="text/javascript" src="js/gemp-022/hobbit.js"></script>
+	<script type="text/javascript" src="js/gemp-022/set40.js"></script>
+	<script type="text/javascript" src="js/gemp-022/jCards.js"></script>
+	<script type="text/javascript" src="js/gemp-022/PC_Cards.js"></script>
 
-        var comm = new GempLotrCommunication("/gemp-lotr-server", function () {
-            alert("Unable to contact the server");
-        });
+	<script type="text/javascript" src="js/gemp-022/hallUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/leagueResultsUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/tournamentResultsUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/statsUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/playerStatsUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/gameHistoryUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/deckBuildingUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/gameUi.js"></script>
+	<script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
+	<script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
 
-        function register() {
-            var login = $("#login").val();
-            var password = $("#password").val();
-            var password2 = $("#password2").val();
-            if (password != password2) {
-                $(".error").html("Password and Password repeated are different! Try again");
-            } else {
-                comm.register(login, password, function () {
-                        location.href = "/gemp-lotr/hall.html";
-                    },
-                    {
-                        "0": function () {
-                            alert("Unable to connect to server, either server is down or there is a problem" +
-                                " with your internet connection");
-                        },
-                        "400": function () {
-                            $(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>" +
-                                " english letters, numbers or _ (underscore) and - (dash) characters.");
-                        },
-                        "409": function () {
-                            $(".error").html("User with this login already exists in the system. Try a different one.");
-                        },
-                        "503": function () {
-                            $(".error").html("Server is down for maintenance. Please come at a later time.");
-                        }
-                    });
-            }
+	<script type="text/javascript">
 
-        }
 
-        function registrationScreen() {
-            comm.getRegistrationForm(
-                function (html) {
-                    $(".error").html();
-                    $(".interaction").html(html);
-                    $("#registerButton").button().click(register);
-                });
-        }
+		var comm = new GempLotrCommunication("/gemp-lotr-server", function () {
+			alert("Unable to contact the server");
+		});
 
-        function login() {
-            var login = $("#login").val();
-            var password = $("#password").val();
-            comm.login(login, password, function () {
-                    location.href = "/gemp-lotr/hall.html";
-                },
-                {
-                    "0": function () {
-                        alert("Unable to connect to server, either server is down or there is a problem" +
-                            " with your internet connection");
-                    },
-                    "401": function () {
-                        $(".error").html("Invalid username or password. Try again.");
-                        loginScreen();
-                    },
-                    "403": function () {
-                        $(".error").html("You have been permanently banned. If you think it was a mistake you can try sending a private message to Merrick_H on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
-                        $(".interaction").html("");
-                    },
-                    "409": function () {
-                        $(".error").html("You have been temporarily banned. You can try logging in at a later time. If you think it was a mistake you can try sending a private message to Merrick_H on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
-                        $(".interaction").html("");
-                    },
-                    "503": function () {
-                        $(".error").html("Server is down for maintenance. Please come at a later time.");
-                    }
-                });
-        }
+		function register() {
+			var login = $("#login").val();
+			var password = $("#password").val();
+			var password2 = $("#password2").val();
+			if (password != password2) {
+				$(".error").html("Password and Password repeated are different! Try again");
+			} else {
+				comm.register(login, password, function () {
+						location.href = "/gemp-lotr/hall.html";
+					},
+					{
+						"0": function () {
+							alert("Unable to connect to server, either server is down or there is a problem" +
+								" with your internet connection");
+						},
+						"400": function () {
+							$(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>" +
+								" english letters, numbers or _ (underscore) and - (dash) characters.");
+						},
+						"409": function () {
+							$(".error").html("User with this login already exists in the system. Try a different one.");
+						},
+						"503": function () {
+							$(".error").html("Server is down for maintenance. Please come at a later time.");
+						}
+					});
+			}
 
-        function loginScreen() {
-            $(".interaction").html("");
-            $(".interaction").append("Login below, or ");
-            var registerButton = $("<div>Register</div>").button();
-            registerButton.click(registrationScreen);
+		}
 
-            $(".interaction").append(registerButton);
-            $(".interaction").append("<br/>Login: <input id='login' type='text'><br/>Password: <input id='password' type='password'><br/>");
+		function registrationScreen() {
+			comm.getRegistrationForm(
+				function (html) {
+					$(".error").html();
+					$(".interaction").html(html);
+					$("#registerButton").button().click(register);
+				});
+		}
 
-            var loginButton = $("<div>Login</div>").button();
-            loginButton.click(login);
+		function login() {
+			var login = $("#login").val();
+			var password = $("#password").val();
+			comm.login(login, password, function () {
+					location.href = "/gemp-lotr/hall.html";
+				},
+				{
+					"0": function () {
+						alert("Unable to connect to server, either server is down or there is a problem" +
+							" with your internet connection");
+					},
+					"401": function () {
+						$(".error").html("Invalid username or password. Try again.");
+						loginScreen();
+					},
+					"403": function () {
+						$(".error").html("You have been permanently banned. If you think it was a mistake you can try sending a private message to Merrick_H on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
+						$(".interaction").html("");
+					},
+					"409": function () {
+						$(".error").html("You have been temporarily banned. You can try logging in at a later time. If you think it was a mistake you can try sending a private message to Merrick_H on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
+						$(".interaction").html("");
+					},
+					"503": function () {
+						$(".error").html("Server is down for maintenance. Please come at a later time.");
+					}
+				});
+		}
 
-            $("#password").keypress(function (e) {
-                if (e.which == 13) {
-                    login();
-                    e.preventDefault();
-                    return false;
-                }
-            });
+		function loginScreen() {
+			$(".interaction").html("");
+			$(".interaction").append("Login below, or ");
+			var registerButton = $("<div>Register</div>").button();
+			registerButton.click(registrationScreen);
 
-            $(".interaction").append(loginButton);
-        }
+			$(".interaction").append(registerButton);
+			$(".interaction").append("<br/>Login: <input id='login' type='text'><br/>Password: <input id='password' type='password'><br/>");
 
-        $(document).ready(
-            function () {
-                comm.getStatus(
-                    function (html) {
-                        $(".status").append(html);
-                    });
-                loginScreen();
-            });
-    </script>
+			var loginButton = $("<div>Login</div>").button();
+			loginButton.click(login);
+
+			$("#password").keypress(function (e) {
+				if (e.which == 13) {
+					login();
+					e.preventDefault();
+					return false;
+				}
+			});
+
+			$(".interaction").append(loginButton);
+		}
+
+		$(document).ready(
+			function () {
+				comm.getStatus(
+					function (html) {
+						$(".status").append(html);
+					});
+				loginScreen();
+			});
+	</script>
 
 </head>
 <body bgcolor="#000000" >
-    <div class="dim"></div>
-    <div class="centerContainer">
-        <div class="banner">
-            <h1>GEMP: Play the LotR-TCG</h1>
-        </div>
-        <div class="login">
-            <div class="status" style="color:#ffffff; overflow:visible"></div>
-            <div class="error" style="color: #ff0000;"></div>
-            <div class="interaction" style="color: #ffffff;"></div>
-        </div>
-    </div>
+	<div class="dim"></div>
+	<div class="centerContainer">
+		<h1 class="banner">GEMP: Play the Lord of the Rings TCG</h1>
+		<div class="content">
+			<div class="login">
+				<div class="status"></div>
+				<div class="error"></div>
+				<div class="interaction"></div>
+			</div>
+			<div class="info">
+				<p><a href="https://wiki.lotrtcgpc.net/wiki/The_Lord_of_the_Rings_TCG">The Lord of the Rings TCG</a> was published by Decipher, Inc from 2001-2007.  GEMP is a platform for playing this excellent game for free in your browser.  Maintained by the unofficial <a href="https://lotrtcgpc.net/">Player's Council</a>.</p>
+				
+				<div class="sw-shoutout">
+					<img src="https://res.starwarsccg.org/gemp/lightForce-42.png" height="20"/>
+					<p>(Also check out the <a href="https://gemp.starwarsccg.org/gemp-swccg/">Star Wars CCG GEMP</a> ran by the <a href="https://www.starwarsccg.org/">Star Wars Players Committee</a>.)</p>
+					<img src="https://res.starwarsccg.org/gemp/darkForce-42.png" height="20"/>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
