@@ -280,13 +280,13 @@
         </div>
     </div>
     <div id="buttonsDiv" class="flex-horiz">
-            <a href="deckBuild.html">Deck builder</a>
+            <a href="deckBuild.html" style="min-width:80px;">Deck builder</a>
             | 
             <a href='merchant.html' style="text-decoration: line-through underline;">Merchant</a> 
             | 
-            <select id="supportedFormatsSelect" style='width: 180px'></select>
-            <select id="decksSelect" style="width: 220px;flex-grow:1;"></select>
-            <input id='tableDescInput' type='text' maxlength='50' style='width: 150px;' placeHolder='Description (optional)'>
+            <select id="supportedFormatsSelect" ></select>
+            <select id="decksSelect" ></select>
+            <input id='tableDescInput' type='text' maxlength='100' placeHolder='Description (optional, 100 char max)'>
             <select id="timerSelect" style="width: 135px;">
                 <option value="default">Default (80m/5m)</option>
                 <option value="blitz">Blitz! (30m/3m)</option>
@@ -294,6 +294,7 @@
                 <option value="glacial">Glacial (3d/1d)</option>
             </select>
             <button id="createTableBut">Create table</button>
+            <label style="min-width: fit-content;"><input type='checkbox' id='isPrivateCheckbox'>Private</input></label>
             
         </div>
         <div id="chat" class="ui-widget-content grid-container" >

@@ -388,3 +388,21 @@ a:visited {
 	gap: 4px;
 	margin: 1px;
 }
+
+#createTableBut {
+	min-width: 95px;
+}
+
+#supportedFormatsSelect {
+	min-width: 150px;
+}
+
+#decksSelect {
+	min-width: 220px; 
+	flex-grow:2;
+}
+
+#tableDescInput {
+	min-width: 150px; 
+	flex-grow: 1;
+}

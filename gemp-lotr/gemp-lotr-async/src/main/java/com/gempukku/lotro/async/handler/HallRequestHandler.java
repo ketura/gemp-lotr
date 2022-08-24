@@ -130,11 +130,27 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             String deckName = getFormParameterSafely(postDecoder, "deckName");
             String timer = getFormParameterSafely(postDecoder, "timer");
             String desc = getFormParameterSafely(postDecoder, "desc");
+            String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
+            boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
+            if(isPrivate) {
+                if(desc.length()==0) {
+                    responseWriter.writeXmlResponse(marshalException(new HallException("Private games must have your intended opponent in the description")));
+                    return;
+                }
+
+                if(desc.equalsIgnoreCase(resourceOwner.getName())) {
+                    responseWriter.writeXmlResponse(marshalException(new HallException("Absolutely no playing with yourself!!  Private matches must be with someone else.")));
+                    return;
+                }
+            }
+
+
+
             try {
-                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc);
+                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc, isPrivate);
                 responseWriter.writeXmlResponse(null);
             }
             catch (HallException e) {
@@ -142,7 +158,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 {
                     //try again assuming it's a new player with one of the default library decks selected
                     Player librarian = _playerDao.getPlayer("Librarian");
-                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc);
+                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isPrivate);
                     responseWriter.writeXmlResponse(null);
                 }
                 catch (HallException ex) { }

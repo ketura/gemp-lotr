@@ -7,6 +7,7 @@ var GempLotrHallUI = Class.extend({
     tableDescInput:null,
     timerSelect:null,
     createTableButton:null,
+    isPrivateCheckbox:null,
 
     tablesDiv:null,
     buttonsDiv:null,
@@ -36,6 +37,7 @@ var GempLotrHallUI = Class.extend({
 
         this.tablesDiv = $("#tablesDiv");
         this.tableDescInput = $("#tableDescInput");
+        this.isPrivateCheckbox = $("#isPrivateCheckbox");
 
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
@@ -69,9 +71,10 @@ var GempLotrHallUI = Class.extend({
                 var deck = that.decksSelect.val();
                 var tableDesc = that.tableDescInput.val();
                 var timer = that.timerSelect.val();
+                var isPrivate = that.isPrivateCheckbox.is(':checked');
                 if (deck != null)
                     console.log("creating table");
-                    that.comm.createTable(format, deck, timer, tableDesc, function (xml) {
+                    that.comm.createTable(format, deck, timer, tableDesc, isPrivate, function (xml) {
                         console.log("received table response");
                         that.processResponse(xml);
                     });
@@ -406,6 +409,7 @@ var GempLotrHallUI = Class.extend({
                     var formatName = table.getAttribute("format");
                     var tournamentName = table.getAttribute("tournament");
                     var userDesc = table.getAttribute("userDescription");
+                    var isPrivate = (table.getAttribute("isPrivate") === "true");
                     var players = new Array();
                     if (playersAttr.length > 0)
                         players = playersAttr.split(",");
@@ -418,7 +422,14 @@ var GempLotrHallUI = Class.extend({
                     var name = "<td>" + tournamentName;
                     if(!!userDesc)
                     {
-                        name += " - <i>[" + userDesc + "]</i>";
+                        if(isPrivate)
+                        {
+                            name += " - <i>Private match for user '" + userDesc + "'.";
+                        }
+                        else 
+                        {
+                            name += " - <i>[" + userDesc + "]</i>";
+                        }
                     }
                     name += "</td>";
                     row.append(name);
@@ -445,7 +456,8 @@ var GempLotrHallUI = Class.extend({
                                     };
                                 })(id));
                             lastField.append(but);
-                        } else {
+                        } 
+                        else if(!isPrivate || userDesc === chat.userName) {
                             var that = this;
 
                             var but = $("<button>Join table</button>");
