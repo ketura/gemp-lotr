@@ -410,6 +410,7 @@ var GempLotrHallUI = Class.extend({
                     var tournamentName = table.getAttribute("tournament");
                     var userDesc = table.getAttribute("userDescription");
                     var isPrivate = (table.getAttribute("isPrivate") === "true");
+                    var privateForYou = isPrivate && userDesc === chat.userName;
                     var players = new Array();
                     if (playersAttr.length > 0)
                         players = playersAttr.split(",");
@@ -457,7 +458,7 @@ var GempLotrHallUI = Class.extend({
                                 })(id));
                             lastField.append(but);
                         } 
-                        else if(!isPrivate || userDesc === chat.userName) {
+                        else if(!isPrivate || privateForYou) {
                             var that = this;
 
                             var but = $("<button>Join table</button>");
@@ -540,6 +541,9 @@ var GempLotrHallUI = Class.extend({
 
                     if (playing == "true")
                         row.addClass("played");
+                    
+                    if(privateForYou)
+                        row.addClass("privateForPlayer");
                 } else if (action == "remove") {
                     $(".table" + id, this.tablesDiv).remove();
                 }

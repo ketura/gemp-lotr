@@ -170,7 +170,11 @@ table.tables td, table.tables th {
 }
 
 tr.played {
-	background-color: #990000;
+	background-color: #590902;
+}
+
+tr.privateForPlayer {
+	background-color: #A63F03;
 }
 
 #chat {
