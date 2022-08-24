@@ -5,6 +5,7 @@
 <title>Gemp-LotR</title>
 
     <link rel="stylesheet" type="text/css" href="css/gemp-001/hall.css">
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/icons.css">
 
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
@@ -144,23 +145,62 @@
 <div id="main" >
     <div id="tabs">
         <ul>
-            <li><a href="#gameHall">Game Hall</a></li>
-            <li><a href="includes/help.html">Help</a></li>
-            <li><a href="includes/events.html">Events</a></li>
-            <li><a href="includes/stats.html">Server stats</a></li>
-            <li><a href="includes/changeLog.html">Change Log</a></li>
-            <li><a href="includes/user.html">User Profile</a></li>
+            <li><a href="#gameHall">
+                <span class="custom-icon icon-hall" style="display:inline-block"></span>
+                <span>Game Hall</span>
+                </a>
+            </li>
+            <li><a href="includes/help.html">
+                <span class="custom-icon icon-help" style="display:inline-block"></span>
+                <span>Help</span>
+                </a>
+            </li>
+            <li><a href="includes/events.html">
+                <span class="custom-icon icon-events" style="display:inline-block"></span>
+                <span>Events</span>
+                </a>
+            </li>
+            <li><a href="includes/stats.html">
+                <span class="custom-icon icon-stats" style="display:inline-block"></span>
+                <span>Server Stats</span>
+                </a>
+            </li>
+            <li><a href="includes/user.html">
+                <span class="custom-icon icon-users" style="display:inline-block"></span>
+                <span>Users</span>
+                </a>
+            </li>
+            <li><a href="includes/help.html">
+                <span class="custom-icon icon-account" style="display:inline-block"></span>
+                <span>My Account</span>
+                </a>
+            </li>
         </ul>
     </div>
     <div id="gameHall" class="flex-horiz hall-tab">
         <div id="serverInfo" class="flex-horiz" style="align-items:stretch">
             <div id="news" class="flex-vert">
-                <div id="bugReport">
-                    "If you find any problems with specific card or rules in general, please report it on <a target='_blank' href='http://lotrtcgwiki.com/forums/index.php/topic,7592.0.html'>TLHH forum thread here</a> or on the <a href='https://lotrtcgpc.net/discord'>PC Discord here</a>, in the #gemp-dev channel. Please include a game replay link.
+                <div id="infoButtons" class="flex-horiz">
+                    <a href="https://lotrtcgwiki.com/forums/index.php?topic=7592.2610#new" target="_blank"><button id="bug-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                        <span class="custom-icon icon-bug" style="display:inline-block"></span><span>Report a Bug</span>
+                    </button></a>
+                    
+                    <a href="https://lotrtcgwiki.com/forums/index.php?topic=8267.585#new" target="_blank"><button id="report-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                        <span class="custom-icon icon-report" style="display:inline-block"></span><span>Report a Player</span>
+                    </button></a>
+                    
+                    <a href="https://lotrtcgpc.net/discord" target="_blank"><button id="discord-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                        <span class="custom-icon icon-discord" style="display:inline-block"></span><span>Join the PC Discord</span>
+                    </button></a>
+                    
+                    <a href="https://wiki.lotrtcgpc.net" target="_blank"><button id="wiki-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                        <span class="custom-icon icon-wiki" style="display:inline-block"></span><span>Browse the LOTR-TCG Wiki</span>
+                    </button></a>
+                    <!-- If you find any problems with specific card or rules in general, please report it on <a target='_blank' href='http://lotrtcgwiki.com/forums/index.php/topic,7592.0.html'>TLHH forum thread here</a> or on the <a href='https://lotrtcgpc.net/discord'>PC Discord here</a>, in the #gemp-dev channel. Please include a game replay link. -->
                 </div>
                 <div id="motd"></div>
             </div>
-            <div class='serverTime' style='float: right'></div>
+            <div class='serverTime' ></div>
         </div>
         <div id="hall" class="ui-widget-content">
             <div id="tablesDiv" style="overflow:auto; left:0px; top:0px;">

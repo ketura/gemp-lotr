@@ -1,324 +1,330 @@
 html, body {
-    font-size: 12px;
-    background-color: #000000;
-    height: 98%;
+	font-size: 12px;
+	background-color: #000000;
+	height: 98%;
 }
 
 .eventHeader {
-    font-size: 120%;
-    font-weight: bolder;
-    background-color: #666666;
-    cursor: pointer;
+	font-size: 120%;
+	font-weight: bolder;
+	background-color: #666666;
+	cursor: pointer;
 }
 
 .serverTime {
-    border: 1px solid #ffffff;
+	border: 1px solid #ffffff;
 }
 
 .leagueName, #stats .period, .tournamentName, .playerStatHeader {
-    font-size: 200%;
-    font-weight: bolder;
+	font-size: 200%;
+	font-weight: bolder;
 }
 
 .serieName {
-    font-size: 150%;
-    font-weight: bolder;
+	font-size: 150%;
+	font-weight: bolder;
 }
 
 .borderOverlay {
-    border: 2px solid #000000;
+	border: 2px solid #000000;
 }
 
 .foilOverlay {
-    opacity: 0.2;
+	opacity: 0.2;
 }
 
 .cardHint {
-    display: inline;
-    color: #6f6fff;
-    cursor: pointer;
+	display: inline;
+	color: #6f6fff;
+	cursor: pointer;
 }
 
 .prizeHint {
-    display: inline;
-    color: #6f6fff;
-    cursor: pointer;
+	display: inline;
+	color: #6f6fff;
+	cursor: pointer;
 }
 
 .clickableFormat {
-    cursor: pointer;
-    color: #6f6fff;
+	cursor: pointer;
+	color: #6f6fff;
 }
 
 .pocket {
-    background-color: #000000;
-    border: 1px solid #ffffff;
-    color: #ffffff;
-    font-size: 90%;
-    font-weight: bolder;
-    text-align: right;
-    opacity: 1;
-    height: 18px;
-    width: 95px;
+	background-color: #000000;
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	font-size: 90%;
+	font-weight: bolder;
+	text-align: right;
+	opacity: 1;
+	height: 18px;
+	width: 95px;
 }
 
 .cardCount {
-    width: 20px;
-    height: 18px;
-    background-color: #000000;
-    color: #ffffff;
-    font-size: 120%;
-    font-weight: bolder;
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    opacity: 0.7;
+	width: 20px;
+	height: 18px;
+	background-color: #000000;
+	color: #ffffff;
+	font-size: 120%;
+	font-weight: bolder;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	opacity: 0.7;
 }
 
 .tableFormatName {
-    text-align: center;
-    font-weight: bold;
-    font-size: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 100%;
 }
 
 .tableStatus {
-    text-align: center;
-    font-style: italic;
-    font-size: 100%;
+	text-align: center;
+	font-style: italic;
+	font-size: 100%;
 }
 
 .tablePlayer {
-    text-align: center;
+	text-align: center;
 }
 
 .winningPlayer {
-    font-weight: bold;
-    font-size: 110%;
+	font-weight: bold;
+	font-size: 110%;
 }
 
 .losingPlayer {
-    font-size: 80%;
+	font-size: 80%;
 }
 
 .chatMessage {
-    color: #ffffff;
+	color: #ffffff;
 }
 
 .systemMessage {
-    color: #5f5f5f;
+	color: #5f5f5f;
 }
 
 .warningMessage {
-    color: #ff0000;
+	color: #ff0000;
 }
 
 .chatUser {
-    color: #ffffff;
+	color: #ffffff;
 }
 
 .systemMessage > .timestamp {
-    display: inline;
-    color: #5f5f5f;
+	display: inline;
+	color: #5f5f5f;
 }
 
 .timestamp {
-    color: #cfcfcf;
+	color: #cfcfcf;
 }
 
 #disclaimer {
-    color: #ffffff;
-    font-size: 80%;
+	color: #ffffff;
+	font-size: 80%;
 }
 
-#latestNews {
-    color: #ffffff;
-    font-size: 90%;
+#news {
+	flex-grow: 1;
 }
 
 #motd {
-    color: #ffffff;
-    font-size: 90%;
+	color: #ffffff;
+	margin: 5px;
 }
 
 table.tables {
-    width: 100%;
+	width: 100%;
 }
 
 table.tables td, table.tables th {
-    padding: 2px;
-    border: 1px solid white;
+	padding: 2px;
+	border: 1px solid white;
 }
 
 .ui-tabs-nav li {
-    font-size: 70%;
 }
 
 .ui-button-text-only .ui-button-text {
-    font-size: 70%;
-    padding: .2em .5em;
+	padding: .2em .5em;
 }
 
 .standings td, .standings th {
-    padding: 2px;
-    border: 1px solid white;
+	padding: 2px;
+	border: 1px solid white;
 }
 
 .gameHistory td, .gameHistory th {
-    padding: 2px;
-    border: 1px solid white;
+	padding: 2px;
+	border: 1px solid white;
 }
 
 .userList {
-    border-left: 1px solid #FFFFFF;
+	border-left: 1px solid #FFFFFF;
 }
 
 tr.played {
-    background-color: #990000;
+	background-color: #990000;
 }
 
 #chat {
-    display: grid;
-    grid-template-columns: auto 150px;
-    position:relative;
-    width:100%;
-    height:40%;
-    min-height: 300px;
-    grid-gap: 3px;
-    overflow: hidden;
+	display: grid;
+	grid-template-columns: auto 150px;
+	position:relative;
+	width:100%;
+	height:40%;
+	min-height: 300px;
+	grid-gap: 3px;
+	overflow: hidden;
 }
 
 #chatarea {
-    position:relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+	position:relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 #chatMessages {
-    height: 100%;
-    max-height: 100%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
+	height: 100%;
+	max-height: 100%;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
 }
 
 #userListColumn {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
 }
 
 #userList {
-    flex-grow: 1;
-    overflow: scroll;
+	flex-grow: 1;
+	overflow: scroll;
 }
 
 #toggleChatButt {
-    flex: none;
-    height: 25px;
+	flex: none;
+	height: 25px;
 }
 
 #legacyChat {
-    
-    display: grid;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    grid-template-columns: auto;
-    grid-template-rows: auto 25px;
+	
+	display: grid;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+	grid-template-columns: auto;
+	grid-template-rows: auto 25px;
 }
 
 #legacyChatInput {
-    display: flex;
+	display: flex;
 }
 
 #chatTalk {
-    flex-grow: 1;
-    resize: none;
-    max-height: 60px;
+	flex-grow: 1;
+	resize: none;
+	max-height: 60px;
 }
 
 #discordChat {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
 #widgetbot {
-    position: relative;
-    width: 100%;
-    height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 
 .highlight-new {
-    background-color: #aa2222 !important;
+	background-color: #aa2222 !important;
 }
 
 .flex-horiz {
-    display: flex;
-    flex-direction: row;
-    gap: 2px;
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
 }
 
 .flex-vert {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
 }
 #tabs{
-    position: sticky;
+	position: sticky;
 }
 
 #buttonsDiv {
-    left:0px; 
-    top: 0px;
-    height: 40px;
-    background-color:#000000; 
-    border-top-width:1px; 
-    border-top-color:#ffffff; 
-    border-top-style:solid;
-    align-items: center;
-    gap: 4px;
+	left:0px; 
+	top: 0px;
+	height: 40px;
+	background-color:#000000; 
+	border-top-width:1px; 
+	border-top-color:#ffffff; 
+	border-top-style:solid;
+	align-items: center;
+	gap: 4px;
 }
 
 .hall-tab {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    gap: 5px;
-    overflow: scroll;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 5px;
+	overflow: scroll;
 }
 
 #main {
-    top: 5px;
-    height: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+	top: 5px;
+	height: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 #disclaimer {
-    font-size: 60%;
-    position: absolute;
-    bottom: -15px;
+	font-size: 60%;
+	position: absolute;
+	bottom: -15px;
 }
 
 .ui-tabs-panel {
-    height: 100%;
+	height: 100%;
 }
 
 #tablesDiv {
-    overflow: auto;
+	overflow: auto;
 }
 
 #buttonsDiv a,
 #motd a,
-#bugReport a,
+#infoButtons a,
 .msg-content p a {
-    color: orange;
+	color: #BF6B04;
+}
+
+#infoButtons {
+	flex-wrap: wrap;
+	padding: 3px;
+}
+
+a:visited {
+	color: #A63F03;
 }
 
 .chatMessage h1, 
@@ -327,51 +333,58 @@ tr.played {
 .chatMessage h4, 
 .chatMessage h5,
 .chatMessage h6 {
-    display:  inline;
-    margin-top: 0;
-    margin-bottom: 0;
+	display:  inline;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .chatMessage p {
-    margin-top: 0;
-    margin-bottom: 0; 
+	margin-top: 0;
+	margin-bottom: 0; 
 }
 
 .chatMessage blockquote {
-    display:  inline-block;
-    border-left: 5px solid #505050;
-    margin-left: 5px;
-    margin-top: 0px;
-    margin-bottom: 5px;
-    font-style:  italic;
+	display:  inline-block;
+	border-left: 5px solid #505050;
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+	font-style:  italic;
 }
 .chatMessage blockquote br {
-    line-height: 0px;
-    margin: 0px;
-    content: "";
+	line-height: 0px;
+	margin: 0px;
+	content: "";
 }
 
 .user-mention {
-    background-color: #FFFF0044;
+	background-color: #FFFF0044;
 }
 
 .user-ping {
-    background-color: #FF000044;
+	background-color: #FF000044;
 }
 
 .message {
-    display: flex;
-    flex-direction: row;
-    gap: 2px;
-    align-items:  flex-start;
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
+	align-items:  flex-start;
 }
 
 .msg-content p {
-    margin-left: 5px;
-    margin-top: 0px;
-    margin-bottom: 7px;
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-bottom: 7px;
+}
+
+.msg-content {
+	flex-grow:  10;
 }
 
 .msg-identifier {
-    
+	min-width: fit-content;
+	display: flex;
+	gap: 4px;
+	margin: 1px;
 }

@@ -160,7 +160,12 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
         } else if (fileName.endsWith(".gif")) {
             cache = true;
             contentType = "image/gif";
-        } else if (fileName.endsWith(".wav")) {
+        }
+        else if (fileName.endsWith(".svg")) {
+            cache = true;
+            contentType = "image/svg+xml";
+        }
+        else if (fileName.endsWith(".wav")) {
             cache = true;
             contentType = "audio/wav";
         } else {

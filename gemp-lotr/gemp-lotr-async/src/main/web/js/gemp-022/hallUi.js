@@ -47,6 +47,10 @@ var GempLotrHallUI = Class.extend({
         this.initTable(hallSettings[4] == "1", "activeTournamentsHeader", "activeTournamentsContent");
 
         this.buttonsDiv = $("#buttonsDiv");
+        $("#bug-button").button();
+        $("#report-button").button();
+        $("#discord-button").button();
+        $("#wiki-button").button();
 
         var that = this;
 
