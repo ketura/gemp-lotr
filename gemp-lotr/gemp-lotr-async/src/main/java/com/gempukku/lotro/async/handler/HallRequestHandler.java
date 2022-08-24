@@ -125,30 +125,32 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private void createTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String format = getFormParameterSafely(postDecoder, "format");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        String timer = getFormParameterSafely(postDecoder, "timer");
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String format = getFormParameterSafely(postDecoder, "format");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            String timer = getFormParameterSafely(postDecoder, "timer");
+            String desc = getFormParameterSafely(postDecoder, "desc");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        try {
-            _hallServer.createNewTable(format, resourceOwner, deckName, timer);
-            responseWriter.writeXmlResponse(null);
-        } catch (HallException e) {
-            try
-            {
-                //try again assuming it's a new player with one of the default library decks selected
-                Player librarian = _playerDao.getPlayer("Librarian");
-                _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer);
+            try {
+                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc);
                 responseWriter.writeXmlResponse(null);
-            } catch (HallException ex) {
-
             }
+            catch (HallException e) {
+                try
+                {
+                    //try again assuming it's a new player with one of the default library decks selected
+                    Player librarian = _playerDao.getPlayer("Librarian");
+                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc);
+                    responseWriter.writeXmlResponse(null);
+                }
+                catch (HallException ex) { }
 
             responseWriter.writeXmlResponse(marshalException(e));
+            }
         }
-        } finally {
+        finally {
             postDecoder.destroy();
         }
     }
@@ -347,21 +349,23 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private void updateHall(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-        processLoginReward(resourceOwner.getName());
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            processLoginReward(resourceOwner.getName());
 
-        try {
-            HallCommunicationChannel pollableResource = _hallServer.getCommunicationChannel(resourceOwner, channelNumber);
-            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(pollableResource, request, resourceOwner, responseWriter);
-            longPollingSystem.processLongPollingResource(polledResource, pollableResource);
-        } catch (SubscriptionExpiredException exp) {
-            responseWriter.writeError(410);
-        } catch (SubscriptionConflictException exp) {
-            responseWriter.writeError(409);
-        }
+            try {
+                HallCommunicationChannel pollableResource = _hallServer.getCommunicationChannel(resourceOwner, channelNumber);
+                HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(pollableResource, request, resourceOwner, responseWriter);
+                longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+            }
+            catch (SubscriptionExpiredException exp) {
+                responseWriter.writeError(410);
+            }
+            catch (SubscriptionConflictException exp) {
+                responseWriter.writeError(409);
+            }
         } finally {
             postDecoder.destroy();
         }

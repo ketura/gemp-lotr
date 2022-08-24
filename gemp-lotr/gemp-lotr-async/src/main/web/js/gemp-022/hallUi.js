@@ -4,6 +4,7 @@ var GempLotrHallUI = Class.extend({
     supportedFormatsInitialized:false,
     supportedFormatsSelect:null,
     decksSelect:null,
+    tableDescInput:null,
     timerSelect:null,
     createTableButton:null,
 
@@ -34,6 +35,7 @@ var GempLotrHallUI = Class.extend({
         this.chat = chat;
 
         this.tablesDiv = $("#tablesDiv");
+        this.tableDescInput = $("#tableDescInput");
 
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
@@ -62,17 +64,14 @@ var GempLotrHallUI = Class.extend({
         this.createTableButton = $("#createTableBut");
         $(this.createTableButton).button().click(
             function () {
-                //that.supportedFormatsSelect.hide();
-                //that.decksSelect.hide();
                 that.createTableButton.hide();
-                // $("#createTableBut").prop("disabled", true);
-                // $("#createTableBut").prop("aria-disabled", true);
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
+                var tableDesc = that.tableDescInput.val();
                 var timer = that.timerSelect.val();
                 if (deck != null)
                     console.log("creating table");
-                    that.comm.createTable(format, deck, timer, function (xml) {
+                    that.comm.createTable(format, deck, timer, tableDesc, function (xml) {
                         console.log("received table response");
                         that.processResponse(xml);
                     });
@@ -406,6 +405,7 @@ var GempLotrHallUI = Class.extend({
                     var playersAttr = table.getAttribute("players");
                     var formatName = table.getAttribute("format");
                     var tournamentName = table.getAttribute("tournament");
+                    var userDesc = table.getAttribute("userDescription");
                     var players = new Array();
                     if (playersAttr.length > 0)
                         players = playersAttr.split(",");
@@ -415,7 +415,13 @@ var GempLotrHallUI = Class.extend({
                     var row = $("<tr class='table" + id + "'></tr>");
 
                     row.append("<td>" + formatName + "</td>");
-                    row.append("<td>" + tournamentName + "</td>");
+                    var name = "<td>" + tournamentName;
+                    if(!!userDesc)
+                    {
+                        name += " - <i>[" + userDesc + "]</i>";
+                    }
+                    name += "</td>";
+                    row.append(name);
                     row.append("<td>" + statusDescription + "</td>");
 
                     var playersStr = "";

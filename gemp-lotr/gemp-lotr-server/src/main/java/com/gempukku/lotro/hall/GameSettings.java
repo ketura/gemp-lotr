@@ -15,9 +15,11 @@ public class GameSettings {
     private final String timerName;
     private final int maxSecondsPerPlayer;
     private final int maxSecondsPerDecision;
+    private final String userDescription;
 
     public GameSettings(CollectionType collectionType, LotroFormat lotroFormat, League league, LeagueSerieData leagueSerie,
-                        boolean competitive, boolean privateGame, String timerName, int maxSecondsPerPlayer, int maxSecondsPerDecision) {
+                        boolean competitive, boolean privateGame, String timerName, int maxSecondsPerPlayer, int maxSecondsPerDecision,
+                        String description) {
         this.collectionType = collectionType;
         this.lotroFormat = lotroFormat;
         this.league = league;
@@ -27,6 +29,7 @@ public class GameSettings {
         this.timerName = timerName;
         this.maxSecondsPerPlayer = maxSecondsPerPlayer;
         this.maxSecondsPerDecision = maxSecondsPerDecision;
+        this.userDescription = description;
     }
 
     public CollectionType getCollectionType() {
@@ -64,4 +67,6 @@ public class GameSettings {
     public String getTimerName() {
         return timerName;
     }
+
+    public String getUserDescription() { return userDescription; }
 }
