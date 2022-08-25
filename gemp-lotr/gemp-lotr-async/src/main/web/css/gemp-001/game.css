@@ -332,6 +332,7 @@ body {
     content: "";
 }
 
+.gameMessage,
 .gameMessage div {
     display: inline;
 }
@@ -349,6 +350,7 @@ body {
     flex-direction: row;
     gap: 2px;
     align-items:  flex-start;
+    flex-wrap: wrap;
 }
 
 .msg-content p {
@@ -357,6 +359,13 @@ body {
     margin-bottom: 7px;
 }
 
-.msg-identifier {
+.msg-content {
+    flex-grow:  10;
+}
 
+.msg-identifier {
+    min-width: fit-content;
+    display: flex;
+    gap: 4px;
+    margin: 1px;
 }

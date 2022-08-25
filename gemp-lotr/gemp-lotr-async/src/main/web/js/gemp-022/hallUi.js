@@ -17,6 +17,8 @@ var GempLotrHallUI = Class.extend({
     hallChannelId: null,
 
     init:function (url, chat) {
+        var that = this;
+        
         this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
             if (thrownError != "abort") {
                 if (xhr != null) {
@@ -33,11 +35,17 @@ var GempLotrHallUI = Class.extend({
                 chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
             }
         });
+        
         this.chat = chat;
-
         this.tablesDiv = $("#tablesDiv");
         this.tableDescInput = $("#tableDescInput");
         this.isPrivateCheckbox = $("#isPrivateCheckbox");
+        this.pocketDiv = $("#pocketDiv");
+        this.supportedFormatsSelect = $("#supportedFormatsSelect");
+        this.createTableButton = $("#createTableBut");
+        this.decksSelect = $("#decksSelect");
+        this.timerSelect = $("#timerSelect");
+        this.buttonsDiv = $("#buttonsDiv");
 
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
@@ -49,24 +57,19 @@ var GempLotrHallUI = Class.extend({
         this.initTable(hallSettings[2] == "1", "finishedTablesHeader", "finishedTablesContent");
         this.initTable(hallSettings[3] == "1", "tournamentQueuesHeader", "tournamentQueuesContent");
         this.initTable(hallSettings[4] == "1", "activeTournamentsHeader", "activeTournamentsContent");
-
-        this.buttonsDiv = $("#buttonsDiv");
+        
+        $("#deckbuilder-button").button();
         $("#bug-button").button();
         $("#report-button").button();
         $("#discord-button").button();
         $("#wiki-button").button();
+        $("#merchant-button").button();
 
-        var that = this;
-
-        this.pocketDiv = $("#pocketDiv");
-
-        this.supportedFormatsSelect = $("#supportedFormatsSelect");
-        this.supportedFormatsSelect.hide();
-
-        this.createTableButton = $("#createTableBut");
         $(this.createTableButton).button().click(
             function () {
-                that.createTableButton.hide();
+                that.createTableButton.attr("disabled", "disabled");
+                that.createTableButton.addClass("ui-state-disabled")
+                that.createTableButton.removeClass("ui-state-focus")
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
                 var tableDesc = that.tableDescInput.val();
@@ -79,12 +82,6 @@ var GempLotrHallUI = Class.extend({
                         that.processResponse(xml);
                     });
             });
-        this.createTableButton.hide();
-
-        this.decksSelect = $("#decksSelect");
-        this.decksSelect.hide();
-
-        this.timerSelect = $("#timerSelect");
 
         this.getHall();
         this.updateDecks();
@@ -564,14 +561,7 @@ var GempLotrHallUI = Class.extend({
                     participantIdAppend = "&participantId=" + participantId;
                 window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
             }
-            if (games.length > 0) {
-                // var soundPlay = $("<embed src='/gemp-lotr/fanfare_x.mp3' hidden='true' autostart='true' loop='false'>");
-                // this.tablesDiv.append(soundPlay);
-                // setTimeout(
-                //     function() {
-                //         soundPlay.remove();
-                //     }, 5000);
-                
+            if (games.length > 0) {                
                 this.PlaySound("gamestart");
             }
 
@@ -588,14 +578,8 @@ var GempLotrHallUI = Class.extend({
                 this.supportedFormatsInitialized = true;
             }
 
-            if (this.supportedFormatsSelect.css("display") == "none")
-                this.supportedFormatsSelect.css("display", "");
-            if (this.decksSelect.css("display") == "none")
-                this.decksSelect.css("display", "");
-            if (this.createTableButton.css("display") == "none")
-                this.createTableButton.css("display", "");
-            // if (this.createTableButton.is('[disabled]'))
-            //     this.createTableButton.prop("disabled", false);
+            that.createTableButton.removeAttr("disabled");
+            that.createTableButton.removeClass("ui-state-disabled")
 
             setTimeout(function () {
                 that.updateHall();

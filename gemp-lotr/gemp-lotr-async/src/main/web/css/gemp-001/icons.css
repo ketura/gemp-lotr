@@ -23,7 +23,7 @@
 }
 
 .icon-events {
-	background: url("../../images/icons/clock-solid.svg");
+	background: url("../../images/icons/flag-solid.svg");
 }
 
 .icon-stats {
@@ -38,6 +38,14 @@
 	background: url("../../images/icons/gear-solid.svg");
 }
 
+.icon-deckbuilder {
+	background: url("../../images/icons/hammer-solid.svg");
+}
+
+.icon-merchant {
+	background: url("../../images/icons/store-slash-solid.svg");
+}
+
 .custom-icon {
   background-color: transparent; /* make the button transparent */
   background-repeat: no-repeat;  /* make the background image appear only once */
@@ -47,5 +55,5 @@
   height: 20px;           /* make this the size of your image */
   padding-left: 30px;     /* make text start to the right of the image */
   vertical-align: middle; /* align the text vertically centered */
-  filter: brightness(0) invert(1);*/
+  filter: brightness(0) invert(1);
 }

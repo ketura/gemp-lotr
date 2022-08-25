@@ -181,6 +181,10 @@
         <div id="serverInfo" class="flex-horiz" style="align-items:stretch">
             <div id="news" class="flex-vert">
                 <div id="infoButtons" class="flex-horiz">
+                    <a href="deckBuild.html" target="_blank"><button id="deckbuilder-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                        <span class="custom-icon icon-deckbuilder" style="display:inline-block"></span><span>Deck Builder</span>
+                    </button></a>
+                    
                     <a href="https://lotrtcgwiki.com/forums/index.php?topic=7592.2610#new" target="_blank"><button id="bug-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
                         <span class="custom-icon icon-bug" style="display:inline-block"></span><span>Report a Bug</span>
                     </button></a>
@@ -195,6 +199,10 @@
                     
                     <a href="https://wiki.lotrtcgpc.net" target="_blank"><button id="wiki-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
                         <span class="custom-icon icon-wiki" style="display:inline-block"></span><span>Browse the LOTR-TCG Wiki</span>
+                    </button></a>
+                    
+                    <a href="https://wiki.lotrtcgpc.net" target="_blank"><button id="merchant-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                        <span class="custom-icon icon-merchant" style="display:inline-block"></span><span style="text-decoration: line-through;">Merchant</span>
                     </button></a>
                     <!-- If you find any problems with specific card or rules in general, please report it on <a target='_blank' href='http://lotrtcgwiki.com/forums/index.php/topic,7592.0.html'>TLHH forum thread here</a> or on the <a href='https://lotrtcgpc.net/discord'>PC Discord here</a>, in the #gemp-dev channel. Please include a game replay link. -->
                 </div>
@@ -280,13 +288,9 @@
         </div>
     </div>
     <div id="buttonsDiv" class="flex-horiz">
-            <a href="deckBuild.html" style="min-width:80px;">Deck builder</a>
-            | 
-            <a href='merchant.html' style="text-decoration: line-through underline;">Merchant</a> 
-            | 
             <select id="supportedFormatsSelect" ></select>
             <select id="decksSelect" ></select>
-            <input id='tableDescInput' type='text' maxlength='100' placeHolder='Description (optional, 100 char max)'>
+            <input id='tableDescInput' type='text' maxlength='100' placeHolder='Description (or player)'>
             <select id="timerSelect" style="width: 135px;">
                 <option value="default">Default (80m/5m)</option>
                 <option value="blitz">Blitz! (30m/3m)</option>
@@ -296,31 +300,29 @@
             <button id="createTableBut">Create table</button>
             <label style="min-width: fit-content;"><input type='checkbox' id='isPrivateCheckbox'>Private</input></label>
             
-        </div>
-        <div id="chat" class="ui-widget-content grid-container" >
-            <div id="chatarea" class="grid-item">
-                <div id="legacyChat" class="grid-container">
-                    <div id="chatMessages" class="grid-item"></div>
-                    <div id="legacyChatInput" class="grid-item">
-                        <textarea type="text" id="chatTalk" class="" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
-                        <button id="showSystemButton" class="ui-icon-zoomin"></button>
-                        <button id="lockChatButton" class="ui-icon-locked">Toggle lock chat</button>
-                        
-                    </div>
-                </div>
-                
-                
-                <div id="discordChat"> 
-                    <!-- This is now generated on-demand to prevent any potential performance issues if users elect not to use it-->
-                    <!--<script src='https://cdn.jsdelivr.net/npm/@widgetbot/html-embed'></script>
-                    <widgetbot id="widgetbot" server='699957633121255515' channel='873065954609881140' shard='https://e.widgetbot.co' username=""/> -->
+    </div>
+    <div id="chat" class=" flex-horiz" >
+        <div id="chatarea" class="flex-vert">
+            <div id="legacyChat" class="flex-vert">
+                <div id="chatMessages" class="flex-vert"></div>
+                <div id="legacyChatInput" class="flex-horiz">
+                    <textarea type="text" id="chatTalk" class="" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeHolder="Message the game hall..."></textarea>
+                    <button id="showSystemButton" class="ui-icon-zoomin"></button>                       
                 </div>
             </div>
-            <div id="userListColumn" class="grid-item">
-                <div id="userList" class="grid-item"></div> 
-                <button id='toggleChatButt' class="grid-item">Switch to Discord</button>
+            
+            
+            <div id="discordChat"> 
+                <!-- This is now generated on-demand to prevent any potential performance issues if users elect not to use it-->
+                <!--<script src='https://cdn.jsdelivr.net/npm/@widgetbot/html-embed'></script>
+                <widgetbot id="widgetbot" server='699957633121255515' channel='873065954609881140' shard='https://e.widgetbot.co' username=""/> -->
             </div>
         </div>
+        <div id="userListColumn" class="flex-vert">
+            <div id="userList" class=""></div> 
+            <button id='toggleChatButt' class="">Switch to Discord</button>
+        </div>
+    </div>
     <div id="disclaimer">
         The information presented on this site about LotR TCG, both literal and graphical, is copyrighted by Decipher Inc.
         This website is not produced, endorsed, supported, or affiliated with Decipher.

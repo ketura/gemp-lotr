@@ -101,7 +101,7 @@ html, body {
 }
 
 .chatMessage {
-	color: #ffffff;
+	color: #dddddd;
 }
 
 .systemMessage {
@@ -178,7 +178,6 @@ tr.privateForPlayer {
 }
 
 #chat {
-	display: grid;
 	grid-template-columns: auto 150px;
 	position:relative;
 	width:100%;
@@ -186,6 +185,8 @@ tr.privateForPlayer {
 	min-height: 300px;
 	grid-gap: 3px;
 	overflow: hidden;
+	background-color: #121212;
+	flex-grow: 1;
 }
 
 #chatarea {
@@ -199,44 +200,47 @@ tr.privateForPlayer {
 	height: 100%;
 	max-height: 100%;
 	overflow-y: scroll;
-	display: flex;
-	flex-direction: column;
+	flex-shrink: 1;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #222222;
+	padding: 2px;
 }
 
 #userListColumn {
-	display: flex;
-	flex-direction: column;
-	overflow: auto;
+	min-width: fit-content;
 }
 
 #userList {
 	flex-grow: 1;
-	overflow: scroll;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 #toggleChatButt {
 	flex: none;
 	height: 25px;
+	min-width: 130px;
+	margin: 5px;
 }
 
 #legacyChat {
-	
-	display: grid;
 	width: 100%;
 	height: 100%;
 	max-height: 100%;
-	grid-template-columns: auto;
-	grid-template-rows: auto 25px;
 }
 
 #legacyChatInput {
-	display: flex;
+	/*min-height: fit-content;*/
+	flex-shrink: 1;
 }
 
 #chatTalk {
 	flex-grow: 1;
 	resize: none;
 	max-height: 60px;
+	height: 18px;
+	min-height: 16px;
 }
 
 #discordChat {
@@ -267,6 +271,7 @@ tr.privateForPlayer {
 	flex-direction: column;
 	gap: 2px;
 }
+
 #tabs{
 	position: sticky;
 }
@@ -275,24 +280,25 @@ tr.privateForPlayer {
 	left:0px; 
 	top: 0px;
 	height: 40px;
-	background-color:#000000; 
+	background-color:#333333; 
 	border-top-width:1px; 
-	border-top-color:#ffffff; 
+	border-top-color:#aaaaaa; 
 	border-top-style:solid;
 	align-items: center;
 	gap: 4px;
+	padding: 5px;
 }
 
 .hall-tab {
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
+	flex-grow: 3;
 	gap: 5px;
-	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 #main {
-	top: 5px;
 	height: 100%;
 	min-height: 100%;
 	max-height: 100%;
@@ -409,4 +415,110 @@ a:visited {
 #tableDescInput {
 	min-width: 150px; 
 	flex-grow: 1;
+}
+
+
+/* For Firefox*/
+div {
+	scrollbar-color: #66666666 #222222AA;
+	scrollbar-width:  auto;
+}
+
+/* For Chrome/Safari */
+::-webkit-scrollbar-track {
+	background-color: #66666666;
+}
+
+::-webkit-scrollbar-button {
+	background-color: #222222AA;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #88888888;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #222222AA;
+}
+
+::-webkit-scrollbar-corner {
+	background-color: #222222AA;
+}
+
+::-webkit-resizer {
+	background-color: #222222AA;
+}
+
+
+
+/* Turn on a 16x16 scrollbar */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block;
+}
+
+/* Turn off the down area up on top, and up area on bottom */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement {
+    display: none;
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:vertical:end:increment {
+    background-image: url(../ui/scroll-button-down.png);
+}
+
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:vertical:start:decrement {
+    background-image: url(../ui/scroll-button-up.png);
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url(../ui/scroll-button-right.png);
+}
+
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url(../ui/scroll-button-left.png);
+}
+
+
+textarea, input, select {
+	color: #ffffff;
+	background-color: #222222;
+}
+
+select {
+	border-color: #888888 #666666 #666666 #888888;
+	border-radius: 8px;
+	padding: 3px;
+}
+
+select:hover {
+	background-color: #444444;
+}
+ 
+textarea, input {
+	border-color: #666666 #888888 #888888 #666666;
+	margin: 2px;
+}
+
+
+
+
+#gameHall {
+	/*background-image: radial-gradient(circle at bottom, #BF6B04, #590902,  #0D0D0D); */
+	background: linear-gradient(to top, #300902, #000000);
+	background-size: cover; 
+	background-repeat:no-repeat; 
+	background-position: center center;
+	/*filter:  brightness(50%) contrast(150%);*/
+	/*background: radial-gradient(circle at center, red 0, blue, green 100%);*/
 }
