@@ -174,7 +174,7 @@ textarea, input {
 	flex-grow: 3;
 	gap: 5px;
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .ui-tabs-panel {
