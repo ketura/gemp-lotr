@@ -293,7 +293,7 @@ var GempLotrHallUI = Class.extend({
 
                     var joined = queue.getAttribute("signedUp");
                     if (joined != "true" && queue.getAttribute("joinable") == "true") {
-                        var but = $("<button>Join queue</button>");
+                        var but = $("<button>Join Queue</button>");
                         $(but).button().click((
                             function(queueId) {
                                 return function () {
@@ -307,7 +307,7 @@ var GempLotrHallUI = Class.extend({
                             )(id));
                         actionsField.append(but);
                     } else if (joined == "true") {
-                        var but = $("<button>Leave queue</button>");
+                        var but = $("<button>Leave Queue</button>");
                         $(but).button().click((
                             function(queueId) {
                                 return function() {
@@ -478,14 +478,22 @@ var GempLotrHallUI = Class.extend({
                             if (participantId != null)
                                 participantIdAppend = "&participantId=" + participantId;
 
-                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Play the game</a>");
+                            var but = $("<button>Play Match</button>");
+                            var link = $("<a href='game.html?gameId=" + gameId + participantIdAppend + "'></a>");
+                            link.append(but);
+                            but.button();
+                            lastField.append(link);
                         } else if (watchable == "true") {
                             var participantId = getUrlParam("participantId");
                             var participantIdAppend = "";
                             if (participantId != null)
                                 participantIdAppend = "&participantId=" + participantId;
 
-                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Watch game</a>");
+                            var but = $("<button>Spectate</button>");
+                            var link = $("<a href='game.html?gameId=" + gameId + participantIdAppend + "'></a>");
+                            link.append(but);
+                            but.button();
+                            lastField.append(link);
                         }
                     } else if (status == "FINISHED") {
                         if (winner != null) {

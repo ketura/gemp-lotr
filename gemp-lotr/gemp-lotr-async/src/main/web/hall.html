@@ -146,146 +146,150 @@
     <div id="tabs">
         <ul>
             <li><a href="#gameHall">
-                <span class="custom-icon icon-hall" style="display:inline-block"></span>
+                <span class="custom-icon icon-hall"></span>
                 <span>Game Hall</span>
                 </a>
             </li>
             <li><a href="includes/help.html">
-                <span class="custom-icon icon-help" style="display:inline-block"></span>
+                <span class="custom-icon icon-help"></span>
                 <span>Help</span>
                 </a>
             </li>
             <li><a href="includes/events.html">
-                <span class="custom-icon icon-events" style="display:inline-block"></span>
+                <span class="custom-icon icon-events"></span>
                 <span>Events</span>
                 </a>
             </li>
             <li><a href="includes/stats.html">
-                <span class="custom-icon icon-stats" style="display:inline-block"></span>
+                <span class="custom-icon icon-stats"></span>
                 <span>Server Info</span>
                 </a>
             </li>
             <li><a href="includes/user.html">
-                <span class="custom-icon icon-users" style="display:inline-block"></span>
+                <span class="custom-icon icon-users"></span>
                 <span>Users</span>
                 </a>
             </li>
             <li><a href="includes/help.html">
-                <span class="custom-icon icon-account" style="display:inline-block"></span>
+                <span class="custom-icon icon-account"></span>
                 <span>My Account</span>
                 </a>
             </li>
         </ul>
     </div>
-    <div id="gameHall" class="flex-horiz hall-tab">
-        <div id="serverInfo" class="flex-horiz" style="align-items:stretch">
-            <div id="news" class="flex-vert">
-                <div id="infoButtons" class="flex-horiz">
-                    <a href="deckBuild.html" target="_blank"><button id="deckbuilder-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
-                        <span class="custom-icon icon-deckbuilder" style="display:inline-block"></span><span>Deck Builder</span>
-                    </button></a>
-                    
-                    <a href="https://lotrtcgwiki.com/forums/index.php?topic=7592.2610#new" target="_blank"><button id="bug-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
-                        <span class="custom-icon icon-bug" style="display:inline-block"></span><span>Report a Bug</span>
-                    </button></a>
-                    
-                    <a href="https://lotrtcgwiki.com/forums/index.php?topic=8267.585#new" target="_blank"><button id="report-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
-                        <span class="custom-icon icon-report" style="display:inline-block"></span><span>Report a Player</span>
-                    </button></a>
-                    
-                    <a href="https://lotrtcgpc.net/discord" target="_blank"><button id="discord-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
-                        <span class="custom-icon icon-discord" style="display:inline-block"></span><span>Join the PC Discord</span>
-                    </button></a>
-                    
-                    <a href="https://wiki.lotrtcgpc.net" target="_blank"><button id="wiki-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
-                        <span class="custom-icon icon-wiki" style="display:inline-block"></span><span>Browse the LOTR-TCG Wiki</span>
-                    </button></a>
-                    
-                    <a href="https://wiki.lotrtcgpc.net" target="_blank"><button id="merchant-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
-                        <span class="custom-icon icon-merchant" style="display:inline-block"></span><span style="text-decoration: line-through;">Merchant</span>
-                    </button></a>
-                    <!-- If you find any problems with specific card or rules in general, please report it on <a target='_blank' href='http://lotrtcgwiki.com/forums/index.php/topic,7592.0.html'>TLHH forum thread here</a> or on the <a href='https://lotrtcgpc.net/discord'>PC Discord here</a>, in the #gemp-dev channel. Please include a game replay link. -->
+    <div id="gameHall" class="hall-tab">
+        
+        <div id="hall-content" class="hall-tab">
+            <div id="serverInfo" class="flex-horiz">
+                <div id="news" class="flex-vert">
+                    <div id="infoButtons" class="flex-horiz">
+                        <a href="deckBuild.html" target="_blank"><button id="deckbuilder-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                            <span class="custom-icon icon-deckbuilder"></span><span>Deck Builder</span>
+                        </button></a>
+                        
+                        <a href="https://lotrtcgwiki.com/forums/index.php?topic=7592.2610#new" target="_blank"><button id="bug-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                            <span class="custom-icon icon-bug"></span><span>Report a Bug</span>
+                        </button></a>
+                        
+                        <a href="https://lotrtcgwiki.com/forums/index.php?topic=8267.585#new" target="_blank"><button id="report-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                            <span class="custom-icon icon-report"></span><span>Report a Player</span>
+                        </button></a>
+                        
+                        <a href="https://lotrtcgpc.net/discord" target="_blank"><button id="discord-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                            <span class="custom-icon icon-discord"></span><span>Join the PC Discord</span>
+                        </button></a>
+                        
+                        <a href="https://wiki.lotrtcgpc.net" target="_blank"><button id="wiki-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                            <span class="custom-icon icon-wiki"></span><span>Browse the LOTR-TCG Wiki</span>
+                        </button></a>
+                        
+                        <a href="merchant.html" target="_blank"><button id="merchant-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+                            <span class="custom-icon icon-merchant"></span><span style="text-decoration: line-through;">Merchant</span>
+                        </button></a>
+                        <!-- If you find any problems with specific card or rules in general, please report it on <a target='_blank' href='http://lotrtcgwiki.com/forums/index.php/topic,7592.0.html'>TLHH forum thread here</a> or on the <a href='https://lotrtcgpc.net/discord'>PC Discord here</a>, in the #gemp-dev channel. Please include a game replay link. -->
+                    </div>
+                    <div id="motd"></div>
+                    <div class='serverTime' ></div>
                 </div>
-                <div id="motd"></div>
             </div>
-            <div class='serverTime' ></div>
-        </div>
-        <div id="hall" class="ui-widget-content">
-            <div id="tablesDiv" style="overflow:auto; left:0px; top:0px;">
-                <div id="waitingTablesHeader" class='eventHeader waitingTables'>Waiting Tables<span class='count'>(0)</span></div>
-                <div id="waitingTablesContent" class='visibilityToggle'>
-                    <table class='tables waitingTables'>
-                        <tr>
-                            <th width='20%'>Format</th>
-                            <th width='40%'>Table Info</th>
-                            <th width='10%'>Status</th>
-                            <th width='20%'>Players</th>
-                            <th width='10%'>Actions</th>
-                        </tr>
-                    </table>
+            <div id="hall" class="">
+                <div id="tablesDiv">
+                    <div id="waitingTablesHeader" class='eventHeader waitingTables'>Waiting Tables<span class='count'>(0)</span></div>
+                    <div id="waitingTablesContent" class='visibilityToggle'>
+                        <table class='tables waitingTables'>
+                            <tr>
+                                <th width='20%'>Format</th>
+                                <th width='40%'>Table Info</th>
+                                <th width='10%'>Status</th>
+                                <th width='20%'>Players</th>
+                                <th width='10%'>Actions</th>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="playingTablesHeader" class='eventHeader playingTables'>Playing Tables<span class='count'>(0)</span></div>
+                    <div id="playingTablesContent" class='visibilityToggle'>
+                        <table class='tables playingTables'>
+                            <tr>
+                                <th width='20%'>Format</th>
+                                <th width='40%'>Table Info</th>
+                                <th width='10%'>Status</th>
+                                <th width='20%'>Players</th>
+                                <th width='10%'>Actions</th>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="finishedTablesHeader" class='eventHeader finishedTables'>Finished Tables<span class='count'>(0)</span></div>
+                    <div id="finishedTablesContent" class='visibilityToggle'>
+                        <table class='tables finishedTables'>
+                            <tr>
+                                <th width='20%'>Format</th>
+                                <th width='40%'>Table Info</th>
+                                <th width='10%'>Status</th>
+                                <th width='20%'>Players</th>
+                                <th width='10%'>Winner</th>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="tournamentQueuesHeader" class='eventHeader queues'>Tournament Queues<span class='count'>(0)</span></div>
+                    <div id="tournamentQueuesContent" class='visibilityToggle'>
+                        <table class='tables queues'>
+                            <tr>
+                                <th width='10%'>Format</th>
+                                <th width='8%'>Collection</th>
+                                <th width='20%'>Queue name</th>
+                                <th width='16%'>Starts</th>
+                                <th width='10%'>System</th>
+                                <th width='6%'>Players</th>
+                                <th width='8%'>Cost</th>
+                                <th width='12%'>Prizes</th>
+                                <th width='10%'>Actions</th>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="activeTournamentsHeader" class='eventHeader tournaments'>Active Tournaments<span class='count'>(0)</span></div>
+                    <div id="activeTournamentsContent" class='visibilityToggle'>
+                        <table class='tables tournaments'>
+                            <tr>
+                                <th width='10%'>Format</th>
+                                <th width='10%'>Collection</th>
+                                <th width='25%'>Tournament name</th>
+                                <th width='15%'>System</th>
+                                <th width='10%'>Stage</th>
+                                <th width='10%'>Round</th>
+                                <th width='10%'>Players</th>
+                                <th width='10%'>Actions</th>
+                            </tr>
+                        </table>
+                    </div>
+                    
                 </div>
-                
-                <div id="playingTablesHeader" class='eventHeader playingTables'>Playing Tables<span class='count'>(0)</span></div>
-                <div id="playingTablesContent" class='visibilityToggle'>
-                    <table class='tables playingTables'>
-                        <tr>
-                            <th width='20%'>Format</th>
-                            <th width='40%'>Table Info</th>
-                            <th width='10%'>Status</th>
-                            <th width='20%'>Players</th>
-                            <th width='10%'>Actions</th>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div id="finishedTablesHeader" class='eventHeader finishedTables'>Finished Tables<span class='count'>(0)</span></div>
-                <div id="finishedTablesContent" class='visibilityToggle'>
-                    <table class='tables finishedTables'>
-                        <tr>
-                            <th width='20%'>Format</th>
-                            <th width='40%'>Table Info</th>
-                            <th width='10%'>Status</th>
-                            <th width='20%'>Players</th>
-                            <th width='10%'>Winner</th>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div id="tournamentQueuesHeader" class='eventHeader queues'>Tournament Queues<span class='count'>(0)</span></div>
-                <div id="tournamentQueuesContent" class='visibilityToggle'>
-                    <table class='tables queues'>
-                        <tr>
-                            <th width='10%'>Format</th>
-                            <th width='8%'>Collection</th>
-                            <th width='20%'>Queue name</th>
-                            <th width='16%'>Starts</th>
-                            <th width='10%'>System</th>
-                            <th width='6%'>Players</th>
-                            <th width='8%'>Cost</th>
-                            <th width='12%'>Prizes</th>
-                            <th width='10%'>Actions</th>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div id="activeTournamentsHeader" class='eventHeader tournaments'>Active Tournaments<span class='count'>(0)</span></div>
-                <div id="activeTournamentsContent" class='visibilityToggle'>
-                    <table class='tables tournaments'>
-                        <tr>
-                            <th width='10%'>Format</th>
-                            <th width='10%'>Collection</th>
-                            <th width='25%'>Tournament name</th>
-                            <th width='15%'>System</th>
-                            <th width='10%'>Stage</th>
-                            <th width='10%'>Round</th>
-                            <th width='10%'>Players</th>
-                            <th width='10%'>Actions</th>
-                        </tr>
-                    </table>
-                </div>
-                
             </div>
         </div>
+        <!-- <div id="culture-icon"><img src="images/cultures/sauron.svg"/></div> -->
     </div>
     <div id="buttonsDiv" class="flex-horiz">
             <select id="supportedFormatsSelect" ></select>

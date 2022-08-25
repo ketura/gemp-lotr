@@ -1,7 +1,7 @@
 html, body {
 	font-size: 12px;
 	background-color: #000000;
-	height: 98%;
+	height: calc(100% - 15px);
 }
 
 .flex-horiz {
@@ -18,6 +18,10 @@ html, body {
 
 a:visited {
 	color: #A63F03;
+}
+
+.custom-icon {
+	display:inline-block;
 }
 
 /* For Firefox*/
@@ -115,8 +119,12 @@ textarea, input {
 	min-height: 100%;
 	max-height: 100%;
 	width: 100%;
+	max-width: 1400px;
 	display: flex;
 	flex-direction: column;
+	margin: auto;
+/*	overflow-x: hidden;*/
+	border: none;
 }
 
 #tabs{
@@ -125,13 +133,40 @@ textarea, input {
 
 #gameHall {
 	/*background-image: radial-gradient(circle at bottom, #BF6B04, #590902,  #0D0D0D); */
-	background: linear-gradient(to top, #300902, #000000);
-	background-size: cover; 
-	background-repeat:no-repeat; 
-	background-position: center center;
+	background: linear-gradient(to top, #300902, #111111 80%);
+	/*background: url(../../images/cultures/sauron.svg);*/
+
+	
+	
 	/*filter:  brightness(50%) contrast(150%);*/
 	/*background: radial-gradient(circle at center, red 0, blue, green 100%);*/
+	/*overflow-x: hidden;*/
+
 }
+
+#hall-content {
+	position: relative;
+	z-index: 2;
+}
+
+#serverInfo {
+	align-items:stretch;
+}
+
+/*#culture-icon {
+	position: relative;
+	display: block;
+	width: 80%;
+	height: 80%;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	z-index:  1;
+	filter: invert(10%) sepia(12%) saturate(5075%) hue-rotate(332deg) brightness(120%) contrast(108%) 
+		drop-shadow(0 -10px 0 #FFFFFF88) drop-shadow(0 10px 0 #00000088);
+	opacity: 0.3;
+}*/
 
 .hall-tab {
 	display: flex;
@@ -170,38 +205,61 @@ textarea, input {
 }
 
 .serverTime {
-	border: 1px solid #ffffff;
+	/*border: 1px solid #aaaaaa;*/
+	text-align: right;
+	padding: 5px;
+	color: #FFFF00;
 }
 
 #tablesDiv {
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border-style: none;
 }
 
 table.tables {
-	width: 100%;
+	width: calc(100% - 20px);
+	border-collapse: collapse;
+	margin-left: 10px;
+	margin-right: 10px;
+	background-color: #121212;
 }
 
-table.tables td, table.tables th {
+table.tables td {
 	padding: 2px;
-	border: 1px solid white;
+	border: 2px solid #444444;
+}
+
+table.tables th {
+	padding: 4px;
+	background-color: #333333;
+	margin: 2px;
+}
+
+td button {
+	width: calc(100% - 6px);
+	margin: 3px;
 }
 
 .ui-tabs-nav li {
 }
 
-tr.played {
+table.tables tr.played {
 	background-color: #590902;
 }
 
-tr.privateForPlayer {
+table.tables tr.privateForPlayer {
 	background-color: #A63F03;
 }
 
 .eventHeader {
 	font-size: 120%;
 	font-weight: bolder;
-	background-color: #666666;
+	background-color: #555555;
 	cursor: pointer;
+	padding: 4px;
+	margin: 2px;
+	border-radius: 3px;
 }
 
 .tableFormatName {
@@ -414,6 +472,11 @@ tr.privateForPlayer {
 	overflow-x: hidden;
 	border-left: 1px solid #999999;
 	padding: 5px;
+}
+
+#toggleChatButt {
+	padding: 4px;
+	margin: 3px;
 }
 
 .userList {
