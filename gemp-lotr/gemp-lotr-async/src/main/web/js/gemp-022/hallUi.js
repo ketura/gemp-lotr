@@ -269,11 +269,11 @@ var GempLotrHallUI = Class.extend({
         if (root.tagName == "hall") {
             this.hallChannelId = root.getAttribute("channelNumber");
 
-            // var currency = parseInt(root.getAttribute("currency"));
-            // if (currency != this.pocketValue) {
-            //     this.pocketValue = currency;
-            //     this.pocketDiv.html(formatPrice(currency));
-            // }
+            var currency = parseInt(root.getAttribute("currency"));
+            if (currency != this.pocketValue) {
+                this.pocketValue = currency;
+                //this.pocketDiv.html(formatPrice(currency));
+            }
 
             var motd = root.getAttribute("motd");
             if (motd != null)
@@ -422,7 +422,7 @@ var GempLotrHallUI = Class.extend({
                     {
                         if(isPrivate)
                         {
-                            name += " - <i>Private match for user '" + userDesc + "'.";
+                            name += " - <i>Match for user '" + userDesc + "'.";
                         }
                         else 
                         {

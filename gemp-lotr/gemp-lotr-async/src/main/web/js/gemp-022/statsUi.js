@@ -1,25 +1,32 @@
 var StatsUI = Class.extend({
     communication:null,
+    paramsDiv:null,
+    statsDiv:null,
 
-    init:function (url) {
+    init:function (url, paramControl, statControl) {
         this.communication = new GempLotrCommunication(url,
             function (xhr, ajaxOptions, thrownError) {
             });
 
+        this.paramsDiv = paramControl;
+        this.statsDiv = statControl;
 
         var now = new Date();
+        var d = now.getDate();
+        now.setMonth(now.getMonth() - 1);
+        if (now.getDate() != d) {
+          now.setDate(0);
+        }
         var nowStr = now.getFullYear() + "-" + (1 + now.getMonth()) + "-" + now.getDate();
 
-        $("#statsParameters").append("Start date: <input class='startDay' type='text' value='" + nowStr + "'>");
-        $("#statsParameters").append(" period: <select class='period'><option value='month'>month</option><option value='week'>week</option><option value='day'>day</option></select>");
-        $("#statsParameters").append(" <input class='getStats' type='button' value='Display stats'>");
-
+        $(".startDay").val(nowStr);
+        
         var that = this;
 
-        $(".getStats", $("#statsParameters")).click(
+        $(".getStats", this.paramsDiv).click(
             function () {
-                var startDay = $(".startDay", $("#statsParameters")).prop("value");
-                var period = $("option:selected", $(".period", $("#statsParameters"))).prop("value");
+                var startDay = $(".startDay", that.paramsDiv).prop("value");
+                var period = $("option:selected", $(".period", that.paramsDiv)).prop("value");
 
                 that.communication.getStats(startDay, period, that.loadedStats, {
                     "400":function () {

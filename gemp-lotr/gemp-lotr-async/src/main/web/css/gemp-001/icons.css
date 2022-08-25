@@ -1,59 +1,66 @@
 .icon-discord {
-	background: url("../../images/icons/discord-brands.svg");
+	background-image: url("../../images/icons/discord-brands.svg");
 }
 
 .icon-bug {
-	background: url("../../images/icons/bug-solid.svg");
+	background-image: url("../../images/icons/bug-solid.svg");
 }
 
 .icon-report {
-	background: url("../../images/icons/ban-solid.svg");
+	background-image: url("../../images/icons/ban-solid.svg");
 }
 
 .icon-wiki {
-	background: url("../../images/icons/book-open-solid.svg");
+	background-image: url("../../images/icons/book-open-solid.svg");
 }
 
 .icon-hall {
-	background: url("../../images/icons/swords.svg");
+	background-image: url("../../images/icons/swords.svg");
 }
 
 .icon-help {
-	background: url("../../images/icons/circle-question-solid.svg");
+	background-image: url("../../images/icons/circle-question-solid.svg");
 }
 
 .icon-events {
-	background: url("../../images/icons/flag-solid.svg");
+	background-image: url("../../images/icons/flag-solid.svg");
 }
 
 .icon-stats {
-	background: url("../../images/icons/chart-line-solid.svg");
+	background-image: url("../../images/icons/chart-line-solid.svg");
 }
 
 .icon-users {
-	background: url("../../images/icons/users-solid.svg");
+	background-image: url("../../images/icons/users-solid.svg");
 }
 
 .icon-account {
-	background: url("../../images/icons/gear-solid.svg");
+	background-image: url("../../images/icons/gear-solid.svg");
 }
 
 .icon-deckbuilder {
-	background: url("../../images/icons/hammer-solid.svg");
+	background-image: url("../../images/icons/hammer-solid.svg");
 }
 
 .icon-merchant {
-	background: url("../../images/icons/store-slash-solid.svg");
+	background-image: url("../../images/icons/store-slash-solid.svg");
 }
 
 .custom-icon {
   background-color: transparent; /* make the button transparent */
   background-repeat: no-repeat;  /* make the background image appear only once */
   background-position: 0px 0px;  /* equivalent to 'top left' */
+  background-size:  20px;
   border: none;           /* assuming we don't want any borders */
   cursor: pointer;        /* make the cursor like hovering over an <a> element */
   height: 20px;           /* make this the size of your image */
-  padding-left: 30px;     /* make text start to the right of the image */
+  padding-left: 30px ;     /* make text start to the right of the image */
   vertical-align: middle; /* align the text vertically centered */
   filter: brightness(0) invert(1);
+}
+
+.ui-tabs .ui-tabs-nav li > a.custom-icon {
+	padding: 0.5em 1em 0.5em 35px;
+	/*background-origin:  content-box;*/
+	background-position:  10px center;
 }

@@ -1,30 +1,46 @@
-<div>
-	<script type="text/javascript">
-	    $(document).ready(
-	            function () {
-	                var ui = new LeagueResultsUI("/gemp-lotr-server");
-	            });
+<script type="text/javascript">
+	$("eventsMain").ready(
+		function () {
+			$("#eventsMain").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+			$("#event-tabs > ol > li").removeClass("ui-corner-top").addClass("ui-corner-left");
+			
+			var leagueUI = new LeagueResultsUI("/gemp-lotr-server");
+			
+			var tourneyUI = new TournamentResultsUI("/gemp-lotr-server");
 
-	</script>
-	All times are GMT based.
-	<div id="leagueResults"></div>
+			$(".loadFinishedTournaments").button().click(
+				function() {
+					tourneyUI.loadHistoryTournaments();
+				});
+		});
 	
-	
-	
-	<script type="text/javascript">
-	    $(document).ready(
-	            function () {
-	                var ui = new TournamentResultsUI("/gemp-lotr-server");
+	$("tournamentResults").ready(
+				function () {
+					
+				});
 
-	                $(".loadFinishedTournaments").button().click(
-	                        function() {
-	                            ui.loadHistoryTournaments();
-	                        });
-	            });
+</script>
 
-	</script>
-	All times are GMT based.
-	<div class="loadFinishedTournaments">Load finished tournaments</div>
-	<div id="tournamentResults"></div>
+<div id="eventsMain" class="hall-tab flex-horiz">
+	<div id="event-tabs" class="sub-tabs">
+		<ol>
+			<li><a href="#leagues">Current Leagues</a></li>
+			<li><a href="#tournaments">Current Tournaments</a></li>
+		</ol>
+	</div>
+	<div id="leagues" class="article">
+		
+		All times are GMT based.
+		<div id="leagueResults"></div>
+	</div>
 	
+	<div id="tournaments" class="article"> 
+		<script type="text/javascript">
+			
+
+		</script>
+		All times are GMT based.
+		<div class="loadFinishedTournaments">Load finished tournaments</div>
+		<div id="tournamentResults"></div>
+	</div>
 </div>

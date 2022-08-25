@@ -1,7 +1,7 @@
 html, body {
 	font-size: 12px;
 	background-color: #000000;
-	height: calc(100% - 15px);
+	height: calc(100% - 8px);
 }
 
 .flex-horiz {
@@ -122,34 +122,32 @@ textarea, input {
 	max-width: 1400px;
 	display: flex;
 	flex-direction: column;
-	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
 /*	overflow-x: hidden;*/
 	border: none;
+	padding: 0;
 }
 
 #tabs{
 	position: sticky;
 }
 
-#gameHall {
-	/*background-image: radial-gradient(circle at bottom, #BF6B04, #590902,  #0D0D0D); */
-	background: linear-gradient(to top, #300902, #111111 80%);
-	/*background: url(../../images/cultures/sauron.svg);*/
-
-	
-	
-	/*filter:  brightness(50%) contrast(150%);*/
-	/*background: radial-gradient(circle at center, red 0, blue, green 100%);*/
-	/*overflow-x: hidden;*/
-overflow-y: auto;
-}
-
-#hall-content {
-
-}
-
 #serverInfo {
 	align-items:stretch;
+	overflow: visible;
+	flex-grow: 1;
+	
+	
+	padding: 7px;
+	position: sticky;
+	top: -14px;
+	background: #7c3004;
+	background: linear-gradient(to top, #333333, #111111 40%, #111111);
+	border-radius:  6px;
+	border-color: #bf8a4a;
+	border-style: none none solid none;
+	z-index: 100;
 }
 
 /*#culture-icon {
@@ -167,23 +165,18 @@ overflow-y: auto;
 	opacity: 0.3;
 }*/
 
+#gameHall {
+	overflow-y: scroll;
+}
+
 .hall-tab {
-	display: flex;
-	flex-direction: column;
+	background: linear-gradient(to top, #200902, #111111 80%) !important;
+	width: calc(100% - 2.8em) ;
+	height: 100%;
+	overflow-x: hidden;
+	
 	flex-grow: 3;
 	gap: 5px;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
-
-.ui-tabs-panel {
-	height: 100%;
-}
-
-
-
-#news {
-	flex-grow: 1;
 }
 
 #buttonsDiv a,
@@ -195,12 +188,13 @@ overflow-y: auto;
 
 #infoButtons {
 	flex-wrap: wrap;
-	padding: 3px;
+	
 }
 
 #motd {
 	color: #ffffff;
 	margin: 5px;
+	flex-grow: 1;
 }
 
 .serverTime {
@@ -208,6 +202,7 @@ overflow-y: auto;
 	text-align: right;
 	padding: 5px;
 	color: #FFFF00;
+	min-width: 32ch;
 }
 
 #tablesDiv {
@@ -324,7 +319,7 @@ table.tables tr.privateForPlayer {
 }
 
 #createTableBut {
-	min-width: 95px;
+	min-width: 100px;
 }
 
 #chat {
@@ -467,7 +462,7 @@ table.tables tr.privateForPlayer {
 
 #userList {
 	flex-grow: 1;
-	overflow-y: auto;
+	overflow-y: scroll;
 	overflow-x: hidden;
 	border-left: 1px solid #999999;
 	padding: 5px;
@@ -573,10 +568,80 @@ table.tables tr.privateForPlayer {
 
 
 
-#helpMain {
+#helpMain,
+#eventsMain {
+	width: calc(100% - 0.4em);
+}
+
+#ui-tabs-1,
+#ui-tabs-2,
+#ui-tabs-3,
+#ui-tabs-4,
+#ui-tabs-5 {
+	overflow-x: hidden;
+	overflow-y: hidden;
 	height: 100%;
-	min-height: 100%;
-	max-height: 100%;
+	position: relative;
+	flex-grow: 1;
+	padding: 0;
+	border: 0px none #000000;
+	min-width: 50%;
 	width: 100%;
-	overflow-y: auto;
+}
+
+.sub-tabs{
+	position: sticky;
+	top: 5px;
+	margin: 4px;
+}
+
+.sub-tabs .ui-tabs-panel { 
+	overflow-y: scroll;
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav { 
+	/*padding: .2em .1em .2em .2em; */
+	float: left; 
+	max-width: 200px;
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav li{ 
+	/*clear: left; */
+	width: 100%; 
+	
+	border-bottom-width: 1px !important; 
+	border-right-width: 0 !important; 
+	margin: 0 -1px .2em 0; 
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav li a { 
+	display:block; 
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav li.ui-tabs-active { 
+	padding-bottom: 0; 
+	padding-right: .1em; 
+	border-right-width: 1px;
+}
+
+.hall-tab > .ui-tabs-panel { 
+	/*padding: 1em; */
+	float: right; 
+	min-width: 50%;
+	width: 1000px;
+	flex-grow: 1;
+}
+
+.article {
+	width:max(800px, 50%); 
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3em;
+	margin-bottom: 20em;
+	
+	font-size: 120%;
+}
+
+.article li {
+	margin: 10px;
 }
