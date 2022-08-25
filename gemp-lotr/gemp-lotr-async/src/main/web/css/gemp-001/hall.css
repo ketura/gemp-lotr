@@ -141,12 +141,11 @@ textarea, input {
 	/*filter:  brightness(50%) contrast(150%);*/
 	/*background: radial-gradient(circle at center, red 0, blue, green 100%);*/
 	/*overflow-x: hidden;*/
-
+overflow-y: auto;
 }
 
 #hall-content {
-	position: relative;
-	z-index: 2;
+
 }
 
 #serverInfo {
@@ -550,8 +549,8 @@ table.tables tr.privateForPlayer {
 #disclaimer {
 	color: #ffffff;
 	font-size: 70%;
-	position: absolute;
-	bottom: -15px;
+	position: relative;
+	text-align: center;
 }
 
 .ui-button-text-only .ui-button-text {
@@ -574,4 +573,10 @@ table.tables tr.privateForPlayer {
 
 
 
-
+#helpMain {
+	height: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	width: 100%;
+	overflow-y: auto;
+}

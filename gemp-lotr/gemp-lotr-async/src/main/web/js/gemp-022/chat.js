@@ -65,8 +65,8 @@ var ChatBoxUI = Class.extend({
         this.comm.getPlayerInfo(function(json)
         { 
             that.userName = json; 
-            that.pingRegex = new RegExp("@" + json);
-            that.mentionRegex = new RegExp("(?<!<b>)" + json );
+            that.pingRegex = new RegExp("@" + json + "\\b");
+            that.mentionRegex = new RegExp("(?<!<b>)\\b" + json + "\\b");
         }, this.chatErrorMap());
 
         

@@ -1,4 +1,5 @@
 
+- add links to the users list to their profiles
 - add email column to user
 - add email field to register form
 - create auth attempt database
@@ -19,6 +20,8 @@
 		- auto-accept
 		- always display drop-down
 		- Phase auto-skip array
+	- manage user ignore list
+	- 
 - create password reset process
 	- if email is authenticated, email is sent to address with a link to password reset API
 	
@@ -42,3 +45,12 @@ Strategy:
 	- require all new accounts to register email before playing
 	- bug existing users to register email with a month's warning
 	- after a month or so, require all existing users to register email before playing 
+	
+	
+adobe suggested color pallete based on back of card:
+
+#D98E04 - bright orange
+#BF6B04 - orange
+#A63F03 - dark orange
+#590902 - dark red
+#0D0D0D - black
