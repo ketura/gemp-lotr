@@ -56,69 +56,70 @@
     var chat;
     var hall;
 
-    $(document).ready(
-        function () {
-            chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr-server", true, null, false, true, null, true);
-            chat.showTimestamps = true;
+    $(document).ready(function () {
+        chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr-server", true, null, false, true, null, true);
+        chat.showTimestamps = true;
 
-            hall = new GempLotrHallUI("/gemp-lotr-server", chat);
+        hall = new GempLotrHallUI("/gemp-lotr-server", chat);
 
-            $("#main").tabs();
+        $("#main").tabs();
 
-            var infoDialog = $("<div></div>")
-                    .dialog({
-                        autoOpen:false,
-                        closeOnEscape:true,
-                        resizable:false,
-                        title:"Card information"
-                    });
-
-            $("body").click(
-                function (event) {
-                    var tar = $(event.target);
-
-                    if (tar.hasClass("cardHint")) {
-                        var blueprintId = tar.attr("value");
-                        var card = new Card(blueprintId, "SPECIAL", "hint", "");
-
-                        infoDialog.html("");
-                        infoDialog.html("<div style='scroll: auto'></div>");
-                        var floatCardDiv = $("<div style='float: left;'></div>");
-                        floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
-                        infoDialog.append(floatCardDiv);
-
-                        var windowWidth = $(window).width();
-                        var windowHeight = $(window).height();
-
-                        var horSpace = 30;
-                        var vertSpace = 45;
-
-                        infoDialog.dialog({title:"Card information"});
-                        if (card.horizontal) {
-                            // 500x360
-                            infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
-                        } else {
-                            // 360x500
-                            infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
-                        }
-                        infoDialog.dialog("open");
-
-                        event.stopPropagation();
-                        return false;
-                    } else if (tar.hasClass("prizeHint")) {
-                        var prizeDescription = tar.attr("value");
-
-                        infoDialog.text(prizeDescription);
-
-                        infoDialog.dialog({title:"Prizes details", width:300, height: 150});
-                        infoDialog.dialog("open");
-
-                        event.stopPropagation();
-                        return false;
-                    }
-
-                    return true;
+        var infoDialog = $("<div></div>")
+                .dialog({
+                    autoOpen:false,
+                    closeOnEscape:true,
+                    resizable:false,
+                    title:"Card information"
                 });
+
+        $("body").click(
+            function (event) {
+                var tar = $(event.target);
+
+                if (tar.hasClass("cardHint")) {
+                    var blueprintId = tar.attr("value");
+                    var card = new Card(blueprintId, "SPECIAL", "hint", "");
+
+                    infoDialog.html("");
+                    infoDialog.html("<div style='scroll: auto'></div>");
+                    var floatCardDiv = $("<div style='float: left;'></div>");
+                    floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
+                    infoDialog.append(floatCardDiv);
+
+                    var windowWidth = $(window).width();
+                    var windowHeight = $(window).height();
+
+                    var horSpace = 30;
+                    var vertSpace = 45;
+
+                    infoDialog.dialog({title:"Card information"});
+                    if (card.horizontal) {
+                        // 500x360
+                        infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
+                    } else {
+                        // 360x500
+                        infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
+                    }
+                    infoDialog.dialog("open");
+
+                    event.stopPropagation();
+                    return false;
+                } else if (tar.hasClass("prizeHint")) {
+                    var prizeDescription = tar.attr("value");
+
+                    infoDialog.text(prizeDescription);
+
+                    infoDialog.dialog({title:"Prizes details", width:300, height: 150});
+                    infoDialog.dialog("open");
+
+                    event.stopPropagation();
+                    return false;
+                }
+
+                return true;
+            });
+        $("#ui-tabs")
+            
     });
     
     
@@ -156,9 +157,9 @@
             <li>
                 <a href="includes/info.html" class="custom-icon icon-stats">Server Info</a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="includes/user.html" class="custom-icon icon-users">Users</a>
-            </li>
+            </li> -->
             <li>
                 <a href="includes/account.html" class="custom-icon icon-account">My Account</a>
             </li>
