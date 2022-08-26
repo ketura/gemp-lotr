@@ -129,7 +129,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             String format = getFormParameterSafely(postDecoder, "format");
             String deckName = getFormParameterSafely(postDecoder, "deckName");
             String timer = getFormParameterSafely(postDecoder, "timer");
-            String desc = getFormParameterSafely(postDecoder, "desc");
+            String desc = getFormParameterSafely(postDecoder, "desc").trim();
             String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
             boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
 
@@ -143,6 +143,19 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                 if(desc.equalsIgnoreCase(resourceOwner.getName())) {
                     responseWriter.writeXmlResponse(marshalException(new HallException("Absolutely no playing with yourself!!  Private matches must be with someone else.")));
+                    return;
+                }
+
+                try {
+                    var player = _playerDao.getPlayer(desc);
+                    if(player == null)
+                    {
+                        responseWriter.writeXmlResponse(marshalException(new HallException("Cannot find player '" + desc + "'. Check your spelling and capitalization and ensure it is exact.")));
+                        return;
+                    }
+                }
+                catch(RuntimeException ex) {
+                    responseWriter.writeXmlResponse(marshalException(new HallException("Cannot find player '" + desc + "'. Check your spelling and capitalization and ensure it is exact.")));
                     return;
                 }
             }
@@ -160,11 +173,16 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                     Player librarian = _playerDao.getPlayer("Librarian");
                     _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isPrivate);
                     responseWriter.writeXmlResponse(null);
+                    return;
                 }
                 catch (HallException ex) { }
 
-            responseWriter.writeXmlResponse(marshalException(e));
+                responseWriter.writeXmlResponse(marshalException(e));
             }
+        }
+        catch (Exception ex)
+        {
+            responseWriter.writeXmlResponse(marshalException(new HallException("Failed to create table. Please try again later.")));
         }
         finally {
             postDecoder.destroy();

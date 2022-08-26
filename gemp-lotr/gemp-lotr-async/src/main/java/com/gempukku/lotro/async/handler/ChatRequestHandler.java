@@ -98,7 +98,12 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                     //Escaping underscores so that URLs with lots of underscores (i.e. wiki links) aren't mangled
                     // Besides, who uses _this_ instead of *this*?
                     newMsg = newMsg.replace("_", "\\_");
-                    newMsg = _markdownRenderer.render(_markdownParser.parse(newMsg));
+
+                    //Need to preserve any commands being made
+                    if(!newMsg.startsWith("/")) {
+                        newMsg = _markdownRenderer.render(_markdownParser.parse(newMsg));
+                        newMsg = newMsg.replaceAll("</blockquote>[\n \t]*<blockquote>", "</blockquote><br /><blockquote>");
+                    }
 
                     chatRoom.sendMessage(resourceOwner.getName(), newMsg, admin);
                     responseWriter.writeXmlResponse(null);

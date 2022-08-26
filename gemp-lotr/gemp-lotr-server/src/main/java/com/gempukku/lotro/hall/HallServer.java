@@ -206,18 +206,25 @@ public class HallServer extends AbstractServer {
                 new ChatCommandCallback() {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) {
-                        _hallChat.sendToUser("System", from, "List of available commands:");
-                        _hallChat.sendToUser("System", from, "/ignore username - Adds user 'username' to list of your ignores");
-                        _hallChat.sendToUser("System", from, "/unignore username - Removes user 'username' from list of your ignores");
-                        _hallChat.sendToUser("System", from, "/listIgnores - Lists all your ignored users");
-                        _hallChat.sendToUser("System", from, "/incognito - Makes you incognito (not visible in user list)");
-                        _hallChat.sendToUser("System", from, "/endIncognito - Turns your visibility 'on' again");
+                        //_hallChat.sendToUser("System", from,
+                        String message = """
+                        List of available commands:
+                        /ignore username - Adds user 'username' to list of your ignores
+                        /unignore username - Removes user 'username' from list of your ignores
+                        /listIgnores - Lists all your ignored users
+                        /incognito - Makes you incognito (not visible in user list)
+                        /endIncognito - Turns your visibility 'on' again""";
                         if (admin) {
-                            _hallChat.sendToUser("System", from, "Admin only commands:");
-                            _hallChat.sendToUser("System", from, "/ban username - Bans user 'username' permanently");
-                            _hallChat.sendToUser("System", from, "/banIp ip - Bans specified ip permanently");
-                            _hallChat.sendToUser("System", from, "/banIpRange ip - Bans ips with the specified prefix, ie. 10.10.10.");
+                            message += """
+                            
+                            
+                            Admin only commands:
+                            /ban username - Bans user 'username' permanently
+                            /banIp ip - Bans specified ip permanently
+                            /banIpRange ip - Bans ips with the specified prefix, ie. 10.10.10.""";
                         }
+
+                        _hallChat.sendToUser("System", from, message.replace("\n", "<br />"));
                     }
                 });
         _hallChat.addChatCommandCallback("nocommand",
@@ -375,8 +382,12 @@ public class HallServer extends AbstractServer {
                     throw new HallException("There is no ongoing serie for that league");
 
                 if(isPrivate) {
-                    throw new HallException("League games cannot be private");
+                    throw new HallException("League games cannot be invite-only");
                 }
+
+                //Don't want people getting around the anonymity for leagues.
+                if(description != null)
+                    description = "";
 
                 format = _formatLibrary.getFormat(leagueSerie.getFormat());
                 collectionType = leagueSerie.getCollectionType();

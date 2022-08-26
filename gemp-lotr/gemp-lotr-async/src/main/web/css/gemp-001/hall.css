@@ -412,11 +412,11 @@ table.tables tr.privateForPlayer {
 	margin-bottom: 5px;
 	font-style:  italic;
 }
-.chatMessage blockquote br {
+/*.chatMessage blockquote br {
 	line-height: 0px;
 	margin: 0px;
 	content: "";
-}
+}*/
 
 .user-mention {
 	background-color: #FFFF0044;
@@ -576,8 +576,8 @@ table.tables tr.privateForPlayer {
 #ui-tabs-1,
 #ui-tabs-2,
 #ui-tabs-3,
-#ui-tabs-4,
-#ui-tabs-5 {
+#ui-tabs-4
+/*#ui-tabs-5*/ {
 	overflow-x: hidden;
 	overflow-y: hidden;
 	height: 100%;
