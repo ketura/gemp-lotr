@@ -36,10 +36,6 @@
 		#keyword: damage+1
 		strength: 3
 		vitality: 3
-		requires: {
-			type: canSpot
-			filter: orc
-		}
 		effects: [
 			{
 				type: trigger
