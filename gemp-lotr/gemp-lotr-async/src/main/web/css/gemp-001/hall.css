@@ -140,8 +140,7 @@ button > span {
 #serverInfo {
 	align-items:stretch;
 	overflow: visible;
-	flex-grow: 1;
-	
+	flex-shrink: 1;
 	
 	padding: 7px;
 	position: sticky;
@@ -171,14 +170,26 @@ button > span {
 
 #gameHall {
 	overflow-y: scroll;
+	width: calc(100% );
+}
+
+#gameHallMain {
+	flex-direction: column;
+	width: 100%;
+}
+
+#hall {
+	flex-grow: 3;
 }
 
 .hall-tab {
 	background: linear-gradient(to top, #200902, #111111 80%) !important;
-	width: calc(100% - 2.8em) ;
+	width: calc(100% - 0.4em);
 	height: 100%;
 	overflow-x: hidden;
-	
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
 	flex-grow: 3;
 	gap: 5px;
 }
@@ -572,16 +583,8 @@ table.tables tr.privateForPlayer {
 
 
 
-#helpMain,
-#eventsMain {
-	width: calc(100% - 0.4em);
-}
 
-#ui-tabs-1,
-#ui-tabs-2,
-#ui-tabs-3,
-#ui-tabs-4
-/*#ui-tabs-5*/ {
+#main > .ui-tabs-panel {
 	overflow-x: hidden;
 	overflow-y: hidden;
 	height: 100%;

@@ -11,6 +11,8 @@ var GempLotrHallUI = Class.extend({
 
 	tablesDiv:null,
 	buttonsDiv:null,
+	adminTab:null,
+	userInfo:null,
 
 	pocketDiv:null,
 	pocketValue:null,
@@ -19,24 +21,25 @@ var GempLotrHallUI = Class.extend({
 	init:function (url, chat) {
 		var that = this;
 		
+		this.chat = chat;
+		
 		this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
 			if (thrownError != "abort") {
 				if (xhr != null) {
 					if (xhr.status == 401) {
-						chat.appendMessage("Game hall problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
+						that.chat.appendMessage("Game hall problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
 						return;
 					} else {
-						chat.appendMessage("The game hall had a problem communicating with the server (" + xhr.status + "), no new updates will be displayed.", "warningMessage");
-						chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
+						that.chat.appendMessage("The game hall had a problem communicating with the server (" + xhr.status + "), no new updates will be displayed.", "warningMessage");
+						that.chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
 						return;
 					}
 				}
-				chat.appendMessage("The game hall had a problem communicating with the server, no new updates will be displayed.", "warningMessage");
-				chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
+				that.chat.appendMessage("The game hall had a problem communicating with the server, no new updates will be displayed.", "warningMessage");
+				that.chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
 			}
 		});
-		
-		this.chat = chat;
+
 		this.tablesDiv = $("#tablesDiv");
 		this.tableDescInput = $("#tableDescInput");
 		this.isPrivateCheckbox = $("#isPrivateCheckbox");
@@ -46,6 +49,23 @@ var GempLotrHallUI = Class.extend({
 		this.decksSelect = $("#decksSelect");
 		this.timerSelect = $("#timerSelect");
 		this.buttonsDiv = $("#buttonsDiv");
+		
+		this.adminTab = $("#tabs > ul :nth-child(7)");
+		this.adminTab.hide();
+		
+		this.comm.getPlayerInfo(function(json)
+        { 
+        	that.userInfo = json;
+            if(that.userInfo.type.includes("a") || that.userInfo.type.includes("l"))
+			{
+				that.adminTab.show();
+			}
+			else
+			{
+				that.adminTab.hide();
+			}
+        });
+		
 
 		var hallSettingsStr = $.cookie("hallSettings");
 		if (hallSettingsStr == null)

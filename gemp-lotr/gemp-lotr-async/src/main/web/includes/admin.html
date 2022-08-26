@@ -1,0 +1,105 @@
+<script type="text/javascript">
+	$("adminMain").ready(
+		function () {
+			$("#adminMain").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+			$("#admin-tabs > ol > li").removeClass("ui-corner-top").addClass("ui-corner-left");
+			
+			$("#landingTab").parent().hide();
+			if(!hall.userInfo.type.includes("a"))
+			{
+				$("#generalTab").parent().hide();
+				$("#banTab").parent().hide();
+			}
+			
+			if(!hall.userInfo.type.includes("l"))
+			{
+				$("#leagueTab").parent().hide();
+			}
+		});
+	
+</script>
+
+<div id="adminMain" class="hall-tab flex-horiz">
+	<div id="admin-tabs" class="sub-tabs">
+		<ol>
+			<li><a id="landingTab" href="#Landing"></a></li>
+			<li><a id="generalTab" href="#generalAdmin">General Admin</a></li>
+			<li><a id="leagueTab" href="includes/admin/leagueAdmin.html">League Admin</a></li>
+			<li><a id="banTab" href="#banAdmin">My Stats</a></li>
+		</ol>
+	</div>  
+	<div id="landing" style="display:none">
+	</div>
+	<div id="generalAdmin">
+		<div class="article">
+			<h1>Cache</h1>
+			<a href="/gemp-lotr-server/admin/clearCache">Clear cache</a>
+
+			<h1>Message of the Day</h1>
+
+			<form method="POST" action="/gemp-lotr-server/admin/setMotd">
+				MotD: <input type="text" name="motd"><br/>
+				<input type="submit" value="Set MotD">
+			</form>
+
+			<h1>Collections</h1>
+
+			<h2>Add items</h2>
+
+			<form method="POST" action="/gemp-lotr-server/admin/addItems">
+				Type: <input type="text" name="collectionType"><br/>
+				Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+				Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+				<input type="submit" value="Add items">
+			</form>
+
+			<h2>Add items to collection</h2>
+
+			<form method="POST" action="/gemp-lotr-server/admin/addItemsToCollection">
+				Type: <input type="text" name="collectionType"><br/>
+				Reason: <input type="text" name="reason"><br/>
+				Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+				<input type="submit" value="Add items to collection">
+			</form>
+		</div>
+	</div>
+	<div id="banAdmin">
+		<div class="article">
+			<h1>Ban user</h1>
+			<h2>Permanently</h2>
+			<form id="banUserForm" method="POST" action="/gemp-lotr-server/admin/banUser">
+				Name (case-sensitive): <input type="text" name="login"><br/>
+				<input id="banUser" type="button" value="Ban user permanently">
+			</form>
+			<h2>Temporarily</h2>
+			<form id="banUserTempForm" method="POST" action="/gemp-lotr-server/admin/banUserTemp">
+				Name (case-sensitive): <input type="text" name="login"><br/>
+				Duration:
+				<select name="duration">
+					<option value="1">1 day</option>
+					<option value="3">3 days</option>
+					<option value="7">7 days</option>
+					<option value="14">14 days</option>
+					<option value="30">30 days</option>
+				</select><br/>
+				<input id="banUserTemp" type="button" value="Ban user temporarily">
+			</form>
+			<h1>Unban user</h1>
+			<form id="unBanUserForm" method="POST" action="/gemp-lotr-server/admin/unBanUser">
+				Name (case-sensitive): <input type="text" name="login"><br/>
+				<input id="unBanUser" type="button" value="Unban user">
+			</form>
+			<h1>Find suspicious behaviour</h1>
+			<h2>Multiple user accounts</h2>
+			<form id="findMultipleAccountsForm" method="POST" action="/gemp-lotr-server/admin/findMultipleAccounts">
+				Name (case-sensitive): <input type="text" name="login"><br/>
+				<input id="findMultipleAccounts" type="button" value="Find similar accounts">
+			</form>
+			<div id="displayUsers"></div>
+		</div>
+	</div>
+</div>
+
+
+
+

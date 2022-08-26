@@ -1,0 +1,288 @@
+<html>
+<head>
+    <title>Gemp-LotR League Administration</title>
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .leagueName {
+            font-size: 150%;
+            font-weight: bolder;
+        }
+
+        .serieName {
+            font-size: 120%;
+            font-weight: bolder;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+
+    <script type="text/javascript" src="js/gemp-022/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-022/common.js"></script>
+    <script type="text/javascript" src="js/gemp-022/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-022/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-022/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-022/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-022/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-022/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-022/hobbit.js"></script>
+    <script type="text/javascript" src="js/gemp-022/set40.js"></script>
+    <script type="text/javascript" src="js/gemp-022/jCards.js"></script>
+    <script type="text/javascript" src="js/gemp-022/PC_Cards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-022/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
+
+    <script type="text/javascript">
+        function submitFormToAddress(url, formElem, success, error) {
+            var data = {};
+
+            var inputs = $("input[type='text'], option:selected", formElem).each(
+                    function () {
+                        var input = $(this);
+                        var name = null;
+                        var value = null;
+                        if (input.prop("tagName") == "INPUT") {
+                            name = input.attr("name");
+                            value = input.val();
+                        } else if (input.prop("tagName") == "OPTION") {
+                            name = input.parents("select").attr("name");
+                            value = input.attr("value");
+                        }
+                        if (name != null && value != null) {
+                            if (data[name] == null)
+                                data[name] = new Array();
+                            data[name].push(value);
+                        }
+                    });
+
+            $.ajax({
+                type:"POST",
+                url:serverDomain+url,
+                cache:false,
+                data:data,
+                traditional:true,
+                success:success,
+                error:error,
+                dataType:"xml"
+            });
+        }
+
+        $(document).ready(
+                function () {
+                    var previewDialog = $("<div></div>")
+                            .dialog({
+                                autoOpen:false,
+                                closeOnEscape:true,
+                                resizable:true,
+                                modal:true,
+                                title:"Preview window"
+                            });
+
+                    var displayPreview = function (xml) {
+                        var root = xml.documentElement;
+                        if (root.tagName == 'league') {
+                            var league = root;
+
+                            var leagueName = league.getAttribute("name");
+                            var cost = parseInt(league.getAttribute("cost"));
+
+                            previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
+
+                            var costStr = formatPrice(cost);
+                            previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+
+                            var series = league.getElementsByTagName("serie");
+                            for (var j = 0; j < series.length; j++) {
+
+                                var serie = series[j];
+                                var serieName = serie.getAttribute("type");
+                                var serieStart = serie.getAttribute("start");
+                                var serieEnd = serie.getAttribute("end");
+                                var maxMatches = serie.getAttribute("maxMatches");
+                                var format = serie.getAttribute("format");
+                                var collection = serie.getAttribute("collection");
+                                var limited = serie.getAttribute("limited");
+
+                                var serieText = serieName + " - " + getDateString(serieStart) + " to " + getDateString(serieEnd);
+                                previewDialog.append("<div class='serieName'>" + serieText + "</div>");
+
+                                previewDialog.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                                previewDialog.append("<div><b>Collection:</b> " + collection + "</div>");
+
+                                previewDialog.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
+                            }
+                        }
+                    };
+
+                    var previewError = function (xhr) {
+                        previewDialog.dialog("close");
+                        alert("Invalid parameters specified - error code: " + xhr.status);
+                    };
+
+                    $("#previewSealed").click(
+                            function () {
+                                submitFormToAddress("/gemp-lotr-server/admin/previewSealedLeague", $("#addSealedForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
+                    $("#previewSoloDraft").click(
+                            function () {
+                                submitFormToAddress("/gemp-lotr-server/admin/previewSoloDraftLeague", $("#addSoloDraftForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
+                    $("#previewConstructed").click(
+                            function () {
+                                submitFormToAddress("/gemp-lotr-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
+                    $("#addConstructedSerie").click(
+                            function () {
+                                $(".serieData").last().clone().appendTo(".series");
+                            });
+                });
+    </script>
+</head>
+<body>
+<h1>League</h1>
+
+<h2>Add sealed league</h2>
+
+<form id="addSealedForm" method="POST" action="/gemp-lotr-server/admin/addSealedLeague">
+    Name: <input type="text" name="name"><br/>
+    Cost (in silver): <input type="text" name="cost"><br/>
+    Start (YYYYMMDD): <input type="text" name="start"><br/>
+    Format:
+    <select name="format">
+        <option value="fotr_block">Fellowship block</option>
+        <option value="ttt_block">Towers block</option>
+        <option value="movie">King (Movie) block</option>
+        <option value="war_block">War of the Ring block</option>
+        <option value="hunters_block">Hunters block</option>
+        <option value="movie_special">Movie Special block</option>
+        <option value="ts_special">TS Special block</option>
+    </select><br/>
+    Series duration in days: <input type="text" name="serieDuration"><br/>
+    Maximum matches in series: <input type="text" name="maxMatches"><br/>
+    <input id="previewSealed" type="button" value="Preview sealed league">
+    <input type="submit" value="Add sealed league">
+</form>
+
+<h2>Add solo-draft league</h2>
+
+<form id="addSoloDraftForm" method="POST" action="/gemp-lotr-server/admin/addSoloDraftLeague">
+    Name: <input type="text" name="name"><br/>
+    Cost (in silver): <input type="text" name="cost"><br/>
+    Start (YYYYMMDD): <input type="text" name="start"><br/>
+    Format:
+    <select name="format">
+        <option value="test_draft">Test Draft</option>
+        <option value="fotr_draft">Fellowship Draft</option>
+        <option value="ttt_draft">Two Towers Draft</option>
+        <option value="hobbit_random_draft">Hobbit Random Draft</option>
+    </select><br/>
+    Series duration in days: <input type="text" name="serieDuration"><br/>
+    Maximum matches in series: <input type="text" name="maxMatches"><br/>
+    <input id="previewSoloDraft" type="button" value="Preview solo draft league">
+    <input type="submit" value="Add solo draft league">
+</form>
+
+<h2>Add constructed league</h2>
+
+<form id="addConstructedForm" method="POST" action="/gemp-lotr-server/admin/addConstructedLeague">
+    Name: <input type="text" name="name"><br/>
+    Cost (in silver): <input type="text" name="cost"><br/>
+    Start (YYYYMMDD): <input type="text" name="start"><br/>
+    Prize multiplier (e.g. 0.7): <input type="text" name="prizeMultiplier"><br/>
+    Collection:
+    <select name="collectionType">
+        <option value="default">All cards</option>
+        <option value="permanent+trophy">My cards</option>
+    </select><br/>
+
+    <div class="series">
+        <div class="serieData">
+            <b>Series definition:</b><br/>
+            Format:
+            <select name="format">
+                <option value="fotr_block">Fellowship block</option>
+                <option value="pc_fotr_block">Fellowship block (PC)</option>
+                <option value="fotr1_block">Fellowship block - Set 1</option>
+                <option value="fotr2_block">Fellowship block - Sets 1&2</option>
+                <option value="fotr_poorman">Fellowship block - Poorman</option>
+                <option value="fotr_highlander">Fellowship block - Highlander</option>
+                <option value="ttt_block">Towers block</option>
+                <option value="ttt1_block">Towers block - Set 4</option>
+                <option value="ttt2_block">Towers block - Sets 4&5</option>
+                <option value="towers_standard">Towers standard</option>
+                <option value="ttt_standard">Towers standard - Sets 1-4</option>
+                <option value="bohd_standard">Towers standard - Sets 1-5</option>
+                <option value="ts_no_fotr">Towers standard - Sets 2-6</option>
+                <option value="ts_reflections">Towers standard - Sets 1-6,9,14&16</option>
+                <option value="king_block">King block</option>
+                <option value="king1_block">King block - Set 7</option>
+                <option value="king2_block">King block - Sets 7-8</option>
+                <option value="movie">Movie block</option>
+                <option value="pc_movie">Movie block (PC)</option>
+                <option value="movie_exp">Movie block, no GLR (10R11)</option>
+                <option value="movie7">Movie block - Sets 1-7</option>
+                <option value="movie8">Movie block - Sets 1-8</option>
+                <option value="movie9">Movie block - Sets 1-9</option>
+                <option value="movie_sans9">Movie block - Sets 1-8,10</option>
+                <option value="movie_highlander">Movie block - Highlander</option>
+                <option value="war_block">War of the Ring block</option>
+                <option value="war_block11">War of the Ring block - Set 11</option>
+                <option value="war_block12">War of the Ring block - Sets 11-12</option>
+                <option value="war_block14">War of the Ring block - Sets 10-14</option>
+                <option value="hunter_block">Hunters block</option>
+                <option value="war_standard">War of the Ring standard</option>
+                <option value="standard">Standard</option>
+                <option value="open">Open</option>
+                <option value="open_legacy">Open - Sets 1-4</option>
+                <option value="expanded">Expanded</option>
+                <option value="pc_expanded">Expanded (PC)</option>
+                <option value="test_pc_fotr_block">PLAYTEST FOTR (PC)</option>
+                <option value="test_pc_movie">PLAYTEST Movie (PC)</option>
+                <option value="test_pc_expanded">PLAYTEST Expanded (PC)</option>
+                <option value="french">French</option>
+            </select><br/>
+            Series duration in days: <input type="text" name="serieDuration"><br/>
+            Maximum matches in series: <input type="text" name="maxMatches"><br/>
+        </div>
+    </div>
+    <input id="addConstructedSerie" type="button" value="Add another series">
+    <input id="previewConstructed" type="button" value="Preview constructed league">
+    <input type="submit" value="Add constructed league">
+</form>
+
+</body>
+</html>

@@ -1,3 +1,22 @@
+.custom-icon {
+	background-color: transparent; /* make the button transparent */
+	background-repeat: no-repeat; /* make the background image appear only once */
+	background-position: 0px 0px;  /* equivalent to 'top left' */
+	background-size:	20px;
+	border: none;  /* assuming we don't want any borders */
+	cursor: pointer; /* make the cursor like hovering over an <a> element */
+	height: 20px; /* make this the size of your image */
+	padding-left: 30px ; /* make text start to the right of the image */
+	vertical-align: middle; /* align the text vertically centered */
+	filter: brightness(0) invert(1);
+}
+
+.ui-tabs .ui-tabs-nav li > a.custom-icon {
+	padding: 0.5em 1em 0.5em 35px;
+	/*background-origin:	content-box;*/
+	background-position:	10px center;
+}
+
 .icon-discord {
 	background-image: url("../../images/icons/discord-brands.svg");
 }
@@ -16,6 +35,7 @@
 
 .icon-hall {
 	background-image: url("../../images/icons/swords.svg");
+	background-size: 25px;
 }
 
 .icon-help {
@@ -46,21 +66,8 @@
 	background-image: url("../../images/icons/store-slash-solid.svg");
 }
 
-.custom-icon {
-  background-color: transparent; /* make the button transparent */
-  background-repeat: no-repeat;  /* make the background image appear only once */
-  background-position: 0px 0px;  /* equivalent to 'top left' */
-  background-size:  20px;
-  border: none;           /* assuming we don't want any borders */
-  cursor: pointer;        /* make the cursor like hovering over an <a> element */
-  height: 20px;           /* make this the size of your image */
-  padding-left: 30px ;     /* make text start to the right of the image */
-  vertical-align: middle; /* align the text vertically centered */
-  filter: brightness(0) invert(1);
+.icon-admin {
+	background-image: url("../../images/icons/toolbox-solid.svg");
 }
 
-.ui-tabs .ui-tabs-nav li > a.custom-icon {
-	padding: 0.5em 1em 0.5em 35px;
-	/*background-origin:  content-box;*/
-	background-position:  10px center;
-}
+

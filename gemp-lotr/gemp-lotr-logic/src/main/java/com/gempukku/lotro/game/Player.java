@@ -75,4 +75,18 @@ public class Player {
     public int hashCode() {
         return _name != null ? _name.hashCode() : 0;
     }
+
+    public PlayerDefinition GetUserInfo() {
+        return new PlayerDefinition(_name, _type);
+    }
+
+    public class PlayerDefinition {
+        public String name;
+        public String type;
+
+        public PlayerDefinition(String name, String info) {
+            this.name = name;
+            type = info;
+        }
+    }
 }

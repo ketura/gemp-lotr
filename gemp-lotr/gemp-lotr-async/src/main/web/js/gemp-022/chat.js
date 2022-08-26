@@ -1,5 +1,6 @@
 var ChatBoxUI = Class.extend({
     name:null,
+    userInfo:null,
     userName:null,
     pingRegex:null,
     mentionRegex:null,
@@ -35,7 +36,8 @@ var ChatBoxUI = Class.extend({
     
     toggleChatButton:null,
 
-    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, displayChatListener, allowDiscord=false) {
+
+    init:function (name, div, url, showList, playerListener, showHideSystemButton, displayChatListener, allowDiscord=false) {
         var that = this;
              
         this.hiddenClasses = new Array();
@@ -61,15 +63,11 @@ var ChatBoxUI = Class.extend({
             that.appendMessage("Unknown chat problem occured (error=" + xhr.status + ")", "warningMessage");
         });
         this.enableDiscord = allowDiscord;
-        
+
         this.comm.getPlayerInfo(function(json)
         { 
-            that.userName = json; 
-            that.pingRegex = new RegExp("@" + json + "\\b");
-            that.mentionRegex = new RegExp("(?<!<b>)\\b" + json + "\\b");
+            that.initPlayerInfo(json);
         }, this.chatErrorMap());
-
-        
 
         if (this.name != null) {
             
@@ -158,31 +156,13 @@ var ChatBoxUI = Class.extend({
                     this.hideMessageClass("systemMessage");
                 }
 
-                // if (showLockButton) {
-                //     this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
-                //     {icons:{
-                //         primary:"ui-icon-locked"
-                //     }, text:false});
-                //     this.lockButton.click(
-                //             function () {
-                //                 if (that.lockChat) {
-                //                     $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
-                //                     that.lockChat = false;
-                //                 } else {
-                //                     $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
-                //                     that.lockChat = true;
-                //                 }
-                //             });
-                // }
-
                 if (showList) {
                     this.chatListDiv = $("<div class='userList'></div>");
                     this.div.append(this.chatListDiv);
                 }
                 if (this.hideSystemButton != null)
                     this.div.append(this.hideSystemButton);
-                // if (this.lockButton != null)
-                //     this.div.append(this.lockButton);
+
                 this.div.append(this.chatTalkDiv);
 
                 this.comm.startChat(this.name,
@@ -204,6 +184,13 @@ var ChatBoxUI = Class.extend({
         } else {
             this.talkBoxHeight = 0;
         }
+    },
+    
+    initPlayerInfo:function (playerInfo) {
+        this.userInfo = playerInfo;
+        this.userName = this.userInfo.name; 
+        this.pingRegex = new RegExp("@" + this.userName + "\\b");
+        this.mentionRegex = new RegExp("(?<!<b>)\\b" + this.userName + "\\b");
     },
 
 

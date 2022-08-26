@@ -535,7 +535,7 @@ var GempLotrGameUI = Class.extend({
         }
 
         var chatRoomName = (this.replayMode ? null : ("Game" + getUrlParam("gameId")));
-        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener, false, true, displayChatListener);
+        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener, false, displayChatListener);
         this.chatBox.chatUpdateInterval = 3000;
 
         if (!this.spectatorMode && !this.replayMode) {

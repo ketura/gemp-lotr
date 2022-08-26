@@ -723,6 +723,12 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    //NEVER EVER EVER use this for actual authentication
+    // This is strictly to simplify things like auto-hiding
+    // of the admin panel.  If you actually need functionality
+    // gated behind authorization, it goes on the server
+    // and not in here.
+    
     getPlayerInfo:function (callback, errorMap) {
         $.ajax({
             type:"GET",
