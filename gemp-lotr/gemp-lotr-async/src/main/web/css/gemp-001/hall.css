@@ -24,13 +24,13 @@ a:visited {
 	display:inline-block;
 }
 
-/* For Firefox*/
+/* Scrollbar styles for Firefox*/
 div {
 	scrollbar-color: #66666666 #222222AA;
 	scrollbar-width:  auto;
 }
 
-/* For Chrome/Safari */
+/* Scrollbar styles for Chrome/Safari */
 ::-webkit-scrollbar-track {
 	background-color: #66666666;
 }
@@ -57,40 +57,40 @@ div {
 
 /* Turn on a 16x16 scrollbar */
 ::-webkit-scrollbar {
-    width: 16px;
-    height: 16px;
+	width: 16px;
+	height: 16px;
 }
 
 /* Turn on single button up on top, and down on bottom */
 ::-webkit-scrollbar-button:start:decrement,
 ::-webkit-scrollbar-button:end:increment {
-    display: block;
+	display: block;
 }
 
 /* Turn off the down area up on top, and up area on bottom */
 ::-webkit-scrollbar-button:vertical:start:increment,
 ::-webkit-scrollbar-button:vertical:end:decrement {
-    display: none;
+	display: none;
 }
 
 /* Place The scroll down button at the bottom */
 ::-webkit-scrollbar-button:vertical:end:increment {
-    background-image: url(../ui/scroll-button-down.png);
+	background-image: url(../ui/scroll-button-down.png);
 }
 
 /* Place The scroll up button at the up */
 ::-webkit-scrollbar-button:vertical:start:decrement {
-    background-image: url(../ui/scroll-button-up.png);
+	background-image: url(../ui/scroll-button-up.png);
 }
 
 /* Place The scroll down button at the bottom */
 ::-webkit-scrollbar-button:horizontal:end:increment {
-    background-image: url(../ui/scroll-button-right.png);
+	background-image: url(../ui/scroll-button-right.png);
 }
 
 /* Place The scroll up button at the up */
 ::-webkit-scrollbar-button:horizontal:start:decrement {
-    background-image: url(../ui/scroll-button-left.png);
+	background-image: url(../ui/scroll-button-left.png);
 }
 
 
@@ -112,6 +112,10 @@ select:hover {
 textarea, input {
 	border-color: #666666 #888888 #888888 #666666;
 	margin: 2px;
+}
+
+button > span {
+	white-space: nowrap;
 }
 
 #main {
