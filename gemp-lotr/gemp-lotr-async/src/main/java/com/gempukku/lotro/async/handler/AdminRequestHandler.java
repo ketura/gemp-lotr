@@ -68,15 +68,17 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if (uri.equals("/clearCache") && request.method() == HttpMethod.GET) {
+        if (uri.equals("/clearCache") && request.method() == HttpMethod.POST) {
             clearCache(request, responseWriter);
-        } else if (uri.equals("/shutdown") && request.method() == HttpMethod.GET) {
+        } else if (uri.equals("/shutdown") && request.method() == HttpMethod.POST) {
             shutdown(request, responseWriter);
-        } else if (uri.equals("/reloadCards") && request.method() == HttpMethod.GET) {
+        } else if (uri.equals("/reloadCards") && request.method() == HttpMethod.POST) {
             reloadCards(request, responseWriter);
-        } else if (uri.equals("/setMotd") && request.method() == HttpMethod.POST) {
+        } else if (uri.equals("/getMOTD") && request.method() == HttpMethod.GET) {
+            getMotd(request, responseWriter);
+        }else if (uri.equals("/setMOTD") && request.method() == HttpMethod.POST) {
             setMotd(request, responseWriter);
-        } else if (uri.equals("/previewSealedLeague") && request.method() == HttpMethod.POST) {
+        }else if (uri.equals("/previewSealedLeague") && request.method() == HttpMethod.POST) {
             previewSealedLeague(request, responseWriter);
         } else if (uri.equals("/addSealedLeague") && request.method() == HttpMethod.POST) {
             addSealedLeague(request, responseWriter);
@@ -570,16 +572,29 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
     }
 
+    private void getMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, IOException {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+            String motd = _hallServer.getMOTD();
+
+            responseWriter.writeJsonResponse(motd);
+        } finally {
+            postDecoder.destroy();
+        }
+    }
+
     private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, IOException {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String motd = getFormParameterSafely(postDecoder, "motd");
+            String motd = getFormParameterSafely(postDecoder, "motd");
 
-        _hallServer.setMOTD(motd);
+            _hallServer.setMOTD(motd);
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -588,12 +603,18 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private void shutdown(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
         validateAdmin(request);
 
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
-        boolean shutdown = Boolean.parseBoolean(getQueryParameterSafely(queryDecoder, "shutdown"));
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+            boolean shutdown = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "shutdown"));
 
-        _hallServer.setShutdown(shutdown);
+            _hallServer.setShutdown(shutdown);
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
+        } catch (Exception e) {
+            responseWriter.writeHtmlResponse("Error handling request");
+        } finally {
+            postDecoder.destroy();
+        }
     }
 
     private void reloadCards(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
@@ -616,7 +637,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         int after = _cacheManager.getTotalCount();
 
-        responseWriter.writeHtmlResponse("Before: " + before + "<br>OK<br>After: " + after);
+        responseWriter.writeHtmlResponse("Before: " + before + "<br><br>After: " + after);
     }
 
     private void validateAdmin(HttpRequest request) throws HttpProcessingException {

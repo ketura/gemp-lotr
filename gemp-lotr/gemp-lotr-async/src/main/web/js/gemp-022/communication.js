@@ -723,6 +723,71 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    setShutdownMode:function (shutdown, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/shutdown",
+            cache:false,
+            data:{
+                shutdown:shutdown
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    clearServerCache:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/clearCache",
+            cache:false,
+            data:{},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    reloadCardDefinitions:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/reloadCards",
+            cache:false,
+            data:{},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    getMOTD:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/admin/getMOTD",
+            cache:false,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
+    
+    setMOTD:function (motd, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/setMOTD",
+            cache:false,
+            data:{
+                motd:motd
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    
+    
     //NEVER EVER EVER use this for actual authentication
     // This is strictly to simplify things like auto-hiding
     // of the admin panel.  If you actually need functionality

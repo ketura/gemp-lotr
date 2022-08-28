@@ -291,6 +291,9 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
 
             if (json == null)
                 json = "{}";
+
+            if(!json.startsWith("{") && !json.startsWith("["))
+                json = "{ \"response\": \"" + json + "\"}";
             // Build the response object.
             FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(json.getBytes(CharsetUtil.UTF_8)), headers, EmptyHttpHeaders.INSTANCE);
             sendResponse(ctx, request, response);

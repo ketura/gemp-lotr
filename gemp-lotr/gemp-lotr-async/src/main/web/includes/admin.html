@@ -5,6 +5,8 @@
 			$("#admin-tabs > ol > li").removeClass("ui-corner-top").addClass("ui-corner-left");
 			
 			$("#landingTab").parent().hide();
+			$("#landing").hide();
+			
 			if(!hall.userInfo.type.includes("a"))
 			{
 				$("#generalTab").parent().hide();
@@ -22,46 +24,16 @@
 <div id="adminMain" class="hall-tab flex-horiz">
 	<div id="admin-tabs" class="sub-tabs">
 		<ol>
-			<li><a id="landingTab" href="#Landing"></a></li>
-			<li><a id="generalTab" href="#generalAdmin">General Admin</a></li>
+			<li><a id="landingTab" href="#landing"></a></li>
+			<li><a id="generalTab" href="includes/admin/generalAdmin.html">General Admin</a></li>
 			<li><a id="leagueTab" href="includes/admin/leagueAdmin.html">League Admin</a></li>
-			<li><a id="banTab" href="#banAdmin">My Stats</a></li>
+			<li><a id="banTab" href="#banAdmin">Ban Users</a></li>
 		</ol>
 	</div>  
-	<div id="landing" style="display:none">
+	<div id="landing" style="">
 	</div>
 	<div id="generalAdmin">
-		<div class="article">
-			<h1>Cache</h1>
-			<a href="/gemp-lotr-server/admin/clearCache">Clear cache</a>
-
-			<h1>Message of the Day</h1>
-
-			<form method="POST" action="/gemp-lotr-server/admin/setMotd">
-				MotD: <input type="text" name="motd"><br/>
-				<input type="submit" value="Set MotD">
-			</form>
-
-			<h1>Collections</h1>
-
-			<h2>Add items</h2>
-
-			<form method="POST" action="/gemp-lotr-server/admin/addItems">
-				Type: <input type="text" name="collectionType"><br/>
-				Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
-				Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
-				<input type="submit" value="Add items">
-			</form>
-
-			<h2>Add items to collection</h2>
-
-			<form method="POST" action="/gemp-lotr-server/admin/addItemsToCollection">
-				Type: <input type="text" name="collectionType"><br/>
-				Reason: <input type="text" name="reason"><br/>
-				Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
-				<input type="submit" value="Add items to collection">
-			</form>
-		</div>
+		
 	</div>
 	<div id="banAdmin">
 		<div class="article">

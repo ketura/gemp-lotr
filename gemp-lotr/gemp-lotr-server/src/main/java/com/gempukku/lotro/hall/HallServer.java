@@ -283,15 +283,28 @@ public class HallServer extends AbstractServer {
     public void setShutdown(boolean shutdown) {
         _hallDataAccessLock.writeLock().lock();
         try {
+            boolean cancelMessage = _shutdown && !shutdown;
             _shutdown = shutdown;
             if (shutdown) {
                 cancelWaitingTables();
                 cancelTournamentQueues();
-                _chatServer.sendSystemMessageToAllChatRooms("System is entering shutdown mode and will be restarted when all games are finished");
+                _chatServer.sendSystemMessageToAllChatRooms("@everyone System is entering shutdown mode and will be restarted when all games are finished.");
                 hallChanged();
+            }
+            else if(cancelMessage){
+                _chatServer.sendSystemMessageToAllChatRooms("@everyone Shutdown mode canceled; games may now resume.");
             }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    public String getMOTD() {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            return _motd;
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
         }
     }
 

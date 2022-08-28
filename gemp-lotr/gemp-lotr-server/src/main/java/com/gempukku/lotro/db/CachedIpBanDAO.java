@@ -21,7 +21,12 @@ public class CachedIpBanDAO implements IpBanDAO, Cached {
 
     @Override
     public int getItemCount() {
-        return 2;
+        int total = 0;
+        if(_bannedIps != null)
+            total += _bannedIps.size();
+        if(_bannedIpPrefixes != null)
+            total += _bannedIpPrefixes.size();
+        return total;
     }
 
     @Override

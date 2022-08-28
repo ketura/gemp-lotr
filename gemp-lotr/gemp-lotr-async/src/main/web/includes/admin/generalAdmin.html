@@ -1,0 +1,168 @@
+<script type="text/javascript">
+	$("#generalAdmin").ready(
+		function () {
+			$("#shutdown-button").button().click(
+				function () {
+					let execute = confirm("Are you sure you want to enter shutdown mode?	This will cancel all currently waiting tables and send a site-wide chat alert informing players the server will restart soon.	(Currently playing tables will be unaffected.)");
+					
+					if(!execute)
+						return;
+					
+					$("#shutdown-response").html("Processing...");
+						
+					hall.comm.setShutdownMode(true, function (string) {
+						$("#shutdown-response").html(string);
+					});
+				});
+			
+			
+			$("#cancel-shutdown-button").button().click(
+				function () {
+					$("#shutdown-response").html("Processing...");
+					
+					hall.comm.setShutdownMode(false, function (string) {
+						$("#shutdown-response").html(string);
+					});
+				});
+			
+			$("#clear-cache-button").button().click(
+				function () {
+					$("#cache-response").html("Processing...");
+					
+					hall.comm.clearServerCache(function (string) {
+						$("#cache-response").html(string);
+					});
+				});
+			
+			$("#reload-cards-button").button().click(
+				function () {
+					$("#cards-response").html("Processing...");
+					
+					hall.comm.reloadCardDefinitions(function (string) {
+						$("#cards-response").html(string);
+					});
+				});
+			
+			// $('#motd-text').bind("oninput", function() {
+			// 	$("#motd-preview").html($('#motd-text').val());
+			// });
+			
+			$("#motd-button").button().click(
+				function () {
+					$("#motd-response").html("Processing...");
+					
+					hall.comm.setMOTD($("#motd-text").val(), function (string) {
+						$("#motd-response").html("Response: " + string);
+					});
+				});
+			
+			hall.comm.getMOTD(function (json) {
+				$("#motd-text").val(json.response);
+				$("#motd-preview").html(json.response);
+			});
+		});
+
+
+</script>
+<div id="generalAdmin" >
+	
+	<table class="tables" style="width:100%">
+		<tr >
+			<th>Action</th>
+			<th style="min-width:200px">Result</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>
+				<button id="shutdown-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+					Enter Shutdown Mode
+				</button>
+				
+				<button id="cancel-shutdown-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+					Exit Shutdown Mode
+				</button>
+			</td>
+			<td id="shutdown-response"></td>
+			<td>
+				Puts the server into shutdown mode (cancels queues, disallows new table creation, otherwise leaves current tables open).	Puts a site-wide chat alert telling players the server will restart soon.
+				<br><br>
+				Canceling shutdown mode puts out another chat-wide alert and players may resume setting up tables.
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<button id="clear-cache-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+					Clear Server Cache
+				</button>
+				
+			</td>
+			<td id="cache-response"></td>
+			<td>
+				All database operations have their results cached in memory to alleviate load on the DB while the server is running.  This command clears that cache and forces any database calls to get the actual DB data.
+				<br><br>
+				Also clears the internal caches of the League and Tournament services, forcing standings to be re-calculated.  
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<button id="reload-cards-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;display:flex;">
+					Reload JSON Card Definitions
+				</button>
+				
+			</td>
+			<td id="cards-response"></td>
+			<td>
+				New-style card definitions are JSON text files, and as such can be hot-reloaded at will.  This command will reload all definitions from file for cards that have been converted.
+			</td>
+		</tr>
+		
+		
+	</table> 
+	
+	<h1>Message of the Day</h1>
+	<div>
+		<p>Sets the MOTD in the Game Hall just beneath the action bar at the top of the window.  Supports HTML.</p>
+		
+		<div id="motd-response"></div>
+
+		<div class="flex-horiz" style="gap:25px">
+			<div class="flex-vert" style="flex-basis:50%;">
+				<textarea type="text" id="motd-text" style="min-width:50%" oninput='$("#motd-preview").html($("#motd-text").val());'></textarea>
+				<br />
+				<button id="motd-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;max-width:100px;">
+					Set MOTD
+				</button>
+			</div>
+			<div id="motd-preview" style="flex-basis:50%;word-wrap:break-word;max-width:100%"></div>
+		</div>
+		<br/>
+		
+		
+		<!-- <form method="POST" action="javascript:;" onsubmit="submitMOTD(this)" action="/gemp-lotr-server/admin/setMotd">
+			Hall MOTD: <textarea type="text" name="motd"><br/>
+			<input type="submit" value="Set MotD">
+		</form> -->
+	</div>
+
+	<h1>Collections</h1>
+
+	<h2>Add items</h2>
+
+	<form method="POST" action="/gemp-lotr-server/admin/addItems">
+		Type: <input type="text" name="collectionType"><br/>
+		Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+		Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+		<input type="submit" value="Add items">
+	</form>
+
+	<h2>Add items to collection</h2>
+
+	<form method="POST" action="/gemp-lotr-server/admin/addItemsToCollection">
+		Type: <input type="text" name="collectionType"><br/>
+		Reason: <input type="text" name="reason"><br/>
+		Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+		<input type="submit" value="Add items to collection">
+	</form>
+</div>
