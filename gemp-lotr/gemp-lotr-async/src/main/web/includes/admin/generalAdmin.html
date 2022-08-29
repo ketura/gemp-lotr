@@ -115,7 +115,7 @@
 			</td>
 			<td id="cache-response">Ready.</td>
 			<td>
-				All database operations have their results cached in memory to alleviate load on the DB while the server is running.	This command clears that cache and forces any database calls to get the actual DB data.
+				All database operations have their results cached in memory to alleviate load on the DB while the server is running.	This command clears that cache and forces any database calls to get the actual DB data (which will then be cached again).
 				<br><br>
 				Also clears the internal caches of the League and Tournament services, forcing standings to be re-calculated.	
 			</td>
@@ -137,6 +137,8 @@
 		
 	</table> 
 	
+	<hr>
+	
 	<h1>Message of the Day</h1>
 	<div>
 		<p>Sets the MOTD in the Game Hall just beneath the action bar at the top of the window.	Supports HTML.</p>
@@ -155,10 +157,10 @@
 		</div>
 		<br/>
 	</div>
+	<br>
+	<hr>
 
-	<h1>Collections</h1>
-
-	<h2>Add Items</h2>
+	<h1>Add Items to Collections</h1>
 	
 	 <table class="tables">
 		<tr>

@@ -1,0 +1,139 @@
+
+<script type="text/javascript" src="js/gemp-022/manage.js"></script>
+
+
+<div id="banMain" class="article">
+	<h1>Ban User</h1>
+	<h2>Permanently</h2>
+	<div>
+		Name (case-sensitive): <input id="permaban-input" type="text" ><br/>
+		<button id="permaban-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Permaban User
+		</button> <span id="permaban-result" style="display:inline-block;">Ready.</span>
+	</div>
+
+	<h2>Temporarily</h2>
+	<div>
+		Name (case-sensitive): <input id="tempban-input" type="text" ><br/>
+		<div>Duration:
+			<select id="temp-ban-duration-select">
+				<option value="1">1 day</option>
+				<option value="3">3 days</option>
+				<option value="7">7 days</option>
+				<option value="14">14 days</option>
+				<option value="30">30 days</option>
+			</select><br/>
+		</div>
+		<button id="tempban-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Tempban User
+		</button> <span id="tempban-result" style="display:inline-block;">Ready.</span>
+	</div>
+	
+	<br><hr>
+	
+	<h1>Unban user</h1>
+	<div>
+		Name (case-sensitive): <input id="unban-input" type="text" ><br/>
+		<button id="unban-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Unban User
+		</button> <span id="unban-result" style="display:inline-block;">Ready.</span>
+	</div>
+	
+	<br><hr>
+	
+	<h1>Find Suspicious Behaviour</h1>
+	<h2>Multiple User Accounts</h2>
+	<div>
+		Name (case-sensitive): <input id="sus-input" type="text" ><br/>
+		<button id="sus-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Find Similar Accounts
+		</button> <span id="sus-result" style="display:inline-block;">Ready.</span>
+		<div id="displayUsers"></div>
+	</div>
+	
+</div>
+
+
+
+<!-- 
+<script type="text/javascript">
+		function submitFormToAddress(url, formElem, success, error) {
+			var data = {};
+
+			
+
+			$.ajax({
+				type:"POST",
+				url:serverDomain+url,
+				cache:false,
+				data:data,
+				traditional:true,
+				success:success,
+				error:error,
+				dataType:"xml"
+			});
+		}
+
+		
+
+		$(document).ready(
+				function () {
+					var actionSuccess = function () {
+						alert("Operation was successful");
+					};
+
+					var actionFailure = function (xhr) {
+						var status = xhr.status;
+						if (status == 404)
+							alert("Specified resource (player, league) does not exist. Check the spelling and try again.");
+						else
+							alert("Unknown error. Status code - "+status);
+					};
+
+					var displayUsers = function (xml) {
+						var root = xml.documentElement;
+						if (root.tagName == 'players') {
+							var playersDiv = $("#displayUsers");
+							playersDiv.html("");
+							playersDiv.append("Similar accounts:");
+							var form = $("<form id='banMultipleForm' method='POST' action='/gemp-lotr-server/admin/banMultiple'></form>");
+
+							var table = $("<table class='tables'></table>");
+							table.append("<tr><th></th><th>Id</th><th>Name</th><th>Password (hash)</th><th>Create IP</th><th>Login IP</th><th>User status</th></tr>");
+
+							var players = root.getElementsByTagName("player");
+							for (var j=0; j<players.length; j++) {
+								var player = players[j];
+								var id=player.getAttribute("id");
+								var name=player.getAttribute("name");
+								var password = player.getAttribute("password");
+								var createIp = player.getAttribute("createIp");
+								var loginIp = player.getAttribute("loginIp");
+								var status = player.getAttribute("status");
+								table.append("<tr><td><input type='checkbox' name='login' value='"+name+"'></td><td>"+id+"</td><td>"+name+"</td><td>"+password+"</td><td>"+createIp+"</td><td>"+loginIp+"</td><td>"+status+"</td></tr>");
+							}
+							form.append(table);
+							form.append("<input type='button' value='Ban selected' onClick='banMultiple();'>");
+
+							playersDiv.append(form);
+						}
+					};
+
+					$("#banUser").click(
+							function() {
+								submitFormToAddress("/gemp-lotr-server/admin/banUser", $("#banUserForm").eq(0), actionSuccess, actionFailure);
+							});
+					$("#banUserTemp").click(
+							function() {
+								submitFormToAddress("/gemp-lotr-server/admin/banUserTemp", $("#banUserTempForm").eq(0), actionSuccess, actionFailure);
+							});
+					$("#unBanUser").click(
+							function() {
+								submitFormToAddress("/gemp-lotr-server/admin/unBanUser", $("#unBanUserForm").eq(0), actionSuccess, actionFailure);
+							});
+					$("#findMultipleAccounts").click(
+							function() {
+								submitFormToAddress("/gemp-lotr-server/admin/findMultipleAccounts", $("#findMultipleAccountsForm").eq(0), displayUsers, actionFailure);
+							});
+				});
+	</script> -->

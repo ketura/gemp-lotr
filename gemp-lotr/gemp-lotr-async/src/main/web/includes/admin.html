@@ -27,7 +27,7 @@
 			<li><a id="landingTab" href="#landing"></a></li>
 			<li><a id="generalTab" href="includes/admin/generalAdmin.html">General Admin</a></li>
 			<li><a id="leagueTab" href="includes/admin/leagueAdmin.html">League Admin</a></li>
-			<li><a id="banTab" href="#banAdmin">Ban Users</a></li>
+			<li><a id="banTab" href="includes/admin/userAdmin.html">Manage Users</a></li>
 		</ol>
 	</div>  
 	<div id="landing" style="">
@@ -36,39 +36,7 @@
 		
 	</div>
 	<div id="banAdmin">
-		<div class="article">
-			<h1>Ban user</h1>
-			<h2>Permanently</h2>
-			<form id="banUserForm" method="POST" action="/gemp-lotr-server/admin/banUser">
-				Name (case-sensitive): <input type="text" name="login"><br/>
-				<input id="banUser" type="button" value="Ban user permanently">
-			</form>
-			<h2>Temporarily</h2>
-			<form id="banUserTempForm" method="POST" action="/gemp-lotr-server/admin/banUserTemp">
-				Name (case-sensitive): <input type="text" name="login"><br/>
-				Duration:
-				<select name="duration">
-					<option value="1">1 day</option>
-					<option value="3">3 days</option>
-					<option value="7">7 days</option>
-					<option value="14">14 days</option>
-					<option value="30">30 days</option>
-				</select><br/>
-				<input id="banUserTemp" type="button" value="Ban user temporarily">
-			</form>
-			<h1>Unban user</h1>
-			<form id="unBanUserForm" method="POST" action="/gemp-lotr-server/admin/unBanUser">
-				Name (case-sensitive): <input type="text" name="login"><br/>
-				<input id="unBanUser" type="button" value="Unban user">
-			</form>
-			<h1>Find suspicious behaviour</h1>
-			<h2>Multiple user accounts</h2>
-			<form id="findMultipleAccountsForm" method="POST" action="/gemp-lotr-server/admin/findMultipleAccounts">
-				Name (case-sensitive): <input type="text" name="login"><br/>
-				<input id="findMultipleAccounts" type="button" value="Find similar accounts">
-			</form>
-			<div id="displayUsers"></div>
-		</div>
+		
 	</div>
 </div>
 

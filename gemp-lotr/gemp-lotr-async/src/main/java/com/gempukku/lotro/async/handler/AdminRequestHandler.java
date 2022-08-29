@@ -118,7 +118,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
             List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
             if (similarPlayers == null)
-                throw new HttpProcessingException(404);
+                throw new HttpProcessingException(400);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -162,13 +162,13 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String login = getFormParameterSafely(postDecoder, "login");
+            String login = getFormParameterSafely(postDecoder, "login");
 
-        if (login==null)
-            throw new HttpProcessingException(404);
+            if (login==null)
+                throw new HttpProcessingException(400);
 
-        if (!_adminService.banUser(login))
-            throw new HttpProcessingException(404);
+            if (!_adminService.banUser(login))
+                throw new HttpProcessingException(404);
 
         responseWriter.writeHtmlResponse("OK");
         } finally {
@@ -181,13 +181,13 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        List<String> logins = getFormParametersSafely(postDecoder, "login");
-        if (logins == null)
-            throw new HttpProcessingException(404);
+            List<String> logins = getFormParametersSafely(postDecoder, "login[]");
+            if (logins == null)
+                throw new HttpProcessingException(400);
 
-        for (String login : logins) {
-            if (!_adminService.banUser(login))
-                throw new HttpProcessingException(404);
+            for (String login : logins) {
+                if (!_adminService.banUser(login))
+                    throw new HttpProcessingException(404);
         }
 
         responseWriter.writeHtmlResponse("OK");
@@ -201,13 +201,13 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String login = getFormParameterSafely(postDecoder, "login");
-        int duration = Integer.parseInt(getFormParameterSafely(postDecoder, "duration"));
+            String login = getFormParameterSafely(postDecoder, "login");
+            int duration = Integer.parseInt(getFormParameterSafely(postDecoder, "duration"));
 
-        if (!_adminService.banUserTemp(login, duration))
-            throw new HttpProcessingException(404);
+            if (!_adminService.banUserTemp(login, duration))
+                throw new HttpProcessingException(404);
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -218,12 +218,12 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String login = getFormParameterSafely(postDecoder, "login");
+            String login = getFormParameterSafely(postDecoder, "login");
 
-        if (!_adminService.unBanUser(login))
-            throw new HttpProcessingException(404);
+            if (!_adminService.unBanUser(login))
+                throw new HttpProcessingException(404);
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -234,18 +234,18 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String reason = getFormParameterSafely(postDecoder, "reason");
-        String product = getFormParameterSafely(postDecoder, "product");
-        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
+            String reason = getFormParameterSafely(postDecoder, "reason");
+            String product = getFormParameterSafely(postDecoder, "product");
+            String collectionType = getFormParameterSafely(postDecoder, "collectionType");
 
-        Collection<CardCollection.Item> productItems = getProductItems(product);
+            Collection<CardCollection.Item> productItems = getProductItems(product);
 
-        Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
+            Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
 
-        for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
-            _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
+            for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
+                _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -313,33 +313,33 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String start = getFormParameterSafely(postDecoder, "start");
-        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
-        String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
-        List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
-        List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration");
-        List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String start = getFormParameterSafely(postDecoder, "start");
+            String collectionType = getFormParameterSafely(postDecoder, "collectionType");
+            String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
+            List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
+            List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration");
+            List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
+            String name = getFormParameterSafely(postDecoder, "name");
+            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
-        String code = String.valueOf(System.currentTimeMillis());
+            String code = String.valueOf(System.currentTimeMillis());
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
-        for (int i = 0; i < formats.size(); i++)
-            sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
+            StringBuilder sb = new StringBuilder();
+            sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
+            for (int i = 0; i < formats.size(); i++)
+                sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
-        String parameters = sb.toString();
-        LeagueData leagueData = new NewConstructedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
-        List<LeagueSerieData> series = leagueData.getSeries();
-        int leagueStart = series.get(0).getStart();
-        int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
+            String parameters = sb.toString();
+            LeagueData leagueData = new NewConstructedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
+            List<LeagueSerieData> series = leagueData.getSeries();
+            int leagueStart = series.get(0).getStart();
+            int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
+            _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
 
-        _leagueService.clearCache();
+            _leagueService.clearCache();
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -350,55 +350,55 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String start = getFormParameterSafely(postDecoder, "start");
-        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
-        String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
-        List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
-        List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration");
-        List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String start = getFormParameterSafely(postDecoder, "start");
+            String collectionType = getFormParameterSafely(postDecoder, "collectionType");
+            String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
+            List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
+            List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration");
+            List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
+            String name = getFormParameterSafely(postDecoder, "name");
+            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
-        for (int i = 0; i < formats.size(); i++)
-            sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
+            StringBuilder sb = new StringBuilder();
+            sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
+            for (int i = 0; i < formats.size(); i++)
+                sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
-        String parameters = sb.toString();
-        LeagueData leagueData = new NewConstructedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
+            String parameters = sb.toString();
+            LeagueData leagueData = new NewConstructedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
+            Document doc = documentBuilder.newDocument();
 
-        final List<LeagueSerieData> series = leagueData.getSeries();
+            final List<LeagueSerieData> series = leagueData.getSeries();
 
-        int end = series.get(series.size() - 1).getEnd();
+            int end = series.get(series.size() - 1).getEnd();
 
-        Element leagueElem = doc.createElement("league");
+            Element leagueElem = doc.createElement("league");
 
-        leagueElem.setAttribute("name", name);
-        leagueElem.setAttribute("cost", String.valueOf(cost));
-        leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
-        leagueElem.setAttribute("end", String.valueOf(end));
+            leagueElem.setAttribute("name", name);
+            leagueElem.setAttribute("cost", String.valueOf(cost));
+            leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+            leagueElem.setAttribute("end", String.valueOf(end));
 
-        for (LeagueSerieData serie : series) {
-            Element serieElem = doc.createElement("serie");
-            serieElem.setAttribute("type", serie.getName());
-            serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
-            serieElem.setAttribute("start", String.valueOf(serie.getStart()));
-            serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-            serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
-            serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
-            serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+            for (LeagueSerieData serie : series) {
+                Element serieElem = doc.createElement("serie");
+                serieElem.setAttribute("type", serie.getName());
+                serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
+                serieElem.setAttribute("start", String.valueOf(serie.getStart()));
+                serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+                serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
-            leagueElem.appendChild(serieElem);
-        }
+                leagueElem.appendChild(serieElem);
+            }
 
-        doc.appendChild(leagueElem);
+            doc.appendChild(leagueElem);
 
-        responseWriter.writeXmlResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } finally {
             postDecoder.destroy();
         }
@@ -409,26 +409,26 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String format = getFormParameterSafely(postDecoder, "format");
-        String start = getFormParameterSafely(postDecoder, "start");
-        String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
-        String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String format = getFormParameterSafely(postDecoder, "format");
+            String start = getFormParameterSafely(postDecoder, "start");
+            String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
+            String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
+            String name = getFormParameterSafely(postDecoder, "name");
+            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
-        String code = String.valueOf(System.currentTimeMillis());
+            String code = String.valueOf(System.currentTimeMillis());
 
-        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new SoloDraftLeagueData(_cardSets, _soloDraftDefinitions, parameters);
-        List<LeagueSerieData> series = leagueData.getSeries();
-        int leagueStart = series.get(0).getStart();
-        int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
+            String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            LeagueData leagueData = new SoloDraftLeagueData(_cardSets, _soloDraftDefinitions, parameters);
+            List<LeagueSerieData> series = leagueData.getSeries();
+            int leagueStart = series.get(0).getStart();
+            int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
+            _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
 
-        _leagueService.clearCache();
+            _leagueService.clearCache();
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -439,50 +439,50 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String format = getFormParameterSafely(postDecoder, "format");
-        String start = getFormParameterSafely(postDecoder, "start");
-        String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
-        String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String format = getFormParameterSafely(postDecoder, "format");
+            String start = getFormParameterSafely(postDecoder, "start");
+            String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
+            String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
+            String name = getFormParameterSafely(postDecoder, "name");
+            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
-        String code = String.valueOf(System.currentTimeMillis());
+            String code = String.valueOf(System.currentTimeMillis());
 
-        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new SoloDraftLeagueData(_cardSets, _soloDraftDefinitions, parameters);
+            String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            LeagueData leagueData = new SoloDraftLeagueData(_cardSets, _soloDraftDefinitions, parameters);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
+            Document doc = documentBuilder.newDocument();
 
-        final List<LeagueSerieData> series = leagueData.getSeries();
+            final List<LeagueSerieData> series = leagueData.getSeries();
 
-        int end = series.get(series.size() - 1).getEnd();
+            int end = series.get(series.size() - 1).getEnd();
 
-        Element leagueElem = doc.createElement("league");
+            Element leagueElem = doc.createElement("league");
 
-        leagueElem.setAttribute("name", name);
-        leagueElem.setAttribute("cost", String.valueOf(cost));
-        leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
-        leagueElem.setAttribute("end", String.valueOf(end));
+            leagueElem.setAttribute("name", name);
+            leagueElem.setAttribute("cost", String.valueOf(cost));
+            leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+            leagueElem.setAttribute("end", String.valueOf(end));
 
-        for (LeagueSerieData serie : series) {
-            Element serieElem = doc.createElement("serie");
-            serieElem.setAttribute("type", serie.getName());
-            serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
-            serieElem.setAttribute("start", String.valueOf(serie.getStart()));
-            serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-            serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
-            serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
-            serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+            for (LeagueSerieData serie : series) {
+                Element serieElem = doc.createElement("serie");
+                serieElem.setAttribute("type", serie.getName());
+                serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
+                serieElem.setAttribute("start", String.valueOf(serie.getStart()));
+                serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+                serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
-            leagueElem.appendChild(serieElem);
-        }
+                leagueElem.appendChild(serieElem);
+            }
 
-        doc.appendChild(leagueElem);
+            doc.appendChild(leagueElem);
 
-        responseWriter.writeXmlResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } finally {
             postDecoder.destroy();
         }
@@ -493,26 +493,26 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String format = getFormParameterSafely(postDecoder, "format");
-        String start = getFormParameterSafely(postDecoder, "start");
-        String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
-        String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String format = getFormParameterSafely(postDecoder, "format");
+            String start = getFormParameterSafely(postDecoder, "start");
+            String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
+            String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
+            String name = getFormParameterSafely(postDecoder, "name");
+            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
-        String code = String.valueOf(System.currentTimeMillis());
+            String code = String.valueOf(System.currentTimeMillis());
 
-        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new NewSealedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
-        List<LeagueSerieData> series = leagueData.getSeries();
-        int leagueStart = series.get(0).getStart();
-        int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
+            String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            LeagueData leagueData = new NewSealedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
+            List<LeagueSerieData> series = leagueData.getSeries();
+            int leagueStart = series.get(0).getStart();
+            int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
+            _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
 
-        _leagueService.clearCache();
+            _leagueService.clearCache();
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }
@@ -523,50 +523,50 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String format = getFormParameterSafely(postDecoder, "format");
-        String start = getFormParameterSafely(postDecoder, "start");
-        String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
-        String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String format = getFormParameterSafely(postDecoder, "format");
+            String start = getFormParameterSafely(postDecoder, "start");
+            String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
+            String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
+            String name = getFormParameterSafely(postDecoder, "name");
+            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
 
-        String code = String.valueOf(System.currentTimeMillis());
+            String code = String.valueOf(System.currentTimeMillis());
 
-        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new NewSealedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
+            String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            LeagueData leagueData = new NewSealedLeagueData(_cardSets, _soloDraftDefinitions, parameters);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
+            Document doc = documentBuilder.newDocument();
 
-        final List<LeagueSerieData> series = leagueData.getSeries();
+            final List<LeagueSerieData> series = leagueData.getSeries();
 
-        int end = series.get(series.size() - 1).getEnd();
+            int end = series.get(series.size() - 1).getEnd();
 
-        Element leagueElem = doc.createElement("league");
+            Element leagueElem = doc.createElement("league");
 
-        leagueElem.setAttribute("name", name);
-        leagueElem.setAttribute("cost", String.valueOf(cost));
-        leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
-        leagueElem.setAttribute("end", String.valueOf(end));
+            leagueElem.setAttribute("name", name);
+            leagueElem.setAttribute("cost", String.valueOf(cost));
+            leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+            leagueElem.setAttribute("end", String.valueOf(end));
 
-        for (LeagueSerieData serie : series) {
-            Element serieElem = doc.createElement("serie");
-            serieElem.setAttribute("type", serie.getName());
-            serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
-            serieElem.setAttribute("start", String.valueOf(serie.getStart()));
-            serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-            serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
-            serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
-            serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+            for (LeagueSerieData serie : series) {
+                Element serieElem = doc.createElement("serie");
+                serieElem.setAttribute("type", serie.getName());
+                serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
+                serieElem.setAttribute("start", String.valueOf(serie.getStart()));
+                serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+                serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
-            leagueElem.appendChild(serieElem);
-        }
+                leagueElem.appendChild(serieElem);
+            }
 
-        doc.appendChild(leagueElem);
+            doc.appendChild(leagueElem);
 
-        responseWriter.writeXmlResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } finally {
             postDecoder.destroy();
         }

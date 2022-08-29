@@ -802,6 +802,77 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    permabanUser:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/banUser",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    tempbanUser:function (login, duration, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/banUserTemp",
+            cache:false,
+            data:{
+                login:login,
+                duration:duration
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    unbanUser:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/unBanUser",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    susUserSearch:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/findMultipleAccounts",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    banMultiple:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/banMultiple",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
     
     
     //NEVER EVER EVER use this for actual authentication
