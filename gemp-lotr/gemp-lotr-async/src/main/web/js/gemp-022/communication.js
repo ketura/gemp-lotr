@@ -873,6 +873,124 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    previewSealedLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/previewSealedLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addSealedLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addSealedLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    previewSoloDraftLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/previewSoloDraftLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addSoloDraftLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addSoloDraftLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    previewConstructedLeague:function (start, collectionType, prizeMultiplier, name, cost, formats, serieDurations, maxMatches, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/previewConstructedLeague",
+            cache:false,
+            data:{
+                start:start,
+                collectionType:collectionType,
+                prizeMultiplier:prizeMultiplier,
+                name:name,
+                cost:cost,
+                format:formats,
+                serieDuration:serieDurations,
+                maxMatches:maxMatches
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addConstructedLeague:function (start, collectionType, prizeMultiplier, name, cost, formats, serieDurations, maxMatches, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addConstructedLeague",
+            cache:false,
+            data:{
+                start:start,
+                collectionType:collectionType,
+                prizeMultiplier:prizeMultiplier,
+                name:name,
+                cost:cost,
+                format:formats,
+                serieDuration:serieDurations,
+                maxMatches:maxMatches
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
     
     
     //NEVER EVER EVER use this for actual authentication

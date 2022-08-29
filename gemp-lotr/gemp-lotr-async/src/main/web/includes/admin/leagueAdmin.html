@@ -1,242 +1,397 @@
-
-<style type="text/css">
-
-    .leagueName {
-        font-size: 150%;
-        font-weight: bolder;
-    }
-
-    .serieName {
-        font-size: 120%;
-        font-weight: bolder;
-    }
-</style>
-
-
 <script type="text/javascript">
-    function submitFormToAddress(url, formElem, success, error) {
-        var data = {};
+function gatherData(formElem) {
+	var data = {};
 
-        var inputs = $("input[type='text'], option:selected", formElem).each(
-                function () {
-                    var input = $(this);
-                    var name = null;
-                    var value = null;
-                    if (input.prop("tagName") == "INPUT") {
-                        name = input.attr("name");
-                        value = input.val();
-                    } else if (input.prop("tagName") == "OPTION") {
-                        name = input.parents("select").attr("name");
-                        value = input.attr("value");
-                    }
-                    if (name != null && value != null) {
-                        if (data[name] == null)
-                            data[name] = new Array();
-                        data[name].push(value);
-                    }
-                });
+	var inputs = $("input[type='text'], option:selected", formElem).each(
+		function () {
+			var input = $(this);
+			var name = null;
+			var value = null;
+			if (input.prop("tagName") == "INPUT") {
+				name = input.attr("name");
+				value = input.val();
+			} else if (input.prop("tagName") == "OPTION") {
+				name = input.parents("select").attr("name");
+				value = input.attr("value");
+			}
+			if (name != null && value != null) {
+				if (data[name] == null)
+					data[name] = new Array();
+				data[name].push(value);
+			}
+		});
 
-        $.ajax({
-            type:"POST",
-            url:serverDomain+url,
-            cache:false,
-            data:data,
-            traditional:true,
-            success:success,
-            error:error,
-            dataType:"xml"
-        });
-    }
+	return data;
+}
 
-    $(document).ready(
-            function () {
-                var previewDialog = $("<div></div>")
-                        .dialog({
-                            autoOpen:false,
-                            closeOnEscape:true,
-                            resizable:true,
-                            modal:true,
-                            title:"Preview window"
-                        });
+$(document).ready(
+	function () {
+		var previewDialog = $("<div></div>")
+				.dialog({
+					autoOpen:false,
+					closeOnEscape:true,
+					resizable:true,
+					modal:true,
+					title:"Preview window"
+				});
 
-                var displayPreview = function (xml) {
-                    var root = xml.documentElement;
-                    if (root.tagName == 'league') {
-                        var league = root;
+		var displayPreview = function (xml) {
+			var root = xml.documentElement;
+			if(root == null)
+			{
+				xml = new DOMParser().parseFromString(xml,"text/xml");
+				root = xml.documentElement;
+			}
+			if (root.tagName == 'league') {
+				var league = root;
 
-                        var leagueName = league.getAttribute("name");
-                        var cost = parseInt(league.getAttribute("cost"));
+				var leagueName = league.getAttribute("name");
+				var cost = parseInt(league.getAttribute("cost"));
 
-                        previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
+				previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
 
-                        var costStr = formatPrice(cost);
-                        previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+				var costStr = formatPrice(cost);
+				previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
 
-                        var series = league.getElementsByTagName("serie");
-                        for (var j = 0; j < series.length; j++) {
+				var series = league.getElementsByTagName("serie");
+				for (var j = 0; j < series.length; j++) {
 
-                            var serie = series[j];
-                            var serieName = serie.getAttribute("type");
-                            var serieStart = serie.getAttribute("start");
-                            var serieEnd = serie.getAttribute("end");
-                            var maxMatches = serie.getAttribute("maxMatches");
-                            var format = serie.getAttribute("format");
-                            var collection = serie.getAttribute("collection");
-                            var limited = serie.getAttribute("limited");
+					var serie = series[j];
+					var serieName = serie.getAttribute("type");
+					var serieStart = serie.getAttribute("start");
+					var serieEnd = serie.getAttribute("end");
+					var maxMatches = serie.getAttribute("maxMatches");
+					var format = serie.getAttribute("format");
+					var collection = serie.getAttribute("collection");
+					var limited = serie.getAttribute("limited");
 
-                            var serieText = serieName + " - " + getDateString(serieStart) + " to " + getDateString(serieEnd);
-                            previewDialog.append("<div class='serieName'>" + serieText + "</div>");
+					var serieText = serieName + " - " + getDateString(serieStart) + " to " + getDateString(serieEnd);
+					previewDialog.append("<div class='serieName'>" + serieText + "</div>");
 
-                            previewDialog.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
-                            previewDialog.append("<div><b>Collection:</b> " + collection + "</div>");
+					previewDialog.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+					previewDialog.append("<div><b>Collection:</b> " + collection + "</div>");
 
-                            previewDialog.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
-                        }
-                    }
-                };
+					previewDialog.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
+				}
+			}
+		};
+		
+		var now = new Date();
+		var nowStr = "" + now.getFullYear() + String(1 + now.getMonth()).padStart(2, '0') + String(now.getDate()).padStart(2, '0');
+		$("#sealed-start").val(nowStr);
+		$("#solo-draft-start").val(nowStr);
+		$("#constructed-start").val(nowStr);
 
-                var previewError = function (xhr) {
-                    previewDialog.dialog("close");
-                    alert("Invalid parameters specified - error code: " + xhr.status);
-                };
+		var previewError = function (xhr) {
+			previewDialog.dialog("close");
+			alert("Invalid parameters specified - error code: " + xhr.status);
+		};
+		
+		$("#preview-sealed-league-button").button().click(
+			function () {
+				let resultdiv = $("#sealed-league-result");
+				resultdiv.html("Processing...");
+				
+				hall.comm.previewSealedLeague(
+					$("#sealed-format").val(), 
+					$("#sealed-start").val(), 
+					$("#sealed-duration").val(),
+					$("#sealed-matches").val(),
+					$("#sealed-name").val(),
+					$("#sealed-cost").val(), 
+					function (xml) {
+						previewDialog.html("");
+						displayPreview(xml);
+						resultdiv.html("OK");
+						previewDialog.dialog("open");
+					}, leagueErrorMap(resultdiv));
+				});
+		
+		$("#add-sealed-league-button").button().click(
+			function () {
+				let resultdiv = $("#sealed-league-result");
+				resultdiv.html("Processing...");
+				
+				hall.comm.addSealedLeague(
+					$("#sealed-format").val(), 
+					$("#sealed-start").val(), 
+					$("#sealed-duration").val(),
+					$("#sealed-matches").val(),
+					$("#sealed-name").val(),
+					$("#sealed-cost").val(), 
+					function (xml) {
+						resultdiv.html("OK");
+					}, leagueErrorMap(resultdiv));
+				});
+		
+		
+		$("#preview-solo-draft-league-button").button().click(
+			function () {
+				let resultdiv = $("#solo-draft-league-result");
+				resultdiv.html("Processing...");
+				
+				hall.comm.previewSoloDraftLeague(
+					$("#solo-draft-format").val(), 
+					$("#solo-draft-start").val(), 
+					$("#solo-draft-duration").val(),
+					$("#solo-draft-matches").val(),
+					$("#solo-draft-name").val(),
+					$("#solo-draft-cost").val(), 
+					function (xml) {
+						previewDialog.html("");
+						displayPreview(xml);
+						resultdiv.html("OK");
+						previewDialog.dialog("open");
+					}, leagueErrorMap(resultdiv));
+				});
+		
+		$("#add-solo-draft-league-button").button().click(
+			function () {
+				let resultdiv = $("#solo-draft-league-result");
+				resultdiv.html("Processing...");
+				
+				hall.comm.addSoloDraftLeague(
+					$("#solo-draft-format").val(), 
+					$("#solo-draft-start").val(), 
+					$("#solo-draft-duration").val(),
+					$("#solo-draft-matches").val(),
+					$("#solo-draft-name").val(),
+					$("#solo-draft-cost").val(), 
+					function (xml) {
+						resultdiv.html("OK");
+					}, leagueErrorMap(resultdiv));
+				});
+		
+		$("#preview-constructed-league-button").button().click(
+			function () {
+				let resultdiv = $("#constructed-league-result");
+				resultdiv.html("Processing...");
+				
+				var data = gatherData($(".series"))
+				
+				hall.comm.previewConstructedLeague(
+					$("#constructed-start").val(), 
+					$("#constructed-collection").val(),
+					$("#constructed-prize").val(),
+					$("#constructed-name").val(),
+					$("#constructed-cost").val(),
+					data.format,
+					data.serieDuration,
+					data.maxMatches,
+					function (xml) {
+						previewDialog.html("");
+						displayPreview(xml);
+						resultdiv.html("OK");
+						previewDialog.dialog("open");
+					}, leagueErrorMap(resultdiv));
+				});
+		
+		$("#add-constructed-league-button").button().click(
+			function () {
+				let resultdiv = $("#constructed-league-result");
+				resultdiv.html("Processing...");
+				
+				var data = gatherData($(".series"))
+				
+				hall.comm.addConstructedLeague(
+			   		$("#constructed-start").val(), 
+			   		$("#constructed-collection").val(),
+			   		$("#constructed-prize").val(),
+			   		$("#constructed-name").val(),
+			   		$("#constructed-cost").val(),
+			   		data.format,
+			   		data.serieDuration,
+			   		data.maxMatches,
+					function (xml) {
+						resultdiv.html("OK");
+					}, leagueErrorMap(resultdiv));
+				});
 
-                $("#previewSealed").click(
-                        function () {
-                            submitFormToAddress("/gemp-lotr-server/admin/previewSealedLeague", $("#addSealedForm").eq(0), displayPreview, previewError);
-                            previewDialog.html("");
-                            previewDialog.dialog("open");
-                        });
 
-                $("#previewSoloDraft").click(
-                        function () {
-                            submitFormToAddress("/gemp-lotr-server/admin/previewSoloDraftLeague", $("#addSoloDraftForm").eq(0), displayPreview, previewError);
-                            previewDialog.html("");
-                            previewDialog.dialog("open");
-                        });
+		$("#previewConstructed").click(
+				function () {
+					submitFormToAddress("/gemp-lotr-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
+					previewDialog.html("");
+					previewDialog.dialog("open");
+				});
 
-                $("#previewConstructed").click(
-                        function () {
-                            submitFormToAddress("/gemp-lotr-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
-                            previewDialog.html("");
-                            previewDialog.dialog("open");
-                        });
-
-                $("#addConstructedSerie").click(
-                        function () {
-                            $(".serieData").last().clone().appendTo(".series");
-                        });
-            });
+		$("#add-constructed-series-button").button().click(
+				function () {
+					$(".serieData").last().clone().appendTo(".series");
+				});
+	});
+	
+function leagueErrorMap(outputControl, callback=null) {
+	return {
+		"0":function() {
+			outputControl.html("0: Server has been shut down or there was a problem with your internet connection.", "warningMessage");
+			if(callback!=null)
+				callback();
+		},
+		"400":function() {
+			outputControl.html("400: One of the provided parameters was malformed.  Double-check your input and try again.");
+			if(callback!=null)
+				callback();
+		},
+		"401":function() {
+			outputControl.html("401: You are not logged in.");
+			if(callback!=null)
+				callback();
+		},
+		"403": function() {
+			outputControl.html("403: You do not have permission to perform such actions.");
+			if(callback!=null)
+				callback();
+		},
+		"404": function() {
+			outputControl.html("404: Info not found.  Check that your input is correctly with removed whitespace and try again.");
+			if(callback!=null)
+				callback();
+		},
+		"410": function() {
+			outputControl.html("410: You have been inactive for too long and were loggedout. Refresh the page if you wish to re-stablish connection.");
+			if(callback!=null)
+				callback();
+		},
+		"500": function() {
+			outputControl.html("500: Server error. One of the provided parameters was probably malformed.  Double-check your input and try again.");
+			if(callback!=null)
+				callback();
+		}
+	};
+}
 </script>
 <div class="article">
-    <h1>League</h1>
+	<h1>Add Sealed League</h1>
+	
+	<div>
+		Name: <input type="text" id="sealed-name"><br/>
+		Cost (in silver): <input type="text" id="sealed-cost" value="50"><br/>
+		Start (YYYYMMDD): <input type="text" id="sealed-start"><br/>
+		Format:
+		<select id="sealed-format">
+			<option value="fotr_block">Fellowship block</option>
+			<option value="ttt_block">Towers block</option>
+			<option value="movie">King (Movie) block</option>
+			<option value="war_block">War of the Ring block</option>
+			<option value="hunters_block">Hunters block</option>
+			<option value="movie_special">Movie Special block</option>
+			<option value="ts_special">TS Special block</option>
+		</select><br/>
+		Series duration in days: <input type="text" id="sealed-duration" value="7"><br/>
+		Maximum matches in series: <input type="text" id="sealed-matches" value="5"><br/>
+		<button id="preview-sealed-league-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Preview Sealed League
+		</button>
+		
+		<button id="add-sealed-league-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Add Sealed League
+		</button> <span id="sealed-league-result" style="display:inline-block;">Ready.</span>
+	</div>
 
-    <h2>Add sealed league</h2>
 
-    <form id="addSealedForm" method="POST" action="/gemp-lotr-server/admin/addSealedLeague">
-        Name: <input type="text" name="name"><br/>
-        Cost (in silver): <input type="text" name="cost"><br/>
-        Start (YYYYMMDD): <input type="text" name="start"><br/>
-        Format:
-        <select name="format">
-            <option value="fotr_block">Fellowship block</option>
-            <option value="ttt_block">Towers block</option>
-            <option value="movie">King (Movie) block</option>
-            <option value="war_block">War of the Ring block</option>
-            <option value="hunters_block">Hunters block</option>
-            <option value="movie_special">Movie Special block</option>
-            <option value="ts_special">TS Special block</option>
-        </select><br/>
-        Series duration in days: <input type="text" name="serieDuration"><br/>
-        Maximum matches in series: <input type="text" name="maxMatches"><br/>
-        <input id="previewSealed" type="button" value="Preview sealed league">
-        <input type="submit" value="Add sealed league">
-    </form>
+	<h1>Add Solo-Draft League</h1>
+	<div>
+		Name: <input type="text" id="solo-draft-name"><br/>
+		Cost (in silver): <input type="text" id="solo-draft-cost" value="50"><br/>
+		Start (YYYYMMDD): <input type="text" id="solo-draft-start"><br/>
+		Format:
+		<select id="solo-draft-format">
+			<option value="test_draft">Test Draft</option>
+			<option value="fotr_draft">Fellowship Draft</option>
+			<option value="ttt_draft">Two Towers Draft</option>
+			<option value="hobbit_random_draft">Hobbit Random Draft</option>
+		</select><br/>
+		Series duration in days: <input type="text" id="solo-draft-duration" value="7"><br/>
+		Maximum matches in series: <input type="text" id="solo-draft-matches" value="5"><br/>
+		<input id="previewSoloDraft" type="button" value="Preview solo draft league">
+		<input type="submit" value="Add solo draft league">
+		
+		<button id="preview-solo-draft-league-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Preview Solo-Draft League
+		</button>
+		
+		<button id="add-solo-draft-league-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Add Solo-Draft League
+		</button> <span id="solo-draft-league-result" style="display:inline-block;">Ready.</span>
+	</div>
 
-    <h2>Add solo-draft league</h2>
+	<h1>Add Constructed League</h1>
 
-    <form id="addSoloDraftForm" method="POST" action="/gemp-lotr-server/admin/addSoloDraftLeague">
-        Name: <input type="text" name="name"><br/>
-        Cost (in silver): <input type="text" name="cost"><br/>
-        Start (YYYYMMDD): <input type="text" name="start"><br/>
-        Format:
-        <select name="format">
-            <option value="test_draft">Test Draft</option>
-            <option value="fotr_draft">Fellowship Draft</option>
-            <option value="ttt_draft">Two Towers Draft</option>
-            <option value="hobbit_random_draft">Hobbit Random Draft</option>
-        </select><br/>
-        Series duration in days: <input type="text" name="serieDuration"><br/>
-        Maximum matches in series: <input type="text" name="maxMatches"><br/>
-        <input id="previewSoloDraft" type="button" value="Preview solo draft league">
-        <input type="submit" value="Add solo draft league">
-    </form>
+	<div>
+		Name: <input type="text" id="constructed-name"><br/>
+		Cost (in silver): <input type="text" id="constructed-cost" value="50"><br/>
+		Start (YYYYMMDD): <input type="text" id="constructed-start"><br/>
+		Prize multiplier (e.g. 0.7): <input type="text" id="constructed-prize" value="0.7"><br/>
+		Collection:
+		<select id="constructed-collection">
+			<option value="default">All cards</option>
+			<option value="permanent+trophy">My cards</option>
+		</select><br/>
 
-    <h2>Add constructed league</h2>
+		<div class="series">
+			<div class="serieData">
+				<b>Series definition:</b><br/>
+				Format:
+				<select name="format">
+					<option value="fotr_block">Fellowship block</option>
+					<option value="pc_fotr_block">Fellowship block (PC)</option>
+					<option value="fotr1_block">Fellowship block - Set 1</option>
+					<option value="fotr2_block">Fellowship block - Sets 1&2</option>
+					<option value="fotr_poorman">Fellowship block - Poorman</option>
+					<option value="fotr_highlander">Fellowship block - Highlander</option>
+					<option value="ttt_block">Towers block</option>
+					<option value="ttt1_block">Towers block - Set 4</option>
+					<option value="ttt2_block">Towers block - Sets 4&5</option>
+					<option value="towers_standard">Towers standard</option>
+					<option value="ttt_standard">Towers standard - Sets 1-4</option>
+					<option value="bohd_standard">Towers standard - Sets 1-5</option>
+					<option value="ts_no_fotr">Towers standard - Sets 2-6</option>
+					<option value="ts_reflections">Towers standard - Sets 1-6,9,14&16</option>
+					<option value="king_block">King block</option>
+					<option value="king1_block">King block - Set 7</option>
+					<option value="king2_block">King block - Sets 7-8</option>
+					<option value="movie">Movie block</option>
+					<option value="pc_movie">Movie block (PC)</option>
+					<option value="movie_exp">Movie block, no GLR (10R11)</option>
+					<option value="movie7">Movie block - Sets 1-7</option>
+					<option value="movie8">Movie block - Sets 1-8</option>
+					<option value="movie9">Movie block - Sets 1-9</option>
+					<option value="movie_sans9">Movie block - Sets 1-8,10</option>
+					<option value="movie_highlander">Movie block - Highlander</option>
+					<option value="war_block">War of the Ring block</option>
+					<option value="war_block11">War of the Ring block - Set 11</option>
+					<option value="war_block12">War of the Ring block - Sets 11-12</option>
+					<option value="war_block14">War of the Ring block - Sets 10-14</option>
+					<option value="hunter_block">Hunters block</option>
+					<option value="war_standard">War of the Ring standard</option>
+					<option value="standard">Standard</option>
+					<option value="open">Open</option>
+					<option value="open_legacy">Open - Sets 1-4</option>
+					<option value="expanded">Expanded</option>
+					<option value="pc_expanded">Expanded (PC)</option>
+					<option value="test_pc_fotr_block">PLAYTEST FOTR (PC)</option>
+					<option value="test_pc_movie">PLAYTEST Movie (PC)</option>
+					<option value="test_pc_expanded">PLAYTEST Expanded (PC)</option>
+					<option value="french">French</option>
+				</select><br/>
+				Series duration in days: <input type="text" name="serieDuration" value="7"><br/>
+				Maximum matches in series: <input type="text" name="maxMatches" value="5"><br/>
 
-    <form id="addConstructedForm" method="POST" action="/gemp-lotr-server/admin/addConstructedLeague">
-        Name: <input type="text" name="name"><br/>
-        Cost (in silver): <input type="text" name="cost"><br/>
-        Start (YYYYMMDD): <input type="text" name="start"><br/>
-        Prize multiplier (e.g. 0.7): <input type="text" name="prizeMultiplier"><br/>
-        Collection:
-        <select name="collectionType">
-            <option value="default">All cards</option>
-            <option value="permanent+trophy">My cards</option>
-        </select><br/>
-
-        <div class="series">
-            <div class="serieData">
-                <b>Series definition:</b><br/>
-                Format:
-                <select name="format">
-                    <option value="fotr_block">Fellowship block</option>
-                    <option value="pc_fotr_block">Fellowship block (PC)</option>
-                    <option value="fotr1_block">Fellowship block - Set 1</option>
-                    <option value="fotr2_block">Fellowship block - Sets 1&2</option>
-                    <option value="fotr_poorman">Fellowship block - Poorman</option>
-                    <option value="fotr_highlander">Fellowship block - Highlander</option>
-                    <option value="ttt_block">Towers block</option>
-                    <option value="ttt1_block">Towers block - Set 4</option>
-                    <option value="ttt2_block">Towers block - Sets 4&5</option>
-                    <option value="towers_standard">Towers standard</option>
-                    <option value="ttt_standard">Towers standard - Sets 1-4</option>
-                    <option value="bohd_standard">Towers standard - Sets 1-5</option>
-                    <option value="ts_no_fotr">Towers standard - Sets 2-6</option>
-                    <option value="ts_reflections">Towers standard - Sets 1-6,9,14&16</option>
-                    <option value="king_block">King block</option>
-                    <option value="king1_block">King block - Set 7</option>
-                    <option value="king2_block">King block - Sets 7-8</option>
-                    <option value="movie">Movie block</option>
-                    <option value="pc_movie">Movie block (PC)</option>
-                    <option value="movie_exp">Movie block, no GLR (10R11)</option>
-                    <option value="movie7">Movie block - Sets 1-7</option>
-                    <option value="movie8">Movie block - Sets 1-8</option>
-                    <option value="movie9">Movie block - Sets 1-9</option>
-                    <option value="movie_sans9">Movie block - Sets 1-8,10</option>
-                    <option value="movie_highlander">Movie block - Highlander</option>
-                    <option value="war_block">War of the Ring block</option>
-                    <option value="war_block11">War of the Ring block - Set 11</option>
-                    <option value="war_block12">War of the Ring block - Sets 11-12</option>
-                    <option value="war_block14">War of the Ring block - Sets 10-14</option>
-                    <option value="hunter_block">Hunters block</option>
-                    <option value="war_standard">War of the Ring standard</option>
-                    <option value="standard">Standard</option>
-                    <option value="open">Open</option>
-                    <option value="open_legacy">Open - Sets 1-4</option>
-                    <option value="expanded">Expanded</option>
-                    <option value="pc_expanded">Expanded (PC)</option>
-                    <option value="test_pc_fotr_block">PLAYTEST FOTR (PC)</option>
-                    <option value="test_pc_movie">PLAYTEST Movie (PC)</option>
-                    <option value="test_pc_expanded">PLAYTEST Expanded (PC)</option>
-                    <option value="french">French</option>
-                </select><br/>
-                Series duration in days: <input type="text" name="serieDuration"><br/>
-                Maximum matches in series: <input type="text" name="maxMatches"><br/>
-            </div>
-        </div>
-        <input id="addConstructedSerie" type="button" value="Add another series">
-        <input id="previewConstructed" type="button" value="Preview constructed league">
-        <input type="submit" value="Add constructed league">
-    </form>
+			</div>
+		</div>
+		
+		<button id="add-constructed-series-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Add Another Serie
+		</button>
+		
+		<button id="preview-constructed-league-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Preview Constructed League
+		</button>
+				
+		<button id="add-constructed-league-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Add Constructed League
+		</button> <span id="constructed-league-result" style="display:inline-block;">Ready.</span>
+	</div>
 </div>
 

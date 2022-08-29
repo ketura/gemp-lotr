@@ -316,11 +316,24 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String start = getFormParameterSafely(postDecoder, "start");
             String collectionType = getFormParameterSafely(postDecoder, "collectionType");
             String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
-            List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
-            List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration");
-            List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
+            List<String> formats = getFormMultipleParametersSafely(postDecoder, "format[]");
+            List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration[]");
+            List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches[]");
             String name = getFormParameterSafely(postDecoder, "name");
-            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+
+            if(start == null || start.trim().isEmpty()
+                    ||collectionType == null || collectionType.trim().isEmpty()
+                    ||prizeMultiplier == null || prizeMultiplier.trim().isEmpty()
+                    ||name == null || name.trim().isEmpty()
+                    ||costStr == null || costStr.trim().isEmpty()) {
+                throw new HttpProcessingException(400);
+            }
+
+            if(formats.size() != serieDurations.size() || formats.size() != maxMatches.size())
+                throw new HttpProcessingException(400);
+
+            int cost = Integer.parseInt(costStr);
 
             String code = String.valueOf(System.currentTimeMillis());
 
@@ -353,11 +366,24 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String start = getFormParameterSafely(postDecoder, "start");
             String collectionType = getFormParameterSafely(postDecoder, "collectionType");
             String prizeMultiplier = getFormParameterSafely(postDecoder, "prizeMultiplier");
-            List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
-            List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration");
-            List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
+            List<String> formats = getFormMultipleParametersSafely(postDecoder, "format[]");
+            List<String> serieDurations = getFormMultipleParametersSafely(postDecoder, "serieDuration[]");
+            List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches[]");
             String name = getFormParameterSafely(postDecoder, "name");
-            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+
+            if(start == null || start.trim().isEmpty()
+                    ||collectionType == null || collectionType.trim().isEmpty()
+                    ||prizeMultiplier == null || prizeMultiplier.trim().isEmpty()
+                    ||name == null || name.trim().isEmpty()
+                    ||costStr == null || costStr.trim().isEmpty()) {
+                throw new HttpProcessingException(400);
+            }
+
+            if(formats.size() != serieDurations.size() || formats.size() != maxMatches.size())
+                throw new HttpProcessingException(400);
+
+            int cost = Integer.parseInt(costStr);
 
             StringBuilder sb = new StringBuilder();
             sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
@@ -414,7 +440,18 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
             String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
             String name = getFormParameterSafely(postDecoder, "name");
-            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+
+            if(format == null || format.trim().isEmpty()
+                    ||start == null || start.trim().isEmpty()
+                    ||serieDuration == null || serieDuration.trim().isEmpty()
+                    ||maxMatches == null || maxMatches.trim().isEmpty()
+                    ||name == null || name.trim().isEmpty()
+                    ||costStr == null || costStr.trim().isEmpty()) {
+                throw new HttpProcessingException(400);
+            }
+
+            int cost = Integer.parseInt(costStr);
 
             String code = String.valueOf(System.currentTimeMillis());
 
@@ -444,7 +481,18 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
             String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
             String name = getFormParameterSafely(postDecoder, "name");
-            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+
+            if(format == null || format.trim().isEmpty()
+                    ||start == null || start.trim().isEmpty()
+                    ||serieDuration == null || serieDuration.trim().isEmpty()
+                    ||maxMatches == null || maxMatches.trim().isEmpty()
+                    ||name == null || name.trim().isEmpty()
+                    ||costStr == null || costStr.trim().isEmpty()) {
+                throw new HttpProcessingException(400);
+            }
+
+            int cost = Integer.parseInt(costStr);
 
             String code = String.valueOf(System.currentTimeMillis());
 
@@ -498,7 +546,18 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
             String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
             String name = getFormParameterSafely(postDecoder, "name");
-            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+
+            if(format == null || format.trim().isEmpty()
+                    ||start == null || start.trim().isEmpty()
+                    ||serieDuration == null || serieDuration.trim().isEmpty()
+                    ||maxMatches == null || maxMatches.trim().isEmpty()
+                    ||name == null || name.trim().isEmpty()
+                    ||costStr == null || costStr.trim().isEmpty()) {
+                throw new HttpProcessingException(400);
+            }
+
+            int cost = Integer.parseInt(costStr);
 
             String code = String.valueOf(System.currentTimeMillis());
 
@@ -528,7 +587,18 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String serieDuration = getFormParameterSafely(postDecoder, "serieDuration");
             String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
             String name = getFormParameterSafely(postDecoder, "name");
-            int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+
+            if(format == null || format.trim().isEmpty()
+                ||start == null || start.trim().isEmpty()
+                ||serieDuration == null || serieDuration.trim().isEmpty()
+                ||maxMatches == null || maxMatches.trim().isEmpty()
+                ||name == null || name.trim().isEmpty()
+                ||costStr == null || costStr.trim().isEmpty()) {
+                throw new HttpProcessingException(400);
+            }
+
+            int cost = Integer.parseInt(costStr);
 
             String code = String.valueOf(System.currentTimeMillis());
 
