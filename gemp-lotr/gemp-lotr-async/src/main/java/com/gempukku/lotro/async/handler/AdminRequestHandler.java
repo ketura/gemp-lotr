@@ -256,16 +256,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String players = getFormParameterSafely(postDecoder, "players");
-        String product = getFormParameterSafely(postDecoder, "product");
-        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
+            String players = getFormParameterSafely(postDecoder, "players");
+            String product = getFormParameterSafely(postDecoder, "product");
+            String collectionType = getFormParameterSafely(postDecoder, "collectionType");
 
-        Collection<CardCollection.Item> productItems = getProductItems(product);
+            Collection<CardCollection.Item> productItems = getProductItems(product);
 
-        List<String> playerNames = getItems(players);
+            List<String> playerNames = getItems(players);
 
-        for (String playerName : playerNames) {
-            Player player = _playerDao.getPlayer(playerName);
+            for (String playerName : playerNames) {
+                Player player = _playerDao.getPlayer(playerName);
 
             _collectionManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
         }

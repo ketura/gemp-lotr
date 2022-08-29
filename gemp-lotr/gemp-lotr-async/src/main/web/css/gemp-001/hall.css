@@ -565,6 +565,7 @@ table.tables tr.privateForPlayer {
 
 .ui-button-text-only .ui-button-text {
 	padding: .2em .5em;
+	text-align: center;
 }
 
 .standings td, .standings th {

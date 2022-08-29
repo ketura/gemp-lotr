@@ -786,6 +786,22 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    addItems:function (collectionType, product, players, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addItems",
+            cache:false,
+            data:{
+                collectionType:collectionType,
+                product:product,
+                players:players
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
     
     
     //NEVER EVER EVER use this for actual authentication
