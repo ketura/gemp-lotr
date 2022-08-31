@@ -1,6 +1,7 @@
 package com.gempukku.lotro.draft2;
 
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.draft2.builder.CardCollectionProducer;
 import com.gempukku.lotro.draft2.builder.DraftChoiceBuilder;
 import com.gempukku.lotro.draft2.builder.DraftPoolBuilder;
@@ -17,6 +18,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class SoloDraftDefinitions {
@@ -30,7 +32,7 @@ public class SoloDraftDefinitions {
                                 LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
         draftChoiceBuilder = new DraftChoiceBuilder(collectionsManager, cardLibrary, formatLibrary, rarities);
         try {
-            final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrDrafts.json"), "UTF-8");
+            final InputStreamReader reader = new InputStreamReader(AppConfig.getResourceStream("lotrDrafts.json"), StandardCharsets.UTF_8);
             try {
                 JSONParser parser = new JSONParser();
                 JSONArray object = (JSONArray) parser.parse(reader);
@@ -49,7 +51,7 @@ public class SoloDraftDefinitions {
 
     private SoloDraft loadDraft(String file) {
         try {
-            final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream(file), "UTF-8");
+            final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream(file), StandardCharsets.UTF_8);
             try {
                 JSONParser parser = new JSONParser();
                 JSONObject object = (JSONObject) parser.parse(reader);

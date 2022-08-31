@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
@@ -79,7 +79,7 @@ public class GameRecorder {
     }
 
     private File getRecordingFile(String playerId, String gameId) {
-        File gameReplayFolder = new File(ApplicationConfiguration.getProperty("application.root"), "replay");
+        File gameReplayFolder = new File(AppConfig.getProperty("application.root"), "replay");
         File playerReplayFolder = new File(gameReplayFolder, playerId);
         return new File(playerReplayFolder, gameId + ".xml.gz");
     }

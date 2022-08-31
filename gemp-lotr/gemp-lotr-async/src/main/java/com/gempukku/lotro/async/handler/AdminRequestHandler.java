@@ -5,7 +5,7 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cache.CacheManager;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -21,7 +21,6 @@ import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.TournamentService;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -687,10 +686,10 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
     }
 
-    private void reloadCards(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void reloadCards(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, IOException {
         validateAdmin(request);
 
-        lotroCardBlueprintLibrary.reloadCards(new java.io.File(ApplicationConfiguration.getProperty("card.path")));
+        lotroCardBlueprintLibrary.reloadCards(AppConfig.getResourceFile("cards"));
 
         responseWriter.writeHtmlResponse("OK");
     }

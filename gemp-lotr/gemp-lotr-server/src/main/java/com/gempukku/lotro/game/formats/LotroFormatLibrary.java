@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game.formats;
 
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.AdventureLibrary;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
@@ -7,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import org.sql2o.tools.IOUtils;
 
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class LotroFormatLibrary {
@@ -54,7 +56,7 @@ public class LotroFormatLibrary {
 
     public LotroFormatLibrary(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary bpLibrary) {
         try {
-            try (InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrFormats.json"), "UTF-8")) {
+            try (InputStreamReader reader = new InputStreamReader(AppConfig.getResourceStream("lotrFormats.json"), StandardCharsets.UTF_8)) {
                 String json = IOUtils.toString(reader);
 
                 FormatDefinition[] formatDefs = JSON.parseObject(json, FormatDefinition[].class);

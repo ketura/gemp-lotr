@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.packs.DefaultSetDefinition;
 import com.gempukku.lotro.game.packs.SetDefinition;
 import org.apache.commons.io.IOUtils;
@@ -11,14 +12,17 @@ import org.json.simple.parser.ParseException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+
+import static org.apache.log4j.helpers.Loader.getResource;
 
 public class CardSets {
     private final Map<String, SetDefinition> _allSets = new LinkedHashMap<>();
 
     public CardSets() {
         try {
-            final InputStreamReader reader = new InputStreamReader(CardSets.class.getResourceAsStream("/setConfig.json"), "UTF-8");
+            final InputStreamReader reader = new InputStreamReader(AppConfig.getResourceStream("setConfig.json"), StandardCharsets.UTF_8);
             try {
                 JSONParser parser = new JSONParser();
                 JSONArray object = (JSONArray) parser.parse(reader);
@@ -46,7 +50,7 @@ public class CardSets {
         } catch (ParseException e) {
             throw new RuntimeException("Unable to parse setConfig.json file");
         } catch (IOException exp) {
-            throw new RuntimeException("Unable to read card rarities");
+            throw new RuntimeException("Unable to read card rarities: " + exp);
         }
     }
 
@@ -75,7 +79,7 @@ public class CardSets {
     }
 
     private void readSetRarityFile(DefaultSetDefinition rarity, String setNo, String rarityFile) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CardSets.class.getResourceAsStream(rarityFile), "UTF-8"));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("rarities/" + rarityFile), StandardCharsets.UTF_8));
         try {
             String line;
 

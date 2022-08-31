@@ -1,0 +1,56 @@
+{
+	fotr_block: {
+		name: Fellowship Block Sealed
+		format: limited_fotr
+		weekly_product: [
+			[
+				{
+					type: Selection
+					name: Movie Starter
+					count: 1
+				}
+				{
+					type: Product
+					item: FotR - Booster
+					count: 6
+				}
+				{
+					//Shotgun Enquea
+					type: Card
+					item: 1_231
+					count: 1
+				}
+			],
+			[
+				{
+					type: Selection
+					item: (S)MoM - Starter
+					count: 1
+				}
+				{
+					type: Product
+					item: MoM - Booster
+					count: 3
+				}
+				{
+					//The Balrog, Durin's Bane
+					type: Card
+					item: 2_51
+					count: 1
+				}
+			]
+			[
+				{
+					type: Selection
+					item: (S)RotEL - Starter
+					count: 1
+				}
+				{
+					type: Product
+					item: RotEL - Booster
+					count: 3
+				}
+			]
+		]
+	}
+}

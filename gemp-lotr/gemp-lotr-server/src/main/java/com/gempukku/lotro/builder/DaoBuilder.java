@@ -5,7 +5,7 @@ import com.gempukku.lotro.collection.CachedCollectionDAO;
 import com.gempukku.lotro.collection.CachedTransferDAO;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
-import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -15,16 +15,17 @@ import com.gempukku.lotro.tournament.TournamentMatchDAO;
 import com.gempukku.lotro.tournament.TournamentPlayerDAO;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
 public class DaoBuilder {
-    public static void fillObjectMap(Map<Type, Object> objectMap) {
+    public static void fillObjectMap(Map<Type, Object> objectMap) throws IOException {
         DbAccess dbAccess = new DbAccess();
         CollectionSerializer collectionSerializer = new CollectionSerializer();
 
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-        library.init(new File(ApplicationConfiguration.getProperty("card.path")), (CardSets) objectMap.get(CardSets.class));
+        library.init(AppConfig.getResourceFile("cards"), (CardSets) objectMap.get(CardSets.class));
         objectMap.put(LotroCardBlueprintLibrary.class, library);
         objectMap.put(LeagueParticipationDAO.class, LoggingProxy.createLoggingProxy(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess)));
         objectMap.put(LeagueMatchDAO.class, LoggingProxy.createLoggingProxy(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess)));

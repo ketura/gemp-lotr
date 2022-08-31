@@ -1,5 +1,6 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -13,6 +14,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.fail;
@@ -26,7 +28,12 @@ public abstract class AbstractAtTest {
         final String property = System.getProperty("user.dir");
         String projectRoot = new File(property).getParentFile().getAbsolutePath();
 
-        _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"), new CardSets());
+        //_library.init(new File(projectRoot + "/gemp-lotr-cards/src/main/resources/cards"), new CardSets());
+        try {
+            _library.init(AppConfig.getResourceFile("cards"), new CardSets());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected DefaultLotroGame _game;

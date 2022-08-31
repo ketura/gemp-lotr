@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.packs.SetDefinition;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
@@ -37,7 +39,7 @@ public class LotroCardBlueprintLibrary {
 
     public LotroCardBlueprintLibrary() {
         try {
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(LotroCardBlueprintLibrary.class.getResourceAsStream("/blueprintMapping.txt"), "UTF-8"))) {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("blueprintMapping.txt"), StandardCharsets.UTF_8))) {
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
@@ -49,7 +51,7 @@ public class LotroCardBlueprintLibrary {
                 }
             }
         } catch (IOException exp) {
-            throw new RuntimeException("Problem loading blueprint mapping", exp);
+            throw new RuntimeException("Problem loading blueprintMapping.txt", exp);
         }
     }
 

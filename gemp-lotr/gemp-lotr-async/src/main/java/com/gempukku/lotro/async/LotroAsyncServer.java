@@ -1,7 +1,7 @@
 package com.gempukku.lotro.async;
 
 import com.gempukku.lotro.async.handler.RootUriRequestHandler;
-import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.polling.LongPollingSystem;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -20,7 +20,7 @@ import io.netty.handler.logging.LoggingHandler;
 
 public class LotroAsyncServer {
     public static void main(String[] server) throws InterruptedException {
-        int httpPort = Integer.parseInt(ApplicationConfiguration.getProperty("port"));
+        int httpPort = Integer.parseInt(AppConfig.getProperty("port"));
 
         GempukkuServer gempukkuServer = new GempukkuServer();
 

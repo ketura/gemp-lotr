@@ -1,5 +1,6 @@
 package com.gempukku.lotro.collection;
 
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
@@ -8,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +112,7 @@ public class CollectionSerializer {
     }
 
     private void fillDoubleByteItems() throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/packs.txt"), "UTF-8"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/packs.txt"), StandardCharsets.UTF_8))) {
             String line;
             while ((line = bufferedReader.readLine()) != null)
                 _doubleByteCountItems.add(line);
@@ -118,7 +120,7 @@ public class CollectionSerializer {
     }
 
     private void loadSet(String setId) throws IOException {
-        try (BufferedReader cardReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/set" + setId + "-rarity.txt"), "UTF-8"))) {
+        try (BufferedReader cardReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("rarities/set" + setId + "-rarity.txt"), StandardCharsets.UTF_8))) {
             String line;
 
             while ((line = cardReader.readLine()) != null) {
@@ -186,7 +188,7 @@ public class CollectionSerializer {
         JSONObject json = new JSONObject();
         json.putAll(extraInformation);
 
-        OutputStreamWriter writer = new OutputStreamWriter(outputStream, "UTF-8");
+        OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
         writer.write(json.toJSONString());
         writer.flush();
     }

@@ -2,7 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
-import com.gempukku.lotro.common.ApplicationConfiguration;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.polling.LongPollingSystem;
 import io.netty.handler.codec.http.HttpRequest;
 
@@ -39,8 +39,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private final Pattern originPattern;
 
     public RootUriRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
-        _webRequestHandler = new WebRequestHandler(ApplicationConfiguration.getProperty("web.path"));
-        String originAllowedPattern = ApplicationConfiguration.getProperty("origin.allowed.pattern");
+        _webRequestHandler = new WebRequestHandler(AppConfig.getWebPath());
+        String originAllowedPattern = AppConfig.getProperty("origin.allowed.pattern");
         originPattern = Pattern.compile(originAllowedPattern);
         _hallRequestHandler = new HallRequestHandler(context, longPollingSystem);
         _deckRequestHandler = new DeckRequestHandler(context);

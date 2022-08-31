@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.service.LoggedUserHolder;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class GempukkuServer {
     private final Map<Type, Object> context;
 
-    public GempukkuServer() {
+    public GempukkuServer() throws IOException {
         Map<Type, Object> objects = new HashMap<>();
         final CardSets cardSets = new CardSets();
 
