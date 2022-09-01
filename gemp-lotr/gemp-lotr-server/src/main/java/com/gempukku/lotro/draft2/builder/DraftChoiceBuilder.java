@@ -19,15 +19,13 @@ public class DraftChoiceBuilder {
     private final CollectionsManager _collectionsManager;
     private final LotroCardBlueprintLibrary _cardLibrary;
     private final LotroFormatLibrary _formatLibrary;
-    private final Map<String, SetDefinition> _rarities;
     private final SortAndFilterCards _sortAndFilterCards;
 
     public DraftChoiceBuilder(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
-                              LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
+                              LotroFormatLibrary formatLibrary) {
         _collectionsManager = collectionsManager;
         _cardLibrary = cardLibrary;
         _formatLibrary = formatLibrary;
-        _rarities = rarities;
         _sortAndFilterCards = new SortAndFilterCards();
     }
 
@@ -56,7 +54,7 @@ public class DraftChoiceBuilder {
 
         Iterable<CardCollection.Item> items = _collectionsManager.getDefaultCollection().getAll();
 
-        final List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, items, _cardLibrary, _formatLibrary, _rarities);
+        final List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, items, _cardLibrary, _formatLibrary);
 
         return new DraftChoiceDefinition() {
             @Override
@@ -230,7 +228,7 @@ public class DraftChoiceBuilder {
             @Override
             public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage, DefaultCardCollection draftPool) {
                 
-                List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, draftPool.getAll(), _cardLibrary, _formatLibrary, _rarities);
+                List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, draftPool.getAll(), _cardLibrary, _formatLibrary);
 
                 final List<CardCollection.Item> cards = getCards(seed, stage, possibleCards);
 
@@ -288,7 +286,7 @@ public class DraftChoiceBuilder {
                     for (int i = 0; i < draftPool.getItemCount(item.getBlueprintId()); i++)
                         fullDraftPool.add(item);
 
-                List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, fullDraftPool, _cardLibrary, _formatLibrary, _rarities);
+                List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, fullDraftPool, _cardLibrary, _formatLibrary);
 
                 final List<CardCollection.Item> cards = getCards(seed, stage, possibleCards);
 

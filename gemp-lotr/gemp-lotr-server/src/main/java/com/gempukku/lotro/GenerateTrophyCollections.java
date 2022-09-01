@@ -5,8 +5,8 @@ import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DbCollectionDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class GenerateTrophyCollections {
     public static void main(String[] args) throws SQLException, IOException {
-        CardSets cardSets = new CardSets();
+        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         DbAccess dbAccess = new DbAccess();
 
         DbCollectionDAO collections = new DbCollectionDAO(dbAccess, new CollectionSerializer());
@@ -30,7 +30,7 @@ public class GenerateTrophyCollections {
             tengwarCount+=collection.getItemCount("(S)RotK - Tengwar");
             tengwarCount+=collection.getItemCount("(S)SH - Tengwar");
             tengwarCount+=collection.getItemCount("(S)Tengwar");
-            for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
                 for (String tengwarCard : setDefinition.getTengwarCards()) {
                     tengwarCount+=collection.getItemCount(tengwarCard);
                     tengwarCount+=4*collection.getItemCount(tengwarCard+"*");

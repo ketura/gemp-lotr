@@ -3,7 +3,7 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DraftPack;
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;
@@ -18,7 +18,7 @@ public class TournamentService implements ITournamentService {
     private final TournamentDAO _tournamentDao;
     private final TournamentPlayerDAO _tournamentPlayerDao;
     private final TournamentMatchDAO _tournamentMatchDao;
-    private final CardSets _cardSets;
+    private final LotroCardBlueprintLibrary _library;
 
     private final CollectionsManager _collectionsManager;
 
@@ -27,7 +27,7 @@ public class TournamentService implements ITournamentService {
     public TournamentService(CollectionsManager collectionsManager, PacksStorage packsStorage, DraftPackStorage draftPackStorage,
                              PairingMechanismRegistry pairingMechanismRegistry, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                              TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao,
-                             CardSets cardSets) {
+                             LotroCardBlueprintLibrary library) {
         _collectionsManager = collectionsManager;
         _packsStorage = packsStorage;
         _draftPackStorage = draftPackStorage;
@@ -36,7 +36,7 @@ public class TournamentService implements ITournamentService {
         _tournamentDao = tournamentDao;
         _tournamentPlayerDao = tournamentPlayerDao;
         _tournamentMatchDao = tournamentMatchDao;
-        _cardSets = cardSets;
+        _library = library;
     }
 
     @Override
@@ -159,7 +159,7 @@ public class TournamentService implements ITournamentService {
                     tournamentId,  tournamentInfo.getTournamentName(), tournamentInfo.getTournamentFormat(),
                     tournamentInfo.getCollectionType(), tournamentInfo.getTournamentRound(), tournamentInfo.getTournamentStage(), 
                     _pairingMechanismRegistry.getPairingMechanism(tournamentInfo.getPairingMechanism()),
-                    _tournamentPrizeSchemeRegistry.getTournamentPrizes(_cardSets, tournamentInfo.getPrizesScheme()));
+                    _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, tournamentInfo.getPrizesScheme()));
 
         } catch (Exception exp) {
             throw new RuntimeException("Unable to create Tournament", exp);

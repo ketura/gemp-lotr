@@ -1,6 +1,7 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.at.AbstractAtTest;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import org.junit.Test;
 
 import java.util.List;
@@ -8,10 +9,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ConstructedLeagueDataTest {
+public class ConstructedLeagueDataTest extends AbstractAtTest {
     @Test
     public void testParameters() {
-        ConstructedLeagueData leagueData = new ConstructedLeagueData(new CardSets(), null, "20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block");
+        ConstructedLeagueData leagueData = new ConstructedLeagueData(_library, null, "20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block");
         final List<LeagueSerieData> series = leagueData.getSeries();
         assertEquals(3, series.size());
         assertEquals(20120312, series.get(0).getStart());

@@ -49,7 +49,6 @@ public class ServerBuilder {
                     extract(objectMap, CollectionsManager.class),
                     extract(objectMap, LotroCardBlueprintLibrary.class),
                     extract(objectMap, LotroFormatLibrary.class),
-                    extract(objectMap, CardSets.class).getSetDefinitions(),
                     AppConfig.getDraftDefinitionPath()
                 ));
 
@@ -59,7 +58,7 @@ public class ServerBuilder {
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, CardSets.class),
+                        extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, SoloDraftDefinitions.class)));
 
         objectMap.put(AdminService.class,
@@ -82,13 +81,12 @@ public class ServerBuilder {
                         extract(objectMap, TournamentDAO.class),
                         extract(objectMap, TournamentPlayerDAO.class),
                         extract(objectMap, TournamentMatchDAO.class),
-                        extract(objectMap, CardSets.class)));
+                        extract(objectMap, LotroCardBlueprintLibrary.class)));
 
         objectMap.put(MerchantService.class,
                 new MerchantService(
                         extract(objectMap, LotroCardBlueprintLibrary.class),
-                        extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, CardSets.class)));
+                        extract(objectMap, CollectionsManager.class)));
 
         objectMap.put(ChatServer.class, new ChatServer(
                 extract(objectMap, IgnoreDAO.class),
@@ -113,8 +111,7 @@ public class ServerBuilder {
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, AdminService.class),
                         tournamentPrizeSchemeRegistry,
-                        pairingMechanismRegistry,
-                        extract(objectMap, CardSets.class)
+                        pairingMechanismRegistry
                 ));
     }
 

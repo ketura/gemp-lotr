@@ -1,9 +1,10 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -15,7 +16,7 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class DefaultTournamentTest {
+public class DefaultTournamentTest extends AbstractAtTest {
     private final int _waitForPairingsTime = 100;
 
     @Test
@@ -46,7 +47,7 @@ public class DefaultTournamentTest {
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
 
         DefaultTournament tournament = new DefaultTournament(null, tournamentService, null, null, tournamentId, "Name", "format",
-                CollectionType.ALL_CARDS, 0, Tournament.Stage.PLAYING_GAMES, pairingMechanism, new SingleEliminationOnDemandPrizes(new CardSets(), "onDemand"));
+                CollectionType.ALL_CARDS, 0, Tournament.Stage.PLAYING_GAMES, pairingMechanism, new SingleEliminationOnDemandPrizes(_library, "onDemand"));
         tournament.setWaitForPairingsTime(_waitForPairingsTime);
 
         Mockito.when(pairingMechanism.isFinished(Mockito.eq(3), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundThree)))

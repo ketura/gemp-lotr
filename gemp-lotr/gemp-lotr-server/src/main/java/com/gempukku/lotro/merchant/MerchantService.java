@@ -25,12 +25,12 @@ public class MerchantService {
     private final CollectionType _permanentCollection = CollectionType.MY_CARDS;
     private final CollectionsManager _collectionsManager;
 
-    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, CardSets cardSets) {
+    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager) {
         _collectionsManager = collectionsManager;
 
-        _merchant = new RarityBasedMerchant(cardSets);
+        _merchant = new RarityBasedMerchant(library);
 
-        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+        for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("merchantable")) {
                 for (String blueprintId : setDefinition.getAllCards()) {
                     String baseBlueprintId = library.getBaseBlueprintId(blueprintId);

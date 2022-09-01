@@ -1,17 +1,17 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 public class TournamentPrizeSchemeRegistry {
-    public TournamentPrizes getTournamentPrizes(CardSets cardSets, String prizesScheme) {
+    public TournamentPrizes getTournamentPrizes(LotroCardBlueprintLibrary library, String prizesScheme) {
         if (prizesScheme == null || prizesScheme.equals("none"))
             return new NoPrizes();
 
         if (prizesScheme.equals("onDemand"))
-            return new SingleEliminationOnDemandPrizes(cardSets, "onDemand");
+            return new SingleEliminationOnDemandPrizes(library, "onDemand");
 
         if (prizesScheme.equals("daily"))
-            return new DailyTournamentPrizes(cardSets, "daily");
+            return new DailyTournamentPrizes(library, "daily");
 
         return null;
     }

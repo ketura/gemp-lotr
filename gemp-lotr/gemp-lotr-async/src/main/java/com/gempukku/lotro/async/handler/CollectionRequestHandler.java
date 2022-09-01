@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectionRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private final Map<String, SetDefinition> _setDefinitions;
     private final LeagueService _leagueService;
     private final CollectionsManager _collectionsManager;
     private final PacksStorage _packStorage;
@@ -40,8 +39,6 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
     public CollectionRequestHandler(Map<Type, Object> context) {
         super(context);
-        _setDefinitions = extractObject(context, CardSets.class).getSetDefinitions();
-
         _leagueService = extractObject(context, LeagueService.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
         _packStorage = extractObject(context, PacksStorage.class);
@@ -115,7 +112,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             throw new HttpProcessingException(404);
 
         Iterable<CardCollection.Item> items = collection.getAll();
-        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _setDefinitions);
+        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

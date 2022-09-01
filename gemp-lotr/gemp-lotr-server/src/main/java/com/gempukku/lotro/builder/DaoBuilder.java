@@ -7,7 +7,6 @@ import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.db.*;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.log.LoggingProxy;
 import com.gempukku.lotro.tournament.TournamentDAO;
@@ -20,13 +19,10 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class DaoBuilder {
-    public static void fillObjectMap(Map<Type, Object> objectMap) throws IOException {
+    public static void fillObjectMap(Map<Type, Object> objectMap) {
         DbAccess dbAccess = new DbAccess();
         CollectionSerializer collectionSerializer = new CollectionSerializer();
 
-        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-        library.init(AppConfig.getResourceFile("cards"), (CardSets) objectMap.get(CardSets.class));
-        objectMap.put(LotroCardBlueprintLibrary.class, library);
         objectMap.put(LeagueParticipationDAO.class, LoggingProxy.createLoggingProxy(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess)));
         objectMap.put(LeagueMatchDAO.class, LoggingProxy.createLoggingProxy(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess)));
         objectMap.put(TournamentDAO.class, LoggingProxy.createLoggingProxy(TournamentDAO.class, new DbTournamentDAO(dbAccess)));
@@ -44,7 +40,7 @@ public class DaoBuilder {
         CachedIgnoreDAO ignoreDao = new CachedIgnoreDAO(dbIgnoreDao);
         objectMap.put(IgnoreDAO.class, ignoreDao);
 
-        DeckDAO dbDeckDao = LoggingProxy.createLoggingProxy(DeckDAO.class, new DbDeckDAO(dbAccess, library));
+        DeckDAO dbDeckDao = LoggingProxy.createLoggingProxy(DeckDAO.class, new DbDeckDAO(dbAccess, extract(objectMap, LotroCardBlueprintLibrary.class)));
         CachedDeckDAO deckDao = new CachedDeckDAO(dbDeckDao);
         objectMap.put(DeckDAO.class, deckDao);
 
@@ -72,5 +68,12 @@ public class DaoBuilder {
         cacheManager.addCache(transferDao);
         cacheManager.addCache(ipBanDao);
         objectMap.put(CacheManager.class, cacheManager);
+    }
+
+    private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {
+        T result = (T) objectMap.get(clazz);
+        if (result == null)
+            throw new RuntimeException("Unable to find class " + clazz.getName());
+        return result;
     }
 }

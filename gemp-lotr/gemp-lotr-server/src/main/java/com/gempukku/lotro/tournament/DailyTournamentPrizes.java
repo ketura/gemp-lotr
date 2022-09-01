@@ -2,8 +2,8 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ public class DailyTournamentPrizes implements TournamentPrizes {
     private final List<String> _promos = new ArrayList<>();
     private final String _registryRepresentation;
 
-    public DailyTournamentPrizes(CardSets cardSets, String registryRepresentation) {
+    public DailyTournamentPrizes(LotroCardBlueprintLibrary library, String registryRepresentation) {
         _registryRepresentation = registryRepresentation;
-        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+        for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("originalSet"))
                 _promos.addAll(setDefinition.getCardsOfRarity("P"));
         }

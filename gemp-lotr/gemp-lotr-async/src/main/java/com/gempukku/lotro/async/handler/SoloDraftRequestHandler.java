@@ -9,8 +9,8 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueService;
@@ -30,13 +30,13 @@ import java.util.*;
 public class SoloDraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final CollectionsManager _collectionsManager;
     private final SoloDraftDefinitions _soloDraftDefinitions;
-    private final CardSets _cardSets;
+    private final LotroCardBlueprintLibrary _library;
     private final LeagueService _leagueService;
 
     public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);
         _leagueService = extractObject(context, LeagueService.class);
-        _cardSets = extractObject(context, CardSets.class);
+        _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
     }
@@ -61,7 +61,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         if (league == null)
             throw new HttpProcessingException(404);
 
-        LeagueData leagueData = league.getLeagueData(_cardSets, _soloDraftDefinitions);
+        LeagueData leagueData = league.getLeagueData(_library, _soloDraftDefinitions);
         int leagueStart = leagueData.getSeries().get(0).getStart();
 
         if (!leagueData.isSoloDraftLeague() || DateUtils.getCurrentDate() < leagueStart)
@@ -124,7 +124,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         if (league == null)
             throw new HttpProcessingException(404);
 
-        LeagueData leagueData = league.getLeagueData(_cardSets, _soloDraftDefinitions);
+        LeagueData leagueData = league.getLeagueData(_library, _soloDraftDefinitions);
         int leagueStart = leagueData.getSeries().get(0).getStart();
 
         if (!leagueData.isSoloDraftLeague() || DateUtils.getCurrentDate() < leagueStart)

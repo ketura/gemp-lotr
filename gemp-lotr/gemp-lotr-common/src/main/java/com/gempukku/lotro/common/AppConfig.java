@@ -77,6 +77,8 @@ public class AppConfig {
 
     public static String getWebPath() { return getProperty("web.path"); }
     public static File getCardsPath() { return new File(getResourcePath("cards")); }
+    public static File getMappingsPath() { return new File(getResourcePath("blueprintMapping.txt")); }
+    public static File getSetDefinitionsPath() { return new File(getResourcePath("setConfig.json")); }
     public static String getDraftDefinitionPath() { return getResourcePath("lotrDrafts.json"); }
 
 }

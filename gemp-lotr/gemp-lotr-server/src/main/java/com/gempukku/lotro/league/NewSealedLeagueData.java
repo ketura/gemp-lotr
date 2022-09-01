@@ -21,8 +21,8 @@ public class NewSealedLeagueData implements LeagueData {
     private final LeaguePrizes _leaguePrizes;
     private final SealedLeagueProduct _leagueProduct;
 
-    public NewSealedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
-        _leaguePrizes = new FixedLeaguePrizes(cardSets);
+    public NewSealedLeagueData(LotroCardBlueprintLibrary library, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
+        _leaguePrizes = new FixedLeaguePrizes(library);
         
         String[] params = parameters.split(",");
         _leagueType = SealedLeagueType.getLeagueType(params[0]);

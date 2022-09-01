@@ -25,11 +25,11 @@ public abstract class AbstractAtTest {
 
     static {
         _library = new LotroCardBlueprintLibrary();
-        final String property = System.getProperty("user.dir");
-        String projectRoot = new File(property).getParentFile().getAbsolutePath();
-
-        //_library.init(new File(projectRoot + "/gemp-lotr-cards/src/main/resources/cards"), new CardSets());
-        _library.init(AppConfig.getCardsPath(), new CardSets());
+//        final String property = System.getProperty("user.dir");
+//        String projectRoot = new File(property).getParentFile().getAbsolutePath();
+//
+//        //_library.init(new File(projectRoot + "/gemp-lotr-cards/src/main/resources/cards"), new CardSets());
+//        _library.init(AppConfig.getCardsPath(), AppConfig.getMappingsPath(), new CardSets());
     }
 
     protected DefaultLotroGame _game;

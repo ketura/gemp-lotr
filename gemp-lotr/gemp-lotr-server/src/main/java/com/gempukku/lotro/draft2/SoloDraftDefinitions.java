@@ -28,8 +28,8 @@ public class SoloDraftDefinitions {
     private final DraftChoiceBuilder draftChoiceBuilder;
 
     public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
-                                LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String draftDefinitionPath) {
-        draftChoiceBuilder = new DraftChoiceBuilder(collectionsManager, cardLibrary, formatLibrary, rarities);
+                                LotroFormatLibrary formatLibrary, String draftDefinitionPath) {
+        draftChoiceBuilder = new DraftChoiceBuilder(collectionsManager, cardLibrary, formatLibrary);
         ReloadDraftsFromFile(draftDefinitionPath);
     }
 

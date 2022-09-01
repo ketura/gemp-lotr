@@ -1,5 +1,6 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
-public class SingleEliminationRecurringQueueTest {
+public class SingleEliminationRecurringQueueTest extends AbstractAtTest {
     @Test
     public void joiningQueue() {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
