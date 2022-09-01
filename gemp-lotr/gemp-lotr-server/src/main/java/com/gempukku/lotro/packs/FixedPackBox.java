@@ -1,5 +1,6 @@
 package com.gempukku.lotro.packs;
 
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.CardCollection;
 
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ public class FixedPackBox implements PackBox {
     private final Map<String, Integer> _contents = new LinkedHashMap<>();
 
     public FixedPackBox(String packName) throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FixedPackBox.class.getResourceAsStream("/" + packName + ".pack")))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/" + packName + ".pack")))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 line = line.trim();
