@@ -29,11 +29,7 @@ public abstract class AbstractAtTest {
         String projectRoot = new File(property).getParentFile().getAbsolutePath();
 
         //_library.init(new File(projectRoot + "/gemp-lotr-cards/src/main/resources/cards"), new CardSets());
-        try {
-            _library.init(AppConfig.getResourceFile("cards"), new CardSets());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        _library.init(AppConfig.getCardsPath(), new CardSets());
     }
 
     protected DefaultLotroGame _game;

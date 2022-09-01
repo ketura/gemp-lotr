@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -23,24 +24,28 @@ import java.util.*;
 
 public class SoloDraftDefinitions {
     private static final Logger _logger = Logger.getLogger(SoloDraftDefinitions.class);
-    private final Map<String, SoloDraft> draftTypes = new HashMap<>();
-    private final StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
-    private final DraftPoolBuilder draftPoolBuilder = new DraftPoolBuilder();
+    private Map<String, SoloDraft> draftTypes = new HashMap<>();
     private final DraftChoiceBuilder draftChoiceBuilder;
 
     public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
-                                LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
+                                LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String draftDefinitionPath) {
         draftChoiceBuilder = new DraftChoiceBuilder(collectionsManager, cardLibrary, formatLibrary, rarities);
+        ReloadDraftsFromFile(draftDefinitionPath);
+    }
+
+    public void ReloadDraftsFromFile(String file) {
+        var newDraftTypes = new HashMap<String, SoloDraft>();
         try {
-            final InputStreamReader reader = new InputStreamReader(AppConfig.getResourceStream("lotrDrafts.json"), StandardCharsets.UTF_8);
+            final InputStreamReader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
             try {
                 JSONParser parser = new JSONParser();
                 JSONArray object = (JSONArray) parser.parse(reader);
                 for (Object draftDefObj : object) {
                     String type = (String) ((JSONObject) draftDefObj).get("type");
                     String location = (String) ((JSONObject) draftDefObj).get("location");
-                    draftTypes.put(type, loadDraft(location));
+                    newDraftTypes.put(type, loadDraft(location));
                 }
+                draftTypes = newDraftTypes;
             } catch (ParseException exp) {
                 throw new RuntimeException("Problem loading solo drafts", exp);
             }
@@ -60,12 +65,12 @@ public class SoloDraftDefinitions {
                 CardCollectionProducer cardCollectionProducer = null;
                 JSONObject startingPool = (JSONObject) object.get("startingPool");
                 if (startingPool != null)
-                    cardCollectionProducer = startingPoolBuilder.buildCardCollectionProducer(startingPool);
+                    cardCollectionProducer = StartingPoolBuilder.buildCardCollectionProducer(startingPool);
 
                 DraftPoolProducer draftPoolProducer = null;
                 JSONArray draftPoolComponents = (JSONArray) object.get("draftPool");
                 if (draftPoolComponents != null)
-                    draftPoolProducer = draftPoolBuilder.buildDraftPoolProducer(draftPoolComponents);
+                    draftPoolProducer = DraftPoolBuilder.buildDraftPoolProducer(draftPoolComponents);
 
                 List<DraftChoiceDefinition> draftChoiceDefinitions = new ArrayList<>();
                 JSONArray choices = (JSONArray) object.get("choices");

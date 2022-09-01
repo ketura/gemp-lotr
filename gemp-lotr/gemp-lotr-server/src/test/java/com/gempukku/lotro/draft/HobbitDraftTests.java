@@ -1,6 +1,7 @@
 package com.gempukku.lotro.draft;
 
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardSets;
@@ -8,26 +9,30 @@ import com.gempukku.lotro.game.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class HobbitDraftTest {
-    public static void main(String[] args) {
+public class HobbitDraftTests {
+    @Test
+    public void HobbitDraftTest() {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         final String property = System.getProperty("user.dir");
         String projectRoot = new File(property).getAbsolutePath();
 
-        library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"), new CardSets());
+        //library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"), new CardSets());
+        library.init(AppConfig.getCardsPath(), new CardSets());
 
         CollectionsManager collectionsManager = new CollectionsManager(null, null, null, library);
         DefaultAdventureLibrary defaultAdventureLibrary = new DefaultAdventureLibrary();
         LotroFormatLibrary lotroFormatLibrary = new LotroFormatLibrary(defaultAdventureLibrary, library);
         CardSets cardSets = new CardSets();
 
-        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(collectionsManager, library, lotroFormatLibrary, cardSets.getSetDefinitions());
+        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(collectionsManager, library, lotroFormatLibrary,
+                cardSets.getSetDefinitions(), AppConfig.getDraftDefinitionPath());
 
         final SoloDraft hobbitDraft = soloDraftDefinitions.getSoloDraft("hobbit_draft");
 
@@ -91,7 +96,8 @@ public class HobbitDraftTest {
         }
     }
 
-    private static void testRandomness() {
+    @Test
+    public void testRandomness() {
         doRandomTest(4, false);
         System.out.println("WTF!!!!");
         System.out.println("WTF!!!!");

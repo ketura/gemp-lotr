@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class AppConfig {
@@ -38,10 +39,12 @@ public class AppConfig {
 
     private static boolean AppInIDE() {
         String classPath = System.getProperty("java.class.path");
+        //System.out.println("Class path: " + classPath);
         return classPath.contains("idea_rt.jar");
     }
 
     private static boolean AppInUnitTest() {
+        //System.out.println("Stack trace: " + Arrays.toString(Thread.currentThread().getStackTrace()));
         for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
             if (element.getClassName().startsWith("org.junit.")) {
                 return true;
@@ -49,7 +52,7 @@ public class AppConfig {
         }
         return false;
     }
-    public static String getResourcePath() throws IOException {
+    public static String getResourcePath() {
         if(AppInIDE())
             return getProperties().getProperty("dev.resources.path");
 
@@ -59,9 +62,12 @@ public class AppConfig {
         return getProperties().getProperty("resources.path");
     }
 
-    public static File getResourceFile(String subPath) throws IOException {
-        String path = Paths.get(getResourcePath(), subPath).toString();
-        return new File(path);
+    public static String getResourcePath(String subPath) {
+        return Paths.get(getResourcePath(), subPath).toString();
+    }
+
+    public static File getResourceFile(String subPath) {
+        return new File(getResourcePath(subPath));
     }
 
     public static FileInputStream getResourceStream(String subPath) throws IOException {
@@ -70,5 +76,7 @@ public class AppConfig {
     }
 
     public static String getWebPath() { return getProperty("web.path"); }
+    public static File getCardsPath() { return new File(getResourcePath("cards")); }
+    public static String getDraftDefinitionPath() { return getResourcePath("lotrDrafts.json"); }
 
 }

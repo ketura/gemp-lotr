@@ -3,6 +3,7 @@ package com.gempukku.lotro.builder;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
+import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
@@ -45,10 +46,12 @@ public class ServerBuilder {
 
         objectMap.put(SoloDraftDefinitions.class,
                 new SoloDraftDefinitions(
-                        extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
-                        extract(objectMap, LotroFormatLibrary.class),
-                        extract(objectMap, CardSets.class).getSetDefinitions()));
+                    extract(objectMap, CollectionsManager.class),
+                    extract(objectMap, LotroCardBlueprintLibrary.class),
+                    extract(objectMap, LotroFormatLibrary.class),
+                    extract(objectMap, CardSets.class).getSetDefinitions(),
+                    AppConfig.getDraftDefinitionPath()
+                ));
 
         objectMap.put(LeagueService.class,
                 new LeagueService(

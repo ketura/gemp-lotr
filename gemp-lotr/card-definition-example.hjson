@@ -42,14 +42,17 @@
 				tengwar: { 
 					imagePath: decipher/LOTR01013T.jpg
 					collInfo: 1R13T
+					style: Tengwar
 				}
 				legends: {
 					imagePath: decipher/LOTR01F013.jpg
 					collInfo: 1RF13
+					style: Legends
 				}
 				masterwork: {
 					imagePath: promos/masterworks/LOTR-EN01O013.0_card.jpg
 					collInfo: 1O13
+					style: Masterwork
 				}
 			}
 			errata: {
