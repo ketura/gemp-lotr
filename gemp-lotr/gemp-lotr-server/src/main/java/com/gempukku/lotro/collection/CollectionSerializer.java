@@ -112,7 +112,7 @@ public class CollectionSerializer {
     }
 
     private void fillDoubleByteItems() throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/packs.txt"), StandardCharsets.UTF_8))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/old/packs.txt"), StandardCharsets.UTF_8))) {
             String line;
             while ((line = bufferedReader.readLine()) != null)
                 _doubleByteCountItems.add(line);
