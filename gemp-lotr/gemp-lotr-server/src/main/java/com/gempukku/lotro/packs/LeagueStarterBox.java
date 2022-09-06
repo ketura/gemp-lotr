@@ -9,8 +9,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LeagueStarterBox implements PackBox {
     @Override
     public List<CardCollection.Item> openPack() {
-        List<CardCollection.Item> result = new LinkedList<>();
         int starter = ThreadLocalRandom.current().nextInt(6);
+        return openPack(starter);
+    }
+
+    public List<CardCollection.Item> openPack(int starter) {
+        List<CardCollection.Item> result = new LinkedList<>();
         if (starter == 0) {
             result.add(CardCollection.Item.createItem("FotR - Gandalf Starter", 1));
         } else if (starter == 1) {
@@ -24,6 +28,8 @@ public class LeagueStarterBox implements PackBox {
         } else if (starter == 5) {
             result.add(CardCollection.Item.createItem("RotEL - Legolas Starter", 1));
         }
+
+        //result.add(CardCollection.Item.createItem("FOTR League Random Starters", 1));
         result.add(CardCollection.Item.createItem("FotR - Booster", 2));
         result.add(CardCollection.Item.createItem("MoM - Booster", 2));
         result.add(CardCollection.Item.createItem("RotEL - Booster", 2));
@@ -47,5 +53,10 @@ public class LeagueStarterBox implements PackBox {
         result.add(CardCollection.Item.createItem("0_10", 1));
 
         return result;
+    }
+
+    @Override
+    public List<String> GetAllOptions() {
+        return openPack(1).stream().map(CardCollection.Item::getBlueprintId).toList();
     }
 }

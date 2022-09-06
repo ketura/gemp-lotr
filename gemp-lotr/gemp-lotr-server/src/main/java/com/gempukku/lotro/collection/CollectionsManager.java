@@ -6,6 +6,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.ProductLibrary;
 import com.google.common.collect.Iterables;
 
 import java.io.IOException;
@@ -153,7 +154,7 @@ public class CollectionsManager {
         }
     }
 
-    public CardCollection openPackInPlayerCollection(Player player, CollectionType collectionType, String selection, PacksStorage packsStorage, String packId) {
+    public CardCollection openPackInPlayerCollection(Player player, CollectionType collectionType, String selection, ProductLibrary productLibrary, String packId) {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -161,7 +162,7 @@ public class CollectionsManager {
                 return null;
             MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
 
-            final CardCollection packContents = mutableCardCollection.openPack(packId, selection, packsStorage);
+            final CardCollection packContents = mutableCardCollection.openPack(packId, selection, productLibrary);
             if (packContents != null) {
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
 

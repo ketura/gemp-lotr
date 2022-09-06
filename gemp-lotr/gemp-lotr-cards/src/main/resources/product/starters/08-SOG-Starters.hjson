@@ -1,0 +1,168 @@
+[
+	{
+		name: SoG - Merry Starter
+		type: pack
+		items: [
+			#The Siege of Gondor Merry Starter Deck Card List
+			#Ring-bearer (2 cards)
+			#    Frodo, Hope of Free Peoples
+			#    The One Ring, The Ruling Ring
+			1x7_317
+			1x7_1
+			#Adventure Deck (9 cards)
+			#    Edoras Hall
+			#    Rohirrim Camp
+			#    Hall of The Kings
+			#    Anduin Banks
+			#    Pelennor Flat
+			#    Minas Tirith Fourth Circle
+			#    Osgiliath Channel
+			#    Morgulduin
+			#    Haunted Pass
+			1x7_330
+			1x7_336
+			1x7_339
+			1x7_341
+			1x7_345
+			1x7_348
+			1x8_120
+			1x7_358
+			1x7_361
+			#Free Peoples (30 cards)
+			#    Merry, Noble Warrior x 2
+			#    Hobbit Sword x 2
+			#    Eomer, Keeper of Oaths
+			#    Eowyn, Restless Maiden
+			#    Guthlaf, Herald
+			#    Enraged Horseman x 3
+			#    Long Spear x 3
+			#    Rohirrim Javelin x 4
+			#    White Hot Fury x 3
+			#    Doom Drove Them x 2
+			#    Charged Headlong x 2
+			#    Swift Steed x 4
+			#    They Sang As They Slew x 2
+			2x8_121
+			2x7_319
+			1x8_87
+			1x7_229
+			1x7_235
+			3x7_226
+			3x7_240
+			4x7_248
+			3x7_258
+			2x8_85
+			2x8_86
+			4x7_253
+			2x7_256
+			#Shadow (30 cards)
+			#    Morgul Lurker x 4
+			#    Morgul Creeper x 3
+			#    Morgul Predator x 3
+			#    Morgul Spearman x 3
+			#    Morgul Whelp x 3
+			#    Morgul Destroyer x 3
+			#    Ulaire Nelya x 2
+			#    Ulaire Otsea x 2
+			#    Ulaire Lemenya x 2
+			#    Morgul Axe x 3
+			#    Unhindered x 2
+			4x8_76
+			3x8_75
+			3x7_196
+			3x7_201
+			3x7_202
+			3x7_190
+			2x7_214
+			2x7_216
+			2x7_218
+			3x7_186
+			2x8_82
+		]
+	},
+	{
+		name: SoG - Pippin Starter
+		type: pack
+		items: [
+			#The Siege of Gondor Pippin Starter Deck Card List
+			#Ring-bearer (2 cards)
+			#    Frodo, Hope of Free Peoples
+			#    The One Ring, The Ruling Ring
+			1x7_317
+			1x7_1
+			#Adventure Deck (9 cards)
+			#    Steps of Edoras
+			#    King's Tent
+			#    Hall of The Kings
+			#    Pelennor Plain
+			#    Pelennor Flat
+			#    Minas Tirith Sixth Circle
+			#    Osgiliath Channel
+			#    Cross Roads
+			#    Haunted Pass
+			1x7_334
+			1x7_335
+			1x7_339
+			1x7_343
+			1x7_345
+			1x7_351
+			1x8_120
+			1x7_356
+			1x7_361
+			#Free Peoples (30 cards)
+			#    Pippin, Guard of Minas Tirith x 2
+			#    Hobbit Sword x 2
+			#    Faramir, Defender of Osgiliath
+			#    Denethor, Wizened Steward
+			#    Ingold
+			#    Gondorian Captain x 3
+			#    First Level x 3
+			#    Gondorian Sword x 3
+			#    Fourth Level x 3
+			#    Knight's Mount x 2
+			#    Dagger Strike x 3
+			#    Sixth Level
+			#    Man The Walls x 3
+			#    Long Prepared x 2
+			2x8_122
+			2x7_319
+			1x8_34
+			1x7_86
+			1x7_106
+			3x7_96
+			3x7_92
+			3x7_98
+			3x8_35
+			2x8_40
+			3x7_84
+			1x8_44
+			3x7_111
+			2x7_109
+			#Shadow (30 cards)
+			#    Haradwaith x 2
+			#    Haradrim Marksman x 3
+			#    Troop of Haradrim x 3
+			#    Desert Soldier x 3
+			#    Desert Runner x 3
+			#    Desert Scout x 3
+			#    Desert Sneak x 3
+			#    Raider Bow x 2
+			#    Great Beasts
+			#    New Strength Came Now x 2
+			#    Mumakil x 3
+			#    Line of Defense x 2
+			2x8_61
+			3x8_60
+			3x7_172
+			3x7_136
+			3x7_133
+			3x7_134
+			3x7_135
+			2x7_155
+			1x7_149
+			2x7_154
+			3x8_64
+			2x8_63
+		]
+	}
+]

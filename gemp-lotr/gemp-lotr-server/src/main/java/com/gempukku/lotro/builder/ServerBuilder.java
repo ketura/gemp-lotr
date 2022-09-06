@@ -13,6 +13,7 @@ import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.merchant.MerchantService;
 import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.ProductLibrary;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.service.LoggedUserHolder;
 import com.gempukku.lotro.tournament.*;
@@ -74,7 +75,7 @@ public class ServerBuilder {
         objectMap.put(TournamentService.class,
                 new TournamentService(
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, PacksStorage.class),
+                        extract(objectMap, ProductLibrary.class),
                         new DraftPackStorage(),
                         pairingMechanismRegistry,
                         tournamentPrizeSchemeRegistry,

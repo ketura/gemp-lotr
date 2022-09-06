@@ -12,15 +12,24 @@ import java.util.Map;
 public class TengwarPackBox implements PackBox {
     private final List<CardCollection.Item> _cards = new ArrayList<>();
 
-    public TengwarPackBox(int[] sets, LotroCardBlueprintLibrary library) {
+    public TengwarPackBox(String[] sets, LotroCardBlueprintLibrary library) {
         final Map<String,SetDefinition> setDefinitions = library.getSetDefinitions();
-        for (int set : sets)
-            for (String tengwarCard : setDefinitions.get(String.valueOf(set)).getTengwarCards())
+        for (String set : sets)
+            for (String tengwarCard : setDefinitions.get(set).getTengwarCards())
                 _cards.add(CardCollection.Item.createItem(tengwarCard, 1));
     }
 
     @Override
     public List<CardCollection.Item> openPack() {
         return Collections.unmodifiableList(_cards);
+    }
+
+    //Not used in non-random packs
+    @Override
+    public List<CardCollection.Item> openPack(int selection) { return openPack(); }
+
+    @Override
+    public List<String> GetAllOptions() {
+        return _cards.stream().map(CardCollection.Item::getBlueprintId).toList();
     }
 }

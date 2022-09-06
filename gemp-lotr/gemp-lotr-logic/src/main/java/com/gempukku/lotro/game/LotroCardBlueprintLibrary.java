@@ -169,7 +169,7 @@ public class LotroCardBlueprintLibrary {
             return;
 
         JSONParser parser = new JSONParser();
-        try (Reader reader = new InputStreamReader(new FileInputStream(file), "UTF-8")) {
+        try (Reader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8)) {
             //This will read both json and hjson, producing standard json
             String json = JsonValue.readHjson(reader).toString();
             final JSONObject cardsFile = (JSONObject) parser.parse(json);

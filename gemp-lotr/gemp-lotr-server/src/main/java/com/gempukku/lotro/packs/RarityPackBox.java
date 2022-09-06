@@ -5,6 +5,7 @@ import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 public class RarityPackBox implements PackBox {
     private final SetDefinition _setRarity;
@@ -77,5 +78,18 @@ public class RarityPackBox implements PackBox {
             addedIndices.add(index);
         }
         return addedIndices;
+    }
+
+    @Override
+    public List<CardCollection.Item> openPack(int selection) { return openPack(); }
+
+    @Override
+    public List<String> GetAllOptions() {
+        var list = new ArrayList<String>();
+        list.addAll(_possibleRareCards);
+        list.addAll(_possibleFoilRareSlot);
+        list.addAll(_possibleFoilCommonSlot);
+        list.addAll(_possibleFoilUncommonSlot);
+        return Collections.unmodifiableList(list);
     }
 }

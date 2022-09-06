@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.ProductLibrary;
 
 import java.util.*;
 
@@ -75,19 +76,19 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public synchronized CardCollection openPack(String packId, String selection, PacksStorage packsStorage) {
+    public synchronized CardCollection openPack(String packId, String selection, ProductLibrary productLibrary) {
         Item count = _counts.get(packId);
         if (count == null)
             return null;
         if (count.getCount() > 0) {
             List<Item> packContents = null;
             if (packId.startsWith("(S)")) {
-                if (selection != null && hasSelection(packId, selection, packsStorage)) {
+                if (selection != null && hasSelection(packId, selection, productLibrary)) {
                     packContents = new LinkedList<>();
                     packContents.add(Item.createItem(selection, 1));
                 }
             } else {
-                packContents = packsStorage.openPack(packId);
+                packContents = productLibrary.GetProduct(packId).openPack();
             }
 
             if (packContents == null)
@@ -120,8 +121,8 @@ public class DefaultCardCollection implements MutableCardCollection {
         return count.getCount();
     }
 
-    private boolean hasSelection(String packId, String selection, PacksStorage packsStorage) {
-        for (Item item : packsStorage.openPack(packId)) {
+    private boolean hasSelection(String packId, String selection, ProductLibrary productLibrary) {
+        for (Item item : productLibrary.GetProduct(packId).openPack()) {
             if (item.getBlueprintId().equals(selection))
                 return true;
         }

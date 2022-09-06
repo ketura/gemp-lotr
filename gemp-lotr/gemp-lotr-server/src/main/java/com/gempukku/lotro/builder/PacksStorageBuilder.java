@@ -14,11 +14,11 @@ public class PacksStorageBuilder {
             packStorage.addPackBox("Random FotR Foil Common", new RandomFoilPack("C", new String[]{"1", "2", "3"}, library));
             packStorage.addPackBox("Random FotR Foil Uncommon", new RandomFoilPack("U", new String[]{"1", "2", "3"}, library));
 
-            packStorage.addPackBox("(S)FotR - Tengwar", new TengwarPackBox(new int[]{1, 2, 3}, library));
-            packStorage.addPackBox("(S)TTT - Tengwar", new TengwarPackBox(new int[]{4, 5, 6}, library));
-            packStorage.addPackBox("(S)RotK - Tengwar", new TengwarPackBox(new int[]{7, 8, 10}, library));
-            packStorage.addPackBox("(S)SH - Tengwar", new TengwarPackBox(new int[]{11, 12, 13}, library));
-            packStorage.addPackBox("(S)Tengwar", new TengwarPackBox(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}, library));
+            packStorage.addPackBox("(S)FotR - Tengwar", new TengwarPackBox(new String[]{"1", "2", "3"}, library));
+            packStorage.addPackBox("(S)TTT - Tengwar", new TengwarPackBox(new String[]{"4", "5", "6"}, library));
+            packStorage.addPackBox("(S)RotK - Tengwar", new TengwarPackBox(new String[]{"7", "8", "10"}, library));
+            packStorage.addPackBox("(S)SH - Tengwar", new TengwarPackBox(new String[]{"11", "12", "13"}, library));
+            packStorage.addPackBox("(S)Tengwar", new TengwarPackBox(new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"}, library));
 
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(library.getSetDefinitions().get("1")));
             packStorage.addPackBox("MoM - Booster", new RarityPackBox(library.getSetDefinitions().get("2")));

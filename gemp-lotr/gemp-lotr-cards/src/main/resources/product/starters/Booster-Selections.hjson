@@ -1,0 +1,51 @@
+[
+	
+	{
+		name: (S)TSBoosterChoice
+		type: selection
+		items: [
+			1xFotR - Booster
+			1xMoM - Booster
+			1xRotEL - Booster
+			1xTTT - Booster
+			1xBoHD - Booster
+			1xEoF - Booster
+		]
+	}
+	{
+		name: (S)Movie Booster Choice
+		type: selection
+		items: [
+			1xFotR - Booster
+			1xMoM - Booster
+			1xRotEL - Booster
+			1xTTT - Booster
+			1xBoHD - Booster
+			1xEoF - Booster
+			1xRotK - Booster
+			1xSoG - Booster
+			1xMD - Booster
+		]
+	}
+	{
+		name: (S)Booster Choice
+		type: selection
+		items: [
+			1xFotR - Booster
+			1xMoM - Booster
+			1xRotEL - Booster
+			1xTTT - Booster
+			1xBoHD - Booster
+			1xEoF - Booster
+			1xRotK - Booster
+			1xSoG - Booster
+			1xMD - Booster
+			1xSH - Booster
+			1xBR - Booster
+			1xBL - Booster
+			1xHU - Booster
+			1xRoS - Booster
+			1xTaD - Booster
+		]
+	}
+]

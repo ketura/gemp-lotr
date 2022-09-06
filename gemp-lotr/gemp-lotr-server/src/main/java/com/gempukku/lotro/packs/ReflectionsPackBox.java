@@ -5,6 +5,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -57,5 +58,16 @@ public class ReflectionsPackBox implements PackBox {
 
     public String getRandomReflectionsCard() {
         return _reflectionSlotCards.get(ThreadLocalRandom.current().nextInt(_reflectionSlotCards.size()));
+    }
+
+    @Override
+    public List<CardCollection.Item> openPack(int selection) { return openPack(); }
+
+    @Override
+    public List<String> GetAllOptions() {
+        var list = new ArrayList<String>();
+        list.addAll(_previousSetCards);
+        list.addAll(_reflectionSlotCards);
+        return Collections.unmodifiableList(list);
     }
 }

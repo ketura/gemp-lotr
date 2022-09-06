@@ -1,0 +1,41 @@
+[
+	{
+		name: FotR - League Starter
+		type: pack
+
+		items: [
+			1xFOTR League Random Starters
+			2xFotR - Booster
+			2xMoM - Booster
+			2xRotEL - Booster
+      # Arwen
+      1x3_7
+      # Boromir
+      1x1_97
+      # Gimli
+      1x1_12
+      # Legolas
+      1x1_51
+      # Merry
+      1x1_303
+      # Pippin
+      1x1_306
+      # Sam
+      1x1_311
+      # The Balrog
+      1x0_10
+		]
+	}
+	{
+		name: FOTR League Random Starters
+		type: random
+		items: [
+			1xFotR - Gandalf Starter
+			1xFotR - Aragorn Starter
+			1xMoM - Gandalf Starter
+			1xMoM - Gimli Starter
+			1xRotEL - Boromir Starter
+			1xRotEL - Legolas Starter
+		]
+	}
+]

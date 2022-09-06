@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.ProductLibrary;
 import com.gempukku.lotro.tournament.TournamentCallback;
 
 import java.util.*;
@@ -20,7 +21,7 @@ public class DefaultDraft implements Draft {
 
     private final CollectionsManager _collectionsManager;
     private final CollectionType _collectionType;
-    private final PacksStorage _packsStorage;
+    private final ProductLibrary _productLibrary;
     private final DraftPack _draftPack;
     private final List<String> _players;
 
@@ -39,10 +40,10 @@ public class DefaultDraft implements Draft {
     private final Map<String, DraftCommunicationChannel> _playerDraftCommunications = new HashMap<>();
     private int _nextChannelNumber = 0;
 
-    public DefaultDraft(CollectionsManager collectionsManager, CollectionType collectionType, PacksStorage packsStorage, DraftPack draftPack, Set<String> players) {
+    public DefaultDraft(CollectionsManager collectionsManager, CollectionType collectionType, ProductLibrary productLibrary, DraftPack draftPack, Set<String> players) {
         _collectionsManager = collectionsManager;
         _collectionType = collectionType;
-        _packsStorage = packsStorage;
+        _productLibrary = productLibrary;
         _draftPack = draftPack;
         _players = new ArrayList(players);
         Collections.shuffle(_players, ThreadLocalRandom.current());
@@ -153,7 +154,7 @@ public class DefaultDraft implements Draft {
         for (int i = 0; i < _playerCount; i++) {
             MutableCardCollection cardCollection = new DefaultCardCollection();
             cardCollection.addItem(packId, 1);
-            cardCollection.openPack(packId, null, _packsStorage);
+            cardCollection.openPack(packId, null, _productLibrary);
             _cardChoices.add(cardCollection);
         }
         _nextPackIndex++;
