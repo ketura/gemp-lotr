@@ -2,7 +2,6 @@
 	{
 		name: FotR - League Starter
 		type: pack
-
 		items: [
 			1xFOTR League Random Starters
 			2xFotR - Booster
@@ -26,6 +25,7 @@
       1x0_10
 		]
 	}
+	
 	{
 		name: FOTR League Random Starters
 		type: random

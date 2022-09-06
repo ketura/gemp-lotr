@@ -19,7 +19,7 @@ public class FixedPackBox implements PackBox {
     }
 
     public static FixedPackBox LoadFromFile(String packName) throws IOException {
-        var lines = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/" + packName + ".pack")))
+        var lines = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/old/" + packName + ".pack")))
                 .lines().toList();
         return LoadFromArray(lines);
     }
