@@ -395,6 +395,10 @@ table.tables tr.privateForPlayer {
 	color: #5f5f5f;
 }
 
+.user-mention.systemMessage {
+	color: #FFFFFF;
+}
+
 .warningMessage {
 	color: #ff0000;
 }

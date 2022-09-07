@@ -113,7 +113,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-            String login = getFormParameterSafely(postDecoder, "login");
+            String login = getFormParameterSafely(postDecoder, "login").trim();
 
             List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
             if (similarPlayers == null)
@@ -691,7 +691,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         _chatServer.sendSystemMessageToAllChatRooms("@everyone Server is reloading card definitions.  This will impact game speed until it is complete.");
 
-        Thread.sleep(1000);
+        Thread.sleep(6000);
         _library.reloadCards();
 
         _chatServer.sendSystemMessageToAllChatRooms("@everyone Card definition reload complete.  If you are mid-game and you notice any oddities, please let the mod team know in the game hall ASAP.");
