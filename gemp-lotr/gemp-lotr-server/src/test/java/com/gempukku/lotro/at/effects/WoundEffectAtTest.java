@@ -31,7 +31,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         final AtomicInteger triggerCount = new AtomicInteger(0);
 
@@ -67,7 +67,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         final AtomicInteger triggerCount = new AtomicInteger(0);
 
@@ -103,8 +103,8 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl pippin = new PhysicalCardImpl(102, "1_306", P1, _library.getLotroCardBlueprint("1_306"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl pippin = new PhysicalCardImpl(102, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
 
         final AtomicInteger triggerCount = new AtomicInteger(0);
         final AtomicInteger preventCount = new AtomicInteger(0);
@@ -157,7 +157,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         final AtomicInteger triggerCount = new AtomicInteger(0);
         final AtomicInteger negateCount = new AtomicInteger(0);
@@ -211,7 +211,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         final AtomicInteger triggerCount = new AtomicInteger(0);
         final AtomicInteger preventCount = new AtomicInteger(0);

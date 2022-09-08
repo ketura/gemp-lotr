@@ -6,7 +6,6 @@ import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cache.CacheManager;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -17,6 +16,7 @@ import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.*;
+import com.gempukku.lotro.packs.ProductLibrary;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.TournamentService;
 import io.netty.handler.codec.http.HttpMethod;
@@ -36,7 +36,8 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private final LotroCardBlueprintLibrary _library;
+    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final ProductLibrary _productLibrary;
     private final SoloDraftDefinitions _soloDraftDefinitions;
     private final LeagueService _leagueService;
     private final TournamentService _tournamentService;
@@ -61,7 +62,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _adminService = extractObject(context, AdminService.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _cardLibrary = extractObject(context, LotroCardBlueprintLibrary.class);
+        _productLibrary = extractObject(context, ProductLibrary.class);
         _chatServer = extractObject(context, ChatServer.class);
     }
 
@@ -342,7 +344,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
                 sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
             String parameters = sb.toString();
-            LeagueData leagueData = new NewConstructedLeagueData(_library, _soloDraftDefinitions, parameters);
+            LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, _formatLibrary, parameters);
             List<LeagueSerieData> series = leagueData.getSeries();
             int leagueStart = series.get(0).getStart();
             int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
@@ -390,7 +392,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
                 sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
             String parameters = sb.toString();
-            LeagueData leagueData = new NewConstructedLeagueData(_library, _soloDraftDefinitions, parameters);
+            LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, _formatLibrary, parameters);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -414,7 +416,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
                 serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
                 serieElem.setAttribute("start", String.valueOf(serie.getStart()));
                 serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("format", serie.getFormat().getName());
                 serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
                 serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
@@ -455,7 +457,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String code = String.valueOf(System.currentTimeMillis());
 
             String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-            LeagueData leagueData = new SoloDraftLeagueData(_library, _soloDraftDefinitions, parameters);
+            LeagueData leagueData = new SoloDraftLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions, parameters);
             List<LeagueSerieData> series = leagueData.getSeries();
             int leagueStart = series.get(0).getStart();
             int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
@@ -496,7 +498,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String code = String.valueOf(System.currentTimeMillis());
 
             String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-            LeagueData leagueData = new SoloDraftLeagueData(_library, _soloDraftDefinitions, parameters);
+            LeagueData leagueData = new SoloDraftLeagueData(_cardLibrary,  _formatLibrary, _soloDraftDefinitions, parameters);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -520,7 +522,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
                 serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
                 serieElem.setAttribute("start", String.valueOf(serie.getStart()));
                 serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("format", serie.getFormat().getName());
                 serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
                 serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
@@ -560,8 +562,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
             String code = String.valueOf(System.currentTimeMillis());
 
-            String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-            LeagueData leagueData = new NewSealedLeagueData(_library, _soloDraftDefinitions, parameters);
+            String parameters = _formatLibrary.GetSealedTemplate(format).GetName() + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, _formatLibrary, parameters);
             List<LeagueSerieData> series = leagueData.getSeries();
             int leagueStart = series.get(0).getStart();
             int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
@@ -602,7 +604,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String code = String.valueOf(System.currentTimeMillis());
 
             String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-            LeagueData leagueData = new NewSealedLeagueData(_library, _soloDraftDefinitions, parameters);
+            LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, _formatLibrary, parameters);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -626,7 +628,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
                 serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
                 serieElem.setAttribute("start", String.valueOf(serie.getStart()));
                 serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("format", serie.getFormat().getName());
                 serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
                 serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
@@ -692,9 +694,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _chatServer.sendSystemMessageToAllChatRooms("@everyone Server is reloading card definitions.  This will impact game speed until it is complete.");
 
         Thread.sleep(6000);
-        _library.reloadCards();
+        _cardLibrary.reloadSets();
+        _cardLibrary.reloadMappings();
+        _cardLibrary.reloadCards();
 
-        _chatServer.sendSystemMessageToAllChatRooms("@everyone Card definition reload complete.  If you are mid-game and you notice any oddities, please let the mod team know in the game hall ASAP.");
+        _productLibrary.ReloadPacks();
+
+        _formatLibrary.ReloadFormats();
+        _formatLibrary.ReloadSealedTemplates();
+
+        _chatServer.sendSystemMessageToAllChatRooms("@everyone Card definition reload complete.  If you are mid-game and you notice any oddities, reload the page and please let the mod team know in the game hall ASAP if the problem doesn't go away.");
 
         responseWriter.writeHtmlResponse("OK");
     }

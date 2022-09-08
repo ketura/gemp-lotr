@@ -2,9 +2,8 @@ package com.gempukku.lotro.db.vo;
 
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.league.LeagueData;
-
-import java.lang.reflect.Constructor;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.league.*;
 
 public class League {
     private final int _cost;
@@ -36,12 +35,28 @@ public class League {
         return _type;
     }
 
-    public synchronized LeagueData getLeagueData(LotroCardBlueprintLibrary library, SoloDraftDefinitions soloDraftDefinitions) {
+    public synchronized LeagueData getLeagueData(LotroCardBlueprintLibrary bpLibrary, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions) {
         if (_leagueData == null) {
             try {
                 Class<?> aClass = Class.forName(_clazz);
-                Constructor<?> constructor = aClass.getConstructor(LotroCardBlueprintLibrary.class, SoloDraftDefinitions.class, String.class);
-                _leagueData = (LeagueData) constructor.newInstance(library, soloDraftDefinitions, _parameters);
+                if(aClass.equals(ConstructedLeagueData.class)) {
+                    _leagueData = new ConstructedLeagueData(bpLibrary, formatLibrary, _parameters);
+                }
+                else if(aClass.equals(NewConstructedLeagueData.class)) {
+                    _leagueData = new NewConstructedLeagueData(bpLibrary, formatLibrary, _parameters);
+                }
+                else if(aClass.equals(SealedLeagueData.class)) {
+                    _leagueData = new SealedLeagueData(bpLibrary, formatLibrary, _parameters);
+                }
+                else if(aClass.equals(NewSealedLeagueData.class)) {
+                    _leagueData = new NewSealedLeagueData(bpLibrary, formatLibrary, _parameters);
+                }
+                else if(aClass.equals(SoloDraftLeagueData.class)) {
+                    _leagueData = new SoloDraftLeagueData(bpLibrary,  formatLibrary, soloDraftDefinitions, _parameters);
+                }
+                else {
+                    throw new IllegalArgumentException("Class '" + _clazz + "' does not have a constructor registered.");
+                }
             } catch (Exception exp) {
                 throw new RuntimeException("Unable to create LeagueData", exp);
             }

@@ -1,9 +1,6 @@
 package com.gempukku.lotro.game.formats;
 
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -42,7 +39,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private final List<String> _limit3Cards = new ArrayList<>();
     private final Map<String,String> _errataCardMap = new TreeMap<>();
 
-    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, LotroFormatLibrary.FormatDefinition def){
+    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, JSONDefs.Format def){
         this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
                 def.validateShadowFPCount, def.minimumDeckSize, def.maximumSameName, def.mulliganRule, def.cancelRingBearerSkirmish,
                 def.ruleOfFour, def.winAtEndOfRegroup, def.winOnControlling5Sites, def.playtest, def.hall);
@@ -62,7 +59,7 @@ public class DefaultLotroFormat implements LotroFormat {
         if(def.restrictedName != null)
             def.restrictedName.forEach(this::addRestrictedCardName);
         if(def.errata != null)
-            def.errata.entrySet().forEach(pair -> addCardErrata(pair.getKey(), pair.getValue()));
+            def.errata.forEach(this::addCardErrata);
     }
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library,

@@ -1,56 +1,225 @@
-{
-	fotr_block: {
+[
+	{
 		name: Fellowship Block Sealed
 		format: limited_fotr
-		weekly_product: [
+		seriesProduct: [
 			[
-				{
-					type: Selection
-					name: Movie Starter
-					count: 1
-				}
-				{
-					type: Product
-					item: FotR - Booster
-					count: 6
-				}
-				{
-					//Shotgun Enquea
-					type: Card
-					item: 1_231
-					count: 1
-				}
+				1x(S)FotR - Starter
+				6xFotR - Booster
+				#Shotgun Enquea
+				2x1_231
 			],
 			[
-				{
-					type: Selection
-					item: (S)MoM - Starter
-					count: 1
-				}
-				{
-					type: Product
-					item: MoM - Booster
-					count: 3
-				}
-				{
-					//The Balrog, Durin's Bane
-					type: Card
-					item: 2_51
-					count: 1
-				}
+				1x(S)MoM - Starter
+				3xMoM - Booster
+				#The Balrog, Durin's Bane
+				1x2_51
 			]
 			[
-				{
-					type: Selection
-					item: (S)RotEL - Starter
-					count: 1
-				}
-				{
-					type: Product
-					item: RotEL - Booster
-					count: 3
-				}
+				1x(S)RotEL - Starter
+				3xRotEL - Booster
+			]
+			[
+				2xFotR - Booster
+				2xMoM - Booster
+				2xRotEL - Booster
 			]
 		]
 	}
-}
+	{
+		name: Towers Block Sealed
+		format: limited_ttt
+		seriesProduct: [
+			[
+				1x(S)TTT - Starter
+				6xTTT - Booster
+				#Hornburg Causeway
+				1x4_356
+				#Southron Commander
+				2x4_249
+			],
+			[
+				1x(S)BoHD - Starter
+				3xBoHD - Booster
+			]
+			[
+				1x(S)EoF - Starter
+				3xEoF - Booster
+			]
+			[
+				2xTTT - Booster
+				2xBoHD - Booster
+				2xEoF - Booster
+			]
+		]
+	}
+	
+	{
+		name: King Block Sealed
+		format: limited_king
+		seriesProduct: [
+			[
+				1x(S)RotK - Starter
+				6xRotK - Booster
+				#Ulaire Enquea, Faster Than Winds
+				1x7_212
+				#Shotgun Enquea
+				1x1_231
+				#Ruined Capitol
+				1x7_355
+				#Morgulduin
+				1x7_358
+			],
+			[
+				1x(S)SoG - Starter
+				3xSoG - Booster
+				#Osgiliath Channel
+				1x8_120
+			]
+			[
+				1x(S)MD - Starter
+				3xMD - Booster
+				#Sam, Needer of Vittles
+				2x7_326
+			]
+			[
+				2xRotK - Booster
+				2xSoG - Booster
+				2xMD - Booster
+			]
+		]
+	}
+	
+	{
+		name: Movie Special Sealed
+		format: limited_king
+		seriesProduct: [
+			[
+				1x(S)Special-1-3
+				1xFotR - Booster
+				1xTTT - Booster
+				1xRotK - Booster
+				3x(S)Movie Booster Choice
+			],
+			[
+				1x(S)Special-4-6
+				1xMoM - Booster
+				1xBoHD - Booster
+				1xSoG - Booster
+			]
+			[
+				1x(S)Special-7-9
+				1xRotEL - Booster
+				1xEoF - Booster
+				1xMD - Booster
+			]
+			[
+				1xREF - Booster
+				5x(S)Movie Booster Choice
+			]
+		]
+	}
+	
+	{
+		name: Towers Standard Special Sealed
+		format: limited_ttt
+		seriesProduct: [
+			[
+				1x(S)TSSealed-S1
+				2xFotR - Booster
+				2xTTT - Booster
+				2x(S)TSBoosterChoice
+			],
+			[
+				1x(S)TSSealed-S2
+				1xMoM - Booster
+				1xBoHD - Booster
+				1x(S)TSBoosterChoice
+			]
+			[
+				1x(S)TSSealed-S3
+				1xRotEL - Booster
+				1xEoF - Booster
+				1x(S)TSBoosterChoice
+			]
+			[
+				6x(S)TSBoosterChoice
+			]
+		]
+	}
+	
+	{
+		name: War of the Ring Block Sealed
+		format: limited_shadows
+		seriesProduct: [
+			[
+				1x(S)SH - Starter
+				6xSH - Booster
+				#Shingle in a Storm
+				1x12_145
+				#Unending Life
+				1x12_181
+				#Great Cost
+				1x12_88
+				#Hemmed In
+				1x12_70
+			],
+			[
+				1x(S)BR - Starter
+				3xBR - Booster
+			]
+			[
+				1x(S)BL - Starter
+				3xBL - Booster
+			]
+			[
+				2xSH - Booster
+				2xBR - Booster
+				2xBL - Booster
+			]
+		]
+	}
+	
+	{
+		name: Hunters Block Sealed
+		format: limited_hunters
+		seriesProduct: [
+			[
+				1x(S)HU - Starter
+				6xHU - Booster
+				#Hemmed In
+				1x12_70
+				#Great Cost
+				1x12_88
+				#Shingle in a Storm
+				1x12_145				
+			],
+			[
+				1x(S)RoS - Starter
+				6xRoS - Booster
+			]
+			[
+				6xTaD - Booster
+				#Army Long Trained
+				1x19_5
+				#Not Bound to His Fate
+				1x19_14
+				#Brought Down From Inside
+				1x19_24
+				#Troll of the Deep, Cave Troll
+				1x19_23
+				#Lurtz, Resilient Captain
+				1x19_33
+				#Legion of Harad
+				1x11_88
+			]
+			[
+				2xHU - Booster
+				2xRoS - Booster
+				2xTaD - Booster
+			]
+		]
+	}
+	
+	
+]

@@ -92,7 +92,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (league == null)
             throw new HttpProcessingException(404);
 
-        final LeagueData leagueData = league.getLeagueData(_library, _soloDraftDefinitions);
+        final LeagueData leagueData = league.getLeagueData(_library, _formatLibrary, _soloDraftDefinitions);
         final List<LeagueSerieData> series = leagueData.getSeries();
 
         int end = series.get(series.size() - 1).getEnd();
@@ -117,8 +117,8 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
             serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
             serieElem.setAttribute("start", String.valueOf(serie.getStart()));
             serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
-            serieElem.setAttribute("formatType", serie.getFormat());
-            serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+            serieElem.setAttribute("formatType", serie.getFormat().getCode());
+            serieElem.setAttribute("format", serie.getFormat().getName());
             serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
             serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
@@ -162,7 +162,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         Element leagues = doc.createElement("leagues");
 
         for (League league : _leagueService.getActiveLeagues()) {
-            final LeagueData leagueData = league.getLeagueData(_library, _soloDraftDefinitions);
+            final LeagueData leagueData = league.getLeagueData(_library, _formatLibrary, _soloDraftDefinitions);
             final List<LeagueSerieData> series = leagueData.getSeries();
 
             int end = series.get(series.size() - 1).getEnd();

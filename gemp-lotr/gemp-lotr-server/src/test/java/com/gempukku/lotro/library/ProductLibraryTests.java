@@ -2,27 +2,18 @@ package com.gempukku.lotro.library;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.builder.PacksStorageBuilder;
-import com.gempukku.lotro.common.AppConfig;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.packs.ProductLibrary;
-import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 public class ProductLibraryTests extends AbstractAtTest {
 
-    protected static ProductLibrary _productLib = new ProductLibrary(_library, AppConfig.getProductPath());
-    protected static PacksStorage _packStorage = PacksStorageBuilder.createPacksStorage(_library);
+    protected static ProductLibrary _productLib = new ProductLibrary(_cardLibrary);
+    protected static PacksStorage _packStorage = PacksStorageBuilder.createPacksStorage(_cardLibrary);
 
     @ParameterizedTest(name = "{0} in ProductLibrary matches PacksStorage.")
     @ValueSource(strings = {
@@ -200,5 +191,8 @@ public class ProductLibraryTests extends AbstractAtTest {
             assertEquals(oldItem, newItem);
         }
     }
+
+
+
 
 }

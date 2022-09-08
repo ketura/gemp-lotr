@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.packs.DefaultSetDefinition;
 import com.gempukku.lotro.game.packs.SetDefinition;
-import org.apache.commons.io.FilenameUtils;
+import com.gempukku.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.hjson.JsonValue;
@@ -66,6 +66,7 @@ public class LotroCardBlueprintLibrary {
     public Map<String, SetDefinition> getSetDefinitions() {
         return Collections.unmodifiableMap(_allSets);
     }
+
 
     public void reloadSets() {
         try {
@@ -164,8 +165,7 @@ public class LotroCardBlueprintLibrary {
     }
 
     private void loadCardsFromFile(File file, boolean validateNew) {
-        String ext = FilenameUtils.getExtension(file.getName());
-        if (!ext.equalsIgnoreCase("json") && !ext.equalsIgnoreCase("hjson"))
+        if (!JsonUtils.IsValidHjsonFile(file))
             return;
 
         JSONParser parser = new JSONParser();

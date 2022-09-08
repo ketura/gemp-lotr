@@ -1,16 +1,21 @@
 package com.gempukku.util;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.ImmutableClassToInstanceMap;
+import org.apache.commons.io.FilenameUtils;
 import org.hjson.JsonValue;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public final class JsonUtils {
+
+    public static boolean IsValidHjsonFile(File file) {
+        String ext = FilenameUtils.getExtension(file.getName());
+        return ext.equalsIgnoreCase("json") || ext.equalsIgnoreCase("hjson");
+    }
 
     //Reads both json and hjson files, converting both to json (for compatilibity with other libraries)
     public static String ReadJson(Reader reader) throws IOException {

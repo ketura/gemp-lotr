@@ -14,15 +14,16 @@ import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LeagueService {
     private final LeagueDAO _leagueDao;
-    private final LotroCardBlueprintLibrary _library;
+    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final LotroFormatLibrary _formatLibrary;
 
     // Cached on this layer
     private final CachedLeagueMatchDAO _leagueMatchDao;
@@ -39,9 +40,10 @@ public class LeagueService {
 
     public LeagueService(LeagueDAO leagueDao, LeagueMatchDAO leagueMatchDao,
                          LeagueParticipationDAO leagueParticipationDAO, CollectionsManager collectionsManager,
-                         LotroCardBlueprintLibrary library, SoloDraftDefinitions soloDraftDefinitions) {
+                         LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions) {
         _leagueDao = leagueDao;
-        _library = library;
+        _cardLibrary = library;
+        _formatLibrary = formatLibrary;
         _leagueMatchDao = new CachedLeagueMatchDAO(leagueMatchDao);
         _leagueParticipationDAO = new CachedLeagueParticipationDAO(leagueParticipationDAO);
         _collectionsManager = collectionsManager;
@@ -85,7 +87,7 @@ public class LeagueService {
     private void processLoadedLeagues(int currentDate) {
         for (League activeLeague : _activeLeagues) {
             int oldStatus = activeLeague.getStatus();
-            int newStatus = activeLeague.getLeagueData(_library, _soloDraftDefinitions).process(_collectionsManager, getLeagueStandings(activeLeague), oldStatus, currentDate);
+            int newStatus = activeLeague.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions).process(_collectionsManager, getLeagueStandings(activeLeague), oldStatus, currentDate);
             if (newStatus != oldStatus)
                 _leagueDao.setStatus(activeLeague, newStatus);
         }
@@ -100,9 +102,8 @@ public class LeagueService {
             return false;
         int cost = league.getCost();
         if (_collectionsManager.removeCurrencyFromPlayerCollection("Joining "+league.getName()+" league", player, CollectionType.MY_CARDS, cost)) {
+            league.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions).joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
             _leagueParticipationDAO.userJoinsLeague(league.getType(), player, remoteAddr);
-            league.getLeagueData(_library, _soloDraftDefinitions).joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
-
             _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
 
             return true;
@@ -121,7 +122,7 @@ public class LeagueService {
 
     public synchronized CollectionType getCollectionTypeByCode(String collectionTypeCode) {
         for (League league : getActiveLeagues()) {
-            for (LeagueSerieData leagueSerieData : league.getLeagueData(_library, _soloDraftDefinitions).getSeries()) {
+            for (LeagueSerieData leagueSerieData : league.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions).getSeries()) {
                 CollectionType collectionType = leagueSerieData.getCollectionType();
                 if (collectionType != null && collectionType.getCode().equals(collectionTypeCode))
                     return collectionType;
@@ -133,7 +134,7 @@ public class LeagueService {
     public synchronized LeagueSerieData getCurrentLeagueSerie(League league) {
         final int currentDate = DateUtils.getCurrentDate();
 
-        for (LeagueSerieData leagueSerieData : league.getLeagueData(_library, _soloDraftDefinitions).getSeries()) {
+        for (LeagueSerieData leagueSerieData : league.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions).getSeries()) {
             if (currentDate >= leagueSerieData.getStart() && currentDate <= leagueSerieData.getEnd())
                 return leagueSerieData;
         }

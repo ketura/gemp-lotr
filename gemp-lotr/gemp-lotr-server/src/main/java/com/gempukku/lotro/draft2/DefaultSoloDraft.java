@@ -8,12 +8,14 @@ import com.gempukku.lotro.game.DefaultCardCollection;
 import java.util.List;
 
 public class DefaultSoloDraft implements SoloDraft {
+    private final String _code;
     private final String _format;
     private final CardCollectionProducer _newCollection;
     private final DraftPoolProducer _draftPool;
     private final List<DraftChoiceDefinition> _draftChoiceDefinitions;
 
-    public DefaultSoloDraft(String format, CardCollectionProducer newCollection, List<DraftChoiceDefinition> draftChoiceDefinitions, DraftPoolProducer draftPool) {
+    public DefaultSoloDraft(String code, String format, CardCollectionProducer newCollection, List<DraftChoiceDefinition> draftChoiceDefinitions, DraftPoolProducer draftPool) {
+        _code = code;
         _format = format;
         _newCollection = newCollection;
         _draftPool = draftPool;
@@ -43,6 +45,11 @@ public class DefaultSoloDraft implements SoloDraft {
     @Override
     public boolean hasNextStage(long seed, int stage) {
         return stage + 1 < _draftChoiceDefinitions.size();
+    }
+
+    @Override
+    public String getCode() {
+        return _code;
     }
 
     @Override

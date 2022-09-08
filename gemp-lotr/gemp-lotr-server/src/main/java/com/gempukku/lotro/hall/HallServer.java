@@ -400,7 +400,7 @@ public class HallServer extends AbstractServer {
                 if(description != null)
                     description = "";
 
-                format = _formatLibrary.getFormat(leagueSerie.getFormat());
+                format = leagueSerie.getFormat();
                 collectionType = leagueSerie.getCollectionType();
 
                 gameTimer = COMPETITIVE_TIMER;

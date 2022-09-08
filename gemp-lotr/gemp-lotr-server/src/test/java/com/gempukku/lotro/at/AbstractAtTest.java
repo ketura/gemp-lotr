@@ -1,6 +1,5 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -13,23 +12,18 @@ import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
-    protected static LotroCardBlueprintLibrary _library;
+    protected static LotroCardBlueprintLibrary _cardLibrary;
+    protected static LotroFormatLibrary _formatLibrary;
     private final int cardId = 100;
 
     static {
-        _library = new LotroCardBlueprintLibrary();
-//        final String property = System.getProperty("user.dir");
-//        String projectRoot = new File(property).getParentFile().getAbsolutePath();
-//
-//        //_library.init(new File(projectRoot + "/gemp-lotr-cards/src/main/resources/cards"), new CardSets());
-//        _library.init(AppConfig.getCardsPath(), AppConfig.getMappingsPath(), new CardSets());
+        _cardLibrary = new LotroCardBlueprintLibrary();
+        _formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
     }
 
     protected DefaultLotroGame _game;
@@ -38,7 +32,7 @@ public abstract class AbstractAtTest {
     public static final String P2 = "player2";
 
     protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
-        return (PhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _library, blueprintId);
+        return (PhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _cardLibrary, blueprintId);
     }
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {
@@ -60,10 +54,10 @@ public abstract class AbstractAtTest {
     protected void initializeGameWithDecks(Map<String, LotroDeck> decks, String formatName) throws DecisionResultInvalidException {
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat(formatName);
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 

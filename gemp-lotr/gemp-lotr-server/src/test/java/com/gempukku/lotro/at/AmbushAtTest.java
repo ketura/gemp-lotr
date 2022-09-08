@@ -20,8 +20,8 @@ public class AmbushAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "5_7", P1, _library.getLotroCardBlueprint("5_7"));
-        PhysicalCardImpl desertLegion = new PhysicalCardImpl(101, "4_218", P2, _library.getLotroCardBlueprint("4_218"));
+        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "5_7", P1, _cardLibrary.getLotroCardBlueprint("5_7"));
+        PhysicalCardImpl desertLegion = new PhysicalCardImpl(101, "4_218", P2, _cardLibrary.getLotroCardBlueprint("4_218"));
 
         skipMulligans();
 

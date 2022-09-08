@@ -39,7 +39,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private final Pattern originPattern;
 
     public RootUriRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
-        _webRequestHandler = new WebRequestHandler(AppConfig.getWebPath());
+        _webRequestHandler = new WebRequestHandler();
         String originAllowedPattern = AppConfig.getProperty("origin.allowed.pattern");
         originPattern = Pattern.compile(originAllowedPattern);
         _hallRequestHandler = new HallRequestHandler(context, longPollingSystem);

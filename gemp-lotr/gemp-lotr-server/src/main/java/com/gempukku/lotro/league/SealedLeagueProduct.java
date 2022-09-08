@@ -4,13 +4,12 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SealedLeagueProduct {
     private final Map<String, List<CardCollection>> _collections = new HashMap<>();
+
+    private final Map<String, List<CardCollection>> _newcollections = new HashMap<>();
 
     public SealedLeagueProduct() {
         createFellowshipBlock();
@@ -21,6 +20,7 @@ public class SealedLeagueProduct {
         createMovieSpecialBlock();
         createTSSpecialBlock();
     }
+
 
     private void createFellowshipBlock() {
         List<CardCollection> fotrBlock = new ArrayList<>();
@@ -242,8 +242,12 @@ private void createHuntersBlock() {
 
         _collections.put(SealedLeagueType.HUNTERS_BLOCK.getSealedCode(), huntersBlock);
     }
-    
+
     public CardCollection getCollectionForSerie(String leagueCode, int serieIndex) {
         return _collections.get(leagueCode).get(serieIndex);
+    }
+
+    public List<CardCollection> getAllSeriesForLeague(String leagueCode) {
+        return Collections.unmodifiableList(_collections.get(leagueCode));
     }
 }

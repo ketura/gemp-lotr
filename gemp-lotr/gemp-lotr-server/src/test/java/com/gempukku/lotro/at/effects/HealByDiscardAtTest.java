@@ -15,8 +15,8 @@ public class HealByDiscardAtTest extends AbstractAtTest {
     public void healSuccessful() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl merryInHand = new PhysicalCardImpl(102, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merryInHand = new PhysicalCardImpl(102, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addWound(merry);
@@ -34,8 +34,8 @@ public class HealByDiscardAtTest extends AbstractAtTest {
     public void cantHealIfNotWounded() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl merryInHand = new PhysicalCardImpl(102, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merryInHand = new PhysicalCardImpl(102, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, merryInHand, Zone.HAND);
@@ -51,8 +51,8 @@ public class HealByDiscardAtTest extends AbstractAtTest {
     public void cantHealNonUnique() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        final PhysicalCardImpl lorienElf = new PhysicalCardImpl(101, "1_53", P1, _library.getLotroCardBlueprint("1_53"));
-        final PhysicalCardImpl lorienElfInHand = new PhysicalCardImpl(102, "1_53", P1, _library.getLotroCardBlueprint("1_53"));
+        final PhysicalCardImpl lorienElf = new PhysicalCardImpl(101, "1_53", P1, _cardLibrary.getLotroCardBlueprint("1_53"));
+        final PhysicalCardImpl lorienElfInHand = new PhysicalCardImpl(102, "1_53", P1, _cardLibrary.getLotroCardBlueprint("1_53"));
 
         _game.getGameState().addCardToZone(_game, lorienElf, Zone.FREE_CHARACTERS);
         _game.getGameState().addWound(lorienElf);

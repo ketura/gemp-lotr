@@ -5,7 +5,6 @@ import com.gempukku.lotro.collection.CachedCollectionDAO;
 import com.gempukku.lotro.collection.CachedTransferDAO;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
-import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.log.LoggingProxy;
@@ -13,15 +12,12 @@ import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentMatchDAO;
 import com.gempukku.lotro.tournament.TournamentPlayerDAO;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
 public class DaoBuilder {
-    public static void fillObjectMap(Map<Type, Object> objectMap) {
+    public static void CreateDatabaseAccessObjects(Map<Type, Object> objectMap) {
         DbAccess dbAccess = new DbAccess();
-        CollectionSerializer collectionSerializer = new CollectionSerializer();
 
         objectMap.put(LeagueParticipationDAO.class, LoggingProxy.createLoggingProxy(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess)));
         objectMap.put(LeagueMatchDAO.class, LoggingProxy.createLoggingProxy(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess)));
@@ -44,7 +40,7 @@ public class DaoBuilder {
         CachedDeckDAO deckDao = new CachedDeckDAO(dbDeckDao);
         objectMap.put(DeckDAO.class, deckDao);
 
-        CollectionDAO dbCollectionDao = LoggingProxy.createLoggingProxy(CollectionDAO.class, new DbCollectionDAO(dbAccess, collectionSerializer));
+        CollectionDAO dbCollectionDao = LoggingProxy.createLoggingProxy(CollectionDAO.class, new DbCollectionDAO(dbAccess, extract(objectMap, CollectionSerializer.class)));
         CachedCollectionDAO collectionDao = new CachedCollectionDAO(dbCollectionDao);
         objectMap.put(CollectionDAO.class, collectionDao);
 

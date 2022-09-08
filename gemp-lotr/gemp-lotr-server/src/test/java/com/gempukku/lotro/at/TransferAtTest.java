@@ -18,9 +18,9 @@ public class TransferAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl athelas= new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
-        PhysicalCardImpl aragorn= new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
-        PhysicalCardImpl boromir= new PhysicalCardImpl(102, "1_96", P1, _library.getLotroCardBlueprint("1_96"));
+        PhysicalCardImpl athelas= new PhysicalCardImpl(100, "1_94", P1, _cardLibrary.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn= new PhysicalCardImpl(101, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl boromir= new PhysicalCardImpl(102, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
 
         _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, boromir, Zone.FREE_CHARACTERS);

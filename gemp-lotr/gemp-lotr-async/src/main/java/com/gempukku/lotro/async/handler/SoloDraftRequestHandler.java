@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.league.SoloDraftLeagueData;
@@ -30,13 +31,15 @@ import java.util.*;
 public class SoloDraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final CollectionsManager _collectionsManager;
     private final SoloDraftDefinitions _soloDraftDefinitions;
-    private final LotroCardBlueprintLibrary _library;
+    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final LotroFormatLibrary _formatLibrary;
     private final LeagueService _leagueService;
 
     public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);
         _leagueService = extractObject(context, LeagueService.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _cardLibrary = extractObject(context, LotroCardBlueprintLibrary.class);
+        _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
     }
@@ -61,7 +64,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         if (league == null)
             throw new HttpProcessingException(404);
 
-        LeagueData leagueData = league.getLeagueData(_library, _soloDraftDefinitions);
+        LeagueData leagueData = league.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions);
         int leagueStart = leagueData.getSeries().get(0).getStart();
 
         if (!leagueData.isSoloDraftLeague() || DateUtils.getCurrentDate() < leagueStart)
@@ -124,7 +127,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         if (league == null)
             throw new HttpProcessingException(404);
 
-        LeagueData leagueData = league.getLeagueData(_library, _soloDraftDefinitions);
+        LeagueData leagueData = league.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions);
         int leagueStart = leagueData.getSeries().get(0).getStart();
 
         if (!leagueData.isSoloDraftLeague() || DateUtils.getCurrentDate() < leagueStart)

@@ -36,6 +36,11 @@ public interface CardCollection {
                 return new Item(Item.Type.CARD, count, blueprintId);
         }
 
+        public static Item createItem(String combined) {
+            String[] result = combined.split("x", 2);
+            return createItem(result[1], Integer.parseInt(result[0]));
+        }
+
         public Type getType() {
             return _type;
         }

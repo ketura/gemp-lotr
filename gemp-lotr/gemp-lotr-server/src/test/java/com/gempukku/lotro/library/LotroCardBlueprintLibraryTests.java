@@ -4,7 +4,6 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.logic.GameUtils;
 import org.junit.Test;
 
@@ -19,9 +18,9 @@ public class LotroCardBlueprintLibraryTests extends AbstractAtTest {
             for (int j = 1; j <= 365; j++) {
                 String blueprintId = i + "_" + j;
                 try {
-                    if (blueprintId.equals(_library.getBaseBlueprintId(blueprintId))) {
+                    if (blueprintId.equals(_cardLibrary.getBaseBlueprintId(blueprintId))) {
                         try {
-                            LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
+                            LotroCardBlueprint cardBlueprint = _cardLibrary.getLotroCardBlueprint(blueprintId);
                             String cardName = GameUtils.getFullName(cardBlueprint);
                             if (cardNames.containsKey(cardName) && cardBlueprint.getCardType() != CardType.SITE)
                                 System.out.println("Multiple detected - " + cardName + ": " + cardNames.get(cardName) + " and " + blueprintId);

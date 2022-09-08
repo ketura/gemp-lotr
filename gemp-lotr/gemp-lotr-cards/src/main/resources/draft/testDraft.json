@@ -1,4 +1,5 @@
 {
+  "code": "test_draft",
   "format": "limited_fotr",
   "startingPool": {
     "type": "randomCardPool",

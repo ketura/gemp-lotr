@@ -2,7 +2,6 @@ package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.db.MerchantDAO;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import org.junit.Test;
 
 import java.util.Date;
@@ -17,7 +16,7 @@ public class ParametrizedMerchantTest extends AbstractAtTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        ParametrizedMerchant merchant = new ParametrizedMerchant(_library);
+        ParametrizedMerchant merchant = new ParametrizedMerchant(_cardLibrary);
         merchant.setMerchantDao(merchantDao);
         merchant.setMerchantSetupDate(setupDate);
 
@@ -40,7 +39,7 @@ public class ParametrizedMerchantTest extends AbstractAtTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        ParametrizedMerchant merchant = new ParametrizedMerchant(_library);
+        ParametrizedMerchant merchant = new ParametrizedMerchant(_cardLibrary);
         merchant.setMerchantDao(merchantDao);
         merchant.setMerchantSetupDate(setupDate);
 
@@ -63,7 +62,7 @@ public class ParametrizedMerchantTest extends AbstractAtTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        ParametrizedMerchant merchant = new ParametrizedMerchant(_library);
+        ParametrizedMerchant merchant = new ParametrizedMerchant(_cardLibrary);
         merchant.setMerchantDao(merchantDao);
         merchant.setMerchantSetupDate(setupDate);
 

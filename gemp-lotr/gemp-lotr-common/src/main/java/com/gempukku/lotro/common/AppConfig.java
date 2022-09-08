@@ -4,10 +4,8 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Properties;
 
 public class AppConfig {
@@ -79,7 +77,9 @@ public class AppConfig {
     public static File getCardsPath() { return getResourceFile("cards"); }
     public static File getMappingsPath() { return getResourceFile("blueprintMapping.txt"); }
     public static File getSetDefinitionsPath() { return getResourceFile("setConfig.json"); }
+    public static File getFormatDefinitionsPath() { return getResourceFile("lotrFormats.json"); }
     public static File getProductPath() { return getResourceFile("product"); }
-    public static String getDraftDefinitionPath() { return getResourcePath("lotrDrafts.json"); }
+    public static File getSealedPath() { return getResourceFile("sealed"); }
+    public static File getDraftPath() { return getResourceFile("draft"); }
 
 }

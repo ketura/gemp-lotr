@@ -5,8 +5,8 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraft;
-import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,32 +14,32 @@ import java.util.List;
 import java.util.Map;
 
 public class NewSealedLeagueData implements LeagueData {
-    private final SealedLeagueType _leagueType;
+    private final String _leagueTemplateName;
     private final List<LeagueSerieData> _series;
     private final CollectionType _collectionType;
     private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private final LeaguePrizes _leaguePrizes;
-    private final SealedLeagueProduct _leagueProduct;
+    //private final SealedLeagueProduct _leagueProduct;
+    private final LotroFormatLibrary _formatLibrary;
 
-    public NewSealedLeagueData(LotroCardBlueprintLibrary library, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
-        _leaguePrizes = new FixedLeaguePrizes(library);
+    public NewSealedLeagueData(LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, String parameters) {
+        _leaguePrizes = new FixedLeaguePrizes(cardLibrary);
+        _formatLibrary = formatLibrary;
         
         String[] params = parameters.split(",");
-        _leagueType = SealedLeagueType.getLeagueType(params[0]);
+        _leagueTemplateName = params[0];
         int start = Integer.parseInt(params[1]);
         int serieDuration = Integer.parseInt(params[2]);
         int maxMatches = Integer.parseInt(params[3]);
 
         _collectionType = new CollectionType(params[4], params[5]);
 
-        _leagueProduct = new SealedLeagueProduct();
-
         _series = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
             _series.add(
                     new DefaultLeagueSerieData(_leaguePrizes, true, "Serie " + (i + 1),
                             DateUtils.offsetDate(start, i * serieDuration), DateUtils.offsetDate(start, (i + 1) * serieDuration - 1), maxMatches,
-                            _leagueType.getFormat(), _collectionType));
+                            _formatLibrary.GetSealedTemplate(_leagueTemplateName).GetFormat(), _collectionType));
         }
     }
 
@@ -64,9 +64,10 @@ public class NewSealedLeagueData implements LeagueData {
         for (int i = 0; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
             if (currentTime >= serie.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_leagueType.getSealedCode(), i);
+                var sealedLeague = _formatLibrary.GetSealedTemplate(_leagueTemplateName);
+                var leagueProduct = sealedLeague.GetProductForSerie(i);
 
-                for (CardCollection.Item serieCollectionItem : leagueProduct.getAll())
+                for (CardCollection.Item serieCollectionItem : leagueProduct)
                     startingCollection.addItem(serieCollectionItem.getBlueprintId(), serieCollectionItem.getCount());
             }
         }
@@ -81,10 +82,11 @@ public class NewSealedLeagueData implements LeagueData {
         for (int i = status; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
             if (currentTime >= serie.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_leagueType.getSealedCode(), i);
+                var sealedLeague = _formatLibrary.GetSealedTemplate(_leagueTemplateName);
+                var leagueProduct = sealedLeague.GetProductForSerie(i);
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll());
+                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct);
                 }
                 status = i + 1;
             }

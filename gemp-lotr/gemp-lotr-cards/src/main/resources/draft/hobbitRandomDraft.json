@@ -1,4 +1,5 @@
 {
+  "code": "hobbit_random_draft",
   "format": "limited_hobbit",
   "startingPool": {
     "type": "randomCardPool",

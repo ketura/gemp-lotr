@@ -551,7 +551,7 @@
         "hall":false
     },
     {
-        "name":"Limited",
+        "name":"Limited - Hobbit",
         "code":"limited_hobbit",
         "sites":"HOBBIT",
         "cancelRingBearerSkirmish":true,
@@ -560,7 +560,7 @@
         "hall":false
     },
     {
-        "name":"Limited",
+        "name":"Limited - FOTR",
         "code":"limited_fotr",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -569,7 +569,7 @@
         "hall":false
     },
     {
-        "name":"Limited",
+        "name":"Limited - TTT",
         "code":"limited_ttt",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -578,7 +578,7 @@
         "hall":false
     },
     {
-        "name":"Limited",
+        "name":"Limited - ROTK",
         "code":"limited_king",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
@@ -587,7 +587,7 @@
         "hall":false
     },
     {
-        "name":"Limited",
+        "name":"Limited - WOTR",
         "code":"limited_shadows",
         "sites":"SHADOWS",
         "cancelRingBearerSkirmish":false,
@@ -596,7 +596,7 @@
         "hall":false
     },
     {
-        "name":"Limited",
+        "name":"Limited - TH",
         "code":"limited_hunters",
         "sites":"SHADOWS",
         "cancelRingBearerSkirmish":false,

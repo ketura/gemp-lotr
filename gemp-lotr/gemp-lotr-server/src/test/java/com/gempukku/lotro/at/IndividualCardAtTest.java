@@ -25,10 +25,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
-        PhysicalCardImpl dwarvenAxe = new PhysicalCardImpl(101, "1_9", P1, _library.getLotroCardBlueprint("1_9"));
-        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
-        PhysicalCardImpl cardInDeck = new PhysicalCardImpl(103, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
+        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _cardLibrary.getLotroCardBlueprint("1_13"));
+        PhysicalCardImpl dwarvenAxe = new PhysicalCardImpl(101, "1_9", P1, _cardLibrary.getLotroCardBlueprint("1_9"));
+        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
+        PhysicalCardImpl cardInDeck = new PhysicalCardImpl(103, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
 
         skipMulligans();
 
@@ -159,8 +159,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         PhysicalCard morgulBrute = _game.getGameState().getHand(P2).iterator().next();
 
-        PhysicalCardImpl consortingWithWizards = new PhysicalCardImpl(100, "2_97", P1, _library.getLotroCardBlueprint("2_97"));
-        PhysicalCardImpl enquea = new PhysicalCardImpl(101, "1_231", P2, _library.getLotroCardBlueprint("1_231"));
+        PhysicalCardImpl consortingWithWizards = new PhysicalCardImpl(100, "2_97", P1, _cardLibrary.getLotroCardBlueprint("2_97"));
+        PhysicalCardImpl enquea = new PhysicalCardImpl(101, "1_231", P2, _cardLibrary.getLotroCardBlueprint("1_231"));
 
         _game.getGameState().attachCard(_game, consortingWithWizards, _game.getGameState().getRingBearer(P1));
 
@@ -195,8 +195,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P2, _library.getLotroCardBlueprint("10_45"));
-        PhysicalCardImpl mumak = new PhysicalCardImpl(100, "5_73", P2, _library.getLotroCardBlueprint("5_73"));
+        PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P2, _cardLibrary.getLotroCardBlueprint("10_45"));
+        PhysicalCardImpl mumak = new PhysicalCardImpl(100, "5_73", P2, _cardLibrary.getLotroCardBlueprint("5_73"));
 
         skipMulligans();
 
@@ -237,8 +237,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P1, _library.getLotroCardBlueprint("10_45"));
-        PhysicalCardImpl mumakChieftain2 = new PhysicalCardImpl(101, "10_45", P1, _library.getLotroCardBlueprint("10_45"));
+        PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P1, _cardLibrary.getLotroCardBlueprint("10_45"));
+        PhysicalCardImpl mumakChieftain2 = new PhysicalCardImpl(101, "10_45", P1, _cardLibrary.getLotroCardBlueprint("10_45"));
 
         _game.getGameState().addCardToZone(_game, mumakChieftain, Zone.HAND);
         _game.getGameState().addCardToZone(_game, mumakChieftain2, Zone.DECK);
@@ -315,9 +315,9 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
-        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(100, "1_158", P2, _library.getLotroCardBlueprint("1_158"));
-        PhysicalCardImpl endOfTheGame = new PhysicalCardImpl(100, "10_30", P1, _library.getLotroCardBlueprint("10_30"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(100, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        PhysicalCardImpl endOfTheGame = new PhysicalCardImpl(100, "10_30", P1, _cardLibrary.getLotroCardBlueprint("10_30"));
 
         _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
         _game.getGameState().addWound(aragorn);
@@ -384,8 +384,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void oneGoodTurnDeservesAnother() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl smeagol = new PhysicalCardImpl(100, "5_29", P1, _library.getLotroCardBlueprint("5_29"));
-        PhysicalCardImpl oneGoodTurnDeservesAnother = new PhysicalCardImpl(101, "11_49", P1, _library.getLotroCardBlueprint("11_49"));
+        PhysicalCardImpl smeagol = new PhysicalCardImpl(100, "5_29", P1, _cardLibrary.getLotroCardBlueprint("5_29"));
+        PhysicalCardImpl oneGoodTurnDeservesAnother = new PhysicalCardImpl(101, "11_49", P1, _cardLibrary.getLotroCardBlueprint("11_49"));
 
         _game.getGameState().addCardToZone(_game, oneGoodTurnDeservesAnother, Zone.HAND);
         _game.getGameState().addCardToZone(_game, smeagol, Zone.FREE_CHARACTERS);
@@ -416,8 +416,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl oElberethGilthoniel = new PhysicalCardImpl(100, "2_108", P1, _library.getLotroCardBlueprint("2_108"));
-        PhysicalCardImpl ulaireToldea = new PhysicalCardImpl(101, "1_236", P2, _library.getLotroCardBlueprint("1_236"));
+        PhysicalCardImpl oElberethGilthoniel = new PhysicalCardImpl(100, "2_108", P1, _cardLibrary.getLotroCardBlueprint("2_108"));
+        PhysicalCardImpl ulaireToldea = new PhysicalCardImpl(101, "1_236", P2, _cardLibrary.getLotroCardBlueprint("1_236"));
 
         _game.getGameState().attachCard(_game, oElberethGilthoniel, _game.getGameState().getRingBearer(P1));
 
@@ -486,7 +486,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End shadow
         playerDecided(P2, "");
 
-        PhysicalCardImpl ford = new PhysicalCardImpl(101, "1_338", P2, _library.getLotroCardBlueprint("1_338"));
+        PhysicalCardImpl ford = new PhysicalCardImpl(101, "1_338", P2, _cardLibrary.getLotroCardBlueprint("1_338"));
         ford.setSiteNumber(3);
         _game.getGameState().addCardToZone(_game, ford, Zone.ADVENTURE_PATH);
 
@@ -505,7 +505,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P2, "");
 
         // P2 Turn
-        PhysicalCardImpl attea = new PhysicalCardImpl(102, "1_229", P1, _library.getLotroCardBlueprint("1_229"));
+        PhysicalCardImpl attea = new PhysicalCardImpl(102, "1_229", P1, _cardLibrary.getLotroCardBlueprint("1_229"));
         _game.getGameState().addCardToZone(_game, attea, Zone.HAND);
 
         // End fellowship
@@ -518,13 +518,13 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void sentBackAllowsPlayingCardInDeadPile() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl sentBack = new PhysicalCardImpl(100, "9_27", P1, _library.getLotroCardBlueprint("9_27"));
+        PhysicalCardImpl sentBack = new PhysicalCardImpl(100, "9_27", P1, _cardLibrary.getLotroCardBlueprint("9_27"));
         _game.getGameState().addCardToZone(_game, sentBack, Zone.SUPPORT);
 
-        PhysicalCardImpl radagast1 = new PhysicalCardImpl(101, "9_26", P1, _library.getLotroCardBlueprint("9_26"));
+        PhysicalCardImpl radagast1 = new PhysicalCardImpl(101, "9_26", P1, _cardLibrary.getLotroCardBlueprint("9_26"));
         _game.getGameState().addCardToZone(_game, radagast1, Zone.DEAD);
 
-        PhysicalCardImpl radagast2 = new PhysicalCardImpl(101, "9_26", P1, _library.getLotroCardBlueprint("9_26"));
+        PhysicalCardImpl radagast2 = new PhysicalCardImpl(101, "9_26", P1, _cardLibrary.getLotroCardBlueprint("9_26"));
         _game.getGameState().addCardToZone(_game, radagast2, Zone.HAND);
 
         skipMulligans();
@@ -543,10 +543,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void rushOfSteeds() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl rushOfSteeds = new PhysicalCardImpl(100, "11_157", P1, _library.getLotroCardBlueprint("11_157"));
+        PhysicalCardImpl rushOfSteeds = new PhysicalCardImpl(100, "11_157", P1, _cardLibrary.getLotroCardBlueprint("11_157"));
         _game.getGameState().addCardToZone(_game, rushOfSteeds, Zone.SUPPORT);
 
-        PhysicalCardImpl nelya = new PhysicalCardImpl(100, "1_233", P2, _library.getLotroCardBlueprint("1_233"));
+        PhysicalCardImpl nelya = new PhysicalCardImpl(100, "1_233", P2, _cardLibrary.getLotroCardBlueprint("1_233"));
         _game.getGameState().addCardToZone(_game, nelya, Zone.SHADOW_CHARACTERS);
 
         skipMulligans();
@@ -576,10 +576,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void hisFirstSeriousCheck() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _library.getLotroCardBlueprint("1_72"));
+        PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _cardLibrary.getLotroCardBlueprint("1_72"));
         _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
 
-        PhysicalCardImpl hisFirstSeriousCheck = new PhysicalCardImpl(100, "3_33", P1, _library.getLotroCardBlueprint("3_33"));
+        PhysicalCardImpl hisFirstSeriousCheck = new PhysicalCardImpl(100, "3_33", P1, _cardLibrary.getLotroCardBlueprint("3_33"));
         _game.getGameState().addCardToZone(_game, hisFirstSeriousCheck, Zone.HAND);
 
         skipMulligans();
@@ -587,7 +587,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End fellowship
         playerDecided(P1, "");
 
-        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(102, "1_158", P2, _library.getLotroCardBlueprint("1_158"));
+        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
         _game.getGameState().addCardToZone(_game, urukHaiRaidingParty, Zone.SHADOW_CHARACTERS);
 
         // End shadow
@@ -602,11 +602,11 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void scouringOfTheShireAndCorsairMarauder() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl corsairWarGalley = new PhysicalCardImpl(100, "8_59", P2, _library.getLotroCardBlueprint("8_59"));
-        PhysicalCardImpl corsairMarauder = new PhysicalCardImpl(101, "8_57", P2, _library.getLotroCardBlueprint("8_57"));
-        PhysicalCardImpl corsairMarauder2 = new PhysicalCardImpl(101, "8_57", P2, _library.getLotroCardBlueprint("8_57"));
-        PhysicalCardImpl scourgeOfTheShire = new PhysicalCardImpl(102, "18_112", P1, _library.getLotroCardBlueprint("18_112"));
-        PhysicalCardImpl hobbitSword = new PhysicalCardImpl(102, "1_299", P1, _library.getLotroCardBlueprint("1_299"));
+        PhysicalCardImpl corsairWarGalley = new PhysicalCardImpl(100, "8_59", P2, _cardLibrary.getLotroCardBlueprint("8_59"));
+        PhysicalCardImpl corsairMarauder = new PhysicalCardImpl(101, "8_57", P2, _cardLibrary.getLotroCardBlueprint("8_57"));
+        PhysicalCardImpl corsairMarauder2 = new PhysicalCardImpl(101, "8_57", P2, _cardLibrary.getLotroCardBlueprint("8_57"));
+        PhysicalCardImpl scourgeOfTheShire = new PhysicalCardImpl(102, "18_112", P1, _cardLibrary.getLotroCardBlueprint("18_112"));
+        PhysicalCardImpl hobbitSword = new PhysicalCardImpl(102, "1_299", P1, _cardLibrary.getLotroCardBlueprint("1_299"));
 
         _game.getGameState().addCardToZone(_game, scourgeOfTheShire, Zone.SUPPORT);
         _game.getGameState().attachCard(_game, hobbitSword, _game.getGameState().getRingBearer(P1));
@@ -654,13 +654,13 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl returnToItsMaster = new PhysicalCardImpl(102, "1_224", P2, _library.getLotroCardBlueprint("1_224"));
+        PhysicalCardImpl returnToItsMaster = new PhysicalCardImpl(102, "1_224", P2, _cardLibrary.getLotroCardBlueprint("1_224"));
         _game.getGameState().addCardToZone(_game, returnToItsMaster, Zone.HAND);
 
-        PhysicalCardImpl nelya = new PhysicalCardImpl(102, "1_233", P2, _library.getLotroCardBlueprint("1_233"));
+        PhysicalCardImpl nelya = new PhysicalCardImpl(102, "1_233", P2, _cardLibrary.getLotroCardBlueprint("1_233"));
         _game.getGameState().addCardToZone(_game, nelya, Zone.SHADOW_CHARACTERS);
 
-        PhysicalCardImpl hobbitSword = new PhysicalCardImpl(102, "1_299", P1, _library.getLotroCardBlueprint("1_299"));
+        PhysicalCardImpl hobbitSword = new PhysicalCardImpl(102, "1_299", P1, _cardLibrary.getLotroCardBlueprint("1_299"));
         _game.getGameState().attachCard(_game, hobbitSword, _game.getGameState().getRingBearer(P1));
 
         // End fellowship
@@ -729,10 +729,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void moreYetToComeWorks() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_12", P1, _library.getLotroCardBlueprint("1_12"));
-        PhysicalCardImpl moreYetToCome = new PhysicalCardImpl(101, "10_3", P1, _library.getLotroCardBlueprint("10_3"));
-        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
-        PhysicalCardImpl goblinRunner2 = new PhysicalCardImpl(103, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
+        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_12", P1, _cardLibrary.getLotroCardBlueprint("1_12"));
+        PhysicalCardImpl moreYetToCome = new PhysicalCardImpl(101, "10_3", P1, _cardLibrary.getLotroCardBlueprint("10_3"));
+        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
+        PhysicalCardImpl goblinRunner2 = new PhysicalCardImpl(103, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
 
         _game.getGameState().addCardToZone(_game, moreYetToCome, Zone.HAND);
 
@@ -784,9 +784,9 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void treebeardEarthborn() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl treebeard = new PhysicalCardImpl(100, "4_103", P1, _library.getLotroCardBlueprint("4_103"));
-        PhysicalCardImpl merry = new PhysicalCardImpl(101, "4_311", P1, _library.getLotroCardBlueprint("4_311"));
-        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
+        PhysicalCardImpl treebeard = new PhysicalCardImpl(100, "4_103", P1, _cardLibrary.getLotroCardBlueprint("4_103"));
+        PhysicalCardImpl merry = new PhysicalCardImpl(101, "4_311", P1, _cardLibrary.getLotroCardBlueprint("4_311"));
+        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
 
         skipMulligans();
 
@@ -852,10 +852,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -893,10 +893,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -976,10 +976,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -1047,8 +1047,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void orcMarksmanUnique() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl marksman1 = new PhysicalCardImpl(100, "40_227", P2, _library.getLotroCardBlueprint("40_227"));
-        PhysicalCardImpl marksman2 = new PhysicalCardImpl(101, "40_227", P2, _library.getLotroCardBlueprint("40_227"));
+        PhysicalCardImpl marksman1 = new PhysicalCardImpl(100, "40_227", P2, _cardLibrary.getLotroCardBlueprint("40_227"));
+        PhysicalCardImpl marksman2 = new PhysicalCardImpl(101, "40_227", P2, _cardLibrary.getLotroCardBlueprint("40_227"));
 
         skipMulligans();
 
@@ -1068,9 +1068,9 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void frodosPipeOncePerPhase() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl frodosPipe = new PhysicalCardImpl(100, "40_250", P1, _library.getLotroCardBlueprint("40_250"));
-        PhysicalCardImpl pipeweed1 = new PhysicalCardImpl(101, "40_255", P1, _library.getLotroCardBlueprint("40_255"));
-        PhysicalCardImpl pipeweed2 = new PhysicalCardImpl(102, "40_255", P1, _library.getLotroCardBlueprint("40_255"));
+        PhysicalCardImpl frodosPipe = new PhysicalCardImpl(100, "40_250", P1, _cardLibrary.getLotroCardBlueprint("40_250"));
+        PhysicalCardImpl pipeweed1 = new PhysicalCardImpl(101, "40_255", P1, _cardLibrary.getLotroCardBlueprint("40_255"));
+        PhysicalCardImpl pipeweed2 = new PhysicalCardImpl(102, "40_255", P1, _cardLibrary.getLotroCardBlueprint("40_255"));
 
         _game.getGameState().addCardToZone(_game, frodosPipe, Zone.HAND);
         _game.getGameState().addCardToZone(_game, pipeweed1, Zone.SUPPORT);
@@ -1091,8 +1091,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void blockRemovingBurdens() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _library.getLotroCardBlueprint("1_207"));
-        PhysicalCardImpl sam = new PhysicalCardImpl(100, "1_311", P1, _library.getLotroCardBlueprint("1_311"));
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _cardLibrary.getLotroCardBlueprint("1_207"));
+        PhysicalCardImpl sam = new PhysicalCardImpl(100, "1_311", P1, _cardLibrary.getLotroCardBlueprint("1_311"));
 
         _game.getGameState().attachCard(_game, blackBreath, _game.getGameState().getRingBearer(P1));
         _game.getGameState().addCardToZone(_game, sam, Zone.FREE_CHARACTERS);
@@ -1109,8 +1109,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void athelasDoesNothing() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _cardLibrary.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
 
         _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, athelas, aragorn);
@@ -1132,8 +1132,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void athelasHeals() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _cardLibrary.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
 
         _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, athelas, aragorn);
@@ -1157,9 +1157,9 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void athelasRemovesCondition() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
-        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _library.getLotroCardBlueprint("1_207"));
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _cardLibrary.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _cardLibrary.getLotroCardBlueprint("1_207"));
 
         _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, athelas, aragorn);
@@ -1183,9 +1183,9 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void athelasGivesChoice() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
-        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _library.getLotroCardBlueprint("1_207"));
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _cardLibrary.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _cardLibrary.getLotroCardBlueprint("1_207"));
 
         _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, athelas, aragorn);
@@ -1204,8 +1204,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void hobbitPartyGuest() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl hobbitPartyGuest = new PhysicalCardImpl(100, "1_297", P1, _library.getLotroCardBlueprint("1_297"));
-        PhysicalCardImpl rosie = new PhysicalCardImpl(100, "1_309", P1, _library.getLotroCardBlueprint("1_309"));
+        PhysicalCardImpl hobbitPartyGuest = new PhysicalCardImpl(100, "1_297", P1, _cardLibrary.getLotroCardBlueprint("1_297"));
+        PhysicalCardImpl rosie = new PhysicalCardImpl(100, "1_309", P1, _cardLibrary.getLotroCardBlueprint("1_309"));
 
         _game.getGameState().addCardToZone(_game, hobbitPartyGuest, Zone.SUPPORT);
         _game.getGameState().addCardToZone(_game, rosie, Zone.SUPPORT);
@@ -1233,10 +1233,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -1265,12 +1265,12 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         initializeGameWithDecks(decks);
 
-        PhysicalCardImpl arwen = new PhysicalCardImpl(100, "7_16", P1, _library.getLotroCardBlueprint("7_16"));
-        PhysicalCardImpl legolas = new PhysicalCardImpl(100, "1_50", P1, _library.getLotroCardBlueprint("1_50"));
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl arwen = new PhysicalCardImpl(100, "7_16", P1, _cardLibrary.getLotroCardBlueprint("7_16"));
+        PhysicalCardImpl legolas = new PhysicalCardImpl(100, "1_50", P1, _cardLibrary.getLotroCardBlueprint("1_50"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "1_89", P1, _cardLibrary.getLotroCardBlueprint("1_89"));
 
-        PhysicalCardImpl cardInHand = new PhysicalCardImpl(100, "1_268", P1, _library.getLotroCardBlueprint("1_268"));
-        PhysicalCardImpl inquisitor = new PhysicalCardImpl(100, "1_268", P2, _library.getLotroCardBlueprint("1_268"));
+        PhysicalCardImpl cardInHand = new PhysicalCardImpl(100, "1_268", P1, _cardLibrary.getLotroCardBlueprint("1_268"));
+        PhysicalCardImpl inquisitor = new PhysicalCardImpl(100, "1_268", P2, _cardLibrary.getLotroCardBlueprint("1_268"));
 
         _game.getGameState().addCardToZone(_game, arwen, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, legolas, Zone.FREE_CHARACTERS);

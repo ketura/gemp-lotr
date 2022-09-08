@@ -2,7 +2,6 @@ package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.db.MerchantDAO;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ public class StorageBasedMerchantTest extends AbstractAtTest {
         Date setupDate = new Date(0);
         _merchantDao = new MockMerchantDAO();
 
-        _merchant = new StorageBasedMerchant(_library, _merchantDao, setupDate);
+        _merchant = new StorageBasedMerchant(_cardLibrary, _merchantDao, setupDate);
     }
 
     @Test
@@ -116,7 +115,7 @@ public class StorageBasedMerchantTest extends AbstractAtTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        StorageBasedMerchant merchant = new StorageBasedMerchant(_library, merchantDao, setupDate);
+        StorageBasedMerchant merchant = new StorageBasedMerchant(_cardLibrary, merchantDao, setupDate);
 
         merchant.cardSold("1_1", firstTrans, 1000);
         merchant.cardBought("1_2", firstTrans, 700);
@@ -141,7 +140,7 @@ public class StorageBasedMerchantTest extends AbstractAtTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        StorageBasedMerchant merchant = new StorageBasedMerchant(_library, merchantDao, setupDate);
+        StorageBasedMerchant merchant = new StorageBasedMerchant(_cardLibrary, merchantDao, setupDate);
 
         long hour = 1000 * 60 * 60;
 

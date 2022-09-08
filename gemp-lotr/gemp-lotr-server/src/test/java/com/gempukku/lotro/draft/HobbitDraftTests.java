@@ -2,16 +2,13 @@ package com.gempukku.lotro.draft;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.DefaultAdventureLibrary;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -25,11 +22,11 @@ public class HobbitDraftTests extends AbstractAtTest {
 //        //library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"), new CardSets());
 //        library.init(AppConfig.getCardsPath(), AppConfig.getMappingsPath(), new CardSets());
 
-        CollectionsManager collectionsManager = new CollectionsManager(null, null, null, _library);
+        CollectionsManager collectionsManager = new CollectionsManager(null, null, null, _cardLibrary);
         DefaultAdventureLibrary defaultAdventureLibrary = new DefaultAdventureLibrary();
-        LotroFormatLibrary lotroFormatLibrary = new LotroFormatLibrary(defaultAdventureLibrary, _library);
+        LotroFormatLibrary lotroFormatLibrary = new LotroFormatLibrary(defaultAdventureLibrary, _cardLibrary);
 
-        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(collectionsManager, _library, lotroFormatLibrary, AppConfig.getDraftDefinitionPath());
+        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(collectionsManager, _cardLibrary, lotroFormatLibrary);
 
         final SoloDraft hobbitDraft = soloDraftDefinitions.getSoloDraft("hobbit_draft");
 
@@ -68,7 +65,7 @@ public class HobbitDraftTests extends AbstractAtTest {
         for (Map.Entry<String, Integer> entry : availableCards.entrySet()) {
             final String blueprint = entry.getKey();
             String set = blueprint.substring(0, blueprint.indexOf('_'));
-            final SetDefinition setDefinition = _library.getSetDefinitions().get(set);
+            final SetDefinition setDefinition = _cardLibrary.getSetDefinitions().get(set);
             final String cardRarity = setDefinition.getCardRarity(blueprint);
             System.out.println(blueprint + " (" + cardRarity + "): " + entry.getValue());
         }
