@@ -9,7 +9,7 @@ import com.gempukku.util.MultipleComparator;
 import java.util.*;
 
 public class SortAndFilterCards {
-    public <T extends CardItem> List<T> process(String filter, Iterable<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
+    public <T extends CardItem> List<T> process(String filter, Iterable<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
@@ -33,12 +33,12 @@ public class SortAndFilterCards {
         for (T item : items) {
             String blueprintId = item.getBlueprintId();
             if (isPack(blueprintId)) {
-                if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
+                if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
                     result.add(item);
             } else {
                 try {
                     cardBlueprintMap.put(blueprintId, cardLibrary.getLotroCardBlueprint(blueprintId));
-                    if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
+                    if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
                         result.add(item);
                 } catch (CardNotFoundException e) {
                     // Ignore the card
@@ -78,7 +78,7 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String[] rarity, String[] sets,
+            LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, String blueprintId, Side side, String type, String[] rarity, String[] sets,
             Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber, Set<Race> races, Set<PossessionClass> itemClasses, Set<Keyword> phases) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
@@ -91,7 +91,7 @@ public class SortAndFilterCards {
                     || (type.equals("tengwar") && (blueprintId.endsWith("T*") || blueprintId.endsWith("T")))) {
                 final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
                 if (side == null || blueprint.getSide() == side)
-                    if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
+                    if (rarity == null || isRarity(blueprintId, rarity, library, library.getSetDefinitions()))
                         if (sets == null || isInSets(blueprintId, sets, library, formatLibrary, cardBlueprint))
                             if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                                 if (cultures == null || cultures.contains(blueprint.getCulture()))

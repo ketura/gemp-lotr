@@ -1,6 +1,36 @@
 <div class="article"><pre style="white-space: pre-wrap;">
 <b>Most recent update</b>
 
+<b>2022 August 29</b>
+- Migrated all admin management scripts into a dedicated (hidden) tab
+- Added admin command to hot reload JSON card definitions.  As a result, in the future any changes made to cards that use the new-style definitions will be able to have fixes pushed without requiring a server restart.  For now this means cards in sets 0, 1, 9, 14, 16, 19, V1, and a smattering of other cards.  Eventually the PC will have a dedicated push to convert all cards to JSON so they will be supported by this system.
+- Fixed Galadriel, Lady of the Golden Wood (3R17) errata accidentally requiring an orc to play
+
+<b>2022 August 26</b>
+- fixed slash commands not working in chat
+- added a warning if an invite-only table is made for a user that doesn't exist
+- fixed the CoC not rendering properly
+- Combined the chopped-up help messages so that spam is avoided (as html can just be used now)
+- fixed league games being eligible for custom descriptions (this breaks anonymity)
+
+<b>2022 August 25</b>
+- GEMP Hall UI overhaul, including:
+- Full dark mode on all browsers
+- Markdown support in chat (no aliased URLs or images)
+- Added automatic linking of bare URLs
+- Multi-line support in chat with shift + click
+- Chat now highlights when a user is mentioned, in yellow unless pinged with @, in which case it highlights with red
+- Added support for @everyone and @anyone mentions
+- Added table descriptions
+- Added Invite-only tables (set the description to the name of the player you want to restrict the table to, check the Invite-only box, and nobody but them can join)
+- Chat Lock box removed.  Instead the scrollbar controls this behavior (locked when scrolled down to 95% or more of the distance, unlocked otherwise)
+- Added an action bar of items to the top of the screen, and moved Deck Builder and Merchant there 
+- Crossed out the Merchant link to hopefully better communicate that it's a deprecated feature
+- Consolidated tabs into groups
+- The Server Stats subtab now automatically pushes the date back a month and runs it for you once when navigating to it
+- The entire hall is now written in proper CSS.  As a result, you can zoom in and out without getting pre-empted
+- <a href="https://blog.lotrtcgpc.net/2022/08/26/25-august-2022-gemp-patch-hall-ui-rework/">Full blog post detailing this UI Overhaul here.</a>
+
 <b>2022 August 19</b>
 - RELEASED Set V1, Shadow of the Past, into official PC formats!  
 Fellowship Block (PC), Movie Block (PC), and Expanded (PC) have all 64 new cards added to their card pools.  Have fun!

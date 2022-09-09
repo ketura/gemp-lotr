@@ -1,0 +1,261 @@
+<script type="text/javascript">
+	$("#generalAdmin").ready(
+		function () {
+			$("#shutdown-button").button().click(
+				function () {
+					let execute = confirm("Are you sure you want to enter shutdown mode?	This will cancel all currently waiting tables and send a site-wide chat alert informing players the server will restart soon.	(Currently playing tables will be unaffected.)");
+					
+					if(!execute)
+						return;
+					
+					$("#shutdown-response").html("Processing...");
+						
+					hall.comm.setShutdownMode(true, function (string) {
+						$("#shutdown-response").html(string);
+					});
+				});
+			
+			
+			$("#cancel-shutdown-button").button().click(
+				function () {
+					$("#shutdown-response").html("Processing...");
+					
+					hall.comm.setShutdownMode(false, function (string) {
+						$("#shutdown-response").html(string);
+					});
+				});
+			
+			$("#clear-cache-button").button().click(
+				function () {
+					$("#cache-response").html("Processing...");
+					
+					hall.comm.clearServerCache(function (string) {
+						$("#cache-response").html(string);
+					});
+				});
+			
+			$("#reload-cards-button").button().click(
+				function () {
+					$("#cards-response").html("Processing...");
+					
+					hall.comm.reloadCardDefinitions(function (string) {
+						$("#cards-response").html(string);
+					});
+				});
+			
+			// $('#motd-text').bind("oninput", function() {
+			// 	$("#motd-preview").html($('#motd-text').val());
+			// });
+			
+			$("#motd-button").button().click(
+				function () {
+					$("#motd-response").html("Processing...");
+					
+					hall.comm.setMOTD($("#motd-text").val(), function (string) {
+						$("#motd-response").html("Response: " + string);
+					});
+				});
+			
+			hall.comm.getMOTD(function (json) {
+				$("#motd-text").val(json.response);
+				$("#motd-preview").html(json.response);
+			});
+			
+			
+			$("#add-items-button").button().click(
+				function () {
+					let execute = confirm("Are you sure you want to issue these items in these quantities to these players in that collection? THIS CANNOT BE UNDONE, EVEN MANUALLY.");
+					
+					if(!execute)
+						return;
+					
+					$("#add-items-response").html("Processing...");
+					
+					hall.comm.addItems($("#collectionType").val(), $("#product").val(), $("#players").val(), function (string) {
+						$("#add-items-response").html("Response: " + string);
+					});
+				});
+			
+		});
+
+
+</script>
+<div id="generalAdmin" class="article" style="font-size: 100%;">
+	
+	<table class="tables" style="width:100%">
+		<tr >
+			<th>Action</th>
+			<th style="min-width:200px">Result</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>
+				<button id="shutdown-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+					Enter Shutdown Mode
+				</button>
+				
+				<button id="cancel-shutdown-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+					Exit Shutdown Mode
+				</button>
+			</td>
+			<td id="shutdown-response">Ready.</td>
+			<td>
+				Puts the server into shutdown mode (cancels queues, disallows new table creation, otherwise leaves current tables open).	Puts a site-wide chat alert telling players the server will restart soon.
+				<br><br>
+				Canceling shutdown mode puts out another chat-wide alert and players may resume setting up tables.
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<button id="clear-cache-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+					Clear Server Cache
+				</button>
+				
+			</td>
+			<td id="cache-response">Ready.</td>
+			<td>
+				All database operations have their results cached in memory to alleviate load on the DB while the server is running.	This command clears that cache and forces any database calls to get the actual DB data (which will then be cached again).
+				<br><br>
+				Also clears the internal caches of the League and Tournament services, forcing standings to be re-calculated.	
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<button id="reload-cards-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+					Reload JSON Card Definitions
+				</button>
+				
+			</td>
+			<td id="cards-response">Ready.</td>
+			<td>
+				New-style card definitions are JSON text files, and as such can be hot-reloaded at will.	This command will reload all definitions from file for cards that have been converted.
+			</td>
+		</tr>
+		
+		
+	</table> 
+	
+	<hr>
+	
+	<h1>Message of the Day</h1>
+	<div>
+		<p>Sets the MOTD in the Game Hall just beneath the action bar at the top of the window.	Supports HTML.</p>
+		
+		<div id="motd-response"></div>
+
+		<div class="flex-horiz" style="gap:25px">
+			<div class="flex-vert" style="flex-basis:50%;">
+				<textarea type="text" id="motd-text" style="min-width:50%" oninput='$("#motd-preview").html($("#motd-text").val());'></textarea>
+				<br />
+				<button id="motd-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;max-width:100px;">
+					Set MOTD
+				</button>
+			</div>
+			<div id="motd-preview" style="flex-basis:50%;word-wrap:break-word;max-width:100%"></div>
+		</div>
+		<br/>
+	</div>
+	<br>
+	<hr>
+
+	<h1>Add Items to Collections</h1>
+	
+	 <table class="tables">
+		<tr>
+			<th>Input</th>
+			<th>Description</th>
+		</tr>
+		<tr>
+			<td>
+				Type: <br><input type="text" id="collectionType">
+			</td>
+			<td>
+				Which collection to insert the cards in.  One of:
+				<ul>
+					<li>permanent</li>
+					<li>trophy</li>
+					<li>default</li>
+					<li>permanent+trophy</li>
+				</ul>
+				When awarding league awards, "trophy" is the one to use.
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				Product: <br><textarea rows="5" cols="20" id="product"></textarea>
+			</td>
+			<td style="width: fit-content;">
+				A list of items + quantities to award (one item per line), in the form 
+				<pre>4x item_id</pre>
+				Where "4x" indicates how many copies to award, and "item_id" is the GEMP ID of the item to award.
+				<br><br>
+				Things which can be awarded: 
+				<ul>
+					<li>
+						Cards in the form 
+						<pre>1x 11_123</pre>
+						where "11_123" is the GEMP ID of the card, usually set number + card number (but not always, especially for masterworks, tengwar, or full art promos).<br>
+					</li>
+					<li>
+						Card selections in the form
+						<pre>1x (S)selection</pre>
+						where "selection" is the name of the items to choose from.  For instance, "1x (S)FotR - Tengwar" would grant that player a choice of 1 tengwar card from sets 1, 2, or 3.
+						<br><br>
+						The full list of selection items is too large to list here.  See <code>GenerateTrophyCollections.java</code>, <code>FixedLeaguePrizes.java</code>, <code>SealedLeaguePrizes.java</code>, <code>SealedLeagueProduct.java<code>, and <code>packs.txt</code> for a (hopefully?) complete list.<br>
+					</li>
+					<li>
+						Card packs in the form
+						<pre>1x packname</pre>
+						where packname is one of various ids (with no underscores).  See <code>PacksStorageBuilder.java</code> for an incomplete list.
+					</li>
+				</ul>
+			</td>
+		</tr>
+		
+		<tr>
+			<td style="width: fit-content;">
+				Players: <br><textarea rows="5" cols="20" id="players"></textarea>
+			</td>
+			<td>
+				A list of players to award cards to, one per line.  Case sensitive.
+			</td>
+		</tr>
+		
+		<tr>
+			<td >
+				<button id="add-items-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+					Add Items
+				</button>
+			</td>
+			<td>
+				Invoking this command will add each of the listed items in Product to each of players listed in Players.  THIS CANNOT BE UNDONE, even manually, so be *very sure* you have entered everything in correctly.  Test on your own user if you must.
+				<br><br><span id="add-items-response"></span>
+			</td>
+		</tr>
+	</table> 
+	
+<!-- 	<div class="flex-horiz">
+
+		<form method="POST" action="/gemp-lotr-server/admin/addItems">
+			Type: <input type="text" name="collectionType"><br/>
+			Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+			Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
+			<input type="submit" value="Add items">
+		</form>
+	</div> -->
+
+	<!-- Do we *really* need a way to add an item to all players??
+	If so, consider adding a special case to the player list above. -->
+	
+	<!-- <h2>Add items to collection</h2>
+
+	<form method="POST" action="/gemp-lotr-server/admin/addItemsToCollection">
+		Type: <input type="text" name="collectionType"><br/>
+		Reason: <input type="text" name="reason"><br/>
+		Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
+		<input type="submit" value="Add items to collection">
+	</form> -->
+</div>

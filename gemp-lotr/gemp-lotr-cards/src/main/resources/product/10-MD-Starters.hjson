@@ -1,0 +1,160 @@
+[
+	{
+		name: MD - Frodo Starter
+		type: pack
+		items: [
+			#The Mount Doom Frodo Starter Deck Card List
+			#Ring-bearer (2 cards)
+			#    Frodo, Resolute Hobbit
+			#    The One Ring, The Ruling Ring
+			2x10_121
+			1x7_1
+			#Adventure Deck (9 cards)
+			#    Steps of Edoras
+			#    Rohirrim Camp
+			#    The Dimholt
+			#    Pelennor Prairie
+			#    City Gates
+			#    Minas Tirith Fifth Circle
+			#    Pelennor Grassland
+			#    Watchers of Cirith Ungol
+			#    Dagorlad
+			1x7_334
+			1x7_336
+			1x8_117
+			1x10_118
+			1x7_344
+			1x7_346
+			1x7_354
+			1x10_120
+			1x7_360
+			#Free Peoples (30 cards)
+			#    Frodo, Resolute Hobbit
+			#    Gandalf, Defender of the West x 3
+			#    Gathering Wind x 2
+			#    Intimidate x 3
+			#    All Save One x 3
+			#    Hobbit Sword x 2
+			#    Noble Intentions x 3
+			#    Oathbreaker x 2
+			#    Sleepless Dead
+			#    Swept Away
+			#    Dead Man of Dunharrow x 3
+			#    Spectral Sword x 3
+			#    End of The Game x 3
+			1x10_121
+			3x7_36
+			2x10_16
+			3x7_41
+			3x7_31
+			2x7_319
+			3x7_322
+			2x8_41
+			1x8_45
+			1x8_48
+			3x10_27
+			3x8_46
+			3x10_30
+			#Shadow (30 cards)
+			#    Cirith Ungol Watchman x 4
+			#    Cirith Ungol Warrior x 4
+			#    Cirith Ungol Soldier x 4
+			#    Cirith Ungol Scavenger x 3
+			#    Ten Times Outnumbered x 3
+			#    Houses of Lamentation x 2
+			#    Morgul Hound x 2
+			#    Morgul Lackey x 3
+			#    Morgul Predator x 2
+			#    Morgul Axe x 3
+			4x10_57
+			4x10_56
+			4x10_55
+			3x10_54
+			3x10_66
+			2x10_61
+			2x7_192
+			3x7_193
+			2x7_196
+			3x7_186
+		]
+	},
+	{
+		name: MD - Sam Starter
+		type: pack
+		items: [
+			#The Mount Doom Sam Starter Deck Card List
+			#Ring-bearer (2 cards)
+			#    Frodo, Hope of Free Peoples
+			#    The One Ring, The Ruling Ring
+			1x7_317
+			1x7_1
+			#Adventure Deck (9 cards)
+			#    Sleeping Quarters
+			#    King's Tent
+			#    Beacon of Minas Tirith
+			#    Anduin Banks
+			#    Steward's Tomb
+			#    Minas Tirith Third Circle
+			#    Osgiliath Channel
+			#    Morgul Vale
+			#    Slag Mounds
+			1x7_333
+			1x7_335
+			1x7_338
+			1x7_341
+			1x10_119
+			1x7_352
+			1x8_120
+			1x7_357
+			1x7_363
+			#Free Peoples (30 cards)
+			#    Sam, Great Elf Warrior x 2
+			#    Merry, Rohirrim Squire
+			#    Pippin, Sworn To Service
+			#    Hobbit Sword x 4
+			#    We Shall Meet Again Soon x 2
+			#    Closer And Closer He Bent x 2
+			#    Orc Armor x 3
+			#    Narrow Escape x 2
+			#    Nine-Fingered Frodo And The Ring of Doom x 2
+			#    Brave and Loyal x 2
+			#    Chance Observation x 3
+			#    A Marvel x 4
+			#    The Tale Of The Great Ring x 2
+			2x10_122
+			1x7_320
+			1x7_323
+			4x7_319
+			2x8_116
+			2x8_109
+			3x10_113
+			2x10_111
+			2x10_112
+			2x10_105
+			3x10_106
+			4x10_110
+			2x10_116
+			#Shadow (30 cards)
+			#    Cirith Ungol Sentinel x 4
+			#    Cirith Ungol Guard x 4
+			#    Cirith Ungol Sentry x 4
+			#    Cirith Ungol Patroller x 3
+			#    Rank And File x 2
+			#    Uruk Axe x 4
+			#    Barren Land x 2
+			#    Morgul Defender x 2
+			#    Morgul Veteran x 3
+			#    Gollum, Vile Creature x 2
+			4x10_83
+			4x10_81
+			4x10_84
+			3x10_82
+			2x10_96
+			4x10_102
+			2x10_79
+			2x7_285
+			3x7_292
+			2x7_59
+		]
+	}
+]

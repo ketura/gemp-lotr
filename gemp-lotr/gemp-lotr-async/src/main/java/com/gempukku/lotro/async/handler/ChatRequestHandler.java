@@ -102,7 +102,10 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                     //Need to preserve any commands being made
                     if(!newMsg.startsWith("/")) {
                         newMsg = _markdownRenderer.render(_markdownParser.parse(newMsg));
+                        // Prevent quotes with newlines from displaying side-by-side
                         newMsg = newMsg.replaceAll("</blockquote>[\n \t]*<blockquote>", "</blockquote><br /><blockquote>");
+                        //Make all links open in a new tab
+                        newMsg = newMsg.replaceAll("<(a href=\".*?\")>", "<$1 target=\"blank\">");
                     }
 
                     chatRoom.sendMessage(resourceOwner.getName(), newMsg, admin);

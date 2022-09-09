@@ -10,10 +10,9 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.ProductLibrary;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -29,10 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectionRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private final Map<String, SetDefinition> _setDefinitions;
     private final LeagueService _leagueService;
     private final CollectionsManager _collectionsManager;
-    private final PacksStorage _packStorage;
+    private final ProductLibrary _productLibrary;
     private final LotroCardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
     private final SortAndFilterCards _sortAndFilterCards;
@@ -40,11 +38,9 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
     public CollectionRequestHandler(Map<Type, Object> context) {
         super(context);
-        _setDefinitions = extractObject(context, CardSets.class).getSetDefinitions();
-
         _leagueService = extractObject(context, LeagueService.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
-        _packStorage = extractObject(context, PacksStorage.class);
+        _productLibrary = extractObject(context, ProductLibrary.class);
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _sortAndFilterCards = new SortAndFilterCards();
@@ -115,7 +111,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             throw new HttpProcessingException(404);
 
         Iterable<CardCollection.Item> items = collection.getAll();
-        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _setDefinitions);
+        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -143,7 +139,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
                     pack.setAttribute("count", String.valueOf(item.getCount()));
                     pack.setAttribute("blueprintId", blueprintId);
                     if (item.getType() == CardCollection.Item.Type.SELECTION) {
-                        List<CardCollection.Item> contents = _packStorage.openPack(blueprintId);
+                        List<CardCollection.Item> contents = _productLibrary.GetProduct(blueprintId).openPack();
                         StringBuilder contentsStr = new StringBuilder();
                         for (CardCollection.Item content : contents)
                             contentsStr.append(content.getBlueprintId()).append("|");
@@ -175,7 +171,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CollectionType collectionTypeObj = createCollectionType(collectionType);
-        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _packStorage, packId);
+        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _productLibrary, packId);
 
         if (packContents == null)
             throw new HttpProcessingException(404);

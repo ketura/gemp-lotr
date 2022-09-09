@@ -18,7 +18,7 @@ public class ExtraCostToPlayAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _library.getLotroCardBlueprint("10_26"));
+        PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _cardLibrary.getLotroCardBlueprint("10_26"));
 
         _game.getGameState().addCardToZone(_game, wraith, Zone.HAND);
 
@@ -35,7 +35,7 @@ public class ExtraCostToPlayAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _library.getLotroCardBlueprint("10_26"));
+        PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _cardLibrary.getLotroCardBlueprint("10_26"));
 
         _game.getGameState().addCardToZone(_game, wraith, Zone.HAND);
         _game.getGameState().addThreats(P1, 3);

@@ -7,6 +7,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,8 +23,8 @@ public class SoloDraftLeagueData implements LeagueData {
     private final LeaguePrizes _leaguePrizes;
     private final LeagueSerieData _serie;
 
-    public SoloDraftLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
-        _leaguePrizes = new FixedLeaguePrizes(cardSets);
+    public SoloDraftLeagueData(LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
+        _leaguePrizes = new FixedLeaguePrizes(library);
 
         String[] params = parameters.split(",");
         _draft = soloDraftDefinitions.getSoloDraft(params[0]);
@@ -36,7 +37,7 @@ public class SoloDraftLeagueData implements LeagueData {
 
         _serie = new DefaultLeagueSerieData(_leaguePrizes, true, "Serie 1",
                 DateUtils.offsetDate(start, 0), DateUtils.offsetDate(start, serieDuration - 1), maxMatches,
-                _draft.getFormat(), _collectionType);
+                formatLibrary.getFormat(_draft.getFormat()), _collectionType);
     }
 
     public CollectionType getCollectionType() {

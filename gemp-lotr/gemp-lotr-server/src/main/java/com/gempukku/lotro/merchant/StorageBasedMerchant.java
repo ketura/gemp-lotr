@@ -1,7 +1,6 @@
 package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.db.MerchantDAO;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
@@ -34,11 +33,11 @@ public class StorageBasedMerchant implements Merchant {
     private final Map<String, SetDefinition> _rarity = new HashMap<>();
     private final Date _merchantSetupDate;
 
-    public StorageBasedMerchant(LotroCardBlueprintLibrary library, MerchantDAO merchantDao, Date merchantSetupDate, CardSets cardSets) {
+    public StorageBasedMerchant(LotroCardBlueprintLibrary library, MerchantDAO merchantDao, Date merchantSetupDate) {
         _library = library;
         _merchantDao = merchantDao;
         _merchantSetupDate = merchantSetupDate;
-        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+        for (SetDefinition setDefinition : _library.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("merchantable"))
                 _rarity.put(setDefinition.getSetId(), setDefinition);
         }

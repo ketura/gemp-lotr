@@ -723,6 +723,276 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    setShutdownMode:function (shutdown, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/shutdown",
+            cache:false,
+            data:{
+                shutdown:shutdown
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    clearServerCache:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/clearCache",
+            cache:false,
+            data:{},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    reloadCardDefinitions:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/reloadCards",
+            cache:false,
+            data:{},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    getMOTD:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/admin/getMOTD",
+            cache:false,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
+    
+    setMOTD:function (motd, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/setMOTD",
+            cache:false,
+            data:{
+                motd:motd
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    addItems:function (collectionType, product, players, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addItems",
+            cache:false,
+            data:{
+                collectionType:collectionType,
+                product:product,
+                players:players
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    permabanUser:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/banUser",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    tempbanUser:function (login, duration, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/banUserTemp",
+            cache:false,
+            data:{
+                login:login,
+                duration:duration
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    unbanUser:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/unBanUser",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    susUserSearch:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/findMultipleAccounts",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    banMultiple:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/banMultiple",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    previewSealedLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/previewSealedLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addSealedLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addSealedLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    previewSoloDraftLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/previewSoloDraftLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addSoloDraftLeague:function (format, start, serieDuration, maxMatches, name, cost, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addSoloDraftLeague",
+            cache:false,
+            data:{
+                format:format,
+                start:start,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                name:name,
+                cost:cost
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    previewConstructedLeague:function (start, collectionType, prizeMultiplier, name, cost, formats, serieDurations, maxMatches, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/previewConstructedLeague",
+            cache:false,
+            data:{
+                start:start,
+                collectionType:collectionType,
+                prizeMultiplier:prizeMultiplier,
+                name:name,
+                cost:cost,
+                format:formats,
+                serieDuration:serieDurations,
+                maxMatches:maxMatches
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addConstructedLeague:function (start, collectionType, prizeMultiplier, name, cost, formats, serieDurations, maxMatches, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addConstructedLeague",
+            cache:false,
+            data:{
+                start:start,
+                collectionType:collectionType,
+                prizeMultiplier:prizeMultiplier,
+                name:name,
+                cost:cost,
+                format:formats,
+                serieDuration:serieDurations,
+                maxMatches:maxMatches
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    
+    
     //NEVER EVER EVER use this for actual authentication
     // This is strictly to simplify things like auto-hiding
     // of the admin panel.  If you actually need functionality

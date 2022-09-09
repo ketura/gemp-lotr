@@ -1,11 +1,13 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.google.common.collect.Iterables;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
@@ -16,11 +18,13 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class SealedLeagueDataTest {
+public class SealedLeagueDataTest extends AbstractAtTest {
+
+    private static LotroFormatLibrary _formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
 
     @Test
     public void testJoinLeagueFirstWeek() {
-        SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
+        SealedLeagueData data = new SealedLeagueData(_cardLibrary, _formatLibrary, "fotr_block,20120101,test,Test Collection");
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -54,7 +58,7 @@ public class SealedLeagueDataTest {
 
     @Test
     public void testJoinLeagueSecondWeek() {
-        SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
+        SealedLeagueData data = new SealedLeagueData(_cardLibrary, _formatLibrary, "fotr_block,20120101,test,Test Collection");
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -93,7 +97,7 @@ public class SealedLeagueDataTest {
 
     @Test
     public void testSwitchToFirstWeek() {
-        SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
+        SealedLeagueData data = new SealedLeagueData(_cardLibrary, _formatLibrary, "fotr_block,20120101,test,Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<>());
@@ -106,7 +110,7 @@ public class SealedLeagueDataTest {
 
     @Test
     public void testProcessMidFirstWeek() {
-        SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
+        SealedLeagueData data = new SealedLeagueData(_cardLibrary, _formatLibrary, "fotr_block,20120101,test,Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<>());
@@ -118,7 +122,7 @@ public class SealedLeagueDataTest {
 
     @Test
     public void testSwitchToSecondWeek() {
-        SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
+        SealedLeagueData data = new SealedLeagueData(_cardLibrary, _formatLibrary, "fotr_block,20120101,test,Test Collection");
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -153,7 +157,7 @@ public class SealedLeagueDataTest {
 
     @Test
     public void testProcessMidSecondWeek() {
-        SealedLeagueData data = new SealedLeagueData(new CardSets(), null, "fotr_block,20120101,test,Test Collection");
+        SealedLeagueData data = new SealedLeagueData(_cardLibrary, _formatLibrary, "fotr_block,20120101,test,Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<>());

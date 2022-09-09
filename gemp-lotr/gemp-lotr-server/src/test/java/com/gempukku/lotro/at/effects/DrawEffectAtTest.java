@@ -28,7 +28,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
 
@@ -66,7 +66,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
 
@@ -104,8 +104,8 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl merry2 = new PhysicalCardImpl(102, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry2 = new PhysicalCardImpl(102, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
         _game.getGameState().putCardOnTopOfDeck(merry2);
@@ -145,7 +145,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
 

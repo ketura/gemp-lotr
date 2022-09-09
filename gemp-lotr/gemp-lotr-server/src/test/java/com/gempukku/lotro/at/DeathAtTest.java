@@ -19,8 +19,8 @@ public class DeathAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _library.getLotroCardBlueprint("1_96"));
-        PhysicalCardImpl sagaOfElendil = new PhysicalCardImpl(101, "1_114", P1, _library.getLotroCardBlueprint("1_114"));
+        PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
+        PhysicalCardImpl sagaOfElendil = new PhysicalCardImpl(101, "1_114", P1, _cardLibrary.getLotroCardBlueprint("1_114"));
 
         skipMulligans();
 
@@ -60,7 +60,7 @@ public class DeathAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _library.getLotroCardBlueprint("1_96"));
+        PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
 
         skipMulligans();
 

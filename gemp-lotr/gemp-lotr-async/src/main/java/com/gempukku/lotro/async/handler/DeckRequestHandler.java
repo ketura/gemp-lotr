@@ -350,17 +350,17 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         result.append("<br/>");
         result.append("<b>Adventure deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll(), _library, _formatLibrary))
             result.append(generateCardTooltip(item) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Free Peoples Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll(), _library, _formatLibrary))
             result.append(item.getCount() + "x " + generateCardTooltip(item) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Shadow Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll(), _library, _formatLibrary, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll(), _library, _formatLibrary))
             result.append(item.getCount() + "x " + generateCardTooltip(item) + "<br/>");
 
         result.append("<h3>Notes</h3><br>" + deck.getNotes().replace("\n", "<br/>"));
@@ -529,13 +529,13 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             deckElem.appendChild(ring);
         }
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:siteNumber,twilight", createCardItems(deck.getSites()), _library, _formatLibrary, null)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:siteNumber,twilight", createCardItems(deck.getSites()), _library, _formatLibrary)) {
             Element site = doc.createElement("site");
             site.setAttribute("blueprintId", cardItem.getBlueprintId());
             deckElem.appendChild(site);
         }
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, _formatLibrary, null)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, _formatLibrary)) {
             Element card = doc.createElement("card");
             String side;
             try {

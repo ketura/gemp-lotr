@@ -10,42 +10,38 @@ import org.json.simple.JSONObject;
 import java.util.*;
 
 public class DraftPoolBuilder {
-    public DraftPoolProducer buildDraftPoolProducer(JSONArray draftPoolComponents) {
+    public static DraftPoolProducer buildDraftPoolProducer(JSONArray draftPoolComponents) {
     
         List<DraftPoolElement> fullDraftPool = new ArrayList<>();
         for (JSONObject draftPoolComponent : (Iterable<JSONObject>) draftPoolComponents) {
             fullDraftPool.add(buildDraftPool(draftPoolComponent));
         }
 
-        return new DraftPoolProducer() {
-            @Override
-            public List<String> getDraftPool(long seed, long code) {
-                List<String> completedDraftPool = new ArrayList<>();
-                Random randomSource = new Random();
-                int mod = 0;
-                
-                for (DraftPoolElement element : fullDraftPool) {
-                    List<ArrayList<String>> draftPacks = new ArrayList<>();
-                    draftPacks = element.getDraftPackList();
-                    if (element.getDraftPoolType() == "singleDraft")
-                        randomSource = new Random(seed+mod);
-                    else if (element.getDraftPoolType() == "sharedDraft")
-                        randomSource = new Random(code);
-                    mod++;
+        return (seed, code) -> {
+            List<String> completedDraftPool = new ArrayList<>();
+            Random randomSource = new Random();
+            int mod = 0;
 
-                    float thisFixesARandomnessBug = randomSource.nextFloat();
-                    Collections.shuffle(draftPacks, randomSource);
-                    for (int i = 0; i < element.getPacksToDraft(); i++) {
-                        completedDraftPool.addAll(draftPacks.get(i));
-                    }
+            for (DraftPoolElement element : fullDraftPool) {
+                List<ArrayList<String>> draftPacks;
+                draftPacks = element.getDraftPackList();
+                if (element.getDraftPoolType() == "singleDraft")
+                    randomSource = new Random(seed+mod);
+                else if (element.getDraftPoolType() == "sharedDraft")
+                    randomSource = new Random(code);
+                mod++;
+
+                float thisFixesARandomnessBug = randomSource.nextFloat();
+                Collections.shuffle(draftPacks, randomSource);
+                for (int i = 0; i < element.getPacksToDraft(); i++) {
+                    completedDraftPool.addAll(draftPacks.get(i));
                 }
-                return completedDraftPool;
             }
+            return completedDraftPool;
         };
     }
-        
 
-    public DraftPoolElement buildDraftPool(JSONObject draftPool) {
+    public static DraftPoolElement buildDraftPool(JSONObject draftPool) {
         String draftPoolProducerType = (String) draftPool.get("type");
         if (draftPoolProducerType.equals("singleDraft")) {
             return buildSingleDraftPool((JSONObject) draftPool.get("data"));
@@ -55,7 +51,7 @@ public class DraftPoolBuilder {
         throw new RuntimeException("Unknown draftPoolProducer type: " + draftPoolProducerType);
     }
     
-    private DefaultDraftPoolElement buildSingleDraftPool(JSONObject data) {
+    private static DefaultDraftPoolElement buildSingleDraftPool(JSONObject data) {
         int choose = ((Number) data.get("choose")).intValue();
         JSONArray draftPackPool = (JSONArray) data.get("packs");
 
@@ -70,7 +66,7 @@ public class DraftPoolBuilder {
         return new DefaultDraftPoolElement("singleDraft", draftPacks, choose);
     }
 
-    private DefaultDraftPoolElement buildSharedDraftPool(JSONObject data) {
+    private static DefaultDraftPoolElement buildSharedDraftPool(JSONObject data) {
         int choose = ((Number) data.get("choose")).intValue();
         JSONArray draftPackPool = (JSONArray) data.get("packs");
 

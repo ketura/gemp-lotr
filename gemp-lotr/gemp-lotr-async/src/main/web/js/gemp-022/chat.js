@@ -334,9 +334,10 @@ var ChatBoxUI = Class.extend({
         var locked = false;
         var scroll = this.chatMessagesDiv.scrollTop();
         var maxScroll = this.chatMessagesDiv[0].scrollHeight - this.chatMessagesDiv.outerHeight();
+        var noScrollBars = maxScroll <= 0;
         var ratio = scroll / maxScroll;
         
-        if(msgClass === "warningMessage" || ratio >= 0.95)
+        if(msgClass === "warningMessage" || noScrollBars || maxScroll <= 30 || ratio >= 0.95)
             locked = true;
         
         if(this.pingRegex != null && this.pingRegex.test(message))

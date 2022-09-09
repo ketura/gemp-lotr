@@ -2,6 +2,7 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.LotroFormat;
 
 public interface LeagueSerieData {
     public int getStart();
@@ -14,7 +15,7 @@ public interface LeagueSerieData {
 
     public String getName();
 
-    public String getFormat();
+    public LotroFormat getFormat();
 
     public CollectionType getCollectionType();
 

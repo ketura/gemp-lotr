@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import java.util.Map;
+import java.util.Objects;
 
 public interface CardCollection {
     int getCurrency();
@@ -35,6 +36,11 @@ public interface CardCollection {
                 return new Item(Item.Type.CARD, count, blueprintId);
         }
 
+        public static Item createItem(String combined) {
+            String[] result = combined.split("x", 2);
+            return createItem(result[1], Integer.parseInt(result[0]));
+        }
+
         public Type getType() {
             return _type;
         }
@@ -50,15 +56,19 @@ public interface CardCollection {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
 
             Item item = (Item) o;
 
-            if (_count != item._count) return false;
-            if (_blueprintId != null ? !_blueprintId.equals(item._blueprintId) : item._blueprintId != null)
+            if (_count != item._count)
                 return false;
-            if (_type != item._type) return false;
+            if (!Objects.equals(_blueprintId, item._blueprintId))
+                return false;
+            if (_type != item._type)
+                return false;
 
             return true;
         }
@@ -69,6 +79,11 @@ public interface CardCollection {
             result = 31 * result + _count;
             result = 31 * result + (_blueprintId != null ? _blueprintId.hashCode() : 0);
             return result;
+        }
+
+        @Override
+        public String toString() {
+            return "" + _count + "x" + _blueprintId;
         }
     }
 }

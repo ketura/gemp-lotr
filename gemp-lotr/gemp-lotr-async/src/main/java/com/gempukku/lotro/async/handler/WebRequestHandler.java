@@ -2,6 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.common.AppConfig;
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpHeaders;
 
@@ -14,6 +15,10 @@ import java.util.Map;
 
 public class WebRequestHandler implements UriRequestHandler {
     private final String _root;
+
+    public WebRequestHandler() {
+        this(AppConfig.getWebPath());
+    }
 
     public WebRequestHandler(String root) {
         _root = root;

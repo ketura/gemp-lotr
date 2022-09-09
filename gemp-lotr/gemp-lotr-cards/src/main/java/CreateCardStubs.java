@@ -2,8 +2,8 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -39,10 +39,10 @@ public class CreateCardStubs {
     private static void produceForSet(File root, int set) {
         File setPath = new File(root, "set" + set);
 
-        CardSets cardSets = new CardSets();
+        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         Map<String, Map<String, LotroCardBlueprint>> cardsByFileName = new HashMap<>();
 
-        SetDefinition setDefinition = cardSets.getSetDefinitions().get("" + set);
+        SetDefinition setDefinition = library.getSetDefinitions().get("" + set);
         if (setDefinition.hasFlag("needsLoading")) {
             final Set<String> allCards = setDefinition.getAllCards();
             for (String blueprintId : allCards) {

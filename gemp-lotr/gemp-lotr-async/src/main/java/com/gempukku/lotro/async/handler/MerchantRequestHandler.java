@@ -23,7 +23,6 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class MerchantRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private final Map<String, SetDefinition> _rarities;
     private final CollectionsManager _collectionsManager;
     private final SortAndFilterCards _sortAndFilterCards;
     private final MerchantService _merchantService;
@@ -38,8 +37,6 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         _merchantService = extractObject(context, MerchantService.class);
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
-
-        _rarities = extractObject(context, CardSets.class).getSetDefinitions();
 
     }
 
@@ -139,7 +136,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             }
         }
 
-        List<BasicCardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
+        List<BasicCardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary);
 
         List<CardItem> pageToDisplay = new ArrayList<>();
         for (int i = start; i < start + count; i++) {

@@ -27,7 +27,7 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
 
         skipMulligans();
 
@@ -51,7 +51,7 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
 
         skipMulligans();
 
@@ -80,7 +80,7 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
 
         skipMulligans();
 
@@ -111,7 +111,7 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
 
         skipMulligans();
 
@@ -142,7 +142,7 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
 
         skipMulligans();
 
@@ -173,7 +173,7 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
 
         skipMulligans();
 
@@ -204,8 +204,8 @@ public class RoamingAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _library.getLotroCardBlueprint("1_266"));
-        PhysicalCardImpl sauronsHatred = new PhysicalCardImpl(100, "7_310", P2, _library.getLotroCardBlueprint("7_310"));
+        PhysicalCardImpl orcChieftain = new PhysicalCardImpl(100, "1_266", P2, _cardLibrary.getLotroCardBlueprint("1_266"));
+        PhysicalCardImpl sauronsHatred = new PhysicalCardImpl(100, "7_310", P2, _cardLibrary.getLotroCardBlueprint("7_310"));
 
         skipMulligans();
 

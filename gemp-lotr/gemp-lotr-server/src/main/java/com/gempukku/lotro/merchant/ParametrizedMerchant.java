@@ -1,7 +1,6 @@
 package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.db.MerchantDAO;
-import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
@@ -23,12 +22,10 @@ public class ParametrizedMerchant implements Merchant {
     private final long _decreaseHalfedMs = 90 * DAY;
 
     private MerchantDAO _merchantDao;
-    private final Map<String, SetDefinition> _rarity;
     private final LotroCardBlueprintLibrary _library;
 
-    public ParametrizedMerchant(LotroCardBlueprintLibrary library, CardSets cardSets) {
+    public ParametrizedMerchant(LotroCardBlueprintLibrary library) {
         _library = library;
-        _rarity = cardSets.getSetDefinitions();
     }
 
     public void setMerchantSetupDate(Date merchantSetupDate) {
@@ -97,7 +94,7 @@ public class ParametrizedMerchant implements Merchant {
         int underscoreIndex = blueprintId.indexOf("_");
         if (underscoreIndex == -1)
             return null;
-        SetDefinition rarity = _rarity.get(blueprintId.substring(0, blueprintId.indexOf("_")));
+        SetDefinition rarity = _library.getSetDefinitions().get(blueprintId.substring(0, blueprintId.indexOf("_")));
         String cardRarity = rarity.getCardRarity(blueprintId);
         if (cardRarity.equals("X"))
             return 3 * BOOSTER_PRICE;

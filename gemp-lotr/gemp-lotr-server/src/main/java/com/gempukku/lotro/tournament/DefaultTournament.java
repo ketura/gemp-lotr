@@ -10,6 +10,7 @@ import com.gempukku.lotro.draft.DraftPack;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.packs.ProductLibrary;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
@@ -49,7 +50,7 @@ public class DefaultTournament implements Tournament {
     private List<PlayerStanding> _currentStandings;
 
     public DefaultTournament(CollectionsManager collectionsManager, TournamentService tournamentService,
-                             PacksStorage packsStorage, DraftPack draftPack, String tournamentId, String tournamentName, String format, CollectionType collectionType,
+                             ProductLibrary productLibrary, DraftPack draftPack, String tournamentId, String tournamentName, String format, CollectionType collectionType,
                              int tournamentRound, Stage tournamentStage, PairingMechanism pairingMechanism, TournamentPrizes tournamentPrizes) {
         _tournamentService = tournamentService;
         _tournamentId = tournamentId;
@@ -84,7 +85,7 @@ public class DefaultTournament implements Tournament {
             if (matchesToCreate.size() > 0)
                 _nextTask = new CreateMissingGames(matchesToCreate);
         } else if (_tournamentStage == Stage.DRAFT) {
-            _draft = new DefaultDraft(collectionsManager, _collectionType, packsStorage, draftPack,
+            _draft = new DefaultDraft(collectionsManager, _collectionType, productLibrary, draftPack,
                     _players);
         } else if (_tournamentStage == Stage.DECK_BUILDING) {
             _deckBuildStartTime = System.currentTimeMillis();

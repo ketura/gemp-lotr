@@ -5,8 +5,8 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraft;
-import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -19,10 +19,11 @@ public class SealedLeagueData implements LeagueData {
     private final CollectionType _collectionType;
     private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private final LeaguePrizes _leaguePrizes;
-    private final SealedLeagueProduct _leagueProduct;
+    private final LotroFormatLibrary _formatLibrary;
 
-    public SealedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
-        _leaguePrizes = new FixedLeaguePrizes(cardSets);
+    public SealedLeagueData(LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, String parameters) {
+        _leaguePrizes = new FixedLeaguePrizes(library);
+        _formatLibrary = formatLibrary;
         
         String[] params = parameters.split(",");
         _format = params[0];
@@ -32,14 +33,12 @@ public class SealedLeagueData implements LeagueData {
         int serieDuration = 7;
         int maxMatches = 10;
 
-        _leagueProduct = new SealedLeagueProduct();
-
         _series = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
             _series.add(
                     new DefaultLeagueSerieData(_leaguePrizes, true, "Week " + (i + 1),
                             DateUtils.offsetDate(start, i * serieDuration), DateUtils.offsetDate(start, (i + 1) * serieDuration - 1), maxMatches,
-                            _format, _collectionType));
+                            formatLibrary.getFormatByName(_format), _collectionType));
         }
     }
 
@@ -64,9 +63,10 @@ public class SealedLeagueData implements LeagueData {
         for (int i = 0; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
             if (currentTime >= serie.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
+                var sealedLeague = _formatLibrary.GetSealedTemplate(_format);
+                var leagueProduct = sealedLeague.GetProductForSerie(i);
 
-                for (CardCollection.Item serieCollectionItem : leagueProduct.getAll())
+                for (CardCollection.Item serieCollectionItem : leagueProduct)
                     startingCollection.addItem(serieCollectionItem.getBlueprintId(), serieCollectionItem.getCount());
             }
         }
@@ -81,10 +81,12 @@ public class SealedLeagueData implements LeagueData {
         for (int i = status; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
             if (currentTime >= serie.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
+                var sealedLeague = _formatLibrary.GetSealedTemplate(_format);
+                var leagueProduct = sealedLeague.GetProductForSerie(i);
+
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll());
+                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct);
                 }
                 status = i + 1;
             }

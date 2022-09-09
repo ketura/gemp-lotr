@@ -395,6 +395,10 @@ table.tables tr.privateForPlayer {
 	color: #5f5f5f;
 }
 
+.user-mention.systemMessage {
+	color: #FFFFFF;
+}
+
 .warningMessage {
 	color: #ff0000;
 }
@@ -565,6 +569,7 @@ table.tables tr.privateForPlayer {
 
 .ui-button-text-only .ui-button-text {
 	padding: .2em .5em;
+	text-align: center;
 }
 
 .standings td, .standings th {

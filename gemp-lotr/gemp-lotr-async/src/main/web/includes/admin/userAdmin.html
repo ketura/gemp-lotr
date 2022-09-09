@@ -1,0 +1,56 @@
+
+<script type="text/javascript" src="js/gemp-022/manage.js"></script>
+
+
+<div id="banMain" class="article">
+	<h1>Ban User</h1>
+	<h2>Permanently</h2>
+	<div>
+		Name (case-sensitive): <input id="permaban-input" type="text" ><br/>
+		<button id="permaban-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Permaban User
+		</button> <span id="permaban-result" style="display:inline-block;">Ready.</span>
+	</div>
+
+	<h2>Temporarily</h2>
+	<div>
+		Name (case-sensitive): <input id="tempban-input" type="text" ><br/>
+		<div>Duration:
+			<select id="temp-ban-duration-select">
+				<option value="1">1 day</option>
+				<option value="3">3 days</option>
+				<option value="7">7 days</option>
+				<option value="14">14 days</option>
+				<option value="30">30 days</option>
+			</select><br/>
+		</div>
+		<button id="tempban-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Tempban User
+		</button> <span id="tempban-result" style="display:inline-block;">Ready.</span>
+	</div>
+	
+	<br><hr>
+	
+	<h1>Unban user</h1>
+	<div>
+		Name (case-sensitive): <input id="unban-input" type="text" ><br/>
+		<button id="unban-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Unban User
+		</button> <span id="unban-result" style="display:inline-block;">Ready.</span>
+	</div>
+	
+	<br><hr>
+	
+	<h1>Find Suspicious Behaviour</h1>
+	<h2>Multiple User Accounts</h2>
+	<div>
+		Name (case-sensitive): <input id="sus-input" type="text" ><br/>
+		<button id="sus-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false" style="padding:4px;">
+			Find Similar Accounts
+		</button> <span id="sus-result" style="display:inline-block;">Ready.</span>
+		<div id="displayUsers"></div>
+	</div>
+	
+</div>
+
+

@@ -276,3 +276,7 @@ gl_theOneRing,1_2
 19_41,19_18
 #Aragorn's Bow, Ranger's Longbow MW
 15_208,15_56
+#Boromir, Redeemed FA (V1_20)
+101_65,101_20
+#I See You FA (V1_46)
+101_66,101_46

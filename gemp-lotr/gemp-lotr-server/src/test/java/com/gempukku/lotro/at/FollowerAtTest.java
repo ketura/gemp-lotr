@@ -20,8 +20,8 @@ public class FollowerAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl pallando = new PhysicalCardImpl(100, "13_37", P1, _library.getLotroCardBlueprint("13_37"));
-        PhysicalCardImpl goblinWarrior = new PhysicalCardImpl(101, "1_185", P2, _library.getLotroCardBlueprint("1_185"));
+        PhysicalCardImpl pallando = new PhysicalCardImpl(100, "13_37", P1, _cardLibrary.getLotroCardBlueprint("13_37"));
+        PhysicalCardImpl goblinWarrior = new PhysicalCardImpl(101, "1_185", P2, _cardLibrary.getLotroCardBlueprint("1_185"));
 
         _game.getGameState().addCardToZone(_game, pallando, Zone.HAND);
         _game.getGameState().addCardToZone(_game, goblinWarrior, Zone.HAND);

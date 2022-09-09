@@ -5,10 +5,10 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraft;
-import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,8 +21,8 @@ public class NewConstructedLeagueData implements LeagueData {
     private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private final CollectionType _collectionType;
 
-    public NewConstructedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
-        _leaguePrizes = new FixedLeaguePrizes(cardSets);
+    public NewConstructedLeagueData(LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, String parameters) {
+        _leaguePrizes = new FixedLeaguePrizes(library);
         
         String[] params = parameters.split(",");
         int start = Integer.parseInt(params[0]);
@@ -40,7 +40,7 @@ public class NewConstructedLeagueData implements LeagueData {
             int maxMatches = Integer.parseInt(params[6 + i * 3]);
             _series.add(new DefaultLeagueSerieData(_leaguePrizes, false, "Serie " + (i + 1),
                     serieStart, DateUtils.offsetDate(serieStart, duration - 1),
-                    maxMatches, format, _collectionType));
+                    maxMatches, formatLibrary.getFormat(format), _collectionType));
 
             serieStart = DateUtils.offsetDate(serieStart, duration);
         }

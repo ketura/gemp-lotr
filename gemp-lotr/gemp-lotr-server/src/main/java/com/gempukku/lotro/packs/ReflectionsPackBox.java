@@ -1,24 +1,25 @@
 package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ReflectionsPackBox implements PackBox {
-    private final SetDefinition _reflectionsRarity;
+    //private final SetDefinition _reflectionsRarity;
     private final List<String> _previousSetCards = new ArrayList<>();
     private final List<String> _reflectionSlotCards = new ArrayList<>();
 
-    public ReflectionsPackBox(CardSets cardSets) {
-        _reflectionsRarity = cardSets.getSetDefinitions().get("9");
+    public ReflectionsPackBox(LotroCardBlueprintLibrary library) {
+        var reflectionsRarity = library.getSetDefinitions().get("9");
 
         for (int set = 1; set <= 6; set++) {
-            final SetDefinition setRarity = cardSets.getSetDefinitions().get(String.valueOf(set));
+            final SetDefinition setRarity = library.getSetDefinitions().get(String.valueOf(set));
             _previousSetCards.addAll(setRarity.getCardsOfRarity("R"));
             _previousSetCards.addAll(setRarity.getCardsOfRarity("P"));
             for (int i = 0; i < 3; i++)
@@ -27,11 +28,11 @@ public class ReflectionsPackBox implements PackBox {
                 _previousSetCards.addAll(setRarity.getCardsOfRarity("C"));
         }
 
-        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("X"));
+        _reflectionSlotCards.addAll(reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(reflectionsRarity.getCardsOfRarity("X"));
     }
 
     @Override
@@ -57,5 +58,16 @@ public class ReflectionsPackBox implements PackBox {
 
     public String getRandomReflectionsCard() {
         return _reflectionSlotCards.get(ThreadLocalRandom.current().nextInt(_reflectionSlotCards.size()));
+    }
+
+    @Override
+    public List<CardCollection.Item> openPack(int selection) { return openPack(); }
+
+    @Override
+    public List<String> GetAllOptions() {
+        var list = new ArrayList<String>();
+        list.addAll(_previousSetCards);
+        list.addAll(_reflectionSlotCards);
+        return Collections.unmodifiableList(list);
     }
 }

@@ -15,6 +15,7 @@ public interface SoloDraft {
 
     boolean hasNextStage(long seed, int stage);
 
+    String getCode();
     String getFormat();
 
     interface DraftChoice {
