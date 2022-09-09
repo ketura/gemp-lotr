@@ -23,6 +23,12 @@ var GempLotrHallUI = Class.extend({
 		
 		this.chat = chat;
 		
+		$("#chat").resizable({
+			handles: "n",
+			minHeight: 150,
+			distance: 10
+		});
+		
 		this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
 			if (thrownError != "abort") {
 				if (xhr != null) {
@@ -105,6 +111,8 @@ var GempLotrHallUI = Class.extend({
 
 		this.getHall();
 		this.updateDecks();
+		
+		
 	},
 	
 	initTable: function(displayed, headerID, tableID) {
@@ -200,7 +208,8 @@ var GempLotrHallUI = Class.extend({
 			resizable: false,
 			height: 160,
 			modal: true,
-			buttons: buttons
+			buttons: buttons,
+			closeText: ''
 		}).text(text);
 	},
 

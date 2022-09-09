@@ -143,7 +143,7 @@
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+.ui-button, .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     border: 1px solid #444444;
     background: #222222 url(images/ui-bg_highlight-soft_35_222222_1x100.png) 50% 50% repeat-x;
     font-weight: normal;
@@ -998,6 +998,7 @@
     background: #5c5c5c url(images/ui-bg_flat_50_5c5c5c_40x100.png) 50% 50% repeat-x;
     opacity: .80;
     filter: Alpha(Opacity = 80);
+    z-index: 1001;
 }
 
 .ui-widget-shadow {
@@ -1133,7 +1134,6 @@
     cursor: pointer;
     position: relative;
     margin-top: 1px;
-    zoom: 1;
 }
 
 .ui-accordion .ui-accordion-li-fix {
@@ -1170,7 +1170,6 @@
     margin-bottom: 2px;
     overflow: auto;
     display: none;
-    zoom: 1;
 }
 
 .ui-accordion .ui-accordion-content-active {
@@ -1222,7 +1221,6 @@
 .ui-menu .ui-menu-item {
     margin: 0;
     padding: 0;
-    zoom: 1;
     float: left;
     clear: left;
     width: 100%;
@@ -1233,7 +1231,6 @@
     display: block;
     padding: .2em .4em;
     line-height: 1.5;
-    zoom: 1;
 }
 
 .ui-menu .ui-menu-item a.ui-state-hover,
@@ -1254,12 +1251,11 @@
 .ui-button {
     display: inline-block;
     position: relative;
-    padding: 0;
+    padding: .2em .3em;
     margin-right: .1em;
     text-decoration: none !important;
     cursor: pointer;
     text-align: center;
-    zoom: 1;
     overflow: visible;
 }
 
@@ -1317,9 +1313,10 @@ input.ui-button {
 
 /*button icon element(s) */
 .ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon {
-    position: absolute;
+    
     top: 50%;
     margin-top: -8px;
+    margin: auto;
 }
 
 .ui-button-icon-only .ui-icon {
@@ -1370,6 +1367,7 @@ button.ui-button::-moz-focus-inner {
     padding: .2em;
     width: 300px;
     overflow: hidden;
+    z-index: 1001;
 }
 
 .ui-dialog .ui-dialog-titlebar {
@@ -1388,13 +1386,13 @@ button.ui-button::-moz-focus-inner {
     top: 50%;
     width: 19px;
     margin: -10px 0 0 0;
-    padding: 1px;
+    padding: 0;
     height: 18px;
 }
 
 .ui-dialog .ui-dialog-titlebar-close span {
     display: block;
-    margin: 1px;
+    margin: auto;
 }
 
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
@@ -1407,7 +1405,6 @@ button.ui-button::-moz-focus-inner {
     padding: .5em 1em;
     background: none;
     overflow: auto;
-    zoom: 1;
 }
 
 .ui-dialog .ui-dialog-buttonpane {
@@ -1527,7 +1524,6 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs {
     position: relative;
     padding: .2em;
-    zoom: 1;
 }
 
 /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */

@@ -79,3 +79,11 @@ body {
     color: #ffffff;
     font-size: 180%;
 }
+
+.menu-button.ui-button {
+    padding: 0;
+}
+
+.menu-button > .ui-button-text {
+    padding: 0;
+}

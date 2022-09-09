@@ -114,8 +114,12 @@ textarea, input {
 	margin: 2px;
 }
 
-button > span {
+button {
 	white-space: nowrap;
+}
+
+.toolbar-button {
+	padding: .4em .8em;
 }
 
 #main {
@@ -338,15 +342,32 @@ table.tables tr.privateForPlayer {
 }
 
 #chat {
-	grid-template-columns: auto 150px;
+/*	grid-template-columns: auto 150px;*/
 	position:relative;
 	width:100%;
-	height:40%;
-	min-height: 300px;
+	/*min-height: 30px;*/
+	height: 500px;
 	grid-gap: 3px;
 	overflow: hidden;
 	background-color: #121212;
-	flex-grow: 1;
+	top: 0 !important;
+	padding-top: 5px;
+}
+
+.ui-resizable-handle {
+	background-color: #777777;
+	height: 7px;
+	top: -1px;
+}
+
+.ui-resizable-handle::after {
+  content: '';
+  width: 10%;
+  height: 10px;
+  background: #999999;
+  position: absolute;
+  bottom: -2px;
+  left: 45%;
 }
 
 #chatarea {
