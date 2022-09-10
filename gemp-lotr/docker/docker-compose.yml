@@ -42,6 +42,9 @@ services:
        - type: bind
          source: ../..
          target: /gemp-src
+       - type: bind
+         source: ../../logs/nohup.out
+         target: /nohup.out
     networks:
       gemp_net_1:
         ipv4_address: ${APP_IP}
