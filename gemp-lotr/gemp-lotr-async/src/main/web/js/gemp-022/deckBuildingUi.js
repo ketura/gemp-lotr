@@ -958,7 +958,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         var that = this;
         var currentFormat = $("#formatSelect").val();
         
-        this.comm.getFormats(
+        this.comm.getFormats(false,
             function (json) 
             {
                 that.formatSelect.empty();

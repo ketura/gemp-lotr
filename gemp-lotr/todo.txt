@@ -1,4 +1,17 @@
-
+TODO:
+	+ flesh out the SealedLeageDefinition and convert NewSealedLeagueData to utilize it
+	+ Add sealed format loading to LotroFormatLibrary
+	+ Add hot reloading to LotroFormatLibrary / extend the hot reload button
+	x Rename LotroFormatLibrary -> FormatLibrary
+	+ Alter admin panel usage to look up instead of recreating each time
+	x move the static creation to FormatLibrary
+	+ add 5 second delay scrolldown on chat creation?
+	+ add resize handle to chat
+	+ Alter the league admin panel to dynamically generate all three format dropdowns
+	x alter sealed admin panel to dynamically alter the number of series
+	+ fix sealed leagues hard-coded to 4 series
+	- look into adding prize definitions
+	
 - add links to the users list to their profiles
 - add email column to user
 - add email field to register form

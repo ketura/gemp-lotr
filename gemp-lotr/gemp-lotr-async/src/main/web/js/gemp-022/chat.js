@@ -460,8 +460,11 @@ var ChatBoxUI = Class.extend({
         this.chatTalkDiv.prop('disabled', true);
         this.chatTalkDiv.css({"background-color": "#ff9999"});
         
-        this.discordDiv.prop('disabled', true);
-        this.discordDiv.css({"background-color": "#ff9999"});
+        if(this.discordDiv)
+        {
+            this.discordDiv.prop('disabled', true);
+            this.discordDiv.css({"background-color": "#ff9999"});
+        }
     },
 
     chatErrorMap:function() {

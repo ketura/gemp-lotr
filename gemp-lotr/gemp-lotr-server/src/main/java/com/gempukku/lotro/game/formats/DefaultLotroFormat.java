@@ -655,4 +655,34 @@ public class DefaultLotroFormat implements LotroFormat {
             counts.put(name, count + 1);
         }
     }
+
+    @Override
+    public JSONDefs.Format Serialize() {
+        return new JSONDefs.Format() {{
+            adventure = null;
+            code = _code;
+            name = _name;
+            order = _order;
+            surveyUrl = _surveyUrl;
+            sites = _siteBlock.getHumanReadable();
+            cancelRingBearerSkirmish = _canCancelRingBearerSkirmish;
+            ruleOfFour = _hasRuleOfFour;
+            winAtEndOfRegroup = _winAtEndOfRegroup;
+            winOnControlling5Sites = _winOnControlling5Sites;
+            playtest = _isPlaytest;
+            validateShadowFPCount = _validateShadowFPCount;
+            minimumDeckSize = _minimumDeckSize;
+            maximumSameName = _maximumSameName;
+            mulliganRule = _mulliganRule;
+            set = null;
+            banned = null;
+            restricted = null;
+            valid = null;
+            limit2 = null;
+            limit3 = null;
+            restrictedName = null;
+            errata = null;
+            hall = _hallVisible;
+        }};
+    }
 }

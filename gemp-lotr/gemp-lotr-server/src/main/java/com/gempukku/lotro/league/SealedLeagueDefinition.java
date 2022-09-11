@@ -1,27 +1,15 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SealedLeagueDefinition {
-
-
-    //TODO:
-    // + flesh this out and convert NewSealedLeagueData to utilize it
-    // + Add sealed format loading to LotroFormatLibrary
-    // + Add hot reloading to LotroFormatLibrary / extend the hot reload button
-    // - Rename LotroFormatLibrary -> FormatLibrary
-    // + Alter admin panel usage to look up instead of recreating each time
-    // x move the static creation to FormatLibrary
-    // - add 5 second delay scrolldown on chat creation?
-    // - add resize handle to chat
-    // - Alter the league admin panel to dynamically generate all three format dropdowns
-    // -
-
     private final String _name;
     private final LotroFormat _format;
     private final List<List<CardCollection.Item>> _seriesProduct = new ArrayList<>();
@@ -47,4 +35,14 @@ public class SealedLeagueDefinition {
     public LotroFormat GetFormat() { return _format; }
     public List<List<CardCollection.Item>> GetAllSeriesProducts() { return Collections.unmodifiableList(_seriesProduct); }
     public List<CardCollection.Item> GetProductForSerie(int serie) { return Collections.unmodifiableList(_seriesProduct.get(serie)); }
+
+    public JSONDefs.SealedTemplate Serialize() {
+        return new JSONDefs.SealedTemplate() {{
+           Name = _name;
+           Format = _format.getCode();
+           SeriesProduct = _seriesProduct.stream()
+                   .map(x->x.stream().map(CardCollection.Item::toString).collect(Collectors.toList()))
+                   .collect(Collectors.toList());
+        }};
+    }
 }

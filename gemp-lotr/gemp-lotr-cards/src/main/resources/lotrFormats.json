@@ -120,7 +120,7 @@
     {
         "name":"Towers Block",
         "code":"ttt_block",
-        "order": 5,
+        "order": 9,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "set":[4, 5, 6]
@@ -128,7 +128,7 @@
     {
         "name":"Towers Open - Sets 1-4",
         "code":"open_legacy",
-        "order": 9,
+        "order": 10,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "set":[1, 2, 3, 4],
@@ -137,7 +137,7 @@
     {
         "name":"Towers Block - Set 4",
         "code":"ttt1_block",
-        "order": 10,
+        "order": 11,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "set":[4],
@@ -146,7 +146,7 @@
     {
         "name":"Towers Block - Sets 4-5",
         "code":"ttt2_block",
-        "order": 11,
+        "order": 12,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "set":[4, 5],
@@ -156,7 +156,7 @@
     {
         "name":"Towers Standard",
         "code":"towers_standard",
-        "order": 12,
+        "order": 13,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "banned":["1_40", "1_45", "1_80", "1_108", "1_139", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_68", "4_192"],
@@ -165,7 +165,7 @@
     {
         "name":"Towers Standard - Sets 1-4",
         "code":"ttt_standard",
-        "order": 13,
+        "order": 14,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "banned":["1_40", "1_45", "1_80", "1_108", "1_139", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_68", "4_192"],
@@ -175,7 +175,7 @@
     {
         "name":"Towers Standard - Sets 1-5",
         "code":"bohd_standard",
-        "order": 14,
+        "order": 15,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "banned":["1_40", "1_45", "1_80", "1_108", "1_139", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_68", "4_192"],
@@ -185,7 +185,7 @@
     {
         "name":"Towers Standard - Sets 2-6",
         "code":"ts_no_fotr",
-        "order": 15,
+        "order": 16,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
         "banned":["1_40", "1_45", "1_80", "1_108", "1_139", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_68", "4_192"],
@@ -195,7 +195,7 @@
     {
         "name":"Enhanced Towers Standard",
         "code":"ts_reflections",
-        "order": 16,
+        "order": 17,
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":false,
         "banned":["1_40", "1_45", "1_80", "1_108", "1_139", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_68", "4_192"],
@@ -205,7 +205,7 @@
     {
         "name":"King Block",
         "code":"king_block",
-        "order": 17,
+        "order": 18,
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
         "restricted":["7_49"],
@@ -214,7 +214,7 @@
     {
         "name":"King Block - Set 7",
         "code":"king1_block",
-        "order": 18,
+        "order": 19,
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
         "restricted":["7_49"],
@@ -224,7 +224,7 @@
     {
         "name":"King Block - Sets 7-8",
         "code":"king2_block",
-        "order": 19,
+        "order": 20,
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
         "restricted":["7_49"],
@@ -234,7 +234,7 @@
     {
         "name":"King Standard",
         "code":"rotk_sta",
-        "order": 20,
+        "order": 21,
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
         "banned":["1_40", "1_45","1_80", "1_108", "1_139", "1_195", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_67", "3_68", "3_106", "3_108"],
@@ -243,7 +243,7 @@
     {
         "name":"Movie Block - Sets 1-7",
         "code":"movie7",
-        "order": 21,
+        "order": 22,
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7],
@@ -252,7 +252,7 @@
     {
         "name":"Movie Block - Sets 1-8",
         "code":"movie8",
-        "order": 22,
+        "order": 23,
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7, 8],
@@ -261,7 +261,7 @@
     {
         "name":"Movie Block - Sets 1-9",
         "code":"movie9",
-        "order": 23,
+        "order": 24,
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -270,7 +270,7 @@
     {
         "name":"Movie Block - Sets 1-8, 10",
         "code":"movie_sans9",
-        "order": 24,
+        "order": 25,
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 10],
@@ -279,7 +279,7 @@
     {
         "name":"Movie Block, no GLR (10R11)",
         "code":"movie_exp",
-        "order": 25,
+        "order": 26,
         "sites":"KING",
         "banned":["8_1", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "10_11", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234"],
         "set":[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -288,7 +288,7 @@
     {
         "name":"Pre-Shadows Multipath",
         "code":"multipath",
-        "order": 26,
+        "order": 27,
         "sites":"SPECIAL",
         "banned":["1_138", "1_311", "1_316", "1_331", "1_338", "1_354", "1_355", "1_360", "2_14", "2_75", "3_1", "3_113", "4_73", "4_338", "4_355", "4_357", "7_190", "8_20", "10_11",
             "8_1", "8_3", "3_38", "3_106", "1_40", "2_32", "1_248", "3_108", "1_45", "7_96", "3_42", "10_2", "10_91", "1_108", "1_80", "3_67", "1_195", "3_68", "1_139", "7_49", "1_313", "1_234", "7_156"],
@@ -298,7 +298,7 @@
     {
         "name":"War of the Ring Block",
         "code":"war_block",
-        "order": 27,
+        "order": 28,
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
         "set":[11, 12, 13]
@@ -306,7 +306,7 @@
     {
         "name":"War of the Ring Block - Set 11",
         "code":"war_block11",
-        "order": 28,
+        "order": 29,
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
         "set":[11],
@@ -315,7 +315,7 @@
     {
         "name":"War of the Ring Block - Sets 11-12",
         "code":"war_block12",
-        "order": 29,
+        "order": 30,
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
         "set":[11, 12],
@@ -324,7 +324,7 @@
     {
         "name":"War of the Ring Block - Sets 10-14",
         "code":"war_block14",
-        "order": 30,
+        "order": 31,
         "sites":"SHADOWS",
         "restricted":["11_132", "11_100"],
         "set":[10, 11, 12, 13, 14],
@@ -333,7 +333,7 @@
     {
         "name":"War of the Ring Standard",
         "code":"war_standard",
-        "order": 31,
+        "order": 32,
         "sites":"SHADOWS",
         "banned":["4_73", "4_276", "4_304", "7_49", "8_1", "10_2", "10_11", "10_91", "11_31", "11_100", "11_132"],
         "set":[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -341,7 +341,7 @@
     {
         "name":"Hunters Block",
         "code":"hunter_block",
-        "order": 32,
+        "order": 33,
         "sites":"SHADOWS",
         "set":[15, 17, 18]
     },
@@ -349,7 +349,7 @@
         "name":"Pre-Hunters Expanded",
         "code":"pre-hunters_expanded",
         "sites":"SHADOWS",
-        "order": 33,
+        "order": 34,
         "banned":["1_45", "1_138", "1_234", "1_311", "1_313", "1_316", "2_121", "3_17", "3_38", "3_42", "3_67", "3_68", "3_108", "3_113", "4_73", "7_49", "8_1", "10_2", "10_11", "10_91", "11_31", "11_100", "11_132"],
         "restricted":["1_40", "1_80", "1_108", "1_139", "1_195", "1_248", "2_32", "2_75", "3_106", "4_276", "4_304"],
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -357,7 +357,7 @@
     {
         "name":"Standard",
         "code":"standard",
-        "order": 34,
+        "order": 35,
         "sites":"SHADOWS",
         "banned":["0_1-19", "0_21", "0_22", "0_30-47", "0_62-67", "8_1", "13_188", "11_114", "11_31", "10_11", "15_64", "10_2", "10_91", "11_132", "7_49", "11_100"],
         "set":[0, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
@@ -365,7 +365,7 @@
     {
         "name":"Open",
         "code":"open",
-        "order": 35,
+        "order": 36,
         "sites":"SHADOWS",
         "restricted":["1_248", "7_49", "10_2", "10_91", "11_100", "11_132"],
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
@@ -373,7 +373,7 @@
     {
         "name": "Anything Goes",
         "code":"rev_tow_sta",
-        "order": 36,
+        "order": 37,
         "sites": "SPECIAL",
         "cancelRingBearerSkirmish":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -386,7 +386,7 @@
     {
         "name":"French",
         "code":"french",
-        "order": 37,
+        "order": 38,
         "sites":"SHADOWS",
         "banned":["1_40", "1_45", "1_80", "1_108", "1_138", "1_234", "1_248", "1_311", "1_313", "1_316", "2_14", "2_32", "2_75", "2_121", "3_17", "3_38", "3_42", "3_67", "3_68", "3_108", "4_73", "4_304", "5_23", "9_35", "11_31", "11_49", "11_100", "11_114", "11_132", "11_222", "11_226", "11_231", "11_232", "13_11", "13_37", "13_64", "13_188", "14_6"],
         "set":[0, 1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14]
@@ -394,7 +394,7 @@
     {
         "name":"Second Edition",
         "code":"2nd_ed",
-        "order": 38,
+        "order": 39,
         "sites":"SECOND_ED",
         "banned":[],
         "restricted":[],
@@ -409,7 +409,7 @@
     {
         "name":"Hobbit: The Short Rest",
         "code":"hobbit_tsr",
-        "order": 39,
+        "order": 40,
         "sites":"HOBBIT",
         "cancelRingBearerSkirmish":true,
         "restricted":["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_16", "30_17", "30_18", "30_19", "30_29", "30_47", "30_48", "30_58", "31_13", "31_14", "31_16", "31_23", "31_56"],
@@ -422,7 +422,7 @@
     {
         "name": "Hobbit: The Clouds Burst",
         "code": "hobbit_tcb",
-        "order": 40,
+        "order": 41,
         "sites": "HOBBIT",
         "cancelRingBearerSkirmish": true,
         "restricted": ["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_16", "30_17", "30_18", "30_19", "30_29", "30_47", "30_48", "30_58"], 
@@ -435,7 +435,7 @@
     {
         "name": "Hobbit: Fire and Water",
         "code": "hobbit_faw",
-        "order": 41,
+        "order": 42,
         "sites": "HOBBIT",
         "cancelRingBearerSkirmish": true,
         "restricted": ["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_16", "30_17", "30_18", "30_19", "30_29", "30_47", "30_48", "30_58"],
@@ -448,7 +448,7 @@
     {
         "name":"PLAYTEST - Fellowship Block (PC)",
         "code":"test_pc_fotr_block",
-        "order": 42,
+        "order": 43,
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
         "hall":true,
@@ -468,7 +468,7 @@
     {
         "name":"PLAYTEST - Movie Block (PC)",
         "code":"test_pc_movie",
-        "order": 43,
+        "order": 44,
         "sites":"KING",
         "hall":true,
         "playtest":true,
@@ -492,7 +492,7 @@
         "name":"PLAYTEST - Expanded (PC)",
         "code":"test_pc_expanded",
         "sites":"SHADOWS",
-        "order": 44,
+        "order": 45,
         "hall":true,
         "playtest":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 101, 151],

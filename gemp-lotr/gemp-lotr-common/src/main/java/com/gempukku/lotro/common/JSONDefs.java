@@ -1,9 +1,6 @@
 package com.gempukku.lotro.common;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class JSONDefs {
     public static class Pack {
@@ -21,6 +18,15 @@ public class JSONDefs {
         public String Name;
         public String Format;
         public List<List<String>> SeriesProduct;
+    }
+
+    public static class ItemStub {
+        public String code;
+        public String name;
+        public ItemStub(String c, String n) {
+            code = c;
+            name = n;
+        }
     }
 
     public static class Format {
@@ -48,5 +54,12 @@ public class JSONDefs {
         public ArrayList<String> restrictedName = new ArrayList<>();
         public Map<String, String> errata = new HashMap<>();
         public boolean hall = true;
+
+    }
+
+    public static class FullFormatReadout {
+        public Map<String, Format> Formats;
+        public Map<String, SealedTemplate> SealedTemplates;
+        public Map<String, ItemStub> DraftTemplates;
     }
 }

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -57,4 +58,5 @@ public interface LotroFormat {
     public int getHandSize();
 
     public Adventure getAdventure();
+    public JSONDefs.Format Serialize();
 }

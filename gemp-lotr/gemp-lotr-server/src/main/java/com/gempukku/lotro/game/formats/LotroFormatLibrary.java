@@ -145,6 +145,18 @@ public class LotroFormatLibrary {
         }
     }
 
+    public Map<String, LotroFormat> getAllFormats() {
+        try {
+            collectionReady.acquire();
+            var data = Collections.unmodifiableMap(_allFormats);
+            collectionReady.release();
+            return data;
+        }
+        catch (InterruptedException exp) {
+            throw new RuntimeException("FormatLibrary.getAllFormats() interrupted: ", exp);
+        }
+    }
+
     public LotroFormat getFormat(String formatCode) {
         try {
             collectionReady.acquire();
@@ -189,6 +201,18 @@ public class LotroFormatLibrary {
             if(data == null) {
                 data = _sealedTemplates.get(legacyCodeMapping.get(leagueName));
             }
+            collectionReady.release();
+            return data;
+        }
+        catch (InterruptedException exp) {
+            throw new RuntimeException("FormatLibrary.GetSealedTemplate() interrupted: ", exp);
+        }
+    }
+
+    public Map<String,SealedLeagueDefinition> GetAllSealedTemplates() {
+        try {
+            collectionReady.acquire();
+            var data = Collections.unmodifiableMap(_sealedTemplates);
             collectionReady.release();
             return data;
         }

@@ -32,7 +32,8 @@ $(document).ready(
 					closeOnEscape:true,
 					resizable:true,
 					modal:true,
-					title:"Preview window"
+					title:"Preview window",
+					closeText: ''
 				});
 
 		var displayPreview = function (xml) {
@@ -219,7 +220,83 @@ $(document).ready(
 				function () {
 					$(".serieData").last().clone().appendTo(".series");
 				});
+		
+		
+		hall.comm.getFormats(true,
+			function (json) 
+			{
+				console.log(json);
+				let drafts = json.DraftTemplates;
+				let formats = json.Formats;
+				let sealed = json.SealedTemplates
+				console.log(drafts);
+				for (var prop in drafts) {
+					if (Object.prototype.hasOwnProperty.call(drafts, prop)) {
+						console.log(prop);
+						
+						var item = $("<option/>")
+							.attr("value", prop)
+							.text(prop);
+						$("#solo-draft-format").append(item);
+					}
+				}
+				sortOptionsByName("#solo-draft-format");
+				
+				console.log(formats);
+				for (var prop in formats) {
+					if (Object.prototype.hasOwnProperty.call(formats, prop)) {
+						console.log(prop);
+						
+						if(formats[prop].name.includes("Limited"))
+							continue;
+						
+						let num = ("0000" + formats[prop].order).substr(-4);
+						
+						var item = $("<option/>")
+							.attr("value", prop)
+							.text("" + num + " - " + formats[prop].name);
+						$("#constructed-format").append(item);
+					}
+				}
+				sortOptionsByName("#constructed-format");
+				$("#constructed-format option").each(function(index) {
+					console.log(this);
+					let newText = $(this).text().replace(/\d+ - /, '');
+					console.log(newText);
+					$(this).text(newText);
+				});
+				
+				console.log(sealed);
+				for (var prop in sealed) {
+					if (Object.prototype.hasOwnProperty.call(sealed, prop)) {
+						console.log(prop);
+						
+						let code = sealed[prop].Format;
+						let serieCount = sealed[prop].SeriesProduct.length;
+						
+						var item = $("<option/>")
+							.attr("value", prop)
+							.text(prop + " - " + serieCount + " Series");
+						$("#sealed-format").append(item);
+					}
+				}
+				sortOptionsByName("#sealed-format");
+			}, 
+			{
+				"400":function () 
+				{
+					alert("Could not retrieve formats.");
+				}
+			});
 	});
+
+function sortOptionsByName(selector) {
+	$(selector).html($(selector + " option").sort(function (a, b) {
+		return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+	}))
+	$(selector)[0].selectedIndex = 0;
+}
+
 	
 function leagueErrorMap(outputControl, callback=null) {
 	return {
@@ -244,7 +321,7 @@ function leagueErrorMap(outputControl, callback=null) {
 				callback();
 		},
 		"404": function() {
-			outputControl.html("404: Info not found.  Check that your input is correctly with removed whitespace and try again.");
+			outputControl.html("404: Info not found.  Check that your input is correct with removed whitespace and try again.");
 			if(callback!=null)
 				callback();
 		},
@@ -270,13 +347,13 @@ function leagueErrorMap(outputControl, callback=null) {
 		Start (YYYYMMDD): <input type="text" id="sealed-start"><br/>
 		Format:
 		<select id="sealed-format">
-			<option value="fotr_block">Fellowship block</option>
+			<!-- <option value="fotr_block">Fellowship block</option>
 			<option value="ttt_block">Towers block</option>
 			<option value="movie">King (Movie) block</option>
 			<option value="war_block">War of the Ring block</option>
 			<option value="hunters_block">Hunters block</option>
 			<option value="movie_special">Movie Special block</option>
-			<option value="ts_special">TS Special block</option>
+			<option value="ts_special">TS Special block</option> -->
 		</select><br/>
 		Series duration in days: <input type="text" id="sealed-duration" value="7"><br/>
 		Maximum matches in series: <input type="text" id="sealed-matches" value="5"><br/>
@@ -297,10 +374,10 @@ function leagueErrorMap(outputControl, callback=null) {
 		Start (YYYYMMDD): <input type="text" id="solo-draft-start"><br/>
 		Format:
 		<select id="solo-draft-format">
-			<option value="test_draft">Test Draft</option>
+			<!-- <option value="test_draft">Test Draft</option>
 			<option value="fotr_draft">Fellowship Draft</option>
 			<option value="ttt_draft">Two Towers Draft</option>
-			<option value="hobbit_random_draft">Hobbit Random Draft</option>
+			<option value="hobbit_random_draft">Hobbit Random Draft</option> -->
 		</select><br/>
 		Series duration in days: <input type="text" id="solo-draft-duration" value="7"><br/>
 		Maximum matches in series: <input type="text" id="solo-draft-matches" value="5"><br/>
@@ -333,8 +410,8 @@ function leagueErrorMap(outputControl, callback=null) {
 			<div class="serieData">
 				<b>Series definition:</b><br/>
 				Format:
-				<select name="format">
-					<option value="fotr_block">Fellowship block</option>
+				<select id="constructed-format" name="format">
+					<!-- <option value="fotr_block">Fellowship block</option>
 					<option value="pc_fotr_block">Fellowship block (PC)</option>
 					<option value="fotr1_block">Fellowship block - Set 1</option>
 					<option value="fotr2_block">Fellowship block - Sets 1&2</option>
@@ -373,10 +450,10 @@ function leagueErrorMap(outputControl, callback=null) {
 					<option value="test_pc_fotr_block">PLAYTEST FOTR (PC)</option>
 					<option value="test_pc_movie">PLAYTEST Movie (PC)</option>
 					<option value="test_pc_expanded">PLAYTEST Expanded (PC)</option>
-					<option value="french">French</option>
+					<option value="french">French</option> -->
 				</select><br/>
-				Series duration in days: <input type="text" name="serieDuration" value="7"><br/>
-				Maximum matches in series: <input type="text" name="maxMatches" value="5"><br/>
+				Serie duration in days: <input type="text" name="serieDuration" value="7"><br/>
+				Maximum matches per serie: <input type="text" name="maxMatches" value="5"><br/>
 
 			</div>
 		</div>

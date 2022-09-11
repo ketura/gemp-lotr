@@ -34,12 +34,14 @@ public class NewSealedLeagueData implements LeagueData {
 
         _collectionType = new CollectionType(params[4], params[5]);
 
+        var def = _formatLibrary.GetSealedTemplate(_leagueTemplateName);
+
         _series = new LinkedList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < def.GetSerieCount(); i++) {
             _series.add(
                     new DefaultLeagueSerieData(_leaguePrizes, true, "Serie " + (i + 1),
                             DateUtils.offsetDate(start, i * serieDuration), DateUtils.offsetDate(start, (i + 1) * serieDuration - 1), maxMatches,
-                            _formatLibrary.GetSealedTemplate(_leagueTemplateName).GetFormat(), _collectionType));
+                            def.GetFormat(), _collectionType));
         }
     }
 

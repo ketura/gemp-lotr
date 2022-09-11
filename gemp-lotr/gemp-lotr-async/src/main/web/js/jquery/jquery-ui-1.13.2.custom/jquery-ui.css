@@ -292,7 +292,7 @@ input.ui-button.ui-button-icon-only {
 /* button icon element(s) */
 .ui-button-icon-only .ui-icon {
 	position: absolute;
-	top: 50%;
+	/* top: 50%; */
 	left: 50%;
 	margin-top: -8px;
 	margin-left: -8px;

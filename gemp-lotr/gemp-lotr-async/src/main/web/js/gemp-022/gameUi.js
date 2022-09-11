@@ -408,7 +408,6 @@ var GempLotrGameUI = Class.extend({
         var test = $("body");
         $("body")[0].addEventListener("contextmenu",
             function (event) {
-                //event.preventDefault();
                 if(!that.clickCardFunction(event))
                 {
                     event.preventDefault();

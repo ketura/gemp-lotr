@@ -16,10 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class SoloDraftDefinitions {
@@ -113,7 +110,18 @@ public class SoloDraftDefinitions {
             collectionReady.release();
             return data;
         } catch (InterruptedException exp) {
-            throw new RuntimeException("ProductLibrary.GetProduct() interrupted: ", exp);
+            throw new RuntimeException("SoloDraftDefinitions.getSoloDraft() interrupted: ", exp);
+        }
+    }
+
+    public Map<String, SoloDraft> getAllSoloDrafts() {
+        try {
+            collectionReady.acquire();
+            var data = Collections.unmodifiableMap(_draftTypes);
+            collectionReady.release();
+            return data;
+        } catch (InterruptedException exp) {
+            throw new RuntimeException("SoloDraftDefinitions.getAllSoloDrafts() interrupted: ", exp);
         }
     }
 }

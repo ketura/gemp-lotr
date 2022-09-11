@@ -14,7 +14,8 @@ var LeagueResultsUI = Class.extend({
                 closeOnEscape:true,
                 resizable:false,
                 modal:true,
-                title:"League operation"
+                title:"League operation",
+                closeText: ''
             });
 
         this.formatDialog = $("<div></div>")
@@ -23,7 +24,8 @@ var LeagueResultsUI = Class.extend({
                 closeOnEscape:true,
                 resizable:false,
                 modal:true,
-                title:"Format description"
+                title:"Format description",
+                closeText: ''
             });
 
         this.loadResults();
@@ -245,8 +247,8 @@ var LeagueResultsUI = Class.extend({
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
 
-        var horSpace = 230;
-        var vertSpace = 100;
+        var horSpace = 250;
+        var vertSpace = 120;
 
         this.questionDialog.dialog({width:Math.min(horSpace, windowWidth), height:Math.min(vertSpace, windowHeight)});
         this.questionDialog.dialog("open");

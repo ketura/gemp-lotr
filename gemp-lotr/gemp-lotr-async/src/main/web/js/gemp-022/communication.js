@@ -505,17 +505,19 @@ var GempLotrCommunication = Class.extend({
             dataType:"html"
         });
     },
-    getFormats:function (callback, errorMap) {
-            $.ajax({
-                type:"GET",
-                url:this.url + "/deck/formats",
-                cache:true,
-                data:{ },
-                success:this.deliveryCheck(callback),
-                error:this.errorCheck(errorMap),
-                dataType:"json"
-            });
-        },
+    getFormats:function (includeEvents, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/deck/formats",
+            cache:true,
+            data:{ 
+                includeEvents:includeEvents
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
     startChat:function (room, callback, errorMap) {
         $.ajax({
             type:"GET",

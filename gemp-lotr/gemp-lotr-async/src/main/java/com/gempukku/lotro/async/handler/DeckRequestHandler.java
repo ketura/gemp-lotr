@@ -3,23 +3,22 @@ package com.gempukku.lotro.async.handler;
 import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.DeckDAO;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.league.SealedLeagueDefinition;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
-import io.netty.handler.codec.http.QueryStringEncoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
-
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +35,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     private final SortAndFilterCards _sortAndFilterCards;
     private final LotroCardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
+    private final SoloDraftDefinitions _draftLibrary;
     private final LotroServer _lotroServer;
 
     public DeckRequestHandler(Map<Type, Object> context) {
@@ -45,6 +45,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _lotroServer = extractObject(context, LotroServer.class);
+        _draftLibrary = extractObject(context, SoloDraftDefinitions.class);
     }
 
     @Override
@@ -71,31 +72,52 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             deleteDeck(request, responseWriter);
         } else if (uri.equals("/stats") && request.method() == HttpMethod.POST) {
             getDeckStats(request, responseWriter);
-        } else if (uri.equals("/formats") && request.method() == HttpMethod.GET) {
+        } else if (uri.equals("/formats") && request.method() == HttpMethod.POST) {
             getAllFormats(request, responseWriter);
         } else {
             throw new HttpProcessingException(404);
         }
     }
 
-    public static class Format {
-        public String code;
-        public String name;
-        public Format(String c, String n) {
-            code = c;
-            name = n;
+
+
+    private void getAllFormats(HttpRequest request, ResponseWriter responseWriter) throws IOException {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+            String includeEventsStr = getFormParameterSafely(postDecoder, "includeEvents");
+            boolean includeEvents = includeEventsStr != null && includeEventsStr.equalsIgnoreCase("true");
+
+            String json = "{}";
+
+            if(includeEvents)
+            {
+                JSONDefs.FullFormatReadout data = new JSONDefs.FullFormatReadout();
+                data.Formats = _formatLibrary.getAllFormats().values().stream()
+                        .map(LotroFormat::Serialize)
+                        .collect(Collectors.toMap(x-> x.code, x-> x));
+                data.SealedTemplates = _formatLibrary.GetAllSealedTemplates().values().stream()
+                        .map(SealedLeagueDefinition::Serialize)
+                        .collect(Collectors.toMap(x-> x.Name, x-> x));
+                data.DraftTemplates = _draftLibrary.getAllSoloDrafts().values().stream()
+                        .map(soloDraft -> new JSONDefs.ItemStub(soloDraft.getCode(), soloDraft.getFormat()))
+                        .collect(Collectors.toMap(x-> x.code, x-> x));
+
+                json = JSON.toJSONString(data);
+            }
+            else {
+                Map<String, LotroFormat> formats = _formatLibrary.getHallFormats();
+
+                Object[] output = formats.entrySet().stream()
+                        .map(x -> new JSONDefs.ItemStub(x.getKey(), x.getValue().getName()))
+                        .toArray();
+
+                json = JSON.toJSONString(output);
+            }
+
+            responseWriter.writeJsonResponse(json);
+        } finally {
+            postDecoder.destroy();
         }
-    }
-
-    private void getAllFormats(HttpRequest request, ResponseWriter responseWriter) {
-
-        Map<String, LotroFormat> formats = _formatLibrary.getHallFormats();
-        Object[] formats2 = formats.entrySet().stream()
-                .map(x -> new Format(x.getKey(), x.getValue().getName()))
-                .toArray();
-
-        String json = JSON.toJSONString(formats2);
-        responseWriter.writeJsonResponse(json);
     }
 
     private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws IOException, HttpProcessingException, CardNotFoundException {

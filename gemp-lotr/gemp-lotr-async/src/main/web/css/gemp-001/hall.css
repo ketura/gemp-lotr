@@ -665,6 +665,10 @@ table.tables tr.privateForPlayer {
 	flex-grow: 1;
 }
 
+.ui-tabs-anchor {
+	width: 100%;
+}
+
 .article {
 	width:max(800px, 50%); 
 	margin-left: auto;

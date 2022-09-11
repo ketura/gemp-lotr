@@ -27,7 +27,8 @@ function deliveryService(xml) {
                     closeOnEscape:false,
                     resizable:true,
                     width:400,
-                    height:200
+                    height:200,
+                    closeText: ''
                 });
 
                 deliveryGroups[collectionName] = new NormalCardGroup(deliveryDialogs[collectionName], function (card) {
