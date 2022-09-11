@@ -231,6 +231,15 @@ var GempLotrDeckBuildingUI = Class.extend({
                 function (event) {
                     return that.clickCardFunction(event);
                 });
+        $("body")[0].addEventListener("contextmenu",
+            function (event) {
+                if(!that.clickCardFunction(event))
+                {
+                    event.preventDefault();
+                    return false;
+                }
+                return true;
+            });
         $("body").mousedown(
                 function (event) {
                     return that.dragStartCardFunction(event);
@@ -646,10 +655,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         if (tar.hasClass("actionArea")) {
             var selectedCardElem = tar.closest(".card");
-            if (event.which == 1) {
+            if (event.which >= 1) {
                 if (!this.successfulDrag) {
-                    if (event.shiftKey) {
+                    if (event.shiftKey || event.which > 1) {
                         this.displayCardInfo(selectedCardElem.data("card"));
+                        return false;
                     } else if (selectedCardElem.hasClass("cardInCollection")) {
                         var cardData = selectedCardElem.data("card");
                         this.selectionFunc(cardData.blueprintId, cardData.zone);

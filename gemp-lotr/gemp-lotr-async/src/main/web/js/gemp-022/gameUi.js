@@ -92,6 +92,14 @@ var GempLotrGameUI = Class.extend({
                     that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
                 }
             });
+        
+        // window.onbeforeunload = function(event) {
+        //     var e = e || window.event;
+        //     if (e) {
+        //         e.returnValue = "If you are done with this game, please go to the 'Options' tab and click the 'Concede Game' button first.";
+        //     }
+        //     return message;
+        // };
 
         $.expr[':'].cardId = function (obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
@@ -396,6 +404,17 @@ var GempLotrGameUI = Class.extend({
         $("body").click(
             function (event) {
                 return that.clickCardFunction(event);
+            });
+        var test = $("body");
+        $("body")[0].addEventListener("contextmenu",
+            function (event) {
+                //event.preventDefault();
+                if(!that.clickCardFunction(event))
+                {
+                    event.preventDefault();
+                    return false;
+                }
+                return true;
             });
         $("body").mousedown(
             function (event) {
