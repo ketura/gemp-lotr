@@ -1,6 +1,18 @@
 <div class="article"><pre style="white-space: pre-wrap;">
 <b>Most recent update</b>
 
+<b>2022 September 12</b>
+- Revamped several back-end systems to be hot-reloadable. What this means is, any future changes to formats, packs, draft or sealed events, or card definitions can all be pushed and updated without requiring a server restart, even mid-game. Certain bugfixes should be deployed much faster now! 
+- Major overhaul to the sealed event and pack definition systems; look out for new Sealed event types coming soon!
+- Added a resize handle to the chat window in the game hall so it can be manually resized.
+- Added right-click as an alternative to shift+click when zooming in on cards; no more shakey shift fingers causing misclicks!
+- Adjusted the text color for system announcements so it's more readable
+- Updated the hall UI to use the latest version of JQuery. 
+- Added a favicon to the site and revamped window titles. 
+- Fixed game chat (and more rarely hall chat) not scrolling all the way to the bottom when first connecting.
+- Fixed chat message links not opening in a new tab
+- Improved log accessibility
+
 <b>2022 August 29</b>
 - Migrated all admin management scripts into a dedicated (hidden) tab
 - Added admin command to hot reload JSON card definitions.  As a result, in the future any changes made to cards that use the new-style definitions will be able to have fixes pushed without requiring a server restart.  For now this means cards in sets 0, 1, 9, 14, 16, 19, V1, and a smattering of other cards.  Eventually the PC will have a dedicated push to convert all cards to JSON so they will be supported by this system.
