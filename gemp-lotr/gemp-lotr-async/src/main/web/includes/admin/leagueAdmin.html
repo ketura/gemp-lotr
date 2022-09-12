@@ -225,14 +225,14 @@ $(document).ready(
 		hall.comm.getFormats(true,
 			function (json) 
 			{
-				console.log(json);
+				//console.log(json);
 				let drafts = json.DraftTemplates;
 				let formats = json.Formats;
 				let sealed = json.SealedTemplates
-				console.log(drafts);
+				//console.log(drafts);
 				for (var prop in drafts) {
 					if (Object.prototype.hasOwnProperty.call(drafts, prop)) {
-						console.log(prop);
+						//console.log(prop);
 						
 						var item = $("<option/>")
 							.attr("value", prop)
@@ -242,10 +242,10 @@ $(document).ready(
 				}
 				sortOptionsByName("#solo-draft-format");
 				
-				console.log(formats);
+				//console.log(formats);
 				for (var prop in formats) {
 					if (Object.prototype.hasOwnProperty.call(formats, prop)) {
-						console.log(prop);
+						//console.log(prop);
 						
 						if(formats[prop].name.includes("Limited"))
 							continue;
@@ -260,16 +260,16 @@ $(document).ready(
 				}
 				sortOptionsByName("#constructed-format");
 				$("#constructed-format option").each(function(index) {
-					console.log(this);
+					//console.log(this);
 					let newText = $(this).text().replace(/\d+ - /, '');
-					console.log(newText);
+					//console.log(newText);
 					$(this).text(newText);
 				});
 				
-				console.log(sealed);
+				//console.log(sealed);
 				for (var prop in sealed) {
 					if (Object.prototype.hasOwnProperty.call(sealed, prop)) {
-						console.log(prop);
+						//console.log(prop);
 						
 						let code = sealed[prop].Format;
 						let serieCount = sealed[prop].SeriesProduct.length;
