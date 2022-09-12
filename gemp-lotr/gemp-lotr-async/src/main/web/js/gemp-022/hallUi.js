@@ -25,8 +25,8 @@ var GempLotrHallUI = Class.extend({
 		
 		$("#chat").resizable({
 			handles: "n",
-			minHeight: 150,
-			distance: 10
+			minHeight: 100,
+			distance: 20
 		});
 		
 		this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {

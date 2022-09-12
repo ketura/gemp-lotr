@@ -346,12 +346,18 @@ table.tables tr.privateForPlayer {
 	position:relative;
 	width:100%;
 	/*min-height: 30px;*/
-	height: 500px;
+	height: 300px;
 	grid-gap: 3px;
 	overflow: hidden;
 	background-color: #121212;
-	top: 0 !important;
+	/*top: 0 !important;*/
 	padding-top: 5px;
+	align-self: flex-end;
+	flex-shrink: 0;
+}
+
+#chat[style] {
+	top:  0 !important;
 }
 
 .ui-resizable-handle {

@@ -3,6 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>GEMP: LotR-TCG - Deckbuilder</title>
+	
+	<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
+	<link rel="manifest" href="images/icons/site.webmanifest">
 
 	<link rel="stylesheet" type="text/css" href="css/gemp-001/deckBuild.css">
 
@@ -54,7 +59,8 @@
 						onresize:function () {
 							ui.layoutUI(true);
 						},
-						east__minSize:"30%"
+						east__minSize:350,
+						east__maxSize:"50%"
 					});
 
 					$(".ui-layout-pane").css({"background-color":"#000000"});
@@ -68,26 +74,7 @@
 	</script>
 	
 	<style type="text/css">
-		#manageDecks {
-		    display: flex;
-		}
-
-		#collectionSelect {
-			order:  100;
-		}
-
-		#editingDeck {
-			flex-grow:  1;
-		}
 		
-		.notesText {
-			flex-grow: 1;
-			margin: 5px;
-		}
-		
-		.notesDialog {
-			display: flex;
-		}
         
         
     </style>
@@ -158,8 +145,8 @@
 		<div id="decksRegion" style="position: absolute; left: 194px; top: 33px; width: 535px; height: 556px;"></div>
 	</div>
 	
-	<div id="collectionDiv" class="ui-layout-east ui-layout-pane ui-layout-pane-east" style="position: absolute; margin: 0px; inset: 0px 0px 0px auto; height: 644px; z-index: 1; padding: 10px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; border: 1px solid rgb(187, 187, 187); overflow: auto; width: 299px; display: block; visibility: visible;">
-		<div id="cardCollectionDiv" style="position: absolute; left: 5px; top: 160px; width: 289px; height: 484px;"></div>
+	<div id="collectionDiv" class="ui-layout-east ui-layout-pane ui-layout-pane-east" >
+		<div id="cardCollectionDiv" style=""></div>
 	</div>
 	
 	<div id="cardInfoDiv" style="display: none; z-index: 1000; outline: currentcolor none 0px;" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-1">

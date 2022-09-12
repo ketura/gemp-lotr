@@ -11,8 +11,11 @@ var CardFilter = Class.extend({
     count: 18,
 
     pageDiv: null,
+    navigationDiv: null,
+    filtersDiv: null,
     fullFilterDiv: null,
     filterDiv: null,
+    collectionDiv: null,
 
     previousPageBut: null,
     nextPageBut: null,
@@ -23,7 +26,7 @@ var CardFilter = Class.extend({
     sortSelect: null,
     raritySelect: null,
 
-    init: function (elem, pageElem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
+    init: function (pageElem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
         this.getCollectionFunc = getCollectionFunc;
         this.clearCollectionFunc = clearCollectionFunc;
         this.addCardFunc = addCardFunc;
@@ -31,12 +34,11 @@ var CardFilter = Class.extend({
 
         this.filter = "";
 
-        this.buildUi(elem, pageElem);
+        this.buildUi(pageElem);
     },
 
     enableDetailFilters: function (enable) {
-        $("#culture1").buttonset("option", "disabled", !enable);
-        $("#culture2").buttonset("option", "disabled", !enable);
+        $("#culture-buttons").buttonset("option", "disabled", !enable);
         $("#cardType").prop("disabled", !enable);
         $("#keyword").prop("disabled", !enable);
         $("#race").prop("disabled", !enable);
@@ -55,12 +57,15 @@ var CardFilter = Class.extend({
         $("#type").val(typeValue);
     },
 
-    buildUi: function (elem, pageElem) {
+    buildUi: function (pageElem) {
         var that = this;
 
-        this.pageDiv = $("<div></div>");
+        this.pageDiv = $("<div id='filter-main' style='display:flex;flex-direction:column;align-items:stretch;'></div>");
+        this.navigationDiv = $("<div id='card-navigation' style='display: flex; flex-direction: row; gap: 2px; align-items: center;'></div>");
+        this.pageDiv.append(this.navigationDiv);
+        pageElem.append(this.pageDiv);
 
-        this.previousPageBut = $("<button id='previousPage' style='float: left;'>Previous page</button>").button({
+        this.previousPageBut = $("<button id='previousPage' class='navigation-butt'></button>").button({
             text: false,
             icons: {
                 primary: "ui-icon-circle-triangle-w"
@@ -73,7 +78,7 @@ var CardFilter = Class.extend({
                 that.getCollection();
             });
 
-        this.nextPageBut = $("<button id='nextPage' style='float: right;'>Next page</button>").button({
+        this.nextPageBut = $("<button id='nextPage' class='navigation-butt'></button>").button({
             text: false,
             icons: {
                 primary: "ui-icon-circle-triangle-e"
@@ -86,7 +91,7 @@ var CardFilter = Class.extend({
                 that.getCollection();
             });
 
-        this.countSlider = $("<div id='countSlider' style='left: 50px; top: 10px; width: 200px;'></div>").slider({
+        this.countSlider = $("<div id='countSlider' style='flex-grow:1;'></div>").slider({
             value: 18,
             min: 4,
             max: 40,
@@ -99,13 +104,11 @@ var CardFilter = Class.extend({
             }
         });
 
-        this.pageDiv.append(this.previousPageBut);
-        this.pageDiv.append(this.nextPageBut);
-        this.pageDiv.append(this.countSlider);
-
-        pageElem.append(this.pageDiv);
-
-        this.fullFilterDiv = $("<div></div>");
+        this.navigationDiv.append(this.previousPageBut);
+        this.navigationDiv.append(this.countSlider);
+        this.navigationDiv.append(this.nextPageBut);
+        
+        this.fullFilterDiv = $("<div id='filter-inputs' style='display:flex;flex-wrap:wrap;'></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
             + "<option value='0-33,101'>All Sets</option>"
             + "<option value='0-19'>Official Decipher Sets</option>"
@@ -207,11 +210,11 @@ var CardFilter = Class.extend({
         this.fullFilterDiv.append(this.sortSelect);
         this.fullFilterDiv.append(this.raritySelect);
 
-        elem.append(this.fullFilterDiv);
+        this.pageDiv.append(this.fullFilterDiv);
 
-        this.filterDiv = $("<div></div>");
+        this.filterDiv = $("<div id='culture-buttons' style='display:flex;flex-wrap:wrap;'></div>");
 
-        this.filterDiv.append("<div id='culture1'>"
+        this.filterDiv.append(""
             + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.png'/></label>"
             + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png'/></label>"
             + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png'/></label>"
@@ -219,8 +222,8 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
             + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
             + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
-            + "</div>");
-        this.filterDiv.append("<div id='culture2'>"
+        );
+        this.filterDiv.append(""
             + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
             + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
             + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png'/></label>"
@@ -237,7 +240,7 @@ var CardFilter = Class.extend({
             //+ "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
             //+ "<input type='checkbox' id='SPIDER'/><label for='SPIDER' id='labelSPIDER'><img src='images/cultures/spider.png'/></label>"
             //+ "<input type='checkbox' id='TROLL'/><label for='TROLL' id='labelTROLL'><img src='images/cultures/troll.png'/></label>"
-            + "</div>");
+        );
 
         var combos = $("<div></div>");
 
@@ -365,10 +368,10 @@ var CardFilter = Class.extend({
             + "</select>");
         this.filterDiv.append(combos);
 
-        elem.append(this.filterDiv);
+        this.pageDiv.append(this.filterDiv);
+        
 
-        $("#culture1").buttonset();
-        $("#culture2").buttonset();
+        $("#culture-buttons").buttonset();
 
         var fullFilterChanged = function () {
             that.start = 0;
@@ -437,18 +440,22 @@ var CardFilter = Class.extend({
 
         //Additional Hobbit Draft labels
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH,#labelESGAROTH,#labelGUNDABAD").click(filterOut);
+        
+        this.collectionDiv = $("<div id='collection-display' style='display:flex;flex-direction:column;position:relative;'></div>");
+        //collection-display
+        pageElem.append(this.collectionDiv);
     },
 
     layoutUi: function (x, y, width, height) {
-        this.pageDiv.css({position: "absolute", left: x, top: y, width: width, height: 34});
-        this.countSlider.css({width: width - 100});
-        this.fullFilterDiv.css({position: "absolute", left: x, top: y + 34, width: width, height: 34});
-        this.filterDiv.css({position: "absolute", left: x, top: y + 68, width: width, height: 80});
+        //this.pageDiv.css({position: "absolute", left: x, top: y, width: width, height: 34});
+        //this.countSlider.css({width: width - 100});
+        //this.fullFilterDiv.css({position: "absolute", left: x, top: y + 34, width: width, height: 34});
+        //this.filterDiv.css({position: "absolute", left: x, top: y + 68, width: width, height: 80});
     },
 
     layoutPageUi: function (x, y, width) {
-        this.pageDiv.css({left: x, top: y, width: width, height: 36});
-        this.countSlider.css({width: width - 100});
+        //this.pageDiv.css({left: x, top: y, width: width, height: 36});
+        //this.countSlider.css({width: width - 100});
     },
 
     disableNavigation: function () {
@@ -459,12 +466,7 @@ var CardFilter = Class.extend({
 
     calculateNormalFilter: function () {
         var cultures = new Array();
-        $("label", $("#culture1")).each(
-            function () {
-                if ($(this).hasClass("ui-state-active"))
-                    cultures.push($(this).prop("id").substring(5));
-            });
-        $("label", $("#culture2")).each(
+        $("label", $("#culture-buttons")).each(
             function () {
                 if ($(this).hasClass("ui-state-active"))
                     cultures.push($(this).prop("id").substring(5));

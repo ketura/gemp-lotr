@@ -58,7 +58,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
-        this.cardFilter = new CardFilter($("#collectionDiv"), $("#collectionDiv"),
+        this.cardFilter = new CardFilter($("#collectionDiv"),
                 function (filter, start, count, callback) {
                     if (!that.specialSelection) {
                         filter = filter + " cardType:-THE_ONE_RING";
@@ -181,7 +181,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     that.cardFilter.getCollection();
                 });
 
-        this.normalCollectionDiv = $("#cardCollectionDiv");
+        this.normalCollectionDiv = $("#collection-display");
         this.normalCollectionGroup = new NormalCardGroup(this.normalCollectionDiv, function (card) {
             return true;
         });
@@ -1137,7 +1137,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.bottomBarDiv.css({ position:"absolute", left:padding * 2 + sitesWidth, top:manageHeight + padding + deckHeight - 50, width:deckWidth - (sitesWidth + padding) - padding, height:70 });
 
             this.cardFilter.layoutUi(padding, 0, collectionWidth - padding, 160);
-            this.normalCollectionDiv.css({ position:"absolute", left:padding, top:160, width:collectionWidth - padding * 2, height:collectionHeight - 160 });
+            //this.normalCollectionDiv.css({ position:"absolute", left:padding, top:160, width:collectionWidth - padding * 2, height:collectionHeight - 160 });
 
             this.normalCollectionGroup.setBounds(0, 0, collectionWidth - padding * 2, collectionHeight - 160);
         } else {
