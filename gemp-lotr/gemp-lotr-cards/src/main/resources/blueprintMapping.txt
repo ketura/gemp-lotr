@@ -280,3 +280,7 @@ gl_theOneRing,1_2
 101_65,101_20
 #I See You FA (V1_46)
 101_66,101_46
+#Gimli ARB Masterwork
+9_53,9_4
+#Desert Lord FA
+4_366,4_219

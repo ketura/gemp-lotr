@@ -284,5 +284,11 @@ var PCCards = {
 	'101_65': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1A020.0_card.jpg',
 	// I See You FA (V1_46)
 	'101_66': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1A046.0_card.jpg',
+	
+	//September 2022 Weekend League Promos
+	//Gimli ARB Masterwork (9R+4)
+	'9_53': 'https://i.lotrtcgpc.net/promos/LOTR-EN09O004.0_card.jpg',
+	//Desert Lord FA (4R219)
+	'4_366': 'https://i.lotrtcgpc.net/promos/LOTR-EN04A219.0_card.jpg',
 }
 
