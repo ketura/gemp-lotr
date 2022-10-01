@@ -48,4 +48,85 @@
 			1xTaD - Booster
 		]
 	}
+	{
+		name: (S)FotRChoice
+		type: selection
+		items: [
+			1xFotR - Booster
+			1xMoM - Booster
+			1xRotEL - Booster
+		]
+	}
+	
+	{
+		name: (S)TTTChoice
+		type: selection
+		items: [
+			1xTTT - Booster
+			1xBoHD - Booster
+			1xEoF - Booster
+		]
+	}
+	
+	{
+		name: (S)RotKChoice
+		type: selection
+		items: [
+			1xRotK - Booster
+			1xSoG - Booster
+			1xMD - Booster
+		]
+	}
+	
+	{
+		name: (S)8and10Choice
+		type: selection
+		items: [
+			1xSoG - Booster
+			1xMD - Booster
+		]
+	}
+	
+	{
+		name: (S)WotRChoice
+		type: selection
+		items: [
+			1xSH - Booster
+			1xBR - Booster
+			1xBL - Booster
+		]
+	}
+	
+	{
+		name: (S)HUChoice
+		type: selection
+		items: [
+			1xHU - Booster
+			1xRoS - Booster
+			1xTaD - Booster
+		]
+	}
+	
+	{
+		name: (S)Expanded Choice
+		type: selection
+		items: [
+			1xSH - Booster
+			1xBR - Booster
+			1xBL - Booster
+			1xHU - Booster
+			1xRoS - Booster
+			1xTaD - Booster
+		]
+	}
+	
+	{
+		name: (S)BRHURoS Choice
+		type: selection
+		items: [
+			1xBR - Booster
+			1xHU - Booster
+			1xRoS - Booster
+		]
+	}
 ]

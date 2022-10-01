@@ -189,4 +189,202 @@
 			1xTSSealedS3D3
 		]
 	}
+	{
+		name: (S)Multipath - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xFotR - Gandalf Starter
+			1xFotR - Aragorn Starter
+			1xMoM - Gandalf Starter
+			1xMoM - Gimli Starter
+			1xRotEL - Boromir Starter
+			1xRotEL - Legolas Starter
+			1xTTT - Aragorn Starter
+			1xTTT - Theoden Starter
+			1xBoHD - Eowyn Starter
+			1xBoHD - Legolas Starter
+			1xEoF - Faramir Starter
+			1xEoF - Witch-king Starter
+			1xRotK - Aragorn Starter
+			1xRotK - Eomer Starter
+			1xSoG - Merry Starter
+			1xSoG - Pippin Starter
+			1xMD - Frodo Starter
+			1xMD - Sam Starter
+		]
+	}
+	
+	{
+		name: (S)Reflections - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xFotR - Gandalf Starter
+			1xFotR - Aragorn Starter
+			1xMoM - Gandalf Starter
+			1xMoM - Gimli Starter
+			1xRotEL - Boromir Starter
+			1xRotEL - Legolas Starter
+			1xTTT - Aragorn Starter
+			1xTTT - Theoden Starter
+			1xBoHD - Eowyn Starter
+			1xBoHD - Legolas Starter
+			1xEoF - Faramir Starter
+			1xEoF - Witch-king Starter
+			1xRotK - Aragorn Starter
+			1xRotK - Eomer Starter
+			1xSoG - Merry Starter
+			1xSoG - Pippin Starter
+		]
+	}
+	
+	{
+		name: (S)Hobbits - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xSoG - Merry Starter
+			1xSoG - Pippin Starter
+			1xMD - Frodo Starter
+			1xMD - Sam Starter
+		]
+	}
+	
+	{
+		name: (S)Expanded - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xSH - Aragorn Starter
+			1xSH - Eowyn Starter
+			1xSH - Gandalf Starter
+			1xSH - Legolas Starter
+			1xBR - Mouth Starter
+			1xBR - Saruman Starter
+			1xBL - Arwen Starter
+			1xBL - Boromir Starter
+			1xHU - Aragorn Starter
+			1xHU - Mauhur Starter
+			1xRoS - Uruk Rampage Starter
+			1xRoS - Evil Man Starter
+		]
+	}
+	
+	{
+		name: (S)Evil Characters - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xBR - Mouth Starter
+			1xBR - Saruman Starter
+			1xHU - Mauhur Starter
+			1xRoS - Uruk Rampage Starter
+			1xRoS - Evil Man Starter
+		]
+	}
+	
+	{
+		name: (S)FotR Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xFotR - Gandalf Starter
+			1xFotR - Aragorn Starter
+			1xMoM - Gandalf Starter
+			1xMoM - Gimli Starter
+			1xRotEL - Boromir Starter
+			1xRotEL - Legolas Starter
+		]
+	}
+	
+	{
+		name: (S)TTT Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xTTT - Aragorn Starter
+			1xTTT - Theoden Starter
+			1xBoHD - Eowyn Starter
+			1xBoHD - Legolas Starter
+			1xEoF - Faramir Starter
+			1xEoF - Witch-king Starter
+		]
+	}
+	
+	{
+		name: (S)RotK Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xRotK - Aragorn Starter
+			1xRotK - Eomer Starter
+			1xSoG - Merry Starter
+			1xSoG - Pippin Starter
+			1xMD - Frodo Starter
+			1xMD - Sam Starter
+		]
+	}
+	
+	{
+		name: (S)TS Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xTSSealedS1D1
+			1xTSSealedS1D2
+			1xTSSealedS1D3
+			1xTSSealedS2D1
+			1xTSSealedS2D2
+			1xTSSealedS2D3
+			1xTSSealedS3D1
+			1xTSSealedS3D2
+			1xTSSealedS3D3
+		]
+	}
+	
+	{
+		name: (S)Movie Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xSpecial-01
+			1xSpecial-02
+			1xSpecial-03
+			1xSpecial-04
+			1xSpecial-05
+			1xSpecial-06
+			1xSpecial-07
+			1xSpecial-08
+			1xSpecial-09
+		]
+	}
+	
+	{
+		name: (S)WotR Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xSH - Aragorn Starter
+			1xSH - Eowyn Starter
+			1xSH - Gandalf Starter
+			1xSH - Legolas Starter
+			1xBR - Mouth Starter
+			1xBR - Saruman Starter
+			1xBL - Arwen Starter
+			1xBL - Boromir Starter
+		]
+	}
+	
+	{
+		name: (S)HU Block - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xHU - Aragorn Starter
+			1xHU - Mauhur Starter
+			1xRoS - Uruk Rampage Starter
+			1xRoS - Evil Man Starter
+		]
+	}
 ]
