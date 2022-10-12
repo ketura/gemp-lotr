@@ -1,6 +1,6 @@
 [
 	{
-		name: Fellowship Block Sealed
+		name: 01 Fellowship Block Sealed
 		format: limited_fotr
 		seriesProduct: [
 			[
@@ -27,7 +27,7 @@
 		]
 	}
 	{
-		name: Towers Block Sealed
+		name: 02 Towers Block Sealed
 		format: limited_ttt
 		seriesProduct: [
 			[
@@ -55,7 +55,35 @@
 	}
 	
 	{
-		name: King Block Sealed
+		name: 03 Towers Standard Special Sealed
+		format: limited_ttt
+		seriesProduct: [
+			[
+				1x(S)TSSealed-S1
+				2xFotR - Booster
+				2xTTT - Booster
+				2x(S)TSBoosterChoice
+			],
+			[
+				1x(S)TSSealed-S2
+				1xMoM - Booster
+				1xBoHD - Booster
+				1x(S)TSBoosterChoice
+			]
+			[
+				1x(S)TSSealed-S3
+				1xRotEL - Booster
+				1xEoF - Booster
+				1x(S)TSBoosterChoice
+			]
+			[
+				6x(S)TSBoosterChoice
+			]
+		]
+	}
+	
+	{
+		name: 04 King Block Sealed
 		format: limited_king
 		seriesProduct: [
 			[
@@ -91,7 +119,7 @@
 	}
 	
 	{
-		name: Movie Special Sealed
+		name: 05 Movie Special Sealed
 		format: limited_king
 		seriesProduct: [
 			[
@@ -121,35 +149,7 @@
 	}
 	
 	{
-		name: Towers Standard Special Sealed
-		format: limited_ttt
-		seriesProduct: [
-			[
-				1x(S)TSSealed-S1
-				2xFotR - Booster
-				2xTTT - Booster
-				2x(S)TSBoosterChoice
-			],
-			[
-				1x(S)TSSealed-S2
-				1xMoM - Booster
-				1xBoHD - Booster
-				1x(S)TSBoosterChoice
-			]
-			[
-				1x(S)TSSealed-S3
-				1xRotEL - Booster
-				1xEoF - Booster
-				1x(S)TSBoosterChoice
-			]
-			[
-				6x(S)TSBoosterChoice
-			]
-		]
-	}
-	
-	{
-		name: War of the Ring Block Sealed
+		name: 06 War of the Ring Block Sealed
 		format: limited_shadows
 		seriesProduct: [
 			[
@@ -181,7 +181,7 @@
 	}
 	
 	{
-		name: Hunters Block Sealed
+		name: 07 Hunters Block Sealed
 		format: limited_hunters
 		seriesProduct: [
 			[
@@ -222,228 +222,7 @@
 	}
 	
 	{
-		name: Multipath Movie Sealed
-		format: limited_multipath
-		seriesProduct: [
-			[
-				1x(S)Multipath - Starter
-				1xFotR - Booster
-				1xMoM - Booster
-				1xRotEL - Booster
-				1xTTT - Booster
-				1xBoHD - Booster
-				1xEoF - Booster
-				1xRotK - Booster
-				1xSoG - Booster
-				1xREF - Booster
-				1xMD - Booster
-				6x(S)Movie Booster Choice
-				#Shotgun Enquea
-				2x1_231
-			],
-		]
-	}
-	
-	{
-		name: Reflections Sealed
-		format: limited_multipath
-		seriesProduct: [
-			[
-				1x(S)Reflections - Starter
-				12xREF - Booster
-				#Shotgun Enquea
-				2x1_231
-			],
-		]
-	}
-	
-	{
-		name: Single Series Fellowship Block Sealed
-		format: limited_fotr
-		seriesProduct: [
-			[
-				1x(S)FotR Block - Starter
-				1xFotR - Booster
-				1xMoM - Booster
-				1xRotEL - Booster
-				10x(S)FotRChoice
-				#Shotgun Enquea
-				2x1_231
-			],
-		]
-	}
-	
-	{
-		name: Single Series Towers Block Sealed
-		format: limited_ttt
-		seriesProduct: [
-			[
-				1x(S)TTT Block - Starter
-				1xTTT - Booster
-				1xBoHD - Booster
-				1xEoF - Booster
-				10x(S)TTTChoice
-				#Southron Commander
-				2x4_249
-			],
-		]
-	}
-	
-	{
-		name: Single Series King Block Sealed
-		format: limited_king
-		seriesProduct: [
-			[
-				1x(S)RotK Block - Starter
-				1xRotK - Booster
-				1xSoG - Booster
-				1xMD - Booster
-				10x(S)RotKChoice
-				#Ulaire Enquea, Faster Than Winds
-				1x7_212
-				#Shotgun Enquea
-				1x1_231
-				#Ruined Capitol
-				1x7_355
-				#Morgulduin
-				1x7_358
-			],
-		]
-	}
-	
-	{
-		name: Single Series Towers Standard Sealed
-		format: limited_ttt
-		seriesProduct: [
-			[
-				1x(S)TS Block - Starter
-				1xFotR - Booster
-				1xMoM - Booster
-				1xRotEL - Booster
-				1xTTT - Booster
-				1xBoHD - Booster
-				1xEoF - Booster
-				10x(S)TSBoosterChoice
-			],
-		]
-	}
-	
-	{
-		name: Single Series Movie Sealed
-		format: limited_king
-		seriesProduct: [
-			[
-				1x(S)Movie Block - Starter
-				1xFotR - Booster
-				1xMoM - Booster
-				1xRotEL - Booster
-				1xTTT - Booster
-				1xBoHD - Booster
-				1xEoF - Booster
-				1xRotK - Booster
-				1xSoG - Booster
-				1xMD - Booster
-				6x(S)Movie Booster Choice
-			],
-		]
-	}
-	
-	{
-		name: Single Series War of the Ring Block Sealed
-		format: limited_shadows
-		seriesProduct: [
-			[
-				1x(S)WotR Block - Starter
-				1xSH - Booster
-				1xBR - Booster
-				1xBL - Booster
-				10x(S)WotRChoice
-				#Shingle in a Storm
-				1x12_145
-				#Unending Life
-				1x12_181
-				#Great Cost
-				1x12_88
-				#Hemmed In
-				1x12_70
-			],
-		]
-	}
-	
-	{
-		name: Single Series Hunters Block Sealed
-		format: limited_hunters
-		seriesProduct: [
-			[
-				1x(S)HU Block - Starter
-				1xHU - Booster
-				1xRoS - Booster
-				1xTaD - Booster
-				10x(S)HUChoice
-				#Hemmed In
-				1x12_70
-				#Great Cost
-				1x12_88
-				#Shingle in a Storm
-				1x12_145				
-			],
-		]
-	}
-	
-	{
-		name: Expanded Sealed
-		format: limited_hunters
-		seriesProduct: [
-			[
-				1x(S)Expanded - Starter
-				1xSH - Booster
-				1xBR - Booster
-				1xBL - Booster
-				1xHU - Booster
-				1xRoS - Booster
-				1xTaD - Booster
-				6x(S)Expanded Choice
-				#Shotgun Enquea
-				2x1_231			
-			],
-		]
-	}
-	
-	{
-		name: Evil Characters Sealed
-		format: limited_hunters
-		seriesProduct: [
-			[
-				1x(S)Evil Characters - Starter
-				3xBR - Booster
-				3xHU - Booster
-				3xRoS - Booster
-				3x(S)BRHURoS Choice
-				#Shotgun Enquea
-				2x1_231			
-			],
-		]
-	}
-	
-	{
-		name: Four Hobbits Sealed
-		format: limited_king
-		seriesProduct: [
-			[
-				1x(S)Hobbits - Starter
-				4xSoG - Booster
-				4xMD - Booster
-				4x(S)8and10Choice
-				#Ulaire Enquea, Faster Than Winds
-				1x7_212
-				#Shotgun Enquea
-				1x1_231
-			],
-		]
-	}
-	
-	{
-		name: Reverse Fellowship Block Sealed
+		name: 08 Reverse Fellowship Block Sealed
 		format: limited_fotr
 		seriesProduct: [
 			[
@@ -477,7 +256,7 @@
 	}
 	
 	{
-		name: Reverse Towers Block Sealed
+		name: 09 Reverse Towers Block Sealed
 		format: limited_ttt
 		seriesProduct: [
 			[
@@ -511,7 +290,35 @@
 	}
 	
 	{
-		name: Reverse King Block Sealed
+		name: 10 Reverse Towers Standard Special Sealed
+		format: limited_ttt
+		seriesProduct: [
+			[
+				1x(S)TSSealed-S3
+				2xRotEL - Booster
+				2xEoF - Booster
+				2x(S)TSBoosterChoice
+			],
+			[
+				1x(S)TSSealed-S2
+				2xMoM - Booster
+				2xBoHD - Booster
+				1x(S)TSBoosterChoice
+			]
+			[
+				1x(S)TSSealed-S1
+				2xFotR - Booster
+				2xTTT - Booster
+				1x(S)TSBoosterChoice
+			]
+			[
+				6x(S)TSBoosterChoice
+			]
+		]
+	}
+	
+	{
+		name: 11 Reverse King Block Sealed
 		format: limited_king
 		seriesProduct: [
 			[
@@ -553,7 +360,7 @@
 	}
 	
 	{
-		name: Reverse Movie Special Sealed
+		name: 12 Reverse Movie Special Sealed
 		format: limited_king
 		seriesProduct: [
 			[
@@ -583,35 +390,7 @@
 	}
 	
 	{
-		name: Reverse Towers Standard Special Sealed
-		format: limited_ttt
-		seriesProduct: [
-			[
-				1x(S)TSSealed-S3
-				2xRotEL - Booster
-				2xEoF - Booster
-				2x(S)TSBoosterChoice
-			],
-			[
-				1x(S)TSSealed-S2
-				2xMoM - Booster
-				2xBoHD - Booster
-				1x(S)TSBoosterChoice
-			]
-			[
-				1x(S)TSSealed-S1
-				2xFotR - Booster
-				2xTTT - Booster
-				1x(S)TSBoosterChoice
-			]
-			[
-				6x(S)TSBoosterChoice
-			]
-		]
-	}
-	
-	{
-		name: Reverse War of the Ring Block Sealed
+		name: 13 Reverse War of the Ring Block Sealed
 		format: limited_shadows
 		seriesProduct: [
 			[
@@ -649,7 +428,7 @@
 	}
 	
 	{
-		name: Reverse Hunters Block Sealed
+		name: 14 Reverse Hunters Block Sealed
 		format: limited_hunters
 		seriesProduct: [
 			[
@@ -694,8 +473,142 @@
 			]
 		]
 	}
+	
 	{
-		name: Fellowship Booster Box Sealed
+		name: 15 Single Series Fellowship Block Sealed
+		format: limited_fotr
+		seriesProduct: [
+			[
+				1x(S)FotR Block - Starter
+				1xFotR - Booster
+				1xMoM - Booster
+				1xRotEL - Booster
+				10x(S)FotRChoice
+				#Shotgun Enquea
+				2x1_231
+			],
+		]
+	}
+	
+	{
+		name: 16 Single Series Towers Block Sealed
+		format: limited_ttt
+		seriesProduct: [
+			[
+				1x(S)TTT Block - Starter
+				1xTTT - Booster
+				1xBoHD - Booster
+				1xEoF - Booster
+				10x(S)TTTChoice
+				#Southron Commander
+				2x4_249
+			],
+		]
+	}
+	
+	{
+		name: 17 Single Series Towers Standard Sealed
+		format: limited_ttt
+		seriesProduct: [
+			[
+				1x(S)TS Block - Starter
+				1xFotR - Booster
+				1xMoM - Booster
+				1xRotEL - Booster
+				1xTTT - Booster
+				1xBoHD - Booster
+				1xEoF - Booster
+				10x(S)TSBoosterChoice
+			],
+		]
+	}
+	
+	{
+		name: 18 Single Series King Block Sealed
+		format: limited_king
+		seriesProduct: [
+			[
+				1x(S)RotK Block - Starter
+				1xRotK - Booster
+				1xSoG - Booster
+				1xMD - Booster
+				10x(S)RotKChoice
+				#Ulaire Enquea, Faster Than Winds
+				1x7_212
+				#Shotgun Enquea
+				1x1_231
+				#Ruined Capitol
+				1x7_355
+				#Morgulduin
+				1x7_358
+			],
+		]
+	}
+	
+	{
+		name: 19 Single Series Movie Sealed
+		format: limited_king
+		seriesProduct: [
+			[
+				1x(S)Movie Block - Starter
+				1xFotR - Booster
+				1xMoM - Booster
+				1xRotEL - Booster
+				1xTTT - Booster
+				1xBoHD - Booster
+				1xEoF - Booster
+				1xRotK - Booster
+				1xSoG - Booster
+				1xMD - Booster
+				6x(S)Movie Booster Choice
+			],
+		]
+	}
+	
+	{
+		name: 20 Single Series War of the Ring Block Sealed
+		format: limited_shadows
+		seriesProduct: [
+			[
+				1x(S)WotR Block - Starter
+				1xSH - Booster
+				1xBR - Booster
+				1xBL - Booster
+				10x(S)WotRChoice
+				#Shingle in a Storm
+				1x12_145
+				#Unending Life
+				1x12_181
+				#Great Cost
+				1x12_88
+				#Hemmed In
+				1x12_70
+			],
+		]
+	}
+	
+	{
+		name: 21 Single Series Hunters Block Sealed
+		format: limited_hunters
+		seriesProduct: [
+			[
+				1x(S)HU Block - Starter
+				1xHU - Booster
+				1xRoS - Booster
+				1xTaD - Booster
+				10x(S)HUChoice
+				#Hemmed In
+				1x12_70
+				#Great Cost
+				1x12_88
+				#Shingle in a Storm
+				1x12_145				
+			],
+		]
+	}
+	
+	{
+		name: 22 Fellowship Booster Box Sealed
 		format: limited_fotr
 		seriesProduct: [
 			[
@@ -799,7 +712,7 @@
 	}
 	
 	{
-		name: Fellowship Block Booster Box Sealed
+		name: 23 Fellowship Block Booster Box Sealed
 		format: limited_fotr
 		seriesProduct: [
 			[
@@ -931,7 +844,7 @@
 	}
 	
 	{
-		name: Towers Booster Box Sealed
+		name: 24 Towers Booster Box Sealed
 		format: limited_ttt
 		seriesProduct: [
 			[
@@ -1027,7 +940,7 @@
 	}
 	
 	{
-		name: Towers Block Booster Box Sealed
+		name: 25 Towers Block Booster Box Sealed
 		format: limited_ttt
 		seriesProduct: [
 			[
@@ -1145,7 +1058,7 @@
 	}
 	
 	{
-		name: King Booster Box Sealed
+		name: 26 King Booster Box Sealed
 		format: limited_king
 		seriesProduct: [
 			[
@@ -1229,7 +1142,7 @@
 	}
 	
 	{
-		name: King Block Booster Box Sealed
+		name: 27 King Block Booster Box Sealed
 		format: limited_king
 		seriesProduct: [
 			[
@@ -1331,7 +1244,7 @@
 	}
 	
 	{
-		name: Shadows Booster Box Sealed
+		name: 28 Shadows Booster Box Sealed
 		format: limited_shadows
 		seriesProduct: [
 			[
@@ -1425,7 +1338,7 @@
 	}
 	
 	{
-		name: War of the Ring Block Booster Box Sealed
+		name: 29 War of the Ring Block Booster Box Sealed
 		format: limited_shadows
 		seriesProduct: [
 			[
@@ -1561,7 +1474,7 @@
 	}
 	
 	{
-		name: Hunters Block Booster Box Sealed
+		name: 30 Hunters Block Booster Box Sealed
 		format: limited_hunters
 		seriesProduct: [
 			[
@@ -1610,6 +1523,94 @@
 				1x18_139
 				#Streets of Bree
 				1x18_140
+			],
+		]
+	}
+	
+	{
+		name: 31 Multipath Movie Sealed
+		format: limited_multipath
+		seriesProduct: [
+			[
+				1x(S)Multipath - Starter
+				1xFotR - Booster
+				1xMoM - Booster
+				1xRotEL - Booster
+				1xTTT - Booster
+				1xBoHD - Booster
+				1xEoF - Booster
+				1xRotK - Booster
+				1xSoG - Booster
+				1xREF - Booster
+				1xMD - Booster
+				6x(S)Movie Booster Choice
+				#Shotgun Enquea
+				2x1_231
+			],
+		]
+	}
+	
+	{
+		name: 32 Reflections Sealed
+		format: limited_multipath
+		seriesProduct: [
+			[
+				1x(S)Reflections - Starter
+				12xREF - Booster
+				#Shotgun Enquea
+				2x1_231
+			],
+		]
+	}
+	
+	{
+		name: 33 Expanded Sealed
+		format: limited_hunters
+		seriesProduct: [
+			[
+				1x(S)Expanded - Starter
+				1xSH - Booster
+				1xBR - Booster
+				1xBL - Booster
+				1xHU - Booster
+				1xRoS - Booster
+				1xTaD - Booster
+				6x(S)Expanded Choice
+				#Shotgun Enquea
+				2x1_231			
+			],
+		]
+	}
+	
+	{
+		name: 34 Four Hobbits Sealed
+		format: limited_king
+		seriesProduct: [
+			[
+				1x(S)Hobbits - Starter
+				4xSoG - Booster
+				4xMD - Booster
+				4x(S)8and10Choice
+				#Ulaire Enquea, Faster Than Winds
+				1x7_212
+				#Shotgun Enquea
+				1x1_231
+			],
+		]
+	}
+	
+	{
+		name: 35 Evil Characters Sealed
+		format: limited_hunters
+		seriesProduct: [
+			[
+				1x(S)Evil Characters - Starter
+				3xBR - Booster
+				3xHU - Booster
+				3xRoS - Booster
+				3x(S)BRHURoS Choice
+				#Shotgun Enquea
+				2x1_231			
 			],
 		]
 	}
