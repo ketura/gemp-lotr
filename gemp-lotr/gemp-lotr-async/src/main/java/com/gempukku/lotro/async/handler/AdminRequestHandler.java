@@ -562,7 +562,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
             String code = String.valueOf(System.currentTimeMillis());
 
-            String parameters = _formatLibrary.GetSealedTemplate(format).GetName() + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            String parameters = _formatLibrary.GetSealedTemplate(format).GetID() + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
             LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, _formatLibrary, parameters);
             List<LeagueSerieData> series = leagueData.getSeries();
             int leagueStart = series.get(0).getStart();
@@ -573,7 +573,11 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             _leagueService.clearCache();
 
             responseWriter.writeHtmlResponse("OK");
-        } finally {
+        }
+        catch (RuntimeException ex) {
+            throw new HttpProcessingException(500);
+        }
+        finally {
             postDecoder.destroy();
         }
     }
@@ -650,7 +654,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         try {
             String motd = _hallServer.getMOTD();
 
-            responseWriter.writeJsonResponse(motd);
+            responseWriter.writeJsonResponse(motd.replace("\n", "<br>"));
         } finally {
             postDecoder.destroy();
         }

@@ -272,10 +272,11 @@ $(document).ready(
 						//console.log(prop);
 						
 						let code = sealed[prop].Format;
+						let id = sealed[prop].ID;
 						let serieCount = sealed[prop].SeriesProduct.length;
 						
 						var item = $("<option/>")
-							.attr("value", prop)
+							.attr("value", id)
 							.text(prop + " - " + serieCount + " Series");
 						$("#sealed-format").append(item);
 					}

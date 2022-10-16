@@ -190,7 +190,7 @@
 		]
 	}
 	{
-		name: (S)Multipath - Starter
+		name: (S)Movie Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -216,7 +216,7 @@
 	}
 	
 	{
-		name: (S)Reflections - Starter
+		name: (S)Reflections Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -240,7 +240,7 @@
 	}
 	
 	{
-		name: (S)Hobbits - Starter
+		name: (S)Hobbits Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -252,7 +252,7 @@
 	}
 	
 	{
-		name: (S)Expanded - Starter
+		name: (S)Expanded Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -272,7 +272,7 @@
 	}
 	
 	{
-		name: (S)Evil Characters - Starter
+		name: (S)Evil Characters Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -285,7 +285,7 @@
 	}
 	
 	{
-		name: (S)FotR Block - Starter
+		name: (S)FotR Block Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -299,7 +299,7 @@
 	}
 	
 	{
-		name: (S)TTT Block - Starter
+		name: (S)TTT Block Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -313,7 +313,7 @@
 	}
 	
 	{
-		name: (S)RotK Block - Starter
+		name: (S)RotK Block Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -327,7 +327,7 @@
 	}
 	
 	{
-		name: (S)TS Block - Starter
+		name: (S)TS Special Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -344,7 +344,7 @@
 	}
 	
 	{
-		name: (S)Movie Block - Starter
+		name: (S)Movie Special Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -361,7 +361,7 @@
 	}
 	
 	{
-		name: (S)WotR Block - Starter
+		name: (S)WotR Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [
@@ -377,7 +377,7 @@
 	}
 	
 	{
-		name: (S)HU Block - Starter
+		name: (S)HU Block Choice - Starter
 		type: selection
 		selectionCount: 1
 		items: [

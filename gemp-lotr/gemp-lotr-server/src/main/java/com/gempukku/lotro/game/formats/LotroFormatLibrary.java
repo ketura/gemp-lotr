@@ -92,12 +92,12 @@ public class LotroFormatLibrary {
             for (var def : defs) {
                 if(def == null)
                     continue;
-                var sealed = new SealedLeagueDefinition(def.Name, _allFormats.get(def.Format), def.SeriesProduct);
+                var sealed = new SealedLeagueDefinition(def.Name, def.ID, _allFormats.get(def.Format), def.SeriesProduct);
 
-                if(_sealedTemplates.containsKey(def.Name)) {
-                    System.out.println("Overwriting existing sealed definition '" + def.Name + "'!");
+                if(_sealedTemplates.containsKey(def.ID)) {
+                    System.out.println("Overwriting existing sealed definition '" + def.ID + "'!");
                 }
-                _sealedTemplates.put(def.Name, sealed);
+                _sealedTemplates.put(def.ID, sealed);
             }
 
         } catch (IOException e) {
@@ -185,13 +185,13 @@ public class LotroFormatLibrary {
     }
 
     private Map<String, String> legacyCodeMapping = new HashMap<>() {{
-        put("fotr_block", "Fellowship Block Sealed");
-        put("ttt_block", "Towers Block Sealed");
-        put("movie", "King Block Sealed");
-        put("war_block", "War of the Ring Block Sealed");
-        put("hunters_block", "Hunters Block Sealed");
-        put("movie_special", "Movie Special Sealed");
-        put("ts_special", "Towers Standard Special Sealed");
+        put("fotr_block", "fotr_block_sealed");
+        put("ttt_block", "ttt_block_sealed");
+        put("movie", "rotk_block_sealed");
+        put("war_block", "wotr_block_sealed");
+        put("hunters_block", "th_block_sealed");
+        put("movie_special", "movie_special_sealed");
+        put("ts_special", "ts_special_sealed");
     }};
 
     public SealedLeagueDefinition GetSealedTemplate(String leagueName) {
@@ -200,6 +200,10 @@ public class LotroFormatLibrary {
             var data = _sealedTemplates.get(leagueName);
             if(data == null) {
                 data = _sealedTemplates.get(legacyCodeMapping.get(leagueName));
+            }
+            if(data == null) {
+                collectionReady.release();
+                throw new RuntimeException("Could not find league definition for '" + leagueName + "'.");
             }
             collectionReady.release();
             return data;
