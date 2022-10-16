@@ -19,7 +19,7 @@ BoHD - Legolas Starter
 EoF - Faramir Starter
 EoF - Witch-king Starter
 (S)TTT - Starter
-(S)Booster Choice
+(S)All Decipher Choice - Booster
 (S)BoHD - Starter
 (S)EoF - Starter
 (S)FotR - Starter
@@ -79,7 +79,7 @@ Special-09
 (S)Special-1-3
 (S)Special-4-6
 (S)Special-7-9
-(S)Movie Booster Choice
+(S)Movie Choice - Booster
 Expanded
 Wraith
 AgesEnd
@@ -95,4 +95,4 @@ TSSealedS3D3
 (S)TSSealed-S1
 (S)TSSealed-S2
 (S)TSSealed-S3
-(S)TSBoosterChoice
+(S)TS Choice - Booster

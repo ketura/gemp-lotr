@@ -26,12 +26,12 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
     public CardCollection getPrizeForTournament(PlayerStanding playerStanding, int playersCount) {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
         if (playerStanding.getPoints() == 4) {
-            tournamentPrize.addItem("(S)Booster Choice", 2);
+            tournamentPrize.addItem("(S)All Decipher Choice - Booster", 2);
             tournamentPrize.addItem(getRandom(_promos), 1);
         } else if (playerStanding.getPoints() == 3) {
-            tournamentPrize.addItem("(S)Booster Choice", 2);
+            tournamentPrize.addItem("(S)All Decipher Choice - Booster", 2);
         } else {
-            tournamentPrize.addItem("(S)Booster Choice", 1);
+            tournamentPrize.addItem("(S)All Decipher Choice - Booster", 1);
         }
 
         if (!tournamentPrize.getAll().iterator().hasNext())
