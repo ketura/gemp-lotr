@@ -407,8 +407,8 @@
         "hall":false
     },
     {
-        "name":"Hobbit: Open",
-        "code":"hobbit_open",
+        "name":"The Hobbit Draft Game",
+        "code":"hobbit",
         "order": 40,
         "sites":"HOBBIT",
         "cancelRingBearerSkirmish":true,
