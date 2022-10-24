@@ -133,8 +133,6 @@ var CardFilter = Class.extend({
             + "<option value='expanded'>Expanded</option>"
             + "<option value='pc_expanded'>Expanded (PC)</option>"
             + "<option value='french'>French Format</option>"
-            + "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
-            + "<option value='hobbit_tcb'> The Hobbit: The Clouds Burst</option>"
             + "<option disabled>----------</option>"
             + "<option value='0'>00 - Promo</option>"
             + "<option value='1'>01 - The Fellowship of the Ring</option>"
@@ -234,8 +232,8 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
             + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
             //Additional Hobbit Draft cultures
-            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
-            + "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
+            //+ "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
+            //+ "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
             //+ "<input type='checkbox' id='MIRKWOOD'/><label for='MIRKWOOD' id='labelMIRKWOOD'><img src='images/cultures/mirkwood.png'/></label>"
             //+ "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
             //+ "<input type='checkbox' id='SPIDER'/><label for='SPIDER' id='labelSPIDER'><img src='images/cultures/spider.png'/></label>"
@@ -438,8 +436,7 @@ var CardFilter = Class.extend({
         $("#itemClass").change(filterOut);
         $("#phase").change(filterOut);
 
-        //Additional Hobbit Draft labels
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH,#labelESGAROTH,#labelGUNDABAD").click(filterOut);
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
         
         this.collectionDiv = $("<div id='collection-display' style='display:flex;flex-direction:column;position:relative;'></div>");
         //collection-display
