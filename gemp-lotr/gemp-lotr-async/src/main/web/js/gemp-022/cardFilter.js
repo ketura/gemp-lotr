@@ -109,8 +109,8 @@ var CardFilter = Class.extend({
         this.navigationDiv.append(this.nextPageBut);
         
         this.fullFilterDiv = $("<div id='filter-inputs' style='display:flex;flex-wrap:wrap;'></div>");
-        this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
-            + "<option value='0-33,101'>All Sets</option>"
+        this.setSelect = $("<select id='setSelect' style='width: 130px; font-size: 80%;'>"
+            + "<option value='0-34,101'>All Sets</option>"
             + "<option value='0-19'>Official Decipher Sets</option>"
             + "<option value='30-33'>The Hobbit Sets</option>"
             + "<option value='50-69'>Player's Council Errata</option>"
@@ -212,7 +212,7 @@ var CardFilter = Class.extend({
 
         this.filterDiv = $("<div id='culture-buttons' style='display:flex;flex-wrap:wrap;'></div>");
 
-        this.filterDiv.append(""
+        this.filterDiv.append("<div id='culture1'>"
             + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.png'/></label>"
             + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png'/></label>"
             + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png'/></label>"
@@ -220,8 +220,6 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
             + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
             + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
-        );
-        this.filterDiv.append(""
             + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
             + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
             + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png'/></label>"
@@ -231,13 +229,16 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
             + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
             + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
-            //Additional Hobbit Draft cultures
-            //+ "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
-            //+ "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
-            //+ "<input type='checkbox' id='MIRKWOOD'/><label for='MIRKWOOD' id='labelMIRKWOOD'><img src='images/cultures/mirkwood.png'/></label>"
-            //+ "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
-            //+ "<input type='checkbox' id='SPIDER'/><label for='SPIDER' id='labelSPIDER'><img src='images/cultures/spider.png'/></label>"
-            //+ "<input type='checkbox' id='TROLL'/><label for='TROLL' id='labelTROLL'><img src='images/cultures/troll.png'/></label>"
+        );
+        //Additional Hobbit Draft cultures
+        //var hobbitFilterDiv = $("<div id='culture2' style='display:flex;flex-wrap:wrap;'></div>");
+        this.filterDiv.append("<div id='culture2'>"
+            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
+            + "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
+            + "<input type='checkbox' id='MIRKWOOD'/><label for='MIRKWOOD' id='labelMIRKWOOD'><img src='images/cultures/mirkwood.png'/></label>"
+            + "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
+            + "<input type='checkbox' id='SPIDER'/><label for='SPIDER' id='labelSPIDER'><img src='images/cultures/spider.png'/></label>"
+            + "<input type='checkbox' id='TROLL'/><label for='TROLL' id='labelTROLL'><img src='images/cultures/troll.png'/></label>"
         );
 
         var combos = $("<div></div>");
@@ -370,6 +371,26 @@ var CardFilter = Class.extend({
         
 
         $("#culture-buttons").buttonset();
+        
+        var setFilterChanged = function () {
+            var setSelected = $("#setSelect option:selected").prop("value");
+            if (setSelected.includes("30-33") || setSelected.includes("30") || setSelected.includes("31")
+                    || setSelected.includes("32") || setSelected.includes("33")) {
+                $("#culture2").show();
+            } else {
+                $("#labelESGAROTH").removeClass("ui-state-active");
+                $("#labelGUNDABAD").removeClass("ui-state-active");
+                $("#labelMIRKWOOD").removeClass("ui-state-active");
+                $("#labelSMAUG").removeClass("ui-state-active");
+                $("#labelSPIDER").removeClass("ui-state-active");
+                $("#labelTROLL").removeClass("ui-state-active");
+                $("#culture2").hide();
+            }
+            that.filter = that.calculateNormalFilter();
+            that.start = 0
+            that.getCollection();
+            return true;
+        };
 
         var fullFilterChanged = function () {
             that.start = 0;
@@ -377,7 +398,10 @@ var CardFilter = Class.extend({
             return true;
         };
 
-        this.setSelect.change(fullFilterChanged);
+        //Hide Hobbit cultures by default
+        $("#culture2").hide();
+
+        this.setSelect.change(setFilterChanged);
         this.nameInput.change(fullFilterChanged);
         this.sortSelect.change(fullFilterChanged);
         this.raritySelect.change(fullFilterChanged);
@@ -437,6 +461,8 @@ var CardFilter = Class.extend({
         $("#phase").change(filterOut);
 
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
+        //Additional Hobbit Draft labels
+        $("#labelESGAROTH,#labelGUNDABAD,#labelMIRKWOOD,#labelSMAUG,#labelSPIDER,#labelTROLL").click(filterOut);
         
         this.collectionDiv = $("<div id='collection-display' style='display:flex;flex-direction:column;position:relative;'></div>");
         //collection-display
