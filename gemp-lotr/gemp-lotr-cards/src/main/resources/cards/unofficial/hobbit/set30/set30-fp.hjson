@@ -1195,7 +1195,7 @@
         type: modifier
         modifier: {
           type: modifyStrength
-          filter: self,inSkirmishAgainst(name(Gollum))
+          filter: self,inSkirmishAgainst(or(name(Smaug),name(Gollum)))
           amount: 2
         }
       }
