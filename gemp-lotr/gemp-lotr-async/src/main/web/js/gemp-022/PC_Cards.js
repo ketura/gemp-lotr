@@ -290,5 +290,12 @@ var PCCards = {
 	'9_53': 'https://i.lotrtcgpc.net/promos/LOTR-EN09O004.0_card.jpg',
 	//Desert Lord FA (4R219)
 	'4_366': 'https://i.lotrtcgpc.net/promos/LOTR-EN04A219.0_card.jpg',
+	
+	//October 2022 Weekend League Promos
+	//Sam, Bearer of Great Need MW (13R156)
+	'13_204': 'https://i.lotrtcgpc.net/promos/LOTR-EN13O156.0_card.jpg',
+	//Gothmog, Morgul Leader FA (18R80)
+	'18_150': 'https://i.lotrtcgpc.net/promos/LOTR-EN18A080.0_card.jpg',
+	
 }
 

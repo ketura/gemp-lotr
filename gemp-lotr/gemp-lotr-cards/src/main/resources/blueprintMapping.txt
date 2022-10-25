@@ -284,3 +284,7 @@ gl_theOneRing,1_2
 9_53,9_4
 #Desert Lord FA
 4_366,4_219
+#Sam, Bearer of Great Need MW
+13_204,13_156
+#Gothmog, Morgul Leader FA
+18_150,18_80
