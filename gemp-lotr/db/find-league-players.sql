@@ -26,7 +26,7 @@ INNER JOIN league_participation lp
 INNER JOIN league_match lm 
 	ON lm.league_type = l.`type` 
 WHERE (lm.winner = lp.player_name OR lm.loser = lp.player_name )
-	AND l.id = 545
+	AND l.id = 554
 GROUP BY lp.player_name 
 ORDER BY Count(*) DESC;
 
