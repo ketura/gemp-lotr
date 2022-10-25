@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.GameHistoryEntry;
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.Player;
 
 import java.util.Date;
@@ -10,11 +10,11 @@ import java.util.Map;
 public interface GameHistoryDAO {
     public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, Date startDate, Date endDate);
 
-    public List<GameHistoryEntry> getGameHistoryForPlayer(Player player, int start, int count);
+    public List<DBDefs.GameHistory> getGameHistoryForPlayer(Player player, int start, int count);
 
     public int getGameHistoryForPlayerCount(Player player);
 
-    public List<GameHistoryEntry> getGameHistoryForFormat(String format, int count);
+    public List<DBDefs.GameHistory> getGameHistoryForFormat(String format, int count);
 
     public int getActivePlayersCount(long from, long duration);
 
@@ -26,5 +26,5 @@ public interface GameHistoryDAO {
 
     public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player);
 
-    List<GameHistoryEntry> getLastGames(String formatName, int count);
+    List<DBDefs.GameHistory> getLastGames(String formatName, int count);
 }

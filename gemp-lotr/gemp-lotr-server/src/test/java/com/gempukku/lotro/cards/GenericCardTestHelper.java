@@ -296,11 +296,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetFreepsArcheryTotal() { return RuleUtils.calculateFellowshipArcheryTotal(_game); }
     public int GetShadowArcheryTotal() { return RuleUtils.calculateShadowArcheryTotal(_game); }
 
-    public int GetFreepsHandCount() { return GetPlayerHandCount(P1); }
-    public int GetShadowHandCount() { return GetPlayerHandCount(P2); }
-    public int GetPlayerHandCount(String player)
+    public int GetFreepsHandCount() { return GetFreepsHand().size(); }
+    public int GetShadowHandCount() { return GetShadowHand().size(); }
+
+    public List<? extends PhysicalCard> GetFreepsHand() { return GetPlayerHand(P1); }
+    public List<? extends PhysicalCard> GetShadowHand() { return GetPlayerHand(P2); }
+    public List<? extends PhysicalCard> GetPlayerHand(String player)
     {
-        return _game.getGameState().getHand(player).size();
+        return _game.getGameState().getHand(player);
     }
 
     public int GetFreepsDeckCount() { return GetPlayerDeckCount(P1); }
@@ -419,6 +422,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
             RemoveCardZone(card.getOwner(), card);
             _game.getGameState().putCardOnBottomOfDeck(card);
         });
+    }
+
+    public void FreepsDrawCard() {
+        _game.getGameState().playerDrawsCard(P1);
+    }
+
+    public void ShadowDrawCard() {
+        _game.getGameState().playerDrawsCard(P2);
     }
 
     public void FreepsShuffleCardsInDeck(String...cardNames) {

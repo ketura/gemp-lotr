@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.db.PlayerStatistic;
-import com.gempukku.lotro.db.vo.GameHistoryEntry;
 
 import java.util.Date;
 import java.util.List;
@@ -36,15 +36,15 @@ public class GameHistoryService {
         return count;
     }
 
-    public List<GameHistoryEntry> getGameHistoryForPlayer(Player player, int start, int count) {
+    public List<DBDefs.GameHistory> getGameHistoryForPlayer(Player player, int start, int count) {
         return _gameHistoryDAO.getGameHistoryForPlayer(player, start, count);
     }
 
-    public List<GameHistoryEntry> getGameHistoryForFormat(String format, int count) {
+    public List<DBDefs.GameHistory> getGameHistoryForFormat(String format, int count) {
         return _gameHistoryDAO.getGameHistoryForFormat(format, count);
     }
 
-    public List<GameHistoryEntry> getTrackableGames(int count) {
+    public List<DBDefs.GameHistory> getTrackableGames(int count) {
         return _gameHistoryDAO.getLastGames("Second Edition", count);
     }
 

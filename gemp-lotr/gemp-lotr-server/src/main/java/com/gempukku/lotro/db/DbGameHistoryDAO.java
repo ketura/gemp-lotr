@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.GameHistoryEntry;
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.Player;
 import org.sql2o.Sql2o;
 
@@ -42,7 +42,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         }
     }
 
-    public List<GameHistoryEntry> getGameHistoryForPlayer(Player player, int start, int count) {
+    public List<DBDefs.GameHistory> getGameHistoryForPlayer(Player player, int start, int count) {
 
         try {
 
@@ -50,11 +50,11 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
             try (org.sql2o.Connection conn = db.open()) {
                 String sql = "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history where winner=:playerName or loser=:playerName order by end_date desc limit :start, :count";
-                List<GameHistoryEntry> result = conn.createQuery(sql)
+                List<DBDefs.GameHistory> result = conn.createQuery(sql)
                         .addParameter("playerName", player.getName())
                         .addParameter("start", start)
                         .addParameter("count", count)
-                        .executeAndFetch(GameHistoryEntry.class);
+                        .executeAndFetch(DBDefs.GameHistory.class);
 
                 return result;
             }
@@ -65,20 +65,27 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
     }
 
     @Override
-    public List<GameHistoryEntry> getGameHistoryForFormat(String format, int count)  {
+    public List<DBDefs.GameHistory> getGameHistoryForFormat(String format, int count)  {
         try {
 
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
 
             try (org.sql2o.Connection conn = db.open()) {
-                String sql = "SELECT winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date " +
-                        " FROM game_history " +
-                        " WHERE format_name LIKE :format" +
-                        " ORDER BY end_date DESC LIMIT :count";
-                List<GameHistoryEntry> result = conn.createQuery(sql)
+                String sql = """
+                        SELECT
+                            winner, loser, win_reason, lose_reason,
+                            win_recording_id, lose_recording_id, format_name,
+                            tournament, winner_deck_name, loser_deck_name,
+                            start_date, end_date
+                        FROM game_history
+                        WHERE format_name LIKE :format
+                        ORDER BY end_date DESC
+                        LIMIT :count
+                        """;
+                List<DBDefs.GameHistory> result = conn.createQuery(sql)
                         .addParameter("format", "%" + format + "%")
                         .addParameter("count", count)
-                        .executeAndFetch(GameHistoryEntry.class);
+                        .executeAndFetch(DBDefs.GameHistory.class);
 
                 return result;
             }
@@ -191,7 +198,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
     }
 
     @Override
-    public List<GameHistoryEntry> getLastGames(String requestedFormatName, int count) {
+    public List<DBDefs.GameHistory> getLastGames(String requestedFormatName, int count) {
 
         try {
 
@@ -201,10 +208,10 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                 String sql = "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, " +
                         "tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history " +
                         "where format_name=:formatName order by end_date desc limit :count";
-                List<GameHistoryEntry> result = conn.createQuery(sql)
+                List<DBDefs.GameHistory> result = conn.createQuery(sql)
                         .addParameter("formatName", requestedFormatName)
                         .addParameter("count", count)
-                        .executeAndFetch(GameHistoryEntry.class);
+                        .executeAndFetch(DBDefs.GameHistory.class);
 
                 return result;
             }

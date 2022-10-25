@@ -12,4 +12,10 @@ public interface CollectionDAO {
     public CardCollection getPlayerCollection(int playerId, String type) throws SQLException, IOException;
 
     public void setPlayerCollection(int playerId, String type, CardCollection collection) throws SQLException, IOException;
+
+    void convertCollection(int playerId, String type) throws SQLException, IOException;
+
+    void addToCollection(int playerId, String type, CardCollection collection, String source);
+
+    void removeFromCollection(int playerId, String type, CardCollection collection, String source);
 }

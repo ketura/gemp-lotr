@@ -1,19 +1,18 @@
 package com.gempukku.lotro.collection;
 
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.packs.ProductLibrary;
-import com.google.common.collect.Iterables;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.stream.Collectors;
 
 public class CollectionsManager {
     private final ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
@@ -31,46 +30,7 @@ public class CollectionsManager {
     }
 
     public CardCollection getDefaultCollection() {
-        return new CardCollection() {
-            @Override
-            public int getCurrency() {
-                return 0;
-            }
-
-            @Override
-            public Iterable<Item> getAll() {
-                return lotroCardBlueprintLibrary.getBaseCards().entrySet().stream().map(cardBlueprintEntry -> {
-                    String blueprintId = cardBlueprintEntry.getKey();
-                    int count = getCount(cardBlueprintEntry.getValue());
-                    return Item.createItem(blueprintId, count);
-                }).collect(Collectors.toList());
-            }
-
-            @Override
-            public int getItemCount(String blueprintId) {
-                final String baseBlueprintId = lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId);
-                if (baseBlueprintId.equals(blueprintId)) {
-                    try {
-                        return getCount(lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId));
-                    } catch (CardNotFoundException exp) {
-                        return 0;
-                    }
-                }
-                return 0;
-            }
-
-            private int getCount(LotroCardBlueprint blueprint) {
-                final CardType cardType = blueprint.getCardType();
-                if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                    return 1;
-                return 4;
-            }
-
-            @Override
-            public Map<String, Object> getExtraInformation() {
-                return Collections.emptyMap();
-            }
-        };
+        return new CompleteCardCollection(lotroCardBlueprintLibrary);
     }
 
     public CardCollection getPlayerCollection(String playerName, String collectionType) {
@@ -129,6 +89,16 @@ public class CollectionsManager {
         try {
             setPlayerCollection(player, collectionType.getCode(), cardCollection);
             _transferDAO.addTransferTo(notifyPlayer, player.getName(), reason, collectionType.getFullName(), cardCollection.getCurrency(), cardCollection);
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
+    public void upgradePlayerCollection(Player player, CollectionType colltype) throws SQLException, IOException {
+        _readWriteLock.writeLock().lock();
+        try {
+            //var collection = _collectionDAO.getPlayerCollection(player.getId(), colltype.getCode());
+            _collectionDAO.convertCollection(player.getId(), colltype.getCode());
         } finally {
             _readWriteLock.writeLock().unlock();
         }

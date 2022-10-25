@@ -53,4 +53,27 @@ public class CachedCollectionDAO implements CollectionDAO, Cached {
         _delegate.setPlayerCollection(playerId, type, collection);
         _playerCollections.put(constructCacheKey(playerId, type), collection);
     }
+
+    @Override
+    public void convertCollection(int playerId, String type) throws SQLException, IOException {
+        _delegate.convertCollection(playerId, type);
+    }
+
+    @Override
+    public void addToCollection(int playerId, String type, CardCollection collection, String source) {
+        _delegate.addToCollection(playerId, type, collection, source);
+        String id = constructCacheKey(playerId, type);
+        if(!_playerCollections.containsKey(id)) {
+            _playerCollections.put(id, collection);
+        }
+        else {
+            var oldCollection = _playerCollections.get(id);
+            //oldCollection.
+        }
+    }
+
+    @Override
+    public void removeFromCollection(int playerId, String type, CardCollection collection, String source) {
+        _delegate.removeFromCollection(playerId, type, collection, source);
+    }
 }

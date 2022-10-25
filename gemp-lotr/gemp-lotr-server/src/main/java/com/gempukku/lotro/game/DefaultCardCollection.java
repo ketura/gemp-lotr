@@ -1,25 +1,24 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.packs.ProductLibrary;
 
 import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
+    public static String CurrencyKey = "currency";
     private final Map<String, Item> _counts = new LinkedHashMap<>();
-    private int _currency;
     private Map<String, Object> _extraInformation = new HashMap<>();
 
     public DefaultCardCollection() {
-
+        _extraInformation.put(CurrencyKey,  0);
     }
 
     public DefaultCardCollection(CardCollection cardCollection) {
+        this();
         for (Item item : cardCollection.getAll()) {
             _counts.put(item.getBlueprintId(), item);
         }
 
-        _currency = cardCollection.getCurrency();
         _extraInformation.putAll(cardCollection.getExtraInformation());
     }
 
@@ -34,20 +33,23 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public synchronized void addCurrency(int currency) {
-        _currency += currency;
+        int oldCurrency = (Integer) _extraInformation.get(CurrencyKey);
+        _extraInformation.put(CurrencyKey, oldCurrency + currency);
     }
 
     @Override
     public synchronized boolean removeCurrency(int currency) {
-        if (_currency < currency)
+        int oldCurrency = (Integer) _extraInformation.get(CurrencyKey);
+
+        if (oldCurrency < currency)
             return false;
-        _currency -= currency;
+        _extraInformation.put(CurrencyKey, oldCurrency - currency);
         return true;
     }
 
     @Override
     public synchronized int getCurrency() {
-        return _currency;
+        return (Integer) _extraInformation.get(CurrencyKey);
     }
 
     @Override
