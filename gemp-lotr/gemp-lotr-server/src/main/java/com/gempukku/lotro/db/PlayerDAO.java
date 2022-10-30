@@ -1,5 +1,6 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.Player;
 
 import java.sql.SQLException;
@@ -32,4 +33,6 @@ public interface PlayerDAO {
     public boolean registerUser(String login, String password, String remoteAddr) throws SQLException, LoginInvalidException;
 
     public void updateLastLoginIp(String login, String remoteAddr) throws SQLException;
+
+    List<DBDefs.Player> getAllPlayers();
 }

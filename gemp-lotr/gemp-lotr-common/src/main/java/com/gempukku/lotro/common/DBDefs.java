@@ -42,6 +42,13 @@ public class DBDefs {
 
     }
 
+    public static class Collection {
+        public int id;
+        public int player_id;
+        public String type;
+        public String extra_info;
+    }
+
     public static class CollectionEntry {
         public int collection_id;
         public int quantity;
@@ -52,5 +59,10 @@ public class DBDefs {
         public LocalDateTime created_date;
         public LocalDateTime modified_date;
         public String notes;
+    }
+
+    public static class Player {
+        public int id;
+        public String name;
     }
 }

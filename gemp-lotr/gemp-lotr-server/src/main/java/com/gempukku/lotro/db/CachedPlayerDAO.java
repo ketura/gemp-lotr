@@ -1,6 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.cache.Cached;
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.Player;
 import org.apache.commons.collections.map.LRUMap;
 
@@ -130,6 +131,11 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     @Override
     public void updateLastLoginIp(String login, String remoteAddr) throws SQLException {
         _delegate.updateLastLoginIp(login, remoteAddr);
+    }
+
+    @Override
+    public List<DBDefs.Player> getAllPlayers() {
+        return _delegate.getAllPlayers();
     }
 
     @Override

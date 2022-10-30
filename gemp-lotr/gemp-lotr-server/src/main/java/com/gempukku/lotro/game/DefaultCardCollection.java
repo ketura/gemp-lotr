@@ -22,8 +22,15 @@ public class DefaultCardCollection implements MutableCardCollection {
         _extraInformation.putAll(cardCollection.getExtraInformation());
     }
 
-    public synchronized void setExtraInformation(Map<String, Object> extraInformation) {
-        _extraInformation = extraInformation;
+    public synchronized void setExtraInformation(Map<String, Object> extraInfo) {
+        _extraInformation.putAll(extraInfo);
+        //Some deserialization defaults to making the currency a Long rather than an Integer
+        if(extraInfo.containsKey(CurrencyKey)) {
+            var input = extraInfo.get(CurrencyKey);
+            if(input instanceof Long linput) {
+                _extraInformation.put(CurrencyKey, linput.intValue());
+            }
+        }
     }
 
     @Override

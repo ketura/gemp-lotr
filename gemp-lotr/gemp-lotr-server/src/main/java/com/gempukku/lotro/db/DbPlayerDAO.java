@@ -1,6 +1,8 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.Player;
+import org.sql2o.Sql2o;
 
 import java.security.MessageDigest;
 import java.sql.Connection;
@@ -316,6 +318,25 @@ public class DbPlayerDAO implements PlayerDAO {
                 statement.setString(2, login);
                 statement.execute();
             }
+        }
+    }
+
+    @Override
+    public List<DBDefs.Player> getAllPlayers() {
+
+        try {
+
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = "SELECT id, name FROM player";
+                List<DBDefs.Player> result = conn.createQuery(sql)
+                        .executeAndFetch(DBDefs.Player.class);
+
+                return result;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve players", ex);
         }
     }
 }

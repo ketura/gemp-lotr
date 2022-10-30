@@ -1,6 +1,7 @@
 package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.cache.Cached;
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.game.CardCollection;
 import org.apache.commons.collections.map.LRUMap;
@@ -8,6 +9,7 @@ import org.apache.commons.collections.map.LRUMap;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class CachedCollectionDAO implements CollectionDAO, Cached {
@@ -60,8 +62,13 @@ public class CachedCollectionDAO implements CollectionDAO, Cached {
     }
 
     @Override
-    public void addToCollection(int playerId, String type, CardCollection collection, String source) {
-        _delegate.addToCollection(playerId, type, collection, source);
+    public List<DBDefs.Collection> getAllCollectionsForPlayer(int playerId) {
+        return _delegate.getAllCollectionsForPlayer(playerId);
+    }
+
+    @Override
+    public void addToCollectionContents(int playerId, String type, CardCollection collection, String source) {
+        _delegate.addToCollectionContents(playerId, type, collection, source);
         String id = constructCacheKey(playerId, type);
         if(!_playerCollections.containsKey(id)) {
             _playerCollections.put(id, collection);
@@ -73,7 +80,7 @@ public class CachedCollectionDAO implements CollectionDAO, Cached {
     }
 
     @Override
-    public void removeFromCollection(int playerId, String type, CardCollection collection, String source) {
-        _delegate.removeFromCollection(playerId, type, collection, source);
+    public void removeFromCollectionContents(int playerId, String type, CardCollection collection, String source) {
+        _delegate.removeFromCollectionContents(playerId, type, collection, source);
     }
 }

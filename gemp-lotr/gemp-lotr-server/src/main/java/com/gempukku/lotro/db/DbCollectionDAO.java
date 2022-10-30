@@ -1,7 +1,9 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.CardCollection;
+import org.json.simple.JSONObject;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DbCollectionDAO implements CollectionDAO {
@@ -92,6 +95,30 @@ public class DbCollectionDAO implements CollectionDAO {
         public int ID;
     }
 
+    @Override
+    public List<DBDefs.Collection> getAllCollectionsForPlayer(int playerId) {
+
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = """
+                        SELECT
+                            id, player_id, type, extra_info
+                        FROM collection
+                        WHERE player_id = :playerID
+                        """;
+                List<DBDefs.Collection> result = conn.createQuery(sql)
+                        .addParameter("playerID", playerId)
+                        .executeAndFetch(DBDefs.Collection.class);
+
+                return result;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve collection types", ex);
+        }
+    }
+
     public int getCollectionID(int playerId, String type)  {
         try {
 
@@ -119,45 +146,72 @@ public class DbCollectionDAO implements CollectionDAO {
         }
     }
 
-    public void updateCollection(int playerId, String type, CardCollection collection, String source) {
+    public void upsertCollection(int playerId, String type, CardCollection collection) {
+        String sql = """
+                        INSERT INTO collection(player_id, type, extra_info)
+                        VALUES (:playerId, :type, :extraInfo)
+                        ON DUPLICATE KEY UPDATE extra_info = :extraInfo;
+                        """;
+        String json = "";
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            var jsonObj = new JSONObject();
+            jsonObj.putAll(collection.getExtraInformation());
+            json = jsonObj.toJSONString();
+
+            try (org.sql2o.Connection conn = db.beginTransaction()) {
+                Query query = conn.createQuery(sql, true);
+                query.addParameter("playerId", playerId)
+                        .addParameter("type", type)
+                        .addParameter("extraInfo", json);
+                query.executeUpdate();
+                conn.commit();
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to upsert collection", ex);
+        }
+    }
+
+    public void updateCollectionContents(int playerId, String type, CardCollection collection, String source) {
         String sql = """
                         INSERT INTO collection_entries(collection_id, quantity, product_type, product, source)
                         VALUES (:collid, :quantity, :type, :product, :source)
                         ON DUPLICATE KEY UPDATE quantity = :quantity, source = :source;
                         """;
         String error = "Unable to update product via upsert into collection_entries.";
-        updateCollection(playerId, type, collection, source, sql, error);
+        updateCollectionContents(playerId, type, collection, source, sql, error);
     }
 
-    public void addToCollection(int playerId, String type, CardCollection collection, String source) {
+    public void addToCollectionContents(int playerId, String type, CardCollection collection, String source) {
         String sql = """
                         INSERT INTO collection_entries(collection_id, quantity, product_type, product, source)
                         VALUES (:collid, :quantity, :type, :product, :source)
                         ON DUPLICATE KEY UPDATE quantity = quantity + :quantity, source = :source;
                         """;
         String error = "Unable to add product via upsert into collection_entries.";
-        updateCollection(playerId, type, collection, source, sql, error);
+        updateCollectionContents(playerId, type, collection, source, sql, error);
     }
 
-    public void removeFromCollection(int playerId, String type, CardCollection collection, String source) {
+    public void removeFromCollectionContents(int playerId, String type, CardCollection collection, String source) {
         String sql = """
                         INSERT INTO collection_entries(collection_id, quantity, product_type, product, source)
                         VALUES (:collid, :quantity, :type, :product, :source)
                         ON DUPLICATE KEY UPDATE quantity = GREATEST(quantity - :quantity, 0), source = :source;
                         """;
         String error = "Unable to remove product via upsert into collection_entries.";
-        updateCollection(playerId, type, collection, source, sql, error);
+        updateCollectionContents(playerId, type, collection, source, sql, error);
     }
 
     public void convertCollection(int playerId, String type) throws SQLException, IOException {
         CardCollection oldCollection = getPlayerCollection(playerId, type);
-        updateCollection(playerId, type, oldCollection, "Initial Convert");
+        updateCollectionContents(playerId, type, oldCollection, "Initial Convert");
     }
 
 
     //TODO:
-    // - Convert currency to an extra info entry
-    // - add data field to the original collection table to hold the extra info as json
+    // + Convert currency to an extra info entry
+    // + add data field to the original collection table to hold the extra info as json
     // - create player-looping function to convert all collections and see if it blows up via test
     // - add CollectionsManager mirror functions to read/writing into the new table
     // - write unit tests to convert and compare a bajillion collections
@@ -165,7 +219,8 @@ public class DbCollectionDAO implements CollectionDAO {
     // - test a: draft, new art card reward, my cards reward, pack openings
     // - write script to back up db and delete the old binary blob column
     // - write script to convert all leagues to use IDs instead of names
-    private void updateCollection(int playerId, String type, CardCollection collection, String source, String sql, String error) {
+    private void updateCollectionContents(int playerId, String type, CardCollection collection, String source, String sql, String error) {
+        upsertCollection(playerId, type, collection);
         int collID = getCollectionID(playerId, type);
 
         try {

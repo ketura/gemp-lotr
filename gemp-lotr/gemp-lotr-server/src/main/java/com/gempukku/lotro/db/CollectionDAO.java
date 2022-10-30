@@ -1,9 +1,11 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.CardCollection;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 public interface CollectionDAO {
@@ -15,7 +17,9 @@ public interface CollectionDAO {
 
     void convertCollection(int playerId, String type) throws SQLException, IOException;
 
-    void addToCollection(int playerId, String type, CardCollection collection, String source);
+    List<DBDefs.Collection> getAllCollectionsForPlayer(int playerId);
 
-    void removeFromCollection(int playerId, String type, CardCollection collection, String source);
+    void addToCollectionContents(int playerId, String type, CardCollection collection, String source);
+
+    void removeFromCollectionContents(int playerId, String type, CardCollection collection, String source);
 }

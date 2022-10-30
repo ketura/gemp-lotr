@@ -74,7 +74,7 @@ public class CollectionSerializerTest {
             assertEquals(3, resultCollection.getItemCount("15_2"));
             assertEquals(3, resultCollection.getItemCount("15_4*"));
             assertEquals(2, resultCollection.getItemCount("FotR - Booster"));
-            assertEquals(1, resultCollection.getExtraInformation().size());
+            assertEquals(2, resultCollection.getExtraInformation().size());
             assertEquals("b", resultCollection.getExtraInformation().get("a"));
         } finally {
             IOUtils.closeQuietly(is);
@@ -93,7 +93,8 @@ public class CollectionSerializerTest {
         assertEquals(12, resultCollection.getCurrency());
         assertEquals(1, Iterables.size(resultCollection.getAll()));
         assertEquals(2, resultCollection.getItemCount("15_4*"));
-        assertEquals(1, resultCollection.getExtraInformation().size());
+        //added entry + the default currency storage
+        assertEquals(2, resultCollection.getExtraInformation().size());
         assertEquals("b", resultCollection.getExtraInformation().get("a"));
     }
 
