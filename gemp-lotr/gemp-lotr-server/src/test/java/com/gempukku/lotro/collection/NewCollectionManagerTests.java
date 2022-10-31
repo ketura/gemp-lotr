@@ -13,8 +13,9 @@ import java.sql.SQLException;
 // Tidings of Erebor
 public class NewCollectionManagerTests
 {
-    private static DbAccess dbAccess = new DbAccess("jdbc:mysql://localhost:35001/gemp_db",
-            "root", "rootpass", false);
+    private static DbAccess dbAccess = new DbAccess();
+    //private static DbAccess dbAccess = new DbAccess("jdbc:mysql://localhost:35001/gemp_db",
+    //            "root", "rootpass", false);
 
     //@Test
     public void ConvertCollectionTest() throws DecisionResultInvalidException, CardNotFoundException, IOException, SQLException {
