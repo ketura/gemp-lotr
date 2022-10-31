@@ -5,7 +5,6 @@ import com.gempukku.lotro.db.DbCollectionDAO;
 import com.gempukku.lotro.db.DbPlayerDAO;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,7 +24,7 @@ public class NewCollectionManagerTests
     }
 
     //This is probably never needed anymore now that it's been ran once
-    @Test
+    //@Test
     public void ConvertAllPlayerCollectionsTest() throws IOException, SQLException {
         var collDAO = new DbCollectionDAO(dbAccess, new CollectionSerializer());
         var playerDAO = new DbPlayerDAO(dbAccess);
