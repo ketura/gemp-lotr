@@ -6,8 +6,6 @@ import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface LeagueData {
@@ -19,5 +17,5 @@ public interface LeagueData {
 
     CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);
 
-    int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime) throws SQLException, IOException;
+    int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime);
 }

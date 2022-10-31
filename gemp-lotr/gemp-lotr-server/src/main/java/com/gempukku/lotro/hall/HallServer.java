@@ -723,7 +723,7 @@ public class HallServer extends AbstractServer {
         if (league != null) {
             listener = new GameResultListener() {
                 @Override
-                public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) throws SQLException, IOException {
+                public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
                     _leagueService.reportLeagueGameResult(league, leagueSerie, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
                 }
 

@@ -143,7 +143,7 @@ public class LeagueService {
         return null;
     }
 
-    public synchronized void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) throws SQLException, IOException {
+    public synchronized void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
         _leagueMatchDao.addPlayedMatch(league.getType(), serie.getName(), winner, loser);
 
         _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
@@ -153,7 +153,7 @@ public class LeagueService {
         awardPrizesToPlayer(league, serie, loser, false);
     }
 
-    private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) throws SQLException, IOException {
+    private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) {
         int count = 0;
         Collection<LeagueMatchResult> playerMatchesPlayedOn = getPlayerMatchesInSerie(league, serie, player);
         for (LeagueMatchResult leagueMatch : playerMatchesPlayedOn) {
@@ -167,7 +167,8 @@ public class LeagueService {
         else
             prize = serie.getPrizeForLeagueMatchLoser(count, playerMatchesPlayedOn.size());
         if (prize != null)
-            _collectionsManager.addItemsToPlayerCollection(true, "Prize for winning league game", player, CollectionType.MY_CARDS, prize.getAll());
+             _collectionsManager.addItemsToPlayerCollection(true, "Prize for winning league game", player, CollectionType.MY_CARDS, prize.getAll());
+
     }
 
     public synchronized Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {

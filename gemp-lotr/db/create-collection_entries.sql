@@ -24,11 +24,15 @@ CREATE TABLE `collection_entries` (
 
 SELECT *
 FROM collection c 
-WHERE player_id = 31040
+WHERE player_id = 31040;
 
 SELECT *
 FROM collection_entries 
-WHERE collection_id = 64643
+WHERE collection_id = 59510;
+
+SELECT *
+FROM collection_entries 
+WHERE collection_id = 64643;
 
 SELECT *
 FROM player p
@@ -40,6 +44,14 @@ ORDER BY p.name
 SELECT count(*)
 FROM collection_entries
 GROUP BY collection_id 
+
+SELECT TYPE 
+FROM collection c
+GROUP BY type
+
+SELECT * 
+FROM transfer t 
+ORDER BY ID DESC
 
 
 
