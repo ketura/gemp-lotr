@@ -37,9 +37,9 @@ var packBlueprints = {
     "(S)SH - Tengwar": "/gemp-lotr/images/boosters/sh_tengwar_selection.png",
     "(S)Tengwar": "/gemp-lotr/images/boosters/tengwar_selection.png",
 
-    "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
-    "(S)Movie Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
-    "(S)TSBoosterChoice": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)All Decipher Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)Movie Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)TS Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
     "Random FotR Foil Common": "/gemp-lotr/images/boosters/random_foil.png",
@@ -139,7 +139,29 @@ var packBlueprints = {
 
     "Expanded": "/gemp-lotr/images/boosters/expanded.png",
     "Wraith": "/gemp-lotr/images/boosters/wraith.png",
-    "AgesEnd": "/gemp-lotr/images/boosters/ages_end.png"
+    "AgesEnd": "/gemp-lotr/images/boosters/ages_end.png",
+    
+    "(S)FotR Block Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)TTT Block Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)RotK Block Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)SoG/MD Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)WotR Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)HU Block Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)Expanded Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)BR/HU/RoS Choice - Booster": "/gemp-lotr/images/boosters/booster_selection.png",
+
+    "(S)Movie Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Reflections Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Hobbits Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Expanded Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Evil Characters Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)FotR Block Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)TTT Block Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)RotK Block Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)TS Special Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Movie Special Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)WotR Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)HU Block Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
 };
 
 var Card = Class.extend({

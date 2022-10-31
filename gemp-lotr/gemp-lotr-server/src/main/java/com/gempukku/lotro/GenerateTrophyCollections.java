@@ -40,7 +40,7 @@ public class GenerateTrophyCollections {
                 System.out.println("Player id: "+playerIdToCollection.getKey()+", Tengwar count: "+tengwarCount);
                 DefaultCardCollection trophies = new DefaultCardCollection();
                 trophies.addItem("(S)Tengwar", tengwarCount);
-                collections.setPlayerCollection(playerIdToCollection.getKey(), CollectionType.TROPHY.getCode(), trophies);
+                collections.overwriteCollectionContents(playerIdToCollection.getKey(), CollectionType.TROPHY.getCode(), trophies, "Trophy Generation");
             }
         }
     }

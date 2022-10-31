@@ -19,6 +19,8 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -278,7 +280,7 @@ public class HallServer extends AbstractServer {
             _runningTournaments.put(tournament.getTournamentId(), tournament);
     }
 
-    public void setShutdown(boolean shutdown) {
+    public void setShutdown(boolean shutdown) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             boolean cancelMessage = _shutdown && !shutdown;
@@ -329,7 +331,7 @@ public class HallServer extends AbstractServer {
         tableHolder.cancelWaitingTables();
     }
 
-    private void cancelTournamentQueues() {
+    private void cancelTournamentQueues() throws SQLException, IOException {
         for (TournamentQueue tournamentQueue : _tournamentQueues.values())
             tournamentQueue.leaveAllPlayers(_collectionsManager);
     }
@@ -428,7 +430,7 @@ public class HallServer extends AbstractServer {
         return DEFAULT_TIMER;
     }
 
-    public boolean joinQueue(String queueId, Player player, String deckName) throws HallException {
+    public boolean joinQueue(String queueId, Player player, String deckName) throws HallException, SQLException, IOException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -499,7 +501,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void leaveQueue(String queueId, Player player) {
+    public void leaveQueue(String queueId, Player player) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             TournamentQueue tournamentQueue = _tournamentQueues.get(queueId);
@@ -512,7 +514,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private boolean leaveQueuesForLeavingPlayer(Player player) {
+    private boolean leaveQueuesForLeavingPlayer(Player player) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             boolean result = false;
@@ -721,7 +723,7 @@ public class HallServer extends AbstractServer {
         if (league != null) {
             listener = new GameResultListener() {
                 @Override
-                public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) throws SQLException, IOException {
                     _leagueService.reportLeagueGameResult(league, leagueSerie, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
                 }
 
@@ -761,7 +763,7 @@ public class HallServer extends AbstractServer {
     private int _tickCounter = 60;
 
     @Override
-    protected void cleanup() {
+    protected void cleanup() throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             // Remove finished games

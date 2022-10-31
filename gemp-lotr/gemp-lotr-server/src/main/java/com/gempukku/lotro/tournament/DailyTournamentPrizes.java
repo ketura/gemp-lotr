@@ -25,7 +25,7 @@ public class DailyTournamentPrizes implements TournamentPrizes {
     @Override
     public CardCollection getPrizeForTournament(PlayerStanding playerStanding, int playersCount) {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
-        tournamentPrize.addItem("(S)Booster Choice", playerStanding.getPoints());
+        tournamentPrize.addItem("(S)All Decipher Choice - Booster", playerStanding.getPoints());
         if (playerStanding.getPlayerWins() + playerStanding.getPlayerByes() >= 2)
             tournamentPrize.addItem(getRandom(_promos), 1);
 

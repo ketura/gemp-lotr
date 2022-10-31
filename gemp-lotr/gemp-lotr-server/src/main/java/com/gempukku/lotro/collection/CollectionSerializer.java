@@ -1,6 +1,7 @@
 package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.common.AppConfig;
+import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
@@ -216,6 +217,24 @@ public class CollectionSerializer {
         } else {
             throw new IllegalStateException("Unkown version of serialized collection: " + version);
         }
+    }
+
+    public MutableCardCollection deserializeCollection(DBDefs.Collection coll, List<DBDefs.CollectionEntry> entries) throws IOException {
+        DefaultCardCollection newColl = new DefaultCardCollection();
+
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject object = (JSONObject) parser.parse(coll.extra_info);
+            newColl.setExtraInformation(object);
+        } catch (ParseException exp) {
+            throw new IOException(exp);
+        }
+
+        for(var entry : entries) {
+            newColl.addItem(entry.product, entry.quantity);
+        }
+
+        return newColl;
     }
 
     private MutableCardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {

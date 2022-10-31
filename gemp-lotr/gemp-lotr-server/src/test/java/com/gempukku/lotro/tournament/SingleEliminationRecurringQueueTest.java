@@ -4,17 +4,17 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
-import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.Date;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
 public class SingleEliminationRecurringQueueTest extends AbstractAtTest {
     @Test
-    public void joiningQueue() {
+    public void joiningQueue() throws SQLException, IOException {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -36,7 +36,7 @@ public class SingleEliminationRecurringQueueTest extends AbstractAtTest {
     }
 
     @Test
-    public void leavingQueue() {
+    public void leavingQueue() throws SQLException, IOException {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -61,7 +61,7 @@ public class SingleEliminationRecurringQueueTest extends AbstractAtTest {
     }
     
     @Test
-    public void cancellingQueue() {
+    public void cancellingQueue() throws SQLException, IOException {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
@@ -86,7 +86,7 @@ public class SingleEliminationRecurringQueueTest extends AbstractAtTest {
     }
 
     @Test
-    public void fillingQueue() {
+    public void fillingQueue() throws SQLException, IOException {
         Tournament tournament = Mockito.mock(Tournament.class);
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
         Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.eq(null), Mockito.anyString(), Mockito.eq("format"),
@@ -132,7 +132,7 @@ public class SingleEliminationRecurringQueueTest extends AbstractAtTest {
     }
 
     @Test
-    public void overflowingQueue() {
+    public void overflowingQueue() throws SQLException, IOException {
         Tournament tournament = Mockito.mock(Tournament.class);
 
         TournamentService tournamentService = Mockito.mock(TournamentService.class);

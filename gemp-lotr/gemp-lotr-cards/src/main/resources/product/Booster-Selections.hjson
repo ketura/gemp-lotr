@@ -1,7 +1,7 @@
 [
 	
 	{
-		name: (S)TSBoosterChoice
+		name: (S)TS Choice - Booster
 		type: selection
 		items: [
 			1xFotR - Booster
@@ -13,7 +13,7 @@
 		]
 	}
 	{
-		name: (S)Movie Booster Choice
+		name: (S)Movie Choice - Booster
 		type: selection
 		items: [
 			1xFotR - Booster
@@ -28,7 +28,7 @@
 		]
 	}
 	{
-		name: (S)Booster Choice
+		name: (S)All Decipher Choice - Booster
 		type: selection
 		items: [
 			1xFotR - Booster
@@ -46,6 +46,87 @@
 			1xHU - Booster
 			1xRoS - Booster
 			1xTaD - Booster
+		]
+	}
+	{
+		name: (S)FotR Block Choice - Booster
+		type: selection
+		items: [
+			1xFotR - Booster
+			1xMoM - Booster
+			1xRotEL - Booster
+		]
+	}
+	
+	{
+		name: (S)TTT Block Choice - Booster
+		type: selection
+		items: [
+			1xTTT - Booster
+			1xBoHD - Booster
+			1xEoF - Booster
+		]
+	}
+	
+	{
+		name: (S)RotK Block Choice - Booster
+		type: selection
+		items: [
+			1xRotK - Booster
+			1xSoG - Booster
+			1xMD - Booster
+		]
+	}
+	
+	{
+		name: (S)SoG/MD Choice - Booster
+		type: selection
+		items: [
+			1xSoG - Booster
+			1xMD - Booster
+		]
+	}
+	
+	{
+		name: (S)WotR Choice - Booster
+		type: selection
+		items: [
+			1xSH - Booster
+			1xBR - Booster
+			1xBL - Booster
+		]
+	}
+	
+	{
+		name: (S)HU Block Choice - Booster
+		type: selection
+		items: [
+			1xHU - Booster
+			1xRoS - Booster
+			1xTaD - Booster
+		]
+	}
+	
+	{
+		name: (S)Expanded Choice - Booster
+		type: selection
+		items: [
+			1xSH - Booster
+			1xBR - Booster
+			1xBL - Booster
+			1xHU - Booster
+			1xRoS - Booster
+			1xTaD - Booster
+		]
+	}
+	
+	{
+		name: (S)BR/HU/RoS Choice - Booster
+		type: selection
+		items: [
+			1xBR - Booster
+			1xHU - Booster
+			1xRoS - Booster
 		]
 	}
 ]

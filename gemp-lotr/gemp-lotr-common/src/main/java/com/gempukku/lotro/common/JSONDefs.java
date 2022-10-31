@@ -16,6 +16,7 @@ public class JSONDefs {
 
     public static class SealedTemplate {
         public String Name;
+        public String ID;
         public String Format;
         public List<List<String>> SeriesProduct;
     }

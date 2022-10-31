@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.SortAndFilterCards;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -52,7 +51,7 @@ public class DraftChoiceBuilder {
         final int optionCount = ((Number) data.get("optionCount")).intValue();
         String filter = (String) data.get("filter");
 
-        Iterable<CardCollection.Item> items = _collectionsManager.getDefaultCollection().getAll();
+        Iterable<CardCollection.Item> items = _collectionsManager.getCompleteCardCollection().getAll();
 
         final List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, items, _cardLibrary, _formatLibrary);
 

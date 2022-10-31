@@ -6,6 +6,8 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.packs.SetDefinition;
 import org.apache.commons.collections.map.LRUMap;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -136,7 +138,7 @@ public class MerchantService {
         }
     }
 
-    public void merchantBuysCard(Player player, String blueprintId, int price) throws MerchantException {
+    public void merchantBuysCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
         Date currentTime = new Date();
         Lock lock = _lock.writeLock();
         lock.lock();
@@ -159,7 +161,7 @@ public class MerchantService {
         }
     }
 
-    public void merchantSellsCard(Player player, String blueprintId, int price) throws MerchantException {
+    public void merchantSellsCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
         Date currentTime = new Date();
         Lock lock = _lock.writeLock();
         lock.lock();
@@ -182,7 +184,7 @@ public class MerchantService {
         }
     }
 
-    public void tradeForFoil(Player player, String blueprintId) throws MerchantException {
+    public void tradeForFoil(Player player, String blueprintId) throws MerchantException, SQLException, IOException {
         if (!blueprintId.contains("_") || blueprintId.endsWith("*"))
             throw new MerchantException("Unable to trade in this type of item");
         Lock lock = _lock.writeLock();

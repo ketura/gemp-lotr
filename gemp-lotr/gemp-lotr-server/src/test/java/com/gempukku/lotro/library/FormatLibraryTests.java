@@ -21,13 +21,13 @@ public class FormatLibraryTests extends AbstractAtTest {
 
     @ParameterizedTest(name = "{0} in LotroFormatLibrary matches SealedLeagueProduct.")
     @CsvSource(value = {
-            "Fellowship Block Sealed,fotr_block",
-            "Towers Block Sealed,ttt_block",
-            "Towers Standard Special Sealed,ts_special",
-            "King Block Sealed,movie",
-            "Movie Special Sealed,movie_special",
-            "War of the Ring Block Sealed,war_block",
-            "Hunters Block Sealed,hunters_block",
+            "fotr_block_sealed,fotr_block",
+            "ttt_block_sealed,ttt_block",
+            "ts_special_sealed,ts_special",
+            "rotk_block_sealed,movie",
+            "movie_special_sealed,movie_special",
+            "wotr_block_sealed,war_block",
+            "th_block_sealed,hunters_block",
     })
     public void SealedLeagueProductComparison(String sealedName, String formatCode) {
         var oldDef = _sealedLeagueProduct.getAllSeriesForLeague(formatCode);

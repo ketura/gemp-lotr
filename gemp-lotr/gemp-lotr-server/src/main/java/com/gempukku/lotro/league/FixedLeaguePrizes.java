@@ -31,7 +31,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie) {
         DefaultCardCollection winnerPrize = new DefaultCardCollection();
         if (winCountThisSerie % 2 == 1) {
-            winnerPrize.addItem("(S)Booster Choice", 1);
+            winnerPrize.addItem("(S)All Decipher Choice - Booster", 1);
         } else {
             if (winCountThisSerie <= 4) {
                 winnerPrize.addItem(getRandom(_commons) + "*", 1);
@@ -80,7 +80,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
 //65th-128th - 5 boosters
     private CardCollection getPrizeForSealedLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
-        prize.addItem("(S)Booster Choice", getSealedBoosterCount(position));
+        prize.addItem("(S)All Decipher Choice - Booster", getSealedBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
         if (prize.getAll().iterator().hasNext())
             return prize;
@@ -112,7 +112,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
 //17th-32nd - 2 boosters
     private CardCollection getPrizeForCollectorsLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
-        prize.addItem("(S)Booster Choice", getCollectorsBoosterCount(position));
+        prize.addItem("(S)All Decipher Choice - Booster", getCollectorsBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
         if (prize.getAll().iterator().hasNext())
             return prize;
@@ -140,7 +140,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
 //17th-32nd - 1 boosters
     private CardCollection getPrizeForConstructedLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
-        prize.addItem("(S)Booster Choice", getConstructedBoosterCount(position));
+        prize.addItem("(S)All Decipher Choice - Booster", getConstructedBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
         if (prize.getAll().iterator().hasNext())
             return prize;
