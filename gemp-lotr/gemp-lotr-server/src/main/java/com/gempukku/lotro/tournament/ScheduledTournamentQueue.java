@@ -4,6 +4,8 @@ import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class ScheduledTournamentQueue extends AbstractTournamentQueue implements TournamentQueue {
@@ -47,7 +49,7 @@ public class ScheduledTournamentQueue extends AbstractTournamentQueue implements
     }
 
     @Override
-    public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback, CollectionsManager collectionsManager) {
+    public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback, CollectionsManager collectionsManager) throws SQLException, IOException {
         long now = System.currentTimeMillis();
         if (now > _startTime) {
             if (_players.size() >= _minimumPlayers) {

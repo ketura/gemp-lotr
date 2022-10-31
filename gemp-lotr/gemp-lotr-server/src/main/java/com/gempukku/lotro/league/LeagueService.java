@@ -16,6 +16,7 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -97,7 +98,7 @@ public class LeagueService {
         return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
-    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr) {
+    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr) throws SQLException, IOException {
         if (isPlayerInLeague(league, player))
             return false;
         int cost = league.getCost();
@@ -142,7 +143,7 @@ public class LeagueService {
         return null;
     }
 
-    public synchronized void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
+    public synchronized void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) throws SQLException, IOException {
         _leagueMatchDao.addPlayedMatch(league.getType(), serie.getName(), winner, loser);
 
         _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
@@ -152,7 +153,7 @@ public class LeagueService {
         awardPrizesToPlayer(league, serie, loser, false);
     }
 
-    private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) {
+    private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) throws SQLException, IOException {
         int count = 0;
         Collection<LeagueMatchResult> playerMatchesPlayedOn = getPlayerMatchesInSerie(league, serie, player);
         for (LeagueMatchResult leagueMatch : playerMatchesPlayedOn) {

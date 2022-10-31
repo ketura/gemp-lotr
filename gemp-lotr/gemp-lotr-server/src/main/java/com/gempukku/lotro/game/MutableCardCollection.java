@@ -1,6 +1,5 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.packs.ProductLibrary;
 
 import java.util.Map;
@@ -17,4 +16,6 @@ public interface MutableCardCollection extends CardCollection {
     CardCollection openPack(String packId, String selection, ProductLibrary productLibrary);
 
     void setExtraInformation(Map<String, Object> extraInformation);
+
+
 }

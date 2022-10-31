@@ -5,6 +5,9 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public interface TournamentQueue {
     public int getCost();
 
@@ -22,13 +25,13 @@ public interface TournamentQueue {
 
     public boolean isRequiresDeck();
 
-    public boolean process(TournamentQueueCallback tournamentQueueCallback, CollectionsManager collectionsManager);
+    public boolean process(TournamentQueueCallback tournamentQueueCallback, CollectionsManager collectionsManager) throws SQLException, IOException;
 
-    public void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck);
+    public void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) throws SQLException, IOException;
 
-    public void leavePlayer(CollectionsManager collectionsManager, Player player);
+    public void leavePlayer(CollectionsManager collectionsManager, Player player) throws SQLException, IOException;
 
-    public void leaveAllPlayers(CollectionsManager collectionsManager);
+    public void leaveAllPlayers(CollectionsManager collectionsManager) throws SQLException, IOException;
 
     public int getPlayerCount();
 

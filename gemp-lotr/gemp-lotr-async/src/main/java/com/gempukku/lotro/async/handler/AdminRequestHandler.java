@@ -654,7 +654,9 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         try {
             String motd = _hallServer.getMOTD();
 
-            responseWriter.writeJsonResponse(motd.replace("\n", "<br>"));
+            if(motd != null) {
+                responseWriter.writeJsonResponse(motd.replace("\n", "<br>"));
+            }
         } finally {
             postDecoder.destroy();
         }
@@ -698,9 +700,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _chatServer.sendSystemMessageToAllChatRooms("@everyone Server is reloading card definitions.  This will impact game speed until it is complete.");
 
         Thread.sleep(6000);
-        _cardLibrary.reloadSets();
-        _cardLibrary.reloadMappings();
-        _cardLibrary.reloadCards();
+        _cardLibrary.reloadAllDefinitions();
 
         _productLibrary.ReloadPacks();
 

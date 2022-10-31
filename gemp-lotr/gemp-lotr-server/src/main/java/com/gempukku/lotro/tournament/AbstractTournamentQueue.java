@@ -5,6 +5,8 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -48,7 +50,7 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public final synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
+    public final synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) throws SQLException, IOException {
         if (!_players.contains(player.getName()) && isJoinable()) {
             if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection("Joined "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost)) {
                 _players.add(player.getName());
@@ -59,7 +61,7 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public final synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
+    public final synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) throws SQLException, IOException {
         if (_players.contains(player.getName())) {
             if (_cost > 0)
                 collectionsManager.addCurrencyToPlayerCollection(true, "Return for leaving "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost);
@@ -69,7 +71,7 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public final synchronized void leaveAllPlayers(CollectionsManager collectionsManager) {
+    public final synchronized void leaveAllPlayers(CollectionsManager collectionsManager) throws SQLException, IOException {
         if (_cost > 0) {
             for (String player : _players)
                 collectionsManager.addCurrencyToPlayerCollection(false, "Return for leaving "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost);

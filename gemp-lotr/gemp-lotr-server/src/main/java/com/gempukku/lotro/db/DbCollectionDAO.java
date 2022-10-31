@@ -7,11 +7,8 @@ import org.json.simple.JSONObject;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,68 +23,66 @@ public class DbCollectionDAO implements CollectionDAO {
     }
 
     public Map<Integer, CardCollection> getPlayerCollectionsByType(String type) throws SQLException, IOException {
-        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select player_id, collection from collection where type=?")) {
-                statement.setString(1, type);
-                try (ResultSet rs = statement.executeQuery()) {
-                    Map<Integer, CardCollection> playerCollections = new HashMap<>();
-                    while (rs.next()) {
-                        int playerId = rs.getInt(1);
-                        Blob blob = rs.getBlob(2);
-                        playerCollections.put(playerId, extractCollectionAndClose(blob));
-                    }
-                    return playerCollections;
-                }
-            }
+        var colls = getCollectionInfosByType(type);
+        Map<Integer, CardCollection> result = new HashMap<>();
+
+        for(var coll : colls) {
+            result.put(coll.player_id, getCollection(coll));
         }
+
+        return result;
     }
 
     public CardCollection getPlayerCollection(int playerId, String type) throws SQLException, IOException {
-        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select collection from collection where player_id=? and type=?")) {
-                statement.setInt(1, playerId);
-                statement.setString(2, type);
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        Blob blob = rs.getBlob(1);
-                        return extractCollectionAndClose(blob);
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        }
+
+        var collection = getCollectionInfo(playerId, type);
+        var entries = extractCollectionEntries(collection.id);
+
+        var result = _collectionSerializer.deserializeCollection(collection, entries);
+
+        return result;
     }
 
-    private CardCollection extractCollectionAndClose(Blob blob) throws SQLException, IOException {
+    public CardCollection getCollection(int collectionID) throws SQLException, IOException {
+        return getCollection(getCollectionInfo(collectionID));
+    }
+
+    public CardCollection getCollection(DBDefs.Collection coll) throws SQLException, IOException {
+
+        var entries = extractCollectionEntries(coll.id);
+        var result = _collectionSerializer.deserializeCollection(coll, entries);
+
+        return result;
+    }
+
+    private List<DBDefs.CollectionEntry> extractCollectionEntries(int collectionID) throws SQLException, IOException {
         try {
-            try (InputStream inputStream = blob.getBinaryStream()) {
-                return _collectionSerializer.deserializeCollection(inputStream);
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = """
+                        SELECT 
+                            collection_id, 
+                            quantity, 
+                            product_type, 
+                            product_variant, 
+                            product, 
+                            source, 
+                            created_date, 
+                            modified_date, 
+                            notes
+                        FROM gemp_db.collection_entries
+                        WHERE collection_id = :collID;
+                                                
+                        """;
+                List<DBDefs.CollectionEntry> result = conn.createQuery(sql)
+                        .addParameter("collID", collectionID)
+                        .executeAndFetch(DBDefs.CollectionEntry.class);
+
+                return result;
             }
-        } finally {
-            blob.free();
-        }
-    }
-
-    public void setPlayerCollection(int playerId, String type, CardCollection collection) throws SQLException, IOException {
-        CardCollection oldCollection = getPlayerCollection(playerId, type);
-
-        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
-            String sql;
-            if (oldCollection == null)
-                sql = "insert into collection (collection, player_id, type) values (?, ?, ?)";
-            else
-                sql = "update collection set collection=? where player_id=? and type=?";
-
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                _collectionSerializer.serializeCollection(collection, baos);
-
-                statement.setBlob(1, new ByteArrayInputStream(baos.toByteArray()));
-                statement.setInt(2, playerId);
-                statement.setString(3, type);
-                statement.execute();
-            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve collection entries", ex);
         }
     }
 
@@ -119,61 +114,92 @@ public class DbCollectionDAO implements CollectionDAO {
         }
     }
 
-    public int getCollectionID(int playerId, String type)  {
-        try {
+    @Override
+    public DBDefs.Collection getCollectionInfo(int playerId, String type) {
 
+        try {
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
 
             try (org.sql2o.Connection conn = db.open()) {
                 String sql = """
                         SELECT
-                            ID
+                            id, player_id, type, extra_info
                         FROM collection
                         WHERE type = :type
                             AND player_id = :playerID
-                        LIMIT 1
+                        LIMIT 1;
                         """;
-                intContainer result = conn.createQuery(sql)
+                List<DBDefs.Collection> result = conn.createQuery(sql)
                         .addParameter("type", type)
                         .addParameter("playerID", playerId)
-                        .executeAndFetch(intContainer.class)
-                        .stream().findFirst().orElse(null);
+                        .executeAndFetch(DBDefs.Collection.class);
 
-                return result.ID;
+                return result.stream().findFirst().orElse(null);
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Unable to retrieve collection ID", ex);
+            throw new RuntimeException("Unable to retrieve collection info", ex);
         }
     }
 
-    public void upsertCollection(int playerId, String type, CardCollection collection) {
-        String sql = """
-                        INSERT INTO collection(player_id, type, extra_info)
-                        VALUES (:playerId, :type, :extraInfo)
-                        ON DUPLICATE KEY UPDATE extra_info = :extraInfo;
-                        """;
-        String json = "";
+    @Override
+    public DBDefs.Collection getCollectionInfo(int collectionID) {
+
         try {
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
 
-            var jsonObj = new JSONObject();
-            jsonObj.putAll(collection.getExtraInformation());
-            json = jsonObj.toJSONString();
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = """
+                        SELECT
+                            id, player_id, type, extra_info
+                        FROM collection
+                        WHERE collection_id = :collectionID
+                        LIMIT 1;
+                        """;
+                List<DBDefs.Collection> result = conn.createQuery(sql)
+                        .addParameter("collectionID", collectionID)
+                        .executeAndFetch(DBDefs.Collection.class);
 
-            try (org.sql2o.Connection conn = db.beginTransaction()) {
-                Query query = conn.createQuery(sql, true);
-                query.addParameter("playerId", playerId)
-                        .addParameter("type", type)
-                        .addParameter("extraInfo", json);
-                query.executeUpdate();
-                conn.commit();
+                return result.stream().findFirst().orElse(null);
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Unable to upsert collection", ex);
+            throw new RuntimeException("Unable to retrieve collection info", ex);
         }
     }
 
-    public void updateCollectionContents(int playerId, String type, CardCollection collection, String source) {
+    @Override
+    public List<DBDefs.Collection> getCollectionInfosByType(String type) {
+
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = """
+                        SELECT
+                            id, player_id, type, extra_info
+                        FROM collection
+                        WHERE type = :type;
+                        """;
+                List<DBDefs.Collection> result = conn.createQuery(sql)
+                        .addParameter("type", type)
+                        .executeAndFetch(DBDefs.Collection.class);
+
+                return result;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve collection infos", ex);
+        }
+    }
+
+    public int getCollectionID(int playerId, String type)  {
+        var coll = getCollectionInfo(playerId,  type);
+        if(coll == null)
+            return -1;
+
+        return coll.id;
+    }
+
+
+    public void overwriteCollectionContents(int playerId, String type, CardCollection collection, String source) {
         String sql = """
                         INSERT INTO collection_entries(collection_id, quantity, product_type, product, source)
                         VALUES (:collid, :quantity, :type, :product, :source)
@@ -205,22 +231,29 @@ public class DbCollectionDAO implements CollectionDAO {
 
     public void convertCollection(int playerId, String type) throws SQLException, IOException {
         CardCollection oldCollection = getPlayerCollection(playerId, type);
-        updateCollectionContents(playerId, type, oldCollection, "Initial Convert");
+        overwriteCollectionContents(playerId, type, oldCollection, "Initial Convert");
+    }
+
+    @Override
+    public void updateCollectionInfo(int playerId, String type, Map<String, Object> extraInformation) {
+        upsertCollectionInfo(playerId, type, extraInformation);
     }
 
 
     //TODO:
     // + Convert currency to an extra info entry
     // + add data field to the original collection table to hold the extra info as json
-    // - create player-looping function to convert all collections and see if it blows up via test
-    // - add CollectionsManager mirror functions to read/writing into the new table
-    // - write unit tests to convert and compare a bajillion collections
-    // - sunset the old collection handling functions
-    // - test a: draft, new art card reward, my cards reward, pack openings
+    // + create player-looping function to convert all collections and see if it blows up via test
+    // + add CollectionsManager mirror functions to read/writing into the new table
+    // + write unit tests to convert and compare a bajillion collections
+    // + sunset the old collection handling functions
+    // ~ test a: draft, new art card reward, my cards reward, pack openings
     // - write script to back up db and delete the old binary blob column
     // - write script to convert all leagues to use IDs instead of names
     private void updateCollectionContents(int playerId, String type, CardCollection collection, String source, String sql, String error) {
-        upsertCollection(playerId, type, collection);
+        if(getCollectionID(playerId, type) <= 0) {
+            upsertCollectionInfo(playerId, type, collection.getExtraInformation());
+        }
         int collID = getCollectionID(playerId, type);
 
         try {
@@ -243,6 +276,33 @@ public class DbCollectionDAO implements CollectionDAO {
             }
         } catch (Exception ex) {
             throw new RuntimeException(error, ex);
+        }
+    }
+
+    private void upsertCollectionInfo(int playerId, String type, Map<String, Object> extraInformation) {
+        String sql = """
+                        INSERT INTO collection(player_id, type, extra_info)
+                        VALUES (:playerId, :type, :extraInfo)
+                        ON DUPLICATE KEY UPDATE extra_info = :extraInfo;
+                        """;
+        String json = "";
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            var jsonObj = new JSONObject();
+            jsonObj.putAll(extraInformation);
+            json = jsonObj.toJSONString();
+
+            try (org.sql2o.Connection conn = db.beginTransaction()) {
+                Query query = conn.createQuery(sql, true);
+                query.addParameter("playerId", playerId)
+                        .addParameter("type", type)
+                        .addParameter("extraInfo", json);
+                query.executeUpdate();
+                conn.commit();
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to upsert collection", ex);
         }
     }
 

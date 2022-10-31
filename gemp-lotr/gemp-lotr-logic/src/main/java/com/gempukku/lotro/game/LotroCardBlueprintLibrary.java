@@ -43,6 +43,8 @@ public class LotroCardBlueprintLibrary {
     private final File _mappingsPath;
     private final File _setDefsPath;
 
+    private final List<ICallback> _refreshCallbacks = new ArrayList<>();
+
     public LotroCardBlueprintLibrary() {
         this(AppConfig.getCardsPath(), AppConfig.getMappingsPath(), AppConfig.getSetDefinitionsPath());
     }
@@ -63,12 +65,39 @@ public class LotroCardBlueprintLibrary {
         collectionReady.release();
     }
 
+    public boolean SubscribeToRefreshes(ICallback callback) {
+        if(_refreshCallbacks.contains(callback))
+            return false;
+
+        _refreshCallbacks.add(callback);
+
+        return true;
+    }
+
+    public boolean UnsubscribeFromRefreshes(ICallback callback) {
+        if(!_refreshCallbacks.contains(callback))
+            return false;
+
+        _refreshCallbacks.remove(callback);
+
+        return true;
+    }
+
     public Map<String, SetDefinition> getSetDefinitions() {
         return Collections.unmodifiableMap(_allSets);
     }
 
+    public void reloadAllDefinitions() {
+        reloadSets();
+        reloadMappings();
+        reloadCards();
 
-    public void reloadSets() {
+        for(var callback : _refreshCallbacks) {
+            callback.Invoke();
+        }
+    }
+
+    private void reloadSets() {
         try {
             collectionReady.acquire();
             loadSets();
@@ -78,7 +107,7 @@ public class LotroCardBlueprintLibrary {
         }
     }
 
-    public void reloadMappings() {
+    private void reloadMappings() {
         try {
             collectionReady.acquire();
             loadMappings();
@@ -88,7 +117,7 @@ public class LotroCardBlueprintLibrary {
         }
     }
 
-    public void reloadCards() {
+    private void reloadCards() {
         try {
             collectionReady.acquire();
             loadCards(_cardPath, false);
