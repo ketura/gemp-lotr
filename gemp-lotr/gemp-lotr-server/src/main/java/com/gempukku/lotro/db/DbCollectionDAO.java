@@ -8,7 +8,8 @@ import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.InputStream;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -230,8 +231,35 @@ public class DbCollectionDAO implements CollectionDAO {
     }
 
     public void convertCollection(int playerId, String type) throws SQLException, IOException {
-        CardCollection oldCollection = getPlayerCollection(playerId, type);
+        CardCollection oldCollection = getOldPlayerCollection(playerId, type);
         overwriteCollectionContents(playerId, type, oldCollection, "Initial Convert");
+    }
+
+    public CardCollection getOldPlayerCollection(int playerId, String type) throws SQLException, IOException {
+        try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("select collection from collection where player_id=? and type=?")) {
+                statement.setInt(1, playerId);
+                statement.setString(2, type);
+                try (ResultSet rs = statement.executeQuery()) {
+                    if (rs.next()) {
+                        Blob blob = rs.getBlob(1);
+                        return extractCollectionAndClose(blob);
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        }
+    }
+
+    private CardCollection extractCollectionAndClose(Blob blob) throws SQLException, IOException {
+        try {
+            try (InputStream inputStream = blob.getBinaryStream()) {
+                return _collectionSerializer.deserializeCollection(inputStream);
+            }
+        } finally {
+            blob.free();
+        }
     }
 
     @Override
