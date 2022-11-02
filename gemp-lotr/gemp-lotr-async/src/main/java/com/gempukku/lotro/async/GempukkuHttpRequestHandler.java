@@ -95,12 +95,25 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
         ResponseSender responseSender = new ResponseSender(ctx, httpRequest);
 
         try {
-            if (isBanned(requestInformation.remoteIp))
+            if (isBanned(requestInformation.remoteIp)) {
                 responseSender.writeError(401);
-            else
+                _log.trace("Denying entry to user from banned IP " + requestInformation.remoteIp);
+            }
+            else {
                 _uriRequestHandler.handleRequest(uri, httpRequest, _objects, responseSender, requestInformation.remoteIp);
+            }
         } catch (HttpProcessingException exp) {
-            _log.error("Http error while processing request", exp);
+            int code = exp.getStatus();
+            //401, 403, 404, and other 400 errors should just do minimal logging,
+            // but 400 itself should error out
+            if(code % 400 < 100 && code != 400) {
+                _log.trace("HTTP " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri);
+            }
+            // record an HTTP 400
+            else if(code == 400 || code % 500 < 100) {
+                _log.error("HTTP code " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri, exp);
+            }
+
             responseSender.writeError(exp.getStatus());
         } catch (Exception exp) {
             _log.error("Error while processing request", exp);
