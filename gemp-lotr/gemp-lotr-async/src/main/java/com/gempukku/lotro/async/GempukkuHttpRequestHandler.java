@@ -100,6 +100,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             else
                 _uriRequestHandler.handleRequest(uri, httpRequest, _objects, responseSender, requestInformation.remoteIp);
         } catch (HttpProcessingException exp) {
+            _log.error("Http error while processing request", exp);
             responseSender.writeError(exp.getStatus());
         } catch (Exception exp) {
             _log.error("Error while processing request", exp);
