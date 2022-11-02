@@ -96,7 +96,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
 
         try {
             if (isBanned(requestInformation.remoteIp))
-                responseSender.writeError(404);
+                responseSender.writeError(401);
             else
                 _uriRequestHandler.handleRequest(uri, httpRequest, _objects, responseSender, requestInformation.remoteIp);
         } catch (HttpProcessingException exp) {
