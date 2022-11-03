@@ -35,7 +35,11 @@ var GempLotrHallUI = Class.extend({
 					if (xhr.status == 401) {
 						that.chat.appendMessage("Game hall problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
 						return;
-					} else if (xhr.status != 504) {
+					} 
+					else if (xhr.status == 504) {
+						return
+					}
+					else if (xhr.status != 504) {
 						that.chat.appendMessage("The game hall had a problem communicating with the server (" + xhr.status + "), no new updates will be displayed.", "warningMessage");
 						that.chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
 						return;
