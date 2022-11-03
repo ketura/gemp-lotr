@@ -287,7 +287,7 @@ var PCCards = {
 	
 	//September 2022 Weekend League Promos
 	//Gimli ARB Masterwork (9R+4)
-	'9_53': 'https://i.lotrtcgpc.net/promos/LOTR-EN09O004.0_card.jpg',
+	'9_56': 'https://i.lotrtcgpc.net/promos/LOTR-EN09O004.0_card.jpg',
 	//Desert Lord FA (4R219)
 	'4_366': 'https://i.lotrtcgpc.net/promos/LOTR-EN04A219.0_card.jpg',
 	
