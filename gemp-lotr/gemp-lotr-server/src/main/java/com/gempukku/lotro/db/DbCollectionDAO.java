@@ -39,6 +39,9 @@ public class DbCollectionDAO implements CollectionDAO {
     public CardCollection getPlayerCollection(int playerId, String type) throws SQLException, IOException {
 
         var collection = getCollectionInfo(playerId, type);
+        if(collection == null)
+            return null;
+
         var entries = extractCollectionEntries(collection.id);
 
         var result = _collectionSerializer.deserializeCollection(collection, entries);

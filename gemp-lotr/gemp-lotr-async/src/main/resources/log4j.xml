@@ -13,6 +13,8 @@
         <param name="MaxBackupIndex" value="20"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n"/>
+            <param name="immediateFlush" value="false"/>
+            <param name="bufferSize" value="2048"/>
         </layout>
     </appender>
 
@@ -23,6 +25,8 @@
         <param name="MaxBackupIndex" value="20"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n"/>
+            <param name="immediateFlush" value="false"/>
+            <param name="bufferSize" value="2048"/>
         </layout>
     </appender>
 
@@ -33,6 +37,8 @@
         <param name="MaxBackupIndex" value="1"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n"/>
+            <param name="immediateFlush" value="false"/>
+            <param name="bufferSize" value="2048"/>
         </layout>
     </appender>
 
