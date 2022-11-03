@@ -64,8 +64,4 @@
         <appender-ref ref="tracelog"/>
         <appender-ref ref="errorlog"/>
     </root>
-    <root>
-        <level value="trace"/>
-        <appender-ref ref="tracelog"/>
-    </root>
 </log4j:configuration>
