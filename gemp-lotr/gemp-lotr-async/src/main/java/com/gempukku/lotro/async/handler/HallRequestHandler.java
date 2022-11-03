@@ -2,6 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
+import com.gempukku.lotro.async.GempukkuHttpRequestHandler;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -23,6 +24,7 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -40,6 +42,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private final LotroCardBlueprintLibrary _library;
     private final LotroServer _lotroServer;
     private final LongPollingSystem longPollingSystem;
+
+    private static final Logger _log = Logger.getLogger(GempukkuHttpRequestHandler.class);
 
     public HallRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -374,8 +378,10 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             responseWriter.writeXmlResponse(doc);
         } catch (HttpProcessingException exp) {
+            _log.error("HTTP code " + exp.getStatus() + " response for " + request.uri(), exp);
             responseWriter.writeError(exp.getStatus());
         } catch (Exception exp) {
+            _log.error("Error response for " + request.uri(), exp);
             responseWriter.writeError(500);
         }
     }
