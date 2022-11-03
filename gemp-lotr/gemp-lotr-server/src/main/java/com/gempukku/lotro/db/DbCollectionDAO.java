@@ -234,7 +234,7 @@ public class DbCollectionDAO implements CollectionDAO {
 
     public void convertCollection(int playerId, String type) throws SQLException, IOException {
         MutableCardCollection oldCollection = getOldPlayerCollection(playerId, type);
-        var oldinfo = oldCollection.getExtraInformation();
+        var oldinfo = new HashMap<String, Object>(oldCollection.getExtraInformation());
         oldinfo.put(DefaultCardCollection.CurrencyKey, oldCollection.getCurrency());
         oldCollection.setExtraInformation(oldinfo);
         overwriteCollectionContents(playerId, type, oldCollection, "Initial Convert");
