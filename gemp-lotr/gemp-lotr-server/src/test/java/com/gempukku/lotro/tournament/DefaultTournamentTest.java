@@ -1,11 +1,7 @@
 package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.db.DbAccess;
-import com.gempukku.lotro.db.DbCollectionDAO;
-import com.gempukku.lotro.db.DbPlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Test;
@@ -14,33 +10,11 @@ import org.mockito.internal.verification.Times;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
 public class DefaultTournamentTest extends AbstractAtTest {
-
-    private static DbAccess dbAccess = new DbAccess();
-
-    //This is probably never needed anymore now that it's been ran once
-    @Test
-    public void ConvertAllPlayerCollectionsTest() throws IOException, SQLException {
-        var collDAO = new DbCollectionDAO(dbAccess, new CollectionSerializer());
-        var playerDAO = new DbPlayerDAO(dbAccess);
-
-        var players = playerDAO.getAllPlayers();
-
-        for (var player : players) {
-            System.out.println("Processing player: " + player.name);
-            var collections = collDAO.getAllCollectionsForPlayer(player.id);
-            for(var coll : collections) {
-                System.out.println("\t" + coll.type);
-                collDAO.convertCollection(player.id, coll.type);
-            }
-        }
-    }
     private final int _waitForPairingsTime = 100;
 
     @Test
