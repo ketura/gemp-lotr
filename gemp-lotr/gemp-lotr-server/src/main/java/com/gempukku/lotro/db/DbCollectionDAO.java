@@ -3,6 +3,8 @@ package com.gempukku.lotro.db;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.MutableCardCollection;
 import org.json.simple.JSONObject;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
@@ -231,11 +233,14 @@ public class DbCollectionDAO implements CollectionDAO {
     }
 
     public void convertCollection(int playerId, String type) throws SQLException, IOException {
-        CardCollection oldCollection = getOldPlayerCollection(playerId, type);
+        MutableCardCollection oldCollection = getOldPlayerCollection(playerId, type);
+        var oldinfo = oldCollection.getExtraInformation();
+        oldinfo.put(DefaultCardCollection.CurrencyKey, oldCollection.getCurrency());
+        oldCollection.setExtraInformation(oldinfo);
         overwriteCollectionContents(playerId, type, oldCollection, "Initial Convert");
     }
 
-    public CardCollection getOldPlayerCollection(int playerId, String type) throws SQLException, IOException {
+    public MutableCardCollection getOldPlayerCollection(int playerId, String type) throws SQLException, IOException {
         try (Connection connection = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select collection from collection where player_id=? and type=?")) {
                 statement.setInt(1, playerId);
@@ -252,7 +257,7 @@ public class DbCollectionDAO implements CollectionDAO {
         }
     }
 
-    private CardCollection extractCollectionAndClose(Blob blob) throws SQLException, IOException {
+    private MutableCardCollection extractCollectionAndClose(Blob blob) throws SQLException, IOException {
         try {
             try (InputStream inputStream = blob.getBinaryStream()) {
                 return _collectionSerializer.deserializeCollection(inputStream);
