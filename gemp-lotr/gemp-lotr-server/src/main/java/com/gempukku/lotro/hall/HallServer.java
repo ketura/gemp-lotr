@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.*;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -71,6 +72,8 @@ public class HallServer extends AbstractServer {
     private final Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<>();
     private final ChatRoomMediator _hallChat;
     private final GameResultListener _notifyHallListeners = new NotifyHallListenersGameResultListener();
+
+    private static final Logger _log = Logger.getLogger(HallServer.class);
 
     public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager,
@@ -626,8 +629,10 @@ public class HallServer extends AbstractServer {
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {
         LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player, deckName);
-        if (lotroDeck == null)
+        if (lotroDeck == null) {
+            _log.debug("Player '" + player.getName() + "' attempting to use deck '" + deckName + "' but failed.");
             throw new HallException("You don't have a deck registered yet");
+        }
 
         try {
             lotroDeck = format.applyErrata(lotroDeck);
