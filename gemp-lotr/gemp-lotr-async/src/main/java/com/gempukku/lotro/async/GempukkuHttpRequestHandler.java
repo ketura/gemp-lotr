@@ -107,7 +107,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             //401, 403, 404, and other 400 errors should just do minimal logging,
             // but 400 itself should error out
             if(code % 400 < 100 && code != 400) {
-                _log.info("HTTP " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri);
+                _log.debug("HTTP " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri);
             }
             // record an HTTP 400
             else if(code == 400 || code % 500 < 100) {
