@@ -26,18 +26,46 @@
         </layout>
     </appender>
 
+    <appender name="tracelog" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="logs/trace.log"/>
+        <param name="MaxFileSize" value="5MB"/>
+        <!-- Keep one backup file -->
+        <param name="MaxBackupIndex" value="1"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="errorlog" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="logs/error.log"/>
+        <param name="MaxFileSize" value="5MB"/>
+        <!-- Keep one backup file -->
+        <param name="MaxBackupIndex" value="1"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n"/>
+        </layout>
+    </appender>
+
     <logger name="com.gempukku" additivity="false">
         <level value="debug"/>
         <appender-ref ref="R"/>
         <appender-ref ref="stdout"/>
+        <appender-ref ref="tracelog"/>
     </logger>
     <logger name="chat">
         <level value="ALL"/>
         <appender-ref ref="chat"/>
+        <appender-ref ref="tracelog"/>
     </logger>
     <root>
         <level value="error"/>
         <appender-ref ref="R"/>
         <appender-ref ref="stdout"/>
+        <appender-ref ref="tracelog"/>
+        <appender-ref ref="errorlog"/>
+    </root>
+    <root>
+        <level value="trace"/>
+        <appender-ref ref="tracelog"/>
     </root>
 </log4j:configuration>

@@ -97,7 +97,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
         try {
             if (isBanned(requestInformation.remoteIp)) {
                 responseSender.writeError(401);
-                _log.trace("Denying entry to user from banned IP " + requestInformation.remoteIp);
+                _log.info("Denying entry to user from banned IP " + requestInformation.remoteIp);
             }
             else {
                 _uriRequestHandler.handleRequest(uri, httpRequest, _objects, responseSender, requestInformation.remoteIp);
@@ -107,7 +107,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             //401, 403, 404, and other 400 errors should just do minimal logging,
             // but 400 itself should error out
             if(code % 400 < 100 && code != 400) {
-                _log.trace("HTTP " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri);
+                _log.info("HTTP " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri);
             }
             // record an HTTP 400
             else if(code == 400 || code % 500 < 100) {
