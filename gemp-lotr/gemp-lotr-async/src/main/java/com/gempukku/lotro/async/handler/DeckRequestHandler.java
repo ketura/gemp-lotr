@@ -401,8 +401,8 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
     private String generateCardTooltip(LotroCardBlueprint bp, String bpid) throws CardNotFoundException {
         String[] parts = bpid.split("_");
-        String cardnum = parts[0].replace("*", "").replace("T", "");
-        String tlhhID = "LOTR" + String.format("%02d", Integer.parseInt(cardnum)) + String.format("%03d", Integer.parseInt(parts[1]));
+        String cardnum = parts[1].replace("*", "").replace("T", "");
+        String tlhhID = "LOTR" + String.format("%02d", Integer.parseInt(parts[0])) + String.format("%03d", Integer.parseInt(cardnum));
         String result = "<span class=\"tooltip\">" + GameUtils.getFullName(bp)
                 + "<span><img class=\"ttimage\" src=\"https://i.lotrtcgpc.net/decipher/" + tlhhID + ".jpg\" ></span></span>";
 
