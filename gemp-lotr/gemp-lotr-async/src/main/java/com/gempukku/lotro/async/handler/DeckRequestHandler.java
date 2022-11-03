@@ -17,6 +17,7 @@ import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -37,6 +38,8 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     private final LotroFormatLibrary _formatLibrary;
     private final SoloDraftDefinitions _draftLibrary;
     private final LotroServer _lotroServer;
+
+    private static final Logger _log = Logger.getLogger(DeckRequestHandler.class);
 
     public DeckRequestHandler(Map<Type, Object> context) {
         super(context);

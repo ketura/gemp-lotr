@@ -22,6 +22,7 @@ import com.gempukku.lotro.tournament.TournamentService;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,6 +50,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private final PlayerDAO _playerDAO;
     private final AdminService _adminService;
     private final ChatServer _chatServer;
+
+    private static final Logger _log = Logger.getLogger(AdminRequestHandler.class);
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -575,6 +578,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             responseWriter.writeHtmlResponse("OK");
         }
         catch (RuntimeException ex) {
+            logHttpError(_log, 500, request.uri(), ex);
             throw new HttpProcessingException(500);
         }
         finally {
@@ -688,6 +692,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
             responseWriter.writeHtmlResponse("OK");
         } catch (Exception e) {
+            _log.error("Error response for " + request.uri(), e);
             responseWriter.writeHtmlResponse("Error handling request");
         } finally {
             postDecoder.destroy();

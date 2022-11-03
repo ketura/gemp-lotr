@@ -116,7 +116,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
 
             responseSender.writeError(exp.getStatus());
         } catch (Exception exp) {
-            _log.error("Error while processing request", exp);
+            _log.error("Error response for " + uri, exp);
             responseSender.writeError(500);
         }
     }
@@ -281,6 +281,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             } catch (Exception exp) {
                 byte[] content = new byte[0];
                 // Build the response object.
+                _log.error("Error response for " + request.uri(), exp);
                 FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR, Unpooled.wrappedBuffer(content), null, EmptyHttpHeaders.INSTANCE);
                 sendResponse(ctx, request, response);
             }
@@ -355,6 +356,7 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             } catch (IOException exp) {
                 byte[] content = new byte[0];
                 // Build the response object.
+                _log.error("Error response for " + request.uri(), exp);
                 FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, HttpResponseStatus.valueOf(500), Unpooled.wrappedBuffer(content), convertToHeaders(null), EmptyHttpHeaders.INSTANCE);
                 sendResponse(ctx, request, response);
             }

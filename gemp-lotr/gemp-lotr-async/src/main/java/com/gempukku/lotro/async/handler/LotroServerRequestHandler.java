@@ -17,7 +17,7 @@ import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
 import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
-
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -32,6 +32,8 @@ public class LotroServerRequestHandler {
     protected LoggedUserHolder _loggedUserHolder;
     private final TransferDAO _transferDAO;
     private final CollectionsManager _collectionManager;
+
+    private static final Logger _log = Logger.getLogger(LotroServerRequestHandler.class);
 
     public LotroServerRequestHandler(Map<Type, Object> context) {
         _playerDao = extractObject(context, PlayerDAO.class);

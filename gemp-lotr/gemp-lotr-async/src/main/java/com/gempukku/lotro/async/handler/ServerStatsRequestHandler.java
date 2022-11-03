@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.Player;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -23,6 +24,8 @@ import java.util.TimeZone;
 
 public class ServerStatsRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final GameHistoryService _gameHistoryService;
+
+    private static final Logger _log = Logger.getLogger(ServerStatsRequestHandler.class);
 
     public ServerStatsRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -80,6 +83,7 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
 
                 responseWriter.writeXmlResponse(doc);
             } catch (ParseException exp) {
+                logHttpError(_log, 400, request.uri(), exp);
                 throw new HttpProcessingException(400);
             }
         } else {

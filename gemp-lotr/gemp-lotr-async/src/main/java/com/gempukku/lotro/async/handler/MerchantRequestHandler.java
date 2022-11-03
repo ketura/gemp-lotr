@@ -6,13 +6,13 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
 import com.gempukku.lotro.merchant.MerchantException;
 import com.gempukku.lotro.merchant.MerchantService;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -28,6 +28,8 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
     private final MerchantService _merchantService;
     private final LotroCardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
+
+    private static final Logger _log = Logger.getLogger(MerchantRequestHandler.class);
 
     public MerchantRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -66,6 +68,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             _merchantService.tradeForFoil(resourceOwner, blueprintId);
             responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
+            _log.error("Error response for " + request.uri(), exp);
             responseWriter.writeXmlResponse(marshalException(exp));
         }
         } finally {
@@ -85,6 +88,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
             responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
+            _log.error("Error response for " + request.uri(), exp);
             responseWriter.writeXmlResponse(marshalException(exp));
         }
         } finally {
@@ -104,6 +108,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
             responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
+            _log.error("Error response for " + request.uri(), exp);
             responseWriter.writeXmlResponse(marshalException(exp));
         }
         } finally {

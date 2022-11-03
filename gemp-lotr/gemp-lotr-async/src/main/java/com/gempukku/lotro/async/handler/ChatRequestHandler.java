@@ -16,6 +16,7 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.commonmark.Extension;
 import org.commonmark.ext.autolink.AutolinkExtension;
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
@@ -44,6 +45,8 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     private final LongPollingSystem longPollingSystem;
     private final Parser _markdownParser;
     private final HtmlRenderer _markdownRenderer;
+
+    private static final Logger _log = Logger.getLogger(ChatRequestHandler.class);
 
     public ChatRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -116,10 +119,13 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                     longPollingSystem.processLongPollingResource(polledResource, pollableResource);
                 }
             } catch (SubscriptionExpiredException exp) {
+                logHttpError(_log, 410, request.uri(), exp);
                 throw new HttpProcessingException(410);
             } catch (PrivateInformationException exp) {
+                logHttpError(_log, 403, request.uri(), exp);
                 throw new HttpProcessingException(403);
             } catch (ChatCommandErrorException exp) {
+                logHttpError(_log, 400, request.uri(), exp);
                 throw new HttpProcessingException(400);
             }
         } finally {
@@ -216,8 +222,10 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
                     responseWriter.writeXmlResponse(doc);
                 } catch (SubscriptionExpiredException exp) {
+                    logHttpError(_log, 410, "chat poller", exp);
                     responseWriter.writeError(410);
                 } catch (Exception exp) {
+                    logHttpError(_log, 500, "chat poller", exp);
                     responseWriter.writeError(500);
                 }
                 processed = true;
@@ -248,6 +256,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
             responseWriter.writeXmlResponse(doc);
         } catch (PrivateInformationException exp) {
+            logHttpError(_log, 403, request.uri(), exp);
             throw new HttpProcessingException(403);
         }
     }

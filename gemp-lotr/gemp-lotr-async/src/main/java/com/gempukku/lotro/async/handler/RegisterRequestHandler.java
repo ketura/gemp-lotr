@@ -6,11 +6,14 @@ import com.gempukku.lotro.db.LoginInvalidException;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.Type;
 import java.util.Map;
 
 public class RegisterRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
+
+    private static final Logger _log = Logger.getLogger(RegisterRequestHandler.class);
     public RegisterRequestHandler(Map<Type, Object> context) {
         super(context);
     }
@@ -29,6 +32,7 @@ public class RegisterRequestHandler extends LotroServerRequestHandler implements
                     throw new HttpProcessingException(409);
                 }
             } catch (LoginInvalidException exp) {
+                logHttpError(_log, 400, request.uri(), exp);
                 throw new HttpProcessingException(400);
             }
             } finally {

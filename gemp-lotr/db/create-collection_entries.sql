@@ -6,6 +6,8 @@ ALTER TABLE collection ADD `extra_info` VARCHAR(5000) NULL;
 
 ALTER TABLE collection ADD CONSTRAINT uq_collection_player_type UNIQUE (player_id, type);
 
+ALTER TABLE collection MODIFY COLUMN collection mediumblob NULL;
+
 
 CREATE TABLE `collection_entries` (
   `collection_id` int(11) NOT NULL,

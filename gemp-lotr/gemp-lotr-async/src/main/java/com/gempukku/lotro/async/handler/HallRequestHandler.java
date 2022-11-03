@@ -2,7 +2,6 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
-import com.gempukku.lotro.async.GempukkuHttpRequestHandler;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -43,7 +42,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private final LotroServer _lotroServer;
     private final LongPollingSystem longPollingSystem;
 
-    private static final Logger _log = Logger.getLogger(GempukkuHttpRequestHandler.class);
+    private static final Logger _log = Logger.getLogger(HallRequestHandler.class);
 
     public HallRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -104,7 +103,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 responseWriter.writeXmlResponse(null);
                 return;
             } catch (HallException ex) {
-
+                _log.error("Error response for " + request.uri(), ex);
             }
             responseWriter.writeXmlResponse(marshalException(e));
         }
@@ -186,6 +185,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
         catch (Exception ex)
         {
+            _log.error("Error response for " + request.uri(), ex);
             responseWriter.writeXmlResponse(marshalException(new HallException("Failed to create table. Please try again later.")));
         }
         finally {
@@ -219,6 +219,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.joinQueue(queueId, resourceOwner, deckName);
             responseWriter.writeXmlResponse(null);
         } catch (HallException e) {
+            _log.error("Error response for " + request.uri(), e);
             responseWriter.writeXmlResponse(marshalException(e));
         }
         } finally {
@@ -378,7 +379,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             responseWriter.writeXmlResponse(doc);
         } catch (HttpProcessingException exp) {
-            _log.error("HTTP code " + exp.getStatus() + " response for " + request.uri(), exp);
+            logHttpError(_log, exp.getStatus(), request.uri(), exp);
             responseWriter.writeError(exp.getStatus());
         } catch (Exception exp) {
             _log.error("Error response for " + request.uri(), exp);
@@ -401,9 +402,11 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 longPollingSystem.processLongPollingResource(polledResource, pollableResource);
             }
             catch (SubscriptionExpiredException exp) {
+                logHttpError(_log, 410, request.uri(), exp);
                 responseWriter.writeError(410);
             }
             catch (SubscriptionConflictException exp) {
+                logHttpError(_log, 409, request.uri(), exp);
                 responseWriter.writeError(409);
             }
         } finally {
@@ -450,6 +453,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                     _responseWriter.writeXmlResponse(doc, headers);
                 } catch (Exception exp) {
+                    logHttpError(_log, 500, _request.uri(), exp);
                     _responseWriter.writeError(500);
                 }
                 _processed = true;

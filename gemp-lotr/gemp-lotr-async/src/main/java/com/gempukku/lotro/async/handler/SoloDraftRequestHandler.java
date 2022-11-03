@@ -20,6 +20,7 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -34,6 +35,8 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
     private final LotroCardBlueprintLibrary _cardLibrary;
     private final LotroFormatLibrary _formatLibrary;
     private final LeagueService _leagueService;
+
+    private static final Logger _log = Logger.getLogger(SoloDraftRequestHandler.class);
 
     public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);

@@ -22,6 +22,7 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.cookie.Cookie;
 import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -38,6 +39,8 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     private final LotroServer _lotroServer;
     private final LongPollingSystem longPollingSystem;
     private final Set<Phase> _autoPassDefault = new HashSet<>();
+
+    private static final Logger _log = Logger.getLogger(GameRequestHandler.class);
 
     public GameRequestHandler(Map<Type, Object> context, LongPollingSystem longPollingSystem) {
         super(context);
@@ -143,6 +146,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
                     _responseWriter.writeXmlResponse(doc);
                 } catch (Exception e) {
+                    logHttpError(_log, 500, "game update poller", e);
                     _responseWriter.writeError(500);
                 }
                 _processed = true;

@@ -17,6 +17,7 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -35,6 +36,8 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     private final LotroFormatLibrary _formatLibrary;
     private final SortAndFilterCards _sortAndFilterCards;
     private final ImportCards _importCards;
+
+    private static final Logger _log = Logger.getLogger(CollectionRequestHandler.class);
 
     public CollectionRequestHandler(Map<Type, Object> context) {
         super(context);

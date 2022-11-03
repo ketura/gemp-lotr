@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -24,6 +25,8 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
     private final PlayerDAO _playerDAO;
     private final GameHistoryService _gameHistoryService;
     private final Gson JsonConvert = new Gson();
+
+    private static final Logger _log = Logger.getLogger(PlaytestRequestHandler.class);
 
     public PlaytestRequestHandler(Map<Type, Object> context) {
         super(context);

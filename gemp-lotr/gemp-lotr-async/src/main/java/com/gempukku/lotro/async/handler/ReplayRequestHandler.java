@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.GameRecorder;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.util.AsciiString;
+import org.apache.log4j.Logger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,6 +19,8 @@ import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
 
 public class ReplayRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final GameRecorder _gameRecorder;
+
+    private static final Logger _log = Logger.getLogger(ReplayRequestHandler.class);
 
     public ReplayRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -50,6 +53,7 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
                 while ((count = recordedGame.read(bytes)) != -1)
                     baos.write(bytes, 0, count);
             } catch (IOException exp) {
+                _log.error("Error 404 response for " + request.uri(), exp);
                 throw new HttpProcessingException(404);
             }
 
