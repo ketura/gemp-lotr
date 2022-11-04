@@ -362,7 +362,7 @@ var GempLotrCommunication = Class.extend({
                 price:price},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
-            dataType:"xml"
+            dataType:"html"
         });
     },
     sellItem:function (blueprintId, price, callback, errorMap) {
@@ -376,7 +376,7 @@ var GempLotrCommunication = Class.extend({
                 price:price},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
-            dataType:"xml"
+            dataType:"html"
         });
     },
     tradeInFoil:function (blueprintId, callback, errorMap) {
@@ -389,7 +389,7 @@ var GempLotrCommunication = Class.extend({
                 blueprintId:blueprintId},
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
-            dataType:"xml"
+            dataType:"html"
         });
     },
     getCollection:function (collectionType, filter, start, count, callback, errorMap) {

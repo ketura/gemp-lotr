@@ -139,16 +139,18 @@ public class MerchantService {
     }
 
     public void merchantBuysCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
+        priceCards(player, Collections.singleton(new BasicCardItem(blueprintId)));
+
         Date currentTime = new Date();
         Lock lock = _lock.writeLock();
         lock.lock();
         try {
             PriceGuarantee guarantee = _priceGuarantees.get(player.getName());
-            if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
-                throw new MerchantException("Price guarantee has expired");
+//            if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
+//                throw new MerchantException("Price guarantee has expired");
             Integer guaranteedPrice = guarantee.getBuyPrices().get(blueprintId);
-            if (guaranteedPrice == null || price != guaranteedPrice)
-                throw new MerchantException("Guaranteed price does not match the user asked price");
+//            if (guaranteedPrice == null || price != guaranteedPrice)
+//                throw new MerchantException("Guaranteed price does not match the user asked price");
 
             boolean success = _collectionsManager.sellCardInPlayerCollection(player, _permanentCollection, blueprintId, price);
             if (!success)
@@ -162,16 +164,18 @@ public class MerchantService {
     }
 
     public void merchantSellsCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
+        priceCards(player, Collections.singleton(new BasicCardItem(blueprintId)));
+
         Date currentTime = new Date();
         Lock lock = _lock.writeLock();
         lock.lock();
         try {
             PriceGuarantee guarantee = _priceGuarantees.get(player.getName());
-            if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
-                throw new MerchantException("Price guarantee has expired");
+//            if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
+//                throw new MerchantException("Price guarantee has expired");
             Integer guaranteedPrice = guarantee.getSellPrices().get(blueprintId);
-            if (guaranteedPrice == null || price != guaranteedPrice)
-                throw new MerchantException("Guaranteed price does not match the user asked price");
+//            if (guaranteedPrice == null || price != guaranteedPrice)
+//                throw new MerchantException("Guaranteed price does not match the user asked price");
 
             boolean success = _collectionsManager.buyCardToPlayerCollection(player, _permanentCollection, blueprintId, price);
             if (!success)

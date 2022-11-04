@@ -6,7 +6,6 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.merchant.MerchantException;
 import com.gempukku.lotro.merchant.MerchantService;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
@@ -60,17 +59,17 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
     private void tradeInFoil(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-        try {
-            _merchantService.tradeForFoil(resourceOwner, blueprintId);
-            responseWriter.writeXmlResponse(null);
-        } catch (MerchantException exp) {
-            _log.error("Error response for " + request.uri(), exp);
-            responseWriter.writeXmlResponse(marshalException(exp));
-        }
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            try {
+                _merchantService.tradeForFoil(resourceOwner, blueprintId);
+                responseWriter.writeHtmlResponse("OK");
+            } catch (Exception exp) {
+                _log.error("Error response for " + request.uri(), exp);
+                responseWriter.writeXmlResponse(marshalException(exp));
+            }
         } finally {
             postDecoder.destroy();
         }
@@ -79,18 +78,23 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
     private void sell(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
-        int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
+            int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-        try {
-            _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
-            responseWriter.writeXmlResponse(null);
-        } catch (MerchantException exp) {
-            _log.error("Error response for " + request.uri(), exp);
-            responseWriter.writeXmlResponse(marshalException(exp));
-        }
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+            Document doc = documentBuilder.newDocument();
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            try {
+                _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
+                responseWriter.writeHtmlResponse("OK");
+            } catch (Exception exp) {
+                _log.error("Error response for " + request.uri(), exp);
+                responseWriter.writeXmlResponse(marshalException(exp));
+            }
         } finally {
             postDecoder.destroy();
         }
@@ -99,18 +103,24 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
     private void buy(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
-        int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
+            int price = Integer.parseInt(getFormParameterSafely(postDecoder, "price"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-        try {
-            _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
-            responseWriter.writeXmlResponse(null);
-        } catch (MerchantException exp) {
-            _log.error("Error response for " + request.uri(), exp);
-            responseWriter.writeXmlResponse(marshalException(exp));
-        }
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+            Document doc = documentBuilder.newDocument();
+
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            try {
+                _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
+                responseWriter.writeHtmlResponse("OK");
+            } catch (Exception exp) {
+                _log.error("Error response for " + request.uri(), exp);
+                responseWriter.writeXmlResponse(marshalException(exp));
+            }
         } finally {
             postDecoder.destroy();
         }
@@ -188,7 +198,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         responseWriter.writeXmlResponse(doc);
     }
 
-    private Document marshalException(MerchantException e) throws ParserConfigurationException {
+    private Document marshalException(Exception e) throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 

@@ -227,7 +227,7 @@ public class CollectionsManager {
                 String reason = "Trading items";
 
                 removeFromPlayerCollection(player, collectionType.getCode(), cardCollectionFromBlueprintId(removeCount, removeBlueprintId), reason);
-                addToPlayerCollection(player, collectionType.getCode(), cardCollectionFromBlueprintId(removeCount, removeBlueprintId), reason);
+                addToPlayerCollection(player, collectionType.getCode(), cardCollectionFromBlueprintId(addCount, addBlueprintId), reason);
                 removeCurrencyFromPlayerCollection(reason, player, collectionType, currencyCost);
 
                 _transferDAO.addTransferFrom(player.getName(), reason, collectionType.getFullName(), currencyCost, cardCollectionFromBlueprintId(removeCount, removeBlueprintId));
