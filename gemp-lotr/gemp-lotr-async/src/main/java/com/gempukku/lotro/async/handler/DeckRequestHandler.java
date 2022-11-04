@@ -569,6 +569,10 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             } catch (CardNotFoundException e) {
                 side = "FREE_PEOPLE";
             }
+            catch (NullPointerException e) {
+                _log.debug("Non-sided card?? " + cardItem.getBlueprintId());
+                side = "FREE_PEOPLE";
+            }
             card.setAttribute("side", side);
             card.setAttribute("blueprintId", cardItem.getBlueprintId());
             deckElem.appendChild(card);
