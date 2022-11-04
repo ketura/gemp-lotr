@@ -435,7 +435,7 @@
 	31_29: {
 		title: Ancestral Feuds
 		unique: true
-		culture: gundabad
+		culture: mirkwood
 		type: condition
 		keyword: support area
 		twilight: 2
