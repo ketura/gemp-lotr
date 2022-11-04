@@ -1,9 +1,27 @@
 <div class="article"><pre style="white-space: pre-wrap;">
-<b>Most recent update</b>
+<b>2022 November 04</b>
+- Fixed the merchant not permitting the purchasing of foils
+- Fixed the merchant requiring you to do everything twice for it to register
+- Fixed various errors in merchant operations
+   
+<b>2022 November 04 - Hobbit Fixes by Phallen</b>
 - The Hobbit's "Bilbo, Master of Riddles" is now properly strength +2 when skirmishing Smaug
 - Added "The Hobbit Draft Game" to the game hall, which allows decks to be constructed for The Hobbit across all of its expansions
 - "The Hobbit Draft Game" is also available in the deckbuilder to properly validate decks in the format
 - Added remaining cultures for The Hobbit to the deckbuilder, and set them to only appear when "The Hobbit Sets" or one of its expansions is selected
+
+<b>2022 November 03</b>
+- Fixed some players not being able to create tables
+- Fixed player gold count being incorrect; added 200 to everyone's totals for the trouble (not that it matters)
+- Fixed decks with foil or tengwar cards not showing up properly in the deck sharing view
+
+<b>2022 November 02</b>
+COLLECTION SYSTEM OVERHAUL
+- major back-end rewrite of the collection system, which is now stored in the database properly
+- As a result, collections can now be modified if errors occur
+- Thus, the Isildur/Gimli snafu has finally been repaired, and 4x copies of each card have been issued to the correct players.  Anyone who put the Gimli Masterwork into a deck should check and make sure it's not Isildur.
+- Added *tons* of logging to all operations.  As a result, mysterious bugs are now far easier to track down for the future.
+- Improved the ability for moderators to track suspicious league cheaters
 
 <b>2022 September 12</b>
 - Revamped several back-end systems to be hot-reloadable. What this means is, any future changes to formats, packs, draft or sealed events, or card definitions can all be pushed and updated without requiring a server restart, even mid-game. Certain bugfixes should be deployed much faster now! 

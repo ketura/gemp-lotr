@@ -37,7 +37,8 @@ var GempLotrHallUI = Class.extend({
 						return;
 					} 
 					else if (xhr.status == 504) {
-						return
+						console.log("HTTP error communicating with server: " + xhr.status);
+						return;
 					}
 					else if (xhr.status != 504) {
 						that.chat.appendMessage("The game hall had a problem communicating with the server (" + xhr.status + "), no new updates will be displayed.", "warningMessage");
