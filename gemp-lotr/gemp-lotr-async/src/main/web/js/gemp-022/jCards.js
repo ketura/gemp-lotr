@@ -162,6 +162,8 @@ var packBlueprints = {
     "(S)Movie Special Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
     "(S)WotR Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
     "(S)HU Block Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    
+    "(S)PC Promo Art Selection": "/gemp-lotr/images/boosters/pc_promo_selection.png"
 };
 
 var Card = Class.extend({
