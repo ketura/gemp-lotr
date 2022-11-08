@@ -77,7 +77,7 @@
 			effect: [
 				{
 					type: chooseActiveCards
-					text: Choose a companion of a different culture to make strength +2 until the end of the turn.
+					text: Choose a companion of a different culture to make strength +1 until the end of the turn.
 					filter: choose(companion,not(cultureFromMemory(exertedComp)))
 					memorize: pumpedComp 
 				}
