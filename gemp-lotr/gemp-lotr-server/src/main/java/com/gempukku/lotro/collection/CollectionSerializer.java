@@ -224,8 +224,10 @@ public class CollectionSerializer {
 
         JSONParser parser = new JSONParser();
         try {
-            JSONObject object = (JSONObject) parser.parse(coll.extra_info);
-            newColl.setExtraInformation(object);
+            if(coll.extra_info != null) {
+                JSONObject object = (JSONObject) parser.parse(coll.extra_info);
+                newColl.setExtraInformation(object);
+            }
         } catch (ParseException exp) {
             throw new IOException(exp);
         }
