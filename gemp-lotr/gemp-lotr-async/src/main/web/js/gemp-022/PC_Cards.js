@@ -299,9 +299,9 @@ var PCCards = {
 	
 	//November 2022 Sealed Gala Promos
 	//Aragorn, King in Exile FA (1P365)
-	'1_376': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U365.0_card.jpg',
+	'1_375': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U365.0_card.jpg',
 	//The Witch-king, Deathless Lord FA (6P122)
-	'1_377': 'https://i.lotrtcgpc.net/promos/LOTR-EN06U122.0_card.jpg',
+	'6_129': 'https://i.lotrtcgpc.net/promos/LOTR-EN06U122.0_card.jpg',
 	
 	//November 2022 Weekend League Promos
 	//Gandalf, Friend of the Shirefolk FA (1R72)
