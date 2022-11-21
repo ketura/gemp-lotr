@@ -281,21 +281,33 @@ var PCCards = {
 	
 	//August Weekend League Promos
 	// Boromir, Redeemed FA (V1_20)
-	'101_65': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1A020.0_card.jpg',
+	'101_65': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1U020.0_card.jpg',
 	// I See You FA (V1_46)
-	'101_66': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1A046.0_card.jpg',
+	'101_66': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1U046.0_card.jpg',
 	
 	//September 2022 Weekend League Promos
 	//Gimli ARB Masterwork (9R+4)
 	'9_56': 'https://i.lotrtcgpc.net/promos/LOTR-EN09O004.0_card.jpg',
 	//Desert Lord FA (4R219)
-	'4_366': 'https://i.lotrtcgpc.net/promos/LOTR-EN04A219.0_card.jpg',
+	'4_366': 'https://i.lotrtcgpc.net/promos/LOTR-EN04U219.0_card.jpg',
 	
 	//October 2022 Weekend League Promos
 	//Sam, Bearer of Great Need MW (13R156)
 	'13_204': 'https://i.lotrtcgpc.net/promos/LOTR-EN13O156.0_card.jpg',
 	//Gothmog, Morgul Leader FA (18R80)
-	'18_150': 'https://i.lotrtcgpc.net/promos/LOTR-EN18A080.0_card.jpg',
+	'18_150': 'https://i.lotrtcgpc.net/promos/LOTR-EN18u080.0_card.jpg',
+	
+	//November 2022 Sealed Gala Promos
+	//Aragorn, King in Exile FA (1P365)
+	'1_376': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U365.0_card.jpg',
+	//The Witch-king, Deathless Lord FA (6P122)
+	'1_377': 'https://i.lotrtcgpc.net/promos/LOTR-EN06U122.0_card.jpg',
+	
+	//November 2022 Weekend League Promos
+	//Gandalf, Friend of the Shirefolk FA (1R72)
+	'1_376': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U072.0_card.jpg',
+	//Merry, Friend to Sam MW (1R302)
+	'1_377': 'https://i.lotrtcgpc.net/promos/LOTR-EN01O302.0_card.jpg',
 	
 }
 

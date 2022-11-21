@@ -288,3 +288,11 @@ gl_theOneRing,1_2
 13_204,13_156
 #Gothmog, Morgul Leader FA
 18_150,18_80
+#Aragorn, King in Exile FA
+1_375,1_365
+#The Witch-king, Deathless Lord FA
+6_129,6_122
+#Gandalf, Friend of the Shirefolk FA
+1_376,1_72
+#Merry, Friend to Sam MW
+1_377,1_302
