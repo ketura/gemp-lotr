@@ -295,7 +295,7 @@ var PCCards = {
 	//Sam, Bearer of Great Need MW (13R156)
 	'13_204': 'https://i.lotrtcgpc.net/promos/LOTR-EN13O156.0_card.jpg',
 	//Gothmog, Morgul Leader FA (18R80)
-	'18_150': 'https://i.lotrtcgpc.net/promos/LOTR-EN18u080.0_card.jpg',
+	'18_150': 'https://i.lotrtcgpc.net/promos/LOTR-EN18U080.0_card.jpg',
 	
 	//November 2022 Sealed Gala Promos
 	//Aragorn, King in Exile FA (1P365)
