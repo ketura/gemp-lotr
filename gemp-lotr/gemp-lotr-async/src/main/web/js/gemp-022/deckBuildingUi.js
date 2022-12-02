@@ -666,7 +666,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                         cardData.tokens = {count:(parseInt(cardData.tokens["count"]) - 1)};
                         layoutTokens(selectedCardElem);
                     } else if (selectedCardElem.hasClass("packInCollection")) {
-                        if (confirm("Would you like to open this pack?")) {
+                        // if (confirm("Would you like to open this pack?")) {
                             this.comm.openPack(this.getCollectionType(), selectedCardElem.data("card").blueprintId, function () {
                                 that.cardFilter.getCollection();
                             }, {
@@ -674,7 +674,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                                     alert("You have no pack of this type in your collection.");
                                 }
                             });
-                        }
+                        //}
                     } else if (selectedCardElem.hasClass("cardToSelect")) {
                         this.comm.openSelectionPack(this.getCollectionType(), this.packSelectionId, selectedCardElem.data("card").blueprintId, function () {
                             that.cardFilter.getCollection();

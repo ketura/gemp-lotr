@@ -24,7 +24,7 @@ function deliveryService(xml) {
                 deliveryDialogs[collectionName] = $("<div></div>").dialog({
                     title:"New items - " + collectionName,
                     autoOpen:false,
-                    closeOnEscape:false,
+                    closeOnEscape:true,
                     resizable:true,
                     width:400,
                     height:200,
