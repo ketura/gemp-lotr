@@ -16,7 +16,8 @@ public class PlayerResolver {
             return ActionContext::getPerformingPlayer;
         if (type.equalsIgnoreCase("owner"))
             return (actionContext) -> actionContext.getSource().getOwner();
-        else if (type.equalsIgnoreCase("shadowPlayer") || type.equalsIgnoreCase("shadow"))
+        else if (type.equalsIgnoreCase("shadowPlayer") || type.equalsIgnoreCase("shadow")
+                || type.equalsIgnoreCase("s"))
             return (actionContext) -> GameUtils.getFirstShadowPlayer(actionContext.getGame());
         else if (type.equalsIgnoreCase("fp") || type.equalsIgnoreCase("freeps")
                 || type.equalsIgnoreCase("free peoples") || type.equalsIgnoreCase("free people"))

@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,20 +40,21 @@ public class Card3_009 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ELVEN, CardType.ALLY));
             action.appendEffect(
-                    new DiscardBottomCardFromDeckEffect(playerId) {
+                    new DiscardBottomCardFromDeckEffect(self, playerId, 1, false) {
                         @Override
-                        protected void discardedCardCallback(PhysicalCard card) {
-                            if (card.getBlueprint().getCulture() == Culture.ELVEN) {
-                                action.appendEffect(
-                                        new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)) {
-                                            @Override
-                                            protected void cardSelected(LotroGame game, PhysicalCard minion) {
-                                                action.insertEffect(
-                                                        new AddUntilEndOfPhaseModifierEffect(
-                                                                new StrengthModifier(self, Filters.sameCard(minion), -1)));
-                                            }
-                                        });
-                            }
+                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                            for (final PhysicalCard card : cards)
+                                if (card.getBlueprint().getCulture() == Culture.ELVEN) {
+                                    action.appendEffect(
+                                            new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)) {
+                                                @Override
+                                                protected void cardSelected(LotroGame game, PhysicalCard minion) {
+                                                    action.insertEffect(
+                                                            new AddUntilEndOfPhaseModifierEffect(
+                                                                    new StrengthModifier(self, Filters.sameCard(minion), -1)));
+                                                }
+                                            });
+                                }
                         }
                     });
             return Collections.singletonList(action);

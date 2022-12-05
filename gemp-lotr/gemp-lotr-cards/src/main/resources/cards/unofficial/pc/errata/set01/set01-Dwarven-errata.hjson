@@ -48,6 +48,78 @@
 			}
 		}
 	}
+	
+	71_9: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E009.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_9
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1?
+			collInfo: 1C9
+			rarity: C
+			setNum: "1"
+			cardNum: 9
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Dwarven Axe
+		culture: dwarven
+		twilight: 0
+		type: possession
+		itemclass: hand weapon
+		strength: 2
+		target: dwarf
+		effects: {
+			type: trigger
+			trigger: {
+				type: losesSkirmish
+				filter: minion
+				against: bearer
+				memorize: losingMinion
+			}
+			effect: {
+				type: choice
+				player: fp
+				texts: [
+					Exert a minion
+					Discard the bottom card of your draw deck
+				]
+				effects: [
+					{
+						type: exert
+						filter: choose(your,minion)
+					}
+					{
+						type: discardBottomCardsFromDeck
+						deck: ownerFromMemory(losingMinion)
+						forced: false
+					}
+				]
+			}
+		}
+		gametext: Bearer must be a Dwarf. <br>Each time a minion loses a skirmish to bearer, that minion's owner must exert a minion or discard the bottom card of their draw deck.
+		lore: "'Buckler and corslet, axe and sword / And shining spears were laid in hoard.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
 
 	51_11: {
 		cardInfo: {
@@ -176,4 +248,170 @@
 			}
 		}
 	}
+	
+	71_16: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E016.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_16
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1R16
+			rarity: R
+			setNum: "1"
+			cardNum: 16
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Greatest Kingdom of My People
+		unique: true
+		culture: dwarven
+		twilight: 0
+		type: condition
+		keyword: [
+			tale
+			support area
+		]
+		effects: [
+			{
+				type: extraCost
+				cost: {
+					type: exert
+					filter: choose(dwarf)
+				}
+			}
+			{
+				type: trigger
+				trigger: {
+					type: played
+					filter: orc
+					memorize: playedOrc
+				}
+				effect: [
+					{
+						type: chooseCardsFromDiscard
+						filter: choose(culture(dwarven))
+						memorize: chosenCard
+						text: Choose a Dwarven card from your discard pile to take into hand
+					}
+					{
+						type: preventable
+						player: shadow
+						text: Would you like to discard the bottom 2 cards of your draw deck to prevent the Free Peoples player taking {chosenCard} into hand from their discard pile?
+						cost: {
+							type: discardBottomCardsFromDeck
+							count: 2
+							forced: false
+							deck: ownerFromMemory(playedOrc)
+						}
+						effect: {
+							type: putCardsFromDiscardIntoHand
+							filter: memory(chosenCard)
+						}
+					}
+				]
+			}
+		]
+		gametext: <b>Tale.</b>  To play, exert a Dwarf. \Each time your opponent plays an Orc, you may take a [dwarven] card into hand from your discard pile.  The Shadow player may discard the bottom card of their deck to prevent this.
+		lore: "'With golden roof and silver floor / And runes of power upon the door.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	71_23: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E023.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_23
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1R23
+			rarity: R
+			setNum: "1"
+			cardNum: 23
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Nobody Tosses a Dwarf
+		culture: dwarven
+		twilight: 0
+		type: event
+		keyword: response
+		effects: {
+			type: responseEvent
+			trigger: {
+				type: winsSkirmish
+				filter: dwarf
+			}
+			effect: [
+				{
+					type: chooseActiveCards
+					filter: choose(side(shadow))
+					memorize: chosenCard
+					text: Choose a Shadow card to discard
+				}
+				{
+					type: preventable
+					player: shadow
+					text: Would you like to discard the bottom 3 cards of your deck to prevent {chosenCard} from being discarded?
+					cost: {
+						type: discardBottomCardsFromDeck
+						deck: shadow
+						count: 3
+						forced: false
+					}
+					effect: {
+						type: discard
+						filter: memory(chosenCard)
+					}
+				}
+			]
+		}
+		gametext: If a Dwarf wins a skirmish, discard a Shadow card.  Its owner may discard 3 cards from the bottom of their draw deck to prevent this.
+		lore: "'My folk have never had dealings with any of the servants of the Enemy.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

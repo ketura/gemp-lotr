@@ -1,0 +1,77 @@
+{
+	# 72_91: {
+	# 	cardInfo: {
+	# 		//Either a full URL, or a subpath for the PC image server
+	# 		imagePath: errata/LOTR-EN02E091.1.jpg
+	# 		//If this is true, then all gameplay-related info outside this cardInfo definition
+	# 		// will be ignored and the java class loaded instead.
+	# 		javaClass: false
+	# 		//This instructs the blueprint generator to insert this card as an alt of the listed
+	# 		// parent blueprint. Can of course be ommitted if not an errata or promo.
+	# 		parent: 2_91
+	# 		//This is the tree path to use within the alts structure on the parent.
+	# 		// Can of course be ommitted if parent is null. 
+	# 		parentPath: errata/pc
+	# 		//Versioning differentiates releases within a particular alt path, such as PC errata
+	# 		// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+	# 		//Top-level cards should always be version 0.
+	# 		version: 1
+	# 		collInfo: 2C91
+	# 		rarity: C
+	# 		setNum: "2"
+	# 		cardNum: 91
+	# 		// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+	# 		style: Standard
+	# 	}
+	# 	side: shadow
+	# 	twilight: 0
+	# 	culture: Sauron
+	# 	title: Southern Spies
+	# 	type: event
+	# 	keyword: Response
+	# 	requires: {
+	# 		type: canSpot
+	# 		filter: culture(sauron),minion
+	# 	}
+	# 	effects: {
+	# 		type: responseEvent
+	# 		trigger: {
+	# 			type: putsOnRing
+	# 		}
+	# 		effect: [
+	# 			{
+	# 				type: preventable
+	# 				player: freeps
+	# 				cost: {
+	# 					type: DiscardFromHand
+	# 					count: {
+	# 						type: ForEachInHand
+	# 						hand: freeps
+	# 					}
+	# 					forced: false
+	# 					hand: freeps
+	# 				}
+	# 				text: Discard your hand to prevent adding a burden for each card in your hand
+	# 				effect: {
+	# 					type: AddBurdens
+	# 					amount: {
+	# 						type: ForEachInHand
+	# 						hand: freeps
+	# 					}
+	# 				}
+	# 			}
+	# 		]	
+	# 	}
+	# 	gametext: If the Ring-bearer puts on The One Ring, spot a [sauron] minion to add a burden for each card in the Free Peoples player's hand. The Free Peoples player may discard their hand to prevent this.
+	# 	lore: "'They will know all the news now, for they have visited Bill Ferny; and probably that Southerner was a spy as well.'"
+	# 	promotext: ""
+	# 	alts: {
+	# 		//These are just CardInfo objects
+	# 		promos: {
+	# 		}
+	# 		//These are full card definitions, with redundant info that is the same as the original card ommitted
+	# 		errata: {
+	# 		}
+	# 	}
+	# }
+}

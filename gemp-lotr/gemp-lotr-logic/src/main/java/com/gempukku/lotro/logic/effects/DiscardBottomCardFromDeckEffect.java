@@ -4,15 +4,25 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.results.DiscardCardFromDeckResult;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
+    private final PhysicalCard _source;
     private final String _playerId;
+    private final int _count;
+    private final boolean _forced;
 
-    public DiscardBottomCardFromDeckEffect(String playerId) {
+    public DiscardBottomCardFromDeckEffect(PhysicalCard source, String playerId, int count, boolean forced) {
+        _source = source;
         _playerId = playerId;
+        _count = count;
+        _forced = forced;
     }
 
     @Override
@@ -27,26 +37,40 @@ public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getDeck(_playerId).size() > 0;
+        return game.getGameState().getDeck(_playerId).size() >= _count
+                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, _playerId, _source));
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        boolean success = game.getGameState().getDeck(_playerId).size() > 0;
-        if (success) {
+        //Compare DiscardTopCardFromDeckEffect; may need to alter this if later an effect is created
+        // that prevents the ability of people to discard from the bottom of the deck
+        if (!_forced || game.getGameState().getDeck(_playerId).size() > _count) {
             GameState gameState = game.getGameState();
-            PhysicalCard card = gameState.removeBottomDeckCard(_playerId);
-            gameState.sendMessage(_playerId + " discards bottom card from their deck - " + GameUtils.getCardLink(card));
-            gameState.addCardToZone(game, card, Zone.DISCARD);
+            List<PhysicalCard> cardsDiscarded = new LinkedList<>();
 
-            discardedCardCallback(card);
+            for (int i = 0; i < _count; i++) {
+                PhysicalCard card = gameState.removeBottomDeckCard(_playerId);
+                if (card != null) {
+                    cardsDiscarded.add(card);
+                    gameState.addCardToZone(game, card, Zone.DISCARD);
+                }
+            }
 
-            return new FullEffectResult(true);
+            if (cardsDiscarded.size() > 0) {
+                gameState.sendMessage(_playerId + " discards bottom cards from their deck - " + getAppendedNames(cardsDiscarded));
+                cardsDiscardedCallback(cardsDiscarded);
+            }
+
+            for (PhysicalCard discardedCard : cardsDiscarded)//PhysicalCard source, PhysicalCard card, String handPlayerId, boolean forced
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardFromDeckResult(_source, discardedCard, _forced));
+
+            return new FullEffectResult(_count == cardsDiscarded.size());
         }
         return new FullEffectResult(false);
     }
 
-    protected void discardedCardCallback(PhysicalCard card) {
+    protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
 
     }
 }

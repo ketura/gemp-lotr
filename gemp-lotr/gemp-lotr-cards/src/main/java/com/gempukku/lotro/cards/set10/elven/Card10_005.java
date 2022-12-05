@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.effects.DiscardBottomCardFromDeckEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,13 +42,14 @@ public class Card10_005 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1));
             action.appendEffect(
-                    new DiscardBottomCardFromDeckEffect(playerId) {
+                    new DiscardBottomCardFromDeckEffect(self, playerId, 1, false) {
                         @Override
-                        protected void discardedCardCallback(PhysicalCard card) {
-                            if (card.getBlueprint().getCulture() == Culture.ELVEN) {
-                                action.appendEffect(
-                                        new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), -3)));
-                            }
+                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                            for (final PhysicalCard card : cards)
+                                if (card.getBlueprint().getCulture() == Culture.ELVEN) {
+                                    action.appendEffect(
+                                            new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), -3)));
+                                }
                         }
                     });
             return Collections.singletonList(action);

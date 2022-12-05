@@ -1,0 +1,166 @@
+{
+	# 72_43: {
+	# 	cardInfo: {
+	# 		//Either a full URL, or a subpath for the PC image server
+	# 		imagePath: errata/LOTR-EN02E043.1.jpg
+	# 		//If this is true, then all gameplay-related info outside this cardInfo definition
+	# 		// will be ignored and the java class loaded instead.
+	# 		javaClass: false
+	# 		//This instructs the blueprint generator to insert this card as an alt of the listed
+	# 		// parent blueprint. Can of course be ommitted if not an errata or promo.
+	# 		parent: 2_43
+	# 		//This is the tree path to use within the alts structure on the parent.
+	# 		// Can of course be ommitted if parent is null. 
+	# 		parentPath: errata/pc
+	# 		//Versioning differentiates releases within a particular alt path, such as PC errata
+	# 		// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+	# 		//Top-level cards should always be version 0.
+	# 		version: 1
+	# 		collInfo: 2R43
+	# 		rarity: R
+	# 		setNum: "2"
+	# 		cardNum: 43
+	# 		// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+	# 		style: Standard
+	# 	}
+	# 	side: shadow
+	# 	twilight: 1
+	# 	strength: 2
+	# 	culture: Isengard
+	# 	itemclass: Hand Weapon
+	# 	title: Lurtz's Sword
+	# 	unique: true
+	# 	type: possession
+	# 	target: uruk-hai,VitalityMoreThan(2)
+	# 	effects: [
+	# 		{
+	# 			type: modifier
+	# 			modifier: {
+	# 				type: addKeyword
+	# 				filter: bearer
+	# 				keyword: damage+1
+	# 			}
+	# 		}
+	# 		{
+	# 			type: trigger
+	# 			trigger: {
+	# 				type: winsSkirmish
+	# 				filter: bearer,title(Lurtz)
+	# 			}
+	# 			effect: {
+	# 				type: choice
+	# 				player: freeps
+	# 				texts: [
+	# 					Discard a companion
+	# 					Remove the top 3 cards of your draw deck from the game
+	# 				]
+	# 				effects: [
+	# 					{
+	# 						type: addBurdens
+	# 						amount: 1
+	# 					}
+	# 					#TODO: removing cards from the game off of the top of the deck is not currently
+	# 					# encapsulated in its own effect.  Could possibly discard, then remove?
+	# 					# Or perhaps reveal, then remove?
+	# 					{
+	# 						type: discardTopCardsFromDeck
+	# 						count: 3
+	# 						forced: true
+	# 						deck: fp
+	# 					}
+	# 				]
+	# 			}
+				
+				
+	# 		}
+	# 	]
+	# 	gametext: Bearer must be an Uruk-hai with 3 or more vitality.  Bearer is <b>damage +1</b>.\If bearer is Lurtz, each time he wins a skirmish, the Free Peoples player must discard a companion or remove the top 3 cards of their draw deck from the game.
+	# 	lore: The Uruk giant laid down his bow and drew a broad-bladed weapon.
+	# 	promotext: ""
+	# 	alts: {
+	# 		//These are just CardInfo objects
+	# 		promos: {
+	# 		}
+	# 		//These are full card definitions, with redundant info that is the same as the original card ommitted
+	# 		errata: {
+	# 		}
+	# 	}
+	# }
+	
+	72_45: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN02E045.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 2_45
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 2R45
+			rarity: R
+			setNum: "2"
+			cardNum: 45
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		side: shadow
+		twilight: 1
+		culture: Isengard
+		title: Too Much Attention
+		type: event
+		keyword: Response
+		requires: {
+			type: canSpot
+			filter: culture(isengard),minion
+		}
+		effects: {
+			type: responseEvent
+			trigger: {
+				type: putsOnRing
+			}
+			effect: [
+				{
+					type: ChooseCardsFromDrawDeck
+					filter: choose(minion)
+					count: 1
+					memorize: chosenCard
+				}
+				{
+					type: preventable
+					player: freeps
+					cost: {
+						type: DiscardTopCardsFromDeck
+						count: 6
+						forced: false
+						deck: freeps
+					}
+					text: Discard the top 6 cards of your draw deck to prevent your opponent taking {chosenCard} into hand
+					effect: {
+						type: PutCardsFromDeckIntoHand
+						filter: memory(chosenCard)
+					}
+				}
+			]	
+		}
+		gametext: If the Ring-bearer puts on The One Ring, spot an [isengard] minion to take a minion into hand from your draw deck.  The Free Peoples player may discard the top 6 cards of their draw deck to prevent this.
+		lore: "'A little more caution from you – that is not a trinket you carry.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+}

@@ -162,4 +162,225 @@
 			}
 		}
 	}
+	
+	71_150: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E150.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_150
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1C150
+			rarity: C
+			setNum: "1"
+			cardNum: 150
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Uruk Rager
+		culture: isengard
+		twilight: 4
+		type: minion
+		race: uruk-hai
+		strength: 9
+		vitality: 2
+		site: 5
+		keyword: damage+1
+		effects: {
+			type: trigger
+			trigger: {
+				type: winsSkirmish
+				filter: self
+			}
+			effect: {
+				type: choice
+				player: freeps
+				texts: [
+					Exert a companion
+					Discard the top 3 cards of your draw deck
+				]
+				effects: [
+					{
+						type: exert
+						filter: choose(companion)
+					}
+					{
+						type: discardTopCardsFromDeck
+						deck: freeps
+						count: 3
+						forced: false
+					}
+				]
+			}
+		}
+		gametext: <b>Damage +1</b>.<br>Each time this minion wins a skirmish, the Free Peoples player must exert a companion or discard the top 3 cards of their draw deck.
+		lore: A bloodthirsty bellow from a huge Uruk can win a skirmish before it begins.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	71_154: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E154.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_154
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1C154
+			rarity: C
+			setNum: "1"
+			cardNum: 154
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Uruk Soldier
+		culture: isengard
+		twilight: 2
+		type: minion
+		race: uruk-hai
+		strength: 7
+		vitality: 1
+		site: 5
+		keyword: damage+1
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+				type: played
+				filter: your,self
+			}
+			effect: [
+				{
+					type: chooseActiveCards
+					filter: choose(companion)
+					memorize: chosenComp
+					text: Choose a companion to exert
+				}
+				{
+					type: preventable
+					player: ownerFromMemory(chosenComp)
+					cost: {
+						type: discardTopCardsFromDeck
+						deck: freeps
+						count: 2
+						forced: false
+					}
+					text: Would you like to discard the top 2 cards of your deck to prevent the exertion of {chosenComp}?
+					effect: {
+						type: exert
+						filter: memory(chosenComp)
+					}
+				}
+			]
+		}
+		gametext: <b>Damage +1</b>.<br>When you play this minion, exert a companion.  The Free Peoples player may discard the top 2 cards of their draw deck to prevent this.
+		lore: Saruman's Uruk-hai band together as an extremely effective fighting unit.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	71_160: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E160.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_160
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1C160
+			rarity: C
+			setNum: "1"
+			cardNum: 160
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Uruk-hai Sword
+		culture: isengard
+		twilight: 1
+		type: possession
+		itemclass: hand weapon
+		strength: 2
+		target: uruk-hai
+		effects: {
+			type: trigger
+			trigger: {
+				type: winsSkirmish
+				filter: bearer
+			}
+			effect: {
+				type: choice
+				player: freeps
+				texts: [
+					Exert a companion
+					Discard the top 2 cards of your draw deck
+				]
+				effects: [
+					{
+						type: exert
+						filter: choose(companion)
+					}
+					{
+						type: discardTopCardsFromDeck
+						deck: freeps
+						count: 2
+						forced: false
+					}
+				]
+			}
+		}
+		gametext: Bearer must be an Uruk-hai.<br>Each time bearer wins a skirmish, the Free Peoples player must exert a companion or discard the top 2 cards of their draw deck.
+		lore: Their malevolent strength worsens the wounds from the gruesome weapons of the Uruks.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
 }

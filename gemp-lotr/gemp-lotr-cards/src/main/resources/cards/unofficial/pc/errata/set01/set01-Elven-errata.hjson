@@ -1,4 +1,199 @@
 {
+	71_29: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E029.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_29
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1U29
+			rarity: U
+			setNum: "1"
+			cardNum: 29
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Ancient Enmity
+		culture: elven
+		twilight: 0
+		type: event
+		keyword: skirmish
+		effects: {
+			type: event
+			effect: [
+				{
+					type: modifyStrength
+					filter: choose(elf)
+					amount: 1
+					memorize: chosenElf
+				}
+				{
+					type: addTrigger
+					trigger: {
+						type: losesSkirmish
+						filter: minion
+						against: memory(chosenElf)
+						memorize: losingMinion
+					}
+					effect: [
+						{
+							type: chooseActiveCards
+							count: {
+								type: range
+								from: 0
+								to: {
+									type: forEachYouCanSpot
+									filter: minion
+								}
+							}
+							filter: choose(wounded,Elf)
+							memorize: chosenElves
+							text: Choose Elves to heal
+						}
+						{
+							type: preventable
+							player: ownerFromMemory(losingMinion)
+							cost: {
+								type: discardCardAtRandomFromHand
+								hand: ownerFromMemory(losingMinion)
+								count: 1
+								forced: false
+							}
+							text: Discard 1 card at random from hand to prevent healing {chosenElves}
+							effect: {
+								type: heal
+								filter: memory(chosenElves)
+							}
+						}
+					]
+				}
+			]
+		}
+		gametext: Make an Elf strength +1. \If a minion loses this skirmish to that Elf, you may heal an Elf for each minion that you can spot; that minion’s owner may discard 2 cards at random from hand to prevent this.
+		lore: Hard and bitter is the Elven hatred of Orcs, for they have lost many kinsmen to Orc savagery.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	71_36: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E036.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_36
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1R36
+			rarity: R
+			setNum: "1"
+			cardNum: 36
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Curse Their Foul Feet!
+		culture: elven
+		twilight: 0
+		type: event
+		keyword: fellowship
+		effects: {
+			type: event
+			cost: {
+				type: exert
+				filter: choose(elf)
+			}
+			effect: [
+				{
+					type: RevealRandomCardsFromHand
+					hand: shadow
+					memorize: revealedCards
+					forced: true
+					count: 4
+				}
+				{
+					type: conditional
+					requires: {
+						type: isGreaterThan
+						firstNumber: {
+							type: forEachMatchingInMemory
+							memory: revealedCards
+							filter: orc
+						}
+						secondNumber: 0
+					}
+					effect: [
+						{
+							type: preventable
+							player: shadow
+							cost: {
+								type: discardFromHand
+								hand: shadow
+								player: shadow
+								forced: false
+								count: {
+									type: forEachMatchingInMemory
+									memory: revealedCards
+									filter: orc
+								}
+							}
+							text: Discard X cards (equal to the number of revealed orcs) from hand to prevent the fellowship archery total being +X until the regroup phase
+							effect: {
+								type: addModifier
+								modifier: {
+									type: modifyArcheryTotal
+									side: freeps
+									amount: {
+										type: forEachMatchingInMemory
+										memory: revealedCards
+										filter: orc
+									}
+								}
+								until: start(regroup)
+							}
+						}
+						
+					]
+				}
+			]
+		}
+		gametext: Exert an Elf to reveal 4 cards at random from an opponent's hand.  Make the fellowship archery total +X until the regroup phase, where X is the number of Orcs revealed.  That player may discard X cards from hand to prevent this.
+		lore: "'They crossed the Nimrodel – curse their foul feet in its clean water!'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
 	51_40: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
@@ -73,6 +268,72 @@
 		]
 		gametext: To play, spot Gandalf or an Elf.<br>At the start of each of your turns, heal up to 3 allies whose home is site 3.<br>Fellowship: Exert Elrond twice (or once if you can spot 2 other [Elven] allies) to draw a card.
 		lore: "He was the Lord of Rivendell and mighty among both Elves and Men."
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	71_43: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E043.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_43
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1C43
+			rarity: C
+			setNum: "1"
+			cardNum: 43
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Far-seeing Eyes
+		unique: true
+		culture: elven
+		twilight: 2
+		type: condition
+		keyword: support area
+		effects: {
+			type: trigger
+			trigger: {
+				type: played
+				filter: your,elf
+			}
+			effect: {
+				type: preventable
+				player: shadow
+				cost: {
+					type: discardFromHand
+					hand: shadowPlayer
+					player: shadowPlayer
+					forced: false
+					count: 1
+				}
+				text: Discard a card from hand to prevent the Free Peoples player drawing a card
+				effect: {
+					type: drawCards
+					count: 1
+				}
+			}
+		}
+		gametext: Each time you play an Elf, draw a card.  Any Shadow player may discard a card from hand to prevent this.
+		lore: Keen Elven eyes see farther and more clearly than those of Men or Dwarves.
 		promotext: ""
 		alts: {
 			//These are just CardInfo objects
@@ -286,4 +547,85 @@
 			}
 		}
 	}
+	
+	71_68: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E068.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_68
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1C68
+			rarity: C
+			setNum: "1"
+			cardNum: 68
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: The White Arrows of Lorien
+		culture: elven
+		twilight: 1
+		type: condition
+		keyword: tale
+		target: elf,companion
+		effects: {
+			type: activated
+			phase: archery
+			requires: {
+				type: canSpot
+				filter: bearer,archer
+			}
+			cost: {
+				type: exert
+				filter: bearer
+			}
+			effect: [
+				{
+					type: chooseActiveCards
+					filter: choose(minion)
+					memorize: targetMinion
+					text: Choose a minion to exert
+				}
+				{
+					type: preventable
+					player: shadow
+					cost: {
+						type: discardFromHand
+						hand: shadow
+						player: shadow
+						forced: false
+						count: 1
+					}
+					text: Discard a card from hand to prevent {targetMinion} exert
+					effect: {
+						type: exert
+						filter: memory(targetMinion)
+					}
+				}
+			]
+		}
+		gametext: <b>Tale.</b> Bearer must be an Elf companion. <br><b>Archery:</b> If bearer is an archer, exert bearer to exert a minion.  An opponent may discard a card from hand to prevent this.
+		lore: "'What you will see I cannot tell....'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	
 }

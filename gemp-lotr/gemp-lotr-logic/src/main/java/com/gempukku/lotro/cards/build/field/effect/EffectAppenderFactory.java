@@ -57,7 +57,6 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("discardtopcardsfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("doesnotaddtoarcherytotal", new DoesNotAddToArcheryTotal());
         effectAppenderProducers.put("drawcards", new DrawCards());
-        effectAppenderProducers.put("repeat", new Repeat());
         effectAppenderProducers.put("endphase", new EndPhase());
         effectAppenderProducers.put("exert", new Exert());
         effectAppenderProducers.put("exhaust", new Exhaust());
@@ -118,6 +117,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("removetokens", new RemoveTokens());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
         effectAppenderProducers.put("reordertopcardsofdrawdeck", new ReorderTopCardsOfDrawDeck());
+        effectAppenderProducers.put("repeat", new Repeat());
         effectAppenderProducers.put("replaceinassignment", new ReplaceInAssignment());
         effectAppenderProducers.put("replaceinskirmish", new ReplaceInSkirmish());
         effectAppenderProducers.put("resetwhileinzonedata", new ResetWhileInZoneData());

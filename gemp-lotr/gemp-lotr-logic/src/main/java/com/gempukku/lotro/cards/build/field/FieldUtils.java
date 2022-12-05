@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.build.field;
 
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.common.Side;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -64,6 +65,14 @@ public class FieldUtils {
             return null;
         final String string = getString(value, key);
         return Enum.valueOf(enumClass, string.toUpperCase().replace(' ', '_').replace('-', '_'));
+    }
+
+    public static Side getSide(Object value, String key) throws InvalidCardDefinitionException {
+        final String string = getString(value, key);
+        final Side side = Side.Parse(string);
+        if (side == null)
+            throw new InvalidCardDefinitionException("Unknown side '" + string + "' in " + key + " field");
+        return side;
     }
 
     public static JSONArray getArray(Object value, String key) throws InvalidCardDefinitionException {

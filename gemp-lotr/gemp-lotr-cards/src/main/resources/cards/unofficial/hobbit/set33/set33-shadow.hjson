@@ -117,6 +117,7 @@
 				effect: [
 					{
 						type: discardBottomCardsFromDeck
+						forced: false
 						memorize: bottomCard
 					}
 					{
@@ -246,6 +247,7 @@
 			effect: [
 				{
 					type: discardBottomCardsFromDeck
+					forced: false
 					memorize: bottomCard
 				}
 				{
