@@ -53,6 +53,7 @@ public class JSONDefs {
         public ArrayList<String> limit2 = new ArrayList<>();
         public ArrayList<String> limit3 = new ArrayList<>();
         public ArrayList<String> restrictedName = new ArrayList<>();
+        public ArrayList<Integer> errataSets = new ArrayList<>();
         public Map<String, String> errata = new HashMap<>();
         public boolean hall = true;
 

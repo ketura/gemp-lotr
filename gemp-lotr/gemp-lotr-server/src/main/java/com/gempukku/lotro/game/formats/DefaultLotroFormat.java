@@ -39,7 +39,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private final List<String> _limit3Cards = new ArrayList<>();
     private final Map<String,String> _errataCardMap = new TreeMap<>();
 
-    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, JSONDefs.Format def){
+    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, JSONDefs.Format def) throws InvalidPropertiesFormatException{
         this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
                 def.validateShadowFPCount, def.minimumDeckSize, def.maximumSameName, def.mulliganRule, def.cancelRingBearerSkirmish,
                 def.ruleOfFour, def.winAtEndOfRegroup, def.winOnControlling5Sites, def.playtest, def.hall);
@@ -58,6 +58,11 @@ public class DefaultLotroFormat implements LotroFormat {
             def.limit3.forEach(this::addLimit3Card);
         if(def.restrictedName != null)
             def.restrictedName.forEach(this::addRestrictedCardName);
+        if(def.errataSets != null) {
+            for (Integer errataSet : def.errataSets) {
+                addErrataSet(errataSet);
+            }
+        }
         if(def.errata != null)
             def.errata.forEach(this::addCardErrata);
     }
@@ -253,6 +258,27 @@ public class DefaultLotroFormat implements LotroFormat {
         _restrictedCardNames.add(cardName);
     }
 
+    public void addErrataSet(int setID) throws InvalidPropertiesFormatException {
+        //Valid errata sets:
+        // 50-69 are live errata versions of sets 0-19
+        // 70-89 are playtest errata versions of sets 0-19
+        // 150-199 are playtest versions of sets V0-V49
+        if(setID < 50 || (setID >= 90 && setID <= 149) || setID > 199)
+            throw new InvalidPropertiesFormatException("Errata sets must be 50-69, 70-89, or 150-159.  Received: " + setID);
+
+        //maps 69 to 19, and also 151 to 101
+        int ogSet = setID - 50;
+        //playtest sets are offset by 20 more
+        if(setID >= 70 && setID <=89)
+            ogSet = setID - 70;
+
+        var cards = _library.getBaseCards().keySet().stream().filter(x -> x.startsWith("" + setID)).toList();
+        for(String errataBP : cards) {
+            String cardID = errataBP.split("_")[1];
+
+            addCardErrata("" + ogSet + "_" + cardID, errataBP);
+        }
+    }
     public void addCardErrata(String baseBlueprintId, String errataBaseBlueprint) {
         _errataCardMap.put(baseBlueprintId, errataBaseBlueprint);
     }
@@ -681,6 +707,7 @@ public class DefaultLotroFormat implements LotroFormat {
             limit2 = null;
             limit3 = null;
             restrictedName = null;
+            errataSets = null;
             errata = null;
             hall = _hallVisible;
         }};
