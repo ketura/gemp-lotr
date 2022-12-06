@@ -1,0 +1,190 @@
+{
+	73_87: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E087.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_87
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3C87
+			rarity: C
+			setNum: "3"
+			cardNum: 87
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: The Dark Lord Advances
+		unique: false
+		culture: sauron
+		twilight: 2
+		type: event
+		keyword: regroup
+		effects: {
+			type: event
+			cost: {
+				type: exert
+				filter: choose(culture(sauron),minion)
+			}
+			effect: [
+				{
+					type: RevealRandomCardsFromHand
+					hand: freeps
+					memorize: revealedCard
+					forced: true
+					count: 1
+				}
+				{
+					type: memorizeNumber
+					memory: revealedTwilightCost
+					amount: {
+						type: twilightCostInMemory
+						memory: revealedCard
+					}
+				}
+				{
+					type: ChooseCardsFromDrawDeck
+					filter: choose(minion,MaxTwilight(memory(revealedTwilightCost)))
+					memorize: chosenCard
+					text: Choose a minion to take into hand from your draw deck
+				}
+				{
+					type: preventable
+					player: freeps
+					cost: {
+						type: discardfromhand
+						hand: freeps
+						player: freeps
+						forced: false
+						count: {
+							type: fromMemory
+							memory: twilightCostInMemory
+						}
+					}
+					text: Discard {twilightCostInMemory} card from hand to prevent your opponent taking {chosenCard} into hand from their draw deck
+					effect: {
+						type: PutCardsFromDeckIntoHand
+						filter: memory(chosenCard)
+					}
+				}
+			]
+		}
+		gametext: Exert a [sauron] minion to reveal a card at random from the Free Peoples player's hand.  You may take a minion into hand from your draw deck costing X or less, where X is the twilight cost of the card revealed.  The Free Peoples player may discard X cards from hand to prevent this.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	# 73_88: {
+	# 	cardInfo: {
+	# 		//Either a full URL, or a subpath for the PC image server
+	# 		imagePath: errata/LOTR-EN03E088.1.jpg
+	# 		//If this is true, then all gameplay-related info outside this cardInfo definition
+	# 		// will be ignored and the java class loaded instead.
+	# 		javaClass: false
+	# 		//This instructs the blueprint generator to insert this card as an alt of the listed
+	# 		// parent blueprint. Can of course be ommitted if not an errata or promo.
+	# 		parent: 3_88
+	# 		//This is the tree path to use within the alts structure on the parent.
+	# 		// Can of course be ommitted if parent is null. 
+	# 		parentPath: errata/pc
+	# 		//Versioning differentiates releases within a particular alt path, such as PC errata
+	# 		// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+	# 		//Top-level cards should always be version 0.
+	# 		version: 1
+	# 		collInfo: 3U88
+	# 		rarity: U
+	# 		setNum: "3"
+	# 		cardNum: 88
+	# 		// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+	# 		style: Standard
+	# 	}
+	# 	title: Get Off the Road!
+	# 	unique: false
+	# 	culture: sauron
+	# 	twilight: 0
+	# 	type: event
+	# 	keyword: [
+	# 		maneuver
+	# 		search
+	# 	]
+	# 	effects: {
+	# 		type: event
+	# 		cost: {
+	# 			type: exert
+	# 			filter: choose(culture(sauron),minion)
+	# 		}
+	# 		effect: [
+	# 			{
+	# 				type: RevealRandomCardsFromHand
+	# 				hand: freeps
+	# 				memorize: revealedCard
+	# 				forced: true
+	# 				count: 1
+	# 			}
+	# 			{
+	# 				type: memorizeNumber
+	# 				memory: revealedTwilightCost
+	# 				amount: {
+	# 					type: twilightCostInMemory
+	# 					memory: revealedCard
+	# 				}
+	# 			}
+	# 			{
+	# 				type: ChooseCardsFromDrawDeck
+	# 				filter: choose(minion,MaxTwilight(memory(revealedTwilightCost)))
+	# 				memorize: chosenCard
+	# 				text: Choose a minion to take into hand from your draw deck
+	# 			}
+	# 			{
+	# 				type: preventable
+	# 				player: freeps
+	# 				cost: {
+	# 					type: discardfromhand
+	# 					hand: freeps
+	# 					player: freeps
+	# 					forced: false
+	# 					count: {
+	# 						type: fromMemory
+	# 						memory: twilightCostInMemory
+	# 					}
+	# 				}
+	# 				text: Discard {twilightCostInMemory} card from hand to prevent your opponent taking {chosenCard} into hand from their draw deck
+	# 				effect: {
+	# 					type: PutCardsFromDeckIntoHand
+	# 					filter: memory(chosenCard)
+	# 				}
+	# 			}
+	# 		]
+	# 	}
+	# 	gametext: <b>Search.</b><b>Spot a [sauron] minion and a Nazgûl to exert a companion for each burden you can spot.  The Free Peoples player may make the move limit -1 to prevent this.
+	# 	lore: "'The Morgul-lord and his Black Riders have come forth. War is preparing!'"
+	# 	promotext: ""
+	# 	alts: {
+	# 		//These are just CardInfo objects
+	# 		promos: {
+	# 		}
+	# 		//These are full card definitions, with redundant info that is the same as the original card ommitted
+	# 		errata: {
+	# 		}
+	# 	}
+	# }
+	
+	
+}
