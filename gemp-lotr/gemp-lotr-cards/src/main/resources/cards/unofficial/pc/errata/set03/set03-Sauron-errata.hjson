@@ -91,100 +91,430 @@
 		}
 	}
 	
-	# 73_88: {
-	# 	cardInfo: {
-	# 		//Either a full URL, or a subpath for the PC image server
-	# 		imagePath: errata/LOTR-EN03E088.1.jpg
-	# 		//If this is true, then all gameplay-related info outside this cardInfo definition
-	# 		// will be ignored and the java class loaded instead.
-	# 		javaClass: false
-	# 		//This instructs the blueprint generator to insert this card as an alt of the listed
-	# 		// parent blueprint. Can of course be ommitted if not an errata or promo.
-	# 		parent: 3_88
-	# 		//This is the tree path to use within the alts structure on the parent.
-	# 		// Can of course be ommitted if parent is null. 
-	# 		parentPath: errata/pc
-	# 		//Versioning differentiates releases within a particular alt path, such as PC errata
-	# 		// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
-	# 		//Top-level cards should always be version 0.
-	# 		version: 1
-	# 		collInfo: 3U88
-	# 		rarity: U
-	# 		setNum: "3"
-	# 		cardNum: 88
-	# 		// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
-	# 		style: Standard
-	# 	}
-	# 	title: Get Off the Road!
-	# 	unique: false
-	# 	culture: sauron
-	# 	twilight: 0
-	# 	type: event
-	# 	keyword: [
-	# 		maneuver
-	# 		search
-	# 	]
-	# 	effects: {
-	# 		type: event
-	# 		cost: {
-	# 			type: exert
-	# 			filter: choose(culture(sauron),minion)
-	# 		}
-	# 		effect: [
-	# 			{
-	# 				type: RevealRandomCardsFromHand
-	# 				hand: freeps
-	# 				memorize: revealedCard
-	# 				forced: true
-	# 				count: 1
-	# 			}
-	# 			{
-	# 				type: memorizeNumber
-	# 				memory: revealedTwilightCost
-	# 				amount: {
-	# 					type: twilightCostInMemory
-	# 					memory: revealedCard
-	# 				}
-	# 			}
-	# 			{
-	# 				type: ChooseCardsFromDrawDeck
-	# 				filter: choose(minion,MaxTwilight(memory(revealedTwilightCost)))
-	# 				memorize: chosenCard
-	# 				text: Choose a minion to take into hand from your draw deck
-	# 			}
-	# 			{
-	# 				type: preventable
-	# 				player: freeps
-	# 				cost: {
-	# 					type: discardfromhand
-	# 					hand: freeps
-	# 					player: freeps
-	# 					forced: false
-	# 					count: {
-	# 						type: fromMemory
-	# 						memory: twilightCostInMemory
-	# 					}
-	# 				}
-	# 				text: Discard {twilightCostInMemory} card from hand to prevent your opponent taking {chosenCard} into hand from their draw deck
-	# 				effect: {
-	# 					type: PutCardsFromDeckIntoHand
-	# 					filter: memory(chosenCard)
-	# 				}
-	# 			}
-	# 		]
-	# 	}
-	# 	gametext: <b>Search.</b><b>Spot a [sauron] minion and a Nazgûl to exert a companion for each burden you can spot.  The Free Peoples player may make the move limit -1 to prevent this.
-	# 	lore: "'The Morgul-lord and his Black Riders have come forth. War is preparing!'"
-	# 	promotext: ""
-	# 	alts: {
-	# 		//These are just CardInfo objects
-	# 		promos: {
-	# 		}
-	# 		//These are full card definitions, with redundant info that is the same as the original card ommitted
-	# 		errata: {
-	# 		}
-	# 	}
-	# }
+	73_88: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E088.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_88
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3U88
+			rarity: U
+			setNum: "3"
+			cardNum: 88
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Get Off the Road!
+		unique: false
+		culture: sauron
+		twilight: 0
+		type: event
+		keyword: [
+			maneuver
+			search
+		]
+		effects: {
+			type: event
+			effect: {
+				type: conditional
+				requires: [
+					{
+						type: canSpot
+						filter: culture(sauron)
+					}
+					{
+						type: canSpot
+						filter: nazgul
+					}
+				]
+				effect:	{
+					type: preventable
+					player: freeps
+					cost: {
+						type: addModifier
+						modifier: {
+							type: modifyMoveLimit
+							amount: -1
+						}
+						until: endOfTurn
+					}
+					text: Make the move limit -1 to prevent exerting a companion for each burden
+					effect: {
+						type: exert
+						player: freeps
+						times: {
+							type: ForEachBurden
+						}
+						filter: choose(companion)
+					}
+				}
+			}
+		}
+		gametext: <b>Search.</b><b>Spot a [sauron] card and a Nazgul to make the Free Peoples player exert a companion for each burden you can spot.  The Free Peoples player may make the move limit -1 to prevent this.
+		lore: "'The Morgul-lord and his Black Riders have come forth. War is preparing!'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	73_90: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E090.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_90
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3C90
+			rarity: C
+			setNum: "3"
+			cardNum: 90
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Hand of Sauron
+		unique: false
+		culture: sauron
+		twilight: 0
+		type: event
+		keyword: [
+			maneuver
+		]
+		effects: {
+			type: event
+			cost: {
+				type: exert
+				filter: choose(culture(sauron),minion,unique)
+			}
+			effect: [
+				{
+					type: chooseActiveCards
+					filter: choose(companion,not(exhausted))
+					memorize: chosenComp
+					text: Choose a companion to exhaust
+				}
+				{
+					type: preventable
+					player: freeps
+					cost: {
+						type: discardCardAtRandomFromHand
+						forced: false
+						hand: freeps
+						count: 2
+					}
+					text: Discard 2 cards at random from hand to prevent exhausting {chosenComp}
+					effect: {
+						type: exhaust
+						filter: memory(chosenComp)
+					}
+				}
+			]
+		}
+		gametext: Exert a unique [sauron] minion to exhaust a companion (except the Ring-bearer).  The Free Peoples player may discard 2 cards at random from their hand to prevent this.
+		lore: "'The power of the Ring could not be undone.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	73_91: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E091.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_91
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3R91
+			rarity: R
+			setNum: "3"
+			cardNum: 91
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: His Cruelty and Malice
+		unique: false
+		culture: sauron
+		twilight: 1
+		type: condition
+		keyword: [
+			Support Area
+		]
+		effects: {
+			type: activated
+			phase: regroup
+			cost: [
+				{
+					type: chooseActiveCards
+					filter: choose(culture(sauron),minion)
+					memorize: chosenMinion
+					text: Choose a [Sauron] minion to exert or discard
+				}
+				{
+					type: choice
+					texts: [
+						Exert {chosenMinion}
+						Discard {chosenMinion}
+					]
+					effects: [
+						{
+							type: exert
+							filter: memory(chosenMinion)
+						}
+						{
+							type: discard
+							filter: memory(chosenMinion)
+						}
+					]
+				}
+			]
+			effect: [
+				{
+					type: chooseActiveCards
+					filter: choose(companion,not(exhausted))
+					memorize: chosenComp
+					text: Choose a companion to exert
+				}
+				{
+					type: preventable
+					player: freeps
+					cost: {
+						type: discardTopCardsFromDeck
+						deck: freeps
+						count: 3
+						forced: false
+					}
+					text: Discard the top 3 cards of your deck to prevent {chosenComp}
+					effect: {
+						type: exert
+						filter: memory(chosenComp)
+					}
+				}
+			]
+		}
+		gametext: Regroup: Exert or discard a [sauron] minion to exert a companion.  The Free Peoples player may discard the top 3 cards from their draw deck to prevent this.
+		lore: "'Into this Ring he poured his cruelty, his malice, and his will to dominate all life.'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	73_92: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E092.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_92
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3U92
+			rarity: U
+			setNum: "3"
+			cardNum: 92
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Massing in the East
+		unique: false
+		culture: sauron
+		twilight: 1
+		type: event
+		keyword: [
+			regroup
+		]
+		effects: {
+			type: event
+			cost: {
+				type: discard
+				filter: choose(culture(sauron),minion)
+			}
+			effect: [
+				{
+					type: memorizeNumber
+					memory: raceCount
+					amount: {
+						type: ForEachRace
+						filter: companion
+					}
+				}
+				{
+					type: chooseActiveCards
+					filter: choose(culture(sauron),minion)
+					memorize: chosenMinions
+					text: Choose minions to return to hand
+					count: {
+						type: fromMemory
+						memory: raceCount
+					}
+				}
+				{
+					type: preventable
+					player: freeps
+					cost: {
+						type: DiscardFromHand
+						forced: false
+						hand: freeps
+						count: {
+							type: fromMemory
+							memory: raceCount
+						}
+					}
+					text: Discard {raceCount} cards to prevent Shadow taking {chosenMinions} back into hand
+					effect: {
+						type: ReturnToHand
+						player: shadow
+						filter: memory(chosenMinions)
+					}
+				}
+			]
+		}
+		gametext: To play, discard a [sauron] minion. Return up to X [sauron] minions to hand, where X is the number of races you can spot in the fellowship.  The Free Peoples player may discard X cards from hand to prevent this.
+		lore: "'The power of the Black Land grows....'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	73_104: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E104.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_104
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3R104
+			rarity: R
+			setNum: "3"
+			cardNum: 104
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Tower of Barad-dur
+		unique: false
+		culture: sauron
+		twilight: 1
+		type: condition
+		keyword: [
+			Support Area
+		]
+		
+		effects: [
+			{
+				type: ExtraCost
+				cost: {
+					type: exert
+				filter: choose(culture(sauron),minion)
+				}
+			}
+			{
+				type: trigger
+				optional: true
+				trigger: {
+					type: moves
+				}
+				effect: [
+					{
+						type: preventable
+						player: freeps
+						cost: {
+							type: DiscardFromHand
+							forced: false
+							hand: freeps
+							count: 1
+						}
+						text: Discard a card from hand to prevent Shadow drawing 2 cards
+						effect: {
+							type: drawCards
+							count: 2
+						}
+					}
+				]
+			}
+		]
+		gametext: To play, exert a [sauron] minion.<br>Each time the fellowship moves, draw 2 cards.  The Free Peoples player may discard a card from hand to prevent this.
+		lore: "The Dark Tower had been rebuilt, it was said. From there the power was spreading...."
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
 	
 	
 }

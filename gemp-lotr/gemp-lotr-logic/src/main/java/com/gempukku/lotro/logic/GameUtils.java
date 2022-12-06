@@ -1,10 +1,7 @@
 package com.gempukku.lotro.logic;
 
 import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -198,6 +195,16 @@ public class GameUtils {
                 cultures.add(culture);
         }
         return cultures.size();
+    }
+
+    public static int getSpottableRacesCount(LotroGame game, Filterable... filters) {
+        Set<Race> races = new HashSet<>();
+        for (PhysicalCard physicalCard : Filters.filterActive(game, filters)) {
+            final Race race = physicalCard.getBlueprint().getRace();
+            if (race != null)
+                races.add(race);
+        }
+        return races.size();
     }
 
     public static String formatNumber(int effective, int requested) {
