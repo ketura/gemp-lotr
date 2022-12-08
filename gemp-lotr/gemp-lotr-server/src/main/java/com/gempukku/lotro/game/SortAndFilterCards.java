@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.packs.SetDefinition;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
 
+import java.text.Normalizer;
 import java.util.*;
 
 public class SortAndFilterCards {
@@ -281,22 +282,12 @@ public class SortAndFilterCards {
     }
 
     public static String replaceSpecialCharacters(String text) {
-        return text
-                .replace('á', 'a')
-                .replace('â', 'a')
-                .replace('ä', 'a')
-                .replace('é', 'e')
-                .replace('ê', 'e')
-                .replace('ë', 'e')
-                .replace('í', 'i')
-                .replace('ï', 'i')
-                .replace('ó', 'o')
-                .replace('ú', 'u')
-                .replace('û', 'u')
-                .replace('’', '\'')
-                .replace('‘', '\'')
-                .replace('”', '"')
-                .replace('“', '"');
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+                .replaceAll("’", "'")
+                .replaceAll("‘", "'")
+                .replaceAll("”", "\"")
+                .replaceAll("“", "\"")
+                .replaceAll("\\p{M}", "");
     }
 
     private <T extends Enum> Set<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, Set<T> defaultResult, String[] filterParams) {

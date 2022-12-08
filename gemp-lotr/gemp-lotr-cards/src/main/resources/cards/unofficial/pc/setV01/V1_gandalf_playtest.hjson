@@ -112,7 +112,7 @@
 	}
 	101_15: {
 		title: Gwaihir
-		subtitle: Lord of All Eagles
+		subtitle: Lord of Eagles
 		unique: true
 		culture: gandalf
 		twilight: 4

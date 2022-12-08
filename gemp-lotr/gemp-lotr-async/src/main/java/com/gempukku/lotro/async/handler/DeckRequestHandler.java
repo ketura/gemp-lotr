@@ -401,10 +401,31 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
     private String generateCardTooltip(LotroCardBlueprint bp, String bpid) throws CardNotFoundException {
         String[] parts = bpid.split("_");
-        String cardnum = parts[1].replace("*", "").replace("T", "");
-        String tlhhID = "LOTR" + String.format("%02d", Integer.parseInt(parts[0])) + String.format("%03d", Integer.parseInt(cardnum));
+        int setnum = Integer.parseInt(parts[0]);
+        String set = String.format("%02d", setnum);
+        String subset = "S";
+        int version = 0;
+        if(setnum >= 50 && setnum <= 69) {
+            setnum -= 50;
+            set = String.format("%02d", setnum);
+            subset = "E";
+            version = 1;
+        }
+        else if(setnum >= 70 && setnum <= 89) {
+            setnum -= 70;
+            set = String.format("%02d", setnum);
+            subset = "E";
+            version = 1;
+        }
+        else if(setnum >= 100 && setnum <= 149) {
+            setnum -= 100;
+            set = "V" + setnum;
+        }
+        int cardnum = Integer.parseInt(parts[1].replace("*", "").replace("T", ""));
+
+        String id = "LOTR-EN" + set + subset + String.format("%03d", cardnum) + "." + String.format("%01d", version);
         String result = "<span class=\"tooltip\">" + GameUtils.getFullName(bp)
-                + "<span><img class=\"ttimage\" src=\"https://i.lotrtcgpc.net/decipher/" + tlhhID + ".jpg\" ></span></span>";
+                + "<span><img class=\"ttimage\" src=\"https://wiki.lotrtcgpc.net/images/" + id + "_card.jpg\" ></span></span>";
 
         return result;
     }
