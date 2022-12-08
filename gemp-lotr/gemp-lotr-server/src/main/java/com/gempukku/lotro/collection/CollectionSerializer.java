@@ -20,14 +20,7 @@ public class CollectionSerializer {
     private final List<String> _singleByteCountItems = new ArrayList<>();
 
     public CollectionSerializer() {
-        try {
-            fillDoubleByteItems();
 
-            fillSingleByteItems();
-
-        } catch (IOException exp) {
-            throw new RuntimeException("Problem loading collection data", exp);
-        }
     }
 
     private void fillSingleByteItems() throws IOException {
