@@ -486,7 +486,7 @@
 		effects: {
 			type: modifier
 			modifier: {
-				type: mayNotReplaceSite
+				type: CantReplaceSite
 				filter: site,inSameRegion
 			}
 		}

@@ -281,9 +281,9 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("multiply")) {
                 FieldUtils.validateAllowedFields(object, "multiplier", "source");
-                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
+                final ValueSource multiplier = ValueResolver.resolveEvaluator(object.get("multiplier"), environment);
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
-                return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
+                return (actionContext) -> new MultiplyEvaluator(multiplier.getEvaluator(actionContext), valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("cardAffectedLimitPerPhase")) {
                 FieldUtils.validateAllowedFields(object, "limit", "source", "prefix");
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit");

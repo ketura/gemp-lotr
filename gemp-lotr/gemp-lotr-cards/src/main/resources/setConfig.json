@@ -511,11 +511,30 @@
     "playable": true
   },
   
+  {
+    "setId": "100",
+    "setName": "PC Supplements",
+    "rarityFile": "/set100-rarity.txt",
+    "originalSet": false,
+    "merchantable": false,
+    "needsLoading": false,
+    "playable": true
+  },
   
   {
     "setId": "101",
     "setName": "Shadow of the Past",
     "rarityFile": "/set101-rarity.txt",
+    "originalSet": false,
+    "merchantable": false,
+    "needsLoading": false,
+    "playable": true
+  },
+  
+  {
+    "setId": "150",
+    "setName": "TEST-PC Supplements",
+    "rarityFile": "/set150-rarity.txt",
     "originalSet": false,
     "merchantable": false,
     "needsLoading": false,

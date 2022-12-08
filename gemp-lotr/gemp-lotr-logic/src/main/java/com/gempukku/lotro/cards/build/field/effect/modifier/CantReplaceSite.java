@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.modifiers.CantReplaceSiteModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import org.json.simple.JSONObject;
 
-public class MayNotReplaceSite implements ModifierSourceProducer {
+public class CantReplaceSite implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "filter");

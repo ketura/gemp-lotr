@@ -5,15 +5,20 @@ import com.gempukku.lotro.game.state.LotroGame;
 
 public class MultiplyEvaluator implements Evaluator {
     private final Evaluator _source;
-    private final int _multiplier;
+    private final Evaluator _multiplier;
+
+    public MultiplyEvaluator(Evaluator multiplier, Evaluator source) {
+        _multiplier = multiplier;
+        _source = source;
+    }
 
     public MultiplyEvaluator(int multiplier, Evaluator source) {
-        _multiplier = multiplier;
+        _multiplier = new ConstantEvaluator(multiplier);
         _source = source;
     }
 
     @Override
     public int evaluateExpression(LotroGame game, PhysicalCard self) {
-        return _multiplier * _source.evaluateExpression(game, self);
+        return _multiplier.evaluateExpression(game, self) * _source.evaluateExpression(game, self);
     }
 }

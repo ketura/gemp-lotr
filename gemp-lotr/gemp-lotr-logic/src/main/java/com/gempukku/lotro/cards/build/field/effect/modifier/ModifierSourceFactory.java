@@ -37,14 +37,15 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantlookorrevealhand", new CantLookOrRevealHand());
         modifierProducers.put("cantplaycards", new CantPlayCards());
         modifierProducers.put("cantplayphaseeventsorphasespecialabilities", new CantPlayPhaseEventsOrPhaseSpecialAbilities());
+        modifierProducers.put("cantpreventwounds", new CantPreventWounds());
         modifierProducers.put("cantremoveburdens", new CantRemoveBurdens());
+        modifierProducers.put("cantreplacesite", new CantReplaceSite());
         modifierProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         modifierProducers.put("canttakewounds", new CantTakeWounds());
         modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
         modifierProducers.put("classspot", new ClassSpot());
         modifierProducers.put("extracosttoplay", new ExtraCostToPlay());
         modifierProducers.put("hastomoveifable", new HasToMoveIfAble());
-        modifierProducers.put("maynotreplacesite", new MayNotReplaceSite());
         modifierProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         modifierProducers.put("modifycost", new ModifyCost());
         modifierProducers.put("modifymovelimit", new ModifyMoveLimit());

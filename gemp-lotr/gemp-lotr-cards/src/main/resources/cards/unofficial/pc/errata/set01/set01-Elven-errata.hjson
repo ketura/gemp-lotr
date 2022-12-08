@@ -304,7 +304,7 @@
 			style: Standard
 		}
 		title: Far-seeing Eyes
-		unique: true
+		unique: false
 		culture: elven
 		twilight: 2
 		type: condition

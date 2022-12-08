@@ -113,10 +113,10 @@ var CardFilter = Class.extend({
         
         this.fullFilterDiv = $("<div id='filter-inputs' style='display:flex;flex-wrap:wrap;'></div>");
         this.setSelect = $("<select id='setSelect' style='width: 130px; font-size: 80%;'>"
-            + "<option value='0-34,101'>All Sets</option>"
+            + "<option value='0-34,100-101'>All Sets</option>"
             + "<option value='0-19'>Official Decipher Sets</option>"
             + "<option value='30-33'>The Hobbit Sets</option>"
-            + "<option value='50-69'>Player's Council Errata</option>"
+            + "<option value='50-69,100'>Player's Council Errata</option>"
             + "<option value='100-149'>Player's Council VSets</option>"
             + "<option value='50-69,100-149'>All Player's Council Cards</option>"
             + "<option disabled>----------</option>"
@@ -175,7 +175,7 @@ var CardFilter = Class.extend({
             + "<option value='32'>32 - The Hobbit: Expansion 2</option>"
             + "<option value='33'>33 - The Hobbit: Expansion 3</option>"
             + "<option disabled>----------</option>"
-            + "<option value='70-89,150-200'>All Player's Council Playtest Cards</option>"
+            + "<option value='70-89,100,150-200'>All Player's Council Playtest Cards</option>"
             //+ "<option value='151'>PLAYTEST - Shadow of the Past (PC)</option>"
             + "<option value='test_pc_fotr_block'>PLAYTEST - Fellowship Block (PC)</option>"
             + "<option value='test_pc_movie'>PLAYTEST - Movie Block (PC)</option>"
