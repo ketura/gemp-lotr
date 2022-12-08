@@ -476,6 +476,19 @@
         "hall":false
     },
     {
+        "name":"Limited - FOTR (PC)",
+        "code":"limited_fotr_pc",
+        "sites":"FELLOWSHIP",
+        "cancelRingBearerSkirmish":true,
+        "maximumSameName":100,
+        "set":[1, 2, 3, 101],
+        "erratasets": [
+            51,52,53,
+            71,72,73
+        ],
+        "hall":false
+    },
+    {
         "name":"Limited - TTT",
         "code":"limited_ttt",
         "sites":"TWO_TOWERS",

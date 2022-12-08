@@ -1649,4 +1649,23 @@
 			],
 		]
 	}
+	
+	{
+		name: 36 Shadows of the Past Sealed
+		format: limited_fotr_pc
+		seriesProduct: [
+			[
+				1x(S)SotP - Starter
+				1xFotR - Booster
+				1xMoM - Booster
+				1xRotEL - Booster
+				1x(S)FotRChoice
+				2x(R)SotP - Rare
+				3x(R)SotP - Uncommon
+				4x(R)SotP - Common
+				#Shotgun Enquea
+				2x1_231			
+			],
+		]
+	}
 ]

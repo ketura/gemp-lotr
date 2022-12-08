@@ -1,0 +1,410 @@
+[
+	{
+		name: SotP - Tales & Weather Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Reluctant Adventurer
+			#    The One Ring, The Ruling Ring
+			1x2_102
+			1x1_2
+			#Adventure Deck (9 cards)
+			#    Bag End Study
+			1x101_57
+			#    Prancing Pony Spare Room
+			1x101_58
+			#    Rivendell Gateway
+			1x101_59
+			#    Balin's Tomb
+			1x51_343
+			#    The Bridge of Khazad-dum
+			1x1_349
+			#    Lorien Throne Room
+			1x101_61
+			#    Valley of the Anduin
+			1x101_62
+			#    Anduin Banks
+			1x1_356
+			#    Wastes of Emyn Muil
+			1x53_120
+			#Free Peoples (30 cards)
+			#    Arwen, Elven Rider
+			1x3_7
+			#    Haldir, Elf of the Golden Wood
+			1x1_48
+			#    Legolas, Keen-Eyed
+			1x101_9
+			#    Lorien Elf
+			1x51_53
+			#    Aragorn, Estel
+			2x101_19
+			#    Dinendal, Silent Scout
+			1x3_12
+			#    Rumil, Elven Protector
+			1x1_57
+			#    Elven Bow
+			2x1_41
+			#    Hobbit Sword
+			1x1_299
+			#    Library of Rivendell
+			2x101_11
+			#    Border Defenses
+			1x1_32
+			#    Defiance
+			2x1_37
+			#    I Was There
+			3x101_7
+			#    Voice of Nimrodel
+			2x3_28
+			#    Might of Numenor
+			1x3_43
+			#    Beren And Luthien
+			1x3_9
+			#    Hosts of the Last Alliance
+			2x2_18
+			#    Let Fly the Darts of Lindon
+			2x101_10
+			#    The Last Alliance of Elves and Men
+			1x1_49
+			#    The Choice of Luthien
+			1x1_100
+			#    There and Back Again
+			1x1_317		
+			#Shadow (30 cards)
+			#    Crebain Flock
+			3x101_25
+			#    Isengard Retainer
+			4x3_57
+			#    Isengard Servant
+			3x3_58
+			#    Isengard Worker
+			3x3_62
+			#    Murder of Crows
+			2x101_29
+			#    Saruman, Fell Voice
+			2x101_30
+			#    Saruman, Servant of the Eye
+			1x3_69
+			#    Orc Ambush Troop
+			3x101_48
+			#    Caradhras Has Not Forgiven Us
+			1x1_123
+			#    Just A Wisp Of Cloud
+			2x101_28
+			#    Frostbite
+			2x101_27
+			#    Saruman's Chill
+			1x1_134
+			#    Wizard Storm
+			3x2_48
+		]
+	},
+	{
+		name: SotP - Aragorn Signet & Twilight Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Reluctant Adventurer
+			#    The One Ring, The Ruling Ring
+			1x2_102
+			1x1_2
+			#Adventure Deck (9 cards) 
+			#    The Prancing Pony
+			1x1_324
+			#    Prancing Pony Spare Room
+			1x101_58
+			#    Rivendell Gateway
+			1x101_59
+			#    Moria Lake
+			1x1_346
+			#    The Bridge of Khazad-dum
+			1x1_349
+			#    Valley of the Silverlode
+			1x2_120
+			#    Anduin Confluence
+			1x1_353
+			#    Nen Hithoel
+			1x101_63
+			#    Emyn Muil
+			1x51_360
+			#Free Peoples (30 cards)
+			#    Gandalf, The Grey Pilgrim
+			1x2_122
+			#    Aragorn, King in Exile
+			2x1_365
+			#    Boromir, Redeemed
+			1x101_20
+			#    Merry, From O'er the Brandywine
+			1x1_303
+			#    Pippin, Mr. Took
+			1x2_110
+			#    Coat of Mail
+			1x1_101
+			#    Flaming Brand
+			1x52_32
+			#    Ranger's Sword
+			1x1_112
+			#    Hobbit Sword
+			3x1_299
+			#    Gilraen's Memorial
+			1x101_22
+			#    Dagger Strike
+			2x1_102
+			#    Elendil's Valor
+			2x1_103
+			#    No Mere Ranger
+			1x2_36
+			#    Sentinels of Numenor
+			3x2_37
+			#    Swordarm of the White Tower
+			3x1_116
+			#    Voice of Rauros
+			1x3_47
+			#    Hobbit Intuition
+			1x1_296
+			#    I Would Have Gone With You To The End
+			2x101_23
+			#    The Sons of Gondor Have Returned
+			1x101_21
+			#    You Have My Sword
+			1x101_24
+			#Shadow (30 cards)
+			#    Bill Ferny, Swarthy Sneering Fellow
+			1x52_75
+			#    Harry Goatleaf, In Thrall To The Nine
+			1x101_38
+			#    Ringwraith in Twilight
+			3x101_40
+			#    Ulaire Attea, The Easterling
+			3x2_82
+			#    Ulaire Enquea, Ringwraith in Twilight
+			2x2_83
+			#    Ulaire Nelya, Ringwraith in Twilight
+			1x2_84
+			#    Ulaire Nertea, Messenger of Dol Guldur
+			1x51_234
+			#    Ulaire Otsea, Ringwraith in Twilight
+			3x3_86
+			#    Nazgul Sword
+			1x1_218
+			#    Pale Crown
+			2x101_39
+			#    Fell Voices Call
+			2x101_37
+			#    It Wants To Be Found
+			4x2_78
+			#    White Faces Burned
+			2x101_43
+			#    Blade Tip
+			2x1_209
+			#    Their Eyes Fell Upon Him
+			1x101_41
+			#    Walks in Twilight
+			1x1_42
+		]
+	}
+	{
+		name: SotP - Gandalf's Allies & Tentacles Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Old Bilbo's Heir
+			#    The One Ring, The Ruling Ring
+			1x1_289
+			1x1_2
+			#Adventure Deck (9 cards) 
+			#    Farmer Maggot's Fields
+			1x1_321
+			#    Midgewater Marshes
+			1x1_332
+			#    Rivendell Gateway
+			1x101_59
+			#    Moria Lake
+			1x1_346
+			#    The Bridge of Khazad-dum
+			1x1_349
+			#    Lorien Throne Room
+			1x101_61
+			#    Anduin Wilderland
+			1x1_354
+			#    Nen Hithoel
+			1x101_63
+			#    Emyn Muil
+			1x51_360
+			#Free Peoples (30 cards)
+			#    Arwen, Lady Undomiel
+			1x3_8
+			#    Legolas, Prince of Mirkwood
+			1x1_51
+			#    Gandalf, Olorin
+			1x101_14
+			#    Aragorn, Estel
+			2x101_19
+			#    Pippin, Mr. Took
+			1x2_110
+			#    Calaglin, Elf of Lorien
+			1x3_10
+			#    Dinendal, Silent Scout
+			1x3_12
+			#    Elrond, Lord of Rivendell
+			1x51_40
+			#    Galadriel, Lady of Light
+			1x51_45
+			#    Galdor, Councilor From The West
+			1x3_18
+			#    Golradir, Councilor of Imladris
+			1x3_20
+			#    Silinde, Elf of Mirkwood
+			1x1_60
+			#    Gwaihir, Lord of Eagles
+			1x101_15
+			#    Asfaloth
+			1x1_31
+			#    Glamdring
+			1x1_75
+			#    Wizard Staff
+			1x2_29
+			#    Hobbit Sword
+			2x1_299
+			#    Nenya
+			1x3_23
+			#    Counsel of the Wise
+			3x101_13
+			#    Depart Silently
+			2x3_31
+			#    Two Eyes, As Often As I Can Spare Them
+			2x101_17
+			#    Three Rings For The Elven-Kings
+			1x101_12
+			#    My Heart Tells Me
+			1x101_16
+			#    The White Council
+			1x101_18
+			#Shadow (30 cards)
+			#    Foul Tentacle
+			4x2_58
+			#    Huge Tentacle
+			3x2_66
+			#    The Balrog, Durin's Bane
+			3x2_51
+			#    Thrashing Tentacle
+			3x101_33
+			#    Vile Tentacle
+			4x101_36
+			#    Watcher in the Water, Keeper of Westgate
+			2x2_73
+			#    The Balrog's Sword
+			1x2_50
+			#    Foul Things
+			1x2_59
+			#    Troubled Mountains
+			1x2_72
+			#    Dark Places
+			2x2_55
+			#    Guided By One Purpose
+			1x101_31
+			#    Out of Dark Waters
+			2x101_34
+			#    Terror At Its Coming
+			2x101_32
+			#    The Darkness Grew
+			1x101_35
+		]
+	}
+	{
+		name: SotP - Frodo Signet & Sauron Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Son of Drogo
+			#    The One Ring, The Ruling Ring
+			1x1_290
+			1x1_2
+			#Adventure Deck (9 cards) 
+			#    Hobbiton Party Field
+			1x2_115
+			#    Trollshaw Forest
+			1x1_334
+			#    Rivendell Gateway
+			1x101_59
+			#    Eregion Hills
+			1x3_116
+			#    The Bridge of Khazad-dum
+			1x1_349
+			#    Caras Galadhon
+			1x3_115
+			#    Valley of the Anduin
+			1x101_62
+			#    Brown Lands
+			1x1_357
+			#    Amon Hen Ruins
+			1x101_64
+			#Free Peoples (30 cards)
+			#    Farin, Dwarven Emissary
+			2x51_11
+			#    Gimli, Vengeful Naugrim
+			1x101_3
+			#    Merry, Of Buckland
+			1x101_52
+			#    Pippin, Of Tuckborough
+			1x101_53
+			#    Sam, Of Bagshot Row
+			1x101_54
+			#    Bilbo, Of Bag End
+			1x101_50
+			#    Dwarven Armor
+			1x1_8
+			#    Dwarven Axe
+			1x1_9
+			#    Dwarven Bracers
+			2x2_3
+			#    Gimli's Battle Axe
+			1x1_14
+			#    Hand Axe
+			2x2_10
+			#    Bill The Pony
+			1x53_106
+			#    Hobbit Sword
+			4x1_299
+			#    Flurry of Blows
+			3x2_5
+			#    One Dwarf in Moria
+			2x101_5
+			#    We May Yet
+			3x101_55
+			#    We're Coming, Too!
+			2x101_56
+			#    O Elbereth! Gilthoniel!
+			1x52_108
+			#Shadow (30 cards)
+			#    Morgul Hunter
+			1x1_256
+			#    Morgul Skirmisher
+			2x1_257
+			#    Orc Ambush Troop
+			3x101_48
+			#    Orc Hunters
+			3x1_267
+			#    Orc Pillager
+			3x3_96
+			#    Orc Taskmaster
+			2x2_90
+			#    Orc War Band
+			1x1_272
+			#    Tower Assassin
+			1x2_93
+			#    Fell To Its Power
+			4x101_44
+			#    Gleaming in the Snow
+			4x3_89
+			#    It Betrayed Isildur
+			1x101_47
+			#    A Shadow of the Past
+			2x101_49
+			#    Gaze of the Eye
+			1x101_45
+			#    I See You
+			2x101_46
+		]
+	}
+]
