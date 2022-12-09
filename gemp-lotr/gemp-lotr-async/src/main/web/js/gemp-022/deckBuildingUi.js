@@ -829,7 +829,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         else
             this.comm.saveDeck(this.deckName, that.formatSelect.val(), this.notes, deckContents, function (xml) {
                 that.deckModified(false);
-                alert("Deck was saved");
+                alert("Deck was saved.  Refresh the Game Hall to see it!");
             }, {
                 "400":function () {
                     alert("Invalid deck format.");
