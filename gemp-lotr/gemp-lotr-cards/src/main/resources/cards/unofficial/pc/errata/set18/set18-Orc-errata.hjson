@@ -62,4 +62,87 @@
 			}
 		}
 	}
+	
+	88_82: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN18E082.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 18_82
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 18R82
+			rarity: R
+			setNum: "18"
+			cardNum: 82
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Grond
+		subtitle: Forged With Black Steel
+		unique: true
+		culture: Orc
+		twilight: 3
+		type: possession
+		keyword: [
+			Support Area
+		]
+		requires: {
+			type: CanSpot
+			filter: culture(Orc),minion
+		}
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: moves
+				}
+				requires: {
+					type: phase
+					phase: regroup
+				}
+				optional: true
+				cost: {
+					type: discard
+					filter: self
+				}
+				effect: [
+					{
+						type: ShuffleCardsFromHandIntoDrawDeck
+						count: 2
+					}
+					{
+						type: DiscardCardsFromDrawDeck
+						filter: choose(side(freeps))
+						player: you
+						deck: freeps
+						count: 2
+					}
+
+				]
+			}
+		]
+		gametext: To play, spot an [orc] minion.<br>Each time the fellowship moves during the regroup phase, you may discard this possession to make the Free Peoples player shuffle 2 cards from their hand into their draw deck.  Search that draw deck and discard 2 Free Peoples cards.
+		lore: "'Grond! Grond! Grond! Grond! Grond! Grond!'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	
 }

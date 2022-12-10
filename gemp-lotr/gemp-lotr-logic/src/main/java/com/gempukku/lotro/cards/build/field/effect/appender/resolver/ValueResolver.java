@@ -204,12 +204,15 @@ public class ValueResolver {
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
                 FieldUtils.validateAllowedFields(object, "filter", "over", "limit", "multiplier", "divider");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
-                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
-                final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
-                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
+                final ValueSource overSource = resolveEvaluator(object.get("over"), 0, environment);
+                final ValueSource limitSource = resolveEvaluator(object.get("limit"), Integer.MAX_VALUE, environment);
+                final ValueSource multiplier = resolveEvaluator(object.get("multiplier"), 1, environment);
                 final int divider = FieldUtils.getInteger(object.get("divider"), "divider", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
-                return actionContext -> new DivideEvaluator(divider, new MultiplyEvaluator(multiplier, new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext))));
+                return actionContext -> new DivideEvaluator(divider,
+                        new MultiplyEvaluator(multiplier.getEvaluator(actionContext),
+                                new CountSpottableEvaluator(overSource.getEvaluator(actionContext), limitSource.getEvaluator(actionContext),
+                                        filterableSource.getFilterable(actionContext))));
             } else if (type.equalsIgnoreCase("forEachInDiscard")) {
                 FieldUtils.validateAllowedFields(object, "filter", "multiplier", "limit");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");

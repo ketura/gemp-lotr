@@ -45,6 +45,8 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
         modifierProducers.put("classspot", new ClassSpot());
         modifierProducers.put("extracosttoplay", new ExtraCostToPlay());
+        modifierProducers.put("fpusesresinsteadofstr", new FPUsesResInsteadOfStr());
+        modifierProducers.put("fpusesvitinsteadofstr", new FPUsesVitInsteadOfStr());
         modifierProducers.put("hastomoveifable", new HasToMoveIfAble());
         modifierProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         modifierProducers.put("modifycost", new ModifyCost());
@@ -60,8 +62,9 @@ public class ModifierSourceFactory {
         modifierProducers.put("ringtextisinactive", new RingTextIsInactive());
         modifierProducers.put("sarumanfirstsentenceinactive", new SarumanFirstSentenceInactive());
         modifierProducers.put("shadowhasinitiative", new ShadowHasInitiative());
+        modifierProducers.put("shadowusesvitinsteadofstr", new ShadowUsesVitInsteadOfStr());
         modifierProducers.put("skipphase", new SkipPhase());
-        modifierProducers.put("usesresistanceinsteadofstrength", new UsesResistanceInsteadOfStrength());
+
 
     }
 

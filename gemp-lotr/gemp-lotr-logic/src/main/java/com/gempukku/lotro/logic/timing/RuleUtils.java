@@ -84,7 +84,7 @@ public class RuleUtils {
         if (fpChar == null)
             return 0;
 
-        final Evaluator fpStrengthOverrideEvaluator = game.getModifiersQuerying().getFpStrengthOverrideEvaluator(game, fpChar);
+        final Evaluator fpStrengthOverrideEvaluator = game.getModifiersQuerying().getFPStrengthOverrideEvaluator(game, fpChar);
         if (fpStrengthOverrideEvaluator != null)
             return fpStrengthOverrideEvaluator.evaluateExpression(game, fpChar);
 
@@ -100,19 +100,22 @@ public class RuleUtils {
         if (skirmish == null)
             return 0;
 
+        int total = 0;
         final Evaluator overrideEvaluator = skirmish.getShadowStrengthOverrideEvaluator();
-        if (overrideEvaluator != null) {
-            int total = 0;
-            for (PhysicalCard physicalCard : skirmish.getShadowCharacters())
-                total += overrideEvaluator.evaluateExpression(game, physicalCard);
-            return total;
+        for (PhysicalCard minion : skirmish.getShadowCharacters()) {
+            final Evaluator modifierOverrideEvaluator = game.getModifiersQuerying().getShadowStrengthOverrideEvaluator(game, minion);
+            if(modifierOverrideEvaluator != null) {
+                total += modifierOverrideEvaluator.evaluateExpression(game, minion);
+            }
+            else if(overrideEvaluator != null) {
+                total += overrideEvaluator.evaluateExpression(game, minion);
+            }
+            else {
+                total += game.getModifiersQuerying().getStrength(game, minion);
+            }
         }
 
-        int totalStrength = 0;
-        for (PhysicalCard physicalCard : skirmish.getShadowCharacters())
-            totalStrength += game.getModifiersQuerying().getStrength(game, physicalCard);
-
-        return totalStrength;
+        return total;
     }
 
     public static int getFellowshipSkirmishDamageBonus(LotroGame game) {

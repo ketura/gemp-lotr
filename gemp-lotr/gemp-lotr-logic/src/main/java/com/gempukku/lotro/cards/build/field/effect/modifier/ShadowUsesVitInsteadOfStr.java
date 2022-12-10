@@ -2,10 +2,10 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.FpSkirmishResistanceStrengthOverrideModifier;
+import com.gempukku.lotro.logic.modifiers.ShadowSkirmishVitalityStrengthOverrideModifier;
 import org.json.simple.JSONObject;
 
-public class UsesResistanceInsteadOfStrength implements ModifierSourceProducer {
+public class ShadowUsesVitInsteadOfStr implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "filter", "requires");
@@ -17,7 +17,7 @@ public class UsesResistanceInsteadOfStrength implements ModifierSourceProducer {
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         return (actionContext) ->
-                new FpSkirmishResistanceStrengthOverrideModifier(actionContext.getSource(),
+                new ShadowSkirmishVitalityStrengthOverrideModifier(actionContext.getSource(),
                         filterableSource.getFilterable(actionContext),
                         new RequirementCondition(requirements, actionContext));
     }

@@ -144,16 +144,30 @@ public class CardResolver {
         return resolveCardsInDiscard(type, null, countSource, memory, choicePlayer, choiceText, environment);
     }
 
+    public static EffectAppender resolveCardsInDiscard(String type, ValueSource countSource, String memory, String choicePlayer, String targetPlayerDiscard, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCardsInDiscard(type, null, countSource, memory, choicePlayer, targetPlayerDiscard, choiceText, environment);
+    }
+
     public static EffectAppender resolveCardsInDiscard(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         return resolveCardsInDiscard(type, additionalFilter, additionalFilter, countSource, memory, choicePlayer, choiceText, environment);
     }
 
+    public static EffectAppender resolveCardsInDiscard(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String targetPlayerDiscard, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCardsInDiscard(type, additionalFilter, additionalFilter, countSource, memory, choicePlayer,  targetPlayerDiscard, choiceText, environment);
+    }
+
+
     public static EffectAppender resolveCardsInDiscard(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCardsInDiscard(type, choiceFilter, playabilityFilter, countSource, memory, choicePlayer, choicePlayer, choiceText, environment);
+    }
+
+    public static EffectAppender resolveCardsInDiscard(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String targetPlayerDiscard, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
+        final PlayerSource targetPlayerDiscardSource = PlayerResolver.resolvePlayer(targetPlayerDiscard, environment);
 
         Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
-            String choicePlayerId = playerSource.getPlayer(actionContext);
-            return actionContext.getGame().getGameState().getDiscard(choicePlayerId);
+            String targetPlayerId = targetPlayerDiscardSource.getPlayer(actionContext);
+            return actionContext.getGame().getGameState().getDiscard(targetPlayerId);
         };
 
         if (type.equals("self")) {
@@ -165,7 +179,8 @@ public class CardResolver {
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
             ChoiceEffectSource effectSource = (possibleCards, action, actionContext, min, max) -> {
                 String choicePlayerId = playerSource.getPlayer(actionContext);
-                return new ChooseCardsFromDiscardEffect(choicePlayerId, min, max, Filters.in(possibleCards)) {
+                String targetPlayerDiscardId = targetPlayerDiscardSource.getPlayer(actionContext);
+                return new ChooseCardsFromDiscardEffect(choicePlayerId, targetPlayerDiscardId, min, max, Filters.in(possibleCards)) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);

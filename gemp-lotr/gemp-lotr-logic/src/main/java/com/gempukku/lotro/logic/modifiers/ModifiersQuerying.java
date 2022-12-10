@@ -27,7 +27,8 @@ public interface ModifiersQuerying {
 
     public Collection<Modifier> getModifiersAffecting(LotroGame game, PhysicalCard card);
 
-    public Evaluator getFpStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
+    public Evaluator getFPStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
+    public Evaluator getShadowStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
 
     public boolean hasTextRemoved(LotroGame game, PhysicalCard card);
 

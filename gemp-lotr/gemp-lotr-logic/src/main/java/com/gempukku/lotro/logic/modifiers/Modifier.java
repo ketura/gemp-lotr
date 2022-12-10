@@ -148,6 +148,7 @@ public interface Modifier {
     boolean lostAllKeywords(LotroGame game, PhysicalCard card);
 
     Evaluator getFpSkirmishStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
+    Evaluator getShadowSkirmishStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
 
     boolean canSpotCulture(LotroGame game, Culture culture, String playerId);
 

@@ -243,9 +243,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public Evaluator getFpStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter) {
+    public Evaluator getFPStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter) {
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.SKIRMISH_STRENGTH_EVALUATOR_MODIFIER, fpCharacter)) {
             Evaluator evaluator = modifier.getFpSkirmishStrengthOverrideEvaluator(game, fpCharacter);
+            if (evaluator != null)
+                return evaluator;
+        }
+        return null;
+    }
+
+    @Override
+    public Evaluator getShadowStrengthOverrideEvaluator(LotroGame game, PhysicalCard shadowCharacter) {
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.SKIRMISH_STRENGTH_EVALUATOR_MODIFIER, shadowCharacter)) {
+            Evaluator evaluator = modifier.getShadowSkirmishStrengthOverrideEvaluator(game, shadowCharacter);
             if (evaluator != null)
                 return evaluator;
         }

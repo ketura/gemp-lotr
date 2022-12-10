@@ -865,7 +865,7 @@
         {
           type: addModifier
           modifier: {
-            type: usesResistanceInsteadOfStrength
+            type: FPUsesResInsteadOfStr
             filter: memory(chosenCharacter)
           }
         }

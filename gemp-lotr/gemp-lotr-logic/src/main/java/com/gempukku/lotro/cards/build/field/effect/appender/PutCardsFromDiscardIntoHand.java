@@ -22,15 +22,17 @@ import java.util.List;
 public class PutCardsFromDiscardIntoHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "player", "discard");
 
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
+        final String discard = FieldUtils.getString(effectObject.get("discard"), "disard", player);
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInDiscard(filter, valueSource, "_temp", "you", "Choose cards from discard", environment));
+                CardResolver.resolveCardsInDiscard(filter, valueSource, "_temp", player, discard, "Choose cards from discard", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

@@ -12,28 +12,44 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolv
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.PutCardFromHandOnTopOfDeckEffect;
-import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class PutCardsFromHandOnTopOfDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "player", "optional", "filter");
+        FieldUtils.validateAllowedFields(effectObject, "player", "optional", "filter", "count");
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final boolean optional = FieldUtils.getBoolean(effectObject.get("optional"), "optional", false);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
+        final ValueSource count = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
+
+        var countObj = (JSONObject)effectObject.get("count");
 
         ValueSource valueSource;
-        if (optional)
-            valueSource = ValueResolver.resolveEvaluator("0-1", environment);
-        else
-            valueSource = new ConstantEvaluator(1);
+        if (optional) {
+            String countStr = "1";
+            if(countObj != null && !Objects.equals(countObj.toJSONString().replaceAll("\s+", ""), "{}")) {
+                countStr = countObj.toJSONString();
+            }
+            try {
+                var obj = new JSONParser().parse("{ \"type\": \"range\", \"from\": 0, \"to\": " + countStr + " }");
+                valueSource = ValueResolver.resolveEvaluator(obj, environment);
+            } catch (ParseException e) {
+                valueSource = ValueResolver.resolveEvaluator("0-1", environment);
+            }
+        }
+        else {
+            valueSource = count;
+        }
 
         MultiEffectAppender result = new MultiEffectAppender();
 

@@ -372,6 +372,9 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public Evaluator getShadowSkirmishStrengthOverrideEvaluator(LotroGame game, PhysicalCard shadowCharacter) { return null; }
+
+    @Override
     public boolean canSpotCulture(LotroGame game, Culture culture, String playerId) {
         return true;
     }
