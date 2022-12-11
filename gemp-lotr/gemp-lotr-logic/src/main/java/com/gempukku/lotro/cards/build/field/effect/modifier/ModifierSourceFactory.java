@@ -18,6 +18,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("addnotwilightforcompanionmove", new AddNoTwilightForCompanionMove());
         modifierProducers.put("addsignet", new AddSignet());
         modifierProducers.put("allycanparticipateinarcheryfireandskirmishes", new AllyCanParticipateInArcheryFireAndSkirmishes());
+        modifierProducers.put("allycanparticipateinarcheryfire", new AllyCanParticipateInArcheryFire());
         modifierProducers.put("allycanparticipateinskirmishes", new AllyCanParticipateInSkirmishes());
         modifierProducers.put("archerytotal", new ArcheryTotal());
         modifierProducers.put("cancelkeywordbonusfrom", new CancelKeywordBonusFrom());
@@ -40,11 +41,13 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantpreventwounds", new CantPreventWounds());
         modifierProducers.put("cantremoveburdens", new CantRemoveBurdens());
         modifierProducers.put("cantreplacesite", new CantReplaceSite());
+        modifierProducers.put("canttakearcherywounds", new CantTakeArcheryWounds());
         modifierProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         modifierProducers.put("canttakewounds", new CantTakeWounds());
         modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
         modifierProducers.put("classspot", new ClassSpot());
         modifierProducers.put("extracosttoplay", new ExtraCostToPlay());
+        modifierProducers.put("fpculturespot", new FPCultureSpot());
         modifierProducers.put("fpusesresinsteadofstr", new FPUsesResInsteadOfStr());
         modifierProducers.put("fpusesvitinsteadofstr", new FPUsesVitInsteadOfStr());
         modifierProducers.put("hastomoveifable", new HasToMoveIfAble());

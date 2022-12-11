@@ -12,7 +12,7 @@ public class LosesInitiative implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(value, "side");
-        final Side side = FieldUtils.getEnum(Side.class, value.get("side"), "side");
+        final Side side = FieldUtils.getSide(value.get("side"), "side");
 
         return new TriggerChecker() {
             @Override

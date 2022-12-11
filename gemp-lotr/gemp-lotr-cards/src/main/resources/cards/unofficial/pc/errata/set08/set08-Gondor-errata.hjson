@@ -1,0 +1,103 @@
+{
+	78_48: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN08E048.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 8_48
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 8C48
+			rarity: C
+			setNum: "8"
+			cardNum: 48
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Swept Away
+		unique: false
+		culture: gondor
+		twilight: 0
+		type: condition
+		keyword: [
+			support area
+		]
+		effects: [
+			{
+				type: trigger
+				optional: true
+				trigger: {
+					type: moves
+				}
+				effect: {
+					type: choice
+					texts: [
+						Add a threat
+						Discard this condition
+					]
+					effects: [
+						{
+							type: AddThreats
+							amount: 1
+						}
+						{
+							type: discard
+							filter: self
+						}
+					]
+				}
+			}
+			{
+				type: Modifier
+				modifier: {
+					type: CantTakeWounds
+					filter: exhausted,culture(gondor),wraith
+					requires: {
+						type: HaveInitiative
+						side: freeps
+					}
+				}
+			}
+			{
+				type: ActivatedTrigger
+				trigger: {
+					type: AboutToDiscard
+					filter: self
+					source: side(Shadow)
+				}
+				cost: {
+					type: DiscardFromHand
+					count: 2
+					forced: false
+				}
+				effect: {
+					type: PreventDiscard
+					filter: self
+				}
+			}
+		]
+		gametext: Each time the fellowship moves, add a threat or discard this condition. <br>While you have initiative, exhausted [gondor] Wraiths cannot take wounds.\Response: If a Shadow card is about to discard this condition, discard 2 cards from hand to prevent that.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
+	
+	
+}

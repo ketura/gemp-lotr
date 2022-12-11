@@ -13,7 +13,7 @@ public class HaveInitiative implements RequirementProducer {
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "side");
 
-        Side side = FieldUtils.getEnum(Side.class, object.get("side"), "side");
+        Side side = FieldUtils.getSide(object.get("side"), "side");
 
         return (actionContext) -> PlayConditions.hasInitiative(actionContext.getGame(), side);
     }

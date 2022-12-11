@@ -437,6 +437,130 @@
 		}
 	}
 	
+	73_103: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E103.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_103
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3R103
+			rarity: R
+			setNum: "3"
+			cardNum: 103
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Terrible as the Dawn
+		unique: false
+		culture: sauron
+		twilight: 0
+		type: event
+		keyword: [
+			maneuver
+		]
+		effects: {
+			type: event
+			effect: {
+				type: conditional
+				requires: [
+					{
+						type: CanSpot
+						filter: culture(Sauron),minion
+					}
+				]
+				effect:	{
+					type: choice
+					texts: [
+						Ring-bound Galadriel
+						Unbound/Ally Galadriel
+					]
+					effects: [
+						{
+							type: conditional
+							requires: {
+								type: CanSpot
+								filter: title(Galadriel),Ring-bound
+							}
+							effect: {
+								type: preventable
+								player: freeps
+								cost: {
+									type: choice
+									texts: [
+										Discard 2 Elves
+										Add 2 burdens
+									]
+									effects: [
+										{
+											type: discard
+											filter: choose(Elf)
+											count: 2
+										}
+										{
+											type: AddBurdens
+											amount: 2
+										}
+									]
+								}
+								text: Discard 2 Elves or add 2 burdens to prevent wounding Galadriel 3 times
+								effect: {
+									type: wound
+									times: 3
+									filter: choose(title(Galadriel))
+								}
+							}
+						}
+						{
+							type: conditional
+							requires: {
+								type: CantSpot
+								filter: title(Galadriel),Ring-bound
+							}
+							effect: {
+								type: preventable
+								player: freeps
+								cost: {
+									type: discard
+									filter: choose(Elf)
+									count: 2
+								}
+								text: Discard 2 Elves to prevent wounding Galadriel 3 times
+								effect: {
+									type: wound
+									times: 3
+									filter: choose(title(Galadriel))
+								}
+							}
+						}
+					]
+				}
+			}		
+		}
+		gametext: <b>Maneuver:</b> Spot a [sauron] minion to wound Galadriel 3 times.  The Free Peoples player may discard 2 Elves to prevent this.  If Galadriel is Ring-bound, 2 burdens may be added instead.
+		lore: "'In the place of the Dark Lord, you would have a Queen... All shall love me and despair!'"
+		
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
 	73_104: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server

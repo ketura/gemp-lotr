@@ -423,6 +423,26 @@ public class ValueResolver {
 
                     return result;
                 };
+            } else if (type.equalsIgnoreCase("max")) {
+                FieldUtils.validateAllowedFields(object, "first", "second");
+                ValueSource first = resolveEvaluator(object.get("first"), environment);
+                ValueSource second = resolveEvaluator(object.get("second"), environment);
+
+                return actionContext -> (game, cardAffected) ->
+                        Math.max(
+                                first.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null),
+                                second.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null)
+                        );
+            } else if (type.equalsIgnoreCase("min")) {
+                FieldUtils.validateAllowedFields(object, "first", "second");
+                ValueSource first = resolveEvaluator(object.get("first"), environment);
+                ValueSource second = resolveEvaluator(object.get("second"), environment);
+
+                return actionContext -> (game, cardAffected) ->
+                        Math.min(
+                                first.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null),
+                                second.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null)
+                        );
             } else if (type.equalsIgnoreCase("forEachToken")) {
                 FieldUtils.validateAllowedFields(object, "filter", "culture");
 

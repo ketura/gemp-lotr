@@ -44,6 +44,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choosecardsfromdrawdeck", new ChooseCardsFromDrawDeck());
         effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
+        effectAppenderProducers.put("chooseopponent", new ChooseOpponent());
         effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());
         effectAppenderProducers.put("conditional", new ConditionalEffect());
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());

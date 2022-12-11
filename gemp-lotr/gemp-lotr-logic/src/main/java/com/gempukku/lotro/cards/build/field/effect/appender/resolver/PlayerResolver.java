@@ -33,6 +33,10 @@ public class PlayerResolver {
                     return actionContext.getPerformingPlayer();
             };
         }
+        else if (type.toLowerCase(Locale.ROOT).startsWith("frommemory(") && type.endsWith(")")) {
+            String memory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            return (actionContext) -> actionContext.getValueFromMemory(memory);
+        }
         throw new InvalidCardDefinitionException("Unable to resolve player resolver of type: " + type);
     }
 }

@@ -1,0 +1,69 @@
+{
+	78_91: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN08E091.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 8_91
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 8R91
+			rarity: R
+			setNum: "8"
+			cardNum: 91
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Rohirrim Army
+		unique: true
+		culture: elven
+		twilight: 5
+		type: companion
+		race: man
+		strength: 9
+		vitality: 3
+		requires: {
+			type: CanSpot
+			filter: culture(Rohan),companion
+			count: 2
+		}
+		effects: [
+			{
+				type: PlayedInOtherPhase
+				phase: regroup
+			}
+			{
+				type: trigger
+				trigger: {
+					type: played
+					filter: self
+				}
+				effect: {
+					type: discard
+					filter: choose(minion)
+					count: 0-1
+				}
+			}
+		]
+		gametext: To play, spot 2 [rohan] companions. <br>You may play Rohirrim Army any time you could play a regroup event. <br> When you play Rohirrim Army, you may discard a minion.
+		lore: "'Begone, foul dwimmerlaik, lord of carrion!'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}
