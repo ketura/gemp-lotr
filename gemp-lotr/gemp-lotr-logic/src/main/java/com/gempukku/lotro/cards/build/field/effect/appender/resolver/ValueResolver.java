@@ -259,11 +259,13 @@ public class ValueResolver {
                     return new ConstantEvaluator(result);
                 };
             } else if (type.equalsIgnoreCase("forEachInHand")) {
-                FieldUtils.validateAllowedFields(object, "filter");
-                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                FieldUtils.validateAllowedFields(object, "filter", "hand");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
+                final String hand = FieldUtils.getString(object.get("hand"), "hand", "you");
+                final PlayerSource player = PlayerResolver.resolvePlayer(hand, environment);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext ->
-                        (Evaluator) (game, cardAffected) -> Filters.filter(game.getGameState().getHand(actionContext.getPerformingPlayer()),
+                        (Evaluator) (game, cardAffected) -> Filters.filter(game.getGameState().getHand(player.getPlayer(actionContext)),
                                 game, filterableSource.getFilterable(actionContext)).size();
             } else if (type.equalsIgnoreCase("forEachInDeadPile")) {
                 FieldUtils.validateAllowedFields(object, "filter", "multiplier");
