@@ -29,6 +29,16 @@ var GempLotrHallUI = Class.extend({
 			distance: 20
 		});
 		
+		var storedChatSize = $.cookie("chatResize");
+		if (storedChatSize == null)
+			storedChatSize = 300;
+		
+		$("#chat").height(storedChatSize);
+		
+		$("#chat").resize(function() {
+			$.cookie("chatResize", $("#chat").height(), { expires:365 });
+		});
+		
 		this.comm = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
 			if (thrownError != "abort") {
 				if (xhr != null) {
