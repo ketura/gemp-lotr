@@ -3,8 +3,10 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
 import com.gempukku.lotro.common.AppConfig;
+import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.game.packs.DefaultSetDefinition;
 import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -91,6 +93,8 @@ public class LotroCardBlueprintLibrary {
         reloadSets();
         reloadMappings();
         reloadCards();
+        errataMappings = null;
+        getErrata();
 
         for(var callback : _refreshCallbacks) {
             callback.Invoke();
@@ -299,6 +303,53 @@ public class LotroCardBlueprintLibrary {
             return data;
         } catch (InterruptedException exp) {
             throw new RuntimeException("LotroCardBlueprintLibrary.getAllAlternates() interrupted: ", exp);
+        }
+    }
+
+    private Map<String, JSONDefs.ErrataInfo> errataMappings = null;
+    public Map<String, JSONDefs.ErrataInfo> getErrata() {
+        try {
+            if(errataMappings == null) {
+                collectionReady.acquire();
+                errataMappings = new HashMap<>();
+                for (String id : _blueprints.keySet()) {
+                    var parts = id.split("_");
+                    int setID = Integer.parseInt(parts[0]);
+                    String cardID = parts[1];
+                    JSONDefs.ErrataInfo card = null;
+                    String base = id;
+                    if(setID >= 50 && setID <= 69) {
+                        base = "" + (setID - 50) + "_" + cardID;
+                    }
+                    else if(setID >= 70 && setID <= 89) {
+                        base = "" + (setID - 70) + "_" + cardID;
+                    }
+                    else if(setID >= 150 && setID <= 199) {
+                        base = "" + (setID - 50) + "_" + cardID;
+                    }
+                    else
+                        continue;
+
+                    if(errataMappings.containsKey(base)) {
+                        card = errataMappings.get(base);
+                    }
+                    else {
+                        card = new JSONDefs.ErrataInfo();
+                        card.BaseID = base;
+                        card.Name = GameUtils.getFullName(_blueprints.get(base));
+                        card.LinkText = GameUtils.getDeluxeCardLink(id, _blueprints.get(base));
+                        card.ErrataIDs = new HashMap<>();
+                        errataMappings.put(base, card);
+                    }
+
+                    card.ErrataIDs.put(JSONDefs.ErrataInfo.PC_Errata, id);
+                }
+
+                collectionReady.release();
+            }
+            return errataMappings;
+        } catch (InterruptedException exp) {
+            throw new RuntimeException("LotroCardBlueprintLibrary.getErrata() interrupted: ", exp);
         }
     }
 

@@ -1,0 +1,75 @@
+<div id="formats">
+	<script>
+		$("#helpMain").ready(
+		function () {
+			hall.comm.getErrata(function(json){
+				//$("#errata-readout").text(JSON.stringify(json, null, 2));
+				
+				var top = $("<div style='display:flex; flex-direction:column; gap:20px; justify-content:center; align-items:center;'></div>");
+				
+				var results = {};
+				for(var bp in json) {
+					var info = json[bp];
+					var eid = info.ErrataIDs.PC;
+					var text = info.LinkText;
+					text = text.replace(eid, bp + "," + eid);
+					//console.log(text);
+					//result.append(text);
+					
+					var parts = bp.split("_");
+					var setID = parseInt(parts[0]);
+					var cardID = parseInt(parts[1]);
+					
+					if(setID in results) {
+						results[setID][cardID] = text;
+					}
+					else {
+						results[setID] = {};
+						results[setID][cardID] = text;
+					}
+				}
+				//debugger;
+				var collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
+				var sets = Object.keys(results).sort(collator.compare);
+				
+				for(var set in sets) {
+					var setdiv = $("<div style='display:flex; flex-direction:column; gap:10px; flex-wrap: wrap; width:70%; row-gap:10px; column-gap:30px; '></div>");
+					top.append($("<div style='margin:auto; font-size: 140%; position:relative; top:20px; bottom:10px;'>Set " + sets[set] + "</div>"));
+					
+					//(# * 28) / 2
+					//debugger;
+					var cards = Object.keys(results[sets[set]]).sort(collator.compare);
+					for(var card in cards) {
+						var cardspan = $("<span></span>");
+						
+						var html = results[sets[set]][cards[card]];
+						cardspan.append(results[sets[set]][cards[card]]);
+						
+						setdiv.append(cardspan);
+					}
+
+					
+					setdiv.css({"height": "" + (((cards.length * 28) / 1.8) + 30) + "px"});
+					
+					top.append(setdiv);
+				}
+				
+				
+				$("#errata-readout").html(top);
+			}, hall.hallErrorMap());
+		  }
+		);
+		
+	</script>
+	<div id="errata-info" class="article">
+		<p>
+			All errata are indicated in-game with a red slash in their upper-right-hand corner.  Errata that were issued by the Player's Council instead of Decipher also have this slash, but also include the errata date in the lower-left-hand corner of the card.
+		<p>
+			Each of the released errata have had a full writeup on the PC's thoughts and justifications <a href="https://wiki.lotrtcgpc.net/wiki/PC_Errata">here on the LOTR-TCG wiki</a>.
+		</p>
+		<p>
+			Below you can find a quick reference allowing you to quickly compare released errata.
+		</p>
+		<div id="errata-readout" />
+	</div>
+</div>

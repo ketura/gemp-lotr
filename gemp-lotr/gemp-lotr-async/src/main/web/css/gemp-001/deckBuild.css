@@ -55,6 +55,22 @@ body {
     font-size: 70%;
 }
 
+button.navigation-butt {
+    padding: 0.5em;
+}
+
+.navigation-butt.ui-button-icon-only > .ui-button-text{
+    padding: 0;
+}
+
+.navigation-butt.ui-button-icon-only {
+    width:  25px;
+}
+
+.ui-button-icon-only .ui-button-icon-primary.ui-icon {
+    margin:  auto auto auto -4px;
+}
+
 #set {
     width: 120px;
 }

@@ -64,4 +64,13 @@ public class JSONDefs {
         public Map<String, SealedTemplate> SealedTemplates;
         public Map<String, ItemStub> DraftTemplates;
     }
+
+    public static class ErrataInfo {
+        public static String PC_Errata = "PC";
+        public String BaseID;
+        public String Name;
+        public String LinkText;
+        public Map<String, String> ErrataIDs;
+    }
+
 }

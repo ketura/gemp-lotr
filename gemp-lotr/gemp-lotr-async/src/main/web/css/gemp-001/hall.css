@@ -172,6 +172,11 @@ button {
 	opacity: 0.3;
 }*/
 
+.cultureHint {
+	position:relative;
+	top: 4px;
+}
+
 #gameHall {
 	overflow-y: scroll;
 	width: calc(100% );

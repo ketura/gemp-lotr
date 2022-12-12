@@ -116,12 +116,37 @@ public class GameUtils {
         return "<div class='cardHint' value='" + blueprintId + "'>" + (blueprint.isUnique() ? "·" : "") + GameUtils.getFullName(blueprint) + "</div>";
     }
 
+    public static String getDeluxeCardLink(String blueprintId, LotroCardBlueprint blueprint) {
+        var culture = blueprint.getCulture();
+        var cultureString = "";
+        if(culture == null) {
+            if (blueprint.getTitle().equals("The One Ring")) {
+                cultureString = getCultureImage(culture, "one_ring");
+            }
+            else {
+                cultureString = getCultureImage(culture, "site");
+            }
+        }
+        else {
+            cultureString = getCultureImage(culture, null);
+        }
+        return "<div class='cardHint' value='" + blueprintId + "'>" + cultureString
+                + (blueprint.isUnique() ? "·" : "") + " " + GameUtils.getFullName(blueprint) + "</div>";
+    }
+
     public static String getCultureImage(String cultureName) {
         Culture culture = Culture.findCulture(cultureName);
         if(culture == null)
             return null;
 
         return getCultureImage(culture);
+    }
+
+    public static String getCultureImage(Culture culture, String override) {
+        if(override == null || override.isEmpty()) {
+            override = culture.toString().toLowerCase();
+        }
+        return "<span class='cultureHint' ><img src='images/cultures/" + override + ".png'></span>";
     }
 
     public static String getCultureImage(Culture culture) {

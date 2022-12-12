@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
@@ -65,6 +66,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             updateHall(request, responseWriter);
         } else if (uri.equals("/formats/html") && request.method() == HttpMethod.GET) {
             getFormats(request, responseWriter);
+        } else if (uri.equals("/errata/json") && request.method() == HttpMethod.GET) {
+            getErrataInfo(request, responseWriter);
         } else if (uri.startsWith("/format/") && request.method() == HttpMethod.GET) {
             getFormat(request, uri.substring(8), responseWriter);
         } else if (uri.startsWith("/queue/") && request.method() == HttpMethod.POST) {
@@ -338,6 +341,14 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             if (additionalValidCards.size() == 0)
                 result.append("none,");
         }
+    }
+
+    private void getErrataInfo(HttpRequest request, ResponseWriter responseWriter) throws CardNotFoundException {
+
+        var errata = _library.getErrata();
+        String json = JSON.toJSONString(errata);
+
+        responseWriter.writeJsonResponse(json);
     }
 
     private void getHall(HttpRequest request, ResponseWriter responseWriter) {

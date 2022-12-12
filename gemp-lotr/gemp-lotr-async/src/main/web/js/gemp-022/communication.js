@@ -684,6 +684,19 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    getErrata:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/hall/errata/json",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
+    
     addTesterFlag:function (callback, errorMap) {
         $.ajax({
             type:"POST",

@@ -89,7 +89,8 @@
 					autoOpen:false,
 					closeOnEscape:true,
 					resizable:false,
-					title:"Card information"
+					title:"Card information",
+					closeText: ""
 				});
 
 		$("body").click(
@@ -97,13 +98,20 @@
 				var tar = $(event.target);
 
 				if (tar.hasClass("cardHint")) {
-					var blueprintId = tar.attr("value");
-					var card = new Card(blueprintId, "SPECIAL", "hint", "");
-
+					var ids = tar.attr("value").split(",");
+					
 					infoDialog.html("");
 					infoDialog.html("<div style='scroll: auto'></div>");
-					var floatCardDiv = $("<div style='float: left;'></div>");
-					floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
+					var floatCardDiv = $("<div style='float: left; display:flex; gap: 5px;'></div>");
+					
+					var horiz = false;
+					for(var i = 0; i < ids.length; i++) {
+						var bpid = ids[i];
+						var card = new Card(bpid, "SPECIAL", "hint", "");
+						horiz = horiz || card.horizontal;
+						floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
+					}
+					
 					infoDialog.append(floatCardDiv);
 
 					var windowWidth = $(window).width();
@@ -111,14 +119,21 @@
 
 					var horSpace = 30;
 					var vertSpace = 45;
+					var height = 505;
+					var width = 340;
 
-					infoDialog.dialog({title:"Card information"});
-					if (card.horizontal) {
+					infoDialog.dialog({
+						title:"Card information",
+						
+					});
+					if (horiz) {
 						// 500x360
-						infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
+						infoDialog.dialog({width:Math.min((height + 10) * ids.length, windowWidth), 
+						                  height:Math.min((width + 90), windowHeight)});
 					} else {
 						// 360x500
-						infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
+						infoDialog.dialog({width:Math.min((width + 30) * ids.length, windowWidth), 
+						                  height:Math.min((height + 45), windowHeight)});
 					}
 					infoDialog.dialog("open");
 
@@ -325,7 +340,7 @@
 			<label style="min-width: fit-content;"><input type='checkbox' id='isPrivateCheckbox'>Invite Only</input></label>
 			<button id="createTableBut">Create table</button>
 	</div>
-	<div id="chat" class=" flex-horiz" >
+	<div id="chat" class="flex-horiz" >
 		<div id="chatarea" class="flex-vert">
 			<div id="legacyChat" class="flex-vert">
 				<div id="chatMessages" class="flex-vert"></div>
