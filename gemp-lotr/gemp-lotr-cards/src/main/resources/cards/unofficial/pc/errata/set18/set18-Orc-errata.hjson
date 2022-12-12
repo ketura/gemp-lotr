@@ -119,6 +119,7 @@
 					{
 						type: ShuffleCardsFromHandIntoDrawDeck
 						count: 2
+						player: freeps
 					}
 					{
 						type: DiscardCardsFromDrawDeck
