@@ -90,7 +90,7 @@
 			}
 			effect: {
 				type: choice
-				player: fp
+				player: OwnerFromMemory(losingMinion)
 				texts: [
 					Exert a minion
 					Discard the bottom card of your draw deck
@@ -102,7 +102,7 @@
 					}
 					{
 						type: discardBottomCardsFromDeck
-						deck: ownerFromMemory(losingMinion)
+						deck: OwnerFromMemory(losingMinion)
 						forced: false
 					}
 				]

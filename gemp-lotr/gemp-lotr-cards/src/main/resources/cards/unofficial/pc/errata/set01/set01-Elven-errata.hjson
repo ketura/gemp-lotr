@@ -64,12 +64,13 @@
 							type: preventable
 							player: ownerFromMemory(losingMinion)
 							cost: {
-								type: discardCardAtRandomFromHand
+								type: DiscardFromHand
+								player: ownerFromMemory(losingMinion)
 								hand: ownerFromMemory(losingMinion)
-								count: 1
+								count: 2
 								forced: false
 							}
-							text: Discard 1 card at random from hand to prevent healing {chosenElves}
+							text: Discard 2 cards from hand to prevent healing {chosenElves}
 							effect: {
 								type: heal
 								filter: memory(chosenElves)

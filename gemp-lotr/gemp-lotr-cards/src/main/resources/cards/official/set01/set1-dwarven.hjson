@@ -136,11 +136,24 @@
 				against: bearer
 				memorize: losingMinion
 			}
-			effect: {
-				type: discardTopCardsFromDeck
-				deck: ownerFromMemory(losingMinion)
-				forced: true
-			}
+			effect: [
+				{
+					type: conditional
+					requires: {
+						type: perPhaseLimit
+						limit: 1
+					}
+					effect: {
+						type: discardTopCardsFromDeck
+						deck: ownerFromMemory(losingMinion)
+						forced: true
+					}
+				}
+				{
+					type: incrementPerPhaseLimit
+					limit: 1
+				}				
+			]
 		}
 	}
 	1_10: {
