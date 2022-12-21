@@ -43,8 +43,12 @@ public class LookAtTopCardOfADeckEffect extends AbstractEffect {
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerDeckId);
         List<? extends PhysicalCard> cards = game.getGameState().getDeck(_playerDeckId).subList(0, Math.min(deck.size(), _count));
 
+        String message = "Cards on top of deck (left is top)";
+        if(_count == deck.size())
+            message = "Cards in deck";
+
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ArbitraryCardsSelectionDecision(1, "Cards on top of deck (left is top)", cards, Collections.emptyList(), 0, 0) {
+                new ArbitraryCardsSelectionDecision(1, message, cards, Collections.emptyList(), 0, 0) {
                     @Override
                     public void decisionMade(String result) {
                     }
