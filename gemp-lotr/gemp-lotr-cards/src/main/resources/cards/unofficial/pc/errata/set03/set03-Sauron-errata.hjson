@@ -70,7 +70,7 @@
 							memory: twilightCostInMemory
 						}
 					}
-					text: Discard {twilightCostInMemory} card from hand to prevent your opponent taking {chosenCard} into hand from their draw deck
+					text: Discard {twilightCostInMemory} cards from hand to prevent your opponent taking {chosenCard} into hand from their draw deck
 					effect: {
 						type: PutCardsFromDeckIntoHand
 						filter: memory(chosenCard)
@@ -78,7 +78,7 @@
 				}
 			]
 		}
-		gametext: Exert a [sauron] minion to reveal a card at random from the Free Peoples player's hand.  You may take a minion into hand from your draw deck costing X or less, where X is the twilight cost of the card revealed.  The Free Peoples player may discard X cards from hand to prevent this.
+		gametext: Exert a [sauron] minion to reveal a card at random from the Free Peoples player's hand.  You may take a minion into hand from your draw deck costing up to X, where X is the twilight cost of the card revealed.  The Free Peoples player may discard X cards from hand to prevent this.
 		lore: ""
 		promotext: ""
 		alts: {
@@ -215,7 +215,7 @@
 			effect: [
 				{
 					type: chooseActiveCards
-					filter: choose(companion,not(exhausted))
+					filter: choose(companion,not(exhausted),not(Ring-bearer))
 					memorize: chosenComp
 					text: Choose a companion to exhaust
 				}
@@ -325,7 +325,7 @@
 						count: 2
 						forced: false
 					}
-					text: Discard the top 2 cards of your deck to prevent {chosenComp}
+					text: Discard the top 2 cards of your deck to prevent exerting {chosenComp}
 					effect: {
 						type: exert
 						filter: memory(chosenComp)
@@ -469,16 +469,16 @@
 		keyword: [
 			maneuver
 		]
+		requires: [
+			{
+				type: CanSpot
+				filter: culture(Sauron),minion
+			}
+		]
 		effects: {
 			type: event
 			effect: {
 				type: conditional
-				requires: [
-					{
-						type: CanSpot
-						filter: culture(Sauron),minion
-					}
-				]
 				effect:	{
 					type: choice
 					texts: [

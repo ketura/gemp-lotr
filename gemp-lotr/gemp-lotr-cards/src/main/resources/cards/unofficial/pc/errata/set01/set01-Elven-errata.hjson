@@ -607,7 +607,7 @@
 						forced: false
 						count: 1
 					}
-					text: Discard a card from hand to prevent {targetMinion} exert
+					text: Discard a card from hand to prevent {targetMinion} from exerting
 					effect: {
 						type: exert
 						filter: memory(targetMinion)

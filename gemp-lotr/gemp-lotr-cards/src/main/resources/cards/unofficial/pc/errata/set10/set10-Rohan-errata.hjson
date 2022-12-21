@@ -26,7 +26,7 @@
 		title: Éowyn
 		subtitle: Lady of Ithilien
 		unique: true
-		culture: elven
+		culture: rohan
 		twilight: 2
 		type: companion
 		race: man
@@ -62,7 +62,7 @@
 					{
 						type: Repeat
 						amount: {
-							type: ForEachVitality
+							type: ForEachWound
 							filter: minion,InSkirmishAgainst(self)
 						}
 						effect: {

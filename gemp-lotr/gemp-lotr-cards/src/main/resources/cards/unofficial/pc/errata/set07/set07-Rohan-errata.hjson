@@ -54,14 +54,14 @@
 					type: Wound
 					filter: choose(minion)
 					count: {
-						type: FromMemory
+						type: ForEachInMemory
 						memory: exertedComps
 					}
 				}
 				{
 					type: RemoveBurdens
 					amount: {
-						type: FromMemory
+						type: ForEachInMemory
 						memory: exertedComps
 					}
 				}

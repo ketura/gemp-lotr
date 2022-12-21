@@ -34,7 +34,7 @@
 		effects: [
 			{
 				type: trigger
-				optional: true
+				optional: false
 				trigger: {
 					type: moves
 				}

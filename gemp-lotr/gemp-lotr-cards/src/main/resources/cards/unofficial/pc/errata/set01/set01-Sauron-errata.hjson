@@ -35,7 +35,7 @@
 			type: trigger
 			trigger: {
 				type: winsSkirmish
-				filter: bearer
+				filter: self
 			}
 			cost: {
 				type: removeTwilight
@@ -537,7 +537,7 @@
 			effect: [
 				{
 					type: chooseActiveCards
-					filter: choose(companion,not(exhausted))
+					filter: choose(companion,not(exhausted),not(Ring-bearer))
 					memorize: chosenComp
 					text: Choose a companion to exhaust
 				}

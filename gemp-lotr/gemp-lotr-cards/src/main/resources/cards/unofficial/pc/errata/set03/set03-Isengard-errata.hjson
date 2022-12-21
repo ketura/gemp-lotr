@@ -29,7 +29,6 @@
 		culture: isengard
 		twilight: 2
 		type: condition
-		itemclass: palantir
 		keyword: support area
 		requires: {
 			type: canSpot
@@ -47,8 +46,6 @@
 				cost: {
 					type: discardfromhand
 					forced: false
-					hand: freeps
-					player: freeps
 					filter: choose(culture(isengard))
 					count: 1
 					memorize: discardedCard

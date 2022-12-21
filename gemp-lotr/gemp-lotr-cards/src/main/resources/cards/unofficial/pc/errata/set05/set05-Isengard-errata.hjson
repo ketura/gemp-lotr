@@ -36,16 +36,26 @@
 			{
 				type: activated
 				phase: shadow
+				requires: {
+					type: perPhaseLimit
+					limit: 2
+				}
 				cost: {
 					type: exert
 					filter: choose(Uruk-hai)
 				}
-				effect: {
-					type: AddTokens
-					amount: 1
-					culture: isengard
-					filter: self
-				}
+				effect: [
+					{
+						type: AddTokens
+						amount: 1
+						culture: isengard
+						filter: self
+					}
+					{
+						type: incrementPerPhaseLimit
+						limit: 1
+					}	
+				]
 			}
 			{
 				type: activated
