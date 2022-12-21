@@ -29,7 +29,7 @@ public class ShuffleCardsFromHandIntoDrawDeck implements EffectAppenderProducer 
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, valueSource, memorize, player, "Choose cards to shuffle into your deck", environment));
+                CardResolver.resolveCardsInHand(filter, valueSource, memorize, player, player, "Choose cards to shuffle into the draw deck", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

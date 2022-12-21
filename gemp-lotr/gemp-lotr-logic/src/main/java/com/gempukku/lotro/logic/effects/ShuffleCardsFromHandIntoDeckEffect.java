@@ -53,7 +53,7 @@ public class ShuffleCardsFromHandIntoDeckEffect extends AbstractEffect {
 
             game.getGameState().shuffleCardsIntoDeck(toShuffleIn, _playerDeck);
 
-            game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " shuffled cards from hand into " + _playerDeck + " deck");
+            game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " shuffled cards from hand into " + _playerDeck + "'s deck");
         }
 
         return new FullEffectResult(toShuffleIn.size() == _cards.size());

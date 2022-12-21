@@ -70,6 +70,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("incrementperturnlimit", new IncrementPerTurnLimit());
         effectAppenderProducers.put("kill", new Kill());
         effectAppenderProducers.put("liberatesite", new LiberateSite());
+        effectAppenderProducers.put("lookatdrawdeck", new LookAtDrawDeck());
         effectAppenderProducers.put("lookathand", new LookAtHand());
         effectAppenderProducers.put("lookattopcardsofdrawdeck", new LookAtTopCardsOfDrawDeck());
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());

@@ -5,7 +5,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
@@ -51,7 +50,7 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
             String nextPlayer;
             while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                 game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                        new ArbitraryCardsSelectionDecision(1, _playerId + " revealed card(s) from hand top of deck", topCards, Collections.emptySet(), 0, 0) {
+                        new ArbitraryCardsSelectionDecision(1, _playerId + " revealed card(s) from top of deck", topCards, Collections.emptySet(), 0, 0) {
                             @Override
                             public void decisionMade(String result) {
                             }

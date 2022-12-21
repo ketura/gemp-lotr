@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -23,7 +22,10 @@ public class LookAtTopCardOfADeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        if(_count == game.getGameState().getDeck(_playerDeckId).size())
+            return _playerId + " looks at " + _playerDeckId + "'s draw deck.";
+
+        return _playerId + " looks at the top " + _count + " cards of " + _playerDeckId + "'s draw deck.";
     }
 
     @Override

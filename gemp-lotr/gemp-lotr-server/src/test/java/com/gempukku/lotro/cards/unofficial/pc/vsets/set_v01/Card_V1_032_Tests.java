@@ -86,7 +86,7 @@ public class Card_V1_032_Tests
 		assertEquals(0, scn.GetTwilight());
 		assertTrue(scn.ShadowHasOptionalTriggerAvailable());
 		scn.ShadowAcceptOptionalTrigger();
-		scn.FreepsPassCurrentPhaseAction();
+		scn.FreepsDismissRevealedCards();
 		// 2 for the site, 1 for companions, 2 for Terror
 		assertEquals(5, scn.GetTwilight());
 	}

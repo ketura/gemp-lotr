@@ -122,6 +122,10 @@
 						player: freeps
 					}
 					{
+						type: LookAtDrawDeck
+						deck: freeps
+					}
+					{
 						type: DiscardCardsFromDrawDeck
 						filter: choose(side(freeps))
 						player: you
