@@ -35,7 +35,6 @@
 		vitality: 3
 		resistance: 7
 		keyword: [
-			can start with ring
 			ranger
 			hunter+2
 		]
@@ -51,6 +50,10 @@
 			{
 				type: activated
 				phase: skirmish
+				requires: {
+					type: CanSpot
+					filter: another,wounded,companion,ResistanceMoreThan(4)
+				}
 				cost: {
 					type: exert
 					filter: self
@@ -58,14 +61,12 @@
 				effect: [
 					{
 						type: heal
-						filter: choose(another,wounded,companion)
+						filter: choose(another,wounded,companion,ResistanceMoreThan(4))
 					}
 				]
 			}
-			
 		]
-
-		gametext: <b>Ranger. Hunter 2.</b>\If Faramir is in your starting fellowship, his twilight cost is -1.\<b>Maneuver:</b> Spot another wounded companion and exert Faramir to heal that companion.
+		gametext: <b>Ranger. Hunter 2.</b>\If Faramir is in your starting fellowship, his twilight cost is -1.\<b>Maneuver:</b> Spot another wounded companion with resistance 5 or more and exert Faramir to heal that companion.
 		lore: "'There are no travelers in this land. Only servants of the Dark Tower.'"
 		promotext: ""
 		alts: {

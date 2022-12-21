@@ -33,7 +33,7 @@
 		effects: [
 			{
 				type: trigger
-				optional: true
+				optional: false
 				trigger: {
 					type: movesTo
 					filter: self
@@ -42,13 +42,13 @@
 					{
 						type: wound
 						player: freeps
-						times: 2
+						count: 2
 						filter: choose(your,character)
 					}
 					{
 						type: wound
 						player: shadow
-						times: 2
+						count: 2
 						filter: choose(your,character)
 					}
 				]
@@ -166,7 +166,7 @@
 		twilight: 1
 		type: Site
 		block: Shadows
-		direction: Left
+		direction: Right
 		effects: [
 			{
 				type: modifier
@@ -175,7 +175,7 @@
 					filter: any
 					requires: {
 						type: location
-						filter: sanctuary
+						filter: not(sanctuary)
 					}
 				}
 			}

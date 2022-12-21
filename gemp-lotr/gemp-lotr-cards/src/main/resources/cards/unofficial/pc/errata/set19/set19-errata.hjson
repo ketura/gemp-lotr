@@ -154,7 +154,7 @@
 				effect: {
 					type: transfer
 					filter: self
-					where: choose(culture(rohan),man)
+					where: choose(another,culture(rohan),man)
 				}
 			}
 			{

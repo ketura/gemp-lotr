@@ -52,7 +52,6 @@
 			{
 				type: activated
 				phase: maneuver
-
 				cost: [
 					{
 						type: conditional
