@@ -385,7 +385,13 @@ var PCCards = {
 	'89_24': 'https://i.lotrtcgpc.net/errata/LOTR-EN19E024.1_card.jpg',
 	'89_30': 'https://i.lotrtcgpc.net/errata/LOTR-EN19E030.1_card.jpg',
 	'89_37': 'https://i.lotrtcgpc.net/errata/LOTR-EN19E037.1_card.jpg',
-	
+	//Rath Dinen
 	'100_1': 'https://i.lotrtcgpc.net/sets/vset0/LOTR-ENV0S001.0_card.jpg',
+	
+	//November 2022 Sealed Gala Promos
+	//Faramir, Son of Denethor Promo MW (0P16)
+	'0_130': 'https://i.lotrtcgpc.net/promos/LOTR-EN00O016.0_card.jpg',
+	//Eowyn, Lady of Rohan Promo MW (0P17)
+	'0_131': 'https://i.lotrtcgpc.net/promos/LOTR-EN00O017.0_card.jpg',
 }
 
