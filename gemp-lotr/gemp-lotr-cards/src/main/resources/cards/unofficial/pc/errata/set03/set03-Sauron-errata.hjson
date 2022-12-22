@@ -291,6 +291,8 @@
 					memorize: chosenMinion
 					text: Choose a [Sauron] minion to exert or discard
 				}
+			]
+			effect: [
 				{
 					type: choice
 					texts: [
@@ -308,8 +310,6 @@
 						}
 					]
 				}
-			]
-			effect: [
 				{
 					type: chooseActiveCards
 					filter: choose(companion,not(exhausted))

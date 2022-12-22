@@ -33,6 +33,7 @@
 		site: 6
 		effects: {
 			type: trigger
+			optional: true
 			trigger: {
 				type: winsSkirmish
 				filter: self
