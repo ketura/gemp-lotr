@@ -922,8 +922,8 @@
         {
           type: addThreats
           amount: {
-            type: forEachFPCultureLessThan
-            amount: 4
+            type: forEachFPCulture
+            limit: 4
           }
         }
       ]

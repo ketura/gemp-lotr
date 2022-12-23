@@ -250,12 +250,24 @@ public class ValueResolver {
                     int result = Math.max(0, spottable - over);
                     return new ConstantEvaluator(result);
                 };
-            } else if (type.equalsIgnoreCase("forEachFPCultureLessThan")) {
-                FieldUtils.validateAllowedFields(object, "amount");
-                final int lessThan = FieldUtils.getInteger(object.get("amount"), "amount");
+            } else if (type.equalsIgnoreCase("forEachFPCulture")) {
+                FieldUtils.validateAllowedFields(object, "limit", "over");
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
+                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return actionContext -> {
                     int spottable = GameUtils.getSpottableFPCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
-                    int result = Math.max(0, lessThan - spottable);
+                    int result = Math.max(0, spottable - over);
+                    result = Math.min(limit, result);
+                    return new ConstantEvaluator(result);
+                };
+            } else if (type.equalsIgnoreCase("forEachShadowCulture")) {
+                FieldUtils.validateAllowedFields(object, "limit", "over");
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
+                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
+                return actionContext -> {
+                    int spottable = GameUtils.getSpottableShadowCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
+                    int result = Math.max(0, spottable - over);
+                    result = Math.min(limit, result);
                     return new ConstantEvaluator(result);
                 };
             } else if (type.equalsIgnoreCase("forEachInHand")) {
