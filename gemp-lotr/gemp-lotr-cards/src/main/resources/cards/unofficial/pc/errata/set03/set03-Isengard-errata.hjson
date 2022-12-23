@@ -25,7 +25,7 @@
 			style: Standard
 		}
 		title: Hollowing of Isengard
-		unique: true
+		unique: false
 		culture: isengard
 		twilight: 2
 		type: condition
