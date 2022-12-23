@@ -72,11 +72,13 @@
 				effect: [
 					{
 						type: conditional
-						requires: {
-							type: memorymatches
-							memory: chosenCard
-							filter: or(not(zone(SUPPORT),attachedTo(not(zone(SUPPORT)))))
-						}
+						requires: [
+							{
+								type: MemoryMatches
+								memory: chosenCard
+								filter: not(or(zone(SUPPORT),and(zone(ATTACHED),attachedTo(zone(SUPPORT)))))
+							}
+						]
 						effect: {
 							type: discard
 							filter: self
