@@ -27,7 +27,7 @@
 		culture: moria
 		twilight: 0
 		type: event
-		keyword: archery
+		keyword: maneuver
 		requires: [
 			{
 				type: CanSpot
