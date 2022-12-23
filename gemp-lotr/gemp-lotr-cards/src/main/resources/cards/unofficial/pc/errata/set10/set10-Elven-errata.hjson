@@ -54,7 +54,7 @@
 						memorize: chosenMinion
 						amount: {
 							type: forEachInDiscard
-							filter: culture(elven),event
+							filter: your,culture(elven),event
 							multiplier: -1
 						}
 					}
