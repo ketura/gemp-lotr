@@ -393,5 +393,11 @@ var PCCards = {
 	'0_130': 'https://i.lotrtcgpc.net/promos/LOTR-EN00O016.0_card.jpg',
 	//Eowyn, Lady of Rohan Promo MW (0P17)
 	'0_131': 'https://i.lotrtcgpc.net/promos/LOTR-EN00O017.0_card.jpg',
+	//Legolas, Greenleaf Winter Promo (1R50)
+	'1_378': 'https://i.lotrtcgpc.net/promos/LOTR-EN01H050.1_card.jpg',
+	//Arwen, Queen of Elves and Men Winter Promo (10R6)
+	'10_125': 'https://i.lotrtcgpc.net/promos/LOTR-EN10H006.1_card.jpg',
+	//Gimli, Lively Combatant (11U8)
+	'11_271': 'https://i.lotrtcgpc.net/promos/LOTR-EN11H008.1_card.jpg',
 }
 

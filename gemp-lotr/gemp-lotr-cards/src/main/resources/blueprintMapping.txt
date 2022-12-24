@@ -300,3 +300,9 @@ gl_theOneRing,1_2
 0_130,0_16
 #Eowyn, Lady of Rohan Promo MW
 0_131,0_17
+#Legolas, Greenleaf Winter Promo
+1_378,1_50
+#Arwen, Queen of Elves and Men Winter Promo
+10_125,10_6
+#Gimli, Lively Combatant
+11_271,11_8
