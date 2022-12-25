@@ -62,7 +62,7 @@ public class Card_V1_054_Tests
 		assertEquals(2, sam.getBlueprint().getTwilightCost());
 		assertEquals(3, sam.getBlueprint().getStrength());
 		assertEquals(4, sam.getBlueprint().getVitality());
-		//assertEquals(, sam.getBlueprint().getResistance());
+		assertEquals(5, sam.getBlueprint().getResistance());
 		assertEquals(Signet.FRODO, sam.getBlueprint().getSignet());
 		//assertEquals(, sam.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
 
