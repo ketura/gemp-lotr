@@ -9,9 +9,9 @@ import org.json.simple.JSONObject;
 public class CancelStrengthBonusFrom implements ModifierSourceProducer {
     @Override
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object, "filter", "requires");
+        FieldUtils.validateAllowedFields(object, "from", "requires");
 
-        final String filter = FieldUtils.getString(object.get("filter"), "filter");
+        final String filter = FieldUtils.getString(object.get("from"), "from");
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("requires"), "requires");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

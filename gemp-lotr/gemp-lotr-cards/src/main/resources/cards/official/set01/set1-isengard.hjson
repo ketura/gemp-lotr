@@ -334,7 +334,7 @@
 					type: addModifier
 					modifier: {
 						type: cancelStrengthBonusFrom
-						filter: memory(chosenPossession)
+						from: memory(chosenPossession)
 					}
 					until: start(regroup)
 				}

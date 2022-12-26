@@ -41,24 +41,38 @@
 			type: event
 			effect: [
 				{
-					type: PutCardsFromDiscardIntoHand
-					player: freeps
-					discard: shadow
-					filter: choose(minion)
-					count: 1
-				}
-				{
-					type: revealHand
-					hand: shadowPlayer
-					memorize: revealedCards
-				}
-				{
-					type: discardFromHand
-					hand: shadowPlayer
-					forced: true
-					player: you
-					filter: choose(memory(revealedCards),minion)
-				}
+						type: PutCardsFromDiscardIntoHand
+						player: freeps
+						discard: shadow
+						filter: choose(minion)
+						count: 1
+						memorize: chosenMinions
+					}
+					{
+						type: conditional
+						requires: {
+							type: IsGreaterThan
+							firstNumber: {
+								type: ForEachInMemory
+								memory: chosenMinions
+							}
+							secondNumber: 0
+						}
+						effect: [
+							{
+								type: revealHand
+								hand: shadowPlayer
+								memorize: revealedCards
+							}
+							{
+								type: discardFromHand
+								hand: shadowPlayer
+								forced: true
+								player: you
+								filter: choose(memory(revealedCards),minion)
+							}
+						]
+					}
 			]
 		}
 		]

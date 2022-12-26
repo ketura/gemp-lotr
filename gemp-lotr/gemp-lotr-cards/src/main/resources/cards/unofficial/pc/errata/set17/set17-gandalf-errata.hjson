@@ -38,29 +38,43 @@
 		}
 		effects: [
 			{
-			type: event
-			effect: [
-				{
-					type: PutCardsFromDiscardIntoHand
-					player: freeps
-					discard: shadow
-					filter: choose(minion)
-					count: 2
-				}
-				{
-					type: revealHand
-					hand: shadowPlayer
-					memorize: revealedCards
-				}
-				{
-					type: discardFromHand
-					hand: shadowPlayer
-					forced: true
-					player: you
-					filter: choose(memory(revealedCards),minion)
-				}
-			]
-		}
+				type: event
+				effect: [
+					{
+						type: PutCardsFromDiscardIntoHand
+						player: freeps
+						discard: shadow
+						filter: choose(minion)
+						count: 2
+						memorize: chosenMinions
+					}
+					{
+						type: conditional
+						requires: {
+							type: IsGreaterThan
+							firstNumber: {
+								type: ForEachInMemory
+								memory: chosenMinions
+							}
+							secondNumber: 0
+						}
+						effect: [
+							{
+								type: revealHand
+								hand: shadowPlayer
+								memorize: revealedCards
+							}
+							{
+								type: discardFromHand
+								hand: shadowPlayer
+								forced: true
+								player: you
+								filter: choose(memory(revealedCards),minion)
+							}
+						]
+					}
+				]
+			}
 		]
 		
 		gametext: <b>Spell.</b>\Spot a [gandalf] Wizard to return 2 minions to a Shadow player's hand from their discard pile. Reveal their hand and discard a minion revealed.

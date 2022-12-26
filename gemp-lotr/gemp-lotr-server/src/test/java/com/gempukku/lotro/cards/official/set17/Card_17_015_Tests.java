@@ -66,7 +66,7 @@ public class Card_17_015_Tests
 	}
 
 	@Test
-	public void ANewLightFunctions() throws DecisionResultInvalidException, CardNotFoundException {
+	public void ANewLightSearchesRevealsAndDiscards() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
@@ -110,5 +110,31 @@ public class Card_17_015_Tests
 		assertEquals(2, scn.GetShadowHandCount());
 		assertEquals(3, scn.GetShadowDiscardCount());
 		assertEquals(Zone.DISCARD, balrog.getZone());
+	}
+
+	@Test
+	public void ANewLightDoesNotRevealAndDiscardIfNoMinionsReturned() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetScenario();
+
+		var light = scn.GetFreepsCard("light");
+		var gandalf = scn.GetFreepsCard("gandalf");
+		scn.FreepsMoveCardToHand(light, gandalf);
+
+		var runner1 = scn.GetShadowCard("runner1");
+		var runner2 = scn.GetShadowCard("runner2");
+		var runner3 = scn.GetShadowCard("runner3");
+		var balrog = scn.GetShadowCard("balrog");
+
+		//scn.ShadowMoveCardToDiscard(runner1, runner2, runner3);
+		scn.ShadowMoveCardToHand(runner3, balrog);
+
+		scn.StartGame();
+		assertFalse(scn.FreepsPlayAvailable(light));
+		scn.FreepsPlayCard(gandalf);
+		assertTrue(scn.FreepsPlayAvailable(light));
+		scn.FreepsPlayCard(light);
+
+		assertFalse(scn.FreepsDecisionAvailable("Hand of"));
 	}
 }
