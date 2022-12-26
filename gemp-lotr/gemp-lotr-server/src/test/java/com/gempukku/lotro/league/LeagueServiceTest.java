@@ -26,7 +26,7 @@ public class LeagueServiceTest extends AbstractAtTest {
         LeagueDAO leagueDao = Mockito.mock(LeagueDAO.class);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("20120502" + "," + "default" + "," + "1" + "," + "1");
+        sb.append("20120502" + "," + "default" + "," + "1" + "," + "1" + "," + "1");
         for (int i = 0; i < 1; i++)
             sb.append("," + "lotr_block" + "," + "7" + "," + "2");
 
@@ -79,7 +79,7 @@ public class LeagueServiceTest extends AbstractAtTest {
         LeagueDAO leagueDao = Mockito.mock(LeagueDAO.class);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("20120502" + "," + "default" + "," + "1" + "," + "1");
+        sb.append("20120502" + "," + "default" + "," + "1" + "," + "1" + "," + "1");
         for (int i = 0; i < 1; i++)
             sb.append("," + "lotr_block" + "," + "7" + "," + "2");
 
@@ -125,7 +125,7 @@ public class LeagueServiceTest extends AbstractAtTest {
         LeagueDAO leagueDao = Mockito.mock(LeagueDAO.class);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("20120502" + "," + "default" + "," + "1" + "," + "1");
+        sb.append("20120502" + "," + "default" + "," + "1" + "," + "1" + "," + "1");
         for (int i = 0; i < 1; i++)
             sb.append("," + "lotr_block" + "," + "7" + "," + "2");
 
