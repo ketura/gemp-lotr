@@ -94,7 +94,7 @@
 				type: modifier
 				modifier: {
 					type: cancelstrengthbonusfrom
-					filter: attachedTo(inSkirmishAgainst(bearer))
+					from: attachedTo(inSkirmishAgainst(bearer))
 					requires: {
 						type: canSpot
 						filter: bearer,twilight
