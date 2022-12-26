@@ -342,7 +342,9 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             String code = String.valueOf(System.currentTimeMillis());
 
             StringBuilder sb = new StringBuilder();
-            sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
+            //The 1 is a hard-coded maximum number of player matches per league.
+            //TODO: Get this put into the UI properly.
+            sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + "1" + "," + formats.size());
             for (int i = 0; i < formats.size(); i++)
                 sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
@@ -390,7 +392,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             int cost = Integer.parseInt(costStr);
 
             StringBuilder sb = new StringBuilder();
-            sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
+            sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + "1" + "," + formats.size());
             for (int i = 0; i < formats.size(); i++)
                 sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 

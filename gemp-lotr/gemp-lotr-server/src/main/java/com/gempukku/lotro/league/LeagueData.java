@@ -18,4 +18,8 @@ public interface LeagueData {
     CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);
 
     int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime);
+
+    default int getMaxRepeatMatchesPerSerie() {
+        return 1;
+    }
 }

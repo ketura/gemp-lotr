@@ -21,6 +21,8 @@ public class NewConstructedLeagueData implements LeagueData {
     private final CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private final CollectionType _collectionType;
 
+    private final int _maxRepeatGames;
+
     public NewConstructedLeagueData(LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(library);
         
@@ -31,13 +33,14 @@ public class NewConstructedLeagueData implements LeagueData {
         if (_collectionType == null)
             throw new IllegalArgumentException("Unknown collection type");
 
-        int series = Integer.parseInt(params[3]);
+        _maxRepeatGames = Integer.parseInt(params[3]);
+        int series = Integer.parseInt(params[4]);
 
         int serieStart = start;
         for (int i = 0; i < series; i++) {
-            String format = params[4 + i * 3];
-            int duration = Integer.parseInt(params[5 + i * 3]);
-            int maxMatches = Integer.parseInt(params[6 + i * 3]);
+            String format = params[5 + i * 3];
+            int duration = Integer.parseInt(params[6 + i * 3]);
+            int maxMatches = Integer.parseInt(params[7 + i * 3]);
             _series.add(new DefaultLeagueSerieData(_leaguePrizes, false, "Serie " + (i + 1),
                     serieStart, DateUtils.offsetDate(serieStart, duration - 1),
                     maxMatches, formatLibrary.getFormat(format), _collectionType));
@@ -90,5 +93,10 @@ public class NewConstructedLeagueData implements LeagueData {
         }
 
         return status;
+    }
+
+    @Override
+    public int getMaxRepeatMatchesPerSerie() {
+        return _maxRepeatGames;
     }
 }

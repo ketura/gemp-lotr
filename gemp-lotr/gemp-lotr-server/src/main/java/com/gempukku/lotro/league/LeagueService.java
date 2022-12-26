@@ -237,10 +237,13 @@ public class LeagueService {
 
     public synchronized boolean canPlayRankedGameAgainst(League league, LeagueSerieData season, String playerOne, String playerTwo) {
         Collection<LeagueMatchResult> playedInSeason = getPlayerMatchesInSerie(league, season, playerOne);
+        int maxGames = league.getLeagueData(_cardLibrary, _formatLibrary, _soloDraftDefinitions)
+                .getMaxRepeatMatchesPerSerie();
+        int totalGames = 0;
         for (LeagueMatchResult leagueMatch : playedInSeason) {
             if (playerTwo.equals(leagueMatch.getWinner()) || playerTwo.equals(leagueMatch.getLoser()))
-                return false;
+                totalGames++;
         }
-        return true;
+        return totalGames < maxGames;
     }
 }
