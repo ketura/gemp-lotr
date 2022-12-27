@@ -18,7 +18,6 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("abouttoheal", new AboutToHeal());
         triggerCheckers.put("abouttomoveto", new AboutToMoveTo());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
-        triggerCheckers.put("activated", new ActivatedTriggerCheckerProducer());
         triggerCheckers.put("addsburden", new AddsBurden());
         triggerCheckers.put("addsthreat", new AddsThreat());
         triggerCheckers.put("assignedagainst", new AssignedAgainst());
@@ -33,7 +32,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("endofturn", new EndOfTurn());
         triggerCheckers.put("exertedby", new ExertedBy());
         triggerCheckers.put("exerts", new Exerts());
-        triggerCheckers.put("freeplayerstartedassigning", new FreePlayerStartedAssigning());
+        triggerCheckers.put("fpstartedassigning", new FPStartedAssigning());
         triggerCheckers.put("heals", new Heals());
         triggerCheckers.put("killed", new Killed());
         triggerCheckers.put("losesinitiative", new LosesInitiative());
@@ -46,7 +45,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("putsonring", new PutsOnRing());
         triggerCheckers.put("reconciles", new Reconciles());
         triggerCheckers.put("removesburden", new RemovesBurden());
-        triggerCheckers.put("revealcardfromtopofdrawdeck", new RevealCardFromTopOfDrawDeck());
+        triggerCheckers.put("revealscardfromtopofdrawdeck", new RevealsCardFromTopOfDrawDeck());
         triggerCheckers.put("startofphase", new StartOfPhase());
         triggerCheckers.put("startofturn", new StartOfTurn());
         triggerCheckers.put("takesoffring", new TakesOffRing());

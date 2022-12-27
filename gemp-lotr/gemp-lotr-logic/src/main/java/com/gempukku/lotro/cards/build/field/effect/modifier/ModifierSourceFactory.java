@@ -45,12 +45,12 @@ public class ModifierSourceFactory {
         modifierProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         modifierProducers.put("canttakewounds", new CantTakeWounds());
         modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
-        modifierProducers.put("classspot", new ClassSpot());
         modifierProducers.put("extracosttoplay", new ExtraCostToPlay());
         modifierProducers.put("fpculturespot", new FPCultureSpot());
         modifierProducers.put("fpusesresinsteadofstr", new FPUsesResInsteadOfStr());
         modifierProducers.put("fpusesvitinsteadofstr", new FPUsesVitInsteadOfStr());
         modifierProducers.put("hastomoveifable", new HasToMoveIfAble());
+        modifierProducers.put("itemclassspot", new ItemClassSpot());
         modifierProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         modifierProducers.put("modifycost", new ModifyCost());
         modifierProducers.put("modifymovelimit", new ModifyMoveLimit());

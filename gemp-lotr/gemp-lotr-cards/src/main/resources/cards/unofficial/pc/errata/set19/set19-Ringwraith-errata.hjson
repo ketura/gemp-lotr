@@ -116,7 +116,7 @@
 			{
 				type: trigger
 				trigger: {
-					type: freeplayerstartedassigning
+					type: fpstartedassigning
 				}
 				effect: [
 					{

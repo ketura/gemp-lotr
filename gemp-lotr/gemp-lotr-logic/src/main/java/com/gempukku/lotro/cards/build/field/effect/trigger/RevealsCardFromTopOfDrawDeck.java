@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
 import org.json.simple.JSONObject;
 
-public class RevealCardFromTopOfDrawDeck implements TriggerCheckerProducer {
+public class RevealsCardFromTopOfDrawDeck implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(value, "filter");

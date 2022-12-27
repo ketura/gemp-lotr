@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 public class TakesOffRing implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter");
+        FieldUtils.validateAllowedFields(value);
 
         return new TriggerChecker() {
             @Override

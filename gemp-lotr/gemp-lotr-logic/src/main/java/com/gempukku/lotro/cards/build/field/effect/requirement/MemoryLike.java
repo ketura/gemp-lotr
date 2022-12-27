@@ -16,7 +16,7 @@ public class MemoryLike implements RequirementProducer {
 
         return (actionContext) -> {
             String valueFromMemory = actionContext.getValueFromMemory(memory);
-            return valueFromMemory != null && valueFromMemory.contains(value);
+            return valueFromMemory != null && valueFromMemory.toLowerCase().contains(value.toLowerCase());
         };
     }
 }

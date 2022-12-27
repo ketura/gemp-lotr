@@ -5,17 +5,20 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.ActivateCardResult;
 import org.json.simple.JSONObject;
 
 public class UsesSpecialAbility implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter");
-        String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
+        FieldUtils.validateAllowedFields(value, "filter", "memorize");
 
+        String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
+        final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
         return new TriggerChecker() {
             @Override
             public boolean isBefore() {
@@ -24,7 +27,17 @@ public class UsesSpecialAbility implements TriggerCheckerProducer {
 
             @Override
             public boolean accepts(ActionContext actionContext) {
-                return TriggerConditions.activated(actionContext.getGame(), actionContext.getEffectResult(), filterableSource.getFilterable(actionContext));
+                boolean activated = TriggerConditions.activated(actionContext.getGame(), actionContext.getEffectResult(), filterableSource.getFilterable(actionContext));
+
+                if (activated) {
+                    ActivateCardResult activateCardResult = (ActivateCardResult) actionContext.getEffectResult();
+
+                    if (memorize != null) {
+                        PhysicalCard playedCard = activateCardResult.getSource();
+                        actionContext.setCardMemory(memorize, playedCard);
+                    }
+                }
+                return activated;
             }
         };
     }
