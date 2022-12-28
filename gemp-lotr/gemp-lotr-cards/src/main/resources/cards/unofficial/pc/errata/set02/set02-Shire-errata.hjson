@@ -106,9 +106,12 @@
 				filter: self
 			}
 			effect: {
-				type: modifyStrength
-				filter: all(Nazgul)
-				amount: -4
+				type: addModifier
+				modifier: {
+					type: ModifyStrength
+					amount: -4
+					filter: Nazgul
+				}
 				until: start(regroup)
 			}
 		}
