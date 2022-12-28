@@ -94,37 +94,70 @@
 		type: Site
 		block: Shadows
 		direction: Left
-		effects: [
-			{
-				type: trigger
-				trigger: {
-					type: startOfPhase
-					phase: skirmish
-				}
-				cost: {
-					type: exert
-					filter: choose(your,character,InSkirmish)
-				}
-				effect: [
-					{
-						type: addmodifier
-						modifier: {
-							type: cantUseSpecialAbilities
-							filter: side(freeps)
-						}
-						until: end(skirmish)
-					}
-					{
-						type: addmodifier
-						modifier: {
-							type: cantUseSpecialAbilities
-							filter: side(shadow)
-						}
-						until: end(skirmish)
-					}
-				]
-			}
+		keywords: [
+			underground
 		]
+		effects: {
+			type: trigger
+			trigger: {
+				type: startOfPhase
+				phase: skirmish
+			}
+			effect: [
+				{
+					type: ForEachPlayer
+					effect: [
+						{
+							type: conditional
+							requires: {
+								type: CanSpot
+								filter: your,InSkirmish,character,not(exhausted)
+							}
+							effect: [
+								{
+									type: chooseYesOrNo
+									text: Would you like to exert your skirmishing character to prevent all special abilities from being used this skirmish?
+									memorize: choice
+								}
+								{
+									type: conditional
+									requires: {
+										type: memoryIs
+										memory: choice
+										value: yes
+									}
+									effect: {
+										type: CostToEffect
+										cost: {
+											type: exert
+											filter: choose(your,character,InSkirmish)
+										}
+										effect: [
+											{
+												type: addmodifier
+												modifier: {
+													type: cantUseSpecialAbilities
+													filter: side(freeps)
+												}
+												until: end(skirmish)
+											}
+											{
+												type: addmodifier
+												modifier: {
+													type: cantUseSpecialAbilities
+													filter: side(shadow)
+												}
+												until: end(skirmish)
+											}
+										]
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
 		gametext: <b>Underground.</b> At the start of each skirmish, you may exert your character in that skirmish to prevent special abilities being used.
 		lore: ""
 		promotext: ""
