@@ -151,4 +151,185 @@
 			1x1_377
 		]
 	}
+	
+	# {
+	# 	name: (S)Tengwar Selection
+	# 	type: selection
+	# 	items: [
+	# 		1x1R1T
+	# 		1x1R13T
+	# 		1x1R14T
+	# 		1x1R30T
+	# 		1x1R50T
+	# 		1x1R72T
+	# 		1x1R83T
+	# 		1x1R89T
+	# 		1x1R96T
+	# 		1x1R114T
+	# 		1x1R127T
+	# 		1x1R165T
+	# 		1x1U231T
+	# 		1x1R237T
+	# 		1x1R256T
+	# 		1x2R52T
+	# 		1x2C102T
+	# 		1x2R105T
+	# 		1x4R1T
+	# 		1x4R19T
+	# 		1x4R73T
+	# 		1x4C90T
+	# 		1x4R100T
+	# 		1x4R103T
+	# 		1x4R154T
+	# 		1x4R173T
+	# 		1x4R176T
+	# 		1x4R219T
+	# 		1x4R225T
+	# 		1x4R289T
+	# 		1x4R301T
+	# 		1x4P364T
+	# 		1x5R25T
+	# 		1x5R29T
+	# 		1x5R100T
+	# 		1x5R116T
+	# 		1x6R88T
+	# 		1x7R2T
+	# 		1x7R79T
+	# 		1x7R211T
+	# 		1x7R221T
+	# 		1x7R227T
+	# 		1x7R321T
+	# 		1x7R324T
+	# 		1x8R15T
+	# 		1x8R25T
+	# 		1x8R38T
+	# 		1x8R51T
+	# 		1x8R57T
+	# 		1x8R103T
+	# 		1x10R6T
+	# 		1x10R9T
+	# 		1x10R25T
+	# 		1x10R88T
+	# 		1x10P122T
+	# 		1x11R1T
+	# 		1x11S33T
+	# 		1x11R54T
+	# 		1x11R57T
+	# 		1x11R123T
+	# 		1x11R226T
+	# 		1x12R17T
+	# 		1x12R35T
+	# 		1x12R54T
+	# 		1x12S73T
+	# 		1x12U79T
+	# 		1x12R174T
+	# 		1x13R5T
+	# 		1x13R46T
+	# 		1x13R112T
+	# 		1x13R137T
+	# 		1x13R156T
+	# 		1x13R174T
+	# 	]
+	# }
+	
+	{
+		name: (S)Masterwork Selection
+		type: selection
+		items: [
+			#Countdown Collection
+			1x0_30
+			1x0_31
+			1x0_32
+			1x0_33
+			1x0_34
+			1x0_35
+			1x0_36
+			1x0_37
+			1x0_38
+			1x0_39
+			1x0_40
+			1x0_41
+			1x0_42
+			1x0_43
+			1x0_44
+			1x0_45
+			1x0_46
+			1x0_47
+			#Black Rider Masterworks
+			1x12_195
+			1x12_196
+			1x12_197
+			1x12_198
+			1x12_199
+			1x12_200
+			1x12_201
+			1x12_202
+			1x12_203
+			#Bloodlines Masterworks
+			1x13_195
+			1x13_196
+			1x13_197
+			1x13_198
+			1x13_199
+			1x13_200
+			1x13_201
+			1x13_202
+			1x13_203
+			#The Hunters Masterworks
+			1x15_195
+			1x15_196
+			1x15_197
+			1x15_198
+			1x15_199
+			1x15_200
+			1x15_201
+			1x15_202
+			1x15_203
+			#Rise of Saruman Masterworks
+			1x17_149
+			1x17_150
+			1x17_151
+			1x17_152
+			1x17_153
+			1x17_154
+			1x17_155
+			1x17_156
+			1x17_157
+			#Treachery & Deceit Masterworks
+			1x18_141
+			1x18_142
+			1x18_143
+			1x18_144
+			1x18_145
+			1x18_146
+			1x18_147
+			1x18_148
+			1x18_149
+			#PC Masterworks
+			#Legolas, Greenleaf MW
+			1x1_372
+			#Goblin Armory MW
+			1x1_373
+			#Durin III, Dwarven Lord MW
+			1x9_55
+			#Eowyn, Lady of Ithilien MW
+			1x10_124
+			#Halbarad, Ranger of the North MW
+			1x14_16
+			#Gandalf, Leader of the Company MW
+			1x11_269
+			#Aragorn's Bow, Ranger's Longbow MW
+			1x15_208
+			#Gimli ARB Masterwork
+			1x9_56
+			#Sam, Bearer of Great Need MW
+			1x13_204
+			#Merry, Friend to Sam MW
+			1x1_377
+			#Faramir, Son of Denethor Promo MW
+			1x0_130
+			#Eowyn, Lady of Rohan Promo MW
+			1x0_131
+		]
+	}
 ]
