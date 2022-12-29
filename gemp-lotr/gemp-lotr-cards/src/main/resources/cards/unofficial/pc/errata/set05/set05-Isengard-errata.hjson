@@ -60,29 +60,25 @@
 			{
 				type: activated
 				phase: skirmish
-				cost: [
+				effect: [
 					{
-						type: MemorizeNumber
+						type: repeat
 						amount: {
 							type: ForEachToken
 							filter: self
 							culture: isengard
 						}
-						memory: tokenCount
+						effect: {
+							type: Heal
+							count: 1
+							filter: choose(Uruk-hai)
+						}
 					}
 					{
 						type: discard
 						filter: self
 					}
 				]
-				effect: {
-					type: Heal
-					count: {
-						type: FromMemory
-						memory: tokenCount
-					}
-					filter: choose(Uruk-hai)
-				}
 			}
 		]
 
