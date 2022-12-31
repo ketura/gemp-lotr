@@ -47,7 +47,7 @@
 			}
 			{
 				type: activated
-				text: Discard 1 card from the top of your draw deck to take a Free Peoples card stacked here into hand.
+				text: Discard 1 card from deck to take a Free Peoples card stacked here into hand.
 				phase: fellowship
 				requires: [
 					{
@@ -68,7 +68,7 @@
 			}
 			{
 				type: activated
-				text: Discard cards from the top of your deck to no effect.
+				text: Discard 5 cards from deck to no effect.
 				phase: fellowship
 				requires: [
 					{

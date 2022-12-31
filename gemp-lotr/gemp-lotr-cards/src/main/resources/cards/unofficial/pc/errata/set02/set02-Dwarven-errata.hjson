@@ -34,7 +34,7 @@
 		effects: [
 			{
 				type: activated
-				text: Discard 3 cards from the top of your draw deck to play a [dwarven] weapon from discard.
+				text: Discard 3 from deck to play a [dwarven] weapon from discard.
 				phase: fellowship
 				cost: {
 					type: discardTopCardsFromDeck
@@ -48,7 +48,7 @@
 			}
 			{
 				type: activated
-				text: Discard 3 cards from the top of your deck to no effect.
+				text: Discard 3 from deck to no effect.
 				phase: fellowship
 				effect: [
 					{
