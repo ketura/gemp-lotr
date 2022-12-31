@@ -318,16 +318,29 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public PhysicalCardImpl GetFreepsBottomOfDeck() { return GetPlayerBottomOfDeck(P1); }
     public PhysicalCardImpl GetShadowBottomOfDeck() { return GetPlayerBottomOfDeck(P2); }
-    public PhysicalCardImpl GetPlayerBottomOfDeck(String player)
+    public PhysicalCardImpl GetFromBottomOfFreepsDeck(int index) { return GetFromBottomOfPlayerDeck(P1, index); }
+    public PhysicalCardImpl GetFromBottomOfShadowDeck(int index) { return GetFromBottomOfPlayerDeck(P2, index); }
+    public PhysicalCardImpl GetPlayerBottomOfDeck(String player) { return GetFromBottomOfPlayerDeck(player, 1); }
+    public PhysicalCardImpl GetFromBottomOfPlayerDeck(String player, int index)
     {
-        List deck = _game.getGameState().getDeck(player);
-        return (PhysicalCardImpl) deck.get(deck.size() - 1);
+        var deck = _game.getGameState().getDeck(player);
+        return (PhysicalCardImpl) deck.get(deck.size() - index);
     }
 
     public PhysicalCardImpl GetFreepsTopOfDeck() { return GetPlayerTopOfDeck(P1); }
     public PhysicalCardImpl GetShadowTopOfDeck() { return GetPlayerTopOfDeck(P2); }
-    public PhysicalCardImpl GetPlayerTopOfDeck(String player) { return (PhysicalCardImpl) _game.getGameState().getDeck(player).get(0); }
+    public PhysicalCardImpl GetFromTopOfFreepsDeck(int index) { return GetFromTopOfPlayerDeck(P1, index); }
+    public PhysicalCardImpl GetFromTopOfShadowDeck(int index) { return GetFromTopOfPlayerDeck(P2, index); }
+    public PhysicalCardImpl GetPlayerTopOfDeck(String player) { return GetFromTopOfPlayerDeck(player, 1); }
 
+    /**
+     * Index is 1-based (1 is first, 2 is second, etc)
+     */
+    public PhysicalCardImpl GetFromTopOfPlayerDeck(String player, int index)
+    {
+        var deck = _game.getGameState().getDeck(player);
+        return (PhysicalCardImpl) deck.get(index - 1);
+    }
     public int GetFreepsDiscardCount() { return GetPlayerDiscardCount(P1); }
     public int GetShadowDiscardCount() { return GetPlayerDiscardCount(P2); }
     public int GetPlayerDiscardCount(String player) { return _game.getGameState().getDiscard(player).size(); }
@@ -586,6 +599,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public PhysicalCardImpl GetCurrentSite() { return (PhysicalCardImpl)_game.getGameState().getCurrentSite(); }
 
+    public void SkipToAssignments() throws DecisionResultInvalidException {
+        SkipToPhase(Phase.ASSIGNMENT);
+        PassCurrentPhaseActions();
+    }
     public void SkipToPhase(Phase target) throws DecisionResultInvalidException {
         for(int attempts = 1; attempts <= 20; attempts++)
         {

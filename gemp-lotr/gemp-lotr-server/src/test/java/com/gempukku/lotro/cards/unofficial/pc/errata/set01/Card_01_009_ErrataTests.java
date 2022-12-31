@@ -95,9 +95,7 @@ public class Card_01_009_ErrataTests
 
 		scn.StartGame();
 
-		scn.SkipToPhase(Phase.ASSIGNMENT);
-
-		scn.PassCurrentPhaseActions();
+		scn.SkipToAssignments();
 		scn.FreepsDeclineAssignments();
 		scn.ShadowAssignToMinions(new PhysicalCardImpl[]{gimli, runner}, new PhysicalCardImpl[]{frodo,scout});
 
@@ -115,7 +113,7 @@ public class Card_01_009_ErrataTests
 		scn.FreepsDeclineOptionalTrigger(); // ring
 
 		//Fierce assignment
-		scn.PassCurrentPhaseActions();
+		scn.SkipToAssignments();
 		scn.FreepsAssignToMinions(gimli, scout);
 		scn.FreepsResolveSkirmish(gimli);
 		scn.PassCurrentPhaseActions();
@@ -147,12 +145,11 @@ public class Card_01_009_ErrataTests
 
 		scn.StartGame();
 
-		scn.SkipToPhase(Phase.ASSIGNMENT);
-
-		scn.PassCurrentPhaseActions();
+		scn.SkipToAssignments();
 		scn.FreepsDeclineAssignments();
 		scn.ShadowAssignToMinions(gimli, scout, runner);
 
+		//pump gimli up using his ability so he's strong enough to beat both orcs
 		scn.FreepsResolveSkirmish(gimli);
 		scn.FreepsUseCardAction(gimli);
 		scn.ShadowPassCurrentPhaseAction();

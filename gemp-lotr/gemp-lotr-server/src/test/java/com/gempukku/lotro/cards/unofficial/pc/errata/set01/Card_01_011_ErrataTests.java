@@ -5,14 +5,11 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_01_011_ErrataTests
 {
@@ -21,8 +18,11 @@ public class Card_01_011_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "71_11");
-					// put other cards in here as needed for the test case
+					put("farin", "51_11");
+					put("gimli", "1_13");
+
+					put("runner", "1_178");
+					put("nazgul", "1_230");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +30,7 @@ public class Card_01_011_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void FarinStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -52,34 +50,61 @@ public class Card_01_011_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl farin = scn.GetFreepsCard("farin");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.DWARVEN, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(6, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertTrue(farin.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, farin.getBlueprint().getSide());
+		assertEquals(Culture.DWARVEN, farin.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, farin.getBlueprint().getCardType());
+		assertEquals(Race.DWARF, farin.getBlueprint().getRace());
+		assertEquals(2, farin.getBlueprint().getTwilightCost());
+		assertEquals(6, farin.getBlueprint().getStrength());
+		assertEquals(3, farin.getBlueprint().getVitality());
 	}
 
-	//@Test
-	public void FarinTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void FarinRequiresDwarf() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl farin = scn.GetFreepsCard("farin");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCardToHand(farin, gimli);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		assertFalse(scn.FreepsPlayAvailable(farin));
+		scn.FreepsPlayCard(gimli);
+		assertTrue(scn.FreepsPlayAvailable(farin));
+	}
+
+	@Test
+	public void FarinStrengthBonusAgainstOrcs() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl farin = scn.GetFreepsCard("farin");
+		scn.FreepsMoveCharToTable(farin);
+
+		PhysicalCardImpl orc = scn.GetShadowCard("runner");
+		PhysicalCardImpl nazgul = scn.GetShadowCard("nazgul");
+		scn.ShadowMoveCharToTable(orc, nazgul);
+
+		scn.StartGame();
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(farin, orc);
+		scn.ShadowDeclineAssignments();
+
+		assertEquals(6, scn.GetStrength(farin));
+		scn.FreepsResolveSkirmish(farin);
+		assertEquals(8, scn.GetStrength(farin));
+		scn.PassCurrentPhaseActions();
+
+		//fierce
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(farin, nazgul);
+		scn.FreepsResolveSkirmish(farin);
+		assertEquals(6, scn.GetStrength(farin));
 	}
 }
