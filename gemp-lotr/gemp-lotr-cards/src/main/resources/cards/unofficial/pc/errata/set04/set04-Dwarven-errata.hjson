@@ -1,0 +1,114 @@
+{
+	74_46: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN04E046.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 4_46
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 4R46
+			rarity: R
+			setNum: "4"
+			cardNum: 46
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Ever My Heart Rises
+		unique: true
+		culture: Dwarven
+		twilight: 3
+		type: condition
+		keyword: [
+			Support Area
+			Tale
+		]
+		effects: [
+			{
+				type: trigger
+				trigger: {
+					type: played
+					filter: self
+				}
+				effect: {
+					type: stackTopCardsOfDrawDeck
+					count: 6
+					where: self
+				}
+			}
+			{
+				type: activated
+				text: Discard 1 card from the top of your draw deck to take a Free Peoples card stacked here into hand.
+				phase: fellowship
+				requires: [
+					{
+						type: canSpot
+						filter: dwarf
+					}
+				]
+				cost: {
+					type: discardTopCardsFromDeck
+					count: 1
+					forced: false
+				}
+				effect: {
+					type: putStackedCardsIntoHand
+					filter: choose(side(free people))
+					on: self
+				}
+			}
+			{
+				type: activated
+				text: Discard cards from the top of your deck to no effect.
+				phase: fellowship
+				requires: [
+					{
+						type: canSpot
+						filter: dwarf
+					}
+				]
+				effect: [
+					{
+						type: chooseANumber
+						from: 0
+						to: 99
+						text: Choose how many times to discard 5 cards from draw deck
+						memorize: chosenNumber
+					}
+					{
+						type: discardTopCardsFromDeck
+						forced: false
+						count: {
+							type: multiply
+							multiplier: 5
+							source: {
+								type: fromMemory
+								memory: chosenNumber
+							}
+						}
+					}
+				]
+			}
+		]
+		gametext: <b>Tale.</b> When you play this condition, reveal the top 6 cards of your draw deck and stack them here.<br><b>Fellowship:</b> Spot a Dwarf and discard the top card of your draw deck to take a Free Peoples card stacked here into hand.\Fellowship: Spot a Dwarf to discard the top 5 cards of your draw deck.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+}

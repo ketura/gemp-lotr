@@ -286,13 +286,48 @@
 			phase: regroup
 			cost: [
 				{
-					type: chooseActiveCards
+					type: discard
 					filter: choose(culture(sauron),minion)
-					memorize: chosenMinion
-					text: Choose a [Sauron] minion to exert or discard
 				}
 			]
 			effect: [
+				{
+					type: RevealTopCardsOfDrawDeck
+					count: 2
+					deck: freeps
+					memorize: cardsOnTop
+				}
+				{
+					type: conditional
+					requires: {
+						type: MemoryMatches
+						memory: cardsOnTop
+						filter: side(freeps)
+					}
+					effect: [
+						{
+							type: chooseActiveCards
+							filter: choose(companion,not(exhausted),not(Ring-bearer))
+							memorize: chosenComp
+							text: Choose a companion to exert (except the Ring-bearer)
+						}
+						{
+							type: preventable
+							player: freeps
+							cost: {
+								type: DiscardCardsFromDrawDeck
+								player: freeps
+								deck: freeps
+								filter: all(side(freeps),memory(cardsOnTop))
+							}
+							text: Discard all revealed Free Peoples cards to prevent exerting {chosenComp}?
+							effect: {
+								type: exert
+								filter: memory(chosenComp)
+							}
+						}
+					]
+				}
 				{
 					type: choice
 					texts: [
@@ -306,34 +341,15 @@
 						}
 						{
 							type: discard
-							filter: memory(chosenMinion)
+							filter: choose(culture(sauron),minion)
 						}
 					]
 				}
-				{
-					type: chooseActiveCards
-					filter: choose(companion,not(exhausted))
-					memorize: chosenComp
-					text: Choose a companion to exert
-				}
-				{
-					type: preventable
-					player: freeps
-					cost: {
-						type: discardTopCardsFromDeck
-						deck: freeps
-						count: 2
-						forced: false
-					}
-					text: Discard the top 2 cards of your deck to prevent exerting {chosenComp}
-					effect: {
-						type: exert
-						filter: memory(chosenComp)
-					}
-				}
+				
+				
 			]
 		}
-		gametext: Regroup: Exert or discard a [sauron] minion to exert a companion.  The Free Peoples player may discard the top 2 cards from their draw deck to prevent this.
+		gametext: Regroup: Discard a [sauron] minion to reveal the top 2 cards of your opponent's draw deck.  If at least 1 is a Free Peoples card, exert a companion (except the Ring-bearer).  Your opponent may discard all revealed Free Peoples cards to prevent this.
 		lore: "'Into this Ring he poured his cruelty, his malice, and his will to dominate all life.'"
 		promotext: ""
 		alts: {

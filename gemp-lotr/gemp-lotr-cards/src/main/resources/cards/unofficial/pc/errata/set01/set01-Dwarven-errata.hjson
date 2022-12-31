@@ -276,7 +276,7 @@
 		title: Greatest Kingdom of My People
 		unique: true
 		culture: dwarven
-		twilight: 0
+		twilight: 1
 		type: condition
 		keyword: [
 			tale
@@ -297,11 +297,16 @@
 					filter: orc
 					memorize: playedOrc
 				}
+				requires: {
+					type: perTurnLimit
+					limit: 1
+				}
 				effect: [
 					{
 						type: chooseCardsFromDiscard
 						filter: choose(culture(dwarven))
 						memorize: chosenCard
+						count: 0-1
 						text: Choose a Dwarven card from your discard pile to take into hand
 					}
 					{
@@ -317,13 +322,16 @@
 						effect: {
 							type: putCardsFromDiscardIntoHand
 							filter: memory(chosenCard)
-							count: 0-1
 						}
+					}
+					{
+						type: IncrementPerTurnLimit
+						limit: 1
 					}
 				]
 			}
 		]
-		gametext: <b>Tale.</b>  To play, exert a Dwarf. \Each time your opponent plays an Orc, you may take a [dwarven] card into hand from your discard pile.  The Shadow player may discard the bottom card of their deck to prevent this.
+		gametext: <b>Tale.</b>  To play, exert a Dwarf. \The first time your opponent plays an Orc each turn, you may take a [dwarven] card into hand from your discard pile.  The Shadow player may discard the bottom 2 cards of their draw deck to prevent this.
 		lore: "'With golden roof and silver floor / And runes of power upon the door.'"
 		promotext: ""
 		alts: {

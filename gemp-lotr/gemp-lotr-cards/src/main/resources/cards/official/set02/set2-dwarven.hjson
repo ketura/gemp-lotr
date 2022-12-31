@@ -23,32 +23,6 @@
 					filter: choose(culture(dwarven),weapon)
 				}
 			}
-			{
-				type: activated
-				text: Discard cards from the top of your deck to no effect.
-				phase: fellowship
-				effect: [
-					{
-						type: chooseANumber
-						from: 0
-						to: 99
-						text: Choose how many times to discard 3 cards from draw deck
-						memorize: chosenNumber
-					}
-					{
-						type: discardTopCardsFromDeck
-						forced: false
-						count: {
-							type: multiply
-							multiplier: 3
-							source: {
-								type: fromMemory
-								memory: chosenNumber
-							}
-						}
-					}
-				]
-			}
 		]
 	}
 	2_2: {

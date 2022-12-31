@@ -1,5 +1,240 @@
 {
-
+	72_1: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN02E001.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 2_1
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 2R1
+			rarity: R
+			setNum: "2"
+			cardNum: 1
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Beneath the Mountains
+		culture: dwarven
+		twilight: 1
+		type: condition
+		keyword: [
+			tale
+			support area
+		]
+		effects: [
+			{
+				type: activated
+				text: Discard 3 cards from the top of your draw deck to play a [dwarven] weapon from discard.
+				phase: fellowship
+				cost: {
+					type: discardTopCardsFromDeck
+					forced: false
+					count: 3
+				}
+				effect: {
+					type: playCardFromDiscard
+					filter: choose(culture(dwarven),weapon)
+				}
+			}
+			{
+				type: activated
+				text: Discard 3 cards from the top of your deck to no effect.
+				phase: fellowship
+				effect: [
+					{
+						type: chooseANumber
+						from: 0
+						to: 99
+						text: Choose how many times to discard 3 cards from draw deck
+						memorize: chosenNumber
+					}
+					{
+						type: discardTopCardsFromDeck
+						forced: false
+						count: {
+							type: multiply
+							multiplier: 3
+							source: {
+								type: fromMemory
+								memory: chosenNumber
+							}
+						}
+					}
+				]
+			}
+		]
+	}
+	
+	72_12: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN02E012.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 2_12
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 2R12
+			rarity: R
+			setNum: "2"
+			cardNum: 12
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Realm of Dwarrowdelf
+		unique: true
+		culture: dwarven
+		twilight: 1
+		type: condition
+		keyword: support area
+		effects: {
+			type: activated
+			phase: skirmish
+			cost: {
+				type: discardTopCardsFromDeck
+				count: 3
+				forced: false
+			}
+			effect: [
+				{
+					type: modifyStrength
+					filter: choose(dwarf)
+					memorize: chosenDwarf
+					amount: {
+						type: cardAffectedLimitPerPhase
+						prefix: str-
+						source: 1
+						limit: 3
+					}
+				}
+				{
+					type: conditional
+					requires: {
+						type: location
+						filter: underground
+					}
+					effect: {
+						type: addKeyword
+						filter: memory(chosenDwarf)
+						keyword: damage
+						amount: {
+							type: cardAffectedLimitPerPhase
+							prefix: dmg-
+							source: 1
+							limit: 3
+						}
+					}
+				}
+				{
+					type: chooseYesOrNo
+					player: you
+					text: Would you like to discard 3 cards from the top of your deck to no effect?
+					memorize: choice
+				}
+				{
+					type: conditional
+					requires: {
+						type: MemoryIs
+						memory: choice
+						value: yes
+					}
+					effect: {
+						type: discardTopCardsFromDeck
+						count: 3
+						forced: false
+					}
+				}
+				{
+					type: Repeat
+					amount: 9
+					effect: {
+						type: conditional
+						requires: {
+							type: MemoryIs
+							memory: choice
+							value: yes
+						}
+						effect: [
+							{
+								type: chooseYesOrNo
+								player: you
+								text: Would you like to discard 3 more cards from the top of your deck to no effect?
+								memorize: choice
+							}
+							{
+								type: conditional
+								requires: {
+									type: MemoryIs
+									memory: choice
+									value: yes
+								}
+								effect: {
+									type: discardTopCardsFromDeck
+									count: 3
+									forced: false
+								}
+							}
+						]
+					}
+				}
+				{
+					type: optional
+					text: Discard cards from the top of your deck to no effect.
+					effect: [
+						{
+							type: chooseANumber
+							from: 0
+							to: 10
+							text: Choose how many times to discard 3 cards from draw deck
+							memorize: chosenNumber
+						}
+						{
+							type: discardTopCardsFromDeck
+							forced: false
+							count: {
+								type: multiply
+								multiplier: 3
+								source: {
+									type: fromMemory
+									memory: chosenNumber
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+		gametext: <b>Skirmish:</b> Discard the top 3 cards from your draw deck to make a Dwarf strength +1 (limit +3) and, if underground, <b>damage +1</b> (limit +3).  You may then discard up to 30 cards from your draw deck 3 at a time.
+		lore: "'There must have been a mighty crowd of dwarves here... and every one of them busier than badgers....'"
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
 	52_6: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server

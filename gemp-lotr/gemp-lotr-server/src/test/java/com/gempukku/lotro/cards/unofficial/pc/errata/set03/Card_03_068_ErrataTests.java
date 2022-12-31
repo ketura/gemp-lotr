@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set03;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -10,9 +9,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_03_068_ErrataTests
 {
@@ -23,45 +20,46 @@ public class Card_03_068_ErrataTests
                     put("tale", "1_66");
                     put("doubleshot", "1_38");
 
-                    put("saruman", "53_68");
+                    put("saruman", "73_68");
                     put("uruk1", "1_151");
                     put("uruk2", "1_151");
                 }}
         );
     }
 
-    @Test
     public void SarumanStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
         /**
-         * Set: 1E
-         * Title: *Saruman
-         * Subtitle: Keeper of Isengard
-         * Side: Shadow
+         * Set: 3
+         * Title: Saruman, Keeper of Isengard
+         * Unique: True
+         * Side: SHADOW
          * Culture: Isengard
          * Twilight Cost: 4
-         * Type: Minion
+         * Type: minion
          * Subtype: Wizard
          * Strength: 8
          * Vitality: 4
-         * Home Site: 4
-         * Errata Game Text: Saruman may not take wounds during the archery phase and may not be assigned to a skirmish.
-         * Maneuver: Exert Saruman to make an Uruk-hai fierce until the regroup phase.
-         * Response: If an Uruk-hai is about to take a wound, exert Saruman to prevent that wound.
+         * Site Number: 4
+         * Game Text: Saruman may not take wounds during the archery phase and may not be assigned to a skirmish.
+         * 	Maneuver: Exert Saruman to make an Uruk-hai <b>fierce</b> until the regroup phase.
+         * 	Response: If an Uruk-hai is about to take a wound, discard (or exert) Saruman to prevent that wound.
          */
 
         //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+        var scn = GetScenario();
 
-        PhysicalCardImpl saruman = scn.GetFreepsCard("saruman");
+        var saruman = scn.GetFreepsCard("saruman");
 
         assertTrue(saruman.getBlueprint().isUnique());
+        assertEquals(Side.SHADOW, saruman.getBlueprint().getSide());
+        assertEquals(Culture.ISENGARD, saruman.getBlueprint().getCulture());
+        assertEquals(CardType.MINION, saruman.getBlueprint().getCardType());
+        assertEquals(Race.WIZARD, saruman.getBlueprint().getRace());
         assertEquals(4, saruman.getBlueprint().getTwilightCost());
-
         assertEquals(8, saruman.getBlueprint().getStrength());
         assertEquals(4, saruman.getBlueprint().getVitality());
-        assertEquals(4, saruman.getBlueprint().getSiteNumber());
-
+        assertEquals(4, saruman.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
     }
 
     @Test

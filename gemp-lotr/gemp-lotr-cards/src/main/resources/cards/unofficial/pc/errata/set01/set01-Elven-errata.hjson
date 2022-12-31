@@ -48,17 +48,10 @@
 					effect: [
 						{
 							type: chooseActiveCards
-							count: {
-								type: range
-								from: 0
-								to: {
-									type: forEachYouCanSpot
-									filter: minion
-								}
-							}
+							count: 1
 							filter: choose(wounded,Elf)
-							memorize: chosenElves
-							text: Choose Elves to heal
+							memorize: chosenElf
+							text: Choose Elf to heal
 						}
 						{
 							type: preventable
@@ -67,20 +60,20 @@
 								type: DiscardFromHand
 								player: ownerFromMemory(losingMinion)
 								hand: ownerFromMemory(losingMinion)
-								count: 2
+								count: 1
 								forced: false
 							}
-							text: Discard 2 cards from hand to prevent healing {chosenElves}
+							text: Discard 1 card from hand to prevent healing {chosenElf}
 							effect: {
 								type: heal
-								filter: memory(chosenElves)
+								filter: memory(chosenElf)
 							}
 						}
 					]
 				}
 			]
 		}
-		gametext: Make an Elf strength +1. \If a minion loses this skirmish to that Elf, you may heal an Elf for each minion that you can spot; that minion’s owner may discard 2 cards at random from hand to prevent this.
+		gametext: Make an Elf strength +1. \If a minion loses this skirmish to that Elf, you may heal an Elf; that minion’s owner may discard a card from hand to prevent this.
 		lore: Hard and bitter is the Elven hatred of Orcs, for they have lost many kinsmen to Orc savagery.
 		promotext: ""
 		alts: {
@@ -305,7 +298,7 @@
 			style: Standard
 		}
 		title: Far-seeing Eyes
-		unique: false
+		unique: true
 		culture: elven
 		twilight: 2
 		type: condition

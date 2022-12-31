@@ -249,6 +249,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public List<String> FreepsGetCardChoices() { return GetADParamAsList(P1, "cardId"); }
     public List<String> ShadowGetCardChoices() { return GetADParamAsList(P2, "cardId"); }
+    public List<String> FreepsGetBPChoices() { return GetADParamAsList(P1, "blueprintId"); }
+    public List<String> ShadowGetBPChoices() { return GetADParamAsList(P2, "blueprintId"); }
     public List<String> FreepsGetMultipleChoices() { return GetADParamAsList(P1, "results"); }
     public List<String> ShadowGetMultipleChoices() { return GetADParamAsList(P2, "results"); }
     public List<String> FreepsGetADParamAsList(String paramName) { return GetADParamAsList(P1, paramName); }

@@ -184,6 +184,141 @@
 			}
 		}
 	}
+	
+	73_68: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03E068.1.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_68
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 2
+			collInfo: 3R68
+			rarity: R
+			setNum: "3"
+			cardNum: 68
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Saruman
+		subtitle: Keeper of Isengard
+		unique: true
+		side: shadow
+		culture: Isengard
+		type: minion
+		race: Wizard
+		twilight: 4
+		strength: 8
+		vitality: 4
+		site: 4
+		effects: [
+			{
+				type: modifier
+				modifier: {
+					type: cantTakeWounds
+					filter: self
+					requires: [
+						{
+							type: phase
+							phase: archery
+						}
+						{
+							type: sarumanfirstsentenceactive
+						}
+					]
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: cantbeassignedtoskirmish
+					filter: self
+					requires: {
+						type: sarumanfirstsentenceactive
+					}
+				}
+			}
+			{
+				type: activated
+				phase: maneuver
+				cost: {
+					type: exert
+					filter: self
+				}
+				effect: {
+					type: addKeyword
+					filter: choose(uruk-hai)
+					keyword: fierce
+					until: start(regroup)
+					memorize: chosenUruk
+				}
+			}
+			{
+				type: activatedTrigger
+				trigger: {
+					type: aboutToTakeWound
+					filter: uruk-hai
+				}
+				cost: {
+					type: choice
+					memorize: theChoice
+					texts: [
+						Exert Saruman
+						Discard Saruman
+					]
+					effects: [
+						{
+							type: conditional
+							requires: {
+								type: canSpot
+								filter: self,not(exhausted)
+							}
+							effect: {
+								type: exert
+								filter: self
+							}
+						}
+						{
+							type: conditional
+							requires: {
+								type: canSpot
+								filter: self,exhausted
+							}
+							effect: {
+								type: discard
+								filter: self
+							}
+						}
+					]
+				}
+				effect:
+				{
+					type: preventWound
+					filter: choose(uruk-hai)
+				}
+			}
+		]
+		gametext: Saruman may not take wounds during the archery phase and may not be assigned to a skirmish.<br>Maneuver: Exert Saruman to make an Uruk-hai <b>fierce</b> until the regroup phase.<br>Response: If an Uruk-hai is about to take a wound, discard (or exert) Saruman to prevent that wound.
+		lore: ""
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
 
 	53_67: {
 		cardInfo: {

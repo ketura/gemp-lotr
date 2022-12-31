@@ -31,7 +31,7 @@
 		keyword: support area
 		requires: {
 			type: canSpot
-			filter: title(or(Galadriel,Celeborn))
+			filter: or(title(Galadriel),title(Celeborn))
 		}
 		effects: [
 			{

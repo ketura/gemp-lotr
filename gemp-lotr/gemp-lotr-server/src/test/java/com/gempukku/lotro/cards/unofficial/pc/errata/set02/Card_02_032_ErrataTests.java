@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set02;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -17,8 +16,8 @@ public class Card_02_032_ErrataTests
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
                 new HashMap<>() {{
-                    put("brand", "52_32");
-                    put("brand2", "52_32");
+                    put("brand", "72_32");
+                    put("brand2", "72_32");
                     put("arwen", "1_30");
                     put("boromir", "1_97");
                     put("aragorn", "1_89");
@@ -30,26 +29,32 @@ public class Card_02_032_ErrataTests
     }
 
     @Test
-    public void BrandStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+    public void FlamingBrandStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
         /**
-         * Set: 1E
+         * Set: 2
          * Title: Flaming Brand
-         * Side: Free Peoples
+         * Unique: False
+         * Side: FREE_PEOPLE
          * Culture: Gondor
          * Twilight Cost: 1
-         * Type: Possession
+         * Type: possession
          * Subtype: Hand Weapon
-         * Errata Game Text: Bearer must be a ranger.  This weapon may be borne in addition to 1 other hand weapon.
-         * Skirmish: If bearer is skirmishing a Nazgul, discard this possession to make bearer strength +3 and damage +1.
+         * Strength: 1
+         * Game Text: Bearer must be a ranger. This weapon may be borne in addition to 1 other hand weapon.
+         * 	Skirmish: Make bearer strength +2 and <b>damage +1</b> while skirmishing a Nazgûl until the regroup phase (limit once per turn). Discard this possession at the start of the regroup phase.
          */
 
         //Pre-game setup
-        GenericCardTestHelper scn = GetScenario();
+        var scn = GetScenario();
 
-        PhysicalCardImpl brand = scn.GetFreepsCard("brand");
+        var brand = scn.GetFreepsCard("brand");
 
         assertFalse(brand.getBlueprint().isUnique());
+        assertEquals(Side.FREE_PEOPLE, brand.getBlueprint().getSide());
+        assertEquals(Culture.GONDOR, brand.getBlueprint().getCulture());
+        assertEquals(CardType.POSSESSION, brand.getBlueprint().getCardType());
+        assertTrue(brand.getBlueprint().getPossessionClasses().contains(PossessionClass.HAND_WEAPON));
         assertEquals(1, brand.getBlueprint().getTwilightCost());
         assertEquals(1, brand.getBlueprint().getStrength());
     }
@@ -136,8 +141,6 @@ public class Card_02_032_ErrataTests
         //start goblin skirmish
         scn.FreepsResolveSkirmish(aragorn);
 
-        //goblin shouldn't trigger Flaming Brand's action
-        assertEquals(0, scn.FreepsGetAvailableActions().size());
         scn.PassCurrentPhaseActions();
 
         //assignment for fierce skirmish
@@ -145,15 +148,60 @@ public class Card_02_032_ErrataTests
         scn.FreepsAssignToMinions(aragorn, nazgul);
         scn.FreepsResolveSkirmish(aragorn);
 
-        assertEquals(1, scn.FreepsGetAvailableActions().size());
+        assertTrue(scn.FreepsAnyActionsAvailable());
         assertTrue(scn.FreepsActionAvailable(brand));
 
         assertFalse(scn.HasKeyword(aragorn, Keyword.DAMAGE));
         scn.FreepsUseCardAction(brand);
         assertEquals(11, scn.GetStrength(aragorn));
         assertTrue(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+        assertEquals(1, scn.GetKeywordCount(aragorn, Keyword.DAMAGE));
+    }
 
-        //Brand is discarded
-        assertFalse(scn.IsAttachedTo(brand, aragorn));
+    @Test
+    public void SkirmishAbilityLastsUntilRegroupAndSelfDiscards() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
+
+        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+        PhysicalCardImpl brand = scn.GetFreepsCard("brand");
+        PhysicalCardImpl nazgul = scn.GetShadowCard("nazgul");
+
+        scn.FreepsMoveCharToTable(aragorn);
+        scn.FreepsAttachCardsTo(aragorn, brand);
+
+        scn.ShadowMoveCharToTable(nazgul);
+
+        scn.StartGame();
+
+        scn.SkipToPhase(Phase.ASSIGNMENT);
+        scn.PassCurrentPhaseActions();
+        scn.FreepsAssignToMinions(aragorn, nazgul);
+
+        scn.FreepsResolveSkirmish(aragorn);
+
+        assertTrue(scn.FreepsActionAvailable(brand));
+        assertEquals(9, scn.GetStrength(aragorn));
+        assertFalse(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+        scn.FreepsUseCardAction(brand);
+        assertEquals(11, scn.GetStrength(aragorn));
+        assertTrue(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+
+        scn.ShadowPassCurrentPhaseAction();
+        scn.FreepsPassCurrentPhaseAction();
+
+        //assignment for fierce skirmish
+        scn.PassCurrentPhaseActions();
+
+        scn.FreepsAssignToMinions(aragorn, nazgul);
+        scn.FreepsResolveSkirmish(aragorn);
+        assertTrue(scn.IsAttachedTo(brand, aragorn));
+        assertEquals(11, scn.GetStrength(aragorn));
+        assertTrue(scn.HasKeyword(aragorn, Keyword.DAMAGE));
+
+        scn.PassCurrentPhaseActions();
+
+        assertEquals(Phase.REGROUP, scn.GetCurrentPhase());
+        assertEquals(Zone.DISCARD, brand.getZone());
     }
 }
