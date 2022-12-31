@@ -195,31 +195,6 @@
 						]
 					}
 				}
-				{
-					type: optional
-					text: Discard cards from the top of your deck to no effect.
-					effect: [
-						{
-							type: chooseANumber
-							from: 0
-							to: 10
-							text: Choose how many times to discard 3 cards from draw deck
-							memorize: chosenNumber
-						}
-						{
-							type: discardTopCardsFromDeck
-							forced: false
-							count: {
-								type: multiply
-								multiplier: 3
-								source: {
-									type: fromMemory
-									memory: chosenNumber
-								}
-							}
-						}
-					]
-				}
 			]
 		}
 		gametext: <b>Skirmish:</b> Discard the top 3 cards from your draw deck to make a Dwarf strength +1 (limit +3) and, if underground, <b>damage +1</b> (limit +3).  You may then discard up to 30 cards from your draw deck 3 at a time.
