@@ -589,7 +589,7 @@
 			effect: [
 				{
 					type: chooseActiveCards
-					filter: choose(minion)
+					filter: choose(minion,not(exhausted))
 					memorize: targetMinion
 					text: Choose a minion to exert
 				}

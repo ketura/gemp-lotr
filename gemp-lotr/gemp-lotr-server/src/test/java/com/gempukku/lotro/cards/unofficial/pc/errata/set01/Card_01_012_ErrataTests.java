@@ -45,7 +45,7 @@ public class Card_01_012_ErrataTests
 		* Vitality: 3
 		* Signet: aragorn
 		* Game Text: <b>Damage +1</b> 
-		* 	 <b>Fellowship: </b> If the twilight pool has fewer than 2 twilight tokens, add (2) and place a gimli from hand beneath your draw deck to draw a gimli.
+		* 	 <b>Fellowship: </b> If the twilight pool has fewer than 2 twilight tokens, add (2) and place a card from hand beneath your draw deck to draw a card.
 		*/
 
 		//Pre-game setup

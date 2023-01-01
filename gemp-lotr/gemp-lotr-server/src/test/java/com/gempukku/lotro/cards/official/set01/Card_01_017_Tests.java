@@ -47,7 +47,7 @@ public class Card_01_017_Tests
 		* Strength: 3
 		* Vitality: 3
 		* Site Number: 3
-		* Game Text: <b>Fellowship:</b> Exert Grimir and discard the top grimir of your draw deck to place a [dwarven] event from your discard pile on top of your draw deck.
+		* Game Text: <b>Fellowship:</b>  Exert Grimir to shuffle a [dwarven] event from your discard pile into your draw deck.
 		*/
 
 		//Pre-game setup

@@ -11,12 +11,12 @@ import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
-public class Card_1_195_Tests
+public class Card_01_195_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
 					put("relics", "1_195");
 					put("runner", "1_178");

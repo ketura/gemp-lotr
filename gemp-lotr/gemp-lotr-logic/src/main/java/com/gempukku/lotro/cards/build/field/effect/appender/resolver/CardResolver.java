@@ -69,10 +69,14 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCardsInHand(String type, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return resolveCardsInHand(type, null, countSource, memory, choicePlayer, handPlayer, choiceText, environment);
+        return resolveCardsInHand(type, null, countSource, memory, choicePlayer, handPlayer, choiceText, false, environment);
     }
 
-    public static EffectAppender resolveCardsInHand(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static EffectAppender resolveCardsInHand(String type, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, boolean showMatchingOnly, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCardsInHand(type, null, countSource, memory, choicePlayer, handPlayer, choiceText, showMatchingOnly, environment);
+    }
+
+    public static EffectAppender resolveCardsInHand(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, boolean showMatchingOnly, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final PlayerSource handSource = PlayerResolver.resolvePlayer(handPlayer, environment);
         Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
             String handPlayer1 = handSource.getPlayer(actionContext);
@@ -126,7 +130,7 @@ public class CardResolver {
                     };
                 } else {
                     List<? extends PhysicalCard> cardsInHand = actionContext.getGame().getGameState().getHand(handId);
-                    return new ChooseArbitraryCardsEffect(choicePlayerId, GameUtils.SubstituteText(choiceText, actionContext), cardsInHand, Filters.in(possibleCards), min, max, false) {
+                    return new ChooseArbitraryCardsEffect(choicePlayerId, GameUtils.SubstituteText(choiceText, actionContext), cardsInHand, Filters.in(possibleCards), min, max, showMatchingOnly) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             actionContext.setCardMemory(memory, selectedCards);

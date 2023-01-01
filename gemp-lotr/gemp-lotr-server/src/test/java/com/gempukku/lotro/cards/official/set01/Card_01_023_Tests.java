@@ -46,7 +46,7 @@ public class Card_01_023_Tests
 		* Twilight Cost: 0
 		* Type: event
 		* Subtype: Response
-		* Game Text: If a Dwarf wins a skirmish, discard a Shadow card.  Its owner may discard 3 cards from the bottom of their draw deck to prevent this.
+		* Game Text: If a Dwarf wins a skirmish, make an opponent discard 3 cards from the top of his or her draw deck.
 		*/
 
 		//Pre-game setup

@@ -57,7 +57,7 @@ public class PlayCardFromHand implements EffectAppenderProducer {
                             }
                             return Filters.playable(game, costModifier, false, ignoreInDeadPile);
                         },
-                        countSource, memorize, "you", "you", "Choose card to play from hand", environment));
+                        countSource, memorize, "you", "you", "Choose card to play from hand", false, environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

@@ -44,7 +44,7 @@ public class Card_01_016_Tests
 		* Type: condition
 		* Subtype: Support Area
 		* Game Text: <b>Tale.</b>  To play, exert a Dwarf. 
-		* 	The first time your opponent plays an Orc each turn, you may take a [dwarven] kingdom into hand from your discard pile.  The Shadow player may discard the bottom 2 cards of their draw deck to prevent this.
+		* 	Each time your opponent plays an Orc, that player discards the top card of his or her draw deck.
 		*/
 
 		//Pre-game setup

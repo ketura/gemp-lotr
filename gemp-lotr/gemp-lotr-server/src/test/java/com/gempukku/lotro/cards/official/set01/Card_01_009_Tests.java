@@ -48,7 +48,8 @@ public class Card_01_009_Tests
 		* Type: possession
 		* Subtype: Hand Weapon
 		* Strength: 2
-		* Game Text: Bearer must be a Dwarf. <br>Each time a minion loses a skirmish to bearer, that minion's owner must exert a minion or discard the bottom card of their draw deck.
+		* Game Text: Bearer must be a Dwarf.
+		 * Each time a minion loses a skirmish to bearer, that minion's owner must discard the top card of their draw deck.
 		*/
 
 		//Pre-game setup

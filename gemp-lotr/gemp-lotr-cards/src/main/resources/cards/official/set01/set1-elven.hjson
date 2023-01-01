@@ -737,11 +737,18 @@
 				}
 				effect: [
 					{
+						type: revealRandomCardsFromHand
+						forced: true
+						hand: shadow
+						count: 2
+						memorize: revealedCards
+					}
+					{
 						type: discardFromHand
 						forced: true
-						hand: shadowPlayer
-						count: 1
-						filter: random(2)
+						filter: choose(memory(revealedCards))
+						player: freeps
+						hand: shadow
 					}
 				]
 			}

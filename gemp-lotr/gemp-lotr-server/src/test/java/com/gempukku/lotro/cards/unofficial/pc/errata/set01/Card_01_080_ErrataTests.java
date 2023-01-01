@@ -7,19 +7,16 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_01_080_ErrataTests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
 					put("ottar", "51_80");
 					put("gandalf", "1_72");
@@ -64,10 +61,8 @@ public class Card_01_080_ErrataTests
 		assertEquals(1, ottar.getBlueprint().getTwilightCost());
 		assertEquals(2, ottar.getBlueprint().getStrength());
 		assertEquals(4, ottar.getBlueprint().getVitality());
-		//assertEquals(, ottar.getBlueprint().getResistance());
-		//assertEquals(Signet., ottar.getBlueprint().getSignet());
-		assertEquals(3, Arrays.stream(ottar.getBlueprint().getAllyHomeSiteNumbers()).findFirst().getAsInt()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertEquals(3, ottar.getBlueprint().getAllyHomeSiteNumbers()[0]);
+		assertEquals(SitesBlock.FELLOWSHIP, ottar.getBlueprint().getAllyHomeSiteBlock());
 	}
 
 	@Test

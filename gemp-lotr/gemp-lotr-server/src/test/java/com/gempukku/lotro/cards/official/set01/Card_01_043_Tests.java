@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
+package com.gempukku.lotro.cards.official.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.CardType;
@@ -14,14 +14,14 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class Card_01_043_ErrataTests
+public class Card_01_043_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("eyes", "71_43");
+					put("eyes", "1_43");
 					put("arwen", "1_30");
 					put("elrond", "1_40");
 					put("card1", "1_41");
@@ -45,7 +45,7 @@ public class Card_01_043_ErrataTests
 		* Twilight Cost: 2
 		* Type: condition
 		* Subtype: Support Area
-		* Game Text: Each time you play an Elf, draw a card.  Any Shadow player may discard a card from hand to prevent this.
+		* Game Text: Each time you play an Elf, choose an opponent to discard a card from hand.
 		*/
 
 		//Pre-game setup
@@ -62,27 +62,7 @@ public class Card_01_043_ErrataTests
 	}
 
 	@Test
-	public void FarseeingEyesDrawsACardEachTimeElfIsPlayed() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		var scn = GetScenario();
-
-		scn.FreepsMoveCardToHand("eyes", "arwen", "elrond");
-
-		scn.StartGame();
-
-		scn.FreepsPlayCard("eyes");
-		assertEquals(2, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsDeckCount());
-		scn.FreepsPlayCard("arwen");
-		assertEquals(2, scn.GetFreepsHandCount()); //-1 from playing elf, +1 from draw
-		assertEquals(1, scn.GetFreepsDeckCount());
-		scn.FreepsPlayCard("elrond");
-		assertEquals(2, scn.GetFreepsHandCount()); //-1 from playing elf, +1 from draw
-		assertEquals(0, scn.GetFreepsDeckCount());
-	}
-
-	@Test
-	public void FarseeingEyesShadowCanDiscardFromHandToPreventDraw() throws DecisionResultInvalidException, CardNotFoundException {
+	public void FarseeingEyesMakesShadowDiscardCardFromHand() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
@@ -93,23 +73,15 @@ public class Card_01_043_ErrataTests
 		scn.StartGame();
 
 		scn.FreepsPlayCard("eyes");
-		assertEquals(2, scn.GetFreepsHandCount());
-		assertEquals(2, scn.GetFreepsDeckCount());
 		assertEquals(2, scn.GetShadowHandCount());
 		assertEquals(0, scn.GetShadowDiscardCount());
 
 		scn.FreepsPlayCard("arwen");
-		scn.ShadowChooseYes();
 		scn.ShadowChooseCard("card1");
-		assertEquals(1, scn.GetFreepsHandCount()); //draw blocked
-		assertEquals(2, scn.GetFreepsDeckCount());
 		assertEquals(1, scn.GetShadowHandCount());
 		assertEquals(1, scn.GetShadowDiscardCount());
 
 		scn.FreepsPlayCard("elrond");
-		scn.ShadowChooseYes();
-		assertEquals(0, scn.GetFreepsHandCount()); //draw blocked
-		assertEquals(2, scn.GetFreepsDeckCount());
 		assertEquals(0, scn.GetShadowHandCount());
 		assertEquals(2, scn.GetShadowDiscardCount());
 	}

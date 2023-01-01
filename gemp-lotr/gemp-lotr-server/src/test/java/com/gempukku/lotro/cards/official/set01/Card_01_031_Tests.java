@@ -69,11 +69,6 @@ public class Card_01_031_Tests
 		assertEquals(PossessionClass.MOUNT, asfaloth.getBlueprint().getPossessionClasses().stream().findFirst().get());
 		assertEquals(2, asfaloth.getBlueprint().getTwilightCost());
 		assertEquals(2, asfaloth.getBlueprint().getStrength());
-//		assertEquals(3, asfaloth.getBlueprint().getVitality());
-		//assertEquals(, asfaloth.getBlueprint().getResistance());
-		//assertEquals(Signet., asfaloth.getBlueprint().getSignet());
-		//assertEquals(3, asfaloth.getBlueprint().getAllyHomeSiteNumbers()[0]); // Change this to getAllyHomeSiteNumbers for allies
-
 	}
 
 	@Test
