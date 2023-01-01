@@ -2,13 +2,15 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.HashMap;
+
+import static org.junit.Assert.*;
 
 public class Card_01_040_ErrataTests
 {
@@ -37,7 +39,7 @@ public class Card_01_040_ErrataTests
                 new HashMap<>() {{
                     put("elrond", "51_40");
                     put("allyHome3_1", "1_60");
-                    put("allyHome3_2", "1_27"); // tharin
+                    put("allyHome3_2", "1_27"); // thrarin
                     put("allyHome6_1", "1_56");
                     put("allyHome6_2", "1_57");
                 }}
@@ -71,10 +73,10 @@ public class Card_01_040_ErrataTests
 
         assertTrue(elrond.getBlueprint().isUnique());
         assertEquals(4, elrond.getBlueprint().getTwilightCost());
-
         assertEquals(8, elrond.getBlueprint().getStrength());
         assertEquals(4, elrond.getBlueprint().getVitality());
-        assertEquals(3, Arrays.stream(elrond.getBlueprint().getAllyHomeSiteNumbers()).findFirst().getAsInt());
+        assertEquals(3, elrond.getBlueprint().getAllyHomeSiteNumbers()[0]);
+        assertEquals(SitesBlock.FELLOWSHIP, elrond.getBlueprint().getAllyHomeSiteBlock());
     }
 
     @Test

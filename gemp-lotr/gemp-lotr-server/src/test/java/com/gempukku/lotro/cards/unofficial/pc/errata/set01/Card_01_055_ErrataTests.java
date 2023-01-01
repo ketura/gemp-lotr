@@ -5,13 +5,11 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_01_055_ErrataTests
@@ -19,10 +17,14 @@ public class Card_01_055_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "71_55");
-					// put other cards in here as needed for the test case
+					put("mirror", "51_55");
+					put("galadriel", "1_45");
+					put("allyHome3_1", "1_60");
+					put("allyHome6_1", "1_56");
+
+					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +32,7 @@ public class Card_01_055_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void TheMirrorofGaladrielStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -51,34 +51,74 @@ public class Card_01_055_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl mirror = scn.GetFreepsCard("mirror");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
-		assertEquals(CardType.POSSESSION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertTrue(mirror.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, mirror.getBlueprint().getSide());
+		assertEquals(Culture.ELVEN, mirror.getBlueprint().getCulture());
+		assertEquals(CardType.POSSESSION, mirror.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(mirror, Keyword.SUPPORT_AREA));
+		assertEquals(2, mirror.getBlueprint().getTwilightCost());
 	}
 
-	//@Test
-	public void TheMirrorofGaladrielTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void MirrorMakesSite6AlliesStrengthPlus1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		PhysicalCardImpl mirror = scn.GetFreepsCard("mirror");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+		PhysicalCardImpl allyHome3_1 = scn.GetFreepsCard("allyHome3_1");
+		PhysicalCardImpl allyHome6_1 = scn.GetFreepsCard("allyHome6_1");
+		scn.FreepsMoveCharToTable(galadriel, allyHome3_1, allyHome6_1);
+		scn.FreepsMoveCardToHand(mirror);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		assertEquals(5, scn.GetStrength(allyHome3_1));
+		assertEquals(3, scn.GetStrength(galadriel));
+		assertEquals(3, scn.GetStrength(allyHome6_1));
+		scn.FreepsPlayCard(mirror);
+		assertEquals(5, scn.GetStrength(allyHome3_1));
+		assertEquals(4, scn.GetStrength(galadriel));
+		assertEquals(4, scn.GetStrength(allyHome6_1));
 	}
+
+	@Test
+	public void ManeuverAbilityReveals3CardFromShadowHandAndPuts1OnTopDeck() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl mirror = scn.GetFreepsCard("mirror");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+		scn.FreepsMoveCharToTable(galadriel);
+		scn.FreepsMoveCardToSupportArea(mirror);
+
+		PhysicalCardImpl card1 = scn.GetShadowCard("allyHome3_1");
+		PhysicalCardImpl card2 = scn.GetShadowCard("allyHome6_1");
+		PhysicalCardImpl card3 = scn.GetShadowCard("galadriel");
+		PhysicalCardImpl card4 = scn.GetShadowCard("mirror");
+		scn.ShadowMoveCardToHand(card1, card2, card3, card4);
+		scn.ShadowMoveCharToTable("runner");
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.FreepsActionAvailable(mirror));
+		assertEquals(0, scn.GetWoundsOn(galadriel));
+		assertEquals(4, scn.GetShadowHandCount());
+		assertEquals(0, scn.GetShadowDeckCount());
+		assertEquals(Zone.HAND, card1.getZone());
+
+		scn.FreepsUseCardAction(mirror);
+		assertEquals(3, scn.GetFreepsCardChoiceCount());
+		scn.FreepsDismissRevealedCards();
+		scn.ShadowDismissRevealedCards();
+//		scn.FreepsChooseCard(card1);
+//		assertEquals(1, scn.GetWoundsOn(galadriel));
+//		assertEquals(3, scn.GetShadowHandCount());
+//		assertEquals(1, scn.GetShadowDeckCount());
+//		assertEquals(Zone.DECK, card1.getZone());
+	}
+
 }

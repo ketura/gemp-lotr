@@ -2,15 +2,16 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Card_01_045_ErrataTests
 {
@@ -65,7 +66,8 @@ public class Card_01_045_ErrataTests
 
         assertEquals(3, galadriel.getBlueprint().getStrength());
         assertEquals(3, galadriel.getBlueprint().getVitality());
-        assertEquals(6, Arrays.stream(galadriel.getBlueprint().getAllyHomeSiteNumbers()).findFirst().getAsInt());
+        assertEquals(6, galadriel.getBlueprint().getAllyHomeSiteNumbers()[0]);
+        assertEquals(SitesBlock.FELLOWSHIP, galadriel.getBlueprint().getAllyHomeSiteBlock());
     }
 
     @Test

@@ -112,7 +112,7 @@
 		}
 		title: Curse Their Foul Feet!
 		culture: elven
-		twilight: 0
+		twilight: 2
 		type: event
 		keyword: fellowship
 		effects: {
@@ -130,13 +130,21 @@
 					count: 4
 				}
 				{
+					type: memorizeNumber
+					memory: OrcCount
+					amount: {
+						type: forEachMatchingInMemory
+						memory: revealedCards
+						filter: orc
+					}
+				}
+				{
 					type: conditional
 					requires: {
 						type: isGreaterThan
 						firstNumber: {
-							type: forEachMatchingInMemory
-							memory: revealedCards
-							filter: orc
+							type: FromMemory
+							memory: OrcCount
 						}
 						secondNumber: 0
 					}
@@ -150,12 +158,11 @@
 								player: shadow
 								forced: false
 								count: {
-									type: forEachMatchingInMemory
-									memory: revealedCards
-									filter: orc
+									type: FromMemory
+									memory: OrcCount
 								}
 							}
-							text: Discard X cards (equal to the number of revealed orcs) from hand to prevent the fellowship archery total being +X until the regroup phase
+							text: Discard {OrcCount} cards from hand to prevent the fellowship archery total being +{OrcCount} until the regroup phase?
 							effect: {
 								type: addModifier
 								modifier: {
@@ -319,7 +326,7 @@
 					forced: false
 					count: 1
 				}
-				text: Discard a card from hand to prevent the Free Peoples player drawing a card
+				text: Discard a card from hand to prevent the Free Peoples player drawing a card?
 				effect: {
 					type: drawCards
 					count: 1
@@ -504,11 +511,6 @@
 			{
 				type: activated
 				phase: maneuver
-				requires: {
-					type: cardsInHandMoreThan
-					player: shadowPlayer
-					count: 6
-				}
 				cost: {
 					type: exert
 					filter: choose(name(Galadriel))
@@ -517,14 +519,15 @@
 					{
 						type: revealRandomCardsFromHand
 						forced: true
-						hand: shadowPlayer
+						hand: shadow
 						count: 3
 						memorize: revealedCards
 					}
 					{
 						type: putCardsFromHandOnTopOfDeck
 						filter: choose(memory(revealedCards))
-						player: shadowPlayer
+						player: freeps
+						hand: shadow
 					}
 				]
 			}

@@ -195,7 +195,15 @@ public class GameUtils {
                 result = result.replace("{" + memory + "}", culture);
             }
             else if(context != null){
-                final String cardNames = GameUtils.getAppendedNames(context.getCardsFromMemory(memory));
+                String cardNames = GameUtils.getAppendedNames(context.getCardsFromMemory(memory));
+                if(cardNames.equalsIgnoreCase("none")) {
+                    try {
+                        cardNames = context.getValueFromMemory(memory);
+                    }
+                    catch(IllegalArgumentException ex) {
+                        cardNames = "none";
+                    }
+                }
                 result = result.replace("{" + memory + "}", cardNames);
             }
         }

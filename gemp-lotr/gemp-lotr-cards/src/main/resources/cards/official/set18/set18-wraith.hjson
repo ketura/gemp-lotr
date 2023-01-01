@@ -20,7 +20,7 @@
 				type: choice
 				texts: [
 					Discard a follower from play with a twilight cost of {X}
-					Play a {wraith} minion from your draw deck with a twilight cost of {X}
+					Play a WRAITH minion from your draw deck with a twilight cost of {X}
 				]
 				effects: [
 					{

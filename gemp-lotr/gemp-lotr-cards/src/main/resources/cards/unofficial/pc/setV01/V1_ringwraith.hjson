@@ -11,8 +11,8 @@
 			effect: {
 					type: choice
 					texts: [
-						Play a {wraith} item from your draw deck
-						Play a {wraith} item from your discard pile
+						Play a WRAITH item from your draw deck
+						Play a WRAITH item from your discard pile
 					]
 					effects: [
 						{

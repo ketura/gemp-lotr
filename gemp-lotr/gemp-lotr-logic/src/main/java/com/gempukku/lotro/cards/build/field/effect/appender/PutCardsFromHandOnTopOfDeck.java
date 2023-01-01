@@ -25,9 +25,10 @@ import java.util.Objects;
 public class PutCardsFromHandOnTopOfDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "player", "optional", "filter", "count");
+        FieldUtils.validateAllowedFields(effectObject, "player", "hand", "optional", "filter", "count");
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
+        final String hand = FieldUtils.getString(effectObject.get("hand"), "hand", "you");
         final boolean optional = FieldUtils.getBoolean(effectObject.get("optional"), "optional", false);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final ValueSource count = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
@@ -54,7 +55,7 @@ public class PutCardsFromHandOnTopOfDeck implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, player, "Choose cards from hand", environment));
+                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, hand, "Choose cards from hand", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
