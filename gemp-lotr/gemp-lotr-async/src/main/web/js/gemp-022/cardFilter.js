@@ -63,7 +63,7 @@ var CardFilter = Class.extend({
 
         this.pageDiv = $("<div id='filter-main' style='display:flex;flex-direction:column;align-items:stretch;'></div>");
         this.navigationDiv = $("<div id='card-navigation' style='display: flex; flex-direction: row; gap: 2px; align-items: center;'></div>");
-        this.advancedFilterDiv = $("<div id='advanced-filter' style='display: flex; flex-direction: row; gap: 2px; align-items: center; '><a target='_blank' style='color: #BF6B04; margin:5px;' href='https://wiki.lotrtcgpc.net/wiki/Special:RunQuery/CardSearch'>Looking for more?  Try the Wiki's Advanced Card Search.</a></div>");
+        this.advancedFilterDiv = $("<div id='advanced-filter' style='display: flex; flex-direction: row; gap: 2px; align-items: center; '><a target='_blank' style='color: #BF6B04; margin:auto; width:60%; text-align:center;' href='https://wiki.lotrtcgpc.net/wiki/Special:RunQuery/CardSearch'>Looking for more?<br>Try the Wiki's Advanced Card Search.</a></div>");
         this.pageDiv.append(this.navigationDiv);
         this.pageDiv.append(this.advancedFilterDiv);
         pageElem.append(this.pageDiv);
