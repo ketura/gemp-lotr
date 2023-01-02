@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.logic.GameUtils;
+import com.google.common.base.Strings;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -86,10 +87,10 @@ public class ImportCards {
                 var matches = cardLinePattern.matcher(line);
 
                 if(matches.matches()) {
-                    if(!matches.group(1).isBlank()) {
+                    if(!Strings.isNullOrEmpty(matches.group(1))) {
                         quantity = Integer.parseInt(matches.group(1).replaceAll("\\D+", ""));
                     }
-                    else if(!matches.group(3).isBlank()) {
+                    else if(!Strings.isNullOrEmpty(matches.group(3))) {
                         quantity = Integer.parseInt(matches.group(3).replaceAll("\\D+", ""));
                     }
                     else {
@@ -100,7 +101,7 @@ public class ImportCards {
                     result.add(new CardCount(SortAndFilterCards.replaceSpecialCharacters(cardLine).trim(), quantity));
                 }
             } catch (Exception exp) {
-                // Ignore the card
+                System.out.println("blah");
             }
         }
         return result;
