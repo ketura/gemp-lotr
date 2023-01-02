@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata.set03;
+package com.gempukku.lotro.cards.official.set03;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
@@ -11,14 +11,14 @@ import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
-public class Card_03_067_ErrataTests
+public class Card_03_067_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("palantir", "53_67");
+					put("palantir", "3_67");
 					put("uruk1", "1_151");
 					put("uruk2", "1_151");
 				}},
@@ -40,7 +40,7 @@ public class Card_03_067_ErrataTests
 		* Type: artifact
 		* Subtype: Palantir
 		* Game Text: To play, spot an [isengard] minion. Plays to your support area.
-		* 	<b>Shadow:</b> Spot 2 [isengard] minions and remove (2) to reveal a card at random from the Free Peoples player's hand. Place that card on top of that player's draw deck.
+		* 	<b>Shadow:</b> Spot an [isengard] minions and remove (1) to reveal a card at random from the Free Peoples player's hand. Place that card on top of that player's draw deck.
 		*/
 
 		//Pre-game setup
@@ -53,12 +53,13 @@ public class Card_03_067_ErrataTests
 		assertEquals(Culture.ISENGARD, palantir.getBlueprint().getCulture());
 		assertEquals(CardType.ARTIFACT, palantir.getBlueprint().getCardType());
 		assertTrue(scn.HasKeyword(palantir, Keyword.SUPPORT_AREA));
-		assertTrue(palantir.getBlueprint().getPossessionClasses().contains(PossessionClass.PALANTIR));
+		//Uncomment this once this has been converted to JSON; java cards don't support support area items with classes
+		//assertTrue(palantir.getBlueprint().getPossessionClasses().contains(PossessionClass.PALANTIR));
 		assertEquals(0, palantir.getBlueprint().getTwilightCost());
 	}
 
 	@Test
-	public void PalantirRequires1IsengardMinionToPlayBut2ToActivate() throws DecisionResultInvalidException, CardNotFoundException {
+	public void PalantirRequires1IsengardMinionToPlayAnd1ToActivate() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
@@ -81,8 +82,6 @@ public class Card_03_067_ErrataTests
 		scn.ShadowPlayCard(uruk1);
 		assertTrue(scn.ShadowPlayAvailable(palantir));
 		scn.ShadowPlayCard(palantir);
-		assertFalse(scn.ShadowActionAvailable(palantir));
-		scn.ShadowPlayCard(uruk2);
 		assertTrue(scn.ShadowActionAvailable(palantir));
 	}
 
@@ -110,7 +109,7 @@ public class Card_03_067_ErrataTests
 		assertEquals(0, scn.GetFreepsDeckCount());
 
 		scn.ShadowUseCardAction(palantir);
-		assertEquals(21, scn.GetTwilight());
+		assertEquals(22, scn.GetTwilight());
 		assertEquals(1, scn.GetShadowCardChoiceCount());
 
 		scn.FreepsDismissRevealedCards();

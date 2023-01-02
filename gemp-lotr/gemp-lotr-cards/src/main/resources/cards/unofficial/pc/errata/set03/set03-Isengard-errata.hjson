@@ -373,14 +373,15 @@
 				{
 					type: revealRandomCardsFromHand
 					forced: true
-					hand: fp
+					hand: freeps
 					count: 1
 					memorize: revealedCard
 				}
 				{
 					type: putCardsFromHandOnTopOfDeck
-					filter: choose(memory(revealedCard))
-					player: fp
+					filter: all(memory(revealedCard))
+					player: shadow
+					hand: freeps
 				}
 			]
 		}
