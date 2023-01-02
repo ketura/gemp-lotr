@@ -201,6 +201,9 @@
 		type: Site
 		block: Shadows
 		direction: Left
+		keywords: [
+			marsh
+		]
 		effects: [
 			{
 				type: trigger
