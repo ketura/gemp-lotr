@@ -52,8 +52,17 @@
 					filter: choose(your,follower)
 				}
 				effect: {
-					type: playcardfromdrawdeck
-					filter: choose(follower,culture(rohan))
+					type: modifyStrength
+					filter: bearer
+					amount: {
+						type: requires
+						requires: {
+							type: canSpot
+							filter: bearer,title(Erkenbrand)
+						}
+						true: 5
+						false: 4
+					}
 				}
 			}
 		]

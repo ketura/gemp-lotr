@@ -3,26 +3,27 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set18;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_18_096_ErrataTests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "88_96");
-					// put other cards in here as needed for the test case
+					put("eomer", "4_267");
+					put("horn", "68_96");
+					put("alatar", "13_28");
+					put("worker", "15_135");
+					put("erkenbrand", "0_59");
+
+					put("runner", "1_178");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +31,7 @@ public class Card_18_096_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void ErkenbrandsHornStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -49,34 +48,114 @@ public class Card_18_096_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		var horn = scn.GetFreepsCard("horn");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.ROHAN, card.getBlueprint().getCulture());
-		assertEquals(CardType.POSSESSION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertTrue(horn.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, horn.getBlueprint().getSide());
+		assertEquals(Culture.ROHAN, horn.getBlueprint().getCulture());
+		assertEquals(CardType.POSSESSION, horn.getBlueprint().getCardType());
+		//assertTrue(horn.getBlueprint().getPossessionClasses().contains(PossessionClass.HORN));
+		assertEquals(1, horn.getBlueprint().getTwilightCost());
 	}
 
-	//@Test
-	public void ErkenbrandsHornTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void HornPlaysOnRohanMan() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var eomer = scn.GetFreepsCard("eomer");
+		var horn = scn.GetFreepsCard("horn");
+		scn.FreepsMoveCardToHand(horn, eomer);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(1, scn.GetTwilight());
+		assertFalse(scn.FreepsPlayAvailable(horn));
+		scn.FreepsPlayCard(eomer);
+		assertTrue(scn.FreepsPlayAvailable(horn));
+		assertEquals(Zone.HAND, horn.getZone());
+		scn.FreepsPlayCard(horn);
+		assertEquals(Zone.ATTACHED, horn.getZone());
+		assertEquals(eomer, horn.getAttachedTo());
+	}
+
+	@Test
+	public void HornFellowshipActionPlaysRohanFollowerFromDeck() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var eomer = scn.GetFreepsCard("eomer");
+		var horn = scn.GetFreepsCard("horn");
+		var worker = scn.GetFreepsCard("worker");
+		scn.FreepsMoveCharToTable(eomer);
+		scn.FreepsAttachCardsTo(eomer, horn);
+
+		scn.StartGame();
+
+		assertEquals(0, scn.GetWoundsOn(eomer));
+		assertEquals(Zone.DECK, worker.getZone());
+		assertTrue(scn.FreepsActionAvailable(horn));
+
+		scn.FreepsUseCardAction(horn);
+
+		assertEquals(1, scn.GetWoundsOn(eomer));
+		assertEquals(Zone.SUPPORT, worker.getZone());
+	}
+
+	@Test
+	public void HornSkirmishActionGivesPlus5OnErkenbrand() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var erkenbrand = scn.GetFreepsCard("erkenbrand");
+		var horn = scn.GetFreepsCard("horn");
+		var worker = scn.GetFreepsCard("worker");
+		scn.FreepsMoveCharToTable(erkenbrand);
+		scn.FreepsAttachCardsTo(erkenbrand, horn);
+		scn.FreepsMoveCardToSupportArea(worker);
+
+		var runner = scn.GetShadowCard("runner");
+		scn.ShadowMoveCharToTable(runner);
+
+		scn.StartGame();
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(erkenbrand, runner);
+		scn.FreepsResolveSkirmish(erkenbrand);
+
+		assertTrue(scn.FreepsActionAvailable(horn));
+		assertEquals(Zone.SUPPORT, worker.getZone());
+		assertEquals(7, scn.GetStrength(erkenbrand));
+		scn.FreepsUseCardAction(horn);
+		assertEquals(Zone.DISCARD, worker.getZone());
+		assertEquals(12, scn.GetStrength(erkenbrand));
+	}
+
+	@Test
+	public void HornSkirmishActionGivesPlus4OnOthers() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var eomer = scn.GetFreepsCard("eomer");
+		var horn = scn.GetFreepsCard("horn");
+		var worker = scn.GetFreepsCard("worker");
+		scn.FreepsMoveCharToTable(eomer);
+		scn.FreepsAttachCardsTo(eomer, horn);
+		scn.FreepsMoveCardToSupportArea(worker);
+
+		var runner = scn.GetShadowCard("runner");
+		scn.ShadowMoveCharToTable(runner);
+
+		scn.StartGame();
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(eomer, runner);
+		scn.FreepsResolveSkirmish(eomer);
+
+		assertTrue(scn.FreepsActionAvailable(horn));
+		assertEquals(Zone.SUPPORT, worker.getZone());
+		assertEquals(7, scn.GetStrength(eomer));
+		scn.FreepsUseCardAction(horn);
+		assertEquals(Zone.DISCARD, worker.getZone());
+		assertEquals(11, scn.GetStrength(eomer));
 	}
 }
