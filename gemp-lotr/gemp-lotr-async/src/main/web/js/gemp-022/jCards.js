@@ -174,8 +174,8 @@ var packBlueprints = {
     "SotP - Gandalf's Allies & Tentacles Starter": "/gemp-lotr/images/boosters/V1-starter-gandalf_tentacles.PNG",
     "SotP - Frodo Signet & Sauron Starter": "/gemp-lotr/images/boosters/V1-starter-frodo_sauron.PNG",
     
-    "(R)SotP - Rare": "/gemp-lotr/images/boosters/V1-random-common.png",
-    "(R)SotP - Uncommon": "/gemp-lotr/images/boosters/V1-random-common.png",
+    "(R)SotP - Rare": "/gemp-lotr/images/boosters/V1-random-rare.png",
+    "(R)SotP - Uncommon": "/gemp-lotr/images/boosters/V1-random-uncommon.png",
     "(R)SotP - Common": "/gemp-lotr/images/boosters/V1-random-common.png"
 };
 
