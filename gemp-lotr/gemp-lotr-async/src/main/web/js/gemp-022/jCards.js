@@ -169,10 +169,10 @@ var packBlueprints = {
     
     "(S)SotP - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
     
-    "SotP - Tales & Weather Starter": "/gemp-lotr/images/boosters/V1-starter-tales_weather.PNG",
-    "SotP - Aragorn Signet & Twilight Starter": "/gemp-lotr/images/boosters/V1-starter-aragorn_twilight.PNG",
-    "SotP - Gandalf's Allies & Tentacles Starter": "/gemp-lotr/images/boosters/V1-starter-gandalf_tentacles.PNG",
-    "SotP - Frodo Signet & Sauron Starter": "/gemp-lotr/images/boosters/V1-starter-frodo_sauron.PNG",
+    "SotP - Tales & Weather Starter": "/gemp-lotr/images/boosters/V1-starter-tales_weather.png",
+    "SotP - Aragorn Signet & Twilight Starter": "/gemp-lotr/images/boosters/V1-starter-aragorn_twilight.png",
+    "SotP - Gandalf's Allies & Tentacles Starter": "/gemp-lotr/images/boosters/V1-starter-gandalf_tentacles.png",
+    "SotP - Frodo Signet & Sauron Starter": "/gemp-lotr/images/boosters/V1-starter-frodo_sauron.png",
     
     "(R)SotP - Rare": "/gemp-lotr/images/boosters/V1-random-rare.png",
     "(R)SotP - Uncommon": "/gemp-lotr/images/boosters/V1-random-uncommon.png",
