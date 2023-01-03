@@ -164,7 +164,19 @@ var packBlueprints = {
     "(S)HU Block Choice - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
     
     "(S)PC Promo Art Selection": "/gemp-lotr/images/boosters/pc_promo_selection.png",
-    "(S)Masterwork Selection": "/gemp-lotr/images/boosters/masterwork_selection.png"
+    "(S)Masterwork Selection": "/gemp-lotr/images/boosters/masterwork_selection.png",
+    
+    
+    "(S)SotP - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    
+    "SotP - Tales & Weather Starter": "/gemp-lotr/images/boosters/V1-starter-tales_weather.PNG",
+    "SotP - Aragorn Signet & Twilight Starter": "/gemp-lotr/images/boosters/V1-starter-aragorn_twilight.PNG",
+    "SotP - Gandalf's Allies & Tentacles Starter": "/gemp-lotr/images/boosters/V1-starter-gandalf_tentacles.PNG",
+    "SotP - Frodo Signet & Sauron Starter": "/gemp-lotr/images/boosters/V1-starter-frodo_sauron.PNG",
+    
+    "(R)SotP - Rare": "/gemp-lotr/images/boosters/V1-random-common.png",
+    "(R)SotP - Uncommon": "/gemp-lotr/images/boosters/V1-random-common.png",
+    "(R)SotP - Common": "/gemp-lotr/images/boosters/V1-random-common.png"
 };
 
 var Card = Class.extend({
