@@ -53,7 +53,7 @@ public interface LotroFormat {
 
     public String applyErrata(String bpID);
 
-    public String findBaseCard(String bpID);
+    public List<String> findBaseCards(String bpID);
 
     public SitesBlock getSiteBlock();
 

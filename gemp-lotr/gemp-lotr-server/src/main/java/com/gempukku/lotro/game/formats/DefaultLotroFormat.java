@@ -485,8 +485,8 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
-    public String findBaseCard(String bpID) {
-        return _library.getBaseBlueprintId(bpID);
+    public List<String> findBaseCards(String bpID) {
+        return _errataCardMap.values().stream().filter(x-> x.equals(bpID)).toList();
     }
 
     private String validateDeckStructure(LotroDeck deck) {
