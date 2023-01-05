@@ -486,7 +486,11 @@ public class DefaultLotroFormat implements LotroFormat {
 
     @Override
     public List<String> findBaseCards(String bpID) {
-        return _errataCardMap.values().stream().filter(x-> x.equals(bpID)).toList();
+        return _errataCardMap
+                .entrySet().stream()
+                .filter(x-> x.getValue().equals(bpID))
+                .map(x -> x.getKey())
+                .toList();
     }
 
     private String validateDeckStructure(LotroDeck deck) {
