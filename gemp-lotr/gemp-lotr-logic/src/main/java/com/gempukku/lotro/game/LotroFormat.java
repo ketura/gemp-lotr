@@ -51,6 +51,10 @@ public interface LotroFormat {
 
     public Map<String,String> getErrataCardMap();
 
+    public String applyErrata(String bpID);
+
+    public String findBaseCard(String bpID);
+
     public SitesBlock getSiteBlock();
 
     public String getSurveyUrl();

@@ -689,7 +689,10 @@ public class HallServer extends AbstractServer {
             Map<String, Integer> deckCardCounts = CollectionUtils.getTotalCardCountForDeck(lotroDeck);
 
             for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
-                final int collectionCount = collection.getItemCount(cardCount.getKey());
+                final int collectionCount = collection.getItemCount(cardCount.getKey()) +
+                        collection.getItemCount(format.findBaseCard(cardCount.getKey())) +
+                        collection.getItemCount(format.applyErrata(cardCount.getKey()));
+
                 if (collectionCount < cardCount.getValue()) {
                     String cardName = null;
                     try {

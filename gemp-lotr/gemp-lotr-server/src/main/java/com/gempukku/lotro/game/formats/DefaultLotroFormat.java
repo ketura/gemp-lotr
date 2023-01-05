@@ -479,6 +479,16 @@ public class DefaultLotroFormat implements LotroFormat {
         return deckWithErrata;
     }
 
+    @Override
+    public String applyErrata(String bpID) {
+        return _errataCardMap.getOrDefault(bpID, bpID);
+    }
+
+    @Override
+    public String findBaseCard(String bpID) {
+        return _library.getBaseBlueprintId(bpID);
+    }
+
     private String validateDeckStructure(LotroDeck deck) {
         String result = "";
         if (deck.getAdventureCards().size() < _minimumDeckSize) {
