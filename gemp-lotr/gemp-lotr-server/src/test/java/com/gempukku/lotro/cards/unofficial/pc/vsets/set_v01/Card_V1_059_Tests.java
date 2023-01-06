@@ -22,6 +22,7 @@ public class Card_V1_059_Tests
 				new HashMap<>() {{
 					put("sam", "1_311");
 					put("legolas", "1_50");
+					put("boromir", "3_122");
 				}},
 				new HashMap<>() {{
 					put("site1", "1_319");
@@ -122,5 +123,60 @@ public class Card_V1_059_Tests
 
 		scn.SkipToPhase(Phase.REGROUP);
 		assertEquals(5, scn.GetStrength(sam));
+	}
+
+	@Test
+	public void FellowshipActionLimitedTo6PerTurn() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl frodo = scn.GetRingBearer();
+		PhysicalCardImpl boromir = scn.GetFreepsCard("boromir");
+		scn.FreepsMoveCharToTable(boromir);
+
+		scn.StartGame();
+
+		scn.SkipToSite(3);
+		PhysicalCardImpl site3 = scn.GetCurrentSite();
+		assertEquals(4, scn.GetStrength(frodo));
+
+		assertTrue(scn.FreepsActionAvailable(site3));
+		scn.FreepsUseCardAction(site3);
+		scn.FreepsChooseCard(boromir);
+		assertEquals(5, scn.GetStrength(frodo));
+		scn.FreepsUseCardAction(boromir);
+
+		assertTrue(scn.FreepsActionAvailable(site3));
+		scn.FreepsUseCardAction(site3);
+		scn.FreepsChooseCard(boromir);
+		assertEquals(6, scn.GetStrength(frodo));
+		scn.FreepsUseCardAction(boromir);
+
+		assertTrue(scn.FreepsActionAvailable(site3));
+		scn.FreepsUseCardAction(site3);
+		scn.FreepsChooseCard(boromir);
+		assertEquals(7, scn.GetStrength(frodo));
+		scn.FreepsUseCardAction(boromir);
+
+		assertTrue(scn.FreepsActionAvailable(site3));
+		scn.FreepsUseCardAction(site3);
+		scn.FreepsChooseCard(boromir);
+		assertEquals(8, scn.GetStrength(frodo));
+		scn.FreepsUseCardAction(boromir);
+
+		assertTrue(scn.FreepsActionAvailable(site3));
+		scn.FreepsUseCardAction(site3);
+		scn.FreepsChooseCard(boromir);
+		assertEquals(9, scn.GetStrength(frodo));
+		scn.FreepsUseCardAction(boromir);
+
+		assertTrue(scn.FreepsActionAvailable(site3));
+		scn.FreepsUseCardAction(site3);
+		scn.FreepsChooseCard(boromir);
+		assertEquals(10, scn.GetStrength(frodo));
+		scn.FreepsUseCardAction(boromir);
+
+		assertFalse(scn.FreepsActionAvailable(site3));
+
 	}
 }

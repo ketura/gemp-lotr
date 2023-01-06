@@ -69,12 +69,22 @@
 		effects: {
 			type: activated
 			phase: fellowship
+			requires: [
+				{
+					type: perTurnLimit
+					limit: 6
+				}
+			]
 			cost: {
 				type: exert
 				filter: choose(companion)
 				memorize: exertedComp
 			}
 			effect: [
+				{
+					type: incrementPerTurnLimit
+					limit: 6
+				}
 				{
 					type: chooseActiveCards
 					text: Choose a companion of a different culture to make strength +1 until the end of the turn.
