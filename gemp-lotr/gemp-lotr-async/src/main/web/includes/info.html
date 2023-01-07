@@ -35,7 +35,36 @@
 			</span>
 			<input class='getStats' type='button' value='Display Stats'>
 		</div>
-		<div id="stats"></div>
+		<div id="stats">
+			<div class='period'>Stats for <span id="startDateSpan"></span> - <span id="endDateSpan"></span> </div>
+			<div class='activePlayers'>Active players: <span id="activePlayersStat"></span></div>
+			<div class='gamesCount'>All games count: <span id="gamesCountStat"></span></div>
+			<table class='tables' id="competitiveStatsTable">
+				<caption>Competitive Games by Format</caption>
+				<thead>
+					<tr>
+						<th>Format name</th>
+						<th># of games</th>
+						<th>% of competitive</th>
+						<th>% of total</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<br>
+			<table class='tables' id="casualStatsTable">
+				<caption>Casual Games by Format</caption>
+				<thead>
+					<tr>
+						<th>Format name</th>
+						<th># of games</th>
+						<th>% of casual</th>
+						<th>% of total</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
 	</div>
 	
 	<div id="about" >

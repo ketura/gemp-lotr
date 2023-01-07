@@ -65,4 +65,10 @@ public class DBDefs {
         public int id;
         public String name;
     }
+
+    public static class FormatStats {
+        public String Format;
+        public int Count;
+        public boolean Casual;
+    }
 }

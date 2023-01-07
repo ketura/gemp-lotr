@@ -22,6 +22,8 @@ public interface GameHistoryDAO {
 
     public Map<String, Integer> getCasualGamesPlayedPerFormat(long from, long duration);
 
+    public List<DBDefs.FormatStats> GetAllGameFormatData(long from, long duration);
+
     public List<PlayerStatistic> getCasualPlayerStatistics(Player player);
 
     public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player);

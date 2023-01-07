@@ -1,21 +1,17 @@
 package com.gempukku.lotro.async.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.GameHistoryStatistics;
 import com.gempukku.lotro.game.Player;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,32 +52,14 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
                 }
                 long duration = to.getTime() - from;
 
-                int activePlayers = _gameHistoryService.getActivePlayersCount(from, duration);
-                int gamesCount = _gameHistoryService.getGamesPlayedCount(from, duration);
+                var stats = new JSONDefs.PlayHistoryStats();
+                stats.ActivePlayers = _gameHistoryService.getActivePlayersCount(from, duration);
+                stats.GamesCount = _gameHistoryService.getGamesPlayedCount(from, duration);
+                stats.StartDate = format.format(new Date(from));
+                stats.EndDate = format.format(new Date(from + duration - 1));
+                stats.Stats = _gameHistoryService.getGameHistoryStatistics(from, duration);
 
-                GameHistoryStatistics gameHistoryStatistics = _gameHistoryService.getGameHistoryStatistics(from, duration);
-
-                DecimalFormat percFormat = new DecimalFormat("#0.0%");
-
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                Document doc = documentBuilder.newDocument();
-                Element stats = doc.createElement("stats");
-                stats.setAttribute("activePlayers", String.valueOf(activePlayers));
-                stats.setAttribute("gamesCount", String.valueOf(gamesCount));
-                stats.setAttribute("start", format.format(new Date(from)));
-                stats.setAttribute("end", format.format(new Date(from + duration - 1)));
-                for (GameHistoryStatistics.FormatStat formatStat : gameHistoryStatistics.getFormatStats()) {
-                    Element formatStatElem = doc.createElement("formatStat");
-                    formatStatElem.setAttribute("format", formatStat.getFormat());
-                    formatStatElem.setAttribute("count", String.valueOf(formatStat.getCount()));
-                    formatStatElem.setAttribute("perc", percFormat.format(formatStat.getPercentage()));
-                    stats.appendChild(formatStatElem);
-                }
-
-                doc.appendChild(stats);
-
-                responseWriter.writeXmlResponse(doc);
+                responseWriter.writeJsonResponse(JSON.toJSONString(stats));
             } catch (ParseException exp) {
                 logHttpError(_log, 400, request.uri(), exp);
                 throw new HttpProcessingException(400);

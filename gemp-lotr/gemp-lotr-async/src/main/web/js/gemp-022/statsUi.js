@@ -35,38 +35,66 @@ var StatsUI = Class.extend({
                 })
             });
     },
+    
+    getPercentage:function (num1, num2) {
+        return Number(num1 / num2).toLocaleString(undefined, {style: 'percent', minimumFractionDigits:2});
+    },
 
-    loadedStats:function (xml) {
+    loadedStats:function (json) {
         var that = this;
-        log(xml);
-        var root = xml.documentElement;
-        if (root.tagName == 'stats') {
-            $("#stats").html("");
+        log(json);
+        
+        var getPercentage = (num1, num2) => Number(num1 / num2).toLocaleString(undefined, {style: 'percent', minimumFractionDigits:2});
 
-            var stats = root;
+        $("#startDateSpan").html(json["StartDate"]);
+        $("#endDateSpan").html(json["EndDate"]);
+        $("#activePlayersStat").html(json["ActivePlayers"]);
+        $("#gamesCountStat").html(json["GamesCount"]);
 
-            var activePlayers = stats.getAttribute("activePlayers");
-            var gamesCount = stats.getAttribute("gamesCount");
-            var start = stats.getAttribute("start");
-            var end = stats.getAttribute("end");
-
-            $("#stats").append("<div class='period'>Stats for " + start + " - " + end + "</div>");
-            $("#stats").append("<div class='activePlayers'>Active players: " + activePlayers + "</div>");
-            $("#stats").append("<div class='gamesCount'>All games count: " + gamesCount + "</div>");
-
-            var formatStats = stats.getElementsByTagName("formatStat");
-            if (formatStats.length > 0) {
-                $("#stats").append("<div class='tableHeader'>Casual games per format</div>");
-
-                var table = $("<table class='tables'></table>");
-                table.append("<tr><th>Format name</th><th># of games</th><th>% of casual</th></tr>");
-                for (var i = 0; i < formatStats.length; i++) {
-                    var formatStat = formatStats[i];
-                    table.append("<tr><td>" + formatStat.getAttribute("format") + "</td><td>" + formatStat.getAttribute("count") + "</td><td>" + formatStat.getAttribute("perc") + "</td></tr>");
+        var formatStats = json["Stats"];
+        if (formatStats.length > 0) {
+            
+            var casualStats = $("#casualStatsTable");
+            var compStats = $("#competitiveStatsTable");
+            $("#casualStatsTable > tbody").empty();
+            $("#competitiveStatsTable > tbody").empty();
+            
+            var casuals = 0;
+            var comps = 0;
+            var total = 0;
+            
+            json["Stats"].forEach(item => {
+                if(item.Casual) {
+                    casuals += item.Count;
                 }
+                else {
+                    comps += item.Count;
+                }
+                total += item.Count;
+            });
+            
+            json["Stats"].forEach(item => {
+                
+                var test = getPercentage(item.Count, total);
+                
+                if(item.Casual) {
+                    casualStats.append("<tr>" 
+                    + "<td>" + item.Format + "</td>"
+                    + "<td>" + item.Count + "</td>"
+                    + "<td>" + getPercentage(item.Count, casuals) + "</td>"
+                    + "<td>" + getPercentage(item.Count, total) + "</td>"
+                    + "</tr>");
+                }
+                else {
+                    compStats.append("<tr>" 
+                    + "<td>" + item.Format + "</td>"
+                    + "<td>" + item.Count + "</td>"
+                    + "<td>" + getPercentage(item.Count, comps) + "</td>"
+                    + "<td>" + getPercentage(item.Count, total) + "</td>"
+                    + "</tr>");
+                } 
+            });
 
-                $("#stats").append(table);
-            }
         }
     }
 });

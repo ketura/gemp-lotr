@@ -73,4 +73,12 @@ public class JSONDefs {
         public Map<String, String> ErrataIDs;
     }
 
+    public static class PlayHistoryStats {
+        public List<DBDefs.FormatStats> Stats;
+        public int ActivePlayers;
+        public int GamesCount;
+        public String StartDate;
+        public String EndDate;
+    }
+
 }

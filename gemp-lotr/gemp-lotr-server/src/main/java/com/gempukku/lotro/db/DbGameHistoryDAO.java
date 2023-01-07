@@ -174,6 +174,34 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         }
     }
 
+    public List<DBDefs.FormatStats> GetAllGameFormatData(long from, long duration) {
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = """
+                        SELECT
+                        	 COUNT(*) AS Count
+                        	,format_name AS Format
+                        	,CASE WHEN tournament IS NULL OR tournament LIKE 'Casual %' THEN 1 ELSE 0 END AS Casual
+                        FROM game_history
+                        WHERE end_date >= :from
+                        	AND end_date < :to
+                        GROUP BY format_name, CASE WHEN tournament IS NULL OR tournament LIKE 'Casual %' THEN 1 ELSE 0 END
+                        """;
+                List<DBDefs.FormatStats> result = conn.createQuery(sql)
+                        .addParameter("from", from)
+                        .addParameter("to", from + duration)
+                        .executeAndFetch(DBDefs.FormatStats.class);
+
+                return result;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve format stats", ex);
+        }
+    }
+
+
     public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {

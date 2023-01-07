@@ -56,10 +56,8 @@ public class GameHistoryService {
         return _gameHistoryDAO.getGamesPlayedCount(from, duration);
     }
 
-    public GameHistoryStatistics getGameHistoryStatistics(long from, long duration) {
-        GameHistoryStatistics stats = new GameHistoryStatistics(from, duration);
-        stats.init(_gameHistoryDAO);
-        return stats;
+    public List<DBDefs.FormatStats> getGameHistoryStatistics(long from, long duration) {
+        return _gameHistoryDAO.GetAllGameFormatData(from, duration);
     }
 
     public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
