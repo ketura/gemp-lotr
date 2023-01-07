@@ -63,6 +63,8 @@ var StatsUI = Class.extend({
             var comps = 0;
             var total = 0;
             
+            json.Stats.sort((a,b) => { return a.Count - b.Count; })
+            
             json["Stats"].forEach(item => {
                 if(item.Casual) {
                     casuals += item.Count;
