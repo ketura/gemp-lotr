@@ -1,12 +1,11 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import org.junit.Test;
 
 import java.util.HashMap;
 
@@ -17,10 +16,16 @@ public class Card_01_139_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "71_139");
-					// put other cards in here as needed for the test case
+					put("aragorn", "1_89");
+					put("gimli", "1_13");
+					put("arwen", "1_30");
+					put("sam", "1_310");
+
+					put("savagery", "71_139");
+					put("uruk", "1_151");
+					put("uruk2", "1_151");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -28,16 +33,14 @@ public class Card_01_139_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void SavagerytoMatchTheirNumbersStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
 		* Set: 1
-		* Title: Savagery to Match\Their Numbers
+		* Title: Savagery to Match Their Numbers
 		* Unique: False
-		* Side: FREE_PEOPLE
+		* Side: SHADOW
 		* Culture: Isengard
 		* Twilight Cost: 2
 		* Type: event
@@ -49,34 +52,79 @@ public class Card_01_139_ErrataTests
 		//Pre-game setup
 		var scn = GetScenario();
 
-		var card = scn.GetFreepsCard("card");
+		var savagery = scn.GetFreepsCard("savagery");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.ISENGARD, card.getBlueprint().getCulture());
-		assertEquals(CardType.EVENT, card.getBlueprint().getCardType());
-		//assertEquals(Race., card.getBlueprint().getRace());
-		//assertTrue(card.getBlueprint().getPossessionClasses().contains(PossessionClass.));
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertFalse(savagery.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, savagery.getBlueprint().getSide());
+		assertEquals(Culture.ISENGARD, savagery.getBlueprint().getCulture());
+		assertEquals(CardType.EVENT, savagery.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(savagery, Keyword.SKIRMISH));
+		assertEquals(2, savagery.getBlueprint().getTwilightCost());
 	}
 
-	//@Test
-	public void SavagerytoMatchTheirNumbersTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void SavageryAdds2StrengthFor1SkirmishIfThereAreLessThan5Companions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
-		var card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var frodo = scn.GetRingBearer();
+		var aragorn = scn.GetFreepsCard("aragorn");
+		scn.FreepsMoveCharToTable(aragorn);
+
+		var savagery = scn.GetShadowCard("savagery");
+		var uruk = scn.GetShadowCard("uruk");
+		var uruk2 = scn.GetShadowCard("uruk2");
+		scn.ShadowMoveCardToHand(savagery);
+		scn.ShadowMoveCharToTable(uruk, uruk2);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(new PhysicalCardImpl[]{frodo, uruk2}, new PhysicalCardImpl[]{aragorn,uruk});
+		scn.FreepsResolveSkirmish(aragorn);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertTrue(scn.ShadowPlayAvailable(savagery));
+		assertEquals(5, scn.GetStrength(uruk));
+		scn.ShadowPlayCard(savagery);
+		scn.ShadowChooseCard(uruk);
+		assertEquals(7, scn.GetStrength(uruk));
+		scn.PassCurrentPhaseActions();
+
+		scn.FreepsResolveSkirmish(frodo);
+		assertEquals(5, scn.GetStrength(uruk));
+	}
+
+	@Test
+	public void SavageryAddsFierceAndPlus4Plus2IfMoreThan5Comps() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetScenario();
+
+		var frodo = scn.GetRingBearer();
+		var aragorn = scn.GetFreepsCard("aragorn");
+		scn.FreepsMoveCharToTable(aragorn);
+
+		var savagery = scn.GetShadowCard("savagery");
+		var uruk = scn.GetShadowCard("uruk");
+		var uruk2 = scn.GetShadowCard("uruk2");
+		scn.ShadowMoveCardToHand(savagery);
+		scn.ShadowMoveCharToTable(uruk, uruk2);
+
+		scn.StartGame();
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(new PhysicalCardImpl[]{frodo, uruk2}, new PhysicalCardImpl[]{aragorn,uruk});
+		scn.FreepsResolveSkirmish(aragorn);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertTrue(scn.ShadowPlayAvailable(savagery));
+		assertEquals(5, scn.GetStrength(uruk));
+		scn.ShadowPlayCard(savagery);
+		scn.ShadowChooseCard(uruk);
+		assertEquals(7, scn.GetStrength(uruk));
+		scn.PassCurrentPhaseActions();
+
+		scn.FreepsResolveSkirmish(frodo);
+		assertEquals(5, scn.GetStrength(uruk));
 	}
 }

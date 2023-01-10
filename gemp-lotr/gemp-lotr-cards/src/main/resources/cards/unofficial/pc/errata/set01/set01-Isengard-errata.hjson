@@ -408,7 +408,7 @@
 		keyword: damage+1
 		effects: {
 			type: trigger
-			optional: true
+			optional: false
 			trigger: {
 				type: played
 				filter: your,self

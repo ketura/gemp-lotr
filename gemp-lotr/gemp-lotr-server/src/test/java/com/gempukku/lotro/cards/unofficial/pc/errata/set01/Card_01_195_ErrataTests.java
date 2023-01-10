@@ -5,7 +5,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -17,7 +16,7 @@ public class Card_01_195_ErrataTests
 
     protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
         return new GenericCardTestHelper(
-                new HashMap<String, String>()
+                new HashMap<>()
                 {{
                     put("relics", "51_195");
                     put("runner", "1_178");

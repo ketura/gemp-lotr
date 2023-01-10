@@ -49,7 +49,7 @@
 				}
 				effect: {
 					type: optional
-					text: Would you like to play a unique wraith minion from your discard?
+					text: Would you like to play a unique WRAITH minion from your discard?
 					effect: {
 						type: playCardFromDiscard
 						filter: choose(unique,culture(wraith),minion)

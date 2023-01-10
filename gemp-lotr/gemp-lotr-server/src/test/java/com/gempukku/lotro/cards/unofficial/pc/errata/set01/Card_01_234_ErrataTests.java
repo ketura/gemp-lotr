@@ -5,24 +5,30 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_01_234_ErrataTests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "71_234");
-					// put other cards in here as needed for the test case
+					put("comp2", "1_53");
+					put("comp3", "1_53");
+					put("comp4", "1_53");
+					put("comp5", "1_53");
+					put("comp6", "1_53");
+
+					put("nertea", "51_234");
+					put("runner", "1_178");
+					put("twk", "2_85");
+					put("attea", "1_229");
+					put("rit", "101_40");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +36,7 @@ public class Card_01_234_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void UlaireNerteaStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -52,34 +56,100 @@ public class Card_01_234_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl nertea = scn.GetFreepsCard("nertea");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.SHADOW, card.getBlueprint().getSide());
-		assertEquals(Culture.WRAITH, card.getBlueprint().getCulture());
-		assertEquals(CardType.MINION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(4, card.getBlueprint().getTwilightCost());
-		assertEquals(9, card.getBlueprint().getStrength());
-		assertEquals(2, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		assertEquals(3, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
+		assertTrue(nertea.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, nertea.getBlueprint().getSide());
+		assertEquals(Culture.WRAITH, nertea.getBlueprint().getCulture());
+		assertEquals(CardType.MINION, nertea.getBlueprint().getCardType());
+		assertEquals(Race.NAZGUL, nertea.getBlueprint().getRace());
+		assertEquals(4, nertea.getBlueprint().getTwilightCost());
+		assertEquals(9, nertea.getBlueprint().getStrength());
+		assertEquals(2, nertea.getBlueprint().getVitality());
+		assertEquals(3, nertea.getBlueprint().getSiteNumber());
 
 	}
 
-	//@Test
-	public void UlaireNerteaTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void NerteaDoesNotTriggerWith4Companions() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		scn.FreepsMoveCharToTable("comp2", "comp3", "comp4");
+
+		PhysicalCardImpl nertea = scn.GetShadowCard("nertea");
+		scn.ShadowMoveCardToHand(nertea);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(20);
+		scn.FreepsPassCurrentPhaseAction();
 
-		assertEquals(4, scn.GetTwilight());
+		scn.ShadowPlayCard(nertea);
+		assertFalse(scn.ShadowHasOptionalTriggerAvailable());
+	}
+
+	@Test
+	public void NerteaPlaysUniqueWraithMinionIf5Companions() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		scn.FreepsMoveCharToTable("comp2", "comp3", "comp4", "comp5");
+
+		PhysicalCardImpl twk = scn.GetShadowCard("twk");
+		PhysicalCardImpl attea = scn.GetShadowCard("attea");
+		PhysicalCardImpl nertea = scn.GetShadowCard("nertea");
+		scn.ShadowMoveCardToDiscard("runner", "rit", "twk", "attea");
+		scn.ShadowMoveCardToDiscard(twk);
+		scn.ShadowMoveCardToHand(nertea);
+
+		scn.StartGame();
+		scn.SetTwilight(30);
+		scn.FreepsPassCurrentPhaseAction();
+
+		scn.ShadowPlayCard(nertea);
+		assertTrue(scn.ShadowDecisionAvailable("play a unique WRAITH minion"));
+		scn.ShadowChooseYes();
+		//twk and attea, but not rit or runner
+		assertEquals(2, scn.GetShadowCardChoiceCount());
+		assertEquals(Zone.DISCARD, twk.getZone());
+		scn.ShadowChooseCardBPFromSelection(twk);
+		assertEquals(Zone.SHADOW_CHARACTERS, twk.getZone());
+
+		assertFalse(scn.ShadowDecisionAvailable("play a unique WRAITH minion"));
+	}
+
+	@Test
+	public void NerteaPlays2UniqueWraithMinionsIf6Companions() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		scn.FreepsMoveCharToTable("comp2", "comp3", "comp4", "comp5", "comp6");
+
+		PhysicalCardImpl twk = scn.GetShadowCard("twk");
+		PhysicalCardImpl attea = scn.GetShadowCard("attea");
+		PhysicalCardImpl nertea = scn.GetShadowCard("nertea");
+		scn.ShadowMoveCardToDiscard("runner", "rit", "twk", "attea");
+		scn.ShadowMoveCardToDiscard(twk);
+		scn.ShadowMoveCardToHand(nertea);
+
+		scn.StartGame();
+		scn.SetTwilight(30);
+		scn.FreepsPassCurrentPhaseAction();
+
+		scn.ShadowPlayCard(nertea);
+		assertTrue(scn.ShadowDecisionAvailable("play a unique WRAITH minion"));
+		scn.ShadowChooseYes();
+		//twk and attea, but not rit or runner
+		assertEquals(2, scn.GetShadowCardChoiceCount());
+		assertEquals(Zone.DISCARD, twk.getZone());
+		scn.ShadowChooseCardBPFromSelection(twk);
+		assertEquals(Zone.SHADOW_CHARACTERS, twk.getZone());
+
+		assertTrue(scn.ShadowDecisionAvailable("play a unique WRAITH minion"));
+		assertEquals(Zone.DISCARD, attea.getZone());
+		scn.ShadowChooseYes();
+		assertEquals(Zone.SHADOW_CHARACTERS, attea.getZone());
+
+		assertFalse(scn.ShadowDecisionAvailable("play a unique WRAITH minion"));
 	}
 }
