@@ -21,7 +21,7 @@ public class Card_10_017_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<String, String>()
 				{{
-					put("card", "80_17");
+					put("card", "60_17");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,

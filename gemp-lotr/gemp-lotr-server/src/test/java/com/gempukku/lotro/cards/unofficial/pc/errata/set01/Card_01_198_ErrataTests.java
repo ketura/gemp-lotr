@@ -23,7 +23,7 @@ public class Card_01_198_ErrataTests
 					put("gimli", "1_13");
 					put("arwen", "1_30");
 
-					put("ttmm", "71_198");
+					put("ttmm", "51_198");
 					put("runner", "1_178");
 					put("scout", "1_191");
 

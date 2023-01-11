@@ -19,7 +19,7 @@ public class Card_01_240_ErrataTests
 				{{
 					put("aragorn", "1_89");
 
-					put("band", "71_240");
+					put("band", "51_240");
 					put("card1", "1_241");
 					put("card2", "1_242");
 				}},

@@ -63,7 +63,7 @@
 		}
 	}
 	
-	72_107: {
+	52_107: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN02E107.1.jpg

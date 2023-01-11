@@ -28,7 +28,7 @@ public class Card_11_232_ErrataTests
 					put("soldier2", "1_271");
 				}},
 				new HashMap<>() {{
-					put("cavern", "81_232");
+					put("cavern", "61_232");
 					put("site2", "11_237");
 					put("site3", "11_237");
 					put("site4", "11_237");

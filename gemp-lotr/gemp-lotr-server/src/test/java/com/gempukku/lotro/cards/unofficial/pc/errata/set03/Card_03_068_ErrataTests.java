@@ -20,7 +20,7 @@ public class Card_03_068_ErrataTests
                     put("tale", "1_66");
                     put("doubleshot", "1_38");
 
-                    put("saruman", "73_68");
+                    put("saruman", "53_68");
                     put("uruk1", "1_151");
                     put("uruk2", "1_151");
                 }}

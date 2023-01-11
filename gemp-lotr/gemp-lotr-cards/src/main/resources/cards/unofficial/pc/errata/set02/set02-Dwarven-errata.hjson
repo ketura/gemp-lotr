@@ -1,5 +1,5 @@
 {
-	72_1: {
+	52_1: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN02E001.1.jpg
@@ -75,7 +75,7 @@
 		]
 	}
 	
-	72_12: {
+	52_12: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN02E012.1.jpg

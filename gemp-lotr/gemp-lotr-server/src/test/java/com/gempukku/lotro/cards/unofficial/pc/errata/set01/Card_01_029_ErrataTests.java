@@ -17,7 +17,7 @@ public class Card_01_029_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("enmity", "71_29");
+					put("enmity", "51_29");
 					put("arwen", "1_30");
 					put("gwemegil", "1_47");
 					put("elrond", "1_40");

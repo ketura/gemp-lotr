@@ -1,5 +1,5 @@
 {
-	71_240: {
+	51_240: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN01E240.1.jpg
@@ -72,7 +72,7 @@
 		}
 	}
 	
-	71_245: {
+	51_245: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN01E245.1.jpg
@@ -205,7 +205,7 @@
 		}
 	}
 	
-	71_252: {
+	51_252: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN01E252.1.jpg
@@ -349,7 +349,7 @@
 		}
 	}
 	
-	71_265: {
+	51_265: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN01E265.1.jpg
@@ -429,7 +429,7 @@
 		}
 	}
 	
-	71_268: {
+	51_268: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN01E268.1.jpg
@@ -496,7 +496,7 @@
 		}
 	}
 	
-	71_280: {
+	51_280: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN01E280.1.jpg

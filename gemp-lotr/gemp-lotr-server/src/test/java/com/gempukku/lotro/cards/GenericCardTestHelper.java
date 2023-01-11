@@ -957,10 +957,18 @@ public class GenericCardTestHelper extends AbstractAtTest {
         {
             ShadowDeclineReconciliation();
         }
+        if(ShadowDecisionAvailable("discard down"))
+        {
+            ShadowChooseCard((PhysicalCardImpl) GetShadowHand().get(0));
+        }
         FreepsChooseToStay();
         if(FreepsDecisionAvailable("reconcile"))
         {
             FreepsDeclineReconciliation();
+        }
+        if(FreepsDecisionAvailable("discard down"))
+        {
+            FreepsChooseCard((PhysicalCardImpl) GetFreepsHand().get(0));
         }
 
         //Shadow player
@@ -970,10 +978,18 @@ public class GenericCardTestHelper extends AbstractAtTest {
         {
             FreepsDeclineReconciliation();
         }
+        if(FreepsDecisionAvailable("discard down"))
+        {
+            FreepsChooseCard((PhysicalCardImpl) GetFreepsHand().get(0));
+        }
         ShadowChoose("1"); // Choose to stay
         if(ShadowDecisionAvailable("reconcile"))
         {
             ShadowDeclineReconciliation();
+        }
+        if(ShadowDecisionAvailable("discard down"))
+        {
+            ShadowChooseCard((PhysicalCardImpl) GetShadowHand().get(0));
         }
         Assert.assertTrue(GetCurrentPhase() == Phase.BETWEEN_TURNS
                 || GetCurrentPhase() == Phase.FELLOWSHIP);

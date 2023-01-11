@@ -18,7 +18,7 @@ public class Card_01_154_ErrataTests
 				new HashMap<>()
 				{{
 
-					put("soldier", "71_154");
+					put("soldier", "51_154");
 					put("chaff1", "1_155");
 					put("chaff2", "1_156");
 					put("chaff3", "1_157");

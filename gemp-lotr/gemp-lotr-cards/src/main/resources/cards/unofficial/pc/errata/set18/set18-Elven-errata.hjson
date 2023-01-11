@@ -1,5 +1,5 @@
 {
-	88_11: {
+	68_11: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN18E011.1.jpg

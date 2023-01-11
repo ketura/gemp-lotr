@@ -1,6 +1,6 @@
 {
 
-	77_332: {
+	57_332: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/57_332.jpg

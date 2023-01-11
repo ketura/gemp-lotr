@@ -22,7 +22,7 @@ public class Card_01_150_ErrataTests
 					put("chaff2", "1_91");
 					put("chaff3", "1_92");
 
-					put("rager", "71_150");
+					put("rager", "51_150");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,

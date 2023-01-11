@@ -17,10 +17,10 @@ public class Card_02_059_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("things", "72_59");
-					put("things2", "72_59");
+					put("things", "52_59");
+					put("things2", "52_59");
 					put("runner", "1_178");
 					put("runner2", "1_178");
 					put("armory", "1_173");

@@ -23,7 +23,7 @@ public class Card_01_139_ErrataTests
 					put("arwen", "1_30");
 					put("sam", "1_310");
 
-					put("savagery", "71_139");
+					put("savagery", "51_139");
 					put("uruk", "1_151");
 					put("uruk2", "1_151");
 				}},

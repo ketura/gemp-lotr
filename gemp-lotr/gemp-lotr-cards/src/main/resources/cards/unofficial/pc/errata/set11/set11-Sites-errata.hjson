@@ -1,6 +1,6 @@
 {
 
-	81_227: {
+	61_227: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN11E227.1.jpg
@@ -64,7 +64,7 @@
 		}
 	}
 
-	81_232: {
+	61_232: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN11E232.1.jpg
@@ -171,7 +171,7 @@
 		}
 	}
 
-	81_249: {
+	61_249: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
 			imagePath: errata/LOTR-EN11E249.1.jpg

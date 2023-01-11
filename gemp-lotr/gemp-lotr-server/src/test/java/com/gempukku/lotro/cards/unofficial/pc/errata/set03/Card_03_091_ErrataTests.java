@@ -15,9 +15,9 @@ public class Card_03_091_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("cruelty", "73_91");
+					put("cruelty", "53_91");
 					put("soldier1", "1_271");
 					put("soldier2", "1_271");
 

@@ -19,8 +19,8 @@ public class Card_01_160_ErrataTests
 				{{
 					put("aragorn", "1_89");
 
-					put("sword", "71_160");
-					put("uruk", "71_154");
+					put("sword", "51_160");
+					put("uruk", "1_154");
 					put("chaff1", "1_155");
 					put("chaff2", "1_156");
 				}},

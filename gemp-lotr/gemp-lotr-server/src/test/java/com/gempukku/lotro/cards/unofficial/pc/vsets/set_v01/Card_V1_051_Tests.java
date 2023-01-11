@@ -44,7 +44,7 @@ public class Card_V1_051_Tests
 		* Strength: 3
 		* Vitality: 2
 		* Site Number: 1
-		* Game Text: Each time you play a [shire] ally, you may add (1) to draw a griffo.
+		* Game Text: Each time you play a [shire] ally, you may add (1) to draw a card.
 		*/
 
 		//Pre-game setup
