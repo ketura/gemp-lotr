@@ -203,22 +203,28 @@
 			type: event
 			effect: [
 				{
-					type: heal
+					type: chooseActiveCards
+					count: 1
 					filter: choose(dwarf,hasAttachedCount(2,item))
+					memorize: chosenDwarf
+					text: Choose a Dwarf with 2 or more items to heal
+				}
+				{
+					type: heal
+					filter: memory(chosenDwarf)
 					times: 1
-					memorize: healedDwarf
 				}
 				{
 					type: memorizenumber
 					memory: originalItemCount
 					amount: {
 						type: forEachYouCanSpot
-						filter: item,attachedTo(memory(healedDwarf))
+						filter: item,attachedTo(memory(chosenDwarf))
 					}
 				}
 				{
 					type: returntohand
-					filter: choose(item,attachedTo(memory(healedDwarf)))
+					filter: choose(item,attachedTo(memory(chosenDwarf)))
 					count: 0-50
 				}
 				{
@@ -232,7 +238,7 @@
 						}
 						secondNumber: {
 							type: forEachYouCanSpot
-							filter: item,attachedTo(memory(healedDwarf))
+							filter: item,attachedTo(memory(chosenDwarf))
 						}
 					}
 				}

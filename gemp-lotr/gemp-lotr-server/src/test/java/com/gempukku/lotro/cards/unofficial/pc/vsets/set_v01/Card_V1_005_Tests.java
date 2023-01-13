@@ -130,6 +130,44 @@ public class Card_V1_005_Tests
 	}
 
 	@Test
+	public void OneDwarfDiscardsAndWoundsEvenIfDwarfIsFullyHealed() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl onedwarf = scn.GetFreepsCard("onedwarf");
+		PhysicalCardImpl gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCardToHand(onedwarf);
+		scn.FreepsMoveCharToTable(gimli);
+		scn.FreepsMoveCharToTable("guard");
+		scn.FreepsAttachCardsTo(gimli, "handaxe1", "handaxe2", "armor", "bracers", "ring");
+
+		scn.ShadowMoveCharToTable("runner", "runner2", "runner3", "runner4", "runner5", "runner6");
+
+		scn.StartGame();
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.FreepsActionAvailable("One Dwarf"));
+
+		assertEquals(0, scn.GetWoundsOn(gimli));
+		scn.FreepsPlayCard(onedwarf);
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to return to hand"));
+		assertEquals(5, scn.GetFreepsCardChoiceCount()); // There are 5 items on gimli
+		String[] choices = scn.FreepsGetCardChoices().toArray(new String[0]);
+		scn.FreepsChoose(choices[0], choices[1], choices[2], choices[3], choices[4]);
+
+		assertTrue(scn.FreepsDecisionAvailable("Choose cards to wound"));
+		choices = scn.FreepsGetCardChoices().toArray(new String[0]);
+		scn.FreepsChoose(choices[0], choices[1], choices[2], choices[3], choices[4]);
+
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[0]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[1]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[2]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[3]).getZone());
+		assertEquals(Zone.DISCARD, scn.GetShadowCardByID(choices[4]).getZone());
+
+		assertEquals(Zone.SHADOW_CHARACTERS, scn.GetShadowCardByID(choices[5]).getZone());
+	}
+
+	@Test
 	public void OneDwarfCantBePlayedIfNoDwarvesWithTwoItems() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
