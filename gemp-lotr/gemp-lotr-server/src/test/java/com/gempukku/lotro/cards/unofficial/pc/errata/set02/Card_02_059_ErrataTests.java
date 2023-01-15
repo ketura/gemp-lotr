@@ -26,6 +26,11 @@ public class Card_02_059_ErrataTests
 					put("armory", "1_173");
 					put("host", "1_187");
 					put("scimitar", "1_180");
+					put("relentless", "1_194");
+					put("terror1", "101_32");
+					put("terror2", "101_32");
+
+					put("stealth", "1_298");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -67,7 +72,7 @@ public class Card_02_059_ErrataTests
 
 		var things = scn.GetShadowCard("things");
 		scn.ShadowMoveCardToHand(things);
-		scn.ShadowMoveCardToDiscard("runner2", "armory", "host", "scimitar");
+		scn.ShadowMoveCardToDiscard("runner2", "armory", "host", "scimitar", "relentless");
 		scn.ShadowMoveCharToTable("runner");
 
 		scn.StartGame();
@@ -92,5 +97,32 @@ public class Card_02_059_ErrataTests
 		scn.FreepsPassCurrentPhaseAction();
 
 		assertTrue(scn.ShadowPlayAvailable(things));
+		scn.ShadowPlayCard(things);
+	}
+
+	@Test
+	public void FoulThingsDoesNotErrorOutIfNoTwilightLeft() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetScenario();
+
+		scn.FreepsMoveCardToHand("stealth");
+
+		var things = scn.GetShadowCard("things");
+		scn.ShadowMoveCardToHand(things);
+		scn.ShadowMoveCardToSupportArea("terror1");
+		scn.ShadowMoveCardToDiscard("relentless", "terror2");
+
+		scn.StartGame();
+		scn.SetTwilight(-1);
+		scn.FreepsPassCurrentPhaseAction();
+
+		// This bug makes no sense.  Failed in PlayCardFromDiscard, line 83, replays are p3hxkhpke89tfglf and caf19xis68ev71a1
+		// Relentless and 7 other moria cards, plus a bunch of freeps cards, with 0 twilight after playing Foul Things.
+		// Nothing is playable, but FT determined that an event was the only choice and failed after auto-selecting it.
+		// Nevertheless, it is completely unreproducible here, no matter what I do.
+
+//		assertTrue(scn.ShadowPlayAvailable(things));
+//		scn.ShadowPlayCard(things);
+//		assertEquals(4, scn.GetShadowCardChoiceCount());
 	}
 }
