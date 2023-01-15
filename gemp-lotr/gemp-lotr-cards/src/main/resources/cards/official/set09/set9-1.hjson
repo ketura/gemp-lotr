@@ -505,6 +505,7 @@
 	}
 	9_13: {
 		title: Elven Rope
+		unique: true
 		culture: elven
 		twilight: 1
 		type: possession
