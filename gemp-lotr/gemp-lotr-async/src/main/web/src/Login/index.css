@@ -1,0 +1,107 @@
+shtml {
+    height: 100%;
+}
+body {
+    font-size: 100%;
+    height: 100%; 
+    background-image: url('../../../images/dwarrowdelf.jpg'); 
+    background-size: cover; 
+    background-repeat:no-repeat; 
+    background-position: center center;
+    background-color: #000000;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0;
+}
+
+.centerContainer {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 150px;
+}
+
+.banner {
+    display: block;
+    text-align: center; 
+    background-color: #222222CC; 
+    width: 105vw;
+    left: -2.5vw;
+    padding: 10px;
+    color: #D98E04; 
+    font-size: 500%;
+    margin: -5px 0 0 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: stretch;
+}
+
+.login {
+    margin: 10px;
+    padding: 10px;
+    font-size: 125%;
+    display:grid;
+    grid-row-gap: 10px;
+}
+
+.status, .error {
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.status {
+    color:#ffffff; 
+    overflow:visible
+}
+
+.error {
+    color: #ff0000
+}
+
+.interaction {
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff;
+}
+
+.info {
+    text-align: center; 
+    background-color: #222222CC; 
+    margin-bottom: 150px; 
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    color: #FFFFFF;
+}
+
+.sw-shoutout {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    font-size: 90%;
+}
+
+.ui-button-text-only .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+a {
+    color: #BF6B04;
+}
+
+a:visited {
+    color: #A63F03;
+}
