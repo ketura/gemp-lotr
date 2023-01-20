@@ -49,36 +49,12 @@
     <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
     
     <!-- Audio file downloaded from https://material.io/design/sound/sound-resources.html -->
-    <audio id="awaitAction" src="/gemp-lotr/awaiting_decision.mp3" type="audio/mpeg" preload="metadata"></audio>
+    <audio id="awaitAction" src="/gemp-lotr/src/assets/awaiting_decision.mp3" type="audio/mpeg" preload="metadata"></audio>
 
-
-<script type="text/javascript">
-    var ui;
-    var communication;
-
-    $(document).ready(
-            function () {
-                var replay = getUrlParam("replayId");
-
-                ui = new GempLotrGameUI("/gemp-lotr-server", replay != null);
-
-                $(window).resize(function () {
-                    ui.windowResized();
-                });
-
-                ui.layoutUI(true);
-
-                if (replay == null)
-                    ui.startGameSession();
-                else
-                    ui.startReplaySession(replay);
-            });
-</script>
-
+    <link rel="stylesheet" type="text/css" href="src/Game/index.css">
+    <script type="text/javascript" src="src/Game/game.js"></script>
 </head>
 <body>
-<div id="main"
-     style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: #000000; overflow: hidden">
-</div>
+    <div id="main"></div>
 </body>
 </html>
