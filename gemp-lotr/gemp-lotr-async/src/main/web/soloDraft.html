@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title>GEMP: LotR-TCG - Draft</title>
-    
+
     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
@@ -49,39 +50,19 @@
     <script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
     <script type="text/javascript" src="js/gemp-022/soloDraftUi.js"></script>
 
-    <script type="text/javascript">
-
-        $(document).ready(
-                function () {
-                    var ui = new GempLotrSoloDraftUI();
-
-                    $('body').layout({
-                        applyDefaultStyles:true,
-                        onresize:function () {
-                            ui.layoutUI(true);
-                        },
-                        north__minSize:"30%"
-                    });
-
-                    $(".ui-layout-pane").css({"background-color":"#000000"});
-
-                    $(window).resize(function () {
-                        ui.layoutUI(true);
-                    });
-
-                    ui.layoutUI(true);
-                });
-    </script>
-
+    <link rel="stylesheet" type="text/css" href="src/SoloDraft/index.css">
+    <script type="text/javascript" src="src/SoloDraft/soloDraft.js"></script>
 </head>
+
 <body>
 
-<div id="topDiv" class="ui-layout-north">
-    <div id="messageDiv"></div>
-    <div id="picksDiv"></div>
-</div>
-<div id="bottomDiv" class="ui-layout-center">
-    <div id="draftedDiv"></div>
-</div>
+    <div id="topDiv" class="ui-layout-north">
+        <div id="messageDiv"></div>
+        <div id="picksDiv"></div>
+    </div>
+    <div id="bottomDiv" class="ui-layout-center">
+        <div id="draftedDiv"></div>
+    </div>
 </body>
+
 </html>
