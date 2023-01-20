@@ -1,0 +1,15 @@
+#timerSelect {
+    width: 135px;
+}
+
+#inviteCheckbox {
+    min-width: fit-content;
+}
+
+#messageArea {
+    justify-content: space-between; align-items:flex-end
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
