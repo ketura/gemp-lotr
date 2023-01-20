@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 	<title>GEMP: LotR-TCG - Deckbuilder</title>
-	
+
 	<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
@@ -48,119 +49,93 @@
 	<script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
 	<script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
 
-	<script type="text/javascript">
 
-		$(document).ready(
-				function () {
-					var ui = new GempLotrDeckBuildingUI();
-
-					$('body').layout({
-						applyDefaultStyles:true,
-						onresize:function () {
-							ui.layoutUI(true);
-						},
-						east__minSize:350,
-						east__maxSize:"50%"
-					});
-
-					$(".ui-layout-pane").css({"background-color":"#000000"});
-
-					$(window).resize(function () {
-						ui.layoutUI(true);
-					});
-
-					ui.layoutUI(true);
-				});
-	</script>
-	
-	<style type="text/css">
-		
-        
-        
-    </style>
-
+	<link rel="stylesheet" type="text/css" href="src/DeckBuilder/index.css">
+	<script type="text/javascript" src="src/DeckBuilder/deckBuilder.js"></script>
 </head>
 
-<body class="ui-layout-container" style="position: relative; height: 100%; overflow: hidden; margin: 0px; padding: 0px; border: medium none;" cz-shortcut-listen="true">
+<body class="ui-layout-container" cz-shortcut-listen="true">
 
-	<div id="deckDiv" class="ui-layout-center ui-layout-pane ui-layout-pane-center" style="position: absolute; margin: 0px; inset: 0px 327px 0px 0px; height: 644px; width: 729px; z-index: 1; padding: 10px; background: rgb(0, 0, 0) none repeat scroll 0% 0%; border: 1px solid rgb(187, 187, 187); overflow: auto; display: block; visibility: visible;">
-		
-		<div id="manageDecks" style="position: absolute; left: 5px; top: 5px; width: 729px; height: 23px;">
-			
+	<div id="deckDiv" class="ui-layout-center ui-layout-pane ui-layout-pane-center">
+
+		<div id="manageDecks">
+
 			<button id="newDeckBut" title="New deck" class="menu-button">
 				<span class="ui-icon ui-icon-document"></span>
 			</button>
-			
+
 			<button id="saveDeckBut" title="Save deck" class="menu-button">
 				<span class="ui-icon ui-icon-disk"></span>
 			</button>
-			
+
 			<button id="renameDeckBut" title="Rename deck" class="menu-button">
 				<span class="ui-icon ui-icon-pencil"></span>
 			</button>
-			
+
 			<button id="copyDeckBut" title="Copy deck to new" class="menu-button">
 				<span class="ui-icon ui-icon-copy"></span>
 			</button>
-			
+
 			<button id="importDeckBut" title="Import Deck" class="menu-button">
 				<span class="ui-icon ui-icon-arrowthickstop-1-s"></span>
 			</button>
-			
+
 			<button id="libraryListBut" title="Open Library" class="menu-button">
 				<span class="ui-icon ui-icon-bookmark"></span>
 			</button>
-			
+
 			<button id="deckListBut" title="Deck list" class="menu-button">
 				<span class="ui-icon ui-icon-suitcase"></span>
 			</button>
-			
+
 			<select id="formatSelect" style="float: right; width: 100px;">
 				<option value="fotr_block">Fellowship Block</option>
 			</select>
-			
+
 			<button id="notesBut" title="Add/Edit Notes" class="menu-button">
 				<span class="ui-icon ui-icon-plus"></span>
 			</button>
-			
+
 			<span id="editingDeck">New deck</span>
-			
-			<select id="collectionSelect" style="float: right; width: 100px;">
+
+			<select id="collectionSelect">
 				<option value="default">All cards</option>
 				<option value="permanent">My cards</option>
 				<option value="trophy">Trophies</option>
 			</select>
 		</div>
-		
-		<div id="ringBearerDiv" style="position: absolute; left: 5px; top: 33px; width: 89px; height: 117px;">Ring Bearer</div>
-		
-		<div id="ringDiv" style="position: absolute; left: 99px; top: 33px; width: 89px; height: 117px;">Ring</div>
-		
-		<div id="sitesDiv" style="position: absolute; left: 5px; top: 155px; width: 184px; height: 489px;">Sites</div>
-		
-		<div id="statsDiv" style="overflow: auto; position: absolute; left: 194px; top: 594px; width: 535px; height: 70px;">
+
+		<div id="ringBearerDiv">Ring Bearer</div>
+
+		<div id="ringDiv">Ring</div>
+
+		<div id="sitesDiv">Sites</div>
+
+		<div id="statsDiv">
 			<div id="deckStats"></div>
 		</div>
-		
-		<div id="decksRegion" style="position: absolute; left: 194px; top: 33px; width: 535px; height: 556px;"></div>
+
+		<div id="decksRegion"></div>
 	</div>
-	
-	<div id="collectionDiv" class="ui-layout-east ui-layout-pane ui-layout-pane-east" >
-		<div id="cardCollectionDiv" style=""></div>
+
+	<div id="collectionDiv" class="ui-layout-east ui-layout-pane ui-layout-pane-east">
+		<div id="cardCollectionDiv"></div>
 	</div>
-	
-	<div id="cardInfoDiv" style="display: none; z-index: 1000; outline: currentcolor none 0px;" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-1">
+
+	<div id="cardInfoDiv" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1"
+		role="dialog" aria-labelledby="ui-dialog-title-1">
 		<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
 			<span class="ui-dialog-title" id="ui-dialog-title-1">Card information</span>
 			<a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
 				<span class="ui-icon ui-icon-closethick">close</span>
 			</a>
 		</div>
-		
+
 		<div class="ui-dialog-content ui-widget-content"></div>
 	</div>
-	
+
 
 
 </body>
+
 </html>

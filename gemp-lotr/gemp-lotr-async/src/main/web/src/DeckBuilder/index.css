@@ -1,0 +1,83 @@
+.ui-layout-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    border: medium none;
+}
+
+#deckDiv {
+    position: absolute;
+    margin: 0px;
+    inset: 0px 327px 0px 0px;
+    height: 644px;
+    width: 729px;
+    z-index: 1;
+    padding: 10px;
+    background: rgb(0, 0, 0) none repeat scroll 0% 0%;
+    border: 1px solid rgb(187, 187, 187);
+    overflow: auto;
+    display: block;
+    visibility: visible;
+}
+
+#manageDecks {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 729px;
+    height: 23px;
+}
+
+#collectionSelect {
+    float: right;
+    width: 100px;
+}
+
+#ringBearerDiv {
+    position: absolute;
+    left: 5px;
+    top: 33px;
+    width: 89px;
+    height: 117px;
+}
+
+#ringDiv {
+    position: absolute;
+    left: 99px;
+    top: 33px;
+    width: 89px;
+    height: 117px;
+}
+
+#sitesDiv {
+    position: absolute;
+    left: 5px;
+    top: 155px;
+    width: 184px;
+    height: 489px;
+}
+
+#statsDiv {
+    overflow: auto;
+    position: absolute;
+    left: 194px;
+    top: 594px;
+    width: 535px;
+    height: 70px;
+}
+
+#decksRegion {
+    position: absolute;
+    left: 194px;
+    top: 33px;
+    width: 535px;
+    height: 556px;
+}
+
+#cardInfoDiv {
+    display: none;
+    z-index: 1000;
+    outline: currentcolor none 0px;
+}
