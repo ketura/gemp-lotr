@@ -407,5 +407,11 @@ var PCCards = {
 	'10_125': 'https://i.lotrtcgpc.net/promos/LOTR-EN10H006.1_card.jpg',
 	//Gimli, Lively Combatant (11U8)
 	'11_271': 'https://i.lotrtcgpc.net/promos/LOTR-EN11H008.1_card.jpg',
+	
+	//January 2022 Sealed Promos
+	//Arwen, Daughter of Elrond MW (1R30)
+	'1_376': 'https://i.lotrtcgpc.net/promos/LOTR-EN01O030.1_card.jpg',
+	//The Witch-king, Lord of the Nazgul FA (2R85)
+	'1_377': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U085.1_card.jpg',
 }
 

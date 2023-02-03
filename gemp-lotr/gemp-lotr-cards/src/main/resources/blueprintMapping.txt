@@ -306,3 +306,7 @@ gl_theOneRing,1_2
 10_125,10_6
 #Gimli, Lively Combatant
 11_271,11_8
+#Arwen, Daughter of Elrond MW
+1_379,1_30
+#The Witch-king, Lord of the Nazgul FA
+2_123,2_85
