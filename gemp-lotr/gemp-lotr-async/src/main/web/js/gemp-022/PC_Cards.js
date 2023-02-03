@@ -410,8 +410,8 @@ var PCCards = {
 	
 	//January 2022 Sealed Promos
 	//Arwen, Daughter of Elrond MW (1R30)
-	'1_376': 'https://i.lotrtcgpc.net/promos/LOTR-EN01O030.1_card.jpg',
+	'1_379': 'https://i.lotrtcgpc.net/promos/LOTR-EN01O030.1_card.jpg',
 	//The Witch-king, Lord of the Nazgul FA (2R85)
-	'1_377': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U085.1_card.jpg',
+	'2_123': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U085.1_card.jpg',
 }
 
