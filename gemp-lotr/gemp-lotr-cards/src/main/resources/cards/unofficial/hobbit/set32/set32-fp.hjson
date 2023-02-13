@@ -812,10 +812,11 @@
   }
   32_23: {
     title: Narya
-		unique: true
+    unique: true
     culture: gandalf
     twilight: 0
     type: artifact
+    itemclass: ring
     vitality: 1
     target: name(Gandalf)
     effects: [
