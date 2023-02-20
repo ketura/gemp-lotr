@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class Card_01_248_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl forces = scn.GetFreepsCard("forces1");
+        var forces = scn.GetFreepsCard("forces1");
 
         assertEquals(0, forces.getBlueprint().getTwilightCost());
         assertEquals(CardType.EVENT, forces.getBlueprint().getCardType());
@@ -57,13 +57,13 @@ public class Card_01_248_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl forces1 = scn.GetShadowCard("forces1");
-        PhysicalCardImpl forces2 = scn.GetShadowCard("forces2");
-        PhysicalCardImpl troll = scn.GetShadowCard("troll");
-        PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
-        PhysicalCardImpl orc2 = scn.GetShadowCard("orc2");
-        PhysicalCardImpl orc3 = scn.GetShadowCard("orc3");
-        PhysicalCardImpl orc4 = scn.GetShadowCard("orc4");
+        var forces1 = scn.GetShadowCard("forces1");
+        var forces2 = scn.GetShadowCard("forces2");
+        var troll = scn.GetShadowCard("troll");
+        var orc1 = scn.GetShadowCard("orc1");
+        var orc2 = scn.GetShadowCard("orc2");
+        var orc3 = scn.GetShadowCard("orc3");
+        var orc4 = scn.GetShadowCard("orc4");
 
         scn.ShadowMoveCardToHand(forces1,forces2);
         scn.ShadowMoveCharToTable(troll, orc1, orc2);

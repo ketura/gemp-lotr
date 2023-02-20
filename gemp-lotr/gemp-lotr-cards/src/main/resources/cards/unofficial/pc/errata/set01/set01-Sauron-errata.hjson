@@ -230,6 +230,7 @@
 			style: Standard
 		}
 		title: The Irresistible Shadow
+		unique: true
 		culture: sauron
 		twilight: 0
 		type: condition
@@ -309,7 +310,7 @@
 		}
 		title: Mordor Enraged
 		culture: sauron
-		twilight: 0
+		twilight: 1
 		type: condition
 		target: archer,companion
 		effects: [
@@ -317,7 +318,7 @@
 				type: extraCost
 				cost: {
 					type: exert
-					filter: choose(culture(sauron),orc)
+					filter: choose(culture(sauron),minion)
 				}
 			}
 			{

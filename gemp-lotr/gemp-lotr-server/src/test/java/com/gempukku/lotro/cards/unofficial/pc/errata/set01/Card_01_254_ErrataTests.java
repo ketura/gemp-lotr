@@ -1,13 +1,11 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import org.junit.Test;
 
 import java.util.HashMap;
 
@@ -18,10 +16,14 @@ public class Card_01_254_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "51_254");
-					// put other cards in here as needed for the test case
+					put("mordor", "51_254");
+					put("wraith", "6_99");
+
+					put("greenleaf", "1_50");
+					put("arwen", "3_7");
+					put("bow", "1_41");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -29,9 +31,7 @@ public class Card_01_254_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void MordorEnragedStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -49,34 +49,115 @@ public class Card_01_254_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl mordor = scn.GetFreepsCard("mordor");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.SHADOW, card.getBlueprint().getSide());
-		assertEquals(Culture.SAURON, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertFalse(mordor.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, mordor.getBlueprint().getSide());
+		assertEquals(Culture.SAURON, mordor.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, mordor.getBlueprint().getCardType());
+		assertFalse(scn.HasKeyword(mordor, Keyword.SUPPORT_AREA));
+		assertEquals(1, mordor.getBlueprint().getTwilightCost());
 	}
 
-	//@Test
-	public void MordorEnragedTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void MordorRequiresASauronMinionExertion() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var mordor = scn.GetShadowCard("mordor");
+		var wraith = scn.GetShadowCard("wraith");
+		scn.ShadowMoveCardToHand(mordor);
+		scn.ShadowMoveCharToTable(wraith);
+
+		var greenleaf = scn.GetFreepsCard("greenleaf");
+		scn.FreepsMoveCharToTable(greenleaf);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.AddWoundsToChar(wraith, 1);
 
-		assertEquals(1, scn.GetTwilight());
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(1, scn.GetWoundsOn(wraith));
+		assertEquals(Zone.FREE_CHARACTERS, greenleaf.getZone());
+		assertFalse(scn.ShadowPlayAvailable(mordor));
+	}
+
+	@Test
+	public void MordorRequiresAFreepsArcher() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var mordor = scn.GetShadowCard("mordor");
+		var wraith = scn.GetShadowCard("wraith");
+		scn.ShadowMoveCardToHand(mordor);
+		scn.ShadowMoveCharToTable(wraith);
+
+		var greenleaf = scn.GetFreepsCard("greenleaf");
+		scn.FreepsMoveCardToHand(greenleaf);
+
+		scn.StartGame();
+
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(0, scn.GetWoundsOn(wraith));
+		assertEquals(Zone.HAND, greenleaf.getZone());
+		assertFalse(scn.ShadowPlayAvailable(mordor));
+	}
+
+	@Test
+	public void MordorPlaysOnAFreepsArcher() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var mordor = scn.GetShadowCard("mordor");
+		var wraith = scn.GetShadowCard("wraith");
+		scn.ShadowMoveCardToHand(mordor);
+		scn.ShadowMoveCharToTable(wraith);
+
+		var greenleaf = scn.GetFreepsCard("greenleaf");
+		scn.FreepsMoveCharToTable(greenleaf);
+
+		scn.StartGame();
+
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(0, scn.GetWoundsOn(wraith));
+		assertEquals(Zone.FREE_CHARACTERS, greenleaf.getZone());
+		assertTrue(scn.ShadowPlayAvailable(mordor));
+		scn.ShadowPlayCard(mordor);
+		assertEquals(1, scn.GetWoundsOn(wraith));
+		assertEquals(Zone.ATTACHED, mordor.getZone());
+		assertEquals(greenleaf, mordor.getAttachedTo());
+	}
+
+	@Test
+	public void MordorExertsBearerEachTimeFreepsUsesArcheryAbility() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var mordor = scn.GetShadowCard("mordor");
+		var wraith = scn.GetShadowCard("wraith");
+		scn.ShadowMoveCardToHand(mordor);
+		scn.ShadowMoveCharToTable(wraith);
+
+		var greenleaf = scn.GetFreepsCard("greenleaf");
+		var arwen = scn.GetFreepsCard("arwen");
+		scn.FreepsMoveCharToTable(greenleaf, arwen);
+		scn.FreepsAttachCardsTo(arwen, "bow");
+
+		scn.StartGame();
+
+		scn.FreepsPassCurrentPhaseAction();
+
+		scn.ShadowPlayCard(mordor);
+		assertEquals(2, scn.GetShadowCardChoiceCount());
+		scn.ShadowChooseCard(arwen);
+
+		scn.SkipToPhase(Phase.ARCHERY);
+		assertEquals(0, scn.GetWoundsOn(arwen));
+		assertEquals(0, scn.GetWoundsOn(greenleaf));
+		scn.FreepsUseCardAction(greenleaf);
+		assertEquals(1, scn.GetWoundsOn(arwen));
+		assertEquals(1, scn.GetWoundsOn(greenleaf));
 	}
 }
