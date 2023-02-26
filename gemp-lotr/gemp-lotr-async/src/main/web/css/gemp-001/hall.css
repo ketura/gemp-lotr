@@ -509,6 +509,7 @@ table.tables tr.privateForPlayer {
 
 #userListColumn {
 	min-width: fit-content;
+	max-width: 15em;
 }
 
 #userList {
