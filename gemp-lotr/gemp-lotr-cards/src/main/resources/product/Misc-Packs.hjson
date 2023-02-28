@@ -102,7 +102,7 @@
 			1x9_54
 			#Great Hill Troll - 2021/11
 			1x8_123
-			# Christmas 2021
+			# Yuletide 2021
 			#Holiday Boromir, Son of Denethor
 			1x1_370
 			#Holiday Aragorn, Ranger of the North
@@ -149,10 +149,29 @@
 			1x1_376
 			#Merry, Friend to Sam MW
 			1x1_377
+			#Faramir, Son of Denethor Promo MW (0P16)
+			1x0_130
+			#Eowyn, Lady of Rohan Promo MW (0P17)
+			1x0_131
+			#Yuletide 2022
+			#Legolas, Greenleaf Winter Promo (1R50)
+			1x1_378
+			#Arwen, Queen of Elves and Men Winter Promo (10R6)
+			1x10_125
+			#Gimli, Lively Combatant (11U8)
+			1x11_271
 			#Arwen, Daughter of Elrond MW
 			1x1_379
 			#The Witch-king, Lord of the Nazgul FA
 			1x2_123
+			#Bilbo, Aged Ring-bearer MW
+			1x13_205
+			#Pallando, Far-travelling One FA
+			1x13_206
+			#Gandalf, Leader of Men MW
+			1x8_124
+			#Ithil Stone FA
+			1x9_57
 		]
 	}
 	
@@ -336,6 +355,10 @@
 			1x0_131
 			#Arwen, Daughter of Elrond MW
 			1x1_379
+			#Bilbo, Aged Ring-bearer MW
+			1x13_205
+			#Gandalf, Leader of Men MW
+			1x8_124
 		]
 	}
 ]

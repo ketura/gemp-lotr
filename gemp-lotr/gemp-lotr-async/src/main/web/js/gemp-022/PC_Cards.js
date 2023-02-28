@@ -401,17 +401,31 @@ var PCCards = {
 	'0_130': 'https://i.lotrtcgpc.net/promos/LOTR-EN00O016.0_card.jpg',
 	//Eowyn, Lady of Rohan Promo MW (0P17)
 	'0_131': 'https://i.lotrtcgpc.net/promos/LOTR-EN00O017.0_card.jpg',
-	//Legolas, Greenleaf Winter Promo (1R50)
-	'1_378': 'https://i.lotrtcgpc.net/promos/LOTR-EN01H050.1_card.jpg',
-	//Arwen, Queen of Elves and Men Winter Promo (10R6)
-	'10_125': 'https://i.lotrtcgpc.net/promos/LOTR-EN10H006.1_card.jpg',
-	//Gimli, Lively Combatant (11U8)
-	'11_271': 'https://i.lotrtcgpc.net/promos/LOTR-EN11H008.1_card.jpg',
 	
-	//January 2022 Sealed Promos
+	//Yuletide 2022
+	//Legolas, Greenleaf Winter Promo (1R50)
+	'1_378': 'https://i.lotrtcgpc.net/promos/LOTR-EN01H050.0_card.jpg',
+	//Arwen, Queen of Elves and Men Winter Promo (10R6)
+	'10_125': 'https://i.lotrtcgpc.net/promos/LOTR-EN10H006.0_card.jpg',
+	//Gimli, Lively Combatant (11U8)
+	'11_271': 'https://i.lotrtcgpc.net/promos/LOTR-EN11H008.0_card.jpg',
+	
+	//January 2023 Sealed Promos
 	//Arwen, Daughter of Elrond MW (1R30)
-	'1_379': 'https://i.lotrtcgpc.net/promos/LOTR-EN01O030.1_card.jpg',
+	'1_379': 'https://i.lotrtcgpc.net/promos/LOTR-EN01O030.0_card.jpg',
 	//The Witch-king, Lord of the Nazgul FA (2R85)
-	'2_123': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U085.1_card.jpg',
+	'2_123': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U085.0_card.jpg',
+	
+	//Feburary 2023 Gala
+	//Bilbo, Aged Ring-bearer MW
+	'13_205': 'https://i.lotrtcgpc.net/promos/LOTR-EN13S142.0_card.jpg',
+	//Pallando, Far-travelling One FA
+	'13_206': 'https://i.lotrtcgpc.net/promos/LOTR-EN13S037.0_card.jpg',
+	
+	//Feburary 2023 Qualifier League
+	//Gandalf, Leader of Men MW
+	'8_124': 'https://i.lotrtcgpc.net/promos/LOTR-EN08S015.0_card.jpg',
+	//Ithil Stone FA
+	'9_57': 'https://i.lotrtcgpc.net/promos/LOTR-EN09S047.0_card.jpg'
 }
 

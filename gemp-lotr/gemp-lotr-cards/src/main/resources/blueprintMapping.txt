@@ -310,3 +310,11 @@ gl_theOneRing,1_2
 1_379,1_30
 #The Witch-king, Lord of the Nazgul FA
 2_123,2_85
+#Bilbo, Aged Ring-bearer MW
+13_205,13_142
+#Pallando, Far-travelling One FA
+13_206,13_37
+#Gandalf, Leader of Men MW
+8_124,8_15
+#Ithil Stone FA
+9_57,9_47
