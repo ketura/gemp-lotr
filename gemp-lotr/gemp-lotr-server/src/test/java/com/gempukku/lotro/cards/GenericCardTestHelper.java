@@ -233,6 +233,16 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return actions.stream().anyMatch(x -> x.toLowerCase().contains(lowerAction));
     }
 
+    public Boolean FreepsChoiceAvailable(String choice) { return ChoiceAvailable(P1, choice); }
+    public Boolean ShadowChoiceAvailable(String choice) { return ChoiceAvailable(P2, choice); }
+    public Boolean ChoiceAvailable(String player, String choice) {
+        List<String> actions = GetADParamAsList(player, "results");
+        if(actions == null)
+            return false;
+        String lowerChoice = choice.toLowerCase();
+        return actions.stream().anyMatch(x -> x.toLowerCase().contains(lowerChoice));
+    }
+
     public Boolean FreepsAnyActionsAvailable() { return AnyActionsAvailable(P1); }
     public Boolean ShadowAnyActionsAvailable() { return AnyActionsAvailable(P2); }
     public Boolean AnyActionsAvailable(String player) {
@@ -498,7 +508,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P1, card, Zone.SUPPORT));
     }
     public void ShadowMoveCardToSupportArea(String...names) {
-        Arrays.stream(names).forEach(name -> ShadowMoveCardToSupportArea(GetFreepsCard(name)));
+        Arrays.stream(names).forEach(name -> ShadowMoveCardToSupportArea(GetShadowCard(name)));
     }
     public void ShadowMoveCardToSupportArea(PhysicalCardImpl...cards) {
         Arrays.stream(cards).forEach(card -> MoveCardToZone(P2, card, Zone.SUPPORT));
@@ -790,6 +800,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
         return _game.getModifiersQuerying().getStrength(_game, card);
     }
     public int GetVitality(PhysicalCardImpl card) { return _game.getModifiersQuerying().getVitality(_game, card); }
+    public int GetResistance(PhysicalCardImpl card) { return _game.getModifiersQuerying().getResistance(_game, card); }
     public int GetMinionSiteNumber(PhysicalCardImpl card) { return _game.getModifiersQuerying().getMinionSiteNumber(_game, card); }
     public int GetGeneralSiteNumber(PhysicalCardImpl card)
     {
