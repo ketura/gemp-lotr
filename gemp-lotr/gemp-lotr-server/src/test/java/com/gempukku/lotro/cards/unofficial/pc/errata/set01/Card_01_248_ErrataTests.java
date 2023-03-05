@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
@@ -48,6 +49,7 @@ public class Card_01_248_ErrataTests
         var forces = scn.GetFreepsCard("forces1");
 
         assertEquals(0, forces.getBlueprint().getTwilightCost());
+        assertEquals(Side.SHADOW, forces.getBlueprint().getSide());
         assertEquals(CardType.EVENT, forces.getBlueprint().getCardType());
         assertEquals(Culture.SAURON, forces.getBlueprint().getCulture());
     }

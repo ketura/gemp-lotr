@@ -53,6 +53,8 @@ public class Card_01_138_ErrataTests
 
         assertFalse(snows.getBlueprint().isUnique());
         assertEquals(2, snows.getBlueprint().getTwilightCost());
+        assertEquals(Side.SHADOW, snows.getBlueprint().getSide());
+        assertEquals(Culture.ISENGARD, snows.getBlueprint().getCulture());
         assertEquals(CardType.CONDITION, snows.getBlueprint().getCardType());
         assertEquals(Culture.ISENGARD, snows.getBlueprint().getCulture());
         assertTrue(scn.HasKeyword(snows, Keyword.SPELL));

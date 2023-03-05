@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -47,6 +47,9 @@ public class Card_01_108_ErrataTests
         PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
 
         assertTrue(nostranger.getBlueprint().isUnique());
+        assertEquals(Side.FREE_PEOPLE, nostranger.getBlueprint().getSide());
+        assertEquals(Culture.GONDOR, nostranger.getBlueprint().getCulture());
+        assertEquals(CardType.CONDITION, nostranger.getBlueprint().getCardType());
         assertEquals(0, nostranger.getBlueprint().getTwilightCost());
         assertTrue(scn.HasKeyword(nostranger, Keyword.STEALTH));
     }

@@ -1,10 +1,8 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -52,9 +50,13 @@ public class Card_01_313_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
+        var sting = scn.GetFreepsCard("sting");
 
         assertTrue(sting.getBlueprint().isUnique());
+        assertEquals(Side.FREE_PEOPLE, sting.getBlueprint().getSide());
+        assertEquals(Culture.SHIRE, sting.getBlueprint().getCulture());
+        assertEquals(CardType.POSSESSION, sting.getBlueprint().getCardType());
+        assertTrue(sting.getBlueprint().getPossessionClasses().contains(PossessionClass.HAND_WEAPON));
         assertEquals(1, sting.getBlueprint().getTwilightCost());
         assertEquals(2, sting.getBlueprint().getStrength());
     }
@@ -65,9 +67,9 @@ public class Card_01_313_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
+        var frodo = scn.GetRingBearer();
+        var sam = scn.GetFreepsCard("sam");
+        var sting = scn.GetFreepsCard("sting");
 
         scn.FreepsMoveCharToTable(sam);
         scn.FreepsMoveCardToHand(sting);
@@ -86,8 +88,8 @@ public class Card_01_313_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
+        var frodo = scn.GetRingBearer();
+        var sting = scn.GetFreepsCard("sting");
 
         scn.AttachCardsTo(frodo, sting);
 
@@ -104,13 +106,13 @@ public class Card_01_313_ErrataTests
     public void StingAbilityExertsFrodoAndRevealsFourCards() throws DecisionResultInvalidException, CardNotFoundException {
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
+        var frodo = scn.GetRingBearer();
+        var sting = scn.GetFreepsCard("sting");
 
-        PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
-        PhysicalCardImpl orc2 = scn.GetShadowCard("orc2");
-        PhysicalCardImpl orc3 = scn.GetShadowCard("orc3");
-        PhysicalCardImpl scimitar1 = scn.GetShadowCard("scimitar1");
+        var orc1 = scn.GetShadowCard("orc1");
+        var orc2 = scn.GetShadowCard("orc2");
+        var orc3 = scn.GetShadowCard("orc3");
+        var scimitar1 = scn.GetShadowCard("scimitar1");
 
         scn.AttachCardsTo(frodo, sting);
 
@@ -129,12 +131,12 @@ public class Card_01_313_ErrataTests
     public void StingAbilityRemovesTwilight() throws DecisionResultInvalidException, CardNotFoundException {
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sting = scn.GetFreepsCard("sting");
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+        var frodo = scn.GetRingBearer();
+        var sting = scn.GetFreepsCard("sting");
+        var sam = scn.GetFreepsCard("sam");
+        var merry = scn.GetFreepsCard("merry");
 
-        PhysicalCardImpl orc1 = scn.GetShadowCard("orc1");
+        var orc1 = scn.GetShadowCard("orc1");
 
         scn.FreepsMoveCharToTable(sam, merry);
         scn.AttachCardsTo(frodo, sting);

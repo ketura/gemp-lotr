@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.SitesBlock;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -62,8 +61,11 @@ public class Card_01_045_ErrataTests
         PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
 
         assertTrue(galadriel.getBlueprint().isUnique());
+        assertEquals(Side.FREE_PEOPLE, galadriel.getBlueprint().getSide());
+        assertEquals(Culture.ELVEN, galadriel.getBlueprint().getCulture());
+        assertEquals(CardType.ALLY, galadriel.getBlueprint().getCardType());
+        assertEquals(Race.ELF, galadriel.getBlueprint().getRace());
         assertEquals(3, galadriel.getBlueprint().getTwilightCost());
-
         assertEquals(3, galadriel.getBlueprint().getStrength());
         assertEquals(3, galadriel.getBlueprint().getVitality());
         assertEquals(6, galadriel.getBlueprint().getAllyHomeSiteNumbers()[0]);

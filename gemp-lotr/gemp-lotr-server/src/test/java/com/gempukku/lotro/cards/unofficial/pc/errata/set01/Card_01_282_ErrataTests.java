@@ -3,11 +3,11 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import org.junit.Test;
 
 import java.util.HashMap;
 
@@ -18,10 +18,16 @@ public class Card_01_282_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "51_282");
-					// put other cards in here as needed for the test case
+					put("legacy", "51_282");
+					put("legacy2", "51_282");
+					put("orc", "1_280");
+					put("orc2", "1_271");
+
+					put("boromir", "1_97");
+					put("tale1", "1_24");
+					put("tale2", "1_24");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -29,9 +35,7 @@ public class Card_01_282_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void TheWeightofaLegacyStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,34 +54,67 @@ public class Card_01_282_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		var legacy = scn.GetFreepsCard("legacy");
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.SHADOW, card.getBlueprint().getSide());
-		assertEquals(Culture.SAURON, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		assertEquals(-1, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertFalse(legacy.getBlueprint().isUnique());
+		assertEquals(Side.SHADOW, legacy.getBlueprint().getSide());
+		assertEquals(Culture.SAURON, legacy.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, legacy.getBlueprint().getCardType());
+		assertEquals(0, legacy.getBlueprint().getTwilightCost());
+		assertEquals(-1, legacy.getBlueprint().getStrength());
 	}
 
-	//@Test
-	public void TheWeightofaLegacyTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void TheWeightofaLegacyExertsAnOrcToPlay() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var legacy = scn.GetShadowCard("legacy");
+		var orc = scn.GetShadowCard("orc");
+		scn.ShadowMoveCardToHand(legacy, orc);
+
+		var boromir = scn.GetFreepsCard("boromir");
+		scn.FreepsMoveCharToTable(boromir);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(10);
+		scn.FreepsPassCurrentPhaseAction();
 
-		assertEquals(0, scn.GetTwilight());
+		assertFalse(scn.ShadowPlayAvailable(legacy));
+		scn.ShadowPlayCard(orc);
+
+		assertEquals(Zone.HAND, legacy.getZone());
+		assertEquals(0, scn.GetWoundsOn(orc));
+		assertEquals(7, scn.GetStrength(boromir));
+		assertTrue(scn.ShadowPlayAvailable(legacy));
+
+		scn.ShadowPlayCard(legacy);
+		assertEquals(Zone.ATTACHED, legacy.getZone());
+		assertEquals(boromir, legacy.getAttachedTo());
+		assertEquals(1, scn.GetWoundsOn(orc));
+		assertEquals(6, scn.GetStrength(boromir));
+	}
+
+	@Test
+	public void TheWeightofaLegacyLimit1PerBearer() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var legacy = scn.GetShadowCard("legacy");
+
+		var boromir = scn.GetFreepsCard("boromir");
+		var tale1 = scn.GetFreepsCard("tale1");
+		var tale2 = scn.GetFreepsCard("tale2");
+		scn.FreepsMoveCardToHand(tale1, tale2);
+		scn.FreepsMoveCharToTable(boromir);
+		scn.AttachCardsTo(boromir, legacy);
+
+		scn.StartGame();
+
+		assertEquals(6, scn.GetStrength(boromir));
+		scn.FreepsPlayCard(tale1);
+		assertEquals(6, scn.GetStrength(boromir));
+		scn.FreepsPlayCard(tale2);
+		assertEquals(4, scn.GetStrength(boromir));
 	}
 }

@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.HashMap;
+
+import static org.junit.Assert.*;
 
 public class Card_01_311_ErrataTests
 {
@@ -46,15 +44,17 @@ public class Card_01_311_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+        var sam = scn.GetFreepsCard("sam");
 
         assertTrue(sam.getBlueprint().isUnique());
+        assertEquals(Side.FREE_PEOPLE, sam.getBlueprint().getSide());
+        assertEquals(Culture.SHIRE, sam.getBlueprint().getCulture());
+        assertEquals(CardType.COMPANION, sam.getBlueprint().getCardType());
+        assertEquals(Race.HOBBIT, sam.getBlueprint().getRace());
         assertEquals(2, sam.getBlueprint().getTwilightCost());
-
         assertEquals(3, sam.getBlueprint().getStrength());
         assertEquals(4, sam.getBlueprint().getVitality());
         assertEquals(Signet.ARAGORN, sam.getBlueprint().getSignet());
-
     }
 
     @Test
@@ -62,8 +62,8 @@ public class Card_01_311_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+        var frodo = scn.GetRingBearer();
+        var sam = scn.GetFreepsCard("sam");
         scn.FreepsMoveCharToTable(sam);
 
         scn.StartGame();
@@ -88,9 +88,9 @@ public class Card_01_311_ErrataTests
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl frodo = scn.GetRingBearer();
-        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
-        PhysicalCardImpl orc = scn.GetShadowCard("orc");
+        var frodo = scn.GetRingBearer();
+        var sam = scn.GetFreepsCard("sam");
+        var orc = scn.GetShadowCard("orc");
         scn.FreepsMoveCharToTable(sam);
 
         scn.StartGame();
@@ -101,5 +101,7 @@ public class Card_01_311_ErrataTests
         scn.PassCurrentPhaseActions();
 
         assertTrue(scn.FreepsActionAvailable("Optional Trigger"));
+        scn.FreepsAcceptOptionalTrigger();
+        assertSame(scn.GetRingBearer(), sam);
     }
 }
