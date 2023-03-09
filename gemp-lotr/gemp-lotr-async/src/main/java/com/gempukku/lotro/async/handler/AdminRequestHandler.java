@@ -100,6 +100,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             addItemsToCollection(request, responseWriter);
         } else if (uri.equals("/banUser") && request.method() == HttpMethod.POST) {
             banUser(request, responseWriter);
+        } else if (uri.equals("/resetUserPassword") && request.method() == HttpMethod.POST) {
+            resetUserPassword(request, responseWriter);
         } else if (uri.equals("/banMultiple") && request.method() == HttpMethod.POST) {
             banMultiple(request, responseWriter);
         } else if (uri.equals("/banUserTemp") && request.method() == HttpMethod.POST) {
@@ -161,6 +163,25 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         return "OK";
     }
 
+    private void resetUserPassword(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+            String login = getFormParameterSafely(postDecoder, "login");
+
+            if (login==null)
+                throw new HttpProcessingException(400);
+
+            if (!_adminService.resetUserPassword(login))
+                throw new HttpProcessingException(404);
+
+            responseWriter.writeHtmlResponse("OK");
+        } finally {
+            postDecoder.destroy();
+        }
+    }
+
     private void banUser(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
@@ -174,7 +195,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             if (!_adminService.banUser(login))
                 throw new HttpProcessingException(404);
 
-        responseWriter.writeHtmlResponse("OK");
+            responseWriter.writeHtmlResponse("OK");
         } finally {
             postDecoder.destroy();
         }

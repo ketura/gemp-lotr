@@ -52,6 +52,16 @@ var GempLotrCommunication = Class.extend({
             callback(xml);
         };
     },
+    
+    deliveryCheckStatus:function (callback) {
+        var that = this;
+        return function (xml, status, request) {
+            var delivery = request.getResponseHeader("Delivery-Service-Package");
+            if (delivery == "true" && window.deliveryService != null)
+                that.getDelivery(window.deliveryService);
+            callback(xml, request.status);
+        };
+    },
 
     getGameHistory:function (start, count, callback, errorMap) {
         $.ajax({
@@ -817,6 +827,20 @@ var GempLotrCommunication = Class.extend({
         });
     },
     
+    resetUserPassword:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/resetUserPassword",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
     permabanUser:function (login, callback, errorMap) {
         $.ajax({
             type:"POST",
@@ -1050,7 +1074,7 @@ var GempLotrCommunication = Class.extend({
                 login:login,
                 password:password,
                 participantId:getUrlParam("participantId")},
-            success:this.deliveryCheck(callback),
+            success:this.deliveryCheckStatus(callback),
             error:this.errorCheck(errorMap),
             dataType:"html"
         });
@@ -1064,7 +1088,7 @@ var GempLotrCommunication = Class.extend({
                 login:login,
                 password:password,
                 participantId:getUrlParam("participantId")},
-            success:this.deliveryCheck(callback),
+            success:this.deliveryCheckStatus(callback),
             error:this.errorCheck(errorMap),
             dataType:"html"
         });

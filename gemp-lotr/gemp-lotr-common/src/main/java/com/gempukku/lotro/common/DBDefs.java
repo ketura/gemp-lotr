@@ -64,6 +64,19 @@ public class DBDefs {
     public static class Player {
         public int id;
         public String name;
+        public String password;
+        public String type;
+        public Integer last_login_reward;
+        public Integer banned_until;
+        public String create_ip;
+        public String last_ip;
+
+        public Date GetBannedUntilDate()
+        {
+            if(banned_until == null)
+                return null;
+            return new Date(banned_until);
+        }
     }
 
     public static class FormatStats {

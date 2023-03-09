@@ -1,6 +1,21 @@
 $("banMain").ready(
 	function () {
 		
+		$("#reset-button").button().click(
+			function () {
+				let execute = confirm("Are you sure you want to reset the password for '" + $("#reset-input").val() + "'?  This action cannot be undone.");
+					
+				if(!execute)
+					return;
+					
+				let resultdiv = $("#reset-result");
+				resultdiv.html("Processing...");
+				
+				hall.comm.resetUserPassword($("#reset-input").val(), function (string) {
+					resultdiv.html(string);
+				}, banErrorMap(resultdiv));
+			});
+		
 		$("#permaban-button").button().click(
 			function () {
 				let resultdiv = $("#permaban-result");

@@ -13,7 +13,19 @@ import java.util.*;
 
 public class DbPlayerDAO implements PlayerDAO {
     private final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
-    private final String _selectPlayer = "select id, name, password, type, last_login_reward, banned_until, create_ip, last_ip from player";
+    private final String _selectPlayer = """
+        SELECT 
+            id, 
+            name, 
+            password, 
+            type, 
+            last_login_reward, 
+            banned_until, 
+            create_ip, 
+            last_ip 
+        FROM player
+        """;
+
 
     private final DbAccess _dbAccess;
 
@@ -96,6 +108,29 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
+    public boolean resetUserPassword(String login) throws SQLException {
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.beginTransaction()) {
+                String sql = """
+                                UPDATE player
+                                SET password = ''
+                                WHERE name = :login
+                            """;
+                conn.createQuery(sql)
+                        .addParameter("login", login)
+                        .executeUpdate();
+
+                conn.commit();
+                return true;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to reset password", ex);
+        }
+    }
+
+    @Override
     public boolean banPlayerPermanently(String login) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("update player set type='', banned_until=null where name=?")) {
@@ -152,17 +187,29 @@ public class DbPlayerDAO implements PlayerDAO {
 
     @Override
     public Player loginUser(String login, String password) throws SQLException {
-        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=? and password=?")) {
-                statement.setString(1, login);
-                statement.setString(2, encodePassword(password));
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        return getPlayerFromResultSet(rs);
-                    } else
-                        return null;
-                }
+
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = _selectPlayer +
+                        """
+                            WHERE name = :login
+                                AND (password = :password OR password = '')
+                        """;
+                List<DBDefs.Player> result = conn.createQuery(sql)
+                        .addParameter("login", login)
+                        .addParameter("password", encodePassword(password))
+                        .executeAndFetch(DBDefs.Player.class);
+
+                var def = result.stream().findFirst().orElse(null);
+                if(def == null)
+                    return null;
+
+                return new Player(def);
             }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve login entries", ex);
         }
     }
 
@@ -217,23 +264,61 @@ public class DbPlayerDAO implements PlayerDAO {
 
     @Override
     public synchronized boolean registerUser(String login, String password, String remoteAddr) throws SQLException, LoginInvalidException {
-        boolean result = validateLogin(login);
-        if (!result)
+        if (!validLoginName(login))
             return false;
 
-        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement("insert into player (name, password, type, create_ip) values (?, ?, ?, ?)")) {
-                statement.setString(1, login);
-                statement.setString(2, encodePassword(password));
-                statement.setString(3, "u");
-                statement.setString(4, remoteAddr);
-                statement.execute();
+        if(loginExists(login)) {
+            if(!needsPasswordReset(login))
+                return false;
+
+            //Login exists but has a blank/null password, meaning this user is actually performing a password reset
+            try {
+                Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+                try (org.sql2o.Connection conn = db.beginTransaction()) {
+                    String sql = """
+                                UPDATE player
+                                SET password = :password
+                                WHERE name = :login
+                            """;
+                    conn.createQuery(sql)
+                            .addParameter("login", login)
+                            .addParameter("password", encodePassword(password))
+                            .executeUpdate();
+
+                    conn.commit();
+                    return true;
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException("Unable to update password", ex);
+            }
+        }
+
+
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.beginTransaction()) {
+                String sql = """
+                                INSERT INTO player (name, password, type, create_ip)
+                                VALUES (:login, :password, :type, :create_ip)
+                            """;
+                conn.createQuery(sql)
+                        .addParameter("login", login)
+                        .addParameter("password", encodePassword(password))
+                        .addParameter("type", Player.Type.USER.toString())
+                        .addParameter("create_ip", remoteAddr)
+                        .executeUpdate();
+
+                conn.commit();
                 return true;
             }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to insert new user", ex);
         }
     }
 
-    private boolean validateLogin(String login) throws SQLException, LoginInvalidException {
+    private boolean validLoginName(String login) throws LoginInvalidException {
         if (login.length() < 2 || login.length() > 30)
             throw new LoginInvalidException();
         for (int i = 0; i < login.length(); i++) {
@@ -246,16 +331,50 @@ public class DbPlayerDAO implements PlayerDAO {
         if (lowerCase.startsWith("admin") || lowerCase.startsWith("guest") || lowerCase.startsWith("system") || lowerCase.startsWith("bye"))
             return false;
 
-        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement("select id, name from player where LOWER(name)=?")) {
-                statement.setString(1, lowerCase);
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        return false;
-                    } else
-                        return true;
-                }
+        return true;
+    }
+
+    private boolean loginExists(String login) throws SQLException {
+
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = _selectPlayer +
+                        """
+                            WHERE LOWER(name) = :login
+                        """;
+                List<DBDefs.Player> result = conn.createQuery(sql)
+                        .addParameter("login", login.toLowerCase())
+                        .executeAndFetch(DBDefs.Player.class);
+
+                var def = result.stream().findFirst().orElse(null);
+                return def != null;
             }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve password reset entries", ex);
+        }
+    }
+
+    private boolean needsPasswordReset(String login) throws SQLException {
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.open()) {
+                String sql = _selectPlayer +
+                        """
+                            WHERE LOWER(name) = :login
+                                AND (password = '' OR password IS NULL)
+                        """;
+                List<DBDefs.Player> result = conn.createQuery(sql)
+                        .addParameter("login", login.toLowerCase())
+                        .executeAndFetch(DBDefs.Player.class);
+
+                var def = result.stream().findFirst().orElse(null);
+                return def != null;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to retrieve password reset entries", ex);
         }
     }
 

@@ -1,8 +1,61 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.DBDefs;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class Player {
+
+    public enum Type {
+        ADMIN("a"),
+        //wow this is such a better idea than a blank column
+        //DEACTIVATED("d"),
+        LEAGUE_ADMIN("l"),
+        PLAY_TESTER("p"),
+        //PLAY_TESTING_ADMIN("t"),
+        //COMMENTATOR("c"),
+        //COMMENTATOR_ADMIN("m"),
+        UNBANNED("n"),
+        USER("u");
+
+        private final String _value;
+
+        Type(String value) {
+            _value = value;
+        }
+
+        public String getValue() {
+            return _value;
+        }
+
+        public String toString() {
+            return getValue();
+        }
+
+        public static List<Type> getTypes(String typeString) {
+            List<Type> types = new ArrayList<>();
+            for (Type type : values()) {
+                if (typeString.contains(type.getValue())) {
+                    types.add(type);
+                }
+            }
+            return types;
+        }
+
+        public static String getTypeString(List<Type> types) {
+            StringBuilder sb = new StringBuilder();
+            for (Type type : values()) {
+                if (types.contains(type)) {
+                    sb.append(type.getValue());
+                }
+            }
+            return sb.toString();
+        }
+    }
+
     private final int _id;
     private final String _name;
     private final String _password;
@@ -11,6 +64,10 @@ public class Player {
     private final Date _bannedUntil;
     private final String _createIp;
     private final String _lastIp;
+
+    public Player(DBDefs.Player def) {
+        this(def.id, def.name, def.password, def.type, def.last_login_reward, def.GetBannedUntilDate(), def.create_ip, def.last_ip);
+    }
 
     public Player(int id, String name, String password, String type, Integer lastLoginReward, Date bannedUntil, String createIp, String lastIp) {
         _id = id;
@@ -66,7 +123,7 @@ public class Player {
 
         Player player = (Player) o;
 
-        if (_name != null ? !_name.equals(player._name) : player._name != null) return false;
+        if (!Objects.equals(_name, player._name)) return false;
 
         return true;
     }
@@ -76,15 +133,15 @@ public class Player {
         return _name != null ? _name.hashCode() : 0;
     }
 
-    public PlayerDefinition GetUserInfo() {
-        return new PlayerDefinition(_name, _type);
+    public PlayerInfo GetUserInfo() {
+        return new PlayerInfo(_name, _type);
     }
 
-    public class PlayerDefinition {
+    public class PlayerInfo {
         public String name;
         public String type;
 
-        public PlayerDefinition(String name, String info) {
+        public PlayerInfo(String name, String info) {
             this.name = name;
             type = info;
         }

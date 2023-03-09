@@ -10,13 +10,21 @@ function register() {
     if (password != password2) {
         $(".error").html("Password and Password repeated are different! Try again");
     } else {
-        comm.register(login, password, function () {
-                location.href = "/gemp-lotr/hall.html";
+        comm.register(login, password, function (_, status) {
+                if(status == "202") {
+                    $(".error").html("Your password has successfully been reset!  Please refresh the page and log in.");
+                }
+                else {
+                    location.href = "/gemp-lotr/hall.html";
+                }
             },
             {
                 "0": function () {
                     alert("Unable to connect to server, either server is down or there is a problem" +
                         " with your internet connection");
+                },
+                "202": function () {
+                    $(".error").html("Your password has successfully been reset!  Please refresh the page and log in.");
                 },
                 "400": function () {
                     $(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>" +
@@ -45,24 +53,38 @@ function registrationScreen() {
 function login() {
     var login = $("#login").val();
     var password = $("#password").val();
-    comm.login(login, password, function () {
-            location.href = "/gemp-lotr/hall.html";
+    comm.login(login, password, function (_, status) {
+            if(status == "202") {
+                registrationScreen();
+                $("#registerButton").html("Update Password");
+                $(".error").html("Your password must be reset.  Please enter a new password.");
+                $("#login").val(login);
+            }
+            else {
+                location.href = "/gemp-lotr/hall.html";
+            }
         },
         {
             "0": function () {
                 alert("Unable to connect to server, either server is down or there is a problem" +
                     " with your internet connection");
             },
+            "202": function () {
+                registrationScreen();
+                $("#registerButton").html("Update Password");
+                $(".error").html("Your password must be reset.  Please enter a new password.");
+                $("#login").val(login);
+            },
             "401": function () {
                 $(".error").html("Invalid username or password. Try again.");
                 loginScreen();
             },
             "403": function () {
-                $(".error").html("You have been permanently banned. If you think it was a mistake you can try sending a private message to Merrick_H on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
+                $(".error").html("You have been permanently banned. If you think it was a mistake please appeal with dmaz or ketura on <a href='https://lotrtcgpc.net/discord>the PC Discord</a>.");
                 $(".interaction").html("");
             },
             "409": function () {
-                $(".error").html("You have been temporarily banned. You can try logging in at a later time. If you think it was a mistake you can try sending a private message to Merrick_H on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
+                $(".error").html("You have been temporarily banned. You can try logging in at a later time. If you think it was a mistake please appeal with dmaz or ketura on <a href='https://lotrtcgpc.net/discord>the PC Discord</a>.");
                 $(".interaction").html("");
             },
             "503": function () {
@@ -92,6 +114,8 @@ function loginScreen() {
     });
 
     $(".interaction").append(loginButton);
+    
+    $(".interaction").append("<br/><a href='https://lotrtcgpc.net/discord'>Forgot your password?  Contact <span style='color:orange'>ketura</span> on the PC Discord.</a>");
 }
 
 $(document).ready(
