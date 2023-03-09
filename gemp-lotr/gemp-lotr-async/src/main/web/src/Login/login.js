@@ -86,6 +86,7 @@ function login() {
 
 function loginScreen() {
     $(".interaction").html("");
+    $(".interaction").append("<br/><p><a style='color:red; width:500px; display:inline-block' href='https://lotrtcgpc.net/discord'>The login system has been recently updated. If you run into ANY issues logging in, please contact <span style='color:orange'>ketura</span> on the PC Discord immediately.</a><br/></p>");
     $(".interaction").append("Login below, or ");
     var registerButton = $("<div>Register</div>").button();
     registerButton.click(registrationScreen);
