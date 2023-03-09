@@ -23,9 +23,6 @@ function register() {
                     alert("Unable to connect to server, either server is down or there is a problem" +
                         " with your internet connection");
                 },
-                "202": function () {
-                    $(".error").html("Your password has successfully been reset!  Please refresh the page and log in.");
-                },
                 "400": function () {
                     $(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>" +
                         " english letters, numbers or _ (underscore) and - (dash) characters.");
@@ -57,7 +54,7 @@ function login() {
             if(status == "202") {
                 registrationScreen();
                 $("#registerButton").html("Update Password");
-                $(".error").html("Your password must be reset.  Please enter a new password.");
+                $(".error").html("Your password has been reset.  Please enter a new password.");
                 $("#login").val(login);
             }
             else {
@@ -68,12 +65,6 @@ function login() {
             "0": function () {
                 alert("Unable to connect to server, either server is down or there is a problem" +
                     " with your internet connection");
-            },
-            "202": function () {
-                registrationScreen();
-                $("#registerButton").html("Update Password");
-                $(".error").html("Your password must be reset.  Please enter a new password.");
-                $("#login").val(login);
             },
             "401": function () {
                 $(".error").html("Invalid username or password. Try again.");
