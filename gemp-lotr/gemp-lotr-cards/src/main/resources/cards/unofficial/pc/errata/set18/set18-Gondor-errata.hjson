@@ -139,20 +139,28 @@
 					culture: gondor
 					filter: self
 				}
-				effect: {
-					type: preventable
-					player: shadowPlayer
-					text: Would you like to add (2) to allow your minion to skirmish?
-					cost: {
-						type: removeTwilight
-						amount: 2
-					}
-					effect: {
-						type: cantBeAssignedToSkirmish
+				effect: [
+					{
+						type: ChooseActiveCards
 						filter: choose(minion)
-						until: start(regroup)
+						memorize: chosenMinion
+						text: Choose a minion to prevent from skirmishing until the Regroup phase.
 					}
-				}
+					{
+						type: preventable
+						player: shadowPlayer
+						text: Would you like to remove (2) to allow {chosenMinion} to skirmish?
+						cost: {
+							type: removeTwilight
+							amount: 2
+						}
+						effect: {
+							type: cantBeAssignedToSkirmish
+							filter: memory(chosenMinion)
+							until: start(regroup)
+						}
+					}
+				]
 			}
 		]
 		gametext: <b>Tale.</b> Each time a non-[wraith] minion is played, you may spot a Man to put a [gondor] token here.<br><b>Maneuver:</b> Remove 3 [gondor] tokens from here to spot a minion. That minion cannot be assigned to a skirmish until the regroup phase.  Any Shadow player may remove (2) to prevent this.

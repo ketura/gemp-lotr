@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata.set18;
+package com.gempukku.lotro.cards.official.set18;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
@@ -10,14 +10,14 @@ import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
-public class Card_18_050_ErrataTests
+public class Card_18_050_Tests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("stone", "68_50");
+					put("stone", "18_50");
 					put("boromir", "1_96");
 					put("ravager", "4_15");
 					put("morc", "7_193");
@@ -48,7 +48,7 @@ public class Card_18_050_ErrataTests
 
 		var stone = scn.GetFreepsCard("stone");
 
-		assertTrue(stone.getBlueprint().isUnique());
+		assertFalse(stone.getBlueprint().isUnique());
 		assertEquals(Side.FREE_PEOPLE, stone.getBlueprint().getSide());
 		assertEquals(Culture.GONDOR, stone.getBlueprint().getCulture());
 		assertEquals(CardType.CONDITION, stone.getBlueprint().getCardType());
@@ -75,6 +75,7 @@ public class Card_18_050_ErrataTests
 
 		assertEquals(0, scn.GetCultureTokensOn(stone));
 		scn.ShadowPlayCard(uruk);
+		scn.FreepsAcceptOptionalTrigger();
 		assertEquals(1, scn.GetCultureTokensOn(stone));
 	}
 
@@ -96,6 +97,7 @@ public class Card_18_050_ErrataTests
 
 		assertEquals(0, scn.GetCultureTokensOn(stone));
 		scn.ShadowPlayCard(uruk);
+		scn.FreepsAcceptOptionalTrigger();
 		assertEquals(1, scn.GetCultureTokensOn(stone));
 	}
 
@@ -215,7 +217,7 @@ public class Card_18_050_ErrataTests
 		assertEquals(0, scn.GetCultureTokensOn(stone));
 
 		assertEquals(2, scn.GetTwilight());
-		assertTrue(scn.ShadowDecisionAvailable("Would you like to remove (2) to allow"));
+		assertTrue(scn.ShadowDecisionAvailable("Would you like to - remove (2) to prevent"));
 		scn.ShadowChooseYes();
 		assertEquals(0, scn.GetTwilight());
 
