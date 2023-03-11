@@ -50,6 +50,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public static final String FOTRFrodo = "1_290";
     public static final String GimliRB = "9_4";
+    public static final String GaladrielRB = "9_14";
     public static final String FOTRRing = "1_2";
     public static final String ATARRing = "4_1";
     public static final String GreatRing = "19_1";
