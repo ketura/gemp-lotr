@@ -86,7 +86,6 @@ function login() {
 
 function loginScreen() {
     $(".interaction").html("");
-    $(".interaction").append("<br/><p><a style='color:red; width:500px; display:inline-block' href='https://lotrtcgpc.net/discord'>The login system has been recently updated. If you run into ANY issues logging in, please contact <span style='color:orange'>ketura</span> on the PC Discord immediately.</a><br/></p>");
     $(".interaction").append("Login below, or ");
     var registerButton = $("<div>Register</div>").button();
     registerButton.click(registrationScreen);
@@ -107,7 +106,7 @@ function loginScreen() {
 
     $(".interaction").append(loginButton);
     
-    $(".interaction").append("<br/><a href='https://lotrtcgpc.net/discord'>Forgot your password?  Contact <span style='color:orange'>ketura</span> on the PC Discord.</a>");
+    $(".interaction").append("<br/><div style='text-align: center; overflow-wrap: break-word; display: inline-block; max-width:300px'><a href='https://lotrtcgpc.net/discord'>Forgot your password?  Contact <span style='color:orange'>ketura</span> on the PC Discord.</a></div>");
 }
 
 $(document).ready(
