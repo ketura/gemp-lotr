@@ -1,22 +1,13 @@
 package com.gempukku.lotro.async;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gempukku.lotro.async.handler.UriRequestHandler;
 import com.gempukku.lotro.db.IpBanDAO;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.DefaultFullHttpResponse;
-import io.netty.handler.codec.http.DefaultHttpHeaders;
-import io.netty.handler.codec.http.EmptyHttpHeaders;
-import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpHeaderNames;
-import io.netty.handler.codec.http.HttpHeaderValues;
-import io.netty.handler.codec.http.HttpHeaders;
-import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.HttpResponseStatus;
-import io.netty.handler.codec.http.HttpUtil;
+import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -35,9 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.netty.handler.codec.http.HttpHeaderNames.CONNECTION;
-import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_LENGTH;
-import static io.netty.handler.codec.http.HttpHeaderNames.CONTENT_TYPE;
+import static io.netty.handler.codec.http.HttpHeaderNames.*;
 import static io.netty.handler.codec.http.HttpResponseStatus.CONTINUE;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
@@ -307,8 +296,11 @@ public class GempukkuHttpRequestHandler extends SimpleChannelInboundHandler<Full
             if (json == null)
                 json = "{}";
 
-            if(!json.startsWith("{") && !json.startsWith("["))
-                json = "{ \"response\": \"" + json + "\"}";
+            if(!json.startsWith("{") && !json.startsWith("[")) {
+                JSONObject obj = new JSONObject();
+                obj.put("response", json);
+                json = obj.toString();
+            }
             // Build the response object.
             FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, HttpResponseStatus.OK, Unpooled.wrappedBuffer(json.getBytes(CharsetUtil.UTF_8)), headers, EmptyHttpHeaders.INSTANCE);
             sendResponse(ctx, request, response);

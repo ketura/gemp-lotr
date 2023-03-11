@@ -123,7 +123,8 @@ public class DbPlayerDAO implements PlayerDAO {
                         .executeUpdate();
 
                 conn.commit();
-                return true;
+
+                return conn.getResult() == 1;
             }
         } catch (Exception ex) {
             throw new RuntimeException("Unable to reset password", ex);
@@ -287,7 +288,7 @@ public class DbPlayerDAO implements PlayerDAO {
                             .executeUpdate();
 
                     conn.commit();
-                    return true;
+                    return conn.getResult() == 1;
                 }
             } catch (Exception ex) {
                 throw new RuntimeException("Unable to update password", ex);
@@ -311,7 +312,7 @@ public class DbPlayerDAO implements PlayerDAO {
                         .executeUpdate();
 
                 conn.commit();
-                return true;
+                return conn.getResult() == 1;
             }
         } catch (Exception ex) {
             throw new RuntimeException("Unable to insert new user", ex);
