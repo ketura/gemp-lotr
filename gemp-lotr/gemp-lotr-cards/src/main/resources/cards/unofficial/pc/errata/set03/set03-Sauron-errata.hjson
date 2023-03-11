@@ -493,74 +493,71 @@
 		]
 		effects: {
 			type: event
-			effect: {
-				type: conditional
-				effect:	{
-					type: choice
-					texts: [
-						Ring-bound Galadriel
-						Unbound/Ally Galadriel
-					]
-					effects: [
-						{
-							type: conditional
-							requires: {
-								type: CanSpot
-								filter: title(Galadriel),Ring-bound
+			effect:	{
+				type: choice
+				texts: [
+					Ring-bound Galadriel
+					Unbound/Ally Galadriel
+				]
+				effects: [
+					{
+						type: conditional
+						requires: {
+							type: CanSpot
+							filter: title(Galadriel),Ring-bound
+						}
+						effect: {
+							type: preventable
+							player: freeps
+							cost: {
+								type: choice
+								texts: [
+									Discard 2 Elves
+									Add 2 burdens
+								]
+								effects: [
+									{
+										type: discard
+										filter: choose(Elf)
+										count: 2
+									}
+									{
+										type: AddBurdens
+										amount: 2
+									}
+								]
 							}
+							text: Discard 2 Elves or add 2 burdens to prevent wounding Galadriel 3 times
 							effect: {
-								type: preventable
-								player: freeps
-								cost: {
-									type: choice
-									texts: [
-										Discard 2 Elves
-										Add 2 burdens
-									]
-									effects: [
-										{
-											type: discard
-											filter: choose(Elf)
-											count: 2
-										}
-										{
-											type: AddBurdens
-											amount: 2
-										}
-									]
-								}
-								text: Discard 2 Elves or add 2 burdens to prevent wounding Galadriel 3 times
-								effect: {
-									type: wound
-									times: 3
-									filter: choose(title(Galadriel))
-								}
+								type: wound
+								times: 3
+								filter: choose(title(Galadriel))
 							}
 						}
-						{
-							type: conditional
-							requires: {
-								type: CantSpot
-								filter: title(Galadriel),Ring-bound
+					}
+					{
+						type: conditional
+						requires: {
+							type: CantSpot
+							filter: title(Galadriel),Ring-bound
+						}
+						effect: {
+							type: preventable
+							player: freeps
+							cost: {
+								type: discard
+								filter: choose(Elf)
+								count: 2
 							}
+							text: Discard 2 Elves to prevent wounding Galadriel 3 times
 							effect: {
-								type: preventable
-								player: freeps
-								cost: {
-									type: discard
-									filter: choose(Elf)
-									count: 2
-								}
-								text: Discard 2 Elves to prevent wounding Galadriel 3 times
-								effect: {
-									type: wound
-									times: 3
-									filter: choose(title(Galadriel))
-								}
+								type: wound
+								times: 3
+								filter: choose(title(Galadriel))
 							}
 						}
-					]
-				}
+					}
+				]
 			}		
 		}
 		gametext: <b>Maneuver:</b> Spot a [sauron] minion to wound Galadriel 3 times.  The Free Peoples player may discard 2 Elves to prevent this.  If Galadriel is Ring-bound, 2 burdens may be added instead.

@@ -10,14 +10,14 @@ import org.json.simple.JSONObject;
 public class EventEffectProcessor implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "cost", "effect", "requiresRanger");
+        FieldUtils.validateAllowedFields(value, "cost", "effect", "requires", "requiresRanger");
 
         final boolean requiresRanger = FieldUtils.getBoolean(value.get("requiresRanger"), "requiresRanger", false);
 
         DefaultActionSource actionSource = new DefaultActionSource();
         actionSource.setRequiresRanger(requiresRanger);
 
-        EffectUtils.processCostsAndEffects(value, environment, actionSource);
+        EffectUtils.processRequirementsCostsAndEffects(value, environment, actionSource);
 
         blueprint.setPlayEventAction(actionSource);
     }
