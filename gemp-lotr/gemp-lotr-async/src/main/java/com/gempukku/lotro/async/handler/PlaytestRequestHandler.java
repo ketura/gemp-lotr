@@ -54,7 +54,7 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
         try {
             Player player = getResourceOwnerSafely(request, null);
 
-            _playerDAO.addPlayerFlag(player.getName(), "p");
+            _playerDAO.addPlayerFlag(player.getName(), Player.Type.PLAY_TESTER);
 
             responseWriter.writeHtmlResponse("OK");
 
@@ -68,7 +68,7 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
         try {
             Player player = getResourceOwnerSafely(request, null);
 
-            _playerDAO.removePlayerFlag(player.getName(), "p");
+            _playerDAO.removePlayerFlag(player.getName(), Player.Type.PLAY_TESTER);
 
             responseWriter.writeHtmlResponse("OK");
 
@@ -87,7 +87,7 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
             Document doc = documentBuilder.newDocument();
             Element hasTester = doc.createElement("hasTester");
 
-            hasTester.setAttribute("result", String.valueOf(player.getType().contains("p")));
+            hasTester.setAttribute("result", String.valueOf(player.hasType(Player.Type.PLAY_TESTER)));
 
             responseWriter.writeXmlResponse(doc);
 

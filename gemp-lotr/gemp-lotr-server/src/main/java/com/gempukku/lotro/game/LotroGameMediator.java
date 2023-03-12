@@ -356,7 +356,7 @@ public class LotroGameMediator {
 
     public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
-        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
+        if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();
@@ -394,9 +394,9 @@ public class LotroGameMediator {
         }
     }
 
-    public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
+    public void signupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
         String playerName = player.getName();
-        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
+        if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();

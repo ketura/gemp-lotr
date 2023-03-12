@@ -20,8 +20,8 @@ public interface PlayerDAO {
 
     public boolean unBanPlayer(String login) throws SQLException;
 
-    public boolean addPlayerFlag(String login, String flag) throws SQLException;
-    public boolean removePlayerFlag(String login, String flag) throws SQLException;
+    public boolean addPlayerFlag(String login, Player.Type flag) throws SQLException;
+    public boolean removePlayerFlag(String login, Player.Type flag) throws SQLException;
 
     public List<Player> findSimilarAccounts(String login) throws SQLException;
     public Set<String> getBannedUsernames() throws SQLException;

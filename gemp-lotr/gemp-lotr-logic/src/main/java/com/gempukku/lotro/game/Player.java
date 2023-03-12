@@ -96,6 +96,10 @@ public class Player {
         return _type;
     }
 
+    public boolean hasType(Type type) {
+        return Type.getTypes(_type).contains(type);
+    }
+
     public Integer getLastLoginReward() {
         return _lastLoginReward;
     }

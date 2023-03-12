@@ -103,7 +103,7 @@ public class LotroServerRequestHandler {
         if (resourceOwner == null)
             throw new HttpProcessingException(401);
 
-        if (resourceOwner.getType().contains("a") && participantId != null && !participantId.equals("null") && !participantId.equals("")) {
+        if (resourceOwner.hasType(Player.Type.ADMIN) && participantId != null && !participantId.equals("null") && !participantId.equals("")) {
             resourceOwner = _playerDao.getPlayer(participantId);
             if (resourceOwner == null)
                 throw new HttpProcessingException(401);

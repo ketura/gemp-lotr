@@ -63,7 +63,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean addPlayerFlag(String login, String flag) throws SQLException {
+    public boolean addPlayerFlag(String login, Player.Type flag) throws SQLException {
         final boolean success = _delegate.addPlayerFlag(login, flag);
         if (success)
             clearCache();
@@ -71,7 +71,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean removePlayerFlag(String login, String flag) throws SQLException {
+    public boolean removePlayerFlag(String login, Player.Type flag) throws SQLException {
         final boolean success = _delegate.removePlayerFlag(login, flag);
         if (success)
             clearCache();

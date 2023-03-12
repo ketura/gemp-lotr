@@ -163,26 +163,52 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public boolean addPlayerFlag(String login, String flag) throws SQLException {
-        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement("UPDATE player SET type = CONCAT(type, ?) WHERE name=? AND type NOT LIKE CONCAT('%', ?, '%');")) {
-                statement.setString(1, flag);
-                statement.setString(2, login);
-                statement.setString(3, flag);
-                return statement.executeUpdate() == 1;
+    public boolean addPlayerFlag(String login, Player.Type flag) throws SQLException {
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.beginTransaction()) {
+                String sql = """
+                                UPDATE player
+                                SET type = CONCAT(type, :type)
+                                WHERE name= :login
+                                    AND type NOT LIKE CONCAT('%', :type, '%');
+                            """;
+                conn.createQuery(sql)
+                        .addParameter("login", login)
+                        .addParameter("type", flag.getValue())
+                        .executeUpdate();
+
+                conn.commit();
+                return conn.getResult() == 1;
             }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to update player with playtester flag", ex);
         }
     }
 
     @Override
-    public boolean removePlayerFlag(String login, String flag) throws SQLException {
-        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
-            try (PreparedStatement statement = conn.prepareStatement("UPDATE player SET type = REPLACE(type, ?, '') WHERE name=? AND type LIKE CONCAT('%', ?, '%');")) {
-                statement.setString(1, flag);
-                statement.setString(2, login);
-                statement.setString(3, flag);
-                return statement.executeUpdate() == 1;
+    public boolean removePlayerFlag(String login, Player.Type flag) throws SQLException {
+        try {
+            Sql2o db = new Sql2o(_dbAccess.getDataSource());
+
+            try (org.sql2o.Connection conn = db.beginTransaction()) {
+                String sql = """
+                                UPDATE player
+                                SET type = REPLACE(type, :type, '')
+                                WHERE name= :login
+                                    AND type LIKE CONCAT('%', :type, '%');
+                            """;
+                conn.createQuery(sql)
+                        .addParameter("login", login)
+                        .addParameter("type", flag.getValue())
+                        .executeUpdate();
+
+                conn.commit();
+                return conn.getResult() == 1;
             }
+        } catch (Exception ex) {
+            throw new RuntimeException("Unable to update player to remove playtester flag", ex);
         }
     }
 

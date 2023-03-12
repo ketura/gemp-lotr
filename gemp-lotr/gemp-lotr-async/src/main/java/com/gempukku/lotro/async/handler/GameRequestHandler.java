@@ -230,7 +230,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         Element gameState = doc.createElement("gameState");
 
         try {
-            gameMediator.singupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState));
+            gameMediator.signupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState));
         } catch (PrivateInformationException e) {
             throw new HttpProcessingException(403);
         }

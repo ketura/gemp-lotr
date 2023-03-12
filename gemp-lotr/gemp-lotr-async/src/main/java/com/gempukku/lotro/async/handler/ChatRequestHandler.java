@@ -92,8 +92,8 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                 throw new HttpProcessingException(404);
 
             try {
-                final boolean admin = resourceOwner.getType().contains("a");
-                final boolean leagueAdmin = resourceOwner.getType().contains("l");
+                final boolean admin = resourceOwner.hasType(Player.Type.ADMIN);
+                final boolean leagueAdmin = resourceOwner.hasType(Player.Type.LEAGUE_ADMIN);
                 if (message != null && message.trim().length() > 0) {
                     String newMsg;
                     newMsg = message.trim().replaceAll("\n\n\n+", "\n\n\n");
@@ -243,7 +243,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         if (chatRoom == null)
             throw new HttpProcessingException(404);
         try {
-            final boolean admin = resourceOwner.getType().contains("a");
+            final boolean admin = resourceOwner.hasType(Player.Type.ADMIN);
             List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), admin);
             Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
 
@@ -295,10 +295,9 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     private String formatPlayerNameForChatList(String userInRoom) {
         final Player player = _playerDao.getPlayer(userInRoom);
         if (player != null) {
-            final String playerType = player.getType();
-            if (playerType.contains("a"))
+            if (player.hasType(Player.Type.ADMIN))
                 return "* "+userInRoom;
-            else if (playerType.contains("l"))
+            else if (player.hasType(Player.Type.LEAGUE_ADMIN))
                 return "+ "+userInRoom;
         }
         return userInRoom;

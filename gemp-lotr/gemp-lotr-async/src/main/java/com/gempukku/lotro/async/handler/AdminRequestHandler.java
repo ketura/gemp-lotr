@@ -158,7 +158,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             return "Banned until " + format.format(similarPlayer.getBannedUntil());
         }
-        if (similarPlayer.getType().contains("n"))
+        if (similarPlayer.hasType(Player.Type.UNBANNED))
             return "Unbanned";
         return "OK";
     }
@@ -758,14 +758,14 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private void validateAdmin(HttpRequest request) throws HttpProcessingException {
         Player player = getResourceOwnerSafely(request, null);
 
-        if (!player.getType().contains("a"))
+        if (!player.hasType(Player.Type.ADMIN))
             throw new HttpProcessingException(403);
     }
 
     private void validateLeagueAdmin(HttpRequest request) throws HttpProcessingException {
         Player player = getResourceOwnerSafely(request, null);
 
-        if (!player.getType().contains("l"))
+        if (!player.hasType(Player.Type.LEAGUE_ADMIN))
             throw new HttpProcessingException(403);
     }
 }
