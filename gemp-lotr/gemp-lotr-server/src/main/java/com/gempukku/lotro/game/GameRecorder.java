@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,18 +50,24 @@ public class GameRecorder {
         return new InflaterInputStream(new FileInputStream(file));
     }
 
-    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, LotroFormat format, final String tournament, final Map<String, String> deckNames) {
+    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, LotroFormat format, final String tournament, final Map<String, LotroDeck> decks) {
         final Date startData = new Date();
         final Map<String, GameCommunicationChannel> recordingChannels = new HashMap<>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
-            GameCommunicationChannel recordChannel = new GameCommunicationChannel(playerId, 0);
+            var recordChannel = new GameCommunicationChannel(playerId, 0);
             lotroGame.addGameStateListener(playerId, recordChannel);
             recordingChannels.put(playerId, recordChannel);
         }
 
         return (winner, winReason, loser, loseReason) -> {
-            Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
-            _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), format.getName(), tournament, deckNames.get(winner), deckNames.get(loser), startData, new Date());
+            for(var comm : recordingChannels.values()) {
+                comm.deckReadout(decks);
+            }
+
+            var playerRecordingId = saveRecordedChannels(recordingChannels);
+            _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason,
+                    playerRecordingId.get(winner), playerRecordingId.get(loser), format.getName(),
+                    tournament, decks.get(winner).getDeckName(), decks.get(loser).getDeckName(), startData, new Date());
 
             if(format.isPlaytest())
             {

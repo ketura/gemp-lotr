@@ -104,46 +104,47 @@ public class LotroServer extends AbstractServer {
                     gameSettings.getMaxSecondsPerPlayer(), gameSettings.getMaxSecondsPerDecision(),
                     gameSettings.getLeague() != null || !gameSettings.isCompetitive(), !gameSettings.isCompetitive(), gameSettings.isPrivateGame());
             lotroGameMediator.addGameResultListener(
-                    new GameResultListener() {
-                        @Override
-                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            _finishedGamesTime.put(gameId, new Date());
-                        }
+                new GameResultListener() {
+                    @Override
+                    public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                        _finishedGamesTime.put(gameId, new Date());
+                    }
 
-                        @Override
-                        public void gameCancelled() {
-                            _finishedGamesTime.put(gameId, new Date());
-                        }
-                    });
+                    @Override
+                    public void gameCancelled() {
+                        _finishedGamesTime.put(gameId, new Date());
+                    }
+                });
             lotroGameMediator.sendMessageToPlayers("You're starting a game of " + gameSettings.getLotroFormat().getName());
 
             StringBuilder players = new StringBuilder();
-            Map<String, String> deckNames = new HashMap<>();
+            Map<String, LotroDeck> decks =  new HashMap<>();
             for (LotroGameParticipant participant : participants) {
-                deckNames.put(participant.getPlayerId(), participant.getDeck().getDeckName());
                 if (players.length() > 0)
                     players.append(", ");
                 players.append(participant.getPlayerId());
+                decks.put(participant.getPlayerId(), participant.getDeck());
             }
 
             lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players.toString());
 
-            final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat(), tournamentName, deckNames);
+            final var gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat(), tournamentName, decks);
             lotroGameMediator.addGameResultListener(
-                    new GameResultListener() {
-                        @Override
-                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
+                new GameResultListener() {
+                    @Override
+                    public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                        final var loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
 
-
-                            gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
-                        }
-
-                        @Override
-                        public void gameCancelled() {
-                            gameRecordingInProgress.finishRecording(participants[0].getPlayerId(), "Game cancelled due to error", participants[1].getPlayerId(), "Game cancelled due to error");
-                        }
+                        //potentially this is where to kick off any "reveal deck" events
+                        //lotroGameMediator.readoutParticipantDecks();
+                        gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
                     }
+
+                    @Override
+                    public void gameCancelled() {
+                        gameRecordingInProgress.finishRecording(participants[0].getPlayerId(), "Game cancelled due to error", participants[1].getPlayerId(), "Game cancelled due to error");
+                    }
+                }
             );
 
             _runningGames.put(gameId, lotroGameMediator);

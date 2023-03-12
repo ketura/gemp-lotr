@@ -29,6 +29,7 @@ public class LotroGameMediator {
     private final Map<String, Integer> _playerClocks = new HashMap<>();
     private final Map<String, Long> _decisionQuerySentTimes = new HashMap<>();
     private final Set<String> _playersPlaying = new HashSet<>();
+    private final Map<String, LotroDeck> _playerDecks = new HashMap<>();
 
     private final String _gameId;
     private final int _maxSecondsForGamePerPlayer;
@@ -54,17 +55,15 @@ public class LotroGameMediator {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
-        Map<String, LotroDeck> decks = new HashMap<>();
-
         for (LotroGameParticipant participant : participants) {
             String participantId = participant.getPlayerId();
-            decks.put(participantId, participant.getDeck());
+            _playerDecks.put(participantId, participant.getDeck());
             _playerClocks.put(participantId, 0);
             _playersPlaying.add(participantId);
         }
 
         _userFeedback = new DefaultUserFeedback();
-        _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
+        _lotroGame = new DefaultLotroGame(lotroFormat, _playerDecks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
     }
 
@@ -191,27 +190,27 @@ public class LotroGameMediator {
                     PhysicalCard target = card.getAttachedTo();
                     int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame, card, target, 0, false);
                     sb.append("<br><b>Twilight cost:</b> " + twilightCost);
-                } catch (UnsupportedOperationException exp) {
+                } catch (UnsupportedOperationException ignored) {
                 }
                 try {
                     int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame, card);
                     sb.append("<br><b>Strength:</b> " + strength);
-                } catch (UnsupportedOperationException exp) {
+                } catch (UnsupportedOperationException ignored) {
                 }
                 try {
                     int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame, card);
                     sb.append("<br><b>Vitality:</b> " + vitality);
-                } catch (UnsupportedOperationException exp) {
+                } catch (UnsupportedOperationException ignored) {
                 }
                 try {
                     int resistance = _lotroGame.getModifiersQuerying().getResistance(_lotroGame, card);
                     sb.append("<br><b>Resistance:</b> " + resistance);
-                } catch (UnsupportedOperationException exp) {
+                } catch (UnsupportedOperationException ignored) {
                 }
                 try {
                     int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame, card);
                     sb.append("<br><b>Site number:</b> " + siteNumber);
-                } catch (UnsupportedOperationException exp) {
+                } catch (UnsupportedOperationException ignored) {
                 }
 
                 StringBuilder keywords = new StringBuilder();
@@ -351,6 +350,12 @@ public class LotroGameMediator {
             }
         } finally {
             _writeLock.unlock();
+        }
+    }
+
+    public void readoutParticipantDecks() {
+        for(var comms : _communicationChannels.values()) {
+            comms.deckReadout(_playerDecks);
         }
     }
 

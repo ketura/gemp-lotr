@@ -3,6 +3,7 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -14,6 +15,7 @@ public class EventSerializer {
     public Node serializeEvent(Document doc, GameEvent gameEvent) {
         Element eventElem = doc.createElement("ge");
         eventElem.setAttribute("type", gameEvent.getType().getCode());
+        eventElem.setAttribute("timestamp", gameEvent.getTimestamp().toString());
 
         if (gameEvent.getBlueprintId() != null)
             eventElem.setAttribute("blueprintId", gameEvent.getBlueprintId());
@@ -45,6 +47,8 @@ public class EventSerializer {
             serializeGameStats(doc, eventElem, gameEvent.getGameStats());
         if (gameEvent.getAwaitingDecision() != null)
             serializeDecision(doc, eventElem, gameEvent.getAwaitingDecision());
+        if (gameEvent.getDecks() != null)
+            serializeDecks(doc, eventElem, gameEvent.getDecks());
 
         return eventElem;
     }
@@ -72,6 +76,23 @@ public class EventSerializer {
             first = false;
         }
         return sb.toString();
+    }
+
+    private void serializeDecks(Document document, Element eventElem, Map<String, LotroDeck> decks) {
+        for(var pair : decks.entrySet()) {
+            String player = pair.getKey();
+            var deck = pair.getValue();
+
+            var deckElement = document.createElement("deckReadout");
+            deckElement.setAttribute("playerId", player);
+            deckElement.setAttribute("name", deck.getDeckName());
+            deckElement.setAttribute("rb", deck.getRingBearer());
+            deckElement.setAttribute("ring", deck.getRing());
+            deckElement.setAttribute("sites", String.join(",", deck.getSites()));
+            deckElement.setAttribute("deck", String.join(",", deck.getAdventureCards()));
+
+            eventElem.appendChild(deckElement);
+        }
     }
 
     private void serializeDecision(Document doc, Element eventElem, AwaitingDecision decision) {
