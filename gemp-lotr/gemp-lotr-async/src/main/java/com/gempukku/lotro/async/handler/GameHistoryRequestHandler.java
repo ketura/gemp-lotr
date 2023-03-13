@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,8 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
         gameHistory.setAttribute("count", String.valueOf(recordCount));
         gameHistory.setAttribute("playerId", resourceOwner.getName());
 
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         for (DBDefs.GameHistory game : playerGameHistory) {
             Element historyEntry = doc.createElement("historyEntry");
             historyEntry.setAttribute("winner", game.winner);
@@ -81,8 +84,8 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
                 historyEntry.setAttribute("deckName", game.loser_deck_name);
             }
 
-            historyEntry.setAttribute("startTime", game.start_date.toLocalDate().toString());
-            historyEntry.setAttribute("endTime", game.end_date.toLocalDate().toString());
+            historyEntry.setAttribute("startTime", game.start_date.format(formatter));
+            historyEntry.setAttribute("endTime", game.end_date.format(formatter));
 
             gameHistory.appendChild(historyEntry);
         }

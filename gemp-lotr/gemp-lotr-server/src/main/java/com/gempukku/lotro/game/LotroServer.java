@@ -126,7 +126,7 @@ public class LotroServer extends AbstractServer {
                 decks.put(participant.getPlayerId(), participant.getDeck());
             }
 
-            lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players.toString());
+            lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players);
 
             final var gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat(), tournamentName, decks);
             lotroGameMediator.addGameResultListener(

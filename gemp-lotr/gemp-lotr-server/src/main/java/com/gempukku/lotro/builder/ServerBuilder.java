@@ -48,7 +48,8 @@ public class ServerBuilder {
                         extract(objectMap, GameHistoryDAO.class)));
         objectMap.put(GameRecorder.class,
                 new GameRecorder(
-                        extract(objectMap, GameHistoryService.class)));
+                        extract(objectMap, GameHistoryService.class),
+                        extract(objectMap, PlayerDAO.class)));
 
         objectMap.put(CollectionsManager.class,
                 new CollectionsManager(

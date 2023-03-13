@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ public class EventSerializer {
     public Node serializeEvent(Document doc, GameEvent gameEvent) {
         Element eventElem = doc.createElement("ge");
         eventElem.setAttribute("type", gameEvent.getType().getCode());
-        eventElem.setAttribute("timestamp", gameEvent.getTimestamp().toString());
+        //TODO:
+        // - figure out a better date/time format for the log
+        // - import the json replay info into gemp
+        eventElem.setAttribute("timestamp", gameEvent.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         if (gameEvent.getBlueprintId() != null)
             eventElem.setAttribute("blueprintId", gameEvent.getBlueprintId());
@@ -43,6 +47,8 @@ public class EventSerializer {
             eventElem.setAttribute("otherCardIds", arrayToCommaSeparated(gameEvent.getOtherCardIds()));
         if (gameEvent.getMessage() != null)
             eventElem.setAttribute("message", gameEvent.getMessage());
+        if (gameEvent.getVersion() != null)
+            eventElem.setAttribute("version", gameEvent.getVersion().toString());
         if (gameEvent.getGameStats() != null)
             serializeGameStats(doc, eventElem, gameEvent.getGameStats());
         if (gameEvent.getAwaitingDecision() != null)

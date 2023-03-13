@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.DBDefs;
@@ -105,7 +106,7 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
 
             final List<DBDefs.GameHistory> gameHistory = _gameHistoryService.getGameHistoryForFormat(format, count);
 
-            responseWriter.writeJsonResponse(JsonConvert.toJson(gameHistory));
+            responseWriter.writeJsonResponse(JSON.toJSONString(gameHistory));
 
         } finally {
             postDecoder.destroy();

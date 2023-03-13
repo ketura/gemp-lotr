@@ -8,8 +8,8 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public class GameEvent {
         ADD_TOKENS("AT"), REMOVE_TOKENS("RT"),
         SEND_MESSAGE("M"), SEND_WARNING("W"),
         GAME_STATS("GS"),
-        CHAT_MESSAGE("CM"), DECK_READOUT("DR"),
+        CHAT_MESSAGE("CM"),
         CARD_AFFECTED_BY_CARD("CAC"), SHOW_CARD_ON_SCREEN("EP"), FLASH_CARD_IN_PLAY("CA"), DECISION("D");
 
         private final String code;
@@ -55,14 +55,20 @@ public class GameEvent {
     private Map<String, LotroDeck> _decks;
     private GameStats _gameStats;
     private AwaitingDecision _awaitingDecision;
-    private LocalDateTime _timestamp;
+    private ZonedDateTime _timestamp;
+    private Integer _version;
 
     public GameEvent(Type type) {
         _type = type;
-        _timestamp = LocalDateTime.now(ZoneOffset.UTC);
+        _timestamp = ZonedDateTime.now(ZoneOffset.UTC);
     }
 
-    public LocalDateTime getTimestamp() { return _timestamp; }
+    public ZonedDateTime getTimestamp() { return _timestamp; }
+    public Integer getVersion() { return _version; }
+    public GameEvent version(int version) {
+        _version = version;
+        return this;
+    }
 
     public Integer getIndex() {
         return _index;

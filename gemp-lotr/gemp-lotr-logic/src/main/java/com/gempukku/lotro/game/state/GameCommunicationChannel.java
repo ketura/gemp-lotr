@@ -5,7 +5,6 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
-import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.polling.LongPollableResource;
 import com.gempukku.polling.WaitingRequest;
 
@@ -186,10 +185,6 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     public void decisionRequired(String playerId, AwaitingDecision decision) {
         if (playerId.equals(_self))
             appendEvent(new GameEvent(DECISION).awaitingDecision(decision).participantId(playerId));
-    }
-
-    public void deckReadout(Map<String, LotroDeck> decks) {
-        appendEvent(new GameEvent(DECK_READOUT).decks(decks));
     }
 
     @Override

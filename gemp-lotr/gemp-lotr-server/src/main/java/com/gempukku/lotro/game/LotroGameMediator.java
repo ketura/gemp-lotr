@@ -353,12 +353,6 @@ public class LotroGameMediator {
         }
     }
 
-    public void readoutParticipantDecks() {
-        for(var comms : _communicationChannels.values()) {
-            comms.deckReadout(_playerDecks);
-        }
-    }
-
     public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))

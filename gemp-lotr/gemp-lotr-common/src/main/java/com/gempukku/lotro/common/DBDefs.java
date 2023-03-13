@@ -1,6 +1,7 @@
 package com.gempukku.lotro.common;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class DBDefs {
@@ -10,7 +11,9 @@ public class DBDefs {
         public int id;
 
         public String winner;
+        public int winnerId;
         public String loser;
+        public int loserId;
 
         public String win_reason;
         public String lose_reason;
@@ -18,8 +21,8 @@ public class DBDefs {
         public String win_recording_id;
         public String lose_recording_id;
 
-        public long start_date;
-        public long end_date;
+        public ZonedDateTime start_date;
+        public ZonedDateTime end_date;
 
         public String format_name;
 
@@ -28,18 +31,7 @@ public class DBDefs {
 
         public String tournament;
 
-
-        public Date GetStartDate()
-        {
-            return new Date(start_date);
-        }
-
-        public Date GetEndDate()
-        {
-            return new Date(end_date);
-        }
-
-
+        public int replay_version = -1;
     }
 
     public static class Collection {

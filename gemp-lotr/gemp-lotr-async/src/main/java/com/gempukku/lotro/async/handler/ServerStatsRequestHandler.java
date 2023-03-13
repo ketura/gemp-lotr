@@ -12,9 +12,10 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -42,25 +43,29 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
             try {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 format.setTimeZone(TimeZone.getTimeZone("GMT"));
-                long from = format.parse(startDay).getTime();
-                Date to = format.parse(startDay);
+
+                //This convoluted conversion is actually necessary, for it to be flexible enough to take
+                //human-level dates such as 2023-2-13 (note the lack of zero padding)
+                var from = ZonedDateTime.ofInstant(format.parse(startDay).toInstant(), ZoneOffset.UTC);
+
+                ZonedDateTime to = from;
+
                 switch (length) {
-                    case "month" -> to.setMonth(to.getMonth() + 1);
-                    case "week" -> to.setDate(to.getDate() + 7);
-                    case "day" -> to.setDate(to.getDate() + 1);
+                    case "month" -> to = from.plusMonths(1);
+                    case "week" -> to = from.plusDays(7);
+                    case "day" -> to = from.plusDays(1);
                     default -> throw new HttpProcessingException(400);
                 }
-                long duration = to.getTime() - from;
 
                 var stats = new JSONDefs.PlayHistoryStats();
-                stats.ActivePlayers = _gameHistoryService.getActivePlayersCount(from, duration);
-                stats.GamesCount = _gameHistoryService.getGamesPlayedCount(from, duration);
-                stats.StartDate = format.format(new Date(from));
-                stats.EndDate = format.format(new Date(from + duration - 1));
-                stats.Stats = _gameHistoryService.getGameHistoryStatistics(from, duration);
+                stats.ActivePlayers = _gameHistoryService.getActivePlayersCount(from, to);
+                stats.GamesCount = _gameHistoryService.getGamesPlayedCount(from, to);
+                stats.StartDate = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                stats.EndDate = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                stats.Stats = _gameHistoryService.getGameHistoryStatistics(from, to);
 
                 responseWriter.writeJsonResponse(JSON.toJSONString(stats));
-            } catch (ParseException exp) {
+            } catch (Exception exp) {
                 logHttpError(_log, 400, request.uri(), exp);
                 throw new HttpProcessingException(400);
             }
