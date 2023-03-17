@@ -71,7 +71,7 @@ public class ImportCards {
         }
     }
 
-    private Pattern cardLinePattern = Pattern.compile("^(x?\\s*\\d+\\s*x?)?\\s*(.*)\\s*(x?\\d+x?)?\\s*$");
+    private Pattern cardLinePattern = Pattern.compile("^(x?\\s*\\d+\\s*x?)?\\s*(.*?)\\s*(x?\\d+x?)?\\s*$");
 
     private List<CardCount> getDecklist(String rawDecklist) {
         int quantity;
