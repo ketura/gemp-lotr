@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.game.Player;
-import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -14,7 +13,6 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class PlayerInfoRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private final Gson JsonConvert = new Gson();
 
     private static final Logger _log = Logger.getLogger(PlayerInfoRequestHandler.class);
 

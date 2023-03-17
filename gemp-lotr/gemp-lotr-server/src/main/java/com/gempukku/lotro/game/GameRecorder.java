@@ -1,5 +1,6 @@
 package com.gempukku.lotro.game;
 
+import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.db.PlayerDAO;
@@ -114,6 +115,16 @@ public class GameRecorder {
         return new File(playerReplayFolder, gameId + ".xml.gz");
     }
 
+    private File getSummaryFile(DBDefs.GameHistory history) {
+        var gameReplayFolder = new File(AppConfig.getProperty("application.root"), "replay");
+        var summaryFolder = new File(gameReplayFolder, "summaries");
+        var yearFolder = new File(summaryFolder, String.format("%04d", history.start_date.getYear()));
+        var monthFolder = new File(yearFolder, String.format("%02d", history.start_date.getMonthValue()));
+        monthFolder.mkdirs();
+        return new File(monthFolder, history.winner + "_vs_" + history.loser + "_" +
+                history.win_recording_id + "_" + history.lose_recording_id+ ".json");
+    }
+
     private OutputStream getRecordingWriteStream(String playerId, String gameId, ZonedDateTime startDate) throws IOException {
         File recordingFile = getRecordingFileVersion1(playerId, gameId, startDate);
         recordingFile.getParentFile().mkdirs();
@@ -124,6 +135,8 @@ public class GameRecorder {
 
     private Map<String, String> saveRecordedChannels(Map<String, GameCommunicationChannel> gameProgress, DBDefs.GameHistory gameInfo, Map<String, LotroDeck> decks) {
         Map<String, String> result = new HashMap<>();
+        var metadata = new ReplayMetadata(gameInfo, decks);
+
         for (Map.Entry<String, GameCommunicationChannel> playerRecordings : gameProgress.entrySet()) {
             String playerId = playerRecordings.getKey();
             String recordingId = "";
@@ -135,6 +148,7 @@ public class GameRecorder {
             }
 
             final List<GameEvent> gameEvents = playerRecordings.getValue().consumeGameEvents();
+            metadata.ParseReplay(playerId, gameEvents);
 
             try {
                 DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -187,10 +201,15 @@ public class GameRecorder {
                     Transformer xformer = TransformerFactory.newInstance().newTransformer();
                     xformer.transform(source, streamResult);
                 }
+                result.put(playerId, recordingId);
+
+                try(var out = new PrintWriter(getSummaryFile(gameInfo).getAbsolutePath())) {
+                    out.println(JSON.toJSONString(metadata));
+                }
             } catch (Exception exp) {
 
             }
-            result.put(playerId, recordingId);
+
         }
         return result;
     }

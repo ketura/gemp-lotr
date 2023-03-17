@@ -18,6 +18,7 @@ import java.util.Objects;
 public class DbGameHistoryDAO implements GameHistoryDAO {
     private final DbAccess _dbAccess;
     private final DateTimeFormatter _dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter _dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 
     public DbGameHistoryDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -49,8 +50,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                         .addParameter("tournament", tournament)
                         .addParameter("winner_deck_name", winnerDeckName)
                         .addParameter("loser_deck_name", loserDeckName)
-                        .addParameter("start_date", startDate.format(DateTimeFormatter.ISO_DATE_TIME))
-                        .addParameter("end_date", endDate.format(DateTimeFormatter.ISO_DATE_TIME))
+                        .addParameter("start_date", startDate.format(_dateTimeFormat))
+                        .addParameter("end_date", endDate.format(_dateTimeFormat))
                         .addParameter("version", replayVersion);
 
                 query.executeUpdate();

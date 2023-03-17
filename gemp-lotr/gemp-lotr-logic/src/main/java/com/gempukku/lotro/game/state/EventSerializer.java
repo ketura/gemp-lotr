@@ -16,10 +16,7 @@ public class EventSerializer {
     public Node serializeEvent(Document doc, GameEvent gameEvent) {
         Element eventElem = doc.createElement("ge");
         eventElem.setAttribute("type", gameEvent.getType().getCode());
-        //TODO:
-        // - figure out a better date/time format for the log
-        // - import the json replay info into gemp
-        eventElem.setAttribute("timestamp", gameEvent.getTimestamp().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        eventElem.setAttribute("timestamp", gameEvent.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.SSSS")));
 
         if (gameEvent.getBlueprintId() != null)
             eventElem.setAttribute("blueprintId", gameEvent.getBlueprintId());
