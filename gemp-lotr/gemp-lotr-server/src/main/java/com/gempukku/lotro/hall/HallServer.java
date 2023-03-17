@@ -31,13 +31,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
     private static final GameTimer DEFAULT_TIMER = new GameTimer(false, "Default", 60 * 80, 60 * 5);
-    private static final GameTimer BLITZ_TIMER = new GameTimer(false, "Blitz!", 60 * 30, 60 * 3);
+    private static final GameTimer BLITZ_TIMER = new GameTimer(false, "Blitz!", 60 * 30, 60 * 5);
     private static final GameTimer SLOW_TIMER = new GameTimer(false, "Slow", 60 * 120, 60 * 10);
     private static final GameTimer GLACIAL_TIMER = new GameTimer(true, "Glacial", 60 * 60 * 24 * 3, 60 * 60 * 24);
     // 5 minutes timeout, 40 minutes per game per player
     private static final GameTimer COMPETITIVE_TIMER = new GameTimer(false, "Competitive", 60 * 40, 60 * 5);
 
-    private static final int _playerInactivityPeriod = 1000 * 20; // 20 seconds
+    private static final int _playerTableInactivityPeriod = 1000 * 20 ; // 20 seconds
+
+    private static final int _playerChatInactivityPeriod = 1000 * 60 * 5; // 5 minutes
     private static final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
     // Repeat tournaments every 2 days
     private static final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
@@ -783,13 +785,17 @@ public class HallServer extends AbstractServer {
             long currentTime = System.currentTimeMillis();
             Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<>(_playerChannelCommunication);
             for (Map.Entry<Player, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
-                if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerInactivityPeriod) {
+                if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerTableInactivityPeriod) {
                     Player player = lastVisitedPlayer.getKey();
-                    _playerChannelCommunication.remove(player);
                     boolean leftTables = leaveAwaitingTablesForLeavingPlayer(player);
                     boolean leftQueues = leaveQueuesForLeavingPlayer(player);
                     if (leftTables || leftQueues)
                         hallChanged();
+                }
+
+                if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerChatInactivityPeriod) {
+                    Player player = lastVisitedPlayer.getKey();
+                    _playerChannelCommunication.remove(player);
                 }
             }
 
