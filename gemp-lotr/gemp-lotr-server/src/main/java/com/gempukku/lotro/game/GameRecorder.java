@@ -22,6 +22,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,8 +110,14 @@ public class GameRecorder {
 
     private File getRecordingFileVersion1(String playerId, String gameId, ZonedDateTime startDate) {
         var gameReplayFolder = new File(AppConfig.getProperty("application.root"), "replay");
-        var yearFolder = new File(gameReplayFolder, String.format("%04d", startDate.getYear()));
-        var monthFolder = new File(yearFolder, String.format("%02d", startDate.getMonthValue()));
+        //This dumbass formatting output is because anything that otherwise intersects with the
+        // year subfield appears to trigger a JVM segfault in the guts of the java ecosystem.
+        // Super-dumb.  Don't touch.
+        var year = startDate.format(DateTimeFormatter.ofPattern("yyyy"));
+        var month = startDate.format(DateTimeFormatter.ofPattern("MM"));
+
+        var yearFolder = new File(gameReplayFolder, year);
+        var monthFolder = new File(yearFolder, month);
         var playerReplayFolder = new File(monthFolder, playerId);
         return new File(playerReplayFolder, gameId + ".xml.gz");
     }

@@ -18,7 +18,7 @@ import java.util.Objects;
 public class DbGameHistoryDAO implements GameHistoryDAO {
     private final DbAccess _dbAccess;
     private final DateTimeFormatter _dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private final DateTimeFormatter _dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+    private final DateTimeFormatter _dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public DbGameHistoryDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -70,9 +70,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
             try (org.sql2o.Connection conn = db.open()) {
                 String sql = """
-                    SELECT winner, winnerId, loser, loserId, win_reason, lose_reason, 
-                        win_recording_id, lose_recording_id, format_name, tournament, 
-                        winner_deck_name, loser_deck_name, start_date, end_date 
+                    SELECT winner, winnerId, loser, loserId, win_reason, lose_reason, win_recording_id, lose_recording_id, 
+                            format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date, replay_version
                     FROM game_history 
                     WHERE winner = :playerName 
                         OR loser = :playerName 
@@ -100,9 +99,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
             try (org.sql2o.Connection conn = db.open()) {
                 String sql = """
-                    SELECT winner, winnerId, loser, loserId, win_reason, lose_reason, 
-                        win_recording_id, lose_recording_id, format_name, tournament, 
-                        winner_deck_name, loser_deck_name, start_date, end_date 
+                    SELECT winner, winnerId, loser, loserId, win_reason, lose_reason, win_recording_id, lose_recording_id, 
+                            format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date, replay_version 
                     FROM game_history 
                     WHERE win_recording_id = :recordID 
                         OR lose_recording_id = :recordID;
@@ -151,10 +149,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
             try (org.sql2o.Connection conn = db.open()) {
                 String sql = """
                         SELECT
-                            winner, winnerId, loser, loserId, win_reason, lose_reason,
-                            win_recording_id, lose_recording_id, format_name,
-                            tournament, winner_deck_name, loser_deck_name,
-                            start_date, end_date
+                            winner, winnerId, loser, loserId, win_reason, lose_reason, win_recording_id, lose_recording_id, 
+                            format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date, replay_version
                         FROM game_history
                         WHERE format_name LIKE :format
                         ORDER BY end_date DESC
@@ -307,8 +303,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
 
             try (org.sql2o.Connection conn = db.open()) {
                 String sql = """
-                        SELECT winner, winnerId, loser, loserId, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, 
-                            tournament, winner_deck_name, loser_deck_name, start_date, end_date
+                        SELECT winner, winnerId, loser, loserId, win_reason, lose_reason, win_recording_id, lose_recording_id, 
+                            format_name, tournament, winner_deck_name, loser_deck_name, start_date, end_date, replay_version
                         FROM game_history
                         WHERE format_name = :formatName 
                         ORDER BY end_date DESC
