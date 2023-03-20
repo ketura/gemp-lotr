@@ -61,7 +61,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
         gameHistory.setAttribute("count", String.valueOf(recordCount));
         gameHistory.setAttribute("playerId", resourceOwner.getName());
 
-        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         for (DBDefs.GameHistory game : playerGameHistory) {
             Element historyEntry = doc.createElement("historyEntry");

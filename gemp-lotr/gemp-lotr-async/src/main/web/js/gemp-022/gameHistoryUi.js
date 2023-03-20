@@ -35,7 +35,7 @@ var GameHistoryUI = Class.extend({
                 var loser = historyEntry.getAttribute("loser");
                 var winReason = historyEntry.getAttribute("winReason");
                 var loseReason = historyEntry.getAttribute("loseReason");
-                var endTime = formatDate(new Date(parseInt(historyEntry.getAttribute("endTime"))));
+                var endTime = historyEntry.getAttribute("endTime"); //formatDate(new Date(parseInt(historyEntry.getAttribute("endTime"))));
                 var gameRecordingId = historyEntry.getAttribute("gameRecordingId");
 
                 var row = $("<tr></tr>");
