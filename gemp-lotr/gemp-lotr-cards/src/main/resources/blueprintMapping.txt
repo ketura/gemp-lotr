@@ -318,3 +318,11 @@ gl_theOneRing,1_2
 8_124,8_15
 #Ithil Stone FA
 9_57,9_47
+#Noble Leaders MW
+7_367,7_112
+#Captured by the Ring FA
+7_368,7_53
+#Frodo, Reluctant Adventurer MW
+2_124,2_102
+#The Balrog, Durin's Bane FA
+2_125,2_51

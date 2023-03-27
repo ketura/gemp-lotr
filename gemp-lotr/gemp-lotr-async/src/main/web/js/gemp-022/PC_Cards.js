@@ -418,14 +418,26 @@ var PCCards = {
 	
 	//Feburary 2023 Gala
 	//Bilbo, Aged Ring-bearer MW
-	'13_205': 'https://i.lotrtcgpc.net/promos/LOTR-EN13S142.0_card.jpg',
+	'13_205': 'https://i.lotrtcgpc.net/promos/LOTR-EN13O142.0_card.jpg',
 	//Pallando, Far-travelling One FA
-	'13_206': 'https://i.lotrtcgpc.net/promos/LOTR-EN13S037.0_card.jpg',
+	'13_206': 'https://i.lotrtcgpc.net/promos/LOTR-EN13U037.0_card.jpg',
 	
 	//Feburary 2023 Qualifier League
 	//Gandalf, Leader of Men MW
-	'8_124': 'https://i.lotrtcgpc.net/promos/LOTR-EN08S015.0_card.jpg',
+	'8_124': 'https://i.lotrtcgpc.net/promos/LOTR-EN08O015.0_card.jpg',
 	//Ithil Stone FA
-	'9_57': 'https://i.lotrtcgpc.net/promos/LOTR-EN09S047.0_card.jpg'
+	'9_57': 'https://i.lotrtcgpc.net/promos/LOTR-EN09U047.0_card.jpg',
+	
+	//March 2023 Gala
+	//Noble Leaders MW
+	'7_367': 'https://i.lotrtcgpc.net/promos/LOTR-EN07O112.0_card.jpg',
+	//Captured by the Ring FA
+	'7_368': 'https://i.lotrtcgpc.net/promos/LOTR-EN07U053.0_card.jpg',
+	
+	//March 2023 Qualifier League
+	//Frodo, Reluctant Adventurer MW
+	'2_124': 'https://i.lotrtcgpc.net/promos/LOTR-EN02O102.0_card.jpg',
+	//The Balrog, Durin's Bane FA
+	'2_125': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U051.0_card.jpg',
 }
 

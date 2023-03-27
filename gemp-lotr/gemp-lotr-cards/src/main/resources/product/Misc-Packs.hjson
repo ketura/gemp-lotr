@@ -172,6 +172,14 @@
 			1x8_124
 			#Ithil Stone FA
 			1x9_57
+			//Noble Leaders MW
+			1x7_367
+			//Captured by the Ring FA
+			1x7_368
+			//Frodo, Reluctant Adventurer MW
+			1x2_124
+			//The Balrog, Durin's Bane FA
+			1x2_125
 		]
 	}
 	
@@ -359,6 +367,10 @@
 			1x13_205
 			#Gandalf, Leader of Men MW
 			1x8_124
+			//Noble Leaders MW
+			1x7_367
+			//Frodo, Reluctant Adventurer MW
+			1x2_124
 		]
 	}
 ]
