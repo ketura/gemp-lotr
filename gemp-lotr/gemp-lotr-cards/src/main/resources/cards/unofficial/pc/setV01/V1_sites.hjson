@@ -147,6 +147,10 @@
 				filter: your,companion
 				memorize: exertedComp
 			}
+			requires: {
+				type: Location
+				filter: self
+			}
 			cost: {
 				type: exert
 				filter: choose(culture(elven),ally)

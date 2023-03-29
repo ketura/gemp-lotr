@@ -36,7 +36,7 @@ public class Card_V1_061_Tests
 					put("site4", "1_343");
 					put("site5", "1_349");
 					put("site6", "101_61");
-					put("site7", "1_353");
+					put("site7", "3_118"); //NOT Anduin Confluence!  lol
 					put("site8", "1_356");
 					put("site9", "1_360");
 				}},
@@ -176,17 +176,20 @@ public class Card_V1_061_Tests
 
 		// 5 -> 6
 		scn.SkipToPhase(Phase.REGROUP);
+		assertEquals(5, (long)scn.GetCurrentSite().getSiteNumber());
 		scn.FreepsPlayCard(pathfinder); //ensure that it counts as "ours"
 		scn.ShadowPassCurrentPhaseAction();
 		scn.FreepsPassCurrentPhaseAction();
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
+		assertEquals("Lorien Throne Room", scn.GetCurrentSite().getBlueprint().getTitle());
 
 		// 6 -> 7
 		scn.SkipToPhase(Phase.REGROUP);
 		scn.PassCurrentPhaseActions();
 		scn.ShadowDeclineReconciliation();
 		scn.FreepsChooseToMove();
+		assertEquals(7, (long)scn.GetCurrentSite().getSiteNumber());
 
 		scn.ShadowMoveCharToTable(runner);
 

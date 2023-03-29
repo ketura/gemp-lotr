@@ -43,13 +43,13 @@
 						type: wound
 						player: freeps
 						count: 2
-						filter: choose(your,character)
+						filter: choose(freeps,character)
 					}
 					{
 						type: wound
 						player: shadow
 						count: 2
-						filter: choose(your,character)
+						filter: choose(shadow,character)
 					}
 				]
 			}

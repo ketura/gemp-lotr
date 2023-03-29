@@ -48,6 +48,7 @@
 								type: addKeyword
 								filter: choose(Nazgul)
 								keyword: damage+1
+								until: start(regroup)
 							}
 						}
 						{
