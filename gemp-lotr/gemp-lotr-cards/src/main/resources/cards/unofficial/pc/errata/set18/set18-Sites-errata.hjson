@@ -29,6 +29,7 @@
 		twilight: 1
 		type: Site
 		block: Shadows
+		keyword: mountain
 		direction: Left
 		effects: [
 			{
@@ -43,13 +44,13 @@
 						type: wound
 						player: freeps
 						count: 2
-						filter: choose(freeps,character)
+						filter: choose(side(freeps),character)
 					}
 					{
 						type: wound
 						player: shadow
 						count: 2
-						filter: choose(shadow,character)
+						filter: choose(side(shadow),character)
 					}
 				]
 			}
