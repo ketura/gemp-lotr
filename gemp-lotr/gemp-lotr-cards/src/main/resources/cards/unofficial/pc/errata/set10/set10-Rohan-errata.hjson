@@ -32,6 +32,7 @@
 		race: man
 		strength: 6
 		vitality: 3
+		resistance: 6
 		signet: gandalf
 		effects: [
 			{
