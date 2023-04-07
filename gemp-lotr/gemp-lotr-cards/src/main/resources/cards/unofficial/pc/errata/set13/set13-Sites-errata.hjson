@@ -33,6 +33,7 @@
 		effects: [
 			{
 				type: trigger
+				optional: true
 				trigger: {
 					type: movesTo
 					filter: self
