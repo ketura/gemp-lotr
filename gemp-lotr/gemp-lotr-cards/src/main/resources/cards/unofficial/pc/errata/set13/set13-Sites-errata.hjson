@@ -42,15 +42,23 @@
 					type: location
 					filter: regionNumber(2)
 				}
-				cost: {
-					type: discardFromHand
-					hand: shadowPlayer
-					player: shadowPlayer
-					forced: false
-					count: 2
-				}
 				effect: {
-					type: addBurdens
+					type: optional
+					player: shadow
+					text: Would you like to discard 2 cards from hand to add a burden?
+					effect: {
+						type: costToEffect
+						cost: {
+							type: discardFromHand
+							hand: shadowPlayer
+							player: shadowPlayer
+							forced: false
+							count: 2
+						}
+						effect: {
+							type: addBurdens
+						}
+					}
 				}
 			}
 		]
