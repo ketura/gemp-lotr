@@ -137,15 +137,7 @@
 												type: addmodifier
 												modifier: {
 													type: cantUseSpecialAbilities
-													filter: side(freeps)
-												}
-												until: end(skirmish)
-											}
-											{
-												type: addmodifier
-												modifier: {
-													type: cantUseSpecialAbilities
-													filter: side(shadow)
+													filter: or(side(freeps),side(shadow),site,the one ring)
 												}
 												until: end(skirmish)
 											}

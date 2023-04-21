@@ -37,7 +37,7 @@
 				type: modifier
 				modifier: {
 					type: modifystrength
-					filter: self
+					filter: bearer
 					requires: {
 						type: canSpot
 						filter: roaming,minion
