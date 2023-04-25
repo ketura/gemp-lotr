@@ -313,7 +313,7 @@ var Card = Class.extend({
         if (setNo == 13 || setNo == 63 || setNo == 83)
             return (cardNo >= 185 && cardNo <= 194);
         if (setNo == 15 || setNo == 65 || setNo == 85)
-            return (cardNo >= 187 && cardNo <= 194);
+            return (cardNo >= 187 && cardNo <= 194) || cardNo == 210;
         if (setNo == 17 || setNo == 67 || setNo == 87)
             return (cardNo >= 145 && cardNo <= 148);
         if (setNo == 18 || setNo == 68 || setNo == 88)
