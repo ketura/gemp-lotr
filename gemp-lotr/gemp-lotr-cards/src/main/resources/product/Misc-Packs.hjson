@@ -180,6 +180,12 @@
 			1x2_124
 			//The Balrog, Durin's Bane FA
 			1x2_125
+			//Treebeard, Enraged Shepherd MW
+			1x15_209
+			//Mount Doom FA
+			1x15_210
+			//Saruman, Servant of Sauron FA
+			1x17_158
 		]
 	}
 	
@@ -371,6 +377,8 @@
 			1x7_367
 			//Frodo, Reluctant Adventurer MW
 			1x2_124
+			//Treebeard, Enraged Shepherd MW
+			1x15_209
 		]
 	}
 ]

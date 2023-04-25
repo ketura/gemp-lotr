@@ -326,3 +326,9 @@ gl_theOneRing,1_2
 2_124,2_102
 #The Balrog, Durin's Bane FA
 2_125,2_51
+#Treebeard, Enraged Shepherd MW
+15_209,15_038
+#Mount Doom FA
+15_210,15_193
+#Saruman, Servant of Sauron FA
+17_158,17_38

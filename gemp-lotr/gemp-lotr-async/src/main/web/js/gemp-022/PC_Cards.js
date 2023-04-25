@@ -439,5 +439,15 @@ var PCCards = {
 	'2_124': 'https://i.lotrtcgpc.net/promos/LOTR-EN02O102.0_card.jpg',
 	//The Balrog, Durin's Bane FA
 	'2_125': 'https://i.lotrtcgpc.net/promos/LOTR-EN02U051.0_card.jpg',
+	
+	//April 2023 Gala
+	//Treebeard, Enraged Shepherd MW
+	'15_209': 'https://i.lotrtcgpc.net/promos/LOTR-EN15O038.0_card.jpg',
+	//Mount Doom FA
+	'15_210': 'https://i.lotrtcgpc.net/promos/LOTR-EN15U193.0_card.jpg',
+	
+	//April 2023 Qualifier League
+	//Saruman, Servant of Sauron FA
+	'17_158': 'https://i.lotrtcgpc.net/promos/LOTR-EN17U038.0_card.jpg',
 }
 
