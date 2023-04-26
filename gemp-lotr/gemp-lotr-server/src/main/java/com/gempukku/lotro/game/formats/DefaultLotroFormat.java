@@ -465,23 +465,29 @@ public class DefaultLotroFormat implements LotroFormat {
         LotroDeck deckWithErrata = new LotroDeck(deck.getDeckName());
         deckWithErrata.setTargetFormat(deck.getTargetFormat());
         if (deck.getRingBearer() != null) {
-            deckWithErrata.setRingBearer(_errataCardMap.getOrDefault(deck.getRingBearer(), deck.getRingBearer()));
+            deckWithErrata.setRingBearer(applyErrata(deck.getRingBearer()));
         }
         if (deck.getRing() != null) {
-            deckWithErrata.setRing(_errataCardMap.getOrDefault(deck.getRing(), deck.getRing()));
+            deckWithErrata.setRing(applyErrata(deck.getRing()));
         }
         for (String card : deck.getAdventureCards()) {
-            deckWithErrata.addCard(_errataCardMap.getOrDefault(card, card));
+            deckWithErrata.addCard(applyErrata(card));
         }
         for (String site : deck.getSites()) {
-            deckWithErrata.addSite(_errataCardMap.getOrDefault(site, site));
+            deckWithErrata.addSite(applyErrata(site));
         }
         return deckWithErrata;
     }
 
     @Override
-    public String applyErrata(String bpID) {
-        return _errataCardMap.getOrDefault(bpID, bpID);
+    public String applyErrata(String original) {
+        var base = _library.getBaseBlueprintId(original);
+        var errata = _errataCardMap.getOrDefault(base, base);
+        if (original.endsWith("*") && !errata.endsWith("*")) {
+            errata += "*";
+        }
+
+        return errata;
     }
 
     @Override

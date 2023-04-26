@@ -671,14 +671,31 @@ public class HallServer extends AbstractServer {
                 int count = cardCount.getValue();
 
                 int owned = ownedCollection.getItemCount(blueprintId);
+                //Since the cards we are validating may be automatic errata IDs, we check and see
+                // if the base version of the errata ID is owned in foil, and count that if so.
+                if(blueprintId.endsWith("*")) {
+                    var ids = format.findBaseCards(_library.getBaseBlueprintId(blueprintId));
+                    if(ids.size() == 1) {
+                        owned += ownedCollection.getItemCount(ids.stream().findFirst() + "*");
+                    }
+                }
                 int fromOwned = Math.min(owned, count);
+
+                int set = Integer.parseInt(blueprintId.split("_")[0]);
 
                 for (int i = 0; i < fromOwned; i++)
                     filteredSpecialCardsDeck.addCard(blueprintId);
                 if (count - fromOwned > 0) {
                     String baseBlueprintId = _library.getBaseBlueprintId(blueprintId);
-                    for (int i = 0; i < (count - fromOwned); i++)
-                        filteredSpecialCardsDeck.addCard(baseBlueprintId);
+                    for (int i = 0; i < (count - fromOwned); i++) {
+                        //hacking in foil support for errata foils
+                        if(set > 19 && blueprintId.endsWith("*")) {
+                            filteredSpecialCardsDeck.addCard(blueprintId);
+                        }
+                        else {
+                            filteredSpecialCardsDeck.addCard(baseBlueprintId);
+                        }
+                    }
                 }
             }
 
