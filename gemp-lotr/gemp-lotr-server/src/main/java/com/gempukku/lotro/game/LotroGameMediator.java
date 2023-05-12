@@ -36,7 +36,7 @@ public class LotroGameMediator {
     private final int _maxSecondsPerDecision;
     private final boolean _allowSpectators;
     private final boolean _cancellable;
-    private final boolean privateGame;
+    private final boolean _showInGameHall;
 
     private final ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private final ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -45,13 +45,13 @@ public class LotroGameMediator {
     private volatile boolean _destroyed;
 
     public LotroGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             int maxSecondsPerDecision, boolean allowSpectators, boolean cancellable, boolean privateGame) {
+                             int maxSecondsPerDecision, boolean allowSpectators, boolean cancellable, boolean showInGameHall) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         _maxSecondsPerDecision = maxSecondsPerDecision;
         _allowSpectators = allowSpectators;
         _cancellable = cancellable;
-        this.privateGame = privateGame;
+        this._showInGameHall = showInGameHall;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -68,7 +68,7 @@ public class LotroGameMediator {
     }
 
     public boolean isVisibleToUser(String username) {
-        return !privateGame || _playersPlaying.contains(username);
+        return !_showInGameHall || _playersPlaying.contains(username);
     }
 
     public boolean isDestroyed() {

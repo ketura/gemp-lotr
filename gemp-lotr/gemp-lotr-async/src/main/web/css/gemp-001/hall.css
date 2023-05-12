@@ -337,6 +337,11 @@ table.tables tr.privateForPlayer {
 	flex-grow:2;
 }
 
+.checkboxes {
+	display: grid;
+	min-width: max-content;
+}
+
 #tableDescInput {
 	min-width: 150px; 
 	flex-grow: 1;

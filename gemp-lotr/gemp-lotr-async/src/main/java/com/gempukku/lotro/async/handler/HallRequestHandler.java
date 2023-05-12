@@ -142,12 +142,14 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             String desc = getFormParameterSafely(postDecoder, "desc").trim();
             String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
             boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
+            String isInviteOnlyVal = getFormParameterSafely(postDecoder, "isInviteOnly");
+            boolean isInviteOnly = (isInviteOnlyVal != null ? Boolean.valueOf(isInviteOnlyVal) : false);
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            if(isPrivate) {
+            if(isInviteOnly) {
                 if(desc.length()==0) {
-                    responseWriter.writeXmlResponse(marshalException(new HallException("Private games must have your intended opponent in the description")));
+                    responseWriter.writeXmlResponse(marshalException(new HallException("Invite-only games must have your intended opponent in the description")));
                     return;
                 }
 
@@ -173,7 +175,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
 
             try {
-                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc, isPrivate);
+                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc, isInviteOnly, isPrivate);
                 responseWriter.writeXmlResponse(null);
             }
             catch (HallException e) {
@@ -181,7 +183,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 {
                     //try again assuming it's a new player with one of the default library decks selected
                     Player librarian = _playerDao.getPlayer("Librarian");
-                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isPrivate);
+                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isInviteOnly, isPrivate);
                     responseWriter.writeXmlResponse(null);
                     return;
                 }

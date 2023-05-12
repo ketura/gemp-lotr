@@ -8,6 +8,7 @@ var GempLotrHallUI = Class.extend({
 	timerSelect:null,
 	createTableButton:null,
 	isPrivateCheckbox:null,
+	isInviteOnlyCheckbox:null,
 
 	tablesDiv:null,
 	buttonsDiv:null,
@@ -64,6 +65,7 @@ var GempLotrHallUI = Class.extend({
 		this.tablesDiv = $("#tablesDiv");
 		this.tableDescInput = $("#tableDescInput");
 		this.isPrivateCheckbox = $("#isPrivateCheckbox");
+		this.isInviteOnlyCheckbox = $("#isInviteOnlyCheckbox");
 		this.pocketDiv = $("#pocketDiv");
 		this.supportedFormatsSelect = $("#supportedFormatsSelect");
 		this.createTableButton = $("#createTableBut");
@@ -116,9 +118,10 @@ var GempLotrHallUI = Class.extend({
 				var tableDesc = that.tableDescInput.val();
 				var timer = that.timerSelect.val();
 				var isPrivate = that.isPrivateCheckbox.is(':checked');
+				var isInviteOnly = that.isInviteOnlyCheckbox.is(':checked');
 				if (deck != null)
 					console.log("creating table");
-					that.comm.createTable(format, deck, timer, tableDesc, isPrivate, function (xml) {
+					that.comm.createTable(format, deck, timer, tableDesc, isPrivate, isInviteOnly, function (xml) {
 						console.log("received table response");
 						that.processResponse(xml);
 					});
@@ -451,7 +454,8 @@ var GempLotrHallUI = Class.extend({
 					var tournamentName = table.getAttribute("tournament");
 					var userDesc = table.getAttribute("userDescription");
 					var isPrivate = (table.getAttribute("isPrivate") === "true");
-					var privateForYou = isPrivate && userDesc === chat.userName;
+					var isInviteOnly = (table.getAttribute("isInviteOnly") === "true");
+					var inviteForYou = isInviteOnly && userDesc === chat.userName;
 					var players = new Array();
 					if (playersAttr.length > 0)
 						players = playersAttr.split(",");
@@ -462,17 +466,38 @@ var GempLotrHallUI = Class.extend({
 
 					row.append("<td>" + formatName + "</td>");
 					var name = "<td>" + tournamentName;
-					if(!!userDesc)
+					if(isPrivate) 
 					{
-						if(isPrivate)
+						if(!!userDesc)
 						{
-							name += " - <i>Match for user '" + userDesc + "'.";
+							if(isInviteOnly)
+							{
+								name += " - <i>Private match for user '" + userDesc + "'.";
+							}
+							else 
+							{
+								name += " - <i>Private match: [" + userDesc + "]</i>";
+							}
 						}
-						else 
-						{
-							name += " - <i>[" + userDesc + "]</i>";
+						else {
+							name += " - <i>Private.</i>";
 						}
 					}
+					else 
+					{
+						if(!!userDesc)
+						{
+							if(isInviteOnly)
+							{
+								name += " - <i>Match for user '" + userDesc + "'.";
+							}
+							else 
+							{
+								name += " - <i>[" + userDesc + "]</i>";
+							}
+						}
+					}
+					
 					name += "</td>";
 					row.append(name);
 					row.append("<td>" + statusDescription + "</td>");
@@ -499,7 +524,7 @@ var GempLotrHallUI = Class.extend({
 								})(id));
 							lastField.append(but);
 						} 
-						else if(!isPrivate || privateForYou) {
+						else if(!isInviteOnly || inviteForYou) {
 							var that = this;
 
 							var but = $("<button>Join Table</button>");
@@ -591,7 +616,7 @@ var GempLotrHallUI = Class.extend({
 					if (playing == "true")
 						row.addClass("played");
 					
-					if(privateForYou)
+					if(inviteForYou)
 						row.addClass("privateForPlayer");
 				} else if (action == "remove") {
 					$(".table" + id, this.tablesDiv).remove();

@@ -223,7 +223,10 @@
 				<option value="glacial">Glacial (3d/1d)</option>
 			</select>
 			<input id='tableDescInput' type='text' maxlength='100' placeHolder='Description (or player to invite)'>
-			<label id="inviteCheckbox"><input type='checkbox' id='isPrivateCheckbox'>Invite Only</input></label>
+			<div class="checkboxes">
+				<label id="inviteCheckbox"><input type='checkbox' id='isInviteOnlyCheckbox'>Invite Only</input></label>
+				<label id="privateCheckbox"><input type='checkbox' id='isPrivateCheckbox'>Private</input></label>
+			</div>
 			<button id="createTableBut">Create table</button>
 	</div>
 	<div id="chat" class="flex-horiz" >

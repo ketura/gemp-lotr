@@ -12,26 +12,28 @@ public class GameSettings {
     private final LeagueSerieData leagueSerie;
     private final boolean competitive;
     private final boolean privateGame;
+    private final boolean hiddenGame;
     private final String timerName;
     private final int maxSecondsPerPlayer;
     private final int maxSecondsPerDecision;
     private final String userDescription;
-    private final boolean isPrivate;
+    private final boolean isInviteOnly;
 
     public GameSettings(CollectionType collectionType, LotroFormat lotroFormat, League league, LeagueSerieData leagueSerie,
-                        boolean competitive, boolean privateGame, String timerName, int maxSecondsPerPlayer, int maxSecondsPerDecision,
-                        String description, boolean isPrivate) {
+                        boolean competitive, boolean privateGame, boolean hiddenGame, String timerName, int maxSecondsPerPlayer, int maxSecondsPerDecision,
+                        String description, boolean isInviteOnly) {
         this.collectionType = collectionType;
         this.lotroFormat = lotroFormat;
         this.league = league;
         this.leagueSerie = leagueSerie;
         this.competitive = competitive;
         this.privateGame = privateGame;
+        this.hiddenGame = hiddenGame;
         this.timerName = timerName;
         this.maxSecondsPerPlayer = maxSecondsPerPlayer;
         this.maxSecondsPerDecision = maxSecondsPerDecision;
         this.userDescription = description;
-        this.isPrivate = isPrivate;
+        this.isInviteOnly = isInviteOnly;
     }
 
     public CollectionType getCollectionType() {
@@ -58,6 +60,10 @@ public class GameSettings {
         return privateGame;
     }
 
+    public boolean isHiddenGame() {
+        return hiddenGame;
+    }
+
     public int getMaxSecondsPerPlayer() {
         return maxSecondsPerPlayer;
     }
@@ -72,5 +78,5 @@ public class GameSettings {
 
     public String getUserDescription() { return userDescription; }
 
-    public boolean isUserPrivateGame() { return isPrivate; }
+    public boolean isUserInviteOnly() { return isInviteOnly; }
 }

@@ -177,7 +177,7 @@ public class TableHolder {
                 players = table.getPlayerNames();
 
             if (isAdmin || isNoIgnores(players, player.getName()))
-                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getGameSettings().getLotroFormat().getName(), getTournamentName(table), table.getGameSettings().getUserDescription(), players, table.getPlayerNames().contains(player.getName()), table.getGameSettings().isUserPrivateGame(), null);
+                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getGameSettings().getLotroFormat().getName(), getTournamentName(table), table.getGameSettings().getUserDescription(), players, table.getPlayerNames().contains(player.getName()), table.getGameSettings().isPrivateGame(), table.getGameSettings().isUserInviteOnly(), null);
         }
 
         // Then non-finished
@@ -192,7 +192,7 @@ public class TableHolder {
                     if (lotroGameMediator.isFinished())
                         finishedTables.put(runningGame.getKey(), runningTable);
                     else
-                        visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameId(), isAdmin || lotroGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, lotroGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isUserPrivateGame(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameId(), isAdmin || lotroGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, lotroGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isPrivateGame(),  runningTable.getGameSettings().isUserInviteOnly(), lotroGameMediator.getWinner());
 
                     if (!lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(player.getName()))
                         visitor.runningPlayerGame(lotroGameMediator.getGameId());
@@ -206,7 +206,7 @@ public class TableHolder {
             LotroGameMediator lotroGameMediator = runningTable.getLotroGameMediator();
             if (lotroGameMediator != null) {
                 if (isAdmin || isNoIgnores(lotroGameMediator.getPlayersPlaying(), player.getName()))
-                    visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isUserPrivateGame(), lotroGameMediator.getWinner());
+                    visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isPrivateGame(),  runningTable.getGameSettings().isUserInviteOnly(), lotroGameMediator.getWinner());
             }
         }
     }
