@@ -68,6 +68,17 @@ body {
     background-image: url('/gemp-lotr/images/adventureDeck-42.png');
 }
 
+.removedPileSize {
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('/gemp-lotr/images/exiled-42.png');
+}
+
 .showStats {
     display: table-cell;
 }

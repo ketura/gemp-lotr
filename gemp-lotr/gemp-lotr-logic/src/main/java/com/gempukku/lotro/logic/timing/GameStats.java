@@ -135,6 +135,7 @@ public class GameStats {
                 playerZoneSizes.put(Zone.ADVENTURE_DECK, game.getGameState().getAdventureDeck(player).size());
                 playerZoneSizes.put(Zone.DISCARD, game.getGameState().getDiscard(player).size());
                 playerZoneSizes.put(Zone.DEAD, game.getGameState().getDeadPile(player).size());
+                playerZoneSizes.put(Zone.REMOVED, game.getGameState().getRemoved(player).size());
                 newZoneSizes.put(player, playerZoneSizes);
             }
         }

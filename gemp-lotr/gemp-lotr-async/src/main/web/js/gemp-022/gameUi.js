@@ -32,6 +32,8 @@ var GempLotrGameUI = Class.extend({
     adventureDeckGroups: null,
     deadPileDialogs: null,
     deadPileGroups: null,
+    removedPileDialogs: null,
+    removedPileGroups: null,
 
     statsDiv: null,
 
@@ -146,6 +148,8 @@ var GempLotrGameUI = Class.extend({
         this.adventureDeckGroups = {};
         this.deadPileDialogs = {};
         this.deadPileGroups = {};
+        this.removedPileDialogs = {};
+        this.removedPileGroups = {};
 
         this.skirmishShadowGroup = new NormalCardGroup($("#main"), function (card) {
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
@@ -294,7 +298,7 @@ var GempLotrGameUI = Class.extend({
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
-                + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div><div id='adventureDeck" + i + "' class='adventureDeckSize'></div></div></div>");
+                + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div><div id='adventureDeck" + i + "' class='adventureDeckSize'></div><div id='removedPile" + i + "' class='removedPileSize'></div></div></div>");
         }
 
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
@@ -314,11 +318,13 @@ var GempLotrGameUI = Class.extend({
                                         $("#discard" + playerIndex).css({display: "none"});
                                         $("#deadPile" + playerIndex).css({display: "none"});
                                         $("#adventureDeck" + playerIndex).css({display: "none"});
+                                        $("#removedPile" + playerIndex).css({display: "none"});
                                     } else {
-                                        $(this).addClass("opened").css({width: 150 - that.padding + 126});
+                                        $(this).addClass("opened").css({width: 150 - that.padding + 168});
                                         $("#discard" + playerIndex).css({display: "table-cell"});
                                         $("#deadPile" + playerIndex).css({display: "table-cell"});
                                         $("#adventureDeck" + playerIndex).css({display: "table-cell"});
+                                        $("#removedPile" + playerIndex).css({display: "table-cell"});
                                     }
                                 }
                             });
@@ -328,7 +334,6 @@ var GempLotrGameUI = Class.extend({
             $("#showStats" + i).append(showBut);
         }
 
-        //TODO: This is where we will need to add support for public discard piles
         if (!this.spectatorMode) {
             if(!discardPublic) {
                 $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
@@ -360,6 +365,17 @@ var GempLotrGameUI = Class.extend({
                     return function () {
                         var dialog = that.deadPileDialogs[that.allPlayerIds[index]];
                         var group = that.deadPileGroups[that.allPlayerIds[index]];
+                        openSizeDialog(dialog);
+                        that.dialogResize(dialog, group);
+                        group.layoutCards();
+                    };
+                })(i));
+            
+            $("#removedPile" + i).addClass("clickable").click(
+                (function (index) {
+                    return function () {
+                        var dialog = that.removedPileDialogs[that.allPlayerIds[index]];
+                        var group = that.removedPileGroups[that.allPlayerIds[index]];
                         openSizeDialog(dialog);
                         that.dialogResize(dialog, group);
                         group.layoutCards();
@@ -1028,6 +1044,10 @@ var GempLotrGameUI = Class.extend({
             for (var playerId in this.deadPileGroups)
                 if (this.deadPileGroups.hasOwnProperty(playerId))
                     this.deadPileGroups[playerId].layoutCards();
+                
+            for (var playerId in this.removedPileGroups)
+                if (this.removedPileGroups.hasOwnProperty(playerId))
+                    this.removedPileGroups[playerId].layoutCards();
         }
         this.tabPane.css({
             position: "absolute",
@@ -1399,33 +1419,11 @@ var GempLotrGameUI = Class.extend({
             participantId = this.allPlayerIds[i];
             
             this.createPile(participantId, "Dead Pile", "deadPileDialogs", "deadPileGroups");
+            this.createPile(participantId, "Removed Pile", "removedPileDialogs", "removedPileGroups");
             
             if(discardPublic) {
                 this.createPile(participantId, "Discard Pile", "discardPileDialogs", "discardPileGroups");
             }
-            
-            // var deadPileDialog = $("<div></div>").dialog({
-            //     autoOpen: false,
-            //     closeOnEscape: true,
-            //     resizable: true,
-            //     title: "Dead pile - " + this.allPlayerIds[i],
-            //     minHeight: 80,
-            //     minWidth: 200,
-            //     width: 600,
-            //     height: 300
-            // });
-            // this.deadPileDialogs[this.allPlayerIds[i]] = deadPileDialog;
-            // this.deadPileGroups[this.allPlayerIds[i]] = new NormalCardGroup(deadPileDialog, function (card) {
-            //     return true;
-            // }, false);
-
-            // this.deadPileGroups[this.allPlayerIds[i]].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
-
-            // deadPileDialog.bind("dialogresize", (function (dialog, index) {
-            //     return function () {
-            //         that.dialogResize(dialog, that.deadPileGroups[that.allPlayerIds[index]]);
-            //     }
-            // })(deadPileDialog, i));
         }
 
         this.initializeGameUI(discardPublic);

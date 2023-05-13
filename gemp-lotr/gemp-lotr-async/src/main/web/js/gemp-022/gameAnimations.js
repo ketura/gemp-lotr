@@ -226,6 +226,8 @@ var GameAnimations = Class.extend({
                     that.game.deadPileDialogs[participantId].append(cardDiv);
                 else if (zone == "ADVENTURE_DECK")
                     that.game.adventureDeckDialogs[participantId].append(cardDiv);
+                else if (zone == "REMOVED")
+                    that.game.removedPileDialogs[participantId].append(cardDiv);
                 else
                     $("#main").append(cardDiv);
 
@@ -797,12 +799,14 @@ var GameAnimations = Class.extend({
                     var adventureDeck = playerZone.getAttribute("ADVENTURE_DECK");
                     var dead = playerZone.getAttribute("DEAD");
                     var deck = playerZone.getAttribute("DECK");
+                    var removed = playerZone.getAttribute("REMOVED");
 
                     $("#deck" + that.game.getPlayerIndex(playerId)).text(deck);
                     $("#hand" + that.game.getPlayerIndex(playerId)).text(hand);
                     $("#discard" + that.game.getPlayerIndex(playerId)).text(discard);
                     $("#deadPile" + that.game.getPlayerIndex(playerId)).text(dead);
                     $("#adventureDeck" + that.game.getPlayerIndex(playerId)).text(adventureDeck);
+                    $("#removedPile" + that.game.getPlayerIndex(playerId)).text(removed);
                 }
 
                 var playerThreats = element.getElementsByTagName("threats")
