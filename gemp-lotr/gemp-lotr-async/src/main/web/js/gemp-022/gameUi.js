@@ -1419,7 +1419,7 @@ var GempLotrGameUI = Class.extend({
             participantId = this.allPlayerIds[i];
             
             this.createPile(participantId, "Dead Pile", "deadPileDialogs", "deadPileGroups");
-            this.createPile(participantId, "Removed Pile", "removedPileDialogs", "removedPileGroups");
+            this.createPile(participantId, "'Removed From Game' Pile", "removedPileDialogs", "removedPileGroups");
             
             if(discardPublic) {
                 this.createPile(participantId, "Discard Pile", "discardPileDialogs", "discardPileGroups");
