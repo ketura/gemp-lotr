@@ -328,27 +328,28 @@ var GempLotrGameUI = Class.extend({
             $("#showStats" + i).append(showBut);
         }
 
+        //TODO: This is where we will need to add support for public discard piles
         if (!this.spectatorMode) {
             $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
                 (function (index) {
                     return function () {
-                        var dialog = that.discardPileDialogs[that.bottomPlayerId];
-                        var group = that.discardPileGroups[that.allPlayerIds[index]];
+                        var dialog = that.discardPileDialogs[index];
+                        var group = that.discardPileGroups[index];
                         openSizeDialog(dialog);
                         that.dialogResize(dialog, group);
                         group.layoutCards();
                     };
-                })(i));
+                })(that.bottomPlayerId));
             $("#adventureDeck" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
                 (function (index) {
                     return function () {
-                        var dialog = that.adventureDeckDialogs[that.bottomPlayerId];
-                        var group = that.adventureDeckGroups[that.allPlayerIds[index]];
+                        var dialog = that.adventureDeckDialogs[index];
+                        var group = that.adventureDeckGroups[index];
                         openSizeDialog(dialog);
                         that.dialogResize(dialog, group);
                         group.layoutCards();
                     };
-                })(i));
+                })(that.bottomPlayerId));
         }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {

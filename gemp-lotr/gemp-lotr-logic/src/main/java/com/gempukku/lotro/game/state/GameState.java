@@ -96,11 +96,23 @@ public class GameState {
             }
         }
 
-        for (String playerId : playerOrder.getAllPlayers())
+        for (String playerId : playerOrder.getAllPlayers()) {
             _playerThreats.put(playerId, 0);
+        }
 
-        for (GameStateListener listener : getAllGameStateListeners())
+        for (GameStateListener listener : getAllGameStateListeners()) {
             listener.setPlayerOrder(playerOrder.getAllPlayers());
+        }
+
+        //This needs done after the Player Order initialization has been issued, or else the player
+        // adventure deck areas don't exist.
+        for (String playerId : playerOrder.getAllPlayers()) {
+            for(var site : getAdventureDeck(playerId)) {
+                for (GameStateListener listener : getAllGameStateListeners()) {
+                    listener.cardCreated(site);
+                }
+            }
+        }
     }
 
     public boolean isMoving() {
