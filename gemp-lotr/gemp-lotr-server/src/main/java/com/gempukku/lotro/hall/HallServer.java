@@ -715,9 +715,16 @@ public class HallServer extends AbstractServer {
                 int collectionCount = collection.getItemCount(cardCount.getKey()) +
                         collection.getItemCount(format.applyErrata(cardCount.getKey()));
 
-                for(String id : format.findBaseCards(cardCount.getKey())) {
-                    collectionCount += collection.getItemCount(id);
+                var alts = _library.getAllAlternates(cardCount.getKey());
+                if(alts != null) {
+                    for (String id : alts) {
+                        collectionCount += collection.getItemCount(id);
+                    }
                 }
+
+//                for(String id : format.findBaseCards(cardCount.getKey())) {
+//                    collectionCount += collection.getItemCount(id);
+//                }
 
                 if (collectionCount < cardCount.getValue()) {
                     String cardName = null;
