@@ -80,7 +80,7 @@ public class DefaultLotroGame implements LotroGame {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
                         final GameStats gameStats = _turnProcedure.getGameStats();
-                        _gameState.init(playerOrder, firstPlayer, cards, ringBearers, rings, library, gameStats);
+                        _gameState.init(playerOrder, firstPlayer, cards, ringBearers, rings, library, format);
                     }
                 }, characterDeathRule);
         _userFeedback = userFeedback;

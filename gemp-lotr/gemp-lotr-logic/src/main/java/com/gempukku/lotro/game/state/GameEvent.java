@@ -57,6 +57,7 @@ public class GameEvent {
     private AwaitingDecision _awaitingDecision;
     private ZonedDateTime _timestamp;
     private Integer _version;
+    private boolean _discardIsPublic;
 
     public GameEvent(Type type) {
         _type = type;
@@ -239,6 +240,15 @@ public class GameEvent {
 
     public GameEvent phase(String phase) {
         _phase = phase;
+        return this;
+    }
+
+    public boolean isDiscardPublic() {
+        return _discardIsPublic;
+    }
+
+    public GameEvent discardPublic(boolean discardPublic) {
+        _discardIsPublic = discardPublic;
         return this;
     }
 }

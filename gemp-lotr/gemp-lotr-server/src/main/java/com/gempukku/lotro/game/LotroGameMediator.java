@@ -403,7 +403,7 @@ public class LotroGameMediator {
             int number = _channelNextIndex;
             _channelNextIndex++;
 
-            GameCommunicationChannel participantCommunicationChannel = new GameCommunicationChannel(playerName, number);
+            GameCommunicationChannel participantCommunicationChannel = new GameCommunicationChannel(playerName, number, _lotroGame.getFormat());
             _communicationChannels.put(playerName, participantCommunicationChannel);
 
             _lotroGame.addGameStateListener(playerName, participantCommunicationChannel);

@@ -1,7 +1,9 @@
 package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
@@ -19,9 +21,12 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     private final int _channelNumber;
     private volatile WaitingRequest _waitingRequest;
 
-    public GameCommunicationChannel(String self, int channelNumber) {
+    private final LotroFormat _format;
+
+    public GameCommunicationChannel(String self, int channelNumber, LotroFormat format) {
         _self = self;
         _channelNumber = channelNumber;
+        _format = format;
     }
 
     public int getChannelNumber() {
@@ -29,10 +34,14 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     }
 
     @Override
-    public void setPlayerOrder(List<String> participants) {
+    public void initializeBoard(List<String> participants, boolean discardIsPublic) {
         List<String> participantIds = new LinkedList<>();
         participantIds.addAll(participants);
-        appendEvent(new GameEvent(PARTICIPANTS).participantId(_self).allParticipantIds(participantIds));
+        appendEvent(new GameEvent(PARTICIPANTS)
+                .participantId(_self)
+                .allParticipantIds(participantIds)
+                .discardPublic(discardIsPublic)
+        );
     }
 
     @Override
@@ -107,7 +116,8 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void cardCreated(PhysicalCard card) {
-        if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
+        boolean publicDiscard = card.getZone() == Zone.DISCARD && _format.discardPileIsPublic();
+        if (card.getZone().isPublic() || publicDiscard || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
             appendEvent(new GameEvent(PUT_CARD_INTO_PLAY).card(card));
     }
 
@@ -120,7 +130,8 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards) {
         Set<PhysicalCard> removedCardsVisibleByPlayer = new HashSet<>();
         for (PhysicalCard card : cards) {
-            if (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
+            boolean publicDiscard = card.getZone() == Zone.DISCARD && _format.discardPileIsPublic();
+            if (card.getZone().isPublic() || publicDiscard || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self)))
                 removedCardsVisibleByPlayer.add(card);
         }
         if (removedCardsVisibleByPlayer.size() > 0)

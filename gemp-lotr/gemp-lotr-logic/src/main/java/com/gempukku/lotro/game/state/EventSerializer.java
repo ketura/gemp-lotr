@@ -46,6 +46,8 @@ public class EventSerializer {
             eventElem.setAttribute("message", gameEvent.getMessage());
         if (gameEvent.getVersion() != null)
             eventElem.setAttribute("version", gameEvent.getVersion().toString());
+        if (gameEvent.getType() == GameEvent.Type.PARTICIPANTS)
+            eventElem.setAttribute("discardPublic", String.valueOf(gameEvent.isDiscardPublic()));
         if (gameEvent.getGameStats() != null)
             serializeGameStats(doc, eventElem, gameEvent.getGameStats());
         if (gameEvent.getAwaitingDecision() != null)

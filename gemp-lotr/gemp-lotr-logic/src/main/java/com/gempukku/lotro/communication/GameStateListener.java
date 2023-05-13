@@ -16,7 +16,7 @@ public interface GameStateListener {
 
     public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards);
 
-    public void setPlayerOrder(List<String> playerIds);
+    public void initializeBoard(List<String> playerIds, boolean discardIsPublic);
 
     public void setPlayerPosition(String playerId, int i);
 

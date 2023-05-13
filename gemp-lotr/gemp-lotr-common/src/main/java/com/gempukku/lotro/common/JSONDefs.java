@@ -40,6 +40,7 @@ public class JSONDefs {
         public boolean cancelRingBearerSkirmish = false;
         public boolean ruleOfFour = true;
         public boolean winAtEndOfRegroup = false;
+        public boolean discardPileIsPublic = false;
         public boolean winOnControlling5Sites = false;
         public boolean playtest = false;
         public boolean validateShadowFPCount = true;

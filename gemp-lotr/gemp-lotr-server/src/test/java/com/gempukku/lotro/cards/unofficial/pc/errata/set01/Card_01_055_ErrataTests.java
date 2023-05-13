@@ -97,6 +97,42 @@ public class Card_01_055_ErrataTests
 		PhysicalCardImpl card1 = scn.GetShadowCard("allyHome3_1");
 		PhysicalCardImpl card2 = scn.GetShadowCard("allyHome6_1");
 		PhysicalCardImpl card3 = scn.GetShadowCard("galadriel");
+		scn.ShadowMoveCardToHand(card1, card2, card3);
+		scn.ShadowMoveCharToTable("runner");
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		assertTrue(scn.FreepsActionAvailable(mirror));
+		assertEquals(0, scn.GetWoundsOn(galadriel));
+		assertEquals(3, scn.GetShadowHandCount());
+		assertEquals(1, scn.GetShadowDeckCount());
+		assertEquals(Zone.HAND, card1.getZone());
+
+		scn.FreepsUseCardAction(mirror);
+		assertEquals(3, scn.GetFreepsCardChoiceCount());
+		scn.FreepsDismissRevealedCards();
+		scn.ShadowDismissRevealedCards();
+		scn.FreepsChooseCardBPFromSelection(card1);
+		assertEquals(1, scn.GetWoundsOn(galadriel));
+		assertEquals(2, scn.GetShadowHandCount());
+		assertEquals(2, scn.GetShadowDeckCount());
+		assertEquals(Zone.DECK, card1.getZone());
+	}
+
+	@Test
+	public void ManeuverAbilityReveals3RandomCardsFromShadowHand() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		PhysicalCardImpl mirror = scn.GetFreepsCard("mirror");
+		PhysicalCardImpl galadriel = scn.GetFreepsCard("galadriel");
+		scn.FreepsMoveCharToTable(galadriel);
+		scn.FreepsMoveCardToSupportArea(mirror);
+
+		PhysicalCardImpl card1 = scn.GetShadowCard("allyHome3_1");
+		PhysicalCardImpl card2 = scn.GetShadowCard("allyHome6_1");
+		PhysicalCardImpl card3 = scn.GetShadowCard("galadriel");
 		PhysicalCardImpl card4 = scn.GetShadowCard("mirror");
 		scn.ShadowMoveCardToHand(card1, card2, card3, card4);
 		scn.ShadowMoveCharToTable("runner");
@@ -114,11 +150,6 @@ public class Card_01_055_ErrataTests
 		assertEquals(3, scn.GetFreepsCardChoiceCount());
 		scn.FreepsDismissRevealedCards();
 		scn.ShadowDismissRevealedCards();
-		scn.FreepsChooseCardBPFromSelection(card1);
-		assertEquals(1, scn.GetWoundsOn(galadriel));
-		assertEquals(3, scn.GetShadowHandCount());
-		assertEquals(1, scn.GetShadowDeckCount());
-		assertEquals(Zone.DECK, card1.getZone());
 	}
 
 }

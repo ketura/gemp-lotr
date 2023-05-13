@@ -18,6 +18,8 @@ public class GameState {
     private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
 
+    private LotroFormat _format;
+
     private final Map<String, List<PhysicalCardImpl>> _adventureDecks = new HashMap<>();
     private final Map<String, List<PhysicalCardImpl>> _decks = new HashMap<>();
     private final Map<String, List<PhysicalCardImpl>> _hands = new HashMap<>();
@@ -67,9 +69,10 @@ public class GameState {
         return _nextCardId++;
     }
 
-    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, Map<String, String> ringBearers, Map<String, String> rings, LotroCardBlueprintLibrary library, GameStats gameStats) {
+    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, Map<String, String> ringBearers, Map<String, String> rings, LotroCardBlueprintLibrary library, LotroFormat format) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
+        _format = format;
 
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
             String playerId = stringListEntry.getKey();
@@ -101,7 +104,7 @@ public class GameState {
         }
 
         for (GameStateListener listener : getAllGameStateListeners()) {
-            listener.setPlayerOrder(playerOrder.getAllPlayers());
+            listener.initializeBoard(playerOrder.getAllPlayers(), format.discardPileIsPublic());
         }
 
         //This needs done after the Player Order initialization has been issued, or else the player
@@ -198,7 +201,7 @@ public class GameState {
 
     private void sendStateToPlayer(String playerId, GameStateListener listener, GameStats gameStats) {
         if (_playerOrder != null) {
-            listener.setPlayerOrder(_playerOrder.getAllPlayers());
+            listener.initializeBoard(_playerOrder.getAllPlayers(), _format.discardPileIsPublic());
             if (_currentPlayerId != null)
                 listener.setCurrentPlayerId(_currentPlayerId);
             if (_currentPhase != null)

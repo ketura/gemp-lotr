@@ -18,6 +18,8 @@ public interface LotroFormat {
 
     public boolean winWhenShadowReconciles();
 
+    public boolean discardPileIsPublic();
+
     public boolean winOnControlling5Sites();
 
     public boolean isPlaytest();

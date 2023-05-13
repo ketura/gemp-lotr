@@ -258,7 +258,7 @@ var GempLotrGameUI = Class.extend({
         this.layoutUI(false);
     },
 
-    initializeGameUI: function () {
+    initializeGameUI: function (discardPublic) {
         this.advPathGroup = new AdvPathCardGroup($("#main"));
 
         var that = this;
@@ -330,16 +330,18 @@ var GempLotrGameUI = Class.extend({
 
         //TODO: This is where we will need to add support for public discard piles
         if (!this.spectatorMode) {
-            $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
-                (function (index) {
-                    return function () {
-                        var dialog = that.discardPileDialogs[index];
-                        var group = that.discardPileGroups[index];
-                        openSizeDialog(dialog);
-                        that.dialogResize(dialog, group);
-                        group.layoutCards();
-                    };
-                })(that.bottomPlayerId));
+            if(!discardPublic) {
+                $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
+                    (function (index) {
+                        return function () {
+                            var dialog = that.discardPileDialogs[index];
+                            var group = that.discardPileGroups[index];
+                            openSizeDialog(dialog);
+                            that.dialogResize(dialog, group);
+                            group.layoutCards();
+                        };
+                    })(that.bottomPlayerId));
+            }
             $("#adventureDeck" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
                 (function (index) {
                     return function () {
@@ -363,6 +365,19 @@ var GempLotrGameUI = Class.extend({
                         group.layoutCards();
                     };
                 })(i));
+            
+            if(discardPublic) {
+                $("#discard" + i).addClass("clickable").click(
+                    (function (index) {
+                        return function () {
+                            var dialog = that.discardPileDialogs[that.allPlayerIds[index]];
+                            var group = that.discardPileGroups[that.allPlayerIds[index]];
+                            openSizeDialog(dialog);
+                            that.dialogResize(dialog, group);
+                            group.layoutCards();
+                        };
+                    })(i));
+            }
         }
 
         this.alertBox = $("<div class='ui-widget-content'></div>");
@@ -1359,6 +1374,7 @@ var GempLotrGameUI = Class.extend({
     participant: function (element) {
         var participantId = element.getAttribute("participantId");
         this.allPlayerIds = element.getAttribute("allParticipantIds").split(",");
+        var discardPublic = element.getAttribute("discardPublic") === 'true';
 
         this.bottomPlayerId = participantId;
 
@@ -1371,78 +1387,99 @@ var GempLotrGameUI = Class.extend({
         } else {
             this.spectatorMode = false;
 
-            var discardPileDialog = $("<div></div>").dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                resizable: true,
-                title: "Discard - " + participantId,
-                minHeight: 80,
-                minWidth: 200,
-                width: 600,
-                height: 300
-            });
+            if(!discardPublic) {
+                this.createPile(participantId, "Discard Pile", "discardPileDialogs", "discardPileGroups");
+            }
 
-            this.discardPileDialogs[participantId] = discardPileDialog;
-            this.discardPileGroups[participantId] = new NormalCardGroup(discardPileDialog, function (card) {
-                return true;
-            }, false);
-
-            this.discardPileGroups[participantId].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
-
-            discardPileDialog.bind("dialogresize", function () {
-                that.dialogResize(discardPileDialog, that.discardPileGroups[participantId]);
-            });
-
-            var adventureDeckDialog = $("<div></div>").dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                resizable: true,
-                title: "Adventure deck - " + participantId,
-                minHeight: 80,
-                minWidth: 200,
-                width: 600,
-                height: 300
-            });
-
-            this.adventureDeckDialogs[participantId] = adventureDeckDialog;
-            this.adventureDeckGroups[participantId] = new NormalCardGroup(adventureDeckDialog, function (card) {
-                return true;
-            }, false);
-
-            this.adventureDeckGroups[participantId].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
-
-            adventureDeckDialog.bind("dialogresize", function () {
-                that.dialogResize(adventureDeckDialog, that.adventureDeckGroups[participantId]);
-            });
+            this.createPile(participantId, "Adventure Deck", "adventureDeckDialogs", "adventureDeckGroups");
         }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            var deadPileDialog = $("<div></div>").dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                resizable: true,
-                title: "Dead pile - " + this.allPlayerIds[i],
-                minHeight: 80,
-                minWidth: 200,
-                width: 600,
-                height: 300
-            });
-            this.deadPileDialogs[this.allPlayerIds[i]] = deadPileDialog;
-            this.deadPileGroups[this.allPlayerIds[i]] = new NormalCardGroup(deadPileDialog, function (card) {
-                return true;
-            }, false);
+            
+            participantId = this.allPlayerIds[i];
+            
+            this.createPile(participantId, "Dead Pile", "deadPileDialogs", "deadPileGroups");
+            
+            if(discardPublic) {
+                this.createPile(participantId, "Discard Pile", "discardPileDialogs", "discardPileGroups");
+            }
+            
+            // var deadPileDialog = $("<div></div>").dialog({
+            //     autoOpen: false,
+            //     closeOnEscape: true,
+            //     resizable: true,
+            //     title: "Dead pile - " + this.allPlayerIds[i],
+            //     minHeight: 80,
+            //     minWidth: 200,
+            //     width: 600,
+            //     height: 300
+            // });
+            // this.deadPileDialogs[this.allPlayerIds[i]] = deadPileDialog;
+            // this.deadPileGroups[this.allPlayerIds[i]] = new NormalCardGroup(deadPileDialog, function (card) {
+            //     return true;
+            // }, false);
 
-            this.deadPileGroups[this.allPlayerIds[i]].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
+            // this.deadPileGroups[this.allPlayerIds[i]].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
 
-            deadPileDialog.bind("dialogresize", (function (dialog, index) {
-                return function () {
-                    that.dialogResize(dialog, that.deadPileGroups[that.allPlayerIds[index]]);
-                }
-            })(deadPileDialog, i));
+            // deadPileDialog.bind("dialogresize", (function (dialog, index) {
+            //     return function () {
+            //         that.dialogResize(dialog, that.deadPileGroups[that.allPlayerIds[index]]);
+            //     }
+            // })(deadPileDialog, i));
         }
 
-        this.initializeGameUI();
+        this.initializeGameUI(discardPublic);
         this.layoutUI(true);
+    },
+    
+    createAdventureDeckPiles: function(id) {
+        var adventureDeckDialog = $("<div></div>").dialog({
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: "Adventure deck - " + participantId,
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300
+        });
+
+        this.adventureDeckDialogs[participantId] = adventureDeckDialog;
+        this.adventureDeckGroups[participantId] = new NormalCardGroup(adventureDeckDialog, function (card) {
+            return true;
+        }, false);
+
+        this.adventureDeckGroups[participantId].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
+
+        adventureDeckDialog.bind("dialogresize", function () {
+            that.dialogResize(adventureDeckDialog, that.adventureDeckGroups[participantId]);
+        });
+    },
+    
+    createPile: function(playerId, name, dialogsName, groupsName) {
+        var dialog = $("<div></div>").dialog({
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: true,
+            title: name + " - " + playerId,
+            minHeight: 80,
+            minWidth: 200,
+            width: 600,
+            height: 300
+        });
+
+        this[dialogsName][playerId] = dialog;
+        this[groupsName][playerId] = new NormalCardGroup(dialog, function (card) {
+            return true;
+        }, false);
+
+        this[groupsName][playerId].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
+
+        var that = this;
+
+        dialog.bind("dialogresize", function () {
+            that.dialogResize(dialog, that[groupsName][playerId]);
+        });
     },
 
     getDecisionParameter: function (decision, name) {

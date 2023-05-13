@@ -31,7 +31,7 @@ public class WinConditionRule {
                             if (isWinAtReconcile(game)) {
                                 if (effectResults.getType() == EffectResult.Type.RECONCILE
                                         && !((ReconcileResult) effectResults).getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
-                                    game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving till Shadow player reconciles on site 9");
+                                    game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to end of Regroup phase on site 9");
                                 }
                             } else if (effectResults.getType() == EffectResult.Type.START_OF_PHASE) {
                                 game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");

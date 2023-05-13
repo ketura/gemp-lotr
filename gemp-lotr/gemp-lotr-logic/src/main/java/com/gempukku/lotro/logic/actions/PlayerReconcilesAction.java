@@ -80,45 +80,54 @@ public class PlayerReconcilesAction implements Action {
     @Override
     public Effect nextEffect(LotroGame game) {
         if (_effectQueue == null) {
-            game.getGameState().sendMessage(_playerId + " reconciles");
+
             _effectQueue = new LinkedList<>();
 
             final int handSize = game.getFormat().getHandSize();
 
             GameState gameState = _game.getGameState();
             final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));
-            if (cardsInHand.size() > handSize) {
-                _effectQueue.add(new PlayoutDecisionEffect(_playerId,
-                        new CardsSelectionDecision(1, "Choose cards to discard down to "+handSize, cardsInHand, cardsInHand.size() - handSize, cardsInHand.size() - handSize) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                                _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, cards, false));
-                                _effectQueue.add(
-                                        new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
-                            }
-                        }));
-            } else if (cardsInHand.size() > 0) {
-                _effectQueue.add(new PlayoutDecisionEffect(_playerId,
-                        new CardsSelectionDecision(1, "Reconcile - choose card to discard or press DONE", cardsInHand, 0, 1) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                                if (selectedCards.size() > 0) {
-                                    _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, selectedCards, false));
+
+            if(game.getFormat().winWhenShadowReconciles() && game.getGameState().getCurrentPhase() == Phase.REGROUP
+                    && game.getGameState().getCurrentSiteNumber() == 9) {
+                game.getGameState().sendMessage("End of regroup phase reached.");
+            }
+            else {
+                game.getGameState().sendMessage(_playerId + " reconciles");
+
+                if (cardsInHand.size() > handSize) {
+                    _effectQueue.add(new PlayoutDecisionEffect(_playerId,
+                            new CardsSelectionDecision(1, "Choose cards to discard down to "+handSize, cardsInHand, cardsInHand.size() - handSize, cardsInHand.size() - handSize) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                                    _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, cards, false));
+                                    _effectQueue.add(
+                                            new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
                                 }
-                                int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();
-                                if (cardsInHandAfterDiscard < handSize) {
-                                    _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, handSize - cardsInHandAfterDiscard));
+                            }));
+                } else if (cardsInHand.size() > 0) {
+                    _effectQueue.add(new PlayoutDecisionEffect(_playerId,
+                            new CardsSelectionDecision(1, "Reconcile - choose card to discard or press DONE", cardsInHand, 0, 1) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                    if (selectedCards.size() > 0) {
+                                        _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, selectedCards, false));
+                                    }
+                                    int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();
+                                    if (cardsInHandAfterDiscard < handSize) {
+                                        _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, handSize - cardsInHandAfterDiscard));
+                                    }
+                                    _effectQueue.add(
+                                            new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
                                 }
-                                _effectQueue.add(
-                                        new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
-                            }
-                        }));
-            } else {
-                _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, handSize));
-                _effectQueue.add(
-                        new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
+                            }));
+                } else {
+                    _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, handSize));
+                    _effectQueue.add(
+                            new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
+                }
             }
         }
 

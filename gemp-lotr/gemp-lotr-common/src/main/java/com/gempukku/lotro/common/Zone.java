@@ -7,13 +7,14 @@ public enum Zone implements Filterable {
 
     // Public knowledge but not in play
     STACKED("stacked", true, true, false), DEAD("dead pile", true, true, false),
+    REMOVED("removed", true, true, false),
 
     // Private knowledge
     HAND("hand", false, true, false), DISCARD("discard", false, true, false),
     ADVENTURE_DECK("adventureDeck", false, true, false),
 
     // Nobody sees
-    VOID("void", false, false, false), VOID_FROM_HAND("voidFromHand", false, false, false), DECK("deck", false, false, false), REMOVED("removed", false, false, false);
+    VOID("void", false, false, false), VOID_FROM_HAND("voidFromHand", false, false, false), DECK("deck", false, false, false);
 
     private final String _humanReadable;
     private final boolean _public;

@@ -24,6 +24,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private final boolean _canCancelRingBearerSkirmish;
     private final boolean _hasRuleOfFour;
     private final boolean _winAtEndOfRegroup;
+    private final boolean _discardPileIsPublic;
     private final boolean _winOnControlling5Sites;
     private int _minimumDeckSize = 60;
     private final List<String> _bannedCards = new ArrayList<>();
@@ -42,7 +43,7 @@ public class DefaultLotroFormat implements LotroFormat {
     public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, JSONDefs.Format def) throws InvalidPropertiesFormatException{
         this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
                 def.validateShadowFPCount, def.minimumDeckSize, def.maximumSameName, def.mulliganRule, def.cancelRingBearerSkirmish,
-                def.ruleOfFour, def.winAtEndOfRegroup, def.winOnControlling5Sites, def.playtest, def.hall);
+                def.ruleOfFour, def.winAtEndOfRegroup, def.discardPileIsPublic, def.winOnControlling5Sites, def.playtest, def.hall);
 
         if(def.set != null)
             def.set.forEach(this::addValidSet);
@@ -71,8 +72,8 @@ public class DefaultLotroFormat implements LotroFormat {
                               Adventure adventure, String name, String code, int order, String surveyUrl,
                               SitesBlock siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
-                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites,
-                              boolean playtest, boolean hallVisible) {
+                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean discardPileIsPublic,
+                              boolean winOnControlling5Sites, boolean playtest, boolean hallVisible) {
         _adventure = adventure;
         _library = library;
         _name = name;
@@ -87,6 +88,7 @@ public class DefaultLotroFormat implements LotroFormat {
         _canCancelRingBearerSkirmish = canCancelRingBearerSkirmish;
         _hasRuleOfFour = hasRuleOfFour;
         _winAtEndOfRegroup = winAtEndOfRegroup;
+        _discardPileIsPublic = discardPileIsPublic;
         _winOnControlling5Sites = winOnControlling5Sites;
         _isPlaytest = playtest;
         _hallVisible = hallVisible;
@@ -128,6 +130,9 @@ public class DefaultLotroFormat implements LotroFormat {
     public boolean winWhenShadowReconciles() {
         return _winAtEndOfRegroup;
     }
+
+    @Override
+    public boolean discardPileIsPublic() { return _discardPileIsPublic; }
 
     @Override
     public boolean canCancelRingBearerSkirmish() {
@@ -717,6 +722,7 @@ public class DefaultLotroFormat implements LotroFormat {
             cancelRingBearerSkirmish = _canCancelRingBearerSkirmish;
             ruleOfFour = _hasRuleOfFour;
             winAtEndOfRegroup = _winAtEndOfRegroup;
+            discardPileIsPublic = _discardPileIsPublic;
             winOnControlling5Sites = _winOnControlling5Sites;
             playtest = _isPlaytest;
             validateShadowFPCount = _validateShadowFPCount;
