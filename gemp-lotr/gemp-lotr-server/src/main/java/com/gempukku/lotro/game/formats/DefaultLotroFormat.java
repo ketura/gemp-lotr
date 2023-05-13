@@ -487,6 +487,9 @@ public class DefaultLotroFormat implements LotroFormat {
             errata += "*";
         }
 
+        if(errata.equals(base))
+            return original;
+
         return errata;
     }
 
