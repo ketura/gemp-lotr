@@ -24,6 +24,7 @@ public class GameEvent {
         SEND_MESSAGE("M"), SEND_WARNING("W"),
         GAME_STATS("GS"),
         CHAT_MESSAGE("CM"),
+        GAME_ENDED("EG"),
         CARD_AFFECTED_BY_CARD("CAC"), SHOW_CARD_ON_SCREEN("EP"), FLASH_CARD_IN_PLAY("CA"), DECISION("D");
 
         private final String code;

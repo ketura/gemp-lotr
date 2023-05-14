@@ -11,6 +11,7 @@ import java.util.Set;
 
 public interface GameStateListener {
     public void cardCreated(PhysicalCard card);
+    public void cardCreated(PhysicalCard card, boolean overridePlayerVisibility);
 
     public void cardMoved(PhysicalCard card);
 
@@ -57,4 +58,6 @@ public interface GameStateListener {
     public void decisionRequired(String playerId, AwaitingDecision awaitingDecision);
 
     public void sendWarning(String playerId, String warning);
+
+    public void endGame();
 }

@@ -192,6 +192,8 @@ public class DefaultLotroGame implements LotroGame {
         if (_gameState != null)
             _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
 
+        _gameState.finish();
+
         for (GameResultListener gameResultListener : _gameResultListeners)
             gameResultListener.gameFinished(_winnerPlayerId, reason, _losers);
 

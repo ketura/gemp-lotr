@@ -118,6 +118,20 @@ public class GameState {
         }
     }
 
+    public void finish() {
+        for (GameStateListener listener : getAllGameStateListeners()) {
+            listener.endGame();
+        }
+
+        for (String playerId : _playerOrder.getAllPlayers()) {
+            for(var card : getDeck(playerId)) {
+                for (GameStateListener listener : getAllGameStateListeners()) {
+                    listener.cardCreated(card, true);
+                }
+            }
+        }
+    }
+
     public boolean isMoving() {
         return _moving;
     }

@@ -228,6 +228,10 @@ var GameAnimations = Class.extend({
                     that.game.adventureDeckDialogs[participantId].append(cardDiv);
                 else if (zone == "REMOVED")
                     that.game.removedPileDialogs[participantId].append(cardDiv);
+                else if (zone == "DECK") {
+                    that.game.miscPileDialogs[participantId].append(cardDiv);
+                    animate = false;
+                }
                 else
                     $("#main").append(cardDiv);
 
@@ -248,7 +252,7 @@ var GameAnimations = Class.extend({
         }
 
         if (animate && (this.game.spectatorMode || this.game.replayMode || (participantId != this.game.bottomPlayerId))
-            && zone != "DISCARD" && zone != "DEAD" && zone != "HAND" && zone != "ADVENTURE_DECK") {
+            && zone != "DISCARD" && zone != "DEAD" && zone != "HAND" && zone != "ADVENTURE_DECK" && zone != "DECK") {
             var oldValues = {};
 
             $("#main").queue(

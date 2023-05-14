@@ -34,6 +34,8 @@ var GempLotrGameUI = Class.extend({
     deadPileGroups: null,
     removedPileDialogs: null,
     removedPileGroups: null,
+    miscPileDialogs: null,
+    miscPileGroups: null,
 
     statsDiv: null,
 
@@ -150,6 +152,8 @@ var GempLotrGameUI = Class.extend({
         this.deadPileGroups = {};
         this.removedPileDialogs = {};
         this.removedPileGroups = {};
+        this.miscPileDialogs = {};
+        this.miscPileGroups = {};
 
         this.skirmishShadowGroup = new NormalCardGroup($("#main"), function (card) {
             return card.zone == "SHADOW_CHARACTERS" && card.skirmish == true;
@@ -457,6 +461,20 @@ var GempLotrGameUI = Class.extend({
                 $("body").unbind("mousemove", dragFunc);
                 return that.dragStopCardFunction(event);
             });
+    },
+    
+    processGameEnd: function() {
+        var that = this;
+        $("#deck" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
+            (function (index) {
+                return function () {
+                    var dialog = that.miscPileDialogs[index];
+                    var group = that.miscPileGroups[index];
+                    openSizeDialog(dialog);
+                    that.dialogResize(dialog, group);
+                    group.layoutCards();
+                };
+            })(that.bottomPlayerId));
     },
 
     addBottomLeftTabPane: function () {
@@ -1048,6 +1066,10 @@ var GempLotrGameUI = Class.extend({
             for (var playerId in this.removedPileGroups)
                 if (this.removedPileGroups.hasOwnProperty(playerId))
                     this.removedPileGroups[playerId].layoutCards();
+                
+            for (var playerId in this.miscPileGroups)
+                if (this.miscPileGroups.hasOwnProperty(playerId))
+                    this.miscPileGroups[playerId].layoutCards();
         }
         this.tabPane.css({
             position: "absolute",
@@ -1273,6 +1295,8 @@ var GempLotrGameUI = Class.extend({
             this.animations.cardActivated(gameEvent, animate);
         } else if (eventType == "D") {
             this.animations.processDecision(gameEvent, animate);
+        } else if (eventType == "EG") {
+            this.processGameEnd();
         }
     },
 
@@ -1412,6 +1436,7 @@ var GempLotrGameUI = Class.extend({
             }
 
             this.createPile(participantId, "Adventure Deck", "adventureDeckDialogs", "adventureDeckGroups");
+            this.createPile(participantId, "Draw Deck", "miscPileDialogs", "miscPileGroups");
         }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
@@ -1428,30 +1453,6 @@ var GempLotrGameUI = Class.extend({
 
         this.initializeGameUI(discardPublic);
         this.layoutUI(true);
-    },
-    
-    createAdventureDeckPiles: function(id) {
-        var adventureDeckDialog = $("<div></div>").dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: true,
-            title: "Adventure deck - " + participantId,
-            minHeight: 80,
-            minWidth: 200,
-            width: 600,
-            height: 300
-        });
-
-        this.adventureDeckDialogs[participantId] = adventureDeckDialog;
-        this.adventureDeckGroups[participantId] = new NormalCardGroup(adventureDeckDialog, function (card) {
-            return true;
-        }, false);
-
-        this.adventureDeckGroups[participantId].setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
-
-        adventureDeckDialog.bind("dialogresize", function () {
-            that.dialogResize(adventureDeckDialog, that.adventureDeckGroups[participantId]);
-        });
     },
     
     createPile: function(playerId, name, dialogsName, groupsName) {

@@ -122,6 +122,13 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     }
 
     @Override
+    public void cardCreated(PhysicalCard card, boolean overridePlayerVisibility) {
+        boolean publicDiscard = card.getZone() == Zone.DISCARD && _format.discardPileIsPublic();
+        if (card.getZone().isPublic() || publicDiscard || ((overridePlayerVisibility || card.getZone().isVisibleByOwner()) && card.getOwner().equals(_self)))
+            appendEvent(new GameEvent(PUT_CARD_INTO_PLAY).card(card));
+    }
+
+    @Override
     public void cardMoved(PhysicalCard card) {
         appendEvent(new GameEvent(MOVE_CARD_IN_PLAY).card(card));
     }
@@ -222,5 +229,10 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     public long getLastAccessed() {
         return _lastConsumed;
+    }
+
+    @Override
+    public void endGame() {
+        appendEvent(new GameEvent(GAME_ENDED));
     }
 }
