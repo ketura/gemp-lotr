@@ -123,6 +123,9 @@ public class GameState {
             listener.endGame();
         }
 
+        if(_playerOrder == null || _playerOrder.getAllPlayers() == null)
+            return;
+
         for (String playerId : _playerOrder.getAllPlayers()) {
             for(var card : getDeck(playerId)) {
                 for (GameStateListener listener : getAllGameStateListeners()) {

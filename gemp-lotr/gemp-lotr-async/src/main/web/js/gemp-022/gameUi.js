@@ -465,6 +465,9 @@ var GempLotrGameUI = Class.extend({
     
     processGameEnd: function() {
         var that = this;
+        if(this.allPlayerIds == null)
+            return;
+        
         $("#deck" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
             (function (index) {
                 return function () {
