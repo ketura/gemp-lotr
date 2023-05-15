@@ -88,9 +88,12 @@ public class PlayerReconcilesAction implements Action {
             GameState gameState = _game.getGameState();
             final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));
 
+            // Formats which are set to end the game at the end of the regroup phase instead of at the start of the regroup phase
+            // should prematurely end the game instead of doing a true reconcile.
             if(game.getFormat().winWhenShadowReconciles() && game.getGameState().getCurrentPhase() == Phase.REGROUP
-                    && game.getGameState().getCurrentSiteNumber() == 9) {
+                    && game.getGameState().getCurrentSiteNumber() == 9 && !_playerId.equals(game.getGameState().getCurrentPlayerId())) {
                 game.getGameState().sendMessage("End of regroup phase reached.");
+                _effectQueue.add(new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
             }
             else {
                 game.getGameState().sendMessage(_playerId + " reconciles");
