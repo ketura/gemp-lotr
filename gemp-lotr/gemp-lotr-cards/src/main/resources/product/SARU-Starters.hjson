@@ -1,0 +1,550 @@
+[
+	{
+		name: SARU - Rohan & Dunland Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Weary from the Journey
+			#    The One Ring, The Ruling Ring
+			1x15_144
+			1x1_2
+			#Adventure Deck (9 cards)
+			#    Anduin Banks
+			1x11_227
+			#    Doors of Durin
+			1x13_190
+			#    Morannon Plains
+			1x18_137
+			#    Slopes of Orodruin
+			1x12_192
+			#    Chamber of Mazarbul
+			1x11_233
+			#    Fords of Isen
+			1x13_191
+			#    Stables
+			1x11_259
+			#    Harrowdale
+			1x11_243
+			#    Trollshaw Forest
+			1x11_260
+			#Free Peoples (30 cards)
+			#    Haleth, Son of Hama
+			1x15_128
+			#    Hama, Captain of the King's Guard
+			1x13_128
+			#    Merchant of Westfold
+			1x13_132
+			#    Riddermark Tactician
+			1x13_133
+			#    Rohirrim Recruit
+			1x18_103
+			#    Eowyn, Restless Warrior
+			1x13_124
+			#    Banner of the Mark
+			1x6_90
+			#    Heavy Chain
+			2x4_278
+			#    Horse of Rohan
+			2x4_283
+			#    Long Spear
+			1x7_240
+			#    Rider's Mount
+			1x4_287
+			#    Rohirrim Javelin
+			1x7_248
+			#    Rohirrim Shield
+			1x5_91
+			#    Spear of the Mark
+			1x15_140
+			#    Swift Steed
+			2x7_253
+			#    Hobbit Sword
+			1x1_299
+			#    Ever the Hope of Men
+			1x6_93
+			#    Where Now the Horse
+			2x17_103
+			#    Border Patrol
+			1x11_144
+			#    Cast from the Hall
+			2x18_94
+			#    Doom Drove Them
+			2x8_86	
+			#    Freely Across Our Land
+			1x13_127
+			#    We Left None Alive
+			2x6_97
+			#Shadow (30 cards)
+			#    Band of Wild Men
+			2x4_4
+			#    Dunlending Elder
+			1x6_2
+			#    Dunlending Looter
+			2x4_11
+			#    Dunlending Pillager
+			2x4_13
+			#    Dunlending Ransacker
+			2x4_14
+			#    Dunlending Robber
+			2x4_16
+			#    Dunlending Savage
+			2x4_17
+			#    Hillman Rabble
+			2x4_24
+			#    Hillman Tribe
+			2x4_25
+			#    Saruman, Rabble-Rouser
+			3x4_33
+			#    Saruman, Instigator of Insurrection
+			2x17_37
+			#    Iron Axe
+			2x4_26
+			#    War Club
+			1x4_36
+			#    Saruman's Staff, Wizard's Device
+			1x4_174
+			#    Burn Every Village
+			1x4_5
+			#    Bound by Rage
+			2x6_1
+			#    Over the Isen
+			1x4_31
+		]
+	},
+	{
+		name: SARU - Dwarf & Evil Men Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Weary from the Journey
+			#    The One Ring, The Ruling Ring
+			1x15_144
+			1x1_2
+			#Adventure Deck (9 cards)
+			#    Anduin Banks
+			1x11_227
+			#    Crags of Emyn Muil
+			1x11_234
+			#    Morannon Plains
+			1x18_137
+			#    Pelennor Fields
+			1x11_253
+			#    Slopes of Orodruin
+			1x12_192
+			#    Barazinbar
+			1x11_229
+			#    Moria Stairway
+			1x11_248
+			#    Moria Guardroom
+			1x11_247
+			#    Starkhorn
+			1x12_193
+			#Free Peoples (30 cards)
+			#    Dwarf Guard
+			2x1_7
+			#    Dwarven Warrior
+			2x12_7
+			#    Farin, Emissary of Erebor
+			1x11_7
+			#    Gimli, Lively Combatant
+			1x11_8
+			#    Axe of Khazad-Dum
+			1x11_3
+			#    Belt of Erebor
+			1x12_2
+			#    Hand Axe
+			1x2_10
+			#    Heavy Axe
+			1x15_7
+			#    Hobbit Sword
+			1x1_299
+			#    Awkward Moment
+			1x13_2
+			#    Defending the Keep
+			2x5_6
+			#    Durability
+			2x12_4
+			#    Honoring His Kinfolk
+			1x13_6
+			#    Sorrow Shared
+			2x13_7
+			#    The Fortunes of Balin's Folk
+			2x15_4
+			#    Noble Intentions
+			1x1_304
+			#    Chamber of Records
+			2x15_3
+			#    Great Works Begun There
+			1x2_9
+			#    His Father's Charge
+			1x12_8
+			#    Mountain Homestead
+			1x11_12
+			#    Stout and Strong
+			1x4_57
+			#    Thorin's Harp
+			2x18_3
+			#Shadow (30 cards)
+			#    Saruman, Instigator of Insurrection
+			2x17_37
+			#    Easterling Dispatcher
+			1x17_42
+			#    Frenzied Dunlending
+			2x12_65
+			#    Harry Goatleaf
+			2x18_68
+			#    Rough Man of the South
+			2x18_73
+			#    Ruffian
+			2x18_72
+			#    Saruman, Coldly Still
+			3x17_48
+			#    Squint-Eyed Southerner
+			2x18_74
+			#    Sunland Warrior
+			1x17_60
+			#    Vengeful Wild Man
+			2x17_63
+			#    Beast of War
+			2x17_40
+			#    Long Battle Bow
+			2x11_89
+			#    Poleaxe
+			2x11_95
+			#    War Trident
+			2x12_77
+			#    Saruman's Staff, Wizard's Device
+			1x4_174
+			#    Fires Brightly Burning
+			1x13_91
+			#    Driven from the Plains
+			1x13_87
+		]
+	}
+	{
+		name: SARU - Gondor & Isengard Orc Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Weary from the Journey
+			#    The One Ring, The Ruling Ring
+			1x15_144
+			1x1_2
+			#Adventure Deck (9 cards)
+			#    Anduin Banks
+			1x11_227
+			#    Crags of Emyn Muil
+			1x11_234
+			#    The Great Gates
+			1x13_192
+			#    Doorway to Doom
+			1x18_134
+			#    Morannon Plains
+			1x18_137
+			#    Moria Stairway
+			1x11_248
+			#    Window on the West
+			1x11_265
+			#    Imladris
+			1x17_147
+			#    City of Kings
+			1x13_187
+			#Free Peoples (30 cards)
+			#    Boromir, Steward's Heir
+			1x0_65
+			#    Denethor, Wizened Steward
+			1x7_86
+			#    Faramir, Prince of Ithilien
+			1x13_66
+			#    Iorlas
+			1x7_107
+			#    Ranger of the South
+			2x18_56
+			#    Armor of the Citadel
+			1x11_55
+			#    Banner of Westernesse
+			1x6_51
+			#    Dunadan's Bow
+			1x18_45
+			#    Gondorian Sword
+			2x7_98
+			#    Hobbit Sword
+			1x1_299
+			#    Battle Cry
+			1x11_56
+			#    Dagger Strike
+			1x1_102
+			#    Defend It and Hope
+			1x4_115
+			#    Defenses Long Held
+			2x18_44
+			#    Great Gate
+			1x7_99
+			#    Reckless Counter
+			1x7_117
+			#    Garrison of Osgiliath
+			2x6_52
+			#    Hasty Repairs
+			1x7_102
+			#    Houses of Healing
+			1x11_61
+			#    Ithilien Trap
+			2x4_126
+			#    Portico
+			2x15_67
+			#    Soldier's Cache
+			2x17_35
+			#    Support of the City
+			1x7_123
+			#Shadow (30 cards)
+			#    Isengard Flanker
+			1x5_52
+			#    Isengard Retainer
+			3x3_57
+			#    Isengard Rider
+			2x5_53
+			#    Isengard Servant
+			3x3_58
+			#    Isengard Smith
+			2x3_60
+			#    Isengard Worker
+			1x3_62
+			#    Saruman, Instigator of Insurrection
+			2x17_37
+			#    Saruman, Master of Foul Folk
+			3x5_56
+			#    Warg-Master
+			2x5_66
+			#    Isengard Axe
+			3x3_55
+			#    War-Warg
+			2x5_64
+			#    Warg
+			1x5_65
+			#    Saruman's Staff, Wizard's Device
+			1x4_174
+			#    Servants to Saruman
+			1x3_70
+			#    Wolf-Voices
+			1x5_68
+			#    Wizard Storm
+			1x2_48
+			#    Isengard Plodder
+			1x6_69
+		]
+	}
+	{
+		name: SARU - Pipeweed & Isengard Uruk Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Weary from the Journey
+			#    The One Ring, The Ruling Ring
+			1x15_144
+			1x1_2
+			#Adventure Deck (9 cards)
+			#    Anduin Banks
+			1x11_227
+			#    Fangorn Glade
+			1x11_239
+			#    Fortress of Orthanc
+			1x11_241
+			#    Morannon Plains
+			1x18_137
+			#    West Gate of Moria
+			1x11_263
+			#    Redhorn Pass
+			1x13_194
+			#    Green Dragon Inn
+			1x11_242
+			#    Heights of Isengard
+			1x11_244
+			#    Valley of the Silverlode
+			1x11_261
+			#Free Peoples (30 cards)
+			#    Gandalf, Defender of the West
+			3x7_36
+			#    Merry, Rohirrim Squire
+			1x7_320
+			#    Pippin, Friend to Frodo
+			1x1_306
+			#    Sam, Loyal Friend
+			1x19_32
+			#    Gandalf's Pipe
+			1x1_74
+			#    Wizard Staff
+			1x2_29
+			#    Bilbo's Pipe
+			1x1_285
+			#    Frodo's Pipe
+			1x3_107
+			#    Hobbit Sword
+			2x1_299
+			#    Longbottom Leaf
+			1x1_300
+			#    Old Toby
+			1x1_305
+			#    Depart Silently
+			2x3_31
+			#    Roll of Thunder
+			1x4_99
+			#    A Marvel
+			1x10_110
+			#    Long-Stemmed Pipe
+			1x17_21
+			#    New Authority
+			1x11_37
+			#    Ship of Smoke
+			1x18_27
+			#    Vapour and Steam
+			1x13_43
+			#    A Dragon's Tale
+			3x18_106
+			#    Halfling Leaf
+			1x17_106
+			#    Hornblower Leaf
+			1x17_108
+			#    Southfarthing Leaf
+			1x17_110
+			#    Southlinch Leaf
+			1x17_111
+			#    There and Back Again
+			1x1_317
+			#Shadow (30 cards)
+			#    Band of Uruk Bowmen
+			2x4_138
+			#    Saruman, Instigator of Insurrection
+			2x17_37
+			#    Saruman, Servant of the Eye
+			3x3_69
+			#    Uruk Besieger
+			2x4_180
+			#    Uruk Stormer
+			2x4_198
+			#    Uruk Veteran
+			2x4_201
+			#    Uruk-Hai Band
+			2x4_202
+			#    Uruk-Hai Marauder
+			2x4_204
+			#    Uruk-Hai Mob
+			2x4_205
+			#    Uruk-Hai Patrol
+			2x4_206
+			#    Saruman's Staff, Wizard's Device
+			1x4_174
+			#    Bred for Battle
+			1x1_121
+			#    We are the Fighting Uruk-Hai
+			2x4_210
+			#    Attack on Helm's Deep
+			2x4_137
+			#    Saruman's Ambition
+			2x1_133
+			#    Urgency
+			1x19_17
+		]
+	}
+	{
+		name: SARU - Smeagol & Urukhai Starter
+		type: pack
+		items: [
+			#Ring-bearer (2 cards)
+			#    Frodo, Weary from the Journey
+			#    The One Ring, The Ruling Ring
+			1x15_144
+			1x1_2
+			#Adventure Deck (9 cards)
+			#    Anduin Banks
+			1x11_227
+			#    East Road
+			1x11_236
+			#    Isenwash
+			1x13_193
+			#    Rohan Uplands
+			1x11_257
+			#    Hobbiton Market
+			1x12_189
+			#    Moria Stairway
+			1x11_248
+			#    Redhorn Pass
+			1x13_194
+			#    Dammed Gate-Stream
+			1x11_235
+			#    Valley of the Silverlode
+			1x11_261
+			#Free Peoples (30 cards)
+			#    Haldir, Emissary of the Galadhrim
+			1x4_71
+			#    Smeagol, Poor Creature
+			1x6_45
+			#    Sam, Nice Sensible Hobbit
+			1x5_115
+			#    Hobbit Sword
+			2x1_299
+			#    Clever Hobbits
+			2x7_54
+			#    Don't Follow the Lights
+			2x6_38
+			#    Hurry Hobbitses
+			1x15_45
+			#    Naked Waste
+			1x13_53
+			#    Nasty
+			2x7_64
+			#    Not Listening
+			2x6_43
+			#    Swear by the Precious
+			1x15_52
+			#    Where Shall We Go
+			2x7_78
+			#    It Burns Us
+			2x6_110
+			#    Called to Mordor
+			1x15_39
+			#    Herbs and Stewed Rabbit
+			3x15_44
+			#    Nice Fish
+			1x15_46
+			#    Poor Wretch
+			3x5_27
+			#    There's Another Way
+			2x12_40
+			#Shadow (30 cards)
+			#    Saruman, Instigator of Insurrection
+			2x17_37
+			#    Barbaric Uruk
+			2x12_135
+			#    Breeding Pit Conscript
+			2x12_137
+			#    Covetous Uruk
+			2x15_158
+			#    Crushing Uruk
+			1x12_140
+			#    Entranced Uruk
+			2x13_163
+			#    Saruman, Agent of the Dark Lord
+			3x12_144
+			#    Uruk Distractor
+			1x13_170
+			#    Uruk Tactician
+			2x13_175
+			#    White Hand Uruk
+			2x18_131
+			#    Berserker Torch
+			1x12_136
+			#    Isengard Sword
+			2x11_192
+			#    Spear of the White Hand
+			1x17_117
+			#    Weapon of Opportunity
+			2x12_159
+			#    Saruman's Staff, Wizard's Device
+			1x4_174
+			#    War Machine
+			2x13_176
+			#    Pikes Upon Pikes
+			2x18_121
+		]
+	}
+]

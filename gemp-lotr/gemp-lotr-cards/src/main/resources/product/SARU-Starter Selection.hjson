@@ -1,0 +1,14 @@
+[
+	{
+		name: (S)SARU - Starter
+		type: selection
+		selectionCount: 1
+		items: [
+			1xSARU - Rohan & Dunland Starter
+			1xSARU - Dwarf & Evil Men Starter
+			1xSARU - Gondor & Isengard Orc Starter
+			1xSARU - Pipeweed & Isengard Uruk Starter
+			1xSARU - Smeagol & Urukhai Starter
+		]
+	}
+]

@@ -176,7 +176,14 @@ var packBlueprints = {
     
     "(R)SotP - Rare": "/gemp-lotr/images/boosters/V1-random-rare.png",
     "(R)SotP - Uncommon": "/gemp-lotr/images/boosters/V1-random-uncommon.png",
-    "(R)SotP - Common": "/gemp-lotr/images/boosters/V1-random-common.png"
+    "(R)SotP - Common": "/gemp-lotr/images/boosters/V1-random-common.png",
+    
+    "(S)SARU - Starter": "/gemp-lotr/images/boosters/starter_selection.png",
+    "SARU - Rohan & Dunland Starter": "/gemp-lotr/images/boosters/saru-rohan-dunland.png",
+    "SARU - Dwarf & Evil Men Starter": "/gemp-lotr/images/boosters/saru-dwarf-men.png",
+    "SARU - Gondor & Isengard Orc Starter": "/gemp-lotr/images/boosters/saru-gondor-isenorc.png",
+    "SARU - Pipeweed & Isengard Uruk Starter": "/gemp-lotr/images/boosters/saru-pipeweed-isenuruks.png",
+    "SARU - Smeagol & Urukhai Starter": "/gemp-lotr/images/boosters/saru-smeagol-uruks.png"
 };
 
 var Card = Class.extend({
