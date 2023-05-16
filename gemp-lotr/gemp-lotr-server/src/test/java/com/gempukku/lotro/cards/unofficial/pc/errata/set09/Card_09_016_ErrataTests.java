@@ -1,7 +1,10 @@
-package com.gempukku.lotro.cards.unofficial.pc.errata.set10;
+package com.gempukku.lotro.cards.unofficial.pc.errata.set09;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
@@ -11,14 +14,14 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class Card_10_011_ErrataTests
+public class Card_09_016_ErrataTests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("glr", "80_11");
+					put("glorfindel", "79_16");
 					// put other cards in here as needed for the test case
 				}},
 				GenericCardTestHelper.FellowshipSites,
@@ -28,41 +31,41 @@ public class Card_10_011_ErrataTests
 	}
 
 	@Test
-	public void GaladrielStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+	public void GlorfindelStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
-		* Set: 10
-		* Title: Galadriel, Lady Redeemed
+		* Set: 9
+		* Title: Glorfindel, Revealed in Wrath
 		* Unique: True
 		* Side: FREE_PEOPLE
 		* Culture: Elven
-		* Twilight Cost: 3
+		* Twilight Cost: 4
 		* Type: companion
 		* Subtype: Elf
-		* Strength: 3
+		* Strength: 9
 		* Vitality: 3
-		* Game Text: When Galadriel is in your starting fellowship, her twilight cost is –2. <br><b>Fellowship</b> <i>or</i> <b>Regroup:</b>  Discard an
-		* 	 [elven] event from hand to discard a Shadow condition or Shadow possession.
+		* Game Text: <b>Skirmish:</b> Reveal the top card of your draw deck. You may exert Glorfindel to make a Nazgûl he is skirmishing strength –X, where X is the twilight cost of 
+		* 	the card revealed.
 		*/
 
 		//Pre-game setup
 		var scn = GetScenario();
 
-		var card = scn.GetFreepsCard("glr");
+		var card = scn.GetFreepsCard("glorfindel");
 
 		assertTrue(card.getBlueprint().isUnique());
 		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
 		assertEquals(Culture.ELVEN, card.getBlueprint().getCulture());
 		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
 		assertEquals(Race.ELF, card.getBlueprint().getRace());
-		assertEquals(3, card.getBlueprint().getTwilightCost());
-		assertEquals(3, card.getBlueprint().getStrength());
+		assertEquals(4, card.getBlueprint().getTwilightCost());
+		assertEquals(9, card.getBlueprint().getStrength());
 		assertEquals(3, card.getBlueprint().getVitality());
 		assertEquals(6, card.getBlueprint().getResistance());
 	}
 
 	//@Test
-	public void GaladrielTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	public void GlorfindelTest1() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
@@ -72,6 +75,6 @@ public class Card_10_011_ErrataTests
 		scn.StartGame();
 		scn.FreepsPlayCard(card);
 
-		assertEquals(3, scn.GetTwilight());
+		assertEquals(4, scn.GetTwilight());
 	}
 }

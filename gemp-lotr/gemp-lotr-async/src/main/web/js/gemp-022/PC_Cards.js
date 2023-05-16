@@ -114,7 +114,12 @@ var PCCards = {
 	'63_188': 'https://i.lotrtcgpc.net/errata/xlist/63_188.jpg',
 
 	//'65_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
-
+	
+	//May 2023 Errata Playtest batch
+	'74_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card.jpg',
+	'79_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card.jpg',
+	'79_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card.jpg',
+	'80_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card.jpg',
 
 	/// Player's Council League Promos
 	// April 2021

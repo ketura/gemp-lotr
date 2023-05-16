@@ -1652,6 +1652,7 @@
 	
 	{
 		name: 36 Shadows of the Past Sealed
+		id: sotp_sealed
 		format: limited_fotr_pc
 		seriesProduct: [
 			[
@@ -1668,8 +1669,9 @@
 			],
 		]
 	}
-		{
+	{
 		name: 37 Saruman Sealed
+		id: saruman_sealed
 		format: limited_hunters
 		seriesProduct: [
 			[

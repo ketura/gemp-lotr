@@ -304,6 +304,14 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean forEachReturnedToHand(LotroGame game, EffectResult effectResult, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_RETURNED_TO_HAND) {
+            ReturnCardsToHandResult result = (ReturnCardsToHandResult) effectResult;
+            return Filters.and(filters).accepts(game, result.getReturnedCard());
+        }
+        return false;
+    }
+
     public static boolean forEachKilled(LotroGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_KILLED) {
             ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
