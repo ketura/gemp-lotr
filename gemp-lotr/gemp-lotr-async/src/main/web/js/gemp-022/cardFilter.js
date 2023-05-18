@@ -175,7 +175,7 @@ var CardFilter = Class.extend({
             + "<option value='32'>32 - The Hobbit: Expansion 2</option>"
             + "<option value='33'>33 - The Hobbit: Expansion 3</option>"
             + "<option disabled>----------</option>"
-            + "<option value='70-89,100,150-200'>All Player's Council Playtest Cards</option>"
+            + "<option value='70-89,150-200'>All Player's Council Playtest Cards</option>"
             //+ "<option value='151'>PLAYTEST - Shadow of the Past (PC)</option>"
             + "<option value='test_pc_fotr_block'>PLAYTEST - Fellowship Block (PC)</option>"
             + "<option value='test_pc_movie'>PLAYTEST - Movie Block (PC)</option>"
