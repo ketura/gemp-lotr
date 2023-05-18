@@ -649,6 +649,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void FreepsDismissRevealedCards() throws DecisionResultInvalidException { FreepsPassCurrentPhaseAction(); }
     public void ShadowDismissRevealedCards() throws DecisionResultInvalidException { ShadowPassCurrentPhaseAction(); }
+    public void DismissRevealedCards() throws DecisionResultInvalidException {
+        FreepsDismissRevealedCards();
+        ShadowDismissRevealedCards();
+    }
 
     public void FreepsDeclineAssignments() throws DecisionResultInvalidException { FreepsPassCurrentPhaseAction(); }
     public void ShadowDeclineAssignments() throws DecisionResultInvalidException { ShadowPassCurrentPhaseAction(); }
