@@ -142,6 +142,34 @@ public class Card_03_103_ErrataTests
 	}
 
 	@Test
+	public void WoundedUnboundGaladrielIsWounded3Times() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetUnboundScenario();
+
+		var terrible = scn.GetShadowCard("terrible");
+		var troll = scn.GetShadowCard("troll");
+		scn.ShadowMoveCardToHand(terrible);
+		scn.ShadowMoveCharToTable(troll);
+
+		var galadriel = scn.GetFreepsCard("galadriel");
+		scn.FreepsMoveCharToTable(galadriel);
+		scn.FreepsMoveCardToSupportArea("hosts");
+
+		scn.StartGame();
+
+		scn.AddWoundsToChar(galadriel, 2);
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		scn.ShadowPlayCard(terrible);
+
+		assertEquals(Zone.FREE_CHARACTERS, galadriel.getZone());
+		assertEquals(2, scn.GetWoundsOn(galadriel));
+		scn.FreepsDeclineOptionalTrigger();
+		assertEquals(Zone.DEAD, galadriel.getZone());
+	}
+
+	@Test
 	public void UnboundGaladrielCanDiscard2ElvesToSaveGaladriel() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetUnboundScenario();
@@ -201,6 +229,35 @@ public class Card_03_103_ErrataTests
 		scn.FreepsDeclineOptionalTrigger();
 		assertEquals(1, scn.GetWoundsOn(galadriel));
 		scn.FreepsDeclineOptionalTrigger();
+		assertEquals(2, scn.GetWoundsOn(galadriel));
+		scn.FreepsDeclineOptionalTrigger();
+		assertEquals(Zone.DEAD, galadriel.getZone());
+	}
+
+	@Test
+	public void WoundedRBGaladrielIsWounded3Times() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetRBScenario();
+
+		var terrible = scn.GetShadowCard("terrible");
+		var troll = scn.GetShadowCard("troll");
+		scn.ShadowMoveCardToHand(terrible);
+		scn.ShadowMoveCharToTable(troll);
+
+		var galadriel = scn.GetRingBearer();
+		scn.FreepsMoveCardToSupportArea("hosts");
+
+		scn.StartGame();
+
+		scn.AddWoundsToChar(galadriel, 2);
+
+		scn.SkipToPhase(Phase.MANEUVER);
+		scn.FreepsPassCurrentPhaseAction();
+		scn.ShadowPlayCard(terrible);
+
+		scn.FreepsChooseNo();
+
+		assertEquals(Zone.FREE_CHARACTERS, galadriel.getZone());
 		assertEquals(2, scn.GetWoundsOn(galadriel));
 		scn.FreepsDeclineOptionalTrigger();
 		assertEquals(Zone.DEAD, galadriel.getZone());
