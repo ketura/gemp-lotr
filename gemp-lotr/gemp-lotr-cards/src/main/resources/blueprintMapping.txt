@@ -332,3 +332,11 @@ gl_theOneRing,1_2
 15_210,15_193
 #Saruman, Servant of Sauron FA
 17_158,17_38
+#Gimli, Vengeful Longbeard MW
+101_67,101_3
+#Cave Troll of Moria, Scourge of the Black Pit FA
+1_380,1_165
+#The Tale of the Great Ring MW
+10_126,10_116
+#Easterling Captain FA
+4_367,4_225

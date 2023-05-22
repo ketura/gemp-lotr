@@ -186,6 +186,14 @@
 			1x15_210
 			//Saruman, Servant of Sauron FA
 			1x17_158
+			//Cave Troll of Moria, Scourge of the Black Pit FA
+			//x1_380
+			//Gimli, Vengeful Longbeard MW
+			//1x101_67
+			#Easterling Captain FA
+			1x4_367
+			//The Tale of the Great Ring MW
+			1x10_126
 		]
 	}
 	
@@ -379,6 +387,10 @@
 			1x2_124
 			//Treebeard, Enraged Shepherd MW
 			1x15_209
+			//Gimli, Vengeful Longbeard MW
+			//1x101_67
+			//The Tale of the Great Ring MW
+			1x10_126
 		]
 	}
 ]

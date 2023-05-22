@@ -454,5 +454,18 @@ var PCCards = {
 	//April 2023 Qualifier League
 	//Saruman, Servant of Sauron FA
 	'17_158': 'https://i.lotrtcgpc.net/promos/LOTR-EN17U038.0_card.jpg',
+	
+	//May 2023 Gala
+	//Gimli, Vengeful Longbeard MW
+	'101_67': 'https://i.lotrtcgpc.net/promos/LOTR-ENV1O003.0_card.jpg',
+	//Cave Troll of Moria, Scourge of the Black Pit FA
+	'1_380': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U165.0_card.jpg',
+	
+	//May 2023 Qualifier League
+	//The Tale of the Great Ring MW
+	'10_126': 'https://i.lotrtcgpc.net/promos/LOTR-EN10O116.0_card.jpg',
+	//Easterling Captain FA
+	'4_367': 'https://i.lotrtcgpc.net/promos/LOTR-EN04U225.0_card.jpg',
+
 }
 
