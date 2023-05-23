@@ -317,4 +317,69 @@
 			}
 		}
 	}
+	
+	71_316: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E316.2_card.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_316
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 2
+			collInfo: 1U316
+			rarity: U
+			setNum: "1"
+			cardNum: 316
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: A Talent for Not Being Seen
+		unique: false
+		side: Free Peoples
+		culture: Shire
+		twilight: 0
+		type: Condition
+		target: or(name(Merry),name(Pippin)),not(hasAttached(name(A Talent for Not Being Seen)))
+		keyword: [
+			stealth
+		]
+		effects: [
+			{
+				type: ExtraCost
+				cost: {
+					type: exert
+					filter: choose(or(title(Merry),title(Pippin)))
+				}
+			}
+			{
+				type: modifier
+				modifier: {
+					type: modifyCost
+					filter: site
+					amount: -1
+				}
+			}
+		]
+		gametext: <b>Stealth.</b>  To play, exert Merry or Pippin.  Bearer must be Merry or Pippin.<br>Each site's Shadow number is -1.
+		lore: With their small size, Hobbits use any hole to hide in, and their trail is difficult to detect.
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+
 }
