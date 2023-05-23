@@ -120,6 +120,25 @@ var PCCards = {
 	'79_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card.jpg',
 	'79_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card.jpg',
 	'80_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card.jpg',
+	
+	'75_8': 'https://i.lotrtcgpc.net/errata/LOTR-EN05E008.1_card',
+	'71_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E059.1_card',
+	'73_13': 'https://i.lotrtcgpc.net/errata/LOTR-EN03S013.1_card',
+	'73_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E027.1_card',
+	'74_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card',
+	'79_12': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E012.1_card',
+	'79_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card',
+	'80_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card',
+	'79_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card',
+	'79_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E027.1_card',
+	'78_43': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E043.1_card',
+	'78_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E059.2_card',
+	'80_52': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E052.1_card',
+	'71_316': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E316.2_card',
+	'71_311': 'https://i.lotrtcgpc.net/errata/LOTR-EN01S311.2_card',
+	'73_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.2_card',
+	'77_190': 'https://i.lotrtcgpc.net/errata/LOTR-EN07E190.1_card',
+	'80_68': 'https://i.lotrtcgpc.net/errata/LOTR-EN10S068.1_card',
 
 	/// Player's Council League Promos
 	// April 2021
