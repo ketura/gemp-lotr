@@ -1,5 +1,91 @@
 {
 
+	73_13: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN03S013.1_card.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 3_13
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 3R13
+			rarity: R
+			setNum: "3"
+			cardNum: 13
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Elrond
+		subtitle: Herald to Gil-galad
+		unique: true
+		side: Free Peoples
+		culture: Elven
+		twilight: 4
+		type: Ally
+		allyHome: fellowship,3
+		race: Elf
+		strength: 8
+		vitality: 4
+		
+		effects: [
+			{
+				type: Trigger
+				text: Would you like to add (2) to heal a home 3 ally twice?
+				optional: true,
+				trigger: {
+					type: StartOfTurn
+				},
+				effect: {
+					type: CostToEffect
+					cost: {
+						type: AddTwilight
+						amount: 2
+					}
+					effect: {
+						type: heal
+						count: 1
+						times: 2
+						filter: choose(ally,allyHome(fellowship,3))
+					}
+				}
+			}
+			{
+				type: Activated
+				phase: regroup
+				cost: {
+					type: exert
+					times: 2
+					filter: self
+				}
+				effect: {
+					type: heal
+					count: 1
+					filter: choose(companion)
+				}
+			}
+		]
+		gametext: At the start of each of your turns, you may add (2) to spot an ally whose home site is 3 and heal that ally twice. <br><b>Regroup:</b> Exert Elrond twice to heal a companion.
+		lore: “Venerable he seemed as a king crowned with many winters, and yet hale as a tried warrior....”
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
 	53_17: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
