@@ -545,6 +545,95 @@
 		}
 	}
 	
+	71_59: {
+		cardInfo: {
+			//Either a full URL, or a subpath for the PC image server
+			imagePath: errata/LOTR-EN01E059.1_card.jpg
+			//If this is true, then all gameplay-related info outside this cardInfo definition
+			// will be ignored and the java class loaded instead.
+			javaClass: false
+			//This instructs the blueprint generator to insert this card as an alt of the listed
+			// parent blueprint. Can of course be ommitted if not an errata or promo.
+			parent: 1_59
+			//This is the tree path to use within the alts structure on the parent.
+			// Can of course be ommitted if parent is null. 
+			parentPath: errata/pc
+			//Versioning differentiates releases within a particular alt path, such as PC errata
+			// version 1 vs version 2.  PC version 2 will not conflict with, say, Decipher version 2.
+			//Top-level cards should always be version 0.
+			version: 1
+			collInfo: 1C59
+			rarity: C
+			setNum: "1"
+			cardNum: 59
+			// Standard, Masterwork, Tengwar, FullArt, etc.  Top-level cards are always Standard.
+			style: Standard
+		}
+		title: Shoulder to Shoulder
+		unique: false
+		side: Free Peoples
+		culture: Elven
+		twilight: 1
+		type: Condition
+		keyword: support area
+		effects: {
+			type: activated
+			phase: fellowship
+			effect: {
+				type: choice
+				texts: [
+					Exert a Dwarf to heal an Elf
+					Exert an Elf to heal a Dwarf
+				]
+				effects: [
+					{
+						type: costToEffect
+						cost: [
+							{
+								type: addTwilight
+							}
+							{
+								type: exert
+								filter: choose(dwarf)
+							}
+						]
+						effect: {
+							type: heal
+							filter: choose(elf)
+						}
+					}
+					{
+						type: costToEffect
+						cost: [
+							{
+								type: addTwilight
+							}
+							{
+								type: exert
+								filter: choose(elf)
+							}
+						]
+						effect: {
+							type: heal
+							filter: choose(dwarf)
+						}
+					}
+				]
+			}
+		}
+		gametext: <b>Fellowship:</b> Add (1) and exert a Dwarf to heal an Elf, or add (1) and exert an Elf to heal a Dwarf.
+		lore: “‘May it be a sign that though the world is now dark better days are at hand, and that friendship shall be renewed between our peoples.'”
+		promotext: ""
+		alts: {
+			//These are just CardInfo objects
+			promos: {
+			}
+			//These are full card definitions, with redundant info that is the same as the original card ommitted
+			errata: {
+			}
+		}
+	}
+	
 	51_68: {
 		cardInfo: {
 			//Either a full URL, or a subpath for the PC image server
