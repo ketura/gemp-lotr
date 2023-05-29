@@ -143,16 +143,16 @@
 			1x4_270
 			#2x 4P365 Theoden, Lord of the Mark
 			2x4_365
-			#2x 4C286 Rider of Rohan
-			2x4_286
+			#2x 5C83 Household Guard
+			2x5_83
 			#1x 4C277 Guma, Plains Farmer
 			1x4_277
 			#1x 4C281 Hlafwine, Village Farmhand
 			1x4_281
 			#1x 4U295 Weland, Smith of the Riddermark
 			1x4_295
-			#1x 1C92 Armor
-			1x1_92
+			#1x 4C278 Heavy Chain
+			1x4_278
 			#1x 5C91 Rohirrim Shield
 			1x5_91
 			#1x 4U263 Brego
@@ -262,10 +262,12 @@
 			1x2_3
 			#2x 4C64 Elven Sword
 			2x4_64
+			#1x 1C92 Armor
+			1x1_92
 			#2x 1U94 Athelas
 			2x1_94
-			#2x 4U132 Ranger's Sword, Blade of Aragorn
-			2x4_132
+			#1x 1C107 Great Shield
+			1x1_107
 			#2x 4C306 Hobbit Sword
 			2x4_306
 			#2x 4C51 Khazad Ai-menu
@@ -274,8 +276,8 @@
 			1x4_53
 			#2x 4C87 Valor
 			2x4_87
-			#1x 4C115 Defend It and Hope
-			1x4_115
+			#1x 2C37 Sentinels of Numenor
+			1x2_37
 			#2x 6C56 Trust
 			2x6_56
 			#2x 4C319 Severed His Bonds
@@ -291,6 +293,8 @@
 			3x4_181
 			#2x 4U188 Uruk Hunter
 			2x4_188
+			#2x 4C189 Uruk Plains Runner
+			2x4_189
 			#2x 4C190 Uruk Pursuer
 			2x4_190
 			#3x 4C193 Uruk Runner
@@ -307,12 +311,10 @@
 			2x4_142
 			#2x 4C156 Kill Them Now
 			2x4_156
-			#3x 4U159 Many Riddles
-			3x4_159
+			#4x 4U159 Many Riddles
+			4x4_159
 			#2x 1C133 Saruman's Ambition
 			2x1_133
-			#3x 4C212 Weary
-			3x4_212
 
 			#Shadow Total 30
 
