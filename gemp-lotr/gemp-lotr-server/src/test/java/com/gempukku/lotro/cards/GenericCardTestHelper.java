@@ -621,7 +621,39 @@ public class GenericCardTestHelper extends AbstractAtTest {
             if(current == target)
                 break;
 
-            PassCurrentPhaseActions();
+            if(current == Phase.FELLOWSHIP) {
+                FreepsPassCurrentPhaseAction();
+            }
+            else if(current == Phase.SHADOW) {
+                ShadowPassCurrentPhaseAction();
+            }
+            else {
+                PassCurrentPhaseActions();
+            }
+
+            if(attempts == 20)
+            {
+                throw new DecisionResultInvalidException("Could not arrive at target '" + target + "' after 20 attempts!");
+            }
+        }
+    }
+
+    public void SkipToPhaseInverted(Phase target) throws DecisionResultInvalidException {
+        for(int attempts = 1; attempts <= 20; attempts++)
+        {
+            Phase current = _game.getGameState().getCurrentPhase();
+            if(current == target)
+                break;
+
+            if(current == Phase.FELLOWSHIP) {
+                ShadowPassCurrentPhaseAction();
+            }
+            else if(current == Phase.SHADOW) {
+                FreepsPassCurrentPhaseAction();
+            }
+            else {
+                PassCurrentPhaseActions();
+            }
 
             if(attempts == 20)
             {
@@ -864,6 +896,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void FreepsChooseToMove() throws DecisionResultInvalidException { playerDecided(P1, "0"); }
     public void FreepsChooseToStay() throws DecisionResultInvalidException { playerDecided(P1, "1"); }
+    public void ShadowChooseToStay() throws DecisionResultInvalidException { playerDecided(P2, "1"); }
 
     public boolean FreepsHasOptionalTriggerAvailable() { return FreepsDecisionAvailable("Optional"); }
     public boolean ShadowHasOptionalTriggerAvailable() { return ShadowDecisionAvailable("Optional"); }
@@ -977,7 +1010,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
         {
             ShadowChooseCard((PhysicalCardImpl) GetShadowHand().get(0));
         }
-        FreepsChooseToStay();
+        if(FreepsDecisionAvailable("another move"))
+        {
+            FreepsChooseToStay();
+        }
         if(FreepsDecisionAvailable("reconcile"))
         {
             FreepsDeclineReconciliation();
@@ -988,7 +1024,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
         }
 
         //Shadow player
-        SkipToPhase(Phase.REGROUP);
+        SkipToPhaseInverted(Phase.REGROUP);
+        ShadowPassCurrentPhaseAction(); // actually freeps with the swap
         FreepsPassCurrentPhaseAction(); // actually shadow with the swap
         if(FreepsDecisionAvailable("reconcile"))
         {
@@ -998,7 +1035,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
         {
             FreepsChooseCard((PhysicalCardImpl) GetFreepsHand().get(0));
         }
-        ShadowChoose("1"); // Choose to stay
+        if(ShadowDecisionAvailable("another move"))
+        {
+            ShadowChoose("1"); // Choose to stay
+        }
         if(ShadowDecisionAvailable("reconcile"))
         {
             ShadowDeclineReconciliation();
@@ -1007,6 +1047,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
         {
             ShadowChooseCard((PhysicalCardImpl) GetShadowHand().get(0));
         }
+
         Assert.assertTrue(GetCurrentPhase() == Phase.BETWEEN_TURNS
                 || GetCurrentPhase() == Phase.FELLOWSHIP);
     }
