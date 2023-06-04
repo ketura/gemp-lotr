@@ -262,7 +262,7 @@
 			}
 			effect: {
 				type: heal
-				filter: choose(hobbit)
+				filter: choose(hobbit,companion)
 				times: {
 					type: fromMemory
 					memory: addedTwilight
