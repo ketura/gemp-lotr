@@ -142,7 +142,7 @@ public class Card_07_190_ErrataTests
 	}
 
 	@Test
-	public void DestroyerSkirmishActionRemovesAThreatToPump4() throws DecisionResultInvalidException, CardNotFoundException {
+	public void DestroyerSkirmishActionRemovesAThreatToPump3() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
@@ -164,6 +164,6 @@ public class Card_07_190_ErrataTests
 		assertEquals(6, scn.GetStrength(destroyer));
 		scn.ShadowUseCardAction(destroyer);
 		assertEquals(1, scn.GetThreats());
-		assertEquals(10, scn.GetStrength(destroyer));
+		assertEquals(9, scn.GetStrength(destroyer));
 	}
 }

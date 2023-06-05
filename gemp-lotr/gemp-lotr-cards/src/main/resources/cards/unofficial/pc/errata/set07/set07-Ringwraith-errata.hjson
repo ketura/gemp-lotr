@@ -74,7 +74,7 @@
 				effect: {
 					type: ModifyStrength
 					filter: self
-					amount: 4
+					amount: 3
 				}
 			}
 		]
