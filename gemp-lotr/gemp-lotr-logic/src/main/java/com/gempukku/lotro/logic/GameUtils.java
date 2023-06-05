@@ -211,11 +211,37 @@ public class GameUtils {
         return result;
     }
 
+    // "If you can spot X [elven] tokens..."
     public static int getSpottableTokensTotal(LotroGame game, Token token) {
+        return getSpottableCultureTokensOfType(game, token, Filters.any);
+    }
+
+    // "If you can spot X [elven] tokens on conditions..."
+    public static int getSpottableCultureTokensOfType(LotroGame game, Token token, Filterable... filters) {
         int tokensTotal = 0;
 
-        for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.hasToken(token)))
+        final var cards = Filters.filterActive(game, Filters.and(filters, Filters.hasToken(token)));
+
+        for (PhysicalCard physicalCard : cards)
             tokensTotal += game.getGameState().getTokenCount(physicalCard, token);
+
+        return tokensTotal;
+    }
+
+    // "If you can spot X culture tokens on conditions..."
+    public static int getAllSpottableCultureTokens(LotroGame game, Filterable... filters) {
+        int tokensTotal = 0;
+
+        final var cards = Filters.filterActive(game, Filters.and(filters, Filters.hasAnyCultureTokens()));
+
+        for (PhysicalCard physicalCard : cards) {
+            var tokens = game.getGameState().getTokens(physicalCard);
+            for(var token : tokens.entrySet()) {
+                if(token.getKey().getCulture() != null) {
+                    tokensTotal += token.getValue();
+                }
+            }
+        }
 
         return tokensTotal;
     }

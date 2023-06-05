@@ -222,6 +222,10 @@ public class Filters {
         };
     }
 
+    public static Filter hasAnyCultureTokens() {
+        return hasAnyCultureTokens(1);
+    }
+
     public static Filter hasAnyCultureTokens(final int count) {
         return new Filter() {
             @Override

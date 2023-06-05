@@ -18,6 +18,7 @@ public class RequirementFactory {
         requirementProducers.put("canmove", new CanMove());
         requirementProducers.put("canspot", new CanSpot());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
+        requirementProducers.put("canspotculturetokens", new CanSpotCultureTokens());
         requirementProducers.put("canspotindeadpile", new CanSpotInDeadPile());
         requirementProducers.put("canspotthreats", new CanSpotThreats());
         requirementProducers.put("canspottwilight", new CanSpotTwilight());

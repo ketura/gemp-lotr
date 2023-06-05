@@ -254,6 +254,23 @@ public class PlayConditions {
         return game.getGameState().getBurdens() >= count;
     }
 
+    // "If you can spot X [elven] tokens..."
+    public static boolean canSpotCultureTokensInPlay(LotroGame game, Token token, int count) {
+        return GameUtils.getSpottableTokensTotal(game, token) >= count;
+    }
+
+    // "If you can spot X [elven] tokens on conditions..."
+    public static boolean canSpotCultureTokensOnCards(LotroGame game, Token token, int count, Filterable... filters) {
+        return GameUtils.getSpottableCultureTokensOfType(game, token, filters) >= count;
+    }
+
+    // "If you can spot X culture tokens on conditions..."
+    // Strictly speaking this would only be needed if there was a card that could add culture tokens to cards
+    // that did not match their own native culture.
+    public static boolean canSpotAllCultureTokensOnCards(LotroGame game, int count, Filterable... filters) {
+        return GameUtils.getAllSpottableCultureTokens(game, filters) >= count;
+    }
+
     public static boolean canSpotFPCultures(LotroGame game, int count, String playerId) {
         return GameUtils.getSpottableFPCulturesCount(game, playerId) >= count;
     }

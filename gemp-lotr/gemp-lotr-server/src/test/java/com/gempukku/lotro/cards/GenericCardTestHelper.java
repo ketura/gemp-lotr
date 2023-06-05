@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Assert;
@@ -307,6 +308,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public int GetBurdens() { return _game.getGameState().getBurdens(); }
 
+    public boolean FreepsHasInitiative() { return PlayConditions.hasInitiative(_game, Side.FREE_PEOPLE); }
+
+    public boolean ShadowHasInitiative() { return PlayConditions.hasInitiative(_game, Side.SHADOW); }
+
     public int GetFreepsArcheryTotal() { return RuleUtils.calculateFellowshipArcheryTotal(_game); }
     public int GetShadowArcheryTotal() { return RuleUtils.calculateShadowArcheryTotal(_game); }
 
@@ -455,6 +460,12 @@ public class GenericCardTestHelper extends AbstractAtTest {
         _game.getGameState().playerDrawsCard(P1);
     }
 
+    public void FreepsDrawCards(int count) {
+        for(int i = 0; i < count; i++) {
+            FreepsDrawCard();
+        }
+    }
+
     public void ShadowDrawCard() {
         _game.getGameState().playerDrawsCard(P2);
     }
@@ -567,6 +578,10 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public void AddTokensToCard(PhysicalCardImpl card, int count) {
         _game.getGameState().addTokens(card, Token.findTokenForCulture(card.getBlueprint().getCulture()), count);
+    }
+
+    public void RemoveTokensFromCard(PhysicalCardImpl card, int count) {
+        _game.getGameState().removeTokens(card, Token.findTokenForCulture(card.getBlueprint().getCulture()), count);
     }
 
 
