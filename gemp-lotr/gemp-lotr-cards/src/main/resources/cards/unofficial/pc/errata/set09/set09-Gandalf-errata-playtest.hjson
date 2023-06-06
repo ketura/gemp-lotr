@@ -193,7 +193,7 @@
 					{
 						type: chooseActiveCards
 						text: Choose Wizard to put in dead pile
-						filter: choose(wizard,inSkirmish)
+						filter: choose(your,wizard,inSkirmish)
 						memorize: chosenWizard
 					}
 					{
