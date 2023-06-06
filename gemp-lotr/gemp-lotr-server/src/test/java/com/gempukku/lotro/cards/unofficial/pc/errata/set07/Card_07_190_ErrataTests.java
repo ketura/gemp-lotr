@@ -17,8 +17,8 @@ public class Card_07_190_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("destroyer", "77_190");
-					put("destroyer2", "77_190");
+					put("destroyer", "57_190");
+					put("destroyer2", "57_190");
 					put("nazgul", "1_229");
 				}},
 				GenericCardTestHelper.FellowshipSites,

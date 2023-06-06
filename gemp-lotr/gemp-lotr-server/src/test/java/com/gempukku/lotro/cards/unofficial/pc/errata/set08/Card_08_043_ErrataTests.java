@@ -17,7 +17,7 @@ public class Card_08_043_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("host", "78_43");
+					put("host", "58_43");
 					put("wraith1", "8_41");
 					put("wraith2", "8_41");
 				}},

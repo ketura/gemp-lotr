@@ -17,7 +17,7 @@ public class Card_10_068_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("enquea", "80_68");
+					put("enquea", "60_68");
 					put("darkness", "8_68");
 
 					put("rider", "4_286");

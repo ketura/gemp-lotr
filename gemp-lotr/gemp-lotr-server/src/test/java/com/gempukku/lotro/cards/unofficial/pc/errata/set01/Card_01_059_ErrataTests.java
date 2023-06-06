@@ -17,7 +17,7 @@ public class Card_01_059_ErrataTests
 		return new GenericCardTestHelper(
 				new HashMap<>()
 				{{
-					put("sts", "71_59");
+					put("sts", "51_59");
 					put("legolas", "1_50");
 					put("gimli", "1_13");
 					put("rumil", "1_57");
