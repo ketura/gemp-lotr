@@ -1,18 +1,14 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set10;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_10_052_ErrataTests
 {
@@ -22,7 +18,19 @@ public class Card_10_052_ErrataTests
 				new HashMap<>()
 				{{
 					put("underfoot", "80_52");
-					// put other cards in here as needed for the test case
+					put("raider", "4_249");
+
+					put("chaff1", "4_250");
+					put("chaff2", "4_251");
+					put("chaff3", "4_252");
+					put("chaff4", "4_253");
+					put("chaff5", "4_254");
+					put("chaff6", "4_255");
+					put("chaff7", "4_256");
+					put("chaff8", "4_257");
+					put("chaff9", "4_258");
+					put("chaff0", "4_259");
+
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -59,17 +67,65 @@ public class Card_10_052_ErrataTests
 		assertEquals(1, underfoot.getBlueprint().getTwilightCost());
 	}
 
-	//@Test
-	public void UnderFootTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void ShadowAbilityWorksOnlyOnceAndSelfDiscardsDuringRegroup() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
-		var card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var underfoot = scn.GetShadowCard("underfoot");
+		var raider = scn.GetShadowCard("raider");
+		scn.ShadowMoveCardToHand(raider);
+		scn.ShadowMoveCardToSupportArea(underfoot);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(20);
+		scn.FreepsPassCurrentPhaseAction();
 
-		assertEquals(1, scn.GetTwilight());
+		assertFalse(scn.ShadowActionAvailable(underfoot));
+		assertTrue(scn.ShadowHasInitiative());
+		scn.ShadowPlayCard(raider);
+		assertTrue(scn.ShadowActionAvailable(underfoot));
+		assertEquals(0, scn.GetShadowHandCount());
+		assertEquals(10, scn.GetShadowDeckCount());
+
+		scn.ShadowUseCardAction(underfoot);
+		assertEquals(8, scn.GetShadowHandCount());
+		assertEquals(2, scn.GetShadowDeckCount());
+
+		//limit once per phase
+		assertFalse(scn.ShadowActionAvailable(underfoot));
+
+		scn.ShadowMoveCardToDiscard(raider);
+		assertEquals(Zone.SUPPORT, underfoot.getZone());
+		scn.SkipToPhase(Phase.REGROUP);
+		assertEquals(Zone.DISCARD, underfoot.getZone());
+	}
+
+	@Test
+	public void SkirmishAbilitySelfDiscardsToPumpRaiderMan2() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetScenario();
+
+		var frodo = scn.GetRingBearer();
+
+		var underfoot = scn.GetShadowCard("underfoot");
+		var raider = scn.GetShadowCard("raider");
+		scn.ShadowMoveCharToTable(raider);
+		scn.ShadowMoveCardToSupportArea(underfoot);
+
+		scn.StartGame();
+		scn.SkipToAssignments();
+
+		scn.FreepsAssignToMinions(frodo, raider);
+		scn.ShadowDeclineOptionalTrigger(); //ambush
+		scn.FreepsResolveSkirmish(frodo);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertTrue(scn.ShadowActionAvailable(underfoot));
+		assertEquals(10, scn.GetStrength(raider));
+		assertEquals(Zone.SUPPORT, underfoot.getZone());
+		scn.ShadowUseCardAction(underfoot);
+		assertEquals(12, scn.GetStrength(raider));
+		assertEquals(Zone.DISCARD, underfoot.getZone());
 	}
 }
