@@ -36,10 +36,6 @@
 		strength: 11
 		vitality: 4
 		site: 3
-		requires: {
-			type: canSpot
-			filter: orc
-		}
 		effects: [
 			{
 				type: modifier
@@ -50,7 +46,7 @@
 						type: phase
 						phase: skirmish
 					}
-					by: shadow
+					by: side(shadow)
 				}
 			},
 			{
@@ -58,7 +54,7 @@
 				phase: skirmish
 				requires: {
 					type: CanSpot
-					filter: self,InSkirmish
+					filter: self,wounded,InSkirmish
 				}
 				cost: [
 					{
@@ -66,7 +62,7 @@
 						amount: 1
 					}
 					{
-						type: exert
+						type: heal
 						filter: self
 					}
 				]

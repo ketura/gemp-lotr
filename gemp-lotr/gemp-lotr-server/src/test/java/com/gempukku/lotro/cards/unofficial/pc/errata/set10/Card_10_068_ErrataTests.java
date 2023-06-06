@@ -8,8 +8,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_10_068_ErrataTests
 {
@@ -19,7 +18,10 @@ public class Card_10_068_ErrataTests
 				new HashMap<>()
 				{{
 					put("enquea", "80_68");
-					// put other cards in here as needed for the test case
+					put("darkness", "8_68");
+
+					put("rider", "4_286");
+					put("mount", "4_287");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -62,17 +64,63 @@ public class Card_10_068_ErrataTests
 		assertEquals(3, enquea.getBlueprint().getSiteNumber());
 	}
 
-	//@Test
-	public void UlaireEnqueaTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void EnqueaCannotBeExertedByShadowCardsDuringSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		var scn = GetScenario();
 
-		var card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var rider = scn.GetFreepsCard("rider");
+		var mount = scn.GetFreepsCard("mount");
+		scn.FreepsMoveCharToTable(rider);
+		scn.FreepsAttachCardsTo(rider, mount);
+
+		var enquea = scn.GetShadowCard("enquea");
+		var darkness = scn.GetShadowCard("darkness");
+		scn.ShadowMoveCharToTable(enquea);
+		scn.ShadowMoveCardToHand(darkness);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		scn.SetTwilight(10);
+		scn.AddWoundsToChar(enquea, 1);
 
-		assertEquals(6, scn.GetTwilight());
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(rider, enquea);
+
+		assertEquals(1, scn.GetWoundsOn(enquea));
+		scn.FreepsResolveSkirmish(rider);
+		// Freeps cards can exert Enquea fine
+		assertEquals(2, scn.GetWoundsOn(enquea));
+		scn.FreepsPassCurrentPhaseAction();
+		// Shadow cards cannot exert Enquea
+		assertFalse(scn.ShadowPlayAvailable(darkness));
+	}
+
+	@Test
+	public void SkirmishActionRemoves1TwilightAndHealsEnqueaToAddBurden() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		var scn = GetScenario();
+
+		var frodo = scn.GetRingBearer();
+
+		var enquea = scn.GetShadowCard("enquea");
+		scn.ShadowMoveCharToTable(enquea);
+
+		scn.StartGame();
+		scn.AddWoundsToChar(enquea, 2);
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(frodo, enquea);
+		scn.FreepsResolveSkirmish(frodo);
+		scn.FreepsPassCurrentPhaseAction();
+
+		assertEquals(2, scn.GetWoundsOn(enquea));
+		assertEquals(3, scn.GetTwilight());
+		assertEquals(1, scn.GetBurdens()); // starts with 1 for some reason, the bid maybe?
+		assertTrue(scn.ShadowActionAvailable(enquea));
+
+		scn.ShadowUseCardAction(enquea);
+		assertEquals(1, scn.GetWoundsOn(enquea));
+		assertEquals(2, scn.GetTwilight());
+		assertEquals(2, scn.GetBurdens());
 	}
 }
