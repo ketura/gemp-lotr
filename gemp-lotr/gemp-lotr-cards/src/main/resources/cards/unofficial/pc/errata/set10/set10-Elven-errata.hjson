@@ -207,12 +207,11 @@
 				amount: -2
 			}
 			{
-				type: trigger
-				optional: true
-				trigger: {
-					type: startOfPhase
-					phase: regroup
-				}
+				type: activated
+				phase: [
+					fellowship
+					regroup
+				]
 				cost: [
 					{
 						type: Exert
