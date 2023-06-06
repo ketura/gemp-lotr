@@ -51,7 +51,7 @@ var PCCards = {
 	
 	// April 2021 Errata Batch
 	'51_40': 'https://i.lotrtcgpc.net/errata/xlist/51_040.jpg',
-	'51_311': 'https://i.lotrtcgpc.net/errata/xlist/51_311.jpg',
+	//'51_311': 'https://i.lotrtcgpc.net/errata/xlist/51_311.jpg',
 	//'52_32': 'https://i.lotrtcgpc.net/errata/xlist/52_032.jpg',
 	'53_42': 'https://i.lotrtcgpc.net/errata/xlist/53_042.jpg',
 	//'53_68': 'https://i.lotrtcgpc.net/errata/xlist/53_068.jpg',
@@ -92,7 +92,7 @@ var PCCards = {
 	'53_108': 'https://i.lotrtcgpc.net/errata/xlist/53_108.jpg',
 	'53_113': 'https://i.lotrtcgpc.net/errata/xlist/53_113.jpg',
 
-	'54_73': 'https://i.lotrtcgpc.net/errata/xlist/54_073.jpg',
+	//'54_73': 'https://i.lotrtcgpc.net/errata/xlist/54_073.jpg',
 	'54_192': 'https://i.lotrtcgpc.net/errata/xlist/54_192.jpg',
 	'54_276': 'https://i.lotrtcgpc.net/errata/xlist/54_276.jpg',
 	'54_304': 'https://i.lotrtcgpc.net/errata/xlist/54_304.jpg',
@@ -103,7 +103,7 @@ var PCCards = {
 	'58_1': 'https://i.lotrtcgpc.net/errata/xlist/58_001.jpg',
 
 	'60_2': 'https://i.lotrtcgpc.net/errata/xlist/60_002.jpg',
-	'60_11': 'https://i.lotrtcgpc.net/errata/xlist/60_011.jpg',
+	//'60_11': 'https://i.lotrtcgpc.net/errata/xlist/60_011.jpg',
 	'60_91': 'https://i.lotrtcgpc.net/errata/xlist/60_091.jpg',
 
 	'61_31': 'https://i.lotrtcgpc.net/errata/xlist/61_031.jpg',
@@ -114,31 +114,6 @@ var PCCards = {
 	'63_188': 'https://i.lotrtcgpc.net/errata/xlist/63_188.jpg',
 
 	//'65_64': 'https://i.lotrtcgpc.net/errata/xlist/65_064.jpg',
-	
-	//May 2023 Errata Playtest batch
-	'74_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card.jpg',
-	'79_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card.jpg',
-	'79_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card.jpg',
-	'80_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card.jpg',
-	
-	'75_8': 'https://i.lotrtcgpc.net/errata/LOTR-EN05E008.1_card.jpg',
-	'71_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E059.1_card.jpg',
-	'73_13': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E013.1_card.jpg',
-	'73_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E027.1_card.jpg',
-	'74_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card.jpg',
-	'79_12': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E012.1_card.jpg',
-	'79_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card.jpg',
-	'80_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card.jpg',
-	'79_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card.jpg',
-	'79_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E027.1_card.jpg',
-	'78_43': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E043.1_card.jpg',
-	'78_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E059.2_card.jpg',
-	'80_52': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E052.1_card.jpg',
-	'71_316': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E316.2_card.jpg',
-	'71_311': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E311.2_card.jpg',
-	'73_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.2_card.jpg',
-	'77_190': 'https://i.lotrtcgpc.net/errata/LOTR-EN07E190.1_card.jpg',
-	'80_68': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E068.1_card.jpg',
 
 	/// Player's Council League Promos
 	// April 2021
@@ -244,7 +219,7 @@ var PCCards = {
 	'58_24': 'https://i.lotrtcgpc.net/errata/balancing/58_024.jpg',
 	'58_51': 'https://i.lotrtcgpc.net/errata/balancing/58_051.jpg',
 	//'58_57': 'https://i.lotrtcgpc.net/errata/balancing/58_057.jpg',
-	'58_59': 'https://i.lotrtcgpc.net/errata/balancing/58_059.jpg',
+	//'58_59': 'https://i.lotrtcgpc.net/errata/balancing/58_059.jpg',
 	'58_102': 'https://i.lotrtcgpc.net/errata/balancing/58_102.jpg',
 	'58_103': 'https://i.lotrtcgpc.net/errata/balancing/58_103.jpg',
 	
@@ -378,7 +353,7 @@ var PCCards = {
 	'53_82': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E082.1_card.jpg',
 	'53_87': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E087.1_card.jpg',
 	'53_88': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E088.1_card.jpg',
-	'53_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.1_card.jpg',
+	//'53_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.1_card.jpg',
 	'53_91': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E091.1_card.jpg',
 	'53_92': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E092.1_card.jpg',
 	'53_103': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E103.1_card.jpg',
@@ -485,6 +460,31 @@ var PCCards = {
 	'10_126': 'https://i.lotrtcgpc.net/promos/LOTR-EN10O116.0_card.jpg',
 	//Easterling Captain FA
 	'4_367': 'https://i.lotrtcgpc.net/promos/LOTR-EN04U225.0_card.jpg',
+	
+	//June 2023 Errata Playtest batch
+	'54_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card.jpg',
+	'59_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card.jpg',
+	'59_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card.jpg',
+	'60_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card.jpg',
+	
+	'55_8': 'https://i.lotrtcgpc.net/errata/LOTR-EN05E008.1_card.jpg',
+	'51_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E059.1_card.jpg',
+	'53_13': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E013.1_card.jpg',
+	'53_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E027.1_card.jpg',
+	'54_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card.jpg',
+	'59_12': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E012.1_card.jpg',
+	'59_16': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E016.1_card.jpg',
+	'60_11': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E011.2_card.jpg',
+	'59_26': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E026.1_card.jpg',
+	'59_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E027.1_card.jpg',
+	'58_43': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E043.1_card.jpg',
+	'58_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E059.2_card.jpg',
+	'60_52': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E052.1_card.jpg',
+	'51_316': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E316.2_card.jpg',
+	'51_311': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E311.2_card.jpg',
+	'53_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.2_card.jpg',
+	'57_190': 'https://i.lotrtcgpc.net/errata/LOTR-EN07E190.1_card.jpg',
+	'60_68': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E068.1_card.jpg',
 
 }
 
