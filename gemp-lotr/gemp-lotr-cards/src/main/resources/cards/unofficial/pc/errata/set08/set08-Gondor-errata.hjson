@@ -39,6 +39,7 @@
 		requires: {
 			type: canSpot
 			filter: culture(gondor),wraith
+			count: 2
 		}
 		effects: [
 			{

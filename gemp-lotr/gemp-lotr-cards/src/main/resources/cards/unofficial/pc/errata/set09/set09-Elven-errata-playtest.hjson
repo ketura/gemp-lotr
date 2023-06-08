@@ -105,7 +105,6 @@
 		twilight: 4
 		type: Companion
 		race: Elf
-		#keyword: damage+1
 		strength: 9
 		vitality: 3
 		resistance: 6,
