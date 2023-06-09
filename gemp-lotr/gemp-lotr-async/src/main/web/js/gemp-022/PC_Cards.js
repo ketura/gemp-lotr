@@ -469,7 +469,6 @@ var PCCards = {
 	
 	'55_8': 'https://i.lotrtcgpc.net/errata/LOTR-EN05E008.1_card.jpg',
 	'51_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E059.1_card.jpg',
-	'53_13': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E013.1_card.jpg',
 	'53_27': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E027.1_card.jpg',
 	'54_73': 'https://i.lotrtcgpc.net/errata/LOTR-EN04E073.2_card.jpg',
 	'59_12': 'https://i.lotrtcgpc.net/errata/LOTR-EN09E012.1_card.jpg',
@@ -480,7 +479,6 @@ var PCCards = {
 	'58_43': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E043.1_card.jpg',
 	'58_59': 'https://i.lotrtcgpc.net/errata/LOTR-EN08E059.2_card.jpg',
 	'60_52': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E052.1_card.jpg',
-	'51_316': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E316.2_card.jpg',
 	'51_311': 'https://i.lotrtcgpc.net/errata/LOTR-EN01E311.2_card.jpg',
 	'53_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.2_card.jpg',
 	'57_190': 'https://i.lotrtcgpc.net/errata/LOTR-EN07E190.1_card.jpg',
