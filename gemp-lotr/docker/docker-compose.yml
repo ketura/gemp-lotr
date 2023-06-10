@@ -49,7 +49,6 @@ services:
       gemp_net_1:
         ipv4_address: ${APP_IP}
     tty: true
-    #command: tail -f /dev/null
     #command: nohup java -jar /etc/gemp-lotr/gemp-lotr-async/target/web.jar &
 
 
