@@ -21,15 +21,18 @@
 
 DROP TABLE IF EXISTS `collection`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
-  `collection` mediumblob NOT NULL,
+  `collection` mediumblob DEFAULT NULL,
   `type` varchar(45) COLLATE utf8_bin NOT NULL,
+  `extra_info` varchar(5000) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `player_collection` (`player_id`,`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  UNIQUE KEY `uq_collection_player_type` (`player_id`,`type`),
+  KEY `player_collection` (`player_id`,`type`),
+  CONSTRAINT `fk_collection_player_id` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=88474 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,17 +41,21 @@ CREATE TABLE `collection` (
 
 DROP TABLE IF EXISTS `deck`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `deck` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `player_id` int(11) NOT NULL,
-  `name` varchar(45) COLLATE utf8_bin NOT NULL DEFAULT 'Default',
+  `name` varchar(100) COLLATE utf8_bin NOT NULL,
+  `target_format` varchar(50) COLLATE utf8_bin NOT NULL DEFAULT 'Anything Goes',
   `type` varchar(45) COLLATE utf8_bin NOT NULL DEFAULT 'Default',
   `contents` text COLLATE utf8_bin NOT NULL,
+  `notes` varchar(5000) COLLATE utf8_bin NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `player_deck` (`player_id`,`name`),
-  KEY `player_id` (`player_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  KEY `player_id` (`player_id`),
+  CONSTRAINT `deck_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=222559 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,26 +64,34 @@ CREATE TABLE `deck` (
 
 DROP TABLE IF EXISTS `game_history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `game_history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `winner` varchar(45) COLLATE utf8_bin NOT NULL,
+  `winnerId` int(11) NOT NULL DEFAULT 0,
   `loser` varchar(45) COLLATE utf8_bin NOT NULL,
+  `loserId` int(11) NOT NULL DEFAULT 0,
   `win_reason` varchar(255) COLLATE utf8_bin NOT NULL,
   `lose_reason` varchar(255) COLLATE utf8_bin NOT NULL,
   `win_recording_id` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `lose_recording_id` varchar(45) COLLATE utf8_bin DEFAULT NULL,
-  `start_date` decimal(20,0) NOT NULL,
-  `end_date` decimal(20,0) NOT NULL,
+  `start_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `end_date` datetime NOT NULL DEFAULT current_timestamp(),
   `format_name` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `winner_deck_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `loser_deck_name` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `tournament` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `replay_version` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `end_date` (`end_date`),
   KEY `index3` (`winner`),
-  KEY `index4` (`loser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  KEY `index4` (`loser`),
+  KEY `game_history_win_id_index` (`win_recording_id`),
+  KEY `game_history_lose_id_index` (`lose_recording_id`),
+  KEY `fk_winnerId` (`winnerId`),
+  KEY `fk_loserId` (`loserId`),
+  CONSTRAINT `fk_loserId` FOREIGN KEY (`loserId`) REFERENCES `player` (`id`),
+  CONSTRAINT `fk_winnerId` FOREIGN KEY (`winnerId`) REFERENCES `player` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=986971 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,14 +100,14 @@ CREATE TABLE `game_history` (
 
 DROP TABLE IF EXISTS `ignores`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `ignores` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `playerName` varchar(10) NOT NULL,
-  `ignoredName` varchar(10) NOT NULL,
+  `playerName` varchar(30) DEFAULT NULL,
+  `ignoredName` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `PLAYER_IGNORES` (`playerName`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=411 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,13 +116,13 @@ CREATE TABLE `ignores` (
 
 DROP TABLE IF EXISTS `ip_ban`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `ip_ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip` varchar(255) NOT NULL,
   `prefix` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +131,7 @@ CREATE TABLE `ip_ban` (
 
 DROP TABLE IF EXISTS `league`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `league` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8_bin NOT NULL,
@@ -126,9 +141,9 @@ CREATE TABLE `league` (
   `start` int(11) NOT NULL,
   `end` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  `cost` int(11) NOT NULL DEFAULT '0',
+  `cost` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,15 +152,16 @@ CREATE TABLE `league` (
 
 DROP TABLE IF EXISTS `league_match`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `league_match` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `league_type` varchar(45) COLLATE utf8_bin NOT NULL,
   `season_type` varchar(45) COLLATE utf8_bin NOT NULL,
   `winner` varchar(45) COLLATE utf8_bin NOT NULL,
   `loser` varchar(45) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`id`),
+  KEY `league_match_type` (`league_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=174464 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,14 +170,15 @@ CREATE TABLE `league_match` (
 
 DROP TABLE IF EXISTS `league_participation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `league_participation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `league_type` varchar(45) COLLATE utf8_bin NOT NULL,
   `player_name` varchar(45) COLLATE utf8_bin NOT NULL,
   `join_ip` varchar(45) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`id`),
+  KEY `league_participation_type` (`league_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=43090 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,19 +187,21 @@ CREATE TABLE `league_participation` (
 
 DROP TABLE IF EXISTS `player`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) COLLATE utf8_bin NOT NULL,
+  `name` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   `password` varchar(64) COLLATE utf8_bin NOT NULL,
   `type` varchar(5) COLLATE utf8_bin NOT NULL DEFAULT 'u',
   `last_login_reward` int(11) DEFAULT NULL,
   `last_ip` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `create_ip` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `banned_until` decimal(20,0) DEFAULT NULL,
+  `email` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `verified` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=32845 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +210,7 @@ CREATE TABLE `player` (
 
 DROP TABLE IF EXISTS `scheduled_tournament`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `scheduled_tournament` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tournament_id` varchar(45) COLLATE utf8_bin NOT NULL,
@@ -202,10 +221,10 @@ CREATE TABLE `scheduled_tournament` (
   `playoff` varchar(45) COLLATE utf8_bin NOT NULL,
   `prizes` varchar(45) COLLATE utf8_bin NOT NULL,
   `minimum_players` decimal(3,0) NOT NULL,
-  `started` decimal(1,0) NOT NULL DEFAULT '0',
+  `started` decimal(1,0) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `started` (`started`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +233,7 @@ CREATE TABLE `scheduled_tournament` (
 
 DROP TABLE IF EXISTS `tournament`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `tournament` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tournament_id` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -228,7 +247,7 @@ CREATE TABLE `tournament` (
   `round` int(3) DEFAULT NULL,
   `prizes` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1383 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,7 +256,7 @@ CREATE TABLE `tournament` (
 
 DROP TABLE IF EXISTS `tournament_match`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `tournament_match` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tournament_id` varchar(255) COLLATE utf8_bin NOT NULL,
@@ -246,7 +265,7 @@ CREATE TABLE `tournament_match` (
   `player_two` varchar(45) COLLATE utf8_bin NOT NULL,
   `winner` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=14304 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,16 +274,16 @@ CREATE TABLE `tournament_match` (
 
 DROP TABLE IF EXISTS `tournament_player`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `tournament_player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tournament_id` varchar(255) COLLATE utf8_bin NOT NULL,
-  `player` varchar(10) COLLATE utf8_bin NOT NULL,
+  `player` varchar(30) COLLATE utf8_bin DEFAULT NULL,
   `deck_name` varchar(45) COLLATE utf8_bin NOT NULL,
   `deck` text COLLATE utf8_bin NOT NULL,
   `dropped` binary(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10377 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +292,7 @@ CREATE TABLE `tournament_player` (
 
 DROP TABLE IF EXISTS `transfer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `transfer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `notify` int(11) NOT NULL,
@@ -286,7 +305,7 @@ CREATE TABLE `transfer` (
   `direction` varchar(45) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `player` (`player`,`notify`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3644 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
