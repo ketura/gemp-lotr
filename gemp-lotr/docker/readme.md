@@ -31,16 +31,16 @@ gemp_app is slightly more complicated.  Gemp is a Java server, is built using Ma
 	2. In the Docker [.env](./.env) file note all of the username/password fields.  If you are hosting this for something other than personal development, be sure to change all of these to something else.
 	3. Note the two "published" ports: 17001 for the app, and 35001 for the db.  These are the ports that you will be accessing the site with (and the db if you connect with a database manager). If you are hosting this for something other than personal development, consider changing these to something else.  **DO NOT** change the "target" ports, these targets are the ports that are used internally by Docker networking.
 5. If you changed SQL credentials in step 4.2, navigate to [gemp-lotr.properties](../gemp-lotr-common/src/main/resources/gemp-lotr.properties):
-  a) **DO NOT CHANGE** the ports here.  These ports listed are the "target" ports in step 4.3, which you didn't edit because you followed the big "DO NOT" imperative.
-  b) edit the db.connection.username and db.connection.password items to match the credentials you set in step 4.2.
-  c) note the origin.allowed.pattern.  It is set to allow all connections, but if you are hosting this for something other than personal development, consider changing this to match your DNS hostname exactly.
+  1. **DO NOT CHANGE** the ports here.  These ports listed are the "target" ports in step 4.3, which you didn't edit because you followed the big "DO NOT" imperative.
+  2. edit the db.connection.username and db.connection.password items to match the credentials you set in step 4.2.
+  3. note the origin.allowed.pattern.  It is set to allow all connections, but if you are hosting this for something other than personal development, consider changing this to match your DNS hostname exactly.
 6. Open a command line and navigate to gemp-lotr/gemp-lotr/docker. 
 	* Run the command `docker-compose up -d`
 	* You should see `Starting gemp_app....done` and `Starting gemp_db....done` at the end.  
 	* This process will take a while the first time you do it, and will be near instantaneous every time after.
 7. The database should have automatically created the gemp databases that are needed.  
 	* You can verify this by connecting to the database on your host machine with your DB manager of choice (I recommend [DBeaver](https://dbeaver.io/)).  
-	* It is exposed on localhost:35001 (unless you changed this port in step 4C) and uses the user/pass of `gempuser`/`gemppassword` (unless you changed this in step 4.2).  
+	* It is exposed on localhost:35001 (unless you changed this port in step 4.2) and uses the user/pass of `gempuser`/`gemppassword` (unless you changed this in step 4.2).  
 	* If you can see the `gemp_db` database with `league_participation` and other tables, you're golden.  
 8. Open a terminal in the Docker container
 	* Using Portainer or Docker Desktop open a terminal in the `gemp_app` container
@@ -59,7 +59,7 @@ gemp_app is slightly more complicated.  Gemp is a Java server, is built using Ma
 	* Use Maven to compile the application	`mvn install`
 	* This process will take upwards of 5-10 minutes.  
 	* You should see a green "BUILD SUCCESS" when it is successfully done.  In portainer.io or another rich command line context, you should see lots of red text if it failed.
-10. Uncomment [this line](https://github.com/PlayersCouncil/gemp-lotr/blob/master/gemp-lotr/docker/docker-compose.yml#:~:text=f%20/dev/null-,%23,java%20%2Djar%20/etc/gemp%2Dlotr/gemp%2Dlotr%2Dasync/target/web.jar%20%26,-db) in `docker-compose.yml` to ensure the GEMP server is run on every container statrt
+10. Uncomment [this line](https://github.com/PlayersCouncil/gemp-lotr/blob/master/gemp-lotr/docker/docker-compose.yml#L52) in `docker-compose.yml` to ensure the GEMP server is run on every container statrt
 11. On your host machine cycle your docker container
 	* In a terminal navigate to `gemp-lotr/docker`
 	* Run `docker-compose down`
