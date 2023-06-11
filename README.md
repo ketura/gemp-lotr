@@ -77,6 +77,8 @@ GEMP includes tools for hosting within [Docker](https://docker-curriculum.com/),
 2. Install your container manager of choice.  [portainer.io](https://www.portainer.io/) is highly recommended.
 
 3. Pull the git repository down to your host machine
+	* Open a command line window and navigate to the folder that you want to put GEMP in
+	* Run the following command: `git clone https://github.com/PlayersCouncil/gemp-lotr.git`
 
 4. Open a command line and navigate to gemp-lotr/gemp-lotr/docker.  
 	* Run the command `docker-compose up -d`
