@@ -26,7 +26,7 @@ gemp_app is slightly more complicated.  Gemp is a Java server, is built using Ma
 	* If you're installing this on Linux, I assume you know more than I do about how to set it up properly.
 2. Install your container manager of choice.  I would HIGHLY recommend [PortainerIO](https://www.portainer.io/), which itself runs in a docker container and exposes itself as an interactable web page.  This will give you a graphical readout of all your currently running containers, registered images, networks, volumes, and just about anything else you might want, PLUS have interactive command lines for when the GUI just doesn't cut it.  The manager that comes with Docker Desktop by default is pretty much only just barely enough to run portainer with, so don't bother with it otherwise.
 3. Pull the git repository down to your host machine; you may have already done this.
-4. Open a code editor of your choice and navigate to {repo-root}/gemp-lotr/gemp-lotr/docker.  Open up [docker-compose.yml](docker-compose.yml) and change the defaults to suit your needs:
+4. Open a code editor of your choice and navigate to `{repo-root}/gemp-lotr/gemp-lotr/docker`.  Open up [docker-compose.yml](docker-compose.yml) and change the defaults to suit your needs:
 	1. Note all the relative paths under each volume/source: these are all paths on your host system.  If you want e.g. the database to be in a different location than what's listed, alter these relative paths to something else on your host system.
 	2. In the Docker [.env](./.env) file note all of the username/password fields.  If you are hosting this for something other than personal development, be sure to change all of these to something else.
 	3. Note the two "published" ports: 17001 for the app, and 35001 for the db.  These are the ports that you will be accessing the site with (and the db if you connect with a database manager). If you are hosting this for something other than personal development, consider changing these to something else.  **DO NOT** change the "target" ports, these targets are the ports that are used internally by Docker networking.
@@ -64,11 +64,9 @@ gemp_app is slightly more complicated.  Gemp is a Java server, is built using Ma
 	* In a terminal navigate to `gemp-lotr/docker`
 	* Run `docker-compose down`
 	* After that completes run `docker-compose up -d`	
-12. if all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  
+12. If all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  
 	* Open your browser of choice and navigate to http://localhost:17001/gemp-lotr/ .  (If you need a different port to be bound to, then repeat step 4 and edit the exposed port, then repeat step 11 to load those changes.)
-
-
-If you're presented with the home page, register a new user and log in. It's possible for the login page to present but login itself to fail if configured incorrectly, so don't celebrate until you see the (empty) lobby.  If you get that far, then congrats, you now have a working local version of Gemp.
+13. If you're presented with the home page, register a new user and log in. It's possible for the login page to present but login itself to fail if configured incorrectly, so don't celebrate until you see the (empty) lobby.  If you get that far, then congrats, you now have a working local version of Gemp.
 
 At this point, editing the code is a matter of changing the files on your local machine and either re-running step 9, or re-compiling the code base in your IDE of choice.  
 
