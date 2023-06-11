@@ -70,7 +70,7 @@ Old card unit tests were scattershot and stored in the /at subfolder as needed. 
 
 # Hosting
 
-GEMP includes tools for hosting within [Docker](https://docker-curriculum.com/), which makes setting up a local host a breeze (assuming the maintainers have kept the database scripts up-to-date).  See the readme in the [/docker](https://github.com/PlayersCouncil/gemp-lotr/tree/master/gemp-lotr/docker) subfolder for more advanced details and instructions on the organization, but the following are basic instructions on how to start a local copy of GEMP.  Make sure to follow the advanced instructions if hosting a production instance, as it will give steps for updating the default ports and credentials for db accounts and such.
+GEMP includes tools for hosting within [Docker](https://docker-curriculum.com/), which makes setting up a local host a breeze (assuming the maintainers have kept the database scripts up-to-date).  See the readme in the [/docker](/gemp-lotr/docker) subfolder for more advanced details and instructions on the organization, but the following are basic instructions on how to start a local copy of GEMP.  Make sure to follow the advanced instructions if hosting a production instance, as it will give steps for updating the default ports and credentials for db accounts and such.
 
 1. Install Docker (Docker Desktop if on Windows).  If you are on Windows, make sure that when you install it you check all boxes that have Docker behave like it's on Linux. 
 
