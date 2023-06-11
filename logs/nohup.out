@@ -1,0 +1,283 @@
+2023-06-11 02:40:13,918  INFO GempukkuServer:20 - GempukkuServer loading prerequisites...
+2023-06-11 02:40:14,126  INFO LotroCardBlueprintLibrary:58 - Locking blueprint library in constructor
+2023-06-11 02:40:14,131  INFO LotroCardBlueprintLibrary:61 - Unlocking blueprint library in constructor
+2023-06-11 02:40:15,001 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set0.hjson
+2023-06-11 02:40:15,109 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-dwarven.hjson
+2023-06-11 02:40:15,162 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-elven.hjson
+2023-06-11 02:40:15,205 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-gandalf.hjson
+2023-06-11 02:40:15,255 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-gondor.hjson
+2023-06-11 02:40:15,295 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-isengard.hjson
+2023-06-11 02:40:15,324 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-moria.hjson
+2023-06-11 02:40:15,352 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-sauron.hjson
+2023-06-11 02:40:15,375 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-shire.hjson
+2023-06-11 02:40:15,401 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1-wraith.hjson
+2023-06-11 02:40:15,431 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set1.hjson
+2023-06-11 02:40:15,471 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set2-dwarven.hjson
+2023-06-11 02:40:15,496 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set2-elven.hjson
+2023-06-11 02:40:15,519 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set2-gandalf.hjson
+2023-06-11 02:40:15,535 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set2-gondor.hjson
+2023-06-11 02:40:15,555 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set2-isengard.hjson
+2023-06-11 02:40:15,572 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set2-moria.hjson
+2023-06-11 02:40:15,599 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set3-elven.hjson
+2023-06-11 02:40:15,632 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set4-dwarven.hjson
+2023-06-11 02:40:15,650 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set4.hjson
+2023-06-11 02:40:15,677 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set5.hjson
+2023-06-11 02:40:15,706 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-raider.hjson
+2023-06-11 02:40:15,752 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set9-1.hjson
+2023-06-11 02:40:15,783 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set9-2.hjson
+2023-06-11 02:40:15,816 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-gondor.hjson
+2023-06-11 02:40:15,850 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10.hjson
+2023-06-11 02:40:15,888 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set11-site.hjson
+2023-06-11 02:40:15,915 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set14.hjson
+2023-06-11 02:40:15,959 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set15-orc.hjson
+2023-06-11 02:40:15,992 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set16.hjson
+2023-06-11 02:40:16,026 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set17-gandalf.hjson
+2023-06-11 02:40:16,047 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set17-wraith.hjson
+2023-06-11 02:40:16,077 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-wraith.hjson
+2023-06-11 02:40:16,124 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set19.hjson
+2023-06-11 02:40:16,223 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set30-fp.hjson
+2023-06-11 02:40:16,269 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set30-shadow.hjson
+2023-06-11 02:40:16,293 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set30-sites.hjson
+2023-06-11 02:40:16,332 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set31-fp.hjson
+2023-06-11 02:40:16,374 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set31-shadow.hjson
+2023-06-11 02:40:16,391 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set31-sites.hjson
+2023-06-11 02:40:16,433 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set32-fp.hjson
+2023-06-11 02:40:16,463 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set32-shadow.hjson
+2023-06-11 02:40:16,479 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set32-site.hjson
+2023-06-11 02:40:16,520 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set33-fp.hjson
+2023-06-11 02:40:16,557 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set33-shadow.hjson
+2023-06-11 02:40:16,576 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set33-sites.hjson
+2023-06-11 02:40:16,694 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Dwarven-errata.hjson
+2023-06-11 02:40:16,723 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Elven-errata.hjson
+2023-06-11 02:40:16,748 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Gandalf-errata.hjson
+2023-06-11 02:40:16,765 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Gondor-errata.hjson
+2023-06-11 02:40:16,784 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Isengard-errata.hjson
+2023-06-11 02:40:16,802 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Moria-errata.hjson
+2023-06-11 02:40:16,820 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Ringwraith-errata.hjson
+2023-06-11 02:40:16,846 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Sauron-errata.hjson
+2023-06-11 02:40:16,867 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Shire-errata.hjson
+2023-06-11 02:40:16,887 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set01-Sites-errata.hjson
+2023-06-11 02:40:16,944 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Dwarven-errata.hjson
+2023-06-11 02:40:16,965 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Gondor-errata.hjson
+2023-06-11 02:40:16,985 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Isengard-errata.hjson
+2023-06-11 02:40:17,005 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Moria-errata.hjson
+2023-06-11 02:40:17,024 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Ringwraith-errata.hjson
+2023-06-11 02:40:17,042 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Sauron-errata.hjson
+2023-06-11 02:40:17,058 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set02-Shire-errata.hjson
+2023-06-11 02:40:17,108 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Dwarven-errata.hjson
+2023-06-11 02:40:17,131 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Elven-errata.hjson
+2023-06-11 02:40:17,155 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Gondor-errata.hjson
+2023-06-11 02:40:17,173 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Isengard-errata.hjson
+2023-06-11 02:40:17,191 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Moria-errata.hjson
+2023-06-11 02:40:17,207 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Ringwraith-errata.hjson
+2023-06-11 02:40:17,227 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Sauron-errata.hjson
+2023-06-11 02:40:17,245 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Shire-errata.hjson
+2023-06-11 02:40:17,265 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set03-Sites-errata.hjson
+2023-06-11 02:40:17,301 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set04-Dwarven-errata.hjson
+2023-06-11 02:40:17,319 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set04-Elven-errata.hjson
+2023-06-11 02:40:17,338 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set04-Isengard-errata.hjson
+2023-06-11 02:40:17,356 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set04-Rohan-errata.hjson
+2023-06-11 02:40:17,381 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set04-Shire-errata.hjson
+2023-06-11 02:40:17,415 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set05-Dwarven-errata.hjson
+2023-06-11 02:40:17,445 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set05-Isengard-errata.hjson
+2023-06-11 02:40:17,486 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set07-Gandalf-errata.hjson
+2023-06-11 02:40:17,503 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set07-Gondor-errata.hjson
+2023-06-11 02:40:17,523 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set07-Ringwraith-errata.hjson
+2023-06-11 02:40:17,542 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set07-Rohan-errata.hjson
+2023-06-11 02:40:17,563 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set07-Sites-errata.hjson
+2023-06-11 02:40:17,607 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-Dwarven-errata.hjson
+2023-06-11 02:40:17,624 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-Gollum-errata.hjson
+2023-06-11 02:40:17,642 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-Gondor-errata.hjson
+2023-06-11 02:40:17,670 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-Raider-errata.hjson
+2023-06-11 02:40:17,687 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-Rohan-errata.hjson
+2023-06-11 02:40:17,704 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set08-Sauron-errata.hjson
+2023-06-11 02:40:17,737 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set09-Elven-errata-playtest.hjson
+2023-06-11 02:40:17,756 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set09-Gandalf-errata-playtest.hjson
+2023-06-11 02:40:17,801 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Dwarven-errata.hjson
+2023-06-11 02:40:17,829 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Elven-errata.hjson
+2023-06-11 02:40:17,848 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Gandalf-errata.hjson
+2023-06-11 02:40:17,866 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Raider-errata.hjson
+2023-06-11 02:40:17,901 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Ringwraith-errata.hjson
+2023-06-11 02:40:17,918 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Rohan-errata.hjson
+2023-06-11 02:40:17,937 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set10-Sauron-errata.hjson
+2023-06-11 02:40:17,975 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set11-Gandalf-errata.hjson
+2023-06-11 02:40:17,991 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set11-Men-errata.hjson
+2023-06-11 02:40:18,008 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set11-Orc-errata.hjson
+2023-06-11 02:40:18,026 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set11-Sites-errata.hjson
+2023-06-11 02:40:18,052 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set13-Sites-errata.hjson
+2023-06-11 02:40:18,088 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set15-Elven-errata.hjson
+2023-06-11 02:40:18,107 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set15-Gondor-errata.hjson
+2023-06-11 02:40:18,123 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set15-Orc-errata.hjson
+2023-06-11 02:40:18,140 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set15-Shire-errata.hjson
+2023-06-11 02:40:18,173 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set17-elven-errata.hjson
+2023-06-11 02:40:18,196 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set17-gandalf-errata.hjson
+2023-06-11 02:40:18,248 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Elven-errata.hjson
+2023-06-11 02:40:18,265 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Gandalf-errata.hjson
+2023-06-11 02:40:18,282 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Gollum-errata.hjson
+2023-06-11 02:40:18,301 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Gondor-errata.hjson
+2023-06-11 02:40:18,321 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Orc-errata.hjson
+2023-06-11 02:40:18,340 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Rohan-errata.hjson
+2023-06-11 02:40:18,359 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Shire-errata.hjson
+2023-06-11 02:40:18,375 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Sites-errata.hjson
+2023-06-11 02:40:18,392 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set18-Uruk-errata.hjson
+2023-06-11 02:40:18,424 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set19-Ringwraith-errata.hjson
+2023-06-11 02:40:18,449 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set19-errata.hjson
+2023-06-11 02:40:18,476 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V0-shadows-sites.hjson
+2023-06-11 02:40:18,525 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_dwarven.hjson
+2023-06-11 02:40:18,547 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_elven.hjson
+2023-06-11 02:40:18,563 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_gandalf.hjson
+2023-06-11 02:40:18,582 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_gondor.hjson
+2023-06-11 02:40:18,600 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_isengard.hjson
+2023-06-11 02:40:18,619 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_moria.hjson
+2023-06-11 02:40:18,636 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_ringwraith.hjson
+2023-06-11 02:40:18,655 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_sauron.hjson
+2023-06-11 02:40:18,673 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_shire.hjson
+2023-06-11 02:40:18,691 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file V1_sites.hjson
+2023-06-11 02:40:18,776 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-dwarven.hjson
+2023-06-11 02:40:18,815 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-elven.hjson
+2023-06-11 02:40:18,859 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-gandalf.hjson
+2023-06-11 02:40:18,886 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-gondor.hjson
+2023-06-11 02:40:18,906 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-isengard.hjson
+2023-06-11 02:40:18,926 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-moria.hjson
+2023-06-11 02:40:18,946 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-sauron.hjson
+2023-06-11 02:40:18,967 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-shire.hjson
+2023-06-11 02:40:18,991 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40-wraith.hjson
+2023-06-11 02:40:19,008 DEBUG LotroCardBlueprintLibrary:233 - Loaded JSON card file set40.hjson
+2023-06-11 02:40:19,009 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 2
+2023-06-11 02:40:19,120 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 3
+2023-06-11 02:40:19,249 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 4
+2023-06-11 02:40:19,691 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 5
+2023-06-11 02:40:19,847 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 6
+2023-06-11 02:40:19,994 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 7
+2023-06-11 02:40:20,442 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 8
+2023-06-11 02:40:20,579 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 10
+2023-06-11 02:40:20,709 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 11
+2023-06-11 02:40:20,887 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 12
+2023-06-11 02:40:20,982 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 13
+2023-06-11 02:40:21,063 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 15
+2023-06-11 02:40:21,217 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 17
+2023-06-11 02:40:21,289 DEBUG LotroCardBlueprintLibrary:239 - Loading Java cards for set 18
+2023-06-11 02:40:22,594  INFO GempukkuServer:23 - GempukkuServer loading DAOs...
+2023-06-11 02:40:22,753  INFO GempukkuServer:25 - GempukkuServer loading services...
+2023-06-11 02:40:23,610 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/fellowshipDraft.json
+2023-06-11 02:40:23,751 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/hobbitDraft.json
+2023-06-11 02:40:23,809 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/hobbitRandomDraft.json
+2023-06-11 02:40:23,922 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/testDraft.json
+2023-06-11 02:40:24,135 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/twoTowersDraft.json
+2023-06-11 02:40:24,157 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-06-11 02:40:24,174  INFO GempukkuServer:27 - GempukkuServer starting servers...
+2023-06-11 02:40:24,176 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-06-11 02:40:24,179 DEBUG AbstractServer:18 - Started: HallServer
+2023-06-11 02:40:24,427 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 246ms
+Exception in thread "main" java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnfinishedTournaments(DbTournamentDAO.java:88)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+2023-06-11 02:40:24,427 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 238ms
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnfinishedTournaments(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getLiveTournaments(TournamentService.java:129)
+	at com.gempukku.lotro.hall.HallServer.doAfterStartup(HallServer.java:284)
+	at com.gempukku.lotro.AbstractServer.startServer(AbstractServer.java:19)
+	at com.gempukku.lotro.builder.ServerBuilder.StartServers(ServerBuilder.java:140)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:28)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+2023-06-11 02:40:24,438 ERROR ServerCleaner:43 - Error while cleaning up a server
+java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:162)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnstartedScheduledTournamentQueues(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getUnstartedScheduledTournamentQueues(TournamentService.java:184)
+	at com.gempukku.lotro.hall.HallServer.cleanup(HallServer.java:852)
+	at com.gempukku.lotro.ServerCleaner$CleaningThread.run(ServerCleaner.java:40)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:148)
+	... 7 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 17 more
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 20 more
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnfinishedTournaments(DbTournamentDAO.java:73)
+	... 10 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 20 more
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 23 more
+2023-06-11 02:41:25,670 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 210ms

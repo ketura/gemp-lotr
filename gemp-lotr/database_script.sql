@@ -36,6 +36,29 @@ CREATE TABLE `collection` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `collection_entries`
+--
+
+DROP TABLE IF EXISTS `collection_entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `collection_entries` (
+  `collection_id` int(11) NOT NULL,
+  `quantity` int(2) DEFAULT 0,
+  `product_type` varchar(50) NOT NULL,
+  `product_variant` varchar(50) DEFAULT NULL,
+  `product` varchar(50) NOT NULL,
+  `source` varchar(50) NOT NULL,
+  `created_date` datetime DEFAULT current_timestamp(),
+  `modified_date` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `notes` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`collection_id`,`product`),
+  CONSTRAINT `collection_entries_ibfk_1` FOREIGN KEY (`collection_id`) REFERENCES `collection` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
 -- Table structure for table `deck`
 --
 
