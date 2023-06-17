@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set02;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_02_007_ErrataTests
@@ -19,10 +19,15 @@ public class Card_02_007_ErrataTests
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "52_7");
-					// put other cards in here as needed for the test case
+					put("gloin", "52_7");
+					put("tale1", "2_9");
+					put("tale2", "2_9");
+					put("tale3", "2_9");
+					put("tale4", "2_9");
+					put("tale5", "2_9");
+					put("shiretale", "2_108");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +35,7 @@ public class Card_02_007_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void GloinStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -49,36 +52,49 @@ public class Card_02_007_ErrataTests
 		*/
 
 		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
+		var scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		var gloin = scn.GetFreepsCard("gloin");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.DWARVEN, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(6, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertTrue(gloin.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, gloin.getBlueprint().getSide());
+		assertEquals(Culture.DWARVEN, gloin.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, gloin.getBlueprint().getCardType());
+		assertEquals(Race.DWARF, gloin.getBlueprint().getRace());
+		assertEquals(2, gloin.getBlueprint().getTwilightCost());
+		assertEquals(6, gloin.getBlueprint().getStrength());
+		assertEquals(3, gloin.getBlueprint().getVitality());
+		assertEquals(6, gloin.getBlueprint().getResistance());
 	}
 
-	//@Test
-	public void GloinTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void GloinIsStrengthPlus1PerDwarfTaleLimit4() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
+		var scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var gloin = scn.GetFreepsCard("gloin");
+		scn.FreepsMoveCharToTable(gloin);
+		scn.FreepsMoveCardToHand("tale1", "tale2", "tale3", "tale4", "tale5", "shiretale");
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		assertEquals(6, scn.GetStrength(gloin));
+		//No effect from a non-dwarf tale
+		scn.FreepsPlayCard("shiretale");
+		assertEquals(6, scn.GetStrength(gloin));
+
+		// +1 per dwarf tale
+		scn.FreepsPlayCard("tale1");
+		assertEquals(7, scn.GetStrength(gloin));
+		scn.FreepsPlayCard("tale2");
+		assertEquals(8, scn.GetStrength(gloin));
+		scn.FreepsPlayCard("tale3");
+		assertEquals(9, scn.GetStrength(gloin));
+		scn.FreepsPlayCard("tale4");
+		assertEquals(10, scn.GetStrength(gloin));
+
+		//Fifth dwarven tale does nothing
+		scn.FreepsPlayCard("tale5");
+		assertEquals(10, scn.GetStrength(gloin));
 	}
 }
