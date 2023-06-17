@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.DBDefs;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -113,8 +114,8 @@ public class ReplayMetadata {
                 }
             }
             else if(!GameStarted && event.getType() == GameEvent.Type.GAME_PHASE_CHANGE) {
-                var phase = event.getPhase();
-                if (phase != null && phase.equals("Between turns"))
+                var phase = Phase.findPhase(event.getPhase());
+                if (phase == Phase.BETWEEN_TURNS)
                 {
                     GameStarted = true;
                 }
