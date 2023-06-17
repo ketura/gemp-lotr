@@ -5,24 +5,24 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_02_006_ErrataTests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "52_6");
-					// put other cards in here as needed for the test case
+					put("fror", "52_6");
+					put("gimli", "1_13");
+
+					put("nazgul", "1_230");
+					put("uruk", "1_151");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
@@ -30,9 +30,7 @@ public class Card_02_006_ErrataTests
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void FrorStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -52,34 +50,62 @@ public class Card_02_006_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl fror = scn.GetFreepsCard("fror");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.DWARVEN, card.getBlueprint().getCulture());
-		assertEquals(CardType.COMPANION, card.getBlueprint().getCardType());
-		assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(2, card.getBlueprint().getTwilightCost());
-		assertEquals(6, card.getBlueprint().getStrength());
-		assertEquals(3, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertTrue(fror.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, fror.getBlueprint().getSide());
+		assertEquals(Culture.DWARVEN, fror.getBlueprint().getCulture());
+		assertEquals(CardType.COMPANION, fror.getBlueprint().getCardType());
+		assertEquals(Race.DWARF, fror.getBlueprint().getRace());
+		assertEquals(2, fror.getBlueprint().getTwilightCost());
+		assertEquals(6, fror.getBlueprint().getStrength());
+		assertEquals(3, fror.getBlueprint().getVitality());
+		assertEquals(6, fror.getBlueprint().getResistance());
 	}
 
-	//@Test
-	public void FrorTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void FrorRequiresDwarfSpotToPlay() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var fror = scn.GetFreepsCard("fror");
+		var gimli = scn.GetFreepsCard("gimli");
+		scn.FreepsMoveCardToHand(gimli, fror);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
 
-		assertEquals(2, scn.GetTwilight());
+		assertFalse(scn.FreepsPlayAvailable(fror));
+		scn.FreepsPlayCard(gimli);
+		assertTrue(scn.FreepsPlayAvailable(fror));
+	}
+
+	@Test
+	public void FrorIsStrengthPlus3AgainstUruks() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var fror = scn.GetFreepsCard("fror");
+		scn.FreepsMoveCharToTable(fror);
+
+		var uruk = scn.GetShadowCard("uruk");
+		var nazgul = scn.GetShadowCard("nazgul");
+		scn.ShadowMoveCharToTable(uruk, nazgul);
+
+		scn.StartGame();
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(fror, uruk);
+		scn.ShadowDeclineAssignments();
+
+		assertEquals(6, scn.GetStrength(fror));
+		scn.FreepsResolveSkirmish(fror);
+		assertEquals(9, scn.GetStrength(fror));
+		scn.PassCurrentPhaseActions();
+
+		//fierce
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(fror, nazgul);
+		scn.FreepsResolveSkirmish(fror);
+		assertEquals(6, scn.GetStrength(fror));
 	}
 }
