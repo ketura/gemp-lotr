@@ -42,7 +42,8 @@ public class Card_02_032_ErrataTests
          * Subtype: Hand Weapon
          * Strength: 1
          * Game Text: Bearer must be a ranger. This weapon may be borne in addition to 1 other hand weapon.
-         * 	Skirmish: Make bearer strength +2 and <b>damage +1</b> while skirmishing a Nazgûl until the regroup phase (limit once per turn). Discard this possession at the start of the regroup phase.
+         * 	Skirmish: Make bearer strength +2 and <b>damage +1</b> while skirmishing a Nazgûl until the regroup phase
+         * 	(limit once per turn). Discard this possession at the start of the regroup phase.
          */
 
         //Pre-game setup
