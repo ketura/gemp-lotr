@@ -483,6 +483,18 @@ var PCCards = {
 	'53_90': 'https://i.lotrtcgpc.net/errata/LOTR-EN03E090.2_card.jpg',
 	'57_190': 'https://i.lotrtcgpc.net/errata/LOTR-EN07E190.1_card.jpg',
 	'60_68': 'https://i.lotrtcgpc.net/errata/LOTR-EN10E068.1_card.jpg',
+	
+	//June 2023 Gala
+	//Saruman, Black Traitor FA
+	'4_368': 'https://i.lotrtcgpc.net/errata/LOTR-EN04U173.0_card.jpg',
+	//Saruman's Staff, Wizard's Device FA
+	'4_369': 'https://i.lotrtcgpc.net/errata/LOTR-EN04U174.0_card.jpg',
+	
+	//June 2023 Qualifier League
+	//Gandalf, The Grey Pilgrim MW
+	'2_126': 'https://i.lotrtcgpc.net/errata/LOTR-EN02O122.0_card.jpg',
+	//Blade Tip FA
+	'1_381': 'https://i.lotrtcgpc.net/errata/LOTR-EN01U209.0_card.jpg',
 
 }
 

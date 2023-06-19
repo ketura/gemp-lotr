@@ -194,6 +194,14 @@
 			1x4_367
 			//The Tale of the Great Ring MW
 			1x10_126
+			#Saruman, Black Traitor FA
+			1x4_368
+			#Saruman's Staff, Wizard's Device FA
+			1x4_369
+			#Gandalf, The Grey Pilgrim MW
+			1x2_126
+			#Blade Tip FA
+			1x1_381
 		]
 	}
 	
@@ -391,6 +399,8 @@
 			//1x101_67
 			//The Tale of the Great Ring MW
 			1x10_126
+			#Gandalf, The Grey Pilgrim MW
+			1x2_126
 		]
 	}
 ]

@@ -340,3 +340,11 @@ gl_theOneRing,1_2
 10_126,10_116
 #Easterling Captain FA
 4_367,4_225
+#Saruman, Black Traitor FA
+4_368,4_173
+#Saruman's Staff, Wizard's Device FA
+4_369,4_174
+#Gandalf, The Grey Pilgrim MW
+2_126,2_122
+#Blade Tip FA
+1_381,1_209
