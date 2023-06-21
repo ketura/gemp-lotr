@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface GameHistoryDAO {
-    public void addGameHistory(String winner, int winnerId, String loser, int loserId, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, ZonedDateTime startDate, ZonedDateTime endDate, int version);
+    public int addGameHistory(String winner, int winnerId, String loser, int loserId, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, ZonedDateTime startDate, ZonedDateTime endDate, int version);
     public DBDefs.GameHistory getGameHistory(String recordID);
     public boolean doesReplayIDExist(String id);
     public List<DBDefs.GameHistory> getGameHistoryForPlayer(Player player, int start, int count);

@@ -11,10 +11,7 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.DraftChannelVisitor;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.hall.HallChannelVisitor;
-import com.gempukku.lotro.hall.HallCommunicationChannel;
-import com.gempukku.lotro.hall.HallException;
-import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.hall.*;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.GameUtils;
@@ -144,6 +141,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
             String isInviteOnlyVal = getFormParameterSafely(postDecoder, "isInviteOnly");
             boolean isInviteOnly = (isInviteOnlyVal != null ? Boolean.valueOf(isInviteOnlyVal) : false);
+            //To prevent annoyance, super long glacial games are hidden from everyone except
+            // the participants and admins.
+            boolean isHidden = timer.toLowerCase().equals(GameTimer.GLACIAL_TIMER.name());
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -175,7 +175,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
 
             try {
-                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc, isInviteOnly, isPrivate);
+                _hallServer.createNewTable(format, resourceOwner, deckName, timer, desc, isInviteOnly, isPrivate, isHidden);
                 responseWriter.writeXmlResponse(null);
             }
             catch (HallException e) {
@@ -183,7 +183,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 {
                     //try again assuming it's a new player with one of the default library decks selected
                     Player librarian = _playerDao.getPlayer("Librarian");
-                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isInviteOnly, isPrivate);
+                    _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isInviteOnly, isPrivate, isHidden);
                     responseWriter.writeXmlResponse(null);
                     return;
                 }

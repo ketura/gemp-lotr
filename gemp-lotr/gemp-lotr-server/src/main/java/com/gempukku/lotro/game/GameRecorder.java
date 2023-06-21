@@ -57,7 +57,11 @@ public class GameRecorder {
         return (winnerName, winReason, loserName, loseReason) -> {
             final ZonedDateTime endDate = ZonedDateTime.now(ZoneOffset.UTC);
 
+            var time = lotroGame.getTimeSettings();
+            var clocks = lotroGame.getPlayerClocks();
             var gameInfo = new DBDefs.GameHistory() {{
+                gameId = lotroGame.getGameId();
+
                 winner = winnerName;
                 winnerId = _playerDAO.getPlayer(winnerName).getId();
                 loser = loserName;
@@ -79,12 +83,21 @@ public class GameRecorder {
 
                 tournament = tournamentName;
 
-                //Update this version as needed
+                winner_site = lotroGame.getGame().getGameState().getPlayerPosition(winner);
+                loser_site = lotroGame.getGame().getGameState().getPlayerPosition(winner);
+
+                game_length_type = time.name();
+                max_game_time = time.maxSecondsPerPlayer();
+                game_timeout = time.maxSecondsPerDecision();
+                winner_clock_remaining = clocks.getOrDefault(winnerName, -1);
+                loser_clock_remaining = clocks.getOrDefault(loserName, -1);
+
+                //Update this version as needed; note that this is the REPLAY FORMAT, not the JSON summary
                 replay_version = 1;
             }};
 
             var playerRecordingId = saveRecordedChannels(recordingChannels, gameInfo, decks);
-            _gameHistoryService.addGameHistory(gameInfo);
+            gameInfo.id = _gameHistoryService.addGameHistory(gameInfo);
 
             if(format.isPlaytest())
             {
@@ -110,9 +123,9 @@ public class GameRecorder {
 
     private File getRecordingFileVersion1(String playerId, String gameId, ZonedDateTime startDate) {
         var gameReplayFolder = new File(AppConfig.getProperty("application.root"), "replay");
-        //This dumbass formatting output is because anything that otherwise intersects with the
+        //This dumbass formatting output is because anything that otherwise interacts with the
         // year subfield appears to trigger a JVM segfault in the guts of the java ecosystem.
-        // Super-dumb.  Don't touch.
+        // Super-dumb.  Don't touch these two lines.
         var year = startDate.format(DateTimeFormatter.ofPattern("yyyy"));
         var month = startDate.format(DateTimeFormatter.ofPattern("MM"));
 

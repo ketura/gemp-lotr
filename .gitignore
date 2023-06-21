@@ -20,3 +20,5 @@ logs/*
 remote-sync
 replay
 !replay/.placeholder
+logs/nohup.out
+gemp-lotr/docker/docker-compose.yml

@@ -100,18 +100,18 @@ public class LotroServer extends AbstractServer {
                 _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, false, null);
 
             // Allow spectators for leagues, but not tournaments
+            // Also: yes, yes, we're very proud that you found a way to assign this boolean in one line.
+            // The point of the code setting it like this is to make each case painfully explicit.
             boolean spectate = true;
             if(gameSettings.getLeague() != null) {
                 spectate = true;
             }
-            else if(gameSettings.isCompetitive()) {
+            else if(gameSettings.isCompetitive() || gameSettings.isPrivateGame() || gameSettings.isHiddenGame()) {
                 spectate = false;
             }
-            if(gameSettings.isPrivateGame()) {
-                spectate = false;
-            }
+
             LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,
-                    gameSettings.getMaxSecondsPerPlayer(), gameSettings.getMaxSecondsPerDecision(),
+                    gameSettings.getTimeSettings(),
                     spectate, !gameSettings.isCompetitive(), gameSettings.isHiddenGame());
             lotroGameMediator.addGameResultListener(
                 new GameResultListener() {

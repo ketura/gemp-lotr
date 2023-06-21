@@ -13,15 +13,13 @@ public class GameSettings {
     private final boolean competitive;
     private final boolean privateGame;
     private final boolean hiddenGame;
-    private final String timerName;
-    private final int maxSecondsPerPlayer;
-    private final int maxSecondsPerDecision;
+    private final GameTimer timeSettings;
     private final String userDescription;
     private final boolean isInviteOnly;
 
     public GameSettings(CollectionType collectionType, LotroFormat lotroFormat, League league, LeagueSerieData leagueSerie,
-                        boolean competitive, boolean privateGame, boolean hiddenGame, String timerName, int maxSecondsPerPlayer, int maxSecondsPerDecision,
-                        String description, boolean isInviteOnly) {
+                        boolean competitive, boolean privateGame, boolean isInviteOnly, boolean hiddenGame,
+                        GameTimer timer, String description) {
         this.collectionType = collectionType;
         this.lotroFormat = lotroFormat;
         this.league = league;
@@ -29,9 +27,7 @@ public class GameSettings {
         this.competitive = competitive;
         this.privateGame = privateGame;
         this.hiddenGame = hiddenGame;
-        this.timerName = timerName;
-        this.maxSecondsPerPlayer = maxSecondsPerPlayer;
-        this.maxSecondsPerDecision = maxSecondsPerDecision;
+        this.timeSettings = timer;
         this.userDescription = description;
         this.isInviteOnly = isInviteOnly;
     }
@@ -64,17 +60,7 @@ public class GameSettings {
         return hiddenGame;
     }
 
-    public int getMaxSecondsPerPlayer() {
-        return maxSecondsPerPlayer;
-    }
-
-    public int getMaxSecondsPerDecision() {
-        return maxSecondsPerDecision;
-    }
-
-    public String getTimerName() {
-        return timerName;
-    }
+    public GameTimer getTimeSettings() { return timeSettings; }
 
     public String getUserDescription() { return userDescription; }
 

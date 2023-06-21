@@ -24,7 +24,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addGameHistory(String winner, int winnerId, String loser, int loserId, String winReason, String loseReason, String winRecordingId, String loseRecordingId,
+    public int addGameHistory(String winner, int winnerId, String loser, int loserId, String winReason, String loseReason, String winRecordingId, String loseRecordingId,
                                String formatName, String tournament, String winnerDeckName, String loserDeckName, ZonedDateTime startDate, ZonedDateTime endDate, int replayVersion) {
         try {
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
@@ -54,8 +54,11 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                         .addParameter("end_date", endDate.format(_dateTimeFormat))
                         .addParameter("version", replayVersion);
 
-                query.executeUpdate();
+                int id = query.executeUpdate()
+                        .getKey(Integer.class);
                 conn.commit();
+
+                return id;
             }
         } catch (Exception ex) {
             throw new RuntimeException("Unable to insert game history", ex);

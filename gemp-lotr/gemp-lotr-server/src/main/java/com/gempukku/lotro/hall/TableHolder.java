@@ -251,6 +251,6 @@ public class TableHolder {
         if (league != null)
             return league.getName() + " - " + table.getGameSettings().getLeagueSerie().getName();
         else
-            return "Casual - " + table.getGameSettings().getTimerName();
+            return "Casual - " + table.getGameSettings().getTimeSettings().name();
     }
 }

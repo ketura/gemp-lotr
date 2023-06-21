@@ -30,12 +30,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
-    private static final GameTimer DEFAULT_TIMER = new GameTimer(false, "Default", 60 * 80, 60 * 5);
-    private static final GameTimer BLITZ_TIMER = new GameTimer(false, "Blitz!", 60 * 30, 60 * 5);
-    private static final GameTimer SLOW_TIMER = new GameTimer(false, "Slow", 60 * 120, 60 * 10);
-    private static final GameTimer GLACIAL_TIMER = new GameTimer(true, "Glacial", 60 * 60 * 24 * 3, 60 * 60 * 24);
-    // 5 minutes timeout, 40 minutes per game per player
-    private static final GameTimer COMPETITIVE_TIMER = new GameTimer(false, "Competitive", 60 * 40, 60 * 5);
+
 
     private static final int _playerTableInactivityPeriod = 1000 * 20 ; // 20 seconds
 
@@ -344,11 +339,11 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate) throws HallException {
+    public void createNewTable(String type, Player player, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
-        GameSettings gameSettings = createGameSettings(type, timer, description, isInviteOnly, isPrivate);
+        GameSettings gameSettings = createGameSettings(type, timer, description, isInviteOnly, isPrivate, isHidden);
 
         LotroDeck lotroDeck = validateUserAndDeck(gameSettings.getLotroFormat(), player, deckName, gameSettings.getCollectionType());
 
@@ -364,11 +359,11 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void spoofNewTable(String type, Player player, Player librarian, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate) throws HallException {
+    public void spoofNewTable(String type, Player player, Player librarian, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
-        GameSettings gameSettings = createGameSettings(type, timer, description, isInviteOnly, isPrivate);
+        GameSettings gameSettings = createGameSettings(type, timer, description, isInviteOnly, isPrivate, isHidden);
 
         LotroDeck lotroDeck = validateUserAndDeck(gameSettings.getLotroFormat(), librarian, deckName, gameSettings.getCollectionType());
 
@@ -384,12 +379,12 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private GameSettings createGameSettings(String type, String timer, String description, boolean isInviteOnly, boolean isPrivate) throws HallException {
+    private GameSettings createGameSettings(String type, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         League league = null;
         LeagueSerieData leagueSerie = null;
         CollectionType collectionType = _defaultCollectionType;
         LotroFormat format = _formatLibrary.getHallFormats().get(type);
-        GameTimer gameTimer = resolveTimer(timer);
+        GameTimer gameTimer = GameTimer.ResolveTimer(timer);
 
         if (format == null) {
             // Maybe it's a league format?
@@ -414,7 +409,7 @@ public class HallServer extends AbstractServer {
                 format = leagueSerie.getFormat();
                 collectionType = leagueSerie.getCollectionType();
 
-                gameTimer = COMPETITIVE_TIMER;
+                gameTimer = GameTimer.COMPETITIVE_TIMER;
             }
         }
         // It's not a normal format and also not a league one
@@ -422,21 +417,7 @@ public class HallServer extends AbstractServer {
             throw new HallException("This format is not supported: " + type);
 
         return new GameSettings(collectionType, format, league, leagueSerie,
-                league != null, isPrivate, gameTimer.isLongGame(), gameTimer.getName(), gameTimer.getMaxSecondsPerPlayer(), gameTimer.getMaxSecondsPerDecision(), description, isInviteOnly);
-    }
-
-    private GameTimer resolveTimer(String timer) {
-        if (timer != null) {
-            switch (timer) {
-                case "blitz":
-                    return BLITZ_TIMER;
-                case "slow":
-                    return SLOW_TIMER;
-                case "glacial":
-                    return GLACIAL_TIMER;
-            }
-        }
-        return DEFAULT_TIMER;
+                league != null, isPrivate, isInviteOnly, isHidden, gameTimer, description);
     }
 
     public boolean joinQueue(String queueId, Player player, String deckName) throws HallException, SQLException, IOException {
@@ -751,7 +732,7 @@ public class HallServer extends AbstractServer {
         if (league != null)
             return league.getName() + " - " + table.getGameSettings().getLeagueSerie().getName();
         else
-            return "Casual - " + table.getGameSettings().getTimerName();
+            return "Casual - " + table.getGameSettings().getTimeSettings().name();
     }
 
     private void createGameFromTable(GameTable gameTable) {
@@ -885,7 +866,7 @@ public class HallServer extends AbstractServer {
         private HallTournamentCallback(Tournament tournament) {
             _tournament = tournament;
             tournamentGameSettings = new GameSettings(null, _formatLibrary.getFormat(_tournament.getFormat()),
-                    null, null, true, false, false, "Tournament", 60 * 40, 60 * 5, null, false);
+                    null, null, true, false, false, false, GameTimer.TOURNAMENT_TIMER, null);
         }
 
         @Override

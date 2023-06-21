@@ -8,6 +8,7 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.hall.GameTimer;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -32,8 +33,8 @@ public class LotroGameMediator {
     private final Map<String, LotroDeck> _playerDecks = new HashMap<>();
 
     private final String _gameId;
-    private final int _maxSecondsForGamePerPlayer;
-    private final int _maxSecondsPerDecision;
+
+    private GameTimer _timeSettings;
     private final boolean _allowSpectators;
     private final boolean _cancellable;
     private final boolean _showInGameHall;
@@ -44,11 +45,10 @@ public class LotroGameMediator {
     private int _channelNextIndex = 0;
     private volatile boolean _destroyed;
 
-    public LotroGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             int maxSecondsPerDecision, boolean allowSpectators, boolean cancellable, boolean showInGameHall) {
+    public LotroGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library,
+                             GameTimer gameTimer, boolean allowSpectators, boolean cancellable, boolean showInGameHall) {
         _gameId = gameId;
-        _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
-        _maxSecondsPerDecision = maxSecondsPerDecision;
+        _timeSettings = gameTimer;
         _allowSpectators = allowSpectators;
         _cancellable = cancellable;
         this._showInGameHall = showInGameHall;
@@ -82,6 +82,8 @@ public class LotroGameMediator {
     public String getGameId() {
         return _gameId;
     }
+
+    public DefaultLotroGame getGame() { return _lotroGame; }
 
     public boolean isAllowSpectators() {
         return _allowSpectators;
@@ -257,7 +259,7 @@ public class LotroGameMediator {
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
                 // User can always reconnect and establish a new channel
                 GameCommunicationChannel channel = playerChannels.getValue();
-                if (currentTime > channel.getLastAccessed() + _maxSecondsPerDecision*1000) {
+                if (currentTime > channel.getLastAccessed() + _timeSettings.maxSecondsPerDecision() * 1000L) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
                 }
@@ -267,7 +269,7 @@ public class LotroGameMediator {
                 for (Map.Entry<String, Long> playerDecision : new HashMap<>(_decisionQuerySentTimes).entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
-                    if (currentTime > decisionSent + _maxSecondsPerDecision*1000) {
+                    if (currentTime > decisionSent + _timeSettings.maxSecondsPerDecision() * 1000L) {
                         addTimeSpentOnDecisionToUserClock(playerId);
                         _lotroGame.playerLost(playerId, "Player decision timed-out");
                     }
@@ -275,7 +277,7 @@ public class LotroGameMediator {
 
                 for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                     String player = playerClock.getKey();
-                    if (_maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(player) < 0) {
+                    if (_timeSettings.maxSecondsPerPlayer() - playerClock.getValue() - getCurrentUserPendingTime(player) < 0) {
                         addTimeSpentOnDecisionToUserClock(player);
                         _lotroGame.playerLost(player, "Player run out of time");
                     }
@@ -385,7 +387,7 @@ public class LotroGameMediator {
             Map<String, Integer> secondsLeft = new HashMap<>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                 String playerClockName = playerClock.getKey();
-                secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
+                secondsLeft.put(playerClockName, _timeSettings.maxSecondsPerPlayer() - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
             }
             visitor.visitClock(secondsLeft);
         } finally {
@@ -416,7 +418,7 @@ public class LotroGameMediator {
             Map<String, Integer> secondsLeft = new HashMap<>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
                 String playerId = playerClock.getKey();
-                secondsLeft.put(playerId, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerId));
+                secondsLeft.put(playerId, _timeSettings.maxSecondsPerPlayer() - playerClock.getValue() - getCurrentUserPendingTime(playerId));
             }
             visitor.visitClock(secondsLeft);
         } finally {
@@ -440,13 +442,19 @@ public class LotroGameMediator {
         }
     }
 
-    private int getCurrentUserPendingTime(String participantId) {
+    public int getCurrentUserPendingTime(String participantId) {
         if (!_decisionQuerySentTimes.containsKey(participantId))
             return 0;
         long queryTime = _decisionQuerySentTimes.get(participantId);
         long currentTime = System.currentTimeMillis();
         return (int) ((currentTime - queryTime) / 1000);
     }
+
+    public GameTimer getTimeSettings() {
+        return _timeSettings;
+    }
+
+    public Map<String, Integer> getPlayerClocks() { return Collections.unmodifiableMap(_playerClocks); }
 
     public String getPlayerPositions() {
         StringBuilder stringBuilder = new StringBuilder();

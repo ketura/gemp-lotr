@@ -9,6 +9,7 @@ public class DBDefs {
     public static class GameHistory {
 
         public int id;
+        public String gameId;
 
         public String winner;
         public int winnerId;
@@ -30,6 +31,15 @@ public class DBDefs {
         public String loser_deck_name;
 
         public String tournament;
+
+        public int winner_site;
+        public int loser_site;
+
+        public String game_length_type;
+        public int max_game_time;
+        public int game_timeout;
+        public int winner_clock_remaining;
+        public int loser_clock_remaining;
 
         public int replay_version = -1;
     }

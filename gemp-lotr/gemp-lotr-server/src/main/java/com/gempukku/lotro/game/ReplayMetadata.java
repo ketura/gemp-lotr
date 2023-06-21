@@ -23,7 +23,9 @@ public class ReplayMetadata {
         public List<String> StartingFellowship = new ArrayList<>();
     }
 
-    public Integer MetadataVersion = 1;
+    //Version 1: First tracked version; original version was completely different
+    //Version 2: Adding the highest achieved sites by player, game IDs, and game timer length information
+    public Integer MetadataVersion = 2;
 
     public DBDefs.GameHistory GameReplayInfo;
 
