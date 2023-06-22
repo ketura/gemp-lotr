@@ -54,21 +54,40 @@
 				phase: maneuver
 				cost: [
 					{
-						type: conditional
-						requires: {
-							type: canSpot
-							count: 1
-							filter: HasAnyTokens,self
-						}
-						effect: [
+						type: Choice
+						texts: [
+							"1"
+							"2"
+						]
+						effects: [
 							{
-								type: removeTokens
-								culture: elven
-								filter: self
+								type: conditional
+								requires: {
+									type: cantSpot
+									count: 1
+									filter: HasAnyTokens,self
+								}
+								effect: [
+									{
+										type: discard
+										filter: self
+									}
+								]
 							}
 							{
-								type: discard
-								filter: self
+								type: conditional
+								requires: {
+									type: canSpot
+									count: 1
+									filter: HasAnyTokens,self
+								}
+								effect: [
+									{
+										type: removeTokens
+										count: 1
+										filter: self
+									}
+								]
 							}
 						]
 					}
