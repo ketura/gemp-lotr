@@ -1,124 +1,108 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set01;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class Card_01_316_ErrataTests
 {
+    protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
+        return new GenericCardTestHelper(
+                new HashMap<>() {{
+                    put("talent", "51_316");
+                    put("sam", "1_311");
+                    put("merry", "1_302");
+                    put("pippin", "1_307");
+                    put("boromir", "1_97");
+                }}
+        );
+    }
 
-	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
-		return new GenericCardTestHelper(
-				new HashMap<>()
-				{{
-					put("talent1", "71_316");
-					put("talent2", "71_316");
-					put("sam", "1_311");
-					put("merry", "1_302");
-					put("pippin", "1_306");
-				}},
-				GenericCardTestHelper.FellowshipSites,
-				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
-		);
-	}
+    @Test
+    public void TalentStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
-	@Test
-	public void ATalentforNotBeingSeenStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
+        /**
+         * Set: 1E
+         * Title: A Talent for Not Being Seen
+         * Side: Free Peoples
+         * Culture: Shire
+         * Twilight Cost: 0
+         * Type: Condition
+         * Errata Game Text: Stealth.  Bearer must be Merry or Pippin.  Limit 1 per character.
+         * Each site's Shadow number is -1.
+         */
 
-		/**
-		* Set: 1
-		* Title: A Talent for Not Being Seen
-		* Unique: True
-		* Side: FREE_PEOPLE
-		* Culture: Shire
-		* Twilight Cost: 0
-		* Type: condition
-		* Subtype: 
-		* Game Text: <b>Stealth.</b>  To play, exert Merry or Pippin.  Bearer must be Merry or Pippin.
-		* 	Each site's Shadow number is -1.
-		*/
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
 
-		//Pre-game setup
-		var scn = GetScenario();
+        var talent = scn.GetFreepsCard("talent");
 
-		var card = scn.GetFreepsCard("talent1");
+        assertFalse(talent.getBlueprint().isUnique());
+        assertEquals(Side.FREE_PEOPLE, talent.getBlueprint().getSide());
+        assertEquals(Culture.SHIRE, talent.getBlueprint().getCulture());
+        assertEquals(CardType.CONDITION, talent.getBlueprint().getCardType());
+        assertEquals(0, talent.getBlueprint().getTwilightCost());
 
-		assertFalse(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		assertFalse(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-	}
+        assertTrue(scn.HasKeyword(talent, Keyword.STEALTH));
+        assertFalse(scn.HasKeyword(talent, Keyword.SUPPORT_AREA));
+    }
 
-	@Test
-	public void TalentExertsAndPlaysOnMerryOrPippin() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
+    @Test
+    public void TalentOnlyPlaysOnMerryOrPippin() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
 
-		var frodo = scn.GetRingBearer();
-		var sam = scn.GetFreepsCard("sam");
-		var merry = scn.GetFreepsCard("merry");
-		var pippin = scn.GetFreepsCard("pippin");
-		var talent1 = scn.GetFreepsCard("talent1");
-		var talent2 = scn.GetFreepsCard("talent2");
+        PhysicalCardImpl frodo = scn.GetRingBearer();
+        PhysicalCardImpl sam = scn.GetFreepsCard("sam");
+        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+        PhysicalCardImpl pippin = scn.GetFreepsCard("pippin");
+        PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
-		scn.FreepsMoveCardToHand(talent1,talent2, sam, merry, pippin);
+        scn.FreepsMoveCharToTable(sam);
+        scn.FreepsMoveCharToTable(merry);
+        scn.FreepsMoveCharToTable(pippin);
+        scn.FreepsMoveCardToHand(talent);
 
-		scn.StartGame();
+        scn.StartGame();
 
-		assertFalse(scn.FreepsPlayAvailable(talent1));
-		scn.FreepsPlayCard(sam);
-		assertFalse(scn.FreepsPlayAvailable(talent1));
+        scn.FreepsPlayCard(talent);
 
-		scn.FreepsPlayCard(merry);
-		assertTrue(scn.FreepsPlayAvailable(talent1));
-		assertEquals(0, scn.GetWoundsOn(merry));
-		scn.FreepsPlayCard(talent1);
-		assertEquals(1, scn.GetWoundsOn(merry));
-		assertSame(merry, talent1.getAttachedTo());
-
-		scn.FreepsPlayCard(pippin);
-		scn.FreepsPlayCard(talent2);
-
-		//There are 4 companions in play, but only 2 valid targets for the exert
-		assertEquals(2, scn.GetFreepsCardChoiceCount());
-		scn.FreepsChooseCard(merry);
-
-		//plays automatically on pippin, since merry is already bearing one
-		assertEquals(2, scn.GetWoundsOn(merry));
-		assertEquals(0, scn.GetWoundsOn(pippin));
-		assertSame(pippin, talent2.getAttachedTo());
-	}
+        //There are 4 companions in play, but only 2 valid targets
+        assertEquals(2, scn.FreepsGetADParamAsList("cardId").size());
+    }
 
 
-	@Test
-	public void TalentReducesShadowBy1() throws DecisionResultInvalidException, CardNotFoundException {
-		//Pre-game setup
-		GenericCardTestHelper scn = GetScenario();
+    @Test
+    public void TalentReducesTwilightIfOnlyHobbits() throws DecisionResultInvalidException, CardNotFoundException {
+        //Pre-game setup
+        GenericCardTestHelper scn = GetScenario();
 
-		var frodo = scn.GetRingBearer();
-		var merry = scn.GetFreepsCard("merry");
-		var talent1 = scn.GetFreepsCard("talent1");
+        PhysicalCardImpl frodo = scn.GetRingBearer();
+        PhysicalCardImpl merry = scn.GetFreepsCard("merry");
+        PhysicalCardImpl talent = scn.GetFreepsCard("talent");
 
-		scn.FreepsMoveCharToTable(merry);
-		scn.FreepsAttachCardsTo(merry, talent1);
+        scn.FreepsMoveCharToTable(merry);
+        scn.FreepsMoveCardToHand(talent);
 
-		scn.StartGame();
-		scn.FreepsPassCurrentPhaseAction();
+        scn.StartGame();
 
-		// 2 for Frodo/Merry, 2 for the site, -1 for Talent
-		assertEquals(3, scn.GetTwilight());
+        scn.FreepsPlayCard(talent);
+        scn.FreepsPassCurrentPhaseAction();
 
-	}
+        // 2 for Frodo/Merry, 1 for the site, -1 for Talent
+        assertEquals(2, scn.GetTwilight());
+
+    }
+
+
+
 }

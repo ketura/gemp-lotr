@@ -267,11 +267,11 @@ public class LotroGameMediator {
 
             if (_lotroGame != null && _lotroGame.getWinnerPlayerId() == null) {
                 for (Map.Entry<String, Long> playerDecision : new HashMap<>(_decisionQuerySentTimes).entrySet()) {
-                    String playerId = playerDecision.getKey();
+                    String player = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
                     if (currentTime > decisionSent + _timeSettings.maxSecondsPerDecision() * 1000L) {
-                        addTimeSpentOnDecisionToUserClock(playerId);
-                        _lotroGame.playerLost(playerId, "Player decision timed-out");
+                        addTimeSpentOnDecisionToUserClock(player);
+                        _lotroGame.playerLost(player, "Player decision timed-out");
                     }
                 }
 

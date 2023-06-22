@@ -832,47 +832,44 @@
 		effects: {
 			type: activated
 			phase: maneuver
-			effect: {
-				type: choice
-				texts: [
-					Exert a Dwarf to heal an Elf
-					Exert an Elf to heal a Dwarf
-				]
-				effects: [
-					{
-						type: costToEffect
-						cost: [
-							{
-								type: addTwilight
-							}
-							{
-								type: exert
-								filter: choose(dwarf)
-							}
-						]
-						effect: {
-							type: heal
-							filter: choose(elf)
-						}
+			text: Add (1) and either exert an Elf to heal a Dwarf, or exert a Dwarf to heal an Elf.
+			cost: [
+				{
+					type: addTwilight
+					amount: 1
+				}
+				{
+					type: exert
+					filter: choose(or(dwarf,elf))
+					memorize: exerter
+				}
+			]
+			effect: [
+				{
+					type: conditional
+					requires: {
+						type: MemoryMatches
+						memory: exerter
+						filter: dwarf
 					}
-					{
-						type: costToEffect
-						cost: [
-							{
-								type: addTwilight
-							}
-							{
-								type: exert
-								filter: choose(elf)
-							}
-						]
-						effect: {
-							type: heal
-							filter: choose(dwarf)
-						}
+					effect: {
+						type: heal
+						filter: choose(elf)
 					}
-				]
-			}
+				}
+				{
+					type: conditional
+					requires: {
+						type: MemoryMatches
+						memory: exerter
+						filter: elf
+					}
+					effect: {
+						type: heal
+						filter: choose(dwarf)
+					}
+				}
+			]
 		}
 	}
 	1_60: {

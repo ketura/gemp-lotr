@@ -579,47 +579,44 @@
 		effects: {
 			type: activated
 			phase: fellowship
-			effect: {
-				type: choice
-				texts: [
-					Exert a Dwarf to heal an Elf
-					Exert an Elf to heal a Dwarf
-				]
-				effects: [
-					{
-						type: costToEffect
-						cost: [
-							{
-								type: addTwilight
-							}
-							{
-								type: exert
-								filter: choose(dwarf)
-							}
-						]
-						effect: {
-							type: heal
-							filter: choose(elf)
-						}
+			text: Add (1) and either exert an Elf to heal a Dwarf, or exert a Dwarf to heal an Elf.
+			cost: [
+				{
+					type: addTwilight
+					amount: 1
+				}
+				{
+					type: exert
+					filter: choose(or(dwarf,elf))
+					memorize: exerter
+				}
+			]
+			effect: [
+				{
+					type: conditional
+					requires: {
+						type: MemoryMatches
+						memory: exerter
+						filter: dwarf
 					}
-					{
-						type: costToEffect
-						cost: [
-							{
-								type: addTwilight
-							}
-							{
-								type: exert
-								filter: choose(elf)
-							}
-						]
-						effect: {
-							type: heal
-							filter: choose(dwarf)
-						}
+					effect: {
+						type: heal
+						filter: choose(elf)
 					}
-				]
-			}
+				}
+				{
+					type: conditional
+					requires: {
+						type: MemoryMatches
+						memory: exerter
+						filter: elf
+					}
+					effect: {
+						type: heal
+						filter: choose(dwarf)
+					}
+				}
+			]
 		}
 		gametext: <b>Fellowship:</b> Add (1) and exert a Dwarf to heal an Elf, or add (1) and exert an Elf to heal a Dwarf.
 		lore: “‘May it be a sign that though the world is now dark better days are at hand, and that friendship shall be renewed between our peoples.'”
