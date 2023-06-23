@@ -670,7 +670,7 @@ public class GameState {
     }
 
     public int getPlayerPosition(String playerId) {
-        return _playerPosition.get(playerId);
+        return _playerPosition.getOrDefault(playerId, 0);
     }
 
     public Map<Token, Integer> getTokens(PhysicalCard card) {

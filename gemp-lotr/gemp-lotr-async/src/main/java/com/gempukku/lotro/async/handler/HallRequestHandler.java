@@ -194,7 +194,10 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
         catch (Exception ex)
         {
-            _log.error("Error response for " + request.uri(), ex);
+            //This is a worthless error that doesn't need to be spammed into the log
+            if(!ex.toString().contains("You don't have a deck registered yet")) {
+                _log.error("Error response for " + request.uri(), ex);
+            }
             responseWriter.writeXmlResponse(marshalException(new HallException("Failed to create table. Please try again later.")));
         }
         finally {
