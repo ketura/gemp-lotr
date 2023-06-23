@@ -245,7 +245,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.joinQueue(queueId, resourceOwner, deckName);
             responseWriter.writeXmlResponse(null);
         } catch (HallException e) {
-            if(!IgnoreError(ex)) {
+            if(!IgnoreError(e)) {
                 _log.error("Error response for " + request.uri(), e);
             }
             responseWriter.writeXmlResponse(marshalException(e));
