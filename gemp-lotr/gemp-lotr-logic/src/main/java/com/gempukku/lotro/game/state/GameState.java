@@ -641,7 +641,7 @@ public class GameState {
     }
 
     public int getCurrentSiteNumber() {
-        return _playerPosition.get(_currentPlayerId);
+        return _playerPosition.getOrDefault(_currentPlayerId, 0);
     }
 
     public void setPlayerPosition(String playerId, int i) {
