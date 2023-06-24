@@ -19,7 +19,6 @@ public class RequirementFactory {
         requirementProducers.put("canspot", new CanSpot());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
         requirementProducers.put("canspotculturetokens", new CanSpotCultureTokens());
-        requirementProducers.put("canspotindeadpile", new CanSpotInDeadPile());
         requirementProducers.put("canspotthreats", new CanSpotThreats());
         requirementProducers.put("canspottwilight", new CanSpotTwilight());
         requirementProducers.put("canspotwounds", new CanSpotWounds());
@@ -30,7 +29,9 @@ public class RequirementFactory {
         requirementProducers.put("controlssite", new ControlsSite());
         requirementProducers.put("didwinskirmish", new DidWinSkirmish());
         requirementProducers.put("fierceskirmish", new FierceSkirmish());
-        requirementProducers.put("hasinhand", new HasInHand());
+        requirementProducers.put("hascardindeadpile", new HasCardInDeadPile());
+        requirementProducers.put("hascardindiscard", new HasCardInDiscard());
+        requirementProducers.put("hascardinhand", new HasCardInHand());
         requirementProducers.put("hasinzonedata", new HasInZoneData());
         requirementProducers.put("haveinitiative", new HaveInitiative());
         requirementProducers.put("isequal", new IsEqual());

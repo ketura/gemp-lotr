@@ -678,7 +678,7 @@
 			modifier: {
 				type: modifySanctuaryHeal
 				requires: {
-					type: canSpotInDeadPile
+					type: HasCardInDeadPile
 					filter: companion
 				}
 				amount: 2

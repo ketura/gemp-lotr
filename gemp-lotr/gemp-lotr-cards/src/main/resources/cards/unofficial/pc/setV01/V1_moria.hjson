@@ -141,7 +141,7 @@
 						{
 							type: conditional
 							requires: {
-								type: hasInHand
+								type: HasCardInHand
 								filter: tentacle
 							}
 							effect: {
@@ -204,7 +204,7 @@
 					type: or
 					requires: [
 						{
-							type: hasInHand
+							type: HasCardInHand
 							filter: culture(moria),item
 						}
 						{
@@ -223,7 +223,7 @@
 						{
 							type: conditional
 							requires: {
-								type: hasInHand
+								type: HasCardInHand
 								filter: culture(moria),item
 							}
 							effect: {

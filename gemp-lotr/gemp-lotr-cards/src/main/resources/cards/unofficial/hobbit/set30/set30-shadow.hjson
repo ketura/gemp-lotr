@@ -142,7 +142,7 @@
 			{
 				type: trigger
 				requires: {
-					type: canSpotInDeadPile
+					type: HasCardInDeadPile
 					filter: culture(dwarven),companion
 				}
 				trigger: {

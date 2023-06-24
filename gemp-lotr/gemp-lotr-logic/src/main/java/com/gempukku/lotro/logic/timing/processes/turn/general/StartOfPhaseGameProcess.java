@@ -49,6 +49,7 @@ public class StartOfPhaseGameProcess implements GameProcess {
                     public void playEffect(LotroGame game) {
                         ((ModifiersLogic) game.getModifiersEnvironment()).signalStartOfPhase(_phase);
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalStartOfPhase(_phase);
+                        game.getGameState().sendMessage("Start of " + _phase + " phase.");
                     }
                 });
 

@@ -561,7 +561,7 @@
 				{
 					type: conditional
 					requires: {
-						type: canSpotInDeadPile
+						type: HasCardInDeadPile
 						filter: character
 					}
 					effect: {

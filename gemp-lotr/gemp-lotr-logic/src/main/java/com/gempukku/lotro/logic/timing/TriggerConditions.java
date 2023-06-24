@@ -485,4 +485,26 @@ public class TriggerConditions {
         return effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING;
     }
 
+    public static boolean freePlayerDecidedIfMoving(LotroGame game, EffectResult effectResult) {
+        return effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_DECIDED_IF_MOVING;
+    }
+
+    public static boolean freePlayerDecidedToMove(LotroGame game, EffectResult effectResult) {
+        if(effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_DECIDED_IF_MOVING) {
+            var result = (FreePlayerMoveDecisionResult)effectResult;
+            return result.IsMoving();
+        }
+
+        return false;
+    }
+
+    public static boolean freePlayerDecidedToStay(LotroGame game, EffectResult effectResult) {
+        if(effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_DECIDED_IF_MOVING) {
+            var result = (FreePlayerMoveDecisionResult)effectResult;
+            return result.IsStaying();
+        }
+
+        return false;
+    }
+
 }

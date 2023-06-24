@@ -38,7 +38,7 @@
 		keyword: support area
 		target: companion,unbound
 		requires: {
-			type: canSpotInDeadPile
+			type: HasCardInDeadPile
 			filter: companion,unique
 		}
 		effects: [
@@ -80,7 +80,7 @@
 				}
 				requires: [
 					{
-						type: canspotindeadpile
+						type: HasCardInDeadPile
 						filter: name(Gandalf)
 					}
 				]

@@ -35,6 +35,7 @@ public class EndOfTurnGameProcess implements GameProcess {
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfTurn();
                         game.getGameState().stopAffectingCardsForCurrentPlayer();
                         game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
+                        game.getGameState().sendMessage("End of turn, players swap roles.");
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);
