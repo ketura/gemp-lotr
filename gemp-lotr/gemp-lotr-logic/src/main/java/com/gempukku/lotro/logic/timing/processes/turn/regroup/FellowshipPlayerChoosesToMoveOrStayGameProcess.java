@@ -58,7 +58,7 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
     }
 
     private void playerStays(LotroGame game) {
-        game.getGameState().sendMessage(game.getGameState().getCurrentPlayerId() + " decides to stay and reconcile.  Players will swap roles and end the turn.");
+        game.getGameState().sendMessage(game.getGameState().getCurrentPlayerId() + " decides to stay and reconcile.");
 
         _nextProcess = game.getFormat().getAdventure().getPlayerStaysGameProcess(game,
                 new EndOfPhaseGameProcess(Phase.REGROUP,

@@ -20,6 +20,7 @@ public class AfterSkirmishesGameProcess implements GameProcess {
             _followingGameProcess = new RegroupGameProcess();
         } else if (!gameState.isFierceSkirmishes() && Filters.countActive(game, CardType.MINION, Keyword.FIERCE)>0) {
             gameState.setFierceSkirmishes(true);
+            gameState.sendMessage("Fierce skirmishes.");
             _followingGameProcess = new AssignmentGameProcess();
         } else {
             if (gameState.isFierceSkirmishes())

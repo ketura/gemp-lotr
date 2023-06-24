@@ -14,17 +14,17 @@ public class StartOfTurnGameProcess implements GameProcess {
 
         SystemQueueAction action = new SystemQueueAction();
 
-        action.appendEffect(
-                new TriggeringResultEffect(new StartOfTurnResult(), "Start of turn"));
-
         action.appendEffect(new UnrespondableEffect() {
             @Override
             protected void doPlayEffect(LotroGame game) {
                 var state = game.getGameState();
-                state.sendMessage("Start of turn.");
+                state.sendMessage("\n\n========\n\nStart of turn.");
                 state.sendMessage("Free Peoples player: " + state.getCurrentPlayerId());
             }
         });
+
+        action.appendEffect(
+                new TriggeringResultEffect(new StartOfTurnResult(), "Start of turn"));
 
         game.getActionsEnvironment().addActionToStack(action);
     }

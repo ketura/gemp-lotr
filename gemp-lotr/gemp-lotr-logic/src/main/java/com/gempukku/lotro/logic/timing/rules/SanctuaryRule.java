@@ -37,6 +37,7 @@ public class SanctuaryRule {
                             RequiredTriggerAction action = new RequiredTriggerAction(game.getGameState().getCurrentSite());
                             action.setText("Sanctuary healing");
                             int healCount = 5 + game.getModifiersQuerying().getSanctuaryHealModifier(game);
+                            game.getGameState().sendMessage("Sanctuary healing. " + game.getGameState().getCurrentPlayerId() + " has " + healCount + " heals available.");
                             for (int i = 0; i < healCount; i++) {
                                 final int remainingHeals = healCount - i;
                                 ChooseAndHealCharactersEffect healEffect = new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, CardType.COMPANION);

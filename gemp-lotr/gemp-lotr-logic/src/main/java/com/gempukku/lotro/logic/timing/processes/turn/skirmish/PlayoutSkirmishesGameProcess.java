@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.SkirmishPhaseAction;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
@@ -58,6 +59,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
                 ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(skirmishChoice)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
+                        game.getGameState().sendMessage("Next skirmish to resolve is for " + GameUtils.getCardLink(card));
                         final Assignment assignment = findAssignment(assignments, card);
                         game.getGameState().removeAssignment(assignment);
                         game.getActionsEnvironment().addActionToStack(
