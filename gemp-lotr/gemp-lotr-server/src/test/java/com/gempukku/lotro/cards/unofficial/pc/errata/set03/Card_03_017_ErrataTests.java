@@ -40,7 +40,7 @@ public class Card_03_017_ErrataTests
 					put("siteX", "11_231"); //and a Shadows site
 				}},
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
+				GenericCardTestHelper.RulingRing
 		);
 	}
 
@@ -66,7 +66,7 @@ public class Card_03_017_ErrataTests
 					put("siteX", "11_231"); //and a Shadows site
 				}},
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing,
+				GenericCardTestHelper.RulingRing,
 				"expanded"
 		);
 	}

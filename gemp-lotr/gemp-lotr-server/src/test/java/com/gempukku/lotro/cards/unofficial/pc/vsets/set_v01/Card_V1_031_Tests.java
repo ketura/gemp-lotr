@@ -36,7 +36,7 @@ public class Card_V1_031_Tests
                 }},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
+				GenericCardTestHelper.RulingRing
 		);
 	}
 

@@ -40,7 +40,7 @@ public class Card_11_235_Tests
 					put("site9", "18_138");
 				}},
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing,
+				GenericCardTestHelper.RulingRing,
 				"open"
 		);
 	}

@@ -29,7 +29,7 @@ public class Card_03_103_ErrataTests
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
+				GenericCardTestHelper.RulingRing
 		);
 	}
 
@@ -49,7 +49,7 @@ public class Card_03_103_ErrataTests
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.GaladrielRB,
-				GenericCardTestHelper.FOTRRing
+				GenericCardTestHelper.RulingRing
 		);
 	}
 

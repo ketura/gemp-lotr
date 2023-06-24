@@ -30,7 +30,7 @@ public class Card_02_075_ErrataTests
                 }},
                 GenericCardTestHelper.KingSites,
                 GenericCardTestHelper.GimliRB,
-                GenericCardTestHelper.FOTRRing
+                GenericCardTestHelper.RulingRing
         );
     }
 

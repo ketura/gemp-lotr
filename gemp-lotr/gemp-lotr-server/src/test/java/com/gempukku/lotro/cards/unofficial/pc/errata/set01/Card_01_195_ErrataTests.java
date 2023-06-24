@@ -25,7 +25,7 @@ public class Card_01_195_ErrataTests
                 }},
                 GenericCardTestHelper.FellowshipSites,
                 GenericCardTestHelper.FOTRFrodo,
-                GenericCardTestHelper.FOTRRing
+                GenericCardTestHelper.RulingRing
         );
     }
 
