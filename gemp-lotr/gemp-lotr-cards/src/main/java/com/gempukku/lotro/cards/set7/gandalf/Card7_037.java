@@ -53,7 +53,7 @@ public class Card7_037 extends AbstractCompanion {
                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                 for (PhysicalCard selectedCard : selectedCards) {
                                     action.insertCost(
-                                            new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                            new PutCardFromHandOnTopOfDeckEffect(selectedCard, false));
                                 }
                             }
                         });
@@ -93,7 +93,7 @@ public class Card7_037 extends AbstractCompanion {
                                                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                                 for (PhysicalCard selectedCard : selectedCards) {
                                                                                     subAction.insertEffect(
-                                                                                            new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                                                                            new PutCardFromHandOnTopOfDeckEffect(selectedCard, false));
                                                                                 }
                                                                             }
                                                                         });

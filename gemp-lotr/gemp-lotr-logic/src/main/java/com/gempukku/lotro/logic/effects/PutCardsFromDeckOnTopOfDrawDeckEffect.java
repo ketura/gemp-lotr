@@ -16,12 +16,14 @@ public class PutCardsFromDeckOnTopOfDrawDeckEffect extends AbstractSubActionEffe
     private final PhysicalCard _source;
     private final String _playerId;
     private final Set<PhysicalCard> _cards;
+    private final boolean _reveal;
 
-    public PutCardsFromDeckOnTopOfDrawDeckEffect(Action action, PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards) {
+    public PutCardsFromDeckOnTopOfDrawDeckEffect(Action action, PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, boolean reveal) {
         _action = action;
         _source = source;
         _playerId = playerId;
         _cards = new HashSet<>(cards);
+        _reveal = reveal;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class PutCardsFromDeckOnTopOfDrawDeckEffect extends AbstractSubActionEffe
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
-                        new PutCardFromDeckOnTopOfDeckEffect(_source.getOwner(), selectedCard));
+                        new PutCardFromDeckOnTopOfDeckEffect(_source.getOwner(), selectedCard, _reveal));
                 _remainingCards.remove(selectedCard);
                 if (_remainingCards.size() > 0)
                     _subAction.appendEffect(

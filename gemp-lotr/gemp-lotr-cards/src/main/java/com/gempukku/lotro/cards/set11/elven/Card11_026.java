@@ -77,7 +77,7 @@ public class Card11_026 extends AbstractPermanent {
                                                     @Override
                                                     protected void yes() {
                                                         action.appendEffect(
-                                                                new PutCardFromDeckOnBottomOfDeckEffect(self, card));
+                                                                new PutCardFromDeckOnBottomOfDeckEffect(self, card, true));
                                                     }
                                                 }));
                             }

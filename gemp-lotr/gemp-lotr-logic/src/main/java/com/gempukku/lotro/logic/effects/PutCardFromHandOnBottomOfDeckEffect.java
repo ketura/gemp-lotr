@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -11,9 +12,11 @@ import java.util.Arrays;
 
 public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
     private final PhysicalCard[] physicalCards;
+    private final boolean _reveal;
 
-    public PutCardFromHandOnBottomOfDeckEffect(PhysicalCard... physicalCard) {
+    public PutCardFromHandOnBottomOfDeckEffect(boolean reveal, PhysicalCard... physicalCard) {
         physicalCards = physicalCard;
+        _reveal = reveal;
     }
 
     @Override
@@ -42,7 +45,12 @@ public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
             GameState gameState = game.getGameState();
             gameState.removeCardsFromZone(physicalCards[0].getOwner(), Arrays.asList(physicalCards));
             for (PhysicalCard physicalCard : physicalCards) {
-                gameState.sendMessage(physicalCard.getOwner() + " puts a card from hand on bottom of their deck");
+                if(_reveal) {
+                    gameState.sendMessage(physicalCard.getOwner() + " puts " + GameUtils.getCardLink(physicalCard) + " from from hand on bottom of their deck");
+                }
+                else {
+                    gameState.sendMessage(physicalCard.getOwner() + " puts a card from hand on bottom of their deck");
+                }
                 gameState.putCardOnBottomOfDeck(physicalCard);
             }
 

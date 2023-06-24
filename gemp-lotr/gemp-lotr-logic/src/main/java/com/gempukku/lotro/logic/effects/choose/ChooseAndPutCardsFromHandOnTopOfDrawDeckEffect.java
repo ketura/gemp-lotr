@@ -20,12 +20,15 @@ public class ChooseAndPutCardsFromHandOnTopOfDrawDeckEffect extends AbstractSubA
     private final int _maximum;
     private final Filterable[] _filters;
 
-    public ChooseAndPutCardsFromHandOnTopOfDrawDeckEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
+    private final boolean _reveal;
+
+    public ChooseAndPutCardsFromHandOnTopOfDrawDeckEffect(Action action, String playerId, int minimum, int maximum, boolean reveal, Filterable... filters) {
         _action = action;
         _playerId = playerId;
         _minimum = minimum;
         _maximum = maximum;
         _filters = filters;
+        _reveal = reveal;
     }
 
     @Override
@@ -70,7 +73,7 @@ public class ChooseAndPutCardsFromHandOnTopOfDrawDeckEffect extends AbstractSubA
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
-                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                        new PutCardFromHandOnTopOfDeckEffect(selectedCard, _reveal));
                 _remainingCards.remove(selectedCard);
                 if (_remainingMaxCount - 1 > 0)
                     _subAction.appendEffect(

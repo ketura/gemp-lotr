@@ -22,10 +22,11 @@ import java.util.List;
 public class PutCardsFromDeckOnBottomOfDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "reveal");
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
+        final boolean reveal = FieldUtils.getBoolean(effectObject.get("reveal"), "reveal", true);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -38,7 +39,7 @@ public class PutCardsFromDeckOnBottomOfDeck implements EffectAppenderProducer {
                         final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
                         List<Effect> result = new LinkedList<>();
                         for (PhysicalCard card : cards) {
-                            result.add(new PutCardFromDeckOnBottomOfDeckEffect(action.getActionSource(), card));
+                            result.add(new PutCardFromDeckOnBottomOfDeckEffect(action.getActionSource(), card, reveal));
                         }
 
                         return result;

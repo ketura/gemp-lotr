@@ -42,7 +42,7 @@ public class Card17_069 extends AbstractPermanent {
                         @Override
                         protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                             action.appendEffect(
-                                    new ChooseAndPutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId(), 2, Filters.in(cards), Side.FREE_PEOPLE));
+                                    new ChooseAndPutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId(), 2, true, Filters.in(cards), Side.FREE_PEOPLE));
                         }
                     });
             return Collections.singletonList(action);

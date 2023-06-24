@@ -43,7 +43,7 @@ public class Card4_290 extends AbstractPermanent {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards)
                                 action.insertCost(
-                                        new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
+                                        new PutCardFromHandOnBottomOfDeckEffect(true, selectedCard));
                         }
                     });
             action.appendEffect(

@@ -49,7 +49,7 @@ public class Card3_067 extends AbstractPermanent {
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard revealedCard : revealedCards) {
                                 action.appendEffect(
-                                        new PutCardFromHandOnTopOfDeckEffect(revealedCard));
+                                        new PutCardFromHandOnTopOfDeckEffect(revealedCard, true));
                             }
                         }
                     });

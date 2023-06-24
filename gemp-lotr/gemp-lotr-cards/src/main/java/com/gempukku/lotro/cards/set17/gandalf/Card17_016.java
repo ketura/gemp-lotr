@@ -53,7 +53,7 @@ return Collections.singletonList(new StrengthModifier(self, self, null, new Coun
                             for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.GANDALF) {
                                     action.appendEffect(
-                                            new PutCardFromDeckIntoHandOrDiscardEffect(card));
+                                            new PutCardFromDeckIntoHandOrDiscardEffect(card, true));
                                 } else {
                                     action.appendEffect(
                                             new DiscardCardFromDeckEffect(card));

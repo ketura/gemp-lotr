@@ -5,7 +5,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.RevealCardFromHandResult;
@@ -55,6 +54,9 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
                 }
 
                 game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from " + _playerHand + " hand at random - " + getAppendedNames(randomCards));
+            }
+            else {
+                game.getGameState().sendMessage("No cards in " + _playerHand + " hand to reveal");
             }
             cardsRevealed(randomCards);
             for (PhysicalCard randomCard : randomCards)

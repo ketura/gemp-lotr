@@ -74,7 +74,7 @@ public class Card18_006 extends AbstractEvent {
                                         game.getGameState().sendMessage(playerId + " set aside " + selectedCards.size() + " cards");
                                         if (selectedCards.size() > 0)
                                             action.appendEffect(
-                                                    new PutCardsFromDeckOnTopOfDrawDeckEffect(action, self, playerId, selectedCards));
+                                                    new PutCardsFromDeckOnTopOfDrawDeckEffect(action, self, playerId, selectedCards, false));
                                     }
                                 });
                         action.appendEffect(

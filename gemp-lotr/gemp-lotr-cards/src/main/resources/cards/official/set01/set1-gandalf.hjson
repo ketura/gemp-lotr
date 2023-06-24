@@ -406,18 +406,19 @@
 			type: event
 			effect: [
 				{
-					type: lookAtTopCardsOfDrawDeck
+					type: LookAtTopCardsOfDrawDeck
 					count: 4
 					memorize: cardsOnTop
 				}
 				{
-					type: putCardsFromDeckIntoHand
+					type: PutCardsFromDeckIntoHand
 					count: 2
 					filter: choose(memory(cardsOnTop))
 					shuffle: false
+					reveal: false
 				}
 				{
-					type: discardCardsFromDrawDeck
+					type: DiscardCardsFromDrawDeck
 					filter: all(memory(cardsOnTop),zone(deck))
 				}
 			]
@@ -446,18 +447,19 @@
 			type: event
 			effect: [
 				{
-					type: lookAtTopCardsOfDrawDeck
+					type: LookAtTopCardsOfDrawDeck
 					count: 2
 					memorize: cardsOnTop
 				}
 				{
-					type: putCardsFromDeckIntoHand
+					type: PutCardsFromDeckIntoHand
 					count: 1
 					filter: choose(memory(cardsOnTop))
 					shuffle: false
+					reveal: false
 				}
 				{
-					type: discardCardsFromDrawDeck
+					type: DiscardCardsFromDrawDeck
 					filter: all(memory(cardsOnTop),zone(deck))
 				}
 			]

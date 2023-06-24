@@ -63,7 +63,7 @@ public class Card4_166 extends AbstractPermanent {
                                                                             protected void validDecisionMade(int index, String result) {
                                                                                 if (result.equals("Yes"))
                                                                                     action.insertEffect(
-                                                                                            new PutCardFromDeckOnBottomOfDeckEffect(self, card));
+                                                                                            new PutCardFromDeckOnBottomOfDeckEffect(self, card, true));
                                                                             }
                                                                         })
                                                         );

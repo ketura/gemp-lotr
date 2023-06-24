@@ -72,6 +72,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("liberatesite", new LiberateSite());
         effectAppenderProducers.put("lookatdrawdeck", new LookAtDrawDeck());
         effectAppenderProducers.put("lookathand", new LookAtHand());
+        effectAppenderProducers.put("lookatrandomcardsfromhand", new LookAtRandomCardsFromHand());
         effectAppenderProducers.put("lookattopcardsofdrawdeck", new LookAtTopCardsOfDrawDeck());
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
         effectAppenderProducers.put("memorize", new MemorizeActive());

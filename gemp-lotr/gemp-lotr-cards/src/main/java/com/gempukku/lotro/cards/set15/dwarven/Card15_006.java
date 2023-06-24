@@ -46,7 +46,7 @@ public class Card15_006 extends AbstractCompanion {
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 3));
             action.appendEffect(
-                    new ChooseAndPutCardsFromHandBeneathDrawDeckEffect(action, playerId, 3, Filters.any));
+                    new ChooseAndPutCardsFromHandBeneathDrawDeckEffect(action, playerId, 3, false, Filters.any));
             return Collections.singletonList(action);
         }
         return null;

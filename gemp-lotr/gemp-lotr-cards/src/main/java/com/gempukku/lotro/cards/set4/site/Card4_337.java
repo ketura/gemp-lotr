@@ -32,7 +32,7 @@ public class Card4_337 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, Filters.any));
+                    new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, false, Filters.any));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 4));
             return Collections.singletonList(action);

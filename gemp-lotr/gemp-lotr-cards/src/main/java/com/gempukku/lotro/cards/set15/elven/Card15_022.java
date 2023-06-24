@@ -61,7 +61,7 @@ public class Card15_022 extends AbstractPermanent {
                                             }
 
                                             action.appendEffect(
-                                                    new PutCardsFromDeckBeneathDrawDeckEffect(action, self, playerId, cardsToPutOnBottom));
+                                                    new PutCardsFromDeckBeneathDrawDeckEffect(action, self, playerId, cardsToPutOnBottom, true));
                                         }
                                     });
                         }

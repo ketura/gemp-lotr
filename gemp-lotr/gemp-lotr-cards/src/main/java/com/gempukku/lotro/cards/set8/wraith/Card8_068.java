@@ -66,7 +66,7 @@ public class Card8_068 extends AbstractEvent {
                                                     if (TriggerConditions.forEachKilled(game, effectResult, againstNazgul)) {
                                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                         action.appendEffect(
-                                                                new PutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId()));
+                                                                new PutCardsFromHandBeneathDrawDeckEffect(action, game.getGameState().getCurrentPlayerId(), false));
                                                         return Collections.singletonList(action);
                                                     }
                                                     return null;

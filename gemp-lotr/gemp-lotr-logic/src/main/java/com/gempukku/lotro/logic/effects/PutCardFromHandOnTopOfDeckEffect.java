@@ -12,9 +12,11 @@ import java.util.Collections;
 
 public class PutCardFromHandOnTopOfDeckEffect extends AbstractEffect {
     private final PhysicalCard _physicalCard;
+    private final boolean _reveal;
 
-    public PutCardFromHandOnTopOfDeckEffect(PhysicalCard physicalCard) {
+    public PutCardFromHandOnTopOfDeckEffect(PhysicalCard physicalCard, boolean reveal) {
         _physicalCard = physicalCard;
+        _reveal = reveal;
     }
 
     @Override
@@ -36,7 +38,12 @@ public class PutCardFromHandOnTopOfDeckEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
-            gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on top of their deck");
+            if(_reveal) {
+                gameState.sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from hand on top of their deck");
+            }
+            else {
+                gameState.sendMessage(_physicalCard.getOwner() + " puts a card from hand on top of their deck");
+            }
             gameState.removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnTopOfDeck(_physicalCard);
             return new FullEffectResult(true);

@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -40,12 +39,22 @@ public class LookAtOpponentsHandEffect extends AbstractEffect {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId)) {
             List<PhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
 
-            game.getUserFeedback().sendAwaitingDecision(_playerId,
+            game.getGameState().sendMessage(_playerId + " looked at " + _opponentId + "'s entire hand");
+
+            if (opponentHand.size() > 0) {
+                game.getGameState().sendMessage(_playerId + " looked at " + _opponentId + "'s entire hand");
+
+                game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new ArbitraryCardsSelectionDecision(1, "Opponent's hand", opponentHand, Collections.emptyList(), 0, 0) {
                         @Override
                         public void decisionMade(String result) {
                         }
                     });
+            }
+            else {
+                game.getGameState().sendMessage("No cards in " + _opponentId + " hand to look at");
+            }
+
             return new FullEffectResult(true);
         }
         return new FullEffectResult(false);

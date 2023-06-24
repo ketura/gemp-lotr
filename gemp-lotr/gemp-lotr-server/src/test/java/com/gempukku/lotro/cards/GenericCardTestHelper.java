@@ -456,18 +456,22 @@ public class GenericCardTestHelper extends AbstractAtTest {
         });
     }
 
-    public void FreepsDrawCard() {
-        _game.getGameState().playerDrawsCard(P1);
-    }
+    public void FreepsDrawCard() { FreepsDrawCards(1); }
+    public void FreepsDrawCards() { FreepsDrawCards(1); }
 
     public void FreepsDrawCards(int count) {
         for(int i = 0; i < count; i++) {
-            FreepsDrawCard();
+            _game.getGameState().playerDrawsCard(P1);
         }
     }
 
-    public void ShadowDrawCard() {
-        _game.getGameState().playerDrawsCard(P2);
+    public void ShadowDrawCard() { ShadowDrawCards(1); }
+    public void ShadowDrawCards() { ShadowDrawCards(1); }
+
+    public void ShadowDrawCards(int count) {
+        for(int i = 0; i < count; i++) {
+            _game.getGameState().playerDrawsCard(P2);
+        }
     }
 
     public void FreepsShuffleCardsInDeck(String...cardNames) {
@@ -754,6 +758,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public void ShadowChooseCard(String name) throws DecisionResultInvalidException { ShadowChooseCard(GetShadowCard(name)); }
     public void ShadowChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException { playerDecided(P2, String.valueOf(card.getCardId())); }
 
+    public void FreepsChooseAnyCard() throws DecisionResultInvalidException { FreepsChoose(FreepsGetCardChoices().get(0)); }
+    public void ShadowChooseAnyCard() throws DecisionResultInvalidException { ShadowChoose(ShadowGetCardChoices().get(0)); }
 
     public void FreepsChooseCards(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCards(P1, cards); }
     public void ShadowChooseCards(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCards(P2, cards); }

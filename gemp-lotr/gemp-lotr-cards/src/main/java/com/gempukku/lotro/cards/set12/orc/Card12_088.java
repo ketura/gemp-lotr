@@ -63,7 +63,7 @@ public class Card12_088 extends AbstractPermanent {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendEffect(
-                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard, false));
                             }
                         }
                     });

@@ -16,10 +16,13 @@ public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffe
     private final String _playerId;
     private final Filterable[] _filters;
 
-    public PutCardsFromHandBeneathDrawDeckEffect(Action action, String playerId, Filterable... filters) {
+    private final boolean _reveal;
+
+    public PutCardsFromHandBeneathDrawDeckEffect(Action action, String playerId, boolean reveal, Filterable... filters) {
         _action = action;
         _playerId = playerId;
         _filters = filters;
+        _reveal = reveal;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffe
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
-                        new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
+                        new PutCardFromHandOnBottomOfDeckEffect(_reveal, selectedCard));
                 _remainingCards.remove(selectedCard);
                 if (_remainingCards.size() > 0)
                     _subAction.appendEffect(

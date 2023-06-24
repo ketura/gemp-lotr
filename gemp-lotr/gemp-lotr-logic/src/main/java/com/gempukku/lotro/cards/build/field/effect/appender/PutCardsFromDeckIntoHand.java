@@ -23,11 +23,12 @@ import java.util.List;
 public class PutCardsFromDeckIntoHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "shuffle");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "shuffle", "reveal");
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final boolean shuffle = FieldUtils.getBoolean(effectObject.get("shuffle"), "shuffle", true);
+        final boolean reveal = FieldUtils.getBoolean(effectObject.get("reveal"), "reveal", true);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -41,7 +42,7 @@ public class PutCardsFromDeckIntoHand implements EffectAppenderProducer {
                         List<Effect> result = new LinkedList<>();
                         for (PhysicalCard card : cards) {
                             result.add(
-                                    new PutCardFromDeckIntoHandEffect(card));
+                                    new PutCardFromDeckIntoHandEffect(card, reveal));
                         }
 
                         return result;

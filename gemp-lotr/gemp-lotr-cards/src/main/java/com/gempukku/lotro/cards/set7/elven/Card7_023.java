@@ -45,7 +45,7 @@ public class Card7_023 extends AbstractPermanent {
                                             new RemoveThreatsEffect(self, 3));
                                 }
                                 action.appendEffect(
-                                        new PutCardFromDeckOnBottomOfDeckEffect(self, card));
+                                        new PutCardFromDeckOnBottomOfDeckEffect(self, card, true));
                             }
                         }
                     });

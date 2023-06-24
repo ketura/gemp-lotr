@@ -75,7 +75,7 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
-                        new PutCardFromDeckOnTopOfDeckEffect(_playerId, selectedCard));
+                        new PutCardFromDeckOnTopOfDeckEffect(_playerId, selectedCard, false));
                 _remainingCards.remove(selectedCard);
                 if (_remainingCards.size() > 0)
                     _subAction.appendEffect(

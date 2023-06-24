@@ -87,11 +87,11 @@ public class Card6_011 extends AbstractEvent {
                                                 if (index == 0)
                                                     for (PhysicalCard selectedCard : selectedCards)
                                                         action.insertEffect(
-                                                                new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                                                new PutCardFromHandOnTopOfDeckEffect(selectedCard, true));
                                                 else
                                                     for (PhysicalCard selectedCard : selectedCards)
                                                         action.insertEffect(
-                                                                new PutCardFromHandOnBottomOfDeckEffect(selectedCard));
+                                                                new PutCardFromHandOnBottomOfDeckEffect(true, selectedCard));
                                             }
                                         })
                         );

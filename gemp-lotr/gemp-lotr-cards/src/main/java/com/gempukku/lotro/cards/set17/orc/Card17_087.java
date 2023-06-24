@@ -47,7 +47,7 @@ public class Card17_087 extends AbstractMinion {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendEffect(
-                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard));
+                                        new PutCardFromHandOnTopOfDeckEffect(selectedCard, false));
                             }
                         }
                     });

@@ -55,7 +55,7 @@ public class Card6_019 extends AbstractEvent {
                                                                 new DiscardCardFromDeckEffect(card));
                                                     else if (index == 2)
                                                         action.appendEffect(
-                                                                new PutCardFromDeckIntoHandOrDiscardEffect(card));
+                                                                new PutCardFromDeckIntoHandOrDiscardEffect(card, false));
                                                 }
                                             }));
                         }

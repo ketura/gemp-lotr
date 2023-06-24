@@ -41,7 +41,7 @@ public class Card8_109 extends AbstractPermanent {
             action.appendEffect(
                     new RevealCardsFromYourHandEffect(self, playerId, game.getGameState().getHand(playerId)));
             action.appendEffect(
-                    new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, Side.FREE_PEOPLE));
+                    new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, true, Side.FREE_PEOPLE));
             return Collections.singletonList(action);
         }
         return null;

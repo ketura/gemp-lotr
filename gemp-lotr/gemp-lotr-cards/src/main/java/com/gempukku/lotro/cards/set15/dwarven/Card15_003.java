@@ -61,7 +61,7 @@ public class Card15_003 extends AbstractPermanent {
                             for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.DWARVEN)
                                     action.appendEffect(
-                                            new PutCardFromDeckIntoHandOrDiscardEffect(card));
+                                            new PutCardFromDeckIntoHandOrDiscardEffect(card, true));
                                 else
                                     action.appendEffect(
                                             new DiscardCardFromDeckEffect(card));
