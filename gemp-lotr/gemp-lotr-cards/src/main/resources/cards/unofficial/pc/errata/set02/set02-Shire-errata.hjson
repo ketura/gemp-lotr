@@ -181,12 +181,19 @@
 					Take off The One Ring
 				]
 				effects: [
-					{
-						type: addmodifier
-						modifier: {
-							type: modifyStrength
-							filter: memory(bearer),inSkirmishAgainst(nazgul)
-							amount: 4
+					{ 
+						type: Conditional
+						requires: {
+							type: CanSpot
+							filter: memory(bearer),InSkirmishAgainst(Nazgul)
+						}
+						effect: {
+							type: addmodifier
+							modifier: {
+								type: modifyStrength
+								filter: memory(bearer),inSkirmishAgainst(nazgul)
+								amount: 4
+							}
 						}
 					}
 					{

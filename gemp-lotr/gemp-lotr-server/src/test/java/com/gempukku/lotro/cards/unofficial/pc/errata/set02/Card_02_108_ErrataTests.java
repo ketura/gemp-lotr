@@ -3,34 +3,32 @@ package com.gempukku.lotro.cards.unofficial.pc.errata.set02;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_02_108_ErrataTests
 {
 
 	protected GenericCardTestHelper GetScenario() throws CardNotFoundException, DecisionResultInvalidException {
 		return new GenericCardTestHelper(
-				new HashMap<String, String>()
+				new HashMap<>()
 				{{
-					put("card", "52_108");
-					// put other cards in here as needed for the test case
+					put("elbereth", "52_108");
+
+					put("nelya", "1_233");
+					put("goblinarcher", "1_176");
 				}},
 				GenericCardTestHelper.FellowshipSites,
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.RulingRing
+				GenericCardTestHelper.IsildursBaneRing
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void OElberethGilthonielStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -49,34 +47,86 @@ public class Card_02_108_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		var elbereth = scn.GetFreepsCard("elbereth");
 
-		assertTrue(card.getBlueprint().isUnique());
-		assertEquals(Side.FREE_PEOPLE, card.getBlueprint().getSide());
-		assertEquals(Culture.SHIRE, card.getBlueprint().getCulture());
-		assertEquals(CardType.CONDITION, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(1, card.getBlueprint().getTwilightCost());
-		assertEquals(1, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertTrue(elbereth.getBlueprint().isUnique());
+		assertEquals(Side.FREE_PEOPLE, elbereth.getBlueprint().getSide());
+		assertEquals(Culture.SHIRE, elbereth.getBlueprint().getCulture());
+		assertEquals(CardType.CONDITION, elbereth.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(elbereth, Keyword.TALE));
+		assertEquals(1, elbereth.getBlueprint().getTwilightCost());
+		assertEquals(1, elbereth.getBlueprint().getStrength());
 	}
 
-	//@Test
-	public void OElberethGilthonielTest1() throws DecisionResultInvalidException, CardNotFoundException {
+	@Test
+	public void OElberethGilthonielGoesOnRingBearer() throws DecisionResultInvalidException, CardNotFoundException {
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
-		scn.FreepsMoveCardToHand(card);
+		var elbereth = scn.GetFreepsCard("elbereth");
+		scn.FreepsMoveCardToHand(elbereth);
 
 		scn.StartGame();
-		scn.FreepsPlayCard(card);
+		assertEquals(Zone.HAND, elbereth.getZone());
+		scn.FreepsPlayCard(elbereth);
+		assertEquals(Zone.ATTACHED, elbereth.getZone());
+		assertSame(scn.GetRingBearer(), elbereth.getAttachedTo());
+	}
 
-		assertEquals(1, scn.GetTwilight());
+	@Test
+	public void SkirmishAbilityCanDiscardToTakeOffRing() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var frodo = scn.GetRingBearer();
+		var elbereth = scn.GetFreepsCard("elbereth");
+		scn.AttachCardsTo(frodo, elbereth);
+
+		var goblinarcher = scn.GetShadowCard("goblinarcher");
+		scn.ShadowMoveCharToTable(goblinarcher);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.ARCHERY);
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAcceptOptionalTrigger(); // IB ring turning archery wound into 2 burdens
+
+		//Assignments
+		scn.PassCurrentPhaseActions();
+		scn.FreepsAssignToMinions(frodo, goblinarcher);
+		scn.FreepsResolveSkirmish(frodo);
+		assertTrue(scn.FreepsActionAvailable(elbereth));
+		assertTrue(scn.RBWearingOneRing());
+		assertEquals(Zone.ATTACHED, elbereth.getZone());
+
+		scn.FreepsUseCardAction(elbereth);
+		assertFalse(scn.RBWearingOneRing());
+		assertEquals(Zone.DISCARD, elbereth.getZone());
+	}
+
+	@Test
+	public void SkirmishAbilityCanMakeRBStrengthPlus4IfSkirmishingNazgul() throws DecisionResultInvalidException, CardNotFoundException {
+		//Pre-game setup
+		GenericCardTestHelper scn = GetScenario();
+
+		var frodo = scn.GetRingBearer();
+		var elbereth = scn.GetFreepsCard("elbereth");
+		scn.AttachCardsTo(frodo, elbereth);
+
+		var nelya = scn.GetShadowCard("nelya");
+		scn.ShadowMoveCharToTable(nelya);
+
+		scn.StartGame();
+
+		scn.SkipToAssignments();
+		scn.FreepsAssignToMinions(frodo, nelya);
+		scn.FreepsResolveSkirmish(frodo);
+		assertTrue(scn.FreepsActionAvailable(elbereth));
+		assertEquals(5, scn.GetStrength(frodo)); // 3 + 1 from ring +1 from O Elbereth itself
+		assertEquals(Zone.ATTACHED, elbereth.getZone());
+
+		scn.FreepsUseCardAction(elbereth);
+		assertEquals(8, scn.GetStrength(frodo));
+		assertEquals(Zone.DISCARD, elbereth.getZone());
 	}
 }
