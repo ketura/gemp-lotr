@@ -40,7 +40,7 @@
 			cost: [
 				{
 					type: exert
-					filter: choose(hobbit,companion,not(ring bearer))
+					filter: choose(hobbit,companion,not(ring bearer),infierceskirmish)
 					times: 2
 					memorize: exertedHobbit
 				}
