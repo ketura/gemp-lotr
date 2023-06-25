@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -52,7 +53,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public static final String FOTRFrodo = "1_290";
     public static final String GimliRB = "9_4";
     public static final String GaladrielRB = "9_14";
+
     public static final String RulingRing = "1_2";
+    public static final String IsildursBaneRing = "1_1";
     public static final String ATARRing = "4_1";
     public static final String GreatRing = "19_1";
 
@@ -841,6 +844,14 @@ public class GenericCardTestHelper extends AbstractAtTest {
         List<Assignment> assigns = _game.getGameState().getAssignments();
         return assigns.stream().anyMatch(x -> x.getFellowshipCharacter() == card || x.getShadowCharacters().contains(card));
     }
+
+    public boolean IsCharSkirmishing(PhysicalCardImpl card) {
+        var skirmish = _game.getGameState().getSkirmish();
+        return skirmish.getFellowshipCharacter() == card ||
+                skirmish.getShadowCharacters().stream().anyMatch(x -> x == card);
+    }
+
+    public Skirmish GetActiveSkirmish() { return _game.getGameState().getSkirmish(); }
 
     public boolean IsAttachedTo(PhysicalCardImpl card, PhysicalCardImpl bearer) {
         if(card.getZone() != Zone.ATTACHED) {
