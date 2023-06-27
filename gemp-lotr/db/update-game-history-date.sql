@@ -50,7 +50,8 @@ ADD CONSTRAINT fk_winnerId FOREIGN KEY (winnerId) REFERENCES player(id);
 ALTER TABLE gemp_db.game_history 
 ADD CONSTRAINT fk_loserId FOREIGN KEY (loserId) REFERENCES player(id);
 
-
+ALTER TABLE gemp_db.game_history  
+ADD COLUMN replay_version INT NOT NULL DEFAULT 0 AFTER tournament;
 
 
 

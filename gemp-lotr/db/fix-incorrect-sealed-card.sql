@@ -1,4 +1,13 @@
 
+SELECT *
+FROM collection c
+INNER JOIN collection_entries ce 
+	ON ce.collection_id = c.id
+INNER JOIN player p 
+	ON c.player_id = p.id
+WHERE p.name = 'Sibiatu' AND c.type = 'trophy'
+ORDER BY p.name
+	AND ce.product_type 
 
 	
 	
@@ -16,13 +25,13 @@ LEFT JOIN
 ) X
 	ON X.collection_id = c.id
 WHERE c.type = '1673497069403'
-	AND product = '101_42'
+	AND product = '2_108'
 	AND X.collection_id IS NOT NULL
 ORDER BY p.name
 
 SELECT *
 FROM transfer t 
-WHERE player = 'elfwarrior'
+WHERE player = 'Sibiatu'
 ORDER BY id DESC 
 
 
@@ -51,7 +60,13 @@ WHERE c.type = '1673497069403'
 	AND ce.product = '101_42'
 
 
-
+UPDATE collection_entries ce
+INNER JOIN collection c
+	ON ce.collection_id = c.id
+SET ce.product = '2_108'
+WHERE c.type = '1673497069403'
+	AND c.id = 131631
+	AND ce.product = '2_108*'
 
 
 SELECT *
