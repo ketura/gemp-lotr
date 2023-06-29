@@ -1,24 +1,17 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.game.CardCollection;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class UnweightedRandomPack implements PackBox {
     private final Map<String, Integer> _contents = new LinkedHashMap<>();
 
     private UnweightedRandomPack() {
-    }
-
-    public static UnweightedRandomPack LoadFromFile(String packName) throws IOException {
-        var lines = new BufferedReader(new InputStreamReader(AppConfig.getResourceStream("product/" + packName + ".pack")))
-                .lines().toList();
-        return LoadFromArray(lines);
     }
 
     public static UnweightedRandomPack LoadFromArray(Iterable<String> items) {
@@ -42,7 +35,7 @@ public class UnweightedRandomPack implements PackBox {
 
     public List<CardCollection.Item> openPack(int selection) {
         String key = _contents.keySet().stream().skip(selection).findFirst().get();
-        var result = CardCollection.Item.createItem(key, _contents.get(key));
+        var result = CardCollection.Item.createItem(key, _contents.get(key), true);
         return Collections.singletonList(result);
     }
 

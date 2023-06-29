@@ -1684,4 +1684,16 @@
 			],
 		]
 	}
+	
+	{
+		name: 38 Debug Event Rewards
+		id: event_rewards_debu
+		format: limited_hunters
+		seriesProduct: [
+			[
+				100xEvent Chase Booster
+				100xTournament Random Chase Card Selector
+			],
+		]
+	}
 ]

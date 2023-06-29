@@ -20,20 +20,26 @@ public interface CardCollection {
         private final Type _type;
         private final int _count;
         private final String _blueprintId;
+        private final boolean _recursive;
 
-        private Item(Type type, int count, String blueprintId) {
+        private Item(Type type, int count, String blueprintId, boolean recursive) {
             _type = type;
             _count = count;
             _blueprintId = blueprintId;
+            _recursive = recursive;
         }
 
         public static Item createItem(String blueprintId, int count) {
+            return createItem(blueprintId, count, false);
+        }
+
+        public static Item createItem(String blueprintId, int count, boolean recursive) {
             if (blueprintId.startsWith("(S)"))
-                return new Item(Type.SELECTION, count, blueprintId);
+                return new Item(Type.SELECTION, count, blueprintId, recursive);
             else if (!blueprintId.contains("_"))
-                return new Item(Item.Type.PACK, count, blueprintId);
+                return new Item(Item.Type.PACK, count, blueprintId, recursive);
             else
-                return new Item(Item.Type.CARD, count, blueprintId);
+                return new Item(Item.Type.CARD, count, blueprintId, recursive);
         }
 
         public static Item createItem(String combined) {
@@ -52,6 +58,11 @@ public interface CardCollection {
         @Override
         public String getBlueprintId() {
             return _blueprintId;
+        }
+
+        @Override
+        public boolean isRecursive() {
+            return _recursive;
         }
 
         @Override

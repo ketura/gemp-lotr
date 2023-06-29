@@ -16,7 +16,7 @@ public class TengwarPackBox implements PackBox {
         final Map<String,SetDefinition> setDefinitions = library.getSetDefinitions();
         for (String set : sets)
             for (String tengwarCard : setDefinitions.get(set).getTengwarCards())
-                _cards.add(CardCollection.Item.createItem(tengwarCard, 1));
+                _cards.add(CardCollection.Item.createItem(tengwarCard, 1, true));
     }
 
     @Override

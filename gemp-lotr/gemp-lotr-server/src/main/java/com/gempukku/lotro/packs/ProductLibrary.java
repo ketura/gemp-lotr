@@ -83,23 +83,29 @@ public class ProductLibrary {
                     continue;
 
                 PackBox result = null;
-                String rarity;
+                String[] rarities;
                 String[] sets;
                 switch (def.Type)
                 {
                     case RANDOM:
                         if(def.Items == null || def.Items.isEmpty())
                             continue;
-                        result = UnweightedRandomPack.LoadFromArray(def.Items);
+                        if(def.Items.stream().anyMatch(x -> x.contains("%"))) {
+                            result = WeightedRandomPack.LoadFromArray(def.Items);
+                        }
+                        else {
+                            result = UnweightedRandomPack.LoadFromArray(def.Items);
+                        }
+
                         break;
                     case RANDOM_FOIL:
-                        if(def.Data == null || !def.Data.containsKey("rarity") || !def.Data.containsKey("sets")) {
-                            System.out.println(def.Name + " RANDOM_FOIL pack type must contain a definition for 'rarity' and 'sets' within data.");
+                        if(def.Data == null || !def.Data.containsKey("rarities") || !def.Data.containsKey("sets")) {
+                            System.out.println(def.Name + " RANDOM_FOIL pack type must contain a definition for 'rarities' and 'sets' within data.");
                             continue;
                         }
-                        rarity = def.Data.get("rarity").toUpperCase();
+                        rarities = def.Data.get("rarities").toUpperCase().split("\\s*,\\s*");
                         sets = def.Data.get("sets").split("\\s*,\\s*");
-                        result = new RandomFoilPack(rarity, sets, _cardLibrary);
+                        result = new RandomFoilPack(rarities, sets, _cardLibrary);
                         break;
                     case TENGWAR:
                         if(def.Data == null || !def.Data.containsKey("sets")) {
@@ -130,7 +136,7 @@ public class ProductLibrary {
                     case SELECTION:
                         if(def.Items == null || def.Items.isEmpty())
                             continue;
-                        result = FixedPackBox.LoadFromArray(def.Items);
+                        result = FixedPackBox.LoadFromArray(def.Items, def.Recursive);
                         break;
                 }
                 if(result == null)

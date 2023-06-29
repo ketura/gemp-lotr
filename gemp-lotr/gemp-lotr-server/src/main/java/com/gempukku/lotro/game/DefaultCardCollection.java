@@ -10,7 +10,7 @@ public class DefaultCardCollection implements MutableCardCollection {
     private final Map<String, Item> _counts = new LinkedHashMap<>();
     private Map<String, Object> _extraInformation = new HashMap<>();
 
-    public DefaultCardCollection() {
+    public  DefaultCardCollection() {
         _extraInformation.put(CurrencyKey,  0);
     }
 
@@ -82,6 +82,26 @@ public class DefaultCardCollection implements MutableCardCollection {
         return true;
     }
 
+    private void addAllItems(Item item, DefaultCardCollection coll, ProductLibrary lib) {
+        if(item.isRecursive() && item.getType() == Item.Type.PACK) {
+            for(int i = 0; i < item.getCount(); i++) {
+                var bp = item.getBlueprintId();
+                var product = lib.GetProduct(bp);
+                if(product == null)
+                    continue;
+                var children = product.openPack();
+                for(var child : children) {
+                    addAllItems(child, coll, lib);
+                }
+            }
+        }
+        else {
+            addItem(item.getBlueprintId(), item.getCount());
+            coll.addItem(item.getBlueprintId(), item.getCount());
+        }
+
+    }
+
     @Override
     public synchronized CardCollection openPack(String packId, String selection, ProductLibrary productLibrary) {
         Item count = _counts.get(packId);
@@ -95,7 +115,10 @@ public class DefaultCardCollection implements MutableCardCollection {
                     packContents.add(Item.createItem(selection, 1));
                 }
             } else {
-                packContents = productLibrary.GetProduct(packId).openPack();
+                var product = productLibrary.GetProduct(packId);
+                if(product == null)
+                    return null;
+                packContents = product.openPack();
             }
 
             if (packContents == null)
@@ -104,8 +127,7 @@ public class DefaultCardCollection implements MutableCardCollection {
             DefaultCardCollection packCollection = new DefaultCardCollection();
 
             for (Item itemFromPack : packContents) {
-                addItem(itemFromPack.getBlueprintId(), itemFromPack.getCount());
-                packCollection.addItem(itemFromPack.getBlueprintId(), itemFromPack.getCount());
+                addAllItems(itemFromPack, packCollection, productLibrary);
             }
 
             removeItem(packId, 1);

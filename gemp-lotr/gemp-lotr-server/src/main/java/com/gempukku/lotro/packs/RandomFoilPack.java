@@ -2,20 +2,24 @@ package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomFoilPack implements PackBox {
     private final List<String> _availableCards = new ArrayList<>();
 
-    public RandomFoilPack(String rarity, String[] sets, LotroCardBlueprintLibrary library) {
-        for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
-            _availableCards.addAll(setDefinition.getCardsOfRarity(rarity));
+    public RandomFoilPack(String[] rarities, String[] sets, LotroCardBlueprintLibrary library) {
+        var setList = Arrays.stream(sets).toList();
+        for (var setDefinition : library.getSetDefinitions().values()) {
+            if(!setList.contains(setDefinition.getSetId()))
+                continue;
+            for(String rarity : rarities) {
+                _availableCards.addAll(setDefinition.getCardsOfRarity(rarity));
+            }
         }
     }
 
@@ -27,7 +31,7 @@ public class RandomFoilPack implements PackBox {
     @Override
     public List<CardCollection.Item> openPack(int selection) {
         final String bpID = _availableCards.stream().skip(selection).findFirst().get() + "*";
-        return Collections.singletonList(CardCollection.Item.createItem(bpID, 1));
+        return Collections.singletonList(CardCollection.Item.createItem(bpID, 1, true));
     }
 
     @Override

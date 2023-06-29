@@ -1,0 +1,90 @@
+[
+	{
+		name: Random Common Foil
+		type: random_foil
+		data: {
+			rarities: "C,S"
+			sets: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19"
+		}
+	}
+	{
+		name: Random Uncommon Foil
+		type: random_foil
+		data: {
+			rarities: "U,P"
+			sets: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19"
+		}
+	}
+	{
+		name: Random Rare Foil
+		type: random_foil
+		data: {
+			rarities: "R"
+			sets: "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19"
+		}
+	}
+	{
+		name: Random Ultra Rare Foil
+		type: random_foil
+		data: {
+			rarities: "A,X"
+			sets: "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19"
+		}
+	}
+	
+	{
+		name: Random Chase Card
+		type: random
+		items: [
+			30%1xRandom Rare Foil
+			20%1xRandom Ultra Rare Foil
+			10%1xRandom Tengwar
+			10%1xRandom Masterwork
+			10%1xRandom Alt Image Promo
+			10%1xRandom PC Full Art
+			1%1x(S)Masterwork Selection
+			1%1x(S)PC Promo Art Selection
+			1%1x(S)Alt Image Promo Selection
+		]
+	}
+	
+	{
+		name: Random Collection
+		type: random
+		items: [
+			150%1xRandom Uncommon Foil
+			50%1xRandom Ultra Rare Foil
+			1%1xAgesEnd
+			1%1xWraith
+			1%1xCountdown to the King Collection
+			1%1xThe Nine Riders Collection
+		]
+	}
+	
+	{
+		name: Tournament Random Chase Card Selector
+		type: random
+		items: [
+			50%1x(S)Alt Image Promo Selection
+			4%1x(S)FotR - Tengwar
+			4%1x(S)TTT - Tengwar
+			4%1x(S)RotK - Tengwar
+			4%1x(S)SH - Tengwar
+			30%1x(S)Masterwork Selection
+			5%1x(S)PC Promo Art Selection
+		]
+	}
+	{
+		name: Event Chase Booster
+		type: pack
+		recursive: true
+		items: [
+			1xRandom Chase Card
+			1xRandom Rare Foil
+			1xRandom Collection
+			2xRandom Uncommon Foil
+			4xRandom Common Foil
+		]
+	}
+	
+]

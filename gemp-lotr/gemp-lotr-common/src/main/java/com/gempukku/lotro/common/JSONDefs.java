@@ -10,6 +10,7 @@ public class JSONDefs {
 
         public String Name;
         public PackType Type;
+        public boolean Recursive = false;
         public List<String> Items;
         public Map<String, String> Data;
     }

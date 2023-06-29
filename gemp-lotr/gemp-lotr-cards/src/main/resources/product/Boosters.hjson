@@ -1,23 +1,4 @@
-[
-	
-	{
-		name: Random FotR Foil Common
-		type: random_foil
-		data: {
-			rarity: C
-			sets: "1,2,3"
-		}
-	}
-	
-	{
-		name: Random FotR Foil Uncommon
-		type: random_foil
-		data: {
-			rarity: U
-			sets: "1,2,3"
-		}
-	}
-	
+[	
 	{
 		name: FotR - Booster
 		type: booster
