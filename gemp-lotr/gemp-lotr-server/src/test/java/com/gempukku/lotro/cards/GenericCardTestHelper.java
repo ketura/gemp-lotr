@@ -630,6 +630,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     public PhysicalCardImpl GetRingBearer() { return (PhysicalCardImpl)_game.getGameState().getRingBearer(P1); }
 
+    public boolean RBWearingOneRing() { return _game.getGameState().isWearingRing(); }
     public PhysicalCardImpl GetCurrentSite() { return (PhysicalCardImpl)_game.getGameState().getCurrentSite(); }
 
     public void SkipToAssignments() throws DecisionResultInvalidException {
