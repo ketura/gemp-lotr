@@ -66,10 +66,10 @@
 		type: random
 		items: [
 			50%1x(S)Alt Image Promo Selection
-			4%1x(S)FotR - Tengwar
-			4%1x(S)TTT - Tengwar
-			4%1x(S)RotK - Tengwar
-			4%1x(S)SH - Tengwar
+			10%1x(S)FotR - Tengwar
+			10%1x(S)TTT - Tengwar
+			10%1x(S)RotK - Tengwar
+			10%1x(S)SH - Tengwar
 			30%1x(S)Masterwork Selection
 			5%1x(S)PC Promo Art Selection
 		]

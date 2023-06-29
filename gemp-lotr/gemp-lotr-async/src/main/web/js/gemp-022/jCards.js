@@ -183,7 +183,18 @@ var packBlueprints = {
     "SARU - Dwarf & Evil Men Starter": "/gemp-lotr/images/boosters/saru-dwarf-men.png",
     "SARU - Gondor & Isengard Orc Starter": "/gemp-lotr/images/boosters/saru-gondor-isenorc.png",
     "SARU - Pipeweed & Isengard Uruk Starter": "/gemp-lotr/images/boosters/saru-pipeweed-isenuruks.png",
-    "SARU - Smeagol & Urukhai Starter": "/gemp-lotr/images/boosters/saru-smeagol-uruks.png"
+    "SARU - Smeagol & Urukhai Starter": "/gemp-lotr/images/boosters/saru-smeagol-uruks.png",
+    
+    "Event Chase Booster": "/gemp-lotr/images/boosters/event_award_booster.png",
+    "Tournament Random Chase Card Selector": "/gemp-lotr/images/boosters/tournament_event_award.png",
+    "Countdown to the King Collection": "/gemp-lotr/images/boosters/countdown_collection.png",
+    "The Nine Riders Collection": "/gemp-lotr/images/boosters/nine_riders_collection.png",
+    "(S)Alt Image Promo Selection": "/gemp-lotr/images/boosters/promo_selection.png",
+    
+    "Random Common Foil": "/gemp-lotr/images/boosters/random_foil.png",
+    "Random Uncommon Foil": "/gemp-lotr/images/boosters/random_foil.png",
+    "Random Rare Foil": "/gemp-lotr/images/boosters/random_foil.png",
+    "Random Ultra Rare Foil": "/gemp-lotr/images/boosters/random_foil.png"
 };
 
 var Card = Class.extend({
