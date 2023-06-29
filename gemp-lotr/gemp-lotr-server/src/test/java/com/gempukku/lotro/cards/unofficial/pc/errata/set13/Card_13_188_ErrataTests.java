@@ -1,18 +1,17 @@
 package com.gempukku.lotro.cards.unofficial.pc.errata.set13;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Card_13_188_ErrataTests
 {
@@ -24,15 +23,24 @@ public class Card_13_188_ErrataTests
 					put("card", "63_188");
 					// put other cards in here as needed for the test case
 				}},
-				GenericCardTestHelper.FellowshipSites,
+				new HashMap<>() {{
+					put("parapet", "63_188");
+					put("site2", "11_237");
+					put("site3", "11_237");
+					put("site4", "11_237");
+					put("site5", "11_237");
+					put("site6", "11_237");
+					put("site7", "11_237");
+					put("site8", "11_237");
+					put("site9", "11_237");
+				}},
 				GenericCardTestHelper.FOTRFrodo,
-				GenericCardTestHelper.FOTRRing
+				GenericCardTestHelper.RulingRing,
+				"open"
 		);
 	}
 
-	// Uncomment both @Test markers below once this is ready to be used
-
-	//@Test
+	@Test
 	public void CourtyardParapetStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException, CardNotFoundException {
 
 		/**
@@ -50,21 +58,14 @@ public class Card_13_188_ErrataTests
 		//Pre-game setup
 		GenericCardTestHelper scn = GetScenario();
 
-		PhysicalCardImpl card = scn.GetFreepsCard("card");
+		PhysicalCardImpl parapet = scn.GetFreepsSite("Courtyard Parapet");
 
-		assertFalse(card.getBlueprint().isUnique());
-		//assertEquals(Side., card.getBlueprint().getSide());
-		//assertEquals(Culture., card.getBlueprint().getCulture());
-		assertEquals(CardType.SITE, card.getBlueprint().getCardType());
-		//assertEquals(Race.CREATURE, card.getBlueprint().getRace());
-		assertTrue(scn.HasKeyword(card, Keyword.SUPPORT_AREA));
-		assertEquals(0, card.getBlueprint().getTwilightCost());
-		//assertEquals(, card.getBlueprint().getStrength());
-		//assertEquals(, card.getBlueprint().getVitality());
-		//assertEquals(, card.getBlueprint().getResistance());
-		//assertEquals(Signet., card.getBlueprint().getSignet()); 
-		//assertEquals(, card.getBlueprint().getSiteNumber()); // Change this to getAllyHomeSiteNumbers for allies
-
+		assertFalse(parapet.getBlueprint().isUnique());
+		assertEquals(CardType.SITE, parapet.getBlueprint().getCardType());
+		assertTrue(scn.HasKeyword(parapet, Keyword.DWELLING));
+		assertEquals(0, parapet.getBlueprint().getTwilightCost());
+		assertEquals(SitesBlock.SHADOWS, parapet.getBlueprint().getSiteBlock());
+		assertEquals(0, parapet.getBlueprint().getSiteNumber());
 	}
 
 	//@Test
