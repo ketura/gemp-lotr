@@ -38,7 +38,6 @@ services:
        - type: bind
          source: ../../replay
          target: /replay
-         target: /etc/gemp-lotr/replay
        - type: bind
          source: ../..
          target: /gemp-src
@@ -81,3 +80,4 @@ networks:
       driver: default
       config:
         - subnet: 172.28.1.0/24
+          attachable: true
