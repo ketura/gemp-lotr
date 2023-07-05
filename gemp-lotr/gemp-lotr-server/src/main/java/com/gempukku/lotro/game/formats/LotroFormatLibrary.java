@@ -8,6 +8,8 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.league.SealedLeagueDefinition;
 import com.gempukku.util.JsonUtils;
+import org.hjson.JsonValue;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.sql2o.tools.IOUtils;
 
@@ -108,7 +110,8 @@ public class LotroFormatLibrary {
     public void ReloadFormats() {
         try (InputStreamReader reader = new InputStreamReader(new FileInputStream(_formatPath), StandardCharsets.UTF_8)) {
             collectionReady.acquire();
-            String json = IOUtils.toString(reader);
+
+            String json = JsonValue.readHjson(reader).toString();
 
             JSONDefs.Format[] formatDefs = JSON.parseObject(json, JSONDefs.Format[].class);
 

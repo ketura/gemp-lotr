@@ -496,5 +496,16 @@ var PCCards = {
 	//Blade Tip FA
 	'1_381': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U209.0_card.jpg',
 
+	'200_195': 'https://www.trekcc.org/1e/cardimages/premiere/alberteinstein95.jpg',
+	'200_196': 'https://www.trekcc.org/1e/cardimages/premiere/alexanderrozhenko95.jpg',
+	'200_197': 'https://www.trekcc.org/1e/cardimages/premiere/alynnanechayev95.jpg',
+	'200_198': 'https://www.trekcc.org/1e/cardimages/premiere/alyssaogawa95.jpg',
+	'200_199': 'https://www.trekcc.org/1e/cardimages/premiere/benjaminmaxwell95.jpg',
+	'200_200': 'https://www.trekcc.org/1e/cardimages/premiere/beverlycrusher95.jpg',
+	'200_201': 'https://www.trekcc.org/1e/cardimages/premiere/calloway95.jpg',
+	'200_202': 'https://www.trekcc.org/1e/cardimages/premiere/christopherhobson95.jpg',
+	'200_203': 'https://www.trekcc.org/1e/cardimages/premiere/darianwallace95.jpg',
+	'200_204': 'https://www.trekcc.org/1e/cardimages/premiere/data95.jpg',
+
 }
 
