@@ -76,8 +76,8 @@ public class AppConfig {
     public static String getWebPath() { return getProperty("web.path"); }
     public static File getCardsPath() { return getResourceFile("cards"); }
     public static File getMappingsPath() { return getResourceFile("blueprintMapping.txt"); }
-    public static File getSetDefinitionsPath() { return getResourceFile("setConfig.json"); }
-    public static File getFormatDefinitionsPath() { return getResourceFile("lotrFormats.json"); }
+    public static File getSetDefinitionsPath() { return getResourceFile("setConfig.hjson"); }
+    public static File getFormatDefinitionsPath() { return getResourceFile("lotrFormats.hjson"); }
     public static File getProductPath() { return getResourceFile("product"); }
     public static File getSealedPath() { return getResourceFile("sealed"); }
     public static File getDraftPath() { return getResourceFile("draft"); }

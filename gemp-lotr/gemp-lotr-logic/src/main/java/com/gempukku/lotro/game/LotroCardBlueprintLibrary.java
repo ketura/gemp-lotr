@@ -135,8 +135,9 @@ public class LotroCardBlueprintLibrary {
         try {
             final InputStreamReader reader = new InputStreamReader(new FileInputStream(_setDefsPath), StandardCharsets.UTF_8);
             try {
+                String json = JsonValue.readHjson(reader).toString();
                 JSONParser parser = new JSONParser();
-                JSONArray object = (JSONArray) parser.parse(reader);
+                JSONArray object = (JSONArray) parser.parse(json);
                 for (Object setDefinitionObj : object) {
                     JSONObject setDefinition = (JSONObject) setDefinitionObj;
 
