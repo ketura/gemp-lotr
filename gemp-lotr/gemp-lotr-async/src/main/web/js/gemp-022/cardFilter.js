@@ -174,7 +174,6 @@ var CardFilter = Class.extend({
             + "<option value='31'>31 - The Hobbit: Expansion 1</option>"
             + "<option value='32'>32 - The Hobbit: Expansion 2</option>"
             + "<option value='33'>33 - The Hobbit: Expansion 3</option>"
-            + "<option value='200'>200 - ST:CCG Premiere 1E</option>"
             + "<option disabled>----------</option>"
             + "<option value='70-89,150-200'>All Player's Council Playtest Cards</option>"
             //+ "<option value='151'>PLAYTEST - Shadow of the Past (PC)</option>"
