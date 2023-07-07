@@ -1200,29 +1200,4 @@
 			}
 		}
 	}
-	1_363: {
-		title: Tol Brandir
-		twilight: 9
-		type: site
-		site: 9
-		block: fellowship
-		keyword: river
-		effects: {
-			type: activated
-			phase: shadow
-			effect: [
-				{
-					type: repeat
-					amount: 3
-					effect: {
-						type: playCardFromDiscard
-						filter: choose(tracker)
-					}
-				}
-				{
-					type: endPhase
-				}
-			]
-		}
-	}
 }

@@ -235,7 +235,7 @@ public class HallServer extends AbstractServer {
                     }
                 });
 
-        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1500, "fotr_block",
+/*        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1500, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("ts_queue", new ImmediateRecurringQueue(1500, "towers_standard",
@@ -247,11 +247,11 @@ public class HallServer extends AbstractServer {
         _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(1500, "expanded",
                 CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
-
+*/
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        try {
+/*        try {
             _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily Gondor Fellowship Block", 0,
                     true, _defaultCollectionType, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
                     "fotr_block", 4));
@@ -266,7 +266,7 @@ public class HallServer extends AbstractServer {
                     "movie", 4));
         } catch (ParseException exp) {
             // Ignore, can't happen
-        }
+        }*/
     }
 
     private void hallChanged() {
