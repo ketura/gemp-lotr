@@ -30,7 +30,8 @@ public class CreateCardStubs {
 
         File path = new File(projectRoot + "/gemp-lotr-async/src/main/web/cards-stub");
 
-        int[] sets = {2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 17, 18, 31};
+//        int[] sets = {2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 17, 18, 31};
+        int[] sets = {2, 3, 4, 5};
         for (int set : sets) {
             produceForSet(path, set);
         }

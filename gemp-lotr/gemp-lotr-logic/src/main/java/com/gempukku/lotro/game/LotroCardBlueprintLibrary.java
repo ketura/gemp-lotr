@@ -155,6 +155,7 @@ public class LotroCardBlueprintLibrary {
                     readSetRarityFile(rarity, setId, rarityFile);
 
                     _allSets.put(setId, rarity);
+                    logger.debug("Loading set " + setId + " (" + setName + ") to _allsets");
                 }
             } finally {
                 IOUtils.closeQuietly(reader);
@@ -253,6 +254,7 @@ public class LotroCardBlueprintLibrary {
                     }
                 }
             }
+            logger.debug("Java cards for set " + setDefinition.getSetId() + " successfully loaded");
         }
     }
 
