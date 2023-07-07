@@ -21,9 +21,4 @@
     setName: "Realms of the Elf-lords",
     rarityFile: "/set3-rarity.txt"
   }
-  {
-    setId: "4",
-    setName: "The Two Towers",
-    rarityFile: "/set4-rarity.txt"
-  }
 ]

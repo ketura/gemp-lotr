@@ -20,11 +20,4 @@
 			set: "3"
 		}
 	}
-	{
-		name: TTT - Booster
-		type: booster
-		data: {
-			set: "4"
-		}
-	}
 ]
