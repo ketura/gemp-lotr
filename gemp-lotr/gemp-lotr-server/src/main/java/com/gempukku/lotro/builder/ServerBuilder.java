@@ -19,9 +19,13 @@ import com.gempukku.lotro.tournament.*;
 
 import java.lang.reflect.Type;
 import java.util.Map;
+import org.apache.log4j.Logger;
+
 
 public class ServerBuilder {
+    private static final Logger logger = Logger.getLogger(ServerBuilder.class);
     public static void CreatePrerequisites(Map<Type, Object> objectMap) {
+        logger.debug("Calling CreatePrerequisites function");
         final LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         objectMap.put(LotroCardBlueprintLibrary.class, library);
         objectMap.put(ProductLibrary.class, new ProductLibrary(library));
@@ -32,9 +36,11 @@ public class ServerBuilder {
 
         CollectionSerializer collectionSerializer = new CollectionSerializer();
         objectMap.put(CollectionSerializer.class, collectionSerializer);
+        logger.debug("Ending CreatePrerequisites function");
     }
 
     public static void CreateServices(Map<Type, Object> objectMap) {
+        logger.debug("Calling CreateServices function");
         objectMap.put(AdventureLibrary.class,
                 new DefaultAdventureLibrary());
 
@@ -127,6 +133,7 @@ public class ServerBuilder {
                         tournamentPrizeSchemeRegistry,
                         pairingMechanismRegistry
                 ));
+        logger.debug("Ending CreateServices function");
     }
 
     private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {

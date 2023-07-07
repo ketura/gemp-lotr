@@ -583,7 +583,7 @@ public class HallServer extends AbstractServer {
 
     protected void processHall(Player player, HallInfoVisitor visitor) {
         final boolean isAdmin = player.getType().contains("a");
-
+        _log.debug("Starting processHall function");
         _hallDataAccessLock.readLock().lock();
         try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
@@ -612,6 +612,7 @@ public class HallServer extends AbstractServer {
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }
+        _log.debug("Ending processHall function");
     }
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {

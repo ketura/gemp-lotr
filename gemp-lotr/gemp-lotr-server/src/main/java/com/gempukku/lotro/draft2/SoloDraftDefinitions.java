@@ -87,7 +87,7 @@ public class SoloDraftDefinitions {
                         draftChoiceDefinitions.add(draftChoiceDefinition);
                 }
 
-                _logger.debug("Loaded draft definition: " + file);
+//                _logger.debug("Loaded draft definition: " + file);
                 var result = new DefaultSoloDraft(code, format, cardCollectionProducer, draftChoiceDefinitions, draftPoolProducer);
 
                 if(_draftTypes.containsKey(code))
