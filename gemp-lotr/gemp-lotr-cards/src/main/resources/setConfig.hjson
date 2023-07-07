@@ -26,9 +26,4 @@
     setName: "The Two Towers",
     rarityFile: "/set4-rarity.txt"
   }
-  {
-    setId: "5",
-    setName: "Battle of Helm's Deep",
-    rarityFile: "/set5-rarity.txt"
-  }
 ]

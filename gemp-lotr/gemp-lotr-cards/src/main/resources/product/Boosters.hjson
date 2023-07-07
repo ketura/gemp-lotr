@@ -27,11 +27,4 @@
 			set: "4"
 		}
 	}
-	{
-		name: BoHD - Booster
-		type: booster
-		data: {
-			set: "5"
-		}
-	}
 ]
