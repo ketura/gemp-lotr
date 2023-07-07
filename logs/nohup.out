@@ -22188,3 +22188,76 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-07 14:30:22,624 DEBUG AbstractServer:18 - Started: ChatServer
 2023-07-07 14:30:22,626  INFO GempukkuServer:29 - GempukkuServer startup complete.
 2023-07-07 14:30:25,779 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 120ms
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-07 14:32:48,945  INFO GempukkuServer:20 - GempukkuServer loading prerequisites...
+2023-07-07 14:32:49,556  INFO LotroCardBlueprintLibrary:58 - Locking blueprint library in constructor
+2023-07-07 14:32:49,559  INFO LotroCardBlueprintLibrary:61 - Unlocking blueprint library in constructor
+2023-07-07 14:32:49,667 DEBUG LotroCardBlueprintLibrary:158 - Loading set 1 (The Fellowship of the Ring) to _allsets
+2023-07-07 14:32:49,676 DEBUG LotroCardBlueprintLibrary:158 - Loading set 2 (Mines of Moria) to _allsets
+2023-07-07 14:32:49,684 DEBUG LotroCardBlueprintLibrary:158 - Loading set 3 (Realms of the Elf-lords) to _allsets
+2023-07-07 14:32:49,992 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set1.hjson
+2023-07-07 14:32:50,077 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set2-dwarven.hjson
+2023-07-07 14:32:50,108 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set2-elven.hjson
+2023-07-07 14:32:50,161 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set2-gandalf.hjson
+2023-07-07 14:32:50,211 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set2-gondor.hjson
+2023-07-07 14:32:50,263 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set2-isengard.hjson
+2023-07-07 14:32:50,311 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set2-moria.hjson
+2023-07-07 14:32:50,370 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set3-elven.hjson
+2023-07-07 14:32:50,377 DEBUG LotroCardBlueprintLibrary:257 - Java cards for set 1 successfully loaded
+2023-07-07 14:32:50,381 DEBUG LotroCardBlueprintLibrary:241 - Loading Java cards for set 2
+2023-07-07 14:32:50,565 DEBUG LotroCardBlueprintLibrary:257 - Java cards for set 2 successfully loaded
+2023-07-07 14:32:50,567 DEBUG LotroCardBlueprintLibrary:241 - Loading Java cards for set 3
+2023-07-07 14:32:50,791 DEBUG LotroCardBlueprintLibrary:257 - Java cards for set 3 successfully loaded
+2023-07-07 14:32:51,257 DEBUG ProductLibrary:86 - Loading pack definitions for FotR - Booster
+2023-07-07 14:32:51,263 DEBUG ProductLibrary:86 - Loading pack definitions for MoM - Booster
+2023-07-07 14:32:51,266 DEBUG ProductLibrary:86 - Loading pack definitions for RotEL - Booster
+2023-07-07 14:32:51,309  INFO GempukkuServer:23 - GempukkuServer loading DAOs...
+2023-07-07 14:32:51,553  INFO GempukkuServer:25 - GempukkuServer loading services...
+2023-07-07 14:32:51,931 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/fellowshipDraft.json
+2023-07-07 14:32:51,970 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/hobbitDraft.json
+2023-07-07 14:32:51,993 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/hobbitRandomDraft.json
+2023-07-07 14:32:52,019 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/testDraft.json
+2023-07-07 14:32:52,050 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/twoTowersDraft.json
+2023-07-07 14:32:52,106 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-07 14:32:52,136  INFO GempukkuServer:27 - GempukkuServer starting servers...
+2023-07-07 14:32:52,139 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-07 14:32:52,142 DEBUG AbstractServer:18 - Started: HallServer
+2023-07-07 14:32:52,944  INFO LoggingProxy:32 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 789ms
+2023-07-07 14:32:52,953  INFO LoggingProxy:32 - TournamentDAO::getUnfinishedTournaments(...) 794ms
+2023-07-07 14:32:52,955 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-07 14:32:52,958 DEBUG AbstractServer:18 - Started: LotroServer
+2023-07-07 14:32:52,960 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-07 14:32:52,963 DEBUG AbstractServer:18 - Started: ChatServer
+2023-07-07 14:32:52,968  INFO GempukkuServer:29 - GempukkuServer startup complete.
+2023-07-07 14:33:05,138 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 317ms
+2023-07-07 14:36:03,652  INFO GempukkuServer:20 - GempukkuServer loading prerequisites...
+2023-07-07 14:36:04,265  INFO LotroCardBlueprintLibrary:58 - Locking blueprint library in constructor
+2023-07-07 14:36:04,267  INFO LotroCardBlueprintLibrary:61 - Unlocking blueprint library in constructor
+2023-07-07 14:36:04,348 DEBUG LotroCardBlueprintLibrary:158 - Loading set 1 (The Fellowship of the Ring) to _allsets
+2023-07-07 14:36:04,678 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set1.hjson
+2023-07-07 14:36:04,682 DEBUG LotroCardBlueprintLibrary:257 - Java cards for set 1 successfully loaded
+2023-07-07 14:36:05,030 DEBUG ProductLibrary:86 - Loading pack definitions for FotR - Booster
+2023-07-07 14:36:05,069  INFO GempukkuServer:23 - GempukkuServer loading DAOs...
+2023-07-07 14:36:05,273  INFO GempukkuServer:25 - GempukkuServer loading services...
+2023-07-07 14:36:05,650 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/fellowshipDraft.json
+2023-07-07 14:36:05,699 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/hobbitDraft.json
+2023-07-07 14:36:05,716 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/hobbitRandomDraft.json
+2023-07-07 14:36:05,729 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/testDraft.json
+2023-07-07 14:36:05,743 DEBUG SoloDraftDefinitions:90 - Loaded draft definition: /etc/gemp-lotr/gemp-lotr-cards/src/main/resources/draft/twoTowersDraft.json
+2023-07-07 14:36:05,804 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-07 14:36:05,844  INFO GempukkuServer:27 - GempukkuServer starting servers...
+2023-07-07 14:36:05,847 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-07 14:36:05,859 DEBUG AbstractServer:18 - Started: HallServer
+2023-07-07 14:36:06,536  INFO LoggingProxy:32 - TournamentDAO::getUnfinishedTournaments(...) 672ms
+2023-07-07 14:36:06,536  INFO LoggingProxy:32 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 670ms
+2023-07-07 14:36:06,544 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-07 14:36:06,546 DEBUG AbstractServer:18 - Started: LotroServer
+2023-07-07 14:36:06,547 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-07 14:36:06,548 DEBUG AbstractServer:18 - Started: ChatServer
+2023-07-07 14:36:06,549  INFO GempukkuServer:29 - GempukkuServer startup complete.
+2023-07-07 14:36:11,892 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 187ms

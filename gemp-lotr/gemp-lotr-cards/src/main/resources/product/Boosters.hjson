@@ -6,18 +6,4 @@
 			set: "1"
 		}
 	}
-	{
-		name: MoM - Booster
-		type: booster
-		data: {
-			set: "2"
-		}
-	}
-	{
-		name: RotEL - Booster
-		type: booster
-		data: {
-			set: "3"
-		}
-	}
 ]

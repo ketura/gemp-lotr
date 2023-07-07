@@ -5,14 +5,4 @@
     rarityFile: "/set1-rarity.txt",
     needsLoading: false
   }
-  {
-    setId: "2",
-    setName: "Mines of Moria",
-    rarityFile: "/set2-rarity.txt"
-  }
-  {
-    setId: "3",
-    setName: "Realms of the Elf-lords",
-    rarityFile: "/set3-rarity.txt"
-  }
 ]
