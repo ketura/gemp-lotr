@@ -1,2 +1,6 @@
 {
+    1_001: {
+        title: Betazoid Gift Box,
+        type: artifact
+    }
 }

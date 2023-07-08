@@ -496,5 +496,7 @@ var PCCards = {
 	//Blade Tip FA
 	'1_381': 'https://i.lotrtcgpc.net/promos/LOTR-EN01U209.0_card.jpg',
 
+	'1_001': 'https://www.trekcc.org/1e/cardimages/premiere/betazoidgiftbox95.jpg'
+
 }
 

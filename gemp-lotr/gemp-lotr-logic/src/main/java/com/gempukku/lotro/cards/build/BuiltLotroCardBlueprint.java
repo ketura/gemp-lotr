@@ -960,10 +960,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             throw new InvalidCardDefinitionException("Card has to have a title");
         if (cardType == null)
             throw new InvalidCardDefinitionException("Card has to have a type");
-        if (cardType != CardType.THE_ONE_RING && cardType != CardType.SITE && side == null)
+/*        if (cardType != CardType.THE_ONE_RING && cardType != CardType.SITE && side == null)
             throw new InvalidCardDefinitionException("Only The One Ring does not have a side defined");
         if (cardType != CardType.THE_ONE_RING && cardType != CardType.SITE && culture == null)
-            throw new InvalidCardDefinitionException("Only The One Ring does not have a culture defined");
+            throw new InvalidCardDefinitionException("Only The One Ring does not have a culture defined");*/
         if (siteNumber != 0
                 && cardType != CardType.SITE
                 && cardType != CardType.MINION)
@@ -985,8 +985,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         }
         if (cardType != CardType.EVENT && playEventAction != null)
             throw new InvalidCardDefinitionException("Only events should have an event type effect");
-        if (cost == -1)
-            throw new InvalidCardDefinitionException("Cost was not assigned to card");
+/*        if (cost == -1)
+            throw new InvalidCardDefinitionException("Cost was not assigned to card");*/
         if (Arrays.asList(CardType.MINION, CardType.COMPANION, CardType.ALLY).contains(cardType)) {
             if (vitality == 0)
                 throw new InvalidCardDefinitionException("Character has 0 vitality");
@@ -1001,9 +1001,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             if (keywords.size() > 1 && keywords.containsKey(Keyword.TALE))
                 throw new InvalidCardDefinitionException("Attachment should not have keywords");
         }
-        if (Arrays.asList(CardType.POSSESSION, CardType.CONDITION, CardType.ARTIFACT).contains(cardType)
+/*        if (Arrays.asList(CardType.POSSESSION, CardType.CONDITION, CardType.ARTIFACT).contains(cardType)
                 && targetFilters == null && (keywords == null || !keywords.containsKey(Keyword.SUPPORT_AREA)))
-            throw new InvalidCardDefinitionException("Possession, condition or artifact without a filter needs a SUPPORT_AREA keyword");
+            throw new InvalidCardDefinitionException("Possession, condition or artifact without a filter needs a SUPPORT_AREA keyword");*/
         if (cardType == CardType.FOLLOWER && aidCostSource == null)
             throw new InvalidCardDefinitionException("Follower requires an aid cost");
     }
