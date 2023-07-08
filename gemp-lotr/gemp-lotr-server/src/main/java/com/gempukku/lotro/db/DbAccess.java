@@ -6,11 +6,15 @@ import org.apache.commons.dbcp.DriverManagerConnectionFactory;
 import org.apache.commons.dbcp.PoolableConnectionFactory;
 import org.apache.commons.dbcp.PoolingDataSource;
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DbAccess {
+    private static final Logger logger = Logger.getLogger(DbAccess.class);
     private final DataSource _dataSource;
 
     public DbAccess() {
@@ -18,6 +22,7 @@ public class DbAccess {
     }
 
     public DbAccess(String url, String user, String pass, boolean batch) {
+        logger.debug("Creating DbAccess for " + url);
         try {
             Class.forName(AppConfig.getProperty("db.connection.class"));
         } catch (ClassNotFoundException e) {
@@ -25,6 +30,7 @@ public class DbAccess {
         }
 
         _dataSource = setupDataSource(url, user, pass, batch);
+        logger.debug("DbAccess - _dataSource created for " + url);
     }
 
     public DataSource getDataSource() {
@@ -73,6 +79,14 @@ public class DbAccess {
         // Finally, we create the PoolingDriver itself,
         // passing in the object pool we created.
         //
+
+        try {
+            Connection connection = new PoolingDataSource(connectionPool).getConnection();
+            logger.debug("setupDataSource - connection successfully created");
+        } catch(SQLException exp) {
+            logger.debug("setupDataSource - unable to connect");
+//            throw new RuntimeException(exp);
+        }
 
         return new PoolingDataSource(connectionPool);
     }
