@@ -1283,3 +1283,175 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-07 22:31:03,182 DEBUG HallServer:615 - Ending processHall function
 2023-07-07 22:31:09,186 DEBUG HallServer:586 - Starting processHall function
 2023-07-07 22:31:09,191 DEBUG HallServer:615 - Ending processHall function
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-07 22:58:48,443  INFO GempukkuServer:20 - GempukkuServer loading prerequisites...
+2023-07-07 22:58:48,463 DEBUG ServerBuilder:28 - Calling CreatePrerequisites function
+2023-07-07 22:58:49,068  INFO LotroCardBlueprintLibrary:58 - Locking blueprint library in constructor
+2023-07-07 22:58:49,071  INFO LotroCardBlueprintLibrary:61 - Unlocking blueprint library in constructor
+2023-07-07 22:58:49,170 DEBUG LotroCardBlueprintLibrary:158 - Loading set 1 (The Fellowship of the Ring) to _allsets
+2023-07-07 22:58:49,320 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set1.hjson
+2023-07-07 22:58:49,325 DEBUG LotroCardBlueprintLibrary:257 - Java cards for set 1 successfully loaded
+2023-07-07 22:58:49,757 DEBUG ProductLibrary:86 - Loading pack definitions for FotR - Booster
+2023-07-07 22:58:49,807 DEBUG ServerBuilder:39 - Ending CreatePrerequisites function
+2023-07-07 22:58:49,810  INFO GempukkuServer:23 - GempukkuServer loading DAOs...
+2023-07-07 22:58:50,130  INFO GempukkuServer:25 - GempukkuServer loading services...
+2023-07-07 22:58:50,135 DEBUG ServerBuilder:43 - Calling CreateServices function
+2023-07-07 22:58:51,938 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-07 22:58:51,972 DEBUG ServerBuilder:136 - Ending CreateServices function
+2023-07-07 22:58:51,976  INFO GempukkuServer:27 - GempukkuServer starting servers...
+2023-07-07 22:58:51,979 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-07 22:58:51,982 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-07 22:58:51,988 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-07 22:58:52,808  INFO LoggingProxy:32 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 799ms
+2023-07-07 22:58:52,808  INFO LoggingProxy:32 - TournamentDAO::getUnfinishedTournaments(...) 793ms
+Exception in thread "main" java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnfinishedTournaments(DbTournamentDAO.java:88)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnfinishedTournaments(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getLiveTournaments(TournamentService.java:129)
+	at com.gempukku.lotro.hall.HallServer.doAfterStartup(HallServer.java:279)
+	at com.gempukku.lotro.AbstractServer.startServer(AbstractServer.java:20)
+	at com.gempukku.lotro.builder.ServerBuilder.StartServers(ServerBuilder.java:147)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:28)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+2023-07-07 22:58:52,829 ERROR ServerCleaner:43 - Error while cleaning up a server
+java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:162)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnstartedScheduledTournamentQueues(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getUnstartedScheduledTournamentQueues(TournamentService.java:184)
+	at com.gempukku.lotro.hall.HallServer.cleanup(HallServer.java:834)
+	at com.gempukku.lotro.ServerCleaner$CleaningThread.run(ServerCleaner.java:40)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:148)
+	... 7 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 17 more
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 20 more
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnfinishedTournaments(DbTournamentDAO.java:73)
+	... 10 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 20 more
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 23 more
+2023-07-07 22:59:54,254 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 334ms
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-07 23:04:42,061  INFO GempukkuServer:20 - GempukkuServer loading prerequisites...
+2023-07-07 23:04:42,074 DEBUG ServerBuilder:28 - Calling CreatePrerequisites function
+2023-07-07 23:04:42,769  INFO LotroCardBlueprintLibrary:58 - Locking blueprint library in constructor
+2023-07-07 23:04:42,770  INFO LotroCardBlueprintLibrary:61 - Unlocking blueprint library in constructor
+2023-07-07 23:04:42,899 DEBUG LotroCardBlueprintLibrary:158 - Loading set 1 (The Fellowship of the Ring) to _allsets
+2023-07-07 23:04:43,050 DEBUG LotroCardBlueprintLibrary:235 - Loaded JSON card file set1.hjson
+2023-07-07 23:04:43,058 DEBUG LotroCardBlueprintLibrary:257 - Java cards for set 1 successfully loaded
+2023-07-07 23:04:43,480 DEBUG ProductLibrary:86 - Loading pack definitions for FotR - Booster
+2023-07-07 23:04:43,526 DEBUG ServerBuilder:39 - Ending CreatePrerequisites function
+2023-07-07 23:04:43,528  INFO GempukkuServer:23 - GempukkuServer loading DAOs...
+2023-07-07 23:04:43,801  INFO GempukkuServer:25 - GempukkuServer loading services...
+2023-07-07 23:04:43,803 DEBUG ServerBuilder:43 - Calling CreateServices function
+2023-07-07 23:04:44,371 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-07 23:04:44,391 DEBUG ServerBuilder:136 - Ending CreateServices function
+2023-07-07 23:04:44,394  INFO GempukkuServer:27 - GempukkuServer starting servers...
+2023-07-07 23:04:44,396 DEBUG ServerBuilder:147 - Function StartServers - starting HallServer
+2023-07-07 23:04:44,399 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-07 23:04:44,403 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-07 23:04:44,426 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-07 23:04:45,266  INFO LoggingProxy:32 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 834ms
+2023-07-07 23:04:45,266  INFO LoggingProxy:32 - TournamentDAO::getUnfinishedTournaments(...) 831ms
+2023-07-07 23:04:45,270 DEBUG ServerBuilder:149 - Function StartServers - starting LotroServer
+2023-07-07 23:04:45,271 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-07 23:04:45,272 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-07 23:04:45,274 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-07 23:04:45,276 DEBUG ServerBuilder:151 - Function StartServers - starting ChatServer
+2023-07-07 23:04:45,277 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-07 23:04:45,279 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-07 23:04:45,280 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-07 23:04:45,282  INFO GempukkuServer:29 - GempukkuServer startup complete.
+2023-07-07 23:04:48,007 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 250ms

@@ -144,8 +144,11 @@ public class ServerBuilder {
     }
 
     public static void StartServers(Map<Type, Object> objectMap) {
+        logger.debug("Function StartServers - starting HallServer");
         extract(objectMap, HallServer.class).startServer();
+        logger.debug("Function StartServers - starting LotroServer");
         extract(objectMap, LotroServer.class).startServer();
+        logger.debug("Function StartServers - starting ChatServer");
         extract(objectMap, ChatServer.class).startServer();
     }
 
