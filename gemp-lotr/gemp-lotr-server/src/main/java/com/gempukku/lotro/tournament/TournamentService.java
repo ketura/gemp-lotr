@@ -131,7 +131,9 @@ public class TournamentService implements ITournamentService {
     public List<Tournament> getLiveTournaments() {
         logger.debug("Calling getLiveTournaments function");
         List<Tournament> result = new ArrayList<>();
+        logger.debug("Created result object");
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
+            logger.debug("Entered for loop");
             Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
             logger.debug("Adding tournament " + tournament);
             if (tournament == null)
