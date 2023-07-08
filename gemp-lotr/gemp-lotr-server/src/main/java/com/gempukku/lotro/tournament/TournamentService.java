@@ -11,7 +11,11 @@ import com.gempukku.lotro.packs.ProductLibrary;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
+
 public class TournamentService implements ITournamentService {
+    private static final Logger logger = Logger.getLogger(ITournamentService.class);
     private final ProductLibrary _productLibrary;
     private final DraftPackStorage _draftPackStorage;
     private final PairingMechanismRegistry _pairingMechanismRegistry;
@@ -125,9 +129,11 @@ public class TournamentService implements ITournamentService {
 
     @Override
     public List<Tournament> getLiveTournaments() {
+        logger.debug("Calling getLiveTournaments function");
         List<Tournament> result = new ArrayList<>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
             Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
+            logger.debug("Adding tournament " + tournament);
             if (tournament == null)
                 tournament = createTournamentAndStoreInCache(tournamentInfo.getTournamentId(), tournamentInfo);
             result.add(tournament);
