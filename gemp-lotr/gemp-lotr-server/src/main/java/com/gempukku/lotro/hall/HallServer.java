@@ -28,9 +28,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import org.apache.log4j.Logger;
+
+
 
 public class HallServer extends AbstractServer {
 
+    private static final Logger logger = Logger.getLogger(HallServer.class);
 
     private static final int _playerTableInactivityPeriod = 1000 * 20 ; // 20 seconds
 
@@ -450,6 +454,7 @@ public class HallServer extends AbstractServer {
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
+        logger.debug("HallServer - joinTableAsPlayer function called");
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -583,7 +588,6 @@ public class HallServer extends AbstractServer {
 
     protected void processHall(Player player, HallInfoVisitor visitor) {
         final boolean isAdmin = player.getType().contains("a");
-        _log.debug("Starting processHall function");
         _hallDataAccessLock.readLock().lock();
         try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
@@ -612,10 +616,10 @@ public class HallServer extends AbstractServer {
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }
-        _log.debug("Ending processHall function");
     }
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {
+        logger.debug("HallServer - calling validateUserAndDeck function for player " + player.getName() + " " + player.getId() + " and deck " + deckName);
         LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player, deckName);
         if (lotroDeck == null) {
             _log.debug("Player '" + player.getName() + "' attempting to use deck '" + deckName + "' but failed.");
@@ -633,6 +637,7 @@ public class HallServer extends AbstractServer {
     }
 
     private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
+        logger.debug("HallServer - calling validateUserAndDeck function for player " + player.getName() + " " + player.getId() + " and deck " + lotroDeck);
         String validation = format.validateDeckForHall(lotroDeck);
         if(validation == null || !validation.isEmpty())
         {

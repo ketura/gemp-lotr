@@ -10,8 +10,10 @@ import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.*;
+import org.apache.log4j.Logger;
 
 public class TableHolder {
+    private static final Logger logger = Logger.getLogger(TableHolder.class);
     private final LeagueService leagueService;
     private final IgnoreDAO ignoreDAO;
 
@@ -34,6 +36,7 @@ public class TableHolder {
     }
 
     public GameTable createTable(Player player, GameSettings gameSettings, LotroDeck lotroDeck) throws HallException {
+        logger.debug("TableHolder - createTable function called");
         String tableId = String.valueOf(_nextTableId++);
 
         final League league = gameSettings.getLeague();

@@ -9,8 +9,10 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import org.apache.log4j.Logger;
 
 public class BiddingGameProcess implements GameProcess {
+    private static final Logger logger = Logger.getLogger(BiddingGameProcess.class);
     private final Set<String> _players;
     private final PlayerOrderFeedback _playerOrderFeedback;
     private final Map<String, Integer> _bids = new LinkedHashMap<>();
@@ -22,6 +24,11 @@ public class BiddingGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
+        logger.debug("BiddingGameProcess - process called");
+        logger.debug("Naming players:");
+        for (String player: _players) {
+            logger.debug(player);
+        }
         for (String player : _players) {
             final String decidingPlayer = player;
             game.getUserFeedback().sendAwaitingDecision(decidingPlayer, new IntegerAwaitingDecision(1, "Choose a number of burdens to bid", 0) {

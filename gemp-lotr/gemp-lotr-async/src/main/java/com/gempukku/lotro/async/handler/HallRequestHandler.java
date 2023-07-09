@@ -30,8 +30,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
 import java.util.*;
+import org.apache.log4j.Logger;
+
 
 public class HallRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
+    private static final Logger logger = Logger.getLogger(HallRequestHandler.class);
     private final CollectionsManager _collectionManager;
     private final LotroFormatLibrary _formatLibrary;
     private final HallServer _hallServer;
@@ -91,6 +94,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         String deckName = getFormParameterSafely(postDecoder, "deckName");
+        logger.debug("HallRequestHandler - calling joinTableAsPlayer function from JoinTable");
 
         try {
             _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);

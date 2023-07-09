@@ -152,14 +152,14 @@ public class TurnProcedure {
 
                 appendEffect(
                         new PlayoutOptionalAfterResponsesEffect(this, _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effectResults));
-                appendEffect(
+/*                appendEffect(
                         new UnrespondableEffect() {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
                                 if (hasKilledRingBearer())
                                     _game.checkRingBearerAlive();
                             }
-                        });
+                        }); */
             }
             return getNextEffect();
         }

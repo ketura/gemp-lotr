@@ -23,8 +23,6 @@ public interface LotroGame {
 
     public void checkRingBearerCorruption();
 
-    public void checkRingBearerAlive();
-
     public void playerWon(String currentPlayerId, String reason);
 
     public void playerLost(String currentPlayerId, String reason);

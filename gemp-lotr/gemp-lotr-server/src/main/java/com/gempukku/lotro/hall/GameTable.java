@@ -2,10 +2,13 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.game.LotroGameParticipant;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class GameTable {
+    private static final Logger logger = Logger.getLogger(GameTable.class);
+
     private final GameSettings gameSettings;
     private final Map<String, LotroGameParticipant> players = new HashMap<>();
 
@@ -15,9 +18,11 @@ public class GameTable {
     public GameTable(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
         this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
+        logger.debug("Capacity of game: " + this.capacity);
     }
 
     public void startGame(LotroGameMediator lotroGameMediator) {
+        logger.debug("GameTable - startGame function called;");
         this.lotroGameMediator = lotroGameMediator;
     }
 

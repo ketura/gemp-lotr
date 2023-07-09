@@ -269,18 +269,6 @@ public class DefaultLotroGame implements LotroGame {
         }
     }
 
-    @Override
-    public void checkRingBearerAlive() {
-        GameState gameState = getGameState();
-        if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
-            // Ring-bearer death
-            PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
-            Zone zone = ringBearer.getZone();
-            if (zone == null || !zone.isInPlay())
-                playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is dead");
-        }
-    }
-
     public void addGameStateListener(String playerId, GameStateListener gameStateListener) {
         _gameState.addGameStateListener(playerId, gameStateListener, _turnProcedure.getGameStats());
     }
