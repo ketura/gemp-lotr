@@ -19,8 +19,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     selectionFunc:null,
     drawDeckDiv:null,
 
-    fpDeckGroup:null,
-//    shadowDeckGroup:null,
+    drawDeckGroup:null,
 
     start:0,
     count:18,
@@ -187,14 +186,10 @@ var GempLotrDeckBuildingUI = Class.extend({
         }, true);
 
         this.drawDeckDiv = $("#decksRegion");
-        this.fpDeckGroup = new NormalCardGroup(this.drawDeckDiv, function (card) {
+        this.drawDeckGroup = new NormalCardGroup(this.drawDeckDiv, function (card) {
             return (card.zone == "FREE_PEOPLE");
         });
-        this.fpDeckGroup.maxCardHeight = 200;
-/*        this.shadowDeckGroup = new NormalCardGroup(this.drawDeckDiv, function (card) {
-            return (card.zone == "SHADOW");
-        });
-        this.shadowDeckGroup.maxCardHeight = 200;*/
+        this.drawDeckGroup.maxCardHeight = 200;
 
         this.bottomBarDiv = $("#statsDiv");
 
@@ -843,29 +838,13 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     addCardToDeckDontLayout:function (blueprintId, side) {
         var that = this;
-        if (side == "FREE_PEOPLE") {
-            this.addCardToDeck(blueprintId, side);
-        } else if (side == "SHADOW") {
-            this.addCardToDeck(blueprintId, side);
-        } else if (side == null) {
-            var div = this.addCardToContainer(blueprintId, side, this.siteDiv, false)
-            div.addClass("cardInDeck");
-        }
+        this.addCardToDeck(blueprintId, "FREE_PEOPLE"); // "free_people" is a holdover from LotR syntax
     },
 
     addCardToDeckAndLayout:function (blueprintId, side) {
         var that = this;
-        if (side == "FREE_PEOPLE") {
-            this.addCardToDeck(blueprintId, side);
-            that.fpDeckGroup.layoutCards();
-        } else if (side == "SHADOW") {
-            this.addCardToDeck(blueprintId, side);
-            that.shadowDeckGroup.layoutCards();
-        } else if (side == null) {
-            var div = this.addCardToContainer(blueprintId, side, this.siteDiv, false)
-            div.addClass("cardInDeck");
-            that.siteGroup.layoutCards();
-        }
+        this.addCardToDeck(blueprintId, "FREE_PEOPLE"); // "free_people" is a holdover from LotR syntax
+        that.drawDeckGroup.layoutCards();
         that.deckModified(true);
     },
 
@@ -1099,8 +1078,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.siteGroup.setBounds(0, 0, sitesWidth, deckHeight - rowHeight - 2 * padding);
 
             this.drawDeckDiv.css({ position:"absolute", left:padding * 2 + sitesWidth, top:manageHeight + 2 * padding, width:deckWidth - (sitesWidth + padding) - padding, height:deckHeight - 2 * padding - 50 });
-            this.fpDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50));
-//            this.shadowDeckGroup.setBounds(0, (deckHeight - 2 * padding - 50) / 2, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50) / 2);
+            this.drawDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50));
 
             this.bottomBarDiv.css({ position:"absolute", left:padding * 2 + sitesWidth, top:manageHeight + padding + deckHeight - 50, width:deckWidth - (sitesWidth + padding) - padding, height:70 });
 
@@ -1122,8 +1100,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     layoutDeck:function () {
         this.layoutSpecialGroups();
-        this.fpDeckGroup.layoutCards();
-        this.shadowDeckGroup.layoutCards();
+        this.drawDeckGroup.layoutCards();
     },
 
     processError:function (xhr, ajaxOptions, thrownError) {
