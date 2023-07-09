@@ -11,10 +11,16 @@ import java.util.Map;
 public class GempukkuServer {
     private final Map<Type, Object> context;
 
-    public GempukkuServer() {
+    /*
+        GempukkuServer includes 1 sec sleep to allow time for databases to be created
+        before other functions attempt to access them.
+     */
+    public GempukkuServer() throws InterruptedException {
         Map<Type, Object> objects = new HashMap<>();
 
         var logger = Logger.getLogger(GempukkuServer.class);
+
+        Thread.sleep(1_000); // sleep for 1 sec
 
         //Libraries and other important prereq managers that are used by lots of other managers
         logger.info("GempukkuServer loading prerequisites...");
