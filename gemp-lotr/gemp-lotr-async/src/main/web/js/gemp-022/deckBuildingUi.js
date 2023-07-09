@@ -5,12 +5,6 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     manageDecksDiv:null,
 
-    ringBearerDiv:null,
-    ringBearerGroup:null,
-
-    ringDiv:null,
-    ringGroup:null,
-
     siteDiv:null,
     siteGroup:null,
 
@@ -26,7 +20,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     drawDeckDiv:null,
 
     fpDeckGroup:null,
-    shadowDeckGroup:null,
+//    shadowDeckGroup:null,
 
     start:0,
     count:18,
@@ -187,27 +181,6 @@ var GempLotrDeckBuildingUI = Class.extend({
         });
         this.normalCollectionGroup.maxCardHeight = 200;
 
-        this.ringBearerDiv = $("#ringBearerDiv");
-        this.ringBearerDiv.click(
-                function () {
-                    if ($(".card", that.ringBearerDiv).length == 0) {
-                        that.showPredefinedFilter("keyword:CAN_START_WITH_RING type:card", that.ringBearerDiv);
-                    }
-                });
-        this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function (card) {
-            return true;
-        });
-
-        this.ringDiv = $("#ringDiv");
-        this.ringDiv.click(
-                function () {
-                    if ($(".card", that.ringDiv).length == 0)
-                        that.showPredefinedFilter("cardType:THE_ONE_RING type:card", that.ringDiv);
-                });
-        this.ringGroup = new NormalCardGroup(this.ringDiv, function (card) {
-            return true;
-        });
-
         this.siteDiv = $("#sitesDiv");
         this.siteGroup = new VerticalBarGroup(this.siteDiv, function (card) {
             return true;
@@ -218,10 +191,10 @@ var GempLotrDeckBuildingUI = Class.extend({
             return (card.zone == "FREE_PEOPLE");
         });
         this.fpDeckGroup.maxCardHeight = 200;
-        this.shadowDeckGroup = new NormalCardGroup(this.drawDeckDiv, function (card) {
+/*        this.shadowDeckGroup = new NormalCardGroup(this.drawDeckDiv, function (card) {
             return (card.zone == "SHADOW");
         });
-        this.shadowDeckGroup.maxCardHeight = 200;
+        this.shadowDeckGroup.maxCardHeight = 200;*/
 
         this.bottomBarDiv = $("#statsDiv");
 
@@ -1122,17 +1095,12 @@ var GempLotrDeckBuildingUI = Class.extend({
 
             this.manageDecksDiv.css({position:"absolute", left:padding, top:padding, width:deckWidth, height:manageHeight});
 
-            this.ringBearerDiv.css({ position:"absolute", left:padding, top:manageHeight + 2 * padding, width:Math.floor((sitesWidth - padding) / 2), height:rowHeight });
-            this.ringBearerGroup.setBounds(0, 0, Math.floor((sitesWidth - padding) / 2), rowHeight);
-            this.ringDiv.css({ position:"absolute", left:Math.floor((sitesWidth + 3 * padding) / 2), top:manageHeight + 2 * padding, width:Math.floor((sitesWidth - padding) / 2), height:rowHeight });
-            this.ringGroup.setBounds(0, 0, Math.floor((sitesWidth - padding) / 2), rowHeight);
-
             this.siteDiv.css({ position:"absolute", left:padding, top:manageHeight + 3 * padding + rowHeight, width:sitesWidth, height:deckHeight - rowHeight - 2 * padding});
             this.siteGroup.setBounds(0, 0, sitesWidth, deckHeight - rowHeight - 2 * padding);
 
             this.drawDeckDiv.css({ position:"absolute", left:padding * 2 + sitesWidth, top:manageHeight + 2 * padding, width:deckWidth - (sitesWidth + padding) - padding, height:deckHeight - 2 * padding - 50 });
-            this.fpDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50) / 2);
-            this.shadowDeckGroup.setBounds(0, (deckHeight - 2 * padding - 50) / 2, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50) / 2);
+            this.fpDeckGroup.setBounds(0, 0, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50));
+//            this.shadowDeckGroup.setBounds(0, (deckHeight - 2 * padding - 50) / 2, deckWidth - (sitesWidth + padding) - padding, (deckHeight - 2 * padding - 50) / 2);
 
             this.bottomBarDiv.css({ position:"absolute", left:padding * 2 + sitesWidth, top:manageHeight + padding + deckHeight - 50, width:deckWidth - (sitesWidth + padding) - padding, height:70 });
 
