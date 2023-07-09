@@ -350,18 +350,6 @@ public class DefaultLotroFormat implements LotroFormat {
         ArrayList<String> errataResult = new ArrayList<>();
         String valid = null;
 
-        // Ring-bearer
-        valid = validateRingBearer(deck);
-        if(valid != null && !valid.isEmpty()) {
-            result.add(valid);
-        }
-
-        // Ring
-        valid = validateRing(deck);
-        if(valid != null && !valid.isEmpty()) {
-            result.add(valid);
-        }
-
         // Deck
         valid = validateDeckStructure(deck);
         if(valid != null && !valid.isEmpty()) {
@@ -650,43 +638,6 @@ public class DefaultLotroFormat implements LotroFormat {
         }
 
         return result;
-    }
-
-    private String validateRing(LotroDeck deck) {
-        String ringbp = deck.getRing();
-        // No Ring needed for Hobbit
-        if (_siteBlock == SitesBlock.HOBBIT)
-            return null;
-        if (ringbp == null)
-            return "Deck doesn't have a One Ring";
-        try {
-            LotroCardBlueprint ring = _library.getLotroCardBlueprint(ringbp);
-            if (ring.getCardType() != CardType.THE_ONE_RING)
-                return "Card assigned as Ring is not The One Ring";
-        }
-        catch(CardNotFoundException exception)
-        {
-            return CardRemovedError + ": " + ringbp;
-        }
-
-        return validateCard(ringbp);
-    }
-
-    private String validateRingBearer(LotroDeck deck) {
-        String rb = deck.getRingBearer();
-        if (rb == null)
-            return "Deck doesn't have a Ring-bearer";
-        try{
-            LotroCardBlueprint ringBearer = _library.getLotroCardBlueprint(rb);
-            if (!ringBearer.hasKeyword(Keyword.CAN_START_WITH_RING))
-                return "Card assigned as Ring-bearer cannot bear the ring";
-        }
-        catch(CardNotFoundException exception)
-        {
-            return CardRemovedError + ": " + rb;
-        }
-
-        return validateCard(rb);
     }
 
     private void processCardCounts(String blueprintId, Map<String, Integer> cardCountByName, Map<String, Integer> cardCountByBaseBlueprintId)  {

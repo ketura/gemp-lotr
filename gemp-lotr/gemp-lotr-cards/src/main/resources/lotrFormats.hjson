@@ -14,6 +14,8 @@
         code: tribbles
         sites: FELLOWSHIP
         set:[2]
+        minimumDeckSize: 35
+        validateShadowFPCount: false
     }
     {
         name:"Fellowship Block",
