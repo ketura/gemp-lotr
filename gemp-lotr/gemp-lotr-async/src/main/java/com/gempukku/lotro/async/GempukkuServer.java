@@ -12,7 +12,7 @@ public class GempukkuServer {
     private final Map<Type, Object> context;
 
     /*
-        GempukkuServer includes 1 sec sleep to allow time for databases to be created
+        GempukkuServer includes 2 sec sleep to allow time for databases to be created
         before other functions attempt to access them.
      */
     public GempukkuServer() throws InterruptedException {
@@ -20,7 +20,7 @@ public class GempukkuServer {
 
         var logger = Logger.getLogger(GempukkuServer.class);
 
-        Thread.sleep(1_000); // sleep for 1 sec
+        Thread.sleep(2_000); // sleep for 2 sec
 
         //Libraries and other important prereq managers that are used by lots of other managers
         logger.info("GempukkuServer loading prerequisites...");

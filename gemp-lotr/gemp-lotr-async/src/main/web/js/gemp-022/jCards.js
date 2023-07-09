@@ -1,15 +1,5 @@
 var cardCache = {};
 var cardScale = 357 / 497;
-var fixedImages = {
-    // "Forth the Three Hunters!" cards, separate special images
-    "15_204": "https://i.lotrtcgpc.net/decipher/LOTR15060D.jpg",
-    "15_205": "https://i.lotrtcgpc.net/decipher/LOTR15060E.jpg",
-    "15_206": "https://i.lotrtcgpc.net/decipher/LOTR15060G.jpg",
-    // Holidays Gandalf
-    "15_207": "https://i.lotrtcgpc.net/decipher/LOTR15029H.jpg",
-    // Gemp-LotR promos
-    "gl_theOneRing": "/gemp-lotr/images/cards/gl_theOneRing.png"
-};
 
 var packBlueprints = {
     "(S)FotR - Starter": "/gemp-lotr/images/boosters/fotr_starter_selection.png",
@@ -262,15 +252,6 @@ var Card = Class.extend({
     },
 
     getFixedImage: function (blueprintId) {
-        var img = fixedImages[blueprintId];
-        if (img != null)
-            return img;
-        img = set40[blueprintId];
-        if (img != null)
-            return img;
-        img = hobbit[blueprintId];
-        if (img != null)
-            return img;
         img = PCCards[blueprintId];
         if (img != null)
             return img;
