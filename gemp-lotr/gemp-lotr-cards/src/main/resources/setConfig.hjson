@@ -1,8 +1,14 @@
 [
   {
     setId: "1",
-    setName: "The Fellowship of the Ring",
+    setName: "1st Edition Premiere",
     rarityFile: "/set1-rarity.txt",
+    needsLoading: false
+  }
+  {
+    setId: "2",
+    setName: "More Tribbles, More Troubles",
+    rarityFile: "/set2-rarity.txt",
     needsLoading: false
   }
 ]

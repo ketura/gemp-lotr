@@ -1,7 +1,14 @@
 var PCCards = {
 
 '1_001': 'http://trekcc.org/1e/cardimages/premiere/betazoidgiftbox95.jpg',
-'1_002': 'http://trekcc.org/1e/cardimages/premiere/horgahn95.jpg'
+'1_002': 'http://trekcc.org/1e/cardimages/premiere/horgahn95.jpg',
+
+'2_001': 'https://www.trekcc.org/tribbles/cardimages/mtmt/1V.jpg',
+'2_002': 'https://www.trekcc.org/tribbles/cardimages/mtmt/2V.jpg',
+'2_003': 'https://www.trekcc.org/tribbles/cardimages/mtmt/3V.jpg',
+'2_004': 'https://www.trekcc.org/tribbles/cardimages/mtmt/4V.jpg',
+'2_005': 'https://www.trekcc.org/tribbles/cardimages/mtmt/5V.jpg',
+'2_006': 'https://www.trekcc.org/tribbles/cardimages/mtmt/6V.jpg',
 
 
 /*'1_003': 'http://trekcc.org/1e/cardimages/errata/interphasegenerator.jpg',
