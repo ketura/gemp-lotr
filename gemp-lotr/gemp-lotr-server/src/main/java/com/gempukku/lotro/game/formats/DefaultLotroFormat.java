@@ -381,10 +381,6 @@ public class DefaultLotroFormat implements LotroFormat {
         }
 
         // Sites
-        valid = validateSites(deck);
-        if(valid != null && !valid.isEmpty()) {
-            result.add(valid);
-        }
         valid = validateSitesStructure(deck);
         if(valid != null && !valid.isEmpty()) {
             result.add(valid);
@@ -576,63 +572,6 @@ public class DefaultLotroFormat implements LotroFormat {
             for (Map.Entry<Integer, Integer> twilightCountEntry : twilightCount.entrySet()) {
                 if (twilightCountEntry.getValue() > 3) {
                     result += "Deck contains " + twilightCountEntry.getValue() + " sites with twilight number of " + twilightCountEntry.getKey() + ".\n";
-                }
-            }
-        }
-
-        return result;
-    }
-
-    private String validateSites(LotroDeck deck)  {
-        List<String> sites = deck.getSites();
-        String result = "";
-        if (sites == null)
-            return "Deck doesn't have sites";
-        if (sites.size() != 9) {
-            result += "Deck has " + sites.size() + " sites instead of 9.\n";
-        }
-        for (String site : sites) {
-            try {
-                LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-
-                if (siteBlueprint.getCardType() != CardType.SITE) {
-                    result += "Card assigned as Site is not really a site.\n";
-                }
-                else if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != SitesBlock.SPECIAL) {
-                    result += "Site does not match block: " + GameUtils.getFullName(siteBlueprint) + "\n";
-                }
-                else if (_siteBlock == SitesBlock.SPECIAL && siteBlueprint.getSiteBlock() == SitesBlock.SHADOWS) {
-                    result += "Post-Shadows site not allowed: " + GameUtils.getFullName(siteBlueprint) + "\n";
-                }
-                else {
-                    String valid = validateCard(site);
-                    if(valid != null && !valid.isEmpty()) {
-                        result += valid + "\n";
-                    }
-                }
-            }
-            catch(CardNotFoundException ex)
-            {
-                result += CardRemovedError + "\n";
-            }
-
-        }
-        if (_siteBlock == SitesBlock.SPECIAL) {
-            SitesBlock usedBlock = null;
-            for (String site : deck.getSites()) {
-                try {
-                    LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-                    SitesBlock block = siteBlueprint.getSiteBlock();
-                    if (usedBlock == null)
-                        usedBlock = block;
-                    else if (usedBlock != block) {
-                        result += "All your sites have to be from the same block.\n";
-                        break;
-                    }
-                }
-                catch(CardNotFoundException ex)
-                {
-                    result += CardRemovedError + "\n";
                 }
             }
         }

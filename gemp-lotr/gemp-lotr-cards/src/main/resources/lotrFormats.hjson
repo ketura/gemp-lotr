@@ -15,6 +15,7 @@
         sites: FELLOWSHIP
         set:[2]
         minimumDeckSize: 35
+        maximumSameName: 9999
         validateShadowFPCount: false
     }
     {
