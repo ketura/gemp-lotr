@@ -762,18 +762,18 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        LotroGameMediator mediator = createGameMediator(participants, listener, getTournamentName(gameTable), gameTable.getGameSettings());
+        CardGameMediator mediator = createGameMediator(participants, listener, getTournamentName(gameTable), gameTable.getGameSettings());
         gameTable.startGame(mediator);
     }
 
-    private LotroGameMediator createGameMediator(LotroGameParticipant[] participants, GameResultListener listener, String tournamentName, GameSettings gameSettings) {
-        final LotroGameMediator lotroGameMediator = _lotroServer.createNewGame(tournamentName, participants, gameSettings);
+    private CardGameMediator createGameMediator(LotroGameParticipant[] participants, GameResultListener listener, String tournamentName, GameSettings gameSettings) {
+        final CardGameMediator cardGameMediator = _lotroServer.createNewGame(tournamentName, participants, gameSettings);
         if (listener != null)
-            lotroGameMediator.addGameResultListener(listener);
-        lotroGameMediator.startGame();
-        lotroGameMediator.addGameResultListener(_notifyHallListeners);
+            cardGameMediator.addGameResultListener(listener);
+        cardGameMediator.startGame();
+        cardGameMediator.addGameResultListener(_notifyHallListeners);
 
-        return lotroGameMediator;
+        return cardGameMediator;
     }
 
     private class NotifyHallListenersGameResultListener implements GameResultListener {
@@ -888,7 +888,7 @@ public class HallServer extends AbstractServer {
             try {
                 if (!_shutdown) {
                     final GameTable gameTable = tableHolder.setupTournamentTable(tournamentGameSettings, participants);
-                    final LotroGameMediator mediator = createGameMediator(participants,
+                    final CardGameMediator mediator = createGameMediator(participants,
                             new GameResultListener() {
                                 @Override
                                 public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {

@@ -12,11 +12,11 @@ import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.timing.UnrespondableEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
 import com.gempukku.lotro.game.timing.processes.pregame.SetupSoloAdventureGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.ShadowPhaseOfAIPlayerGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.ai.AIPlayerAssignsArcheryTotalGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.ai.AIPlayerAssignsMinionsGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.regroup.DiscardAllMinionsGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.regroup.ReturnFollowersToSupportGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.lotro.ShadowPhaseOfAIPlayerGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.lotro.ai.AIPlayerAssignsArcheryTotalGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.lotro.ai.AIPlayerAssignsMinionsGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.lotro.regroup.DiscardAllMinionsGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.lotro.regroup.ReturnFollowersToSupportGameProcess;
 import com.gempukku.lotro.game.timing.results.PlayCardResult;
 
 import java.util.Set;

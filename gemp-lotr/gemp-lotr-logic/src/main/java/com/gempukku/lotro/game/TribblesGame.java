@@ -1,34 +1,33 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.LotroDeck;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
-import com.gempukku.lotro.game.adventure.Adventure;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.GameStats;
 import com.gempukku.lotro.game.actions.ActionStack;
 import com.gempukku.lotro.game.actions.ActionsEnvironment;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.game.timing.GameResultListener;
-import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.game.timing.rules.RuleSet;
-import com.gempukku.lotro.game.timing.processes.turn.TurnProcedure;
-import com.gempukku.lotro.game.timing.PlayerOrder;
+import com.gempukku.lotro.game.adventure.Adventure;
 import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.GameStats;
+import com.gempukku.lotro.game.timing.GameResultListener;
+import com.gempukku.lotro.game.timing.PlayerOrder;
+import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
+import com.gempukku.lotro.game.timing.processes.turn.TurnProcedure;
 import com.gempukku.lotro.game.timing.rules.CharacterDeathRule;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.game.timing.rules.RuleSet;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 
-public class LotroGame implements DefaultGame {
-    private static final Logger log = Logger.getLogger(LotroGame.class);
-
+public class TribblesGame implements DefaultGame {
+    private static final Logger log = Logger.getLogger(TribblesGame.class);
     private final GameState _gameState;
     private final ModifiersLogic _modifiersLogic = new ModifiersLogic();
     private final DefaultActionsEnvironment _actionsEnvironment;
@@ -52,7 +51,7 @@ public class LotroGame implements DefaultGame {
     private final Set<String> _requestedCancel = new HashSet<>();
     private final LotroCardBlueprintLibrary _library;
 
-    public LotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
+    public TribblesGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
         _library = library;
         _adventure = format.getAdventure();
         _format = format;

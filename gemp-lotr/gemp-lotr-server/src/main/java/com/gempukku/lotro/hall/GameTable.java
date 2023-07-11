@@ -1,6 +1,6 @@
 package com.gempukku.lotro.hall;
 
-import com.gempukku.lotro.game.LotroGameMediator;
+import com.gempukku.lotro.game.CardGameMediator;
 import com.gempukku.lotro.game.LotroGameParticipant;
 import org.apache.log4j.Logger;
 
@@ -12,7 +12,7 @@ public class GameTable {
     private final GameSettings gameSettings;
     private final Map<String, LotroGameParticipant> players = new HashMap<>();
 
-    private LotroGameMediator lotroGameMediator;
+    private CardGameMediator cardGameMediator;
     private final int capacity;
 
     public GameTable(GameSettings gameSettings) {
@@ -21,17 +21,17 @@ public class GameTable {
         logger.debug("Capacity of game: " + this.capacity);
     }
 
-    public void startGame(LotroGameMediator lotroGameMediator) {
+    public void startGame(CardGameMediator cardGameMediator) {
         logger.debug("GameTable - startGame function called;");
-        this.lotroGameMediator = lotroGameMediator;
+        this.cardGameMediator = cardGameMediator;
     }
 
-    public LotroGameMediator getLotroGameMediator() {
-        return lotroGameMediator;
+    public CardGameMediator getLotroGameMediator() {
+        return cardGameMediator;
     }
 
     public boolean wasGameStarted() {
-        return lotroGameMediator != null;
+        return cardGameMediator != null;
     }
 
     public boolean addPlayer(LotroGameParticipant player) {

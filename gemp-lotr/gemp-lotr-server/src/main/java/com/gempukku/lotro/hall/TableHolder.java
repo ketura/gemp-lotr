@@ -2,7 +2,7 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.LotroGameMediator;
+import com.gempukku.lotro.game.CardGameMediator;
 import com.gempukku.lotro.game.LotroGameParticipant;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -161,7 +161,7 @@ public class TableHolder {
 
         for (GameTable runningTable : runningTables.values()) {
             if (league.equals(runningTable.getGameSettings().getLeague())) {
-                LotroGameMediator game = runningTable.getLotroGameMediator();
+                CardGameMediator game = runningTable.getLotroGameMediator();
                 if (game != null && !game.isFinished() && game.getPlayersPlaying().contains(player.getName()))
                     throw new HallException("You can't play in multiple league games at the same time");
             }
@@ -188,17 +188,17 @@ public class TableHolder {
 
         for (Map.Entry<String, GameTable> runningGame : runningTables.entrySet()) {
             final GameTable runningTable = runningGame.getValue();
-            LotroGameMediator lotroGameMediator = runningTable.getLotroGameMediator();
-            if (lotroGameMediator != null) {
-                if (isAdmin || (lotroGameMediator.isVisibleToUser(player.getName()) &&
-                        isNoIgnores(lotroGameMediator.getPlayersPlaying(), player.getName()))) {
-                    if (lotroGameMediator.isFinished())
+            CardGameMediator cardGameMediator = runningTable.getLotroGameMediator();
+            if (cardGameMediator != null) {
+                if (isAdmin || (cardGameMediator.isVisibleToUser(player.getName()) &&
+                        isNoIgnores(cardGameMediator.getPlayersPlaying(), player.getName()))) {
+                    if (cardGameMediator.isFinished())
                         finishedTables.put(runningGame.getKey(), runningTable);
                     else
-                        visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameId(), isAdmin || lotroGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, lotroGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isPrivateGame(),  runningTable.getGameSettings().isUserInviteOnly(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), cardGameMediator.getGameId(), isAdmin || cardGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, cardGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), cardGameMediator.getPlayersPlaying(), cardGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isPrivateGame(),  runningTable.getGameSettings().isUserInviteOnly(), cardGameMediator.getWinner());
 
-                    if (!lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(player.getName()))
-                        visitor.runningPlayerGame(lotroGameMediator.getGameId());
+                    if (!cardGameMediator.isFinished() && cardGameMediator.getPlayersPlaying().contains(player.getName()))
+                        visitor.runningPlayerGame(cardGameMediator.getGameId());
                 }
             }
         }
@@ -206,10 +206,10 @@ public class TableHolder {
         // Then rest
         for (Map.Entry<String, GameTable> nonPlayingGame : finishedTables.entrySet()) {
             final GameTable runningTable = nonPlayingGame.getValue();
-            LotroGameMediator lotroGameMediator = runningTable.getLotroGameMediator();
-            if (lotroGameMediator != null) {
-                if (isAdmin || isNoIgnores(lotroGameMediator.getPlayersPlaying(), player.getName()))
-                    visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isPrivateGame(),  runningTable.getGameSettings().isUserInviteOnly(), lotroGameMediator.getWinner());
+            CardGameMediator cardGameMediator = runningTable.getLotroGameMediator();
+            if (cardGameMediator != null) {
+                if (isAdmin || isNoIgnores(cardGameMediator.getPlayersPlaying(), player.getName()))
+                    visitor.visitTable(nonPlayingGame.getKey(), cardGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, cardGameMediator.getGameStatus(), runningTable.getGameSettings().getLotroFormat().getName(), getTournamentName(runningTable), runningTable.getGameSettings().getUserDescription(), cardGameMediator.getPlayersPlaying(), cardGameMediator.getPlayersPlaying().contains(player.getName()), runningTable.getGameSettings().isPrivateGame(),  runningTable.getGameSettings().isUserInviteOnly(), cardGameMediator.getWinner());
             }
         }
     }
@@ -219,8 +219,8 @@ public class TableHolder {
         final Iterator<Map.Entry<String, GameTable>> iterator = runningTables.entrySet().iterator();
         while (iterator.hasNext()) {
             final Map.Entry<String, GameTable> runningTable = iterator.next();
-            LotroGameMediator lotroGameMediator = runningTable.getValue().getLotroGameMediator();
-            if (lotroGameMediator.isDestroyed()) {
+            CardGameMediator cardGameMediator = runningTable.getValue().getLotroGameMediator();
+            if (cardGameMediator.isDestroyed()) {
                 iterator.remove();
                 changed = true;
                 ;
