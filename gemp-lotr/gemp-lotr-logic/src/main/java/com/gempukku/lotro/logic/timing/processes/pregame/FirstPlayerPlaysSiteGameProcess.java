@@ -1,4 +1,4 @@
-package com.gempukku.lotro.logic.timing.processes.pregame;
+/*package com.gempukku.lotro.logic.timing.processes.pregame;
 
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
@@ -39,3 +39,4 @@ public class FirstPlayerPlaysSiteGameProcess implements GameProcess {
         return new PlayRingBearerRingAndAddBurdersGameProcess(_bids, _firstPlayer);
     }
 }
+*/

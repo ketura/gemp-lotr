@@ -24,14 +24,13 @@ public class BiddingGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        logger.debug("BiddingGameProcess - process called");
-        logger.debug("Naming players:");
         for (String player: _players) {
             logger.debug(player);
         }
         for (String player : _players) {
             final String decidingPlayer = player;
-            game.getUserFeedback().sendAwaitingDecision(decidingPlayer, new IntegerAwaitingDecision(1, "Choose a number of burdens to bid", 0) {
+            playerPlacedBid(decidingPlayer, 0);
+/*            game.getUserFeedback().sendAwaitingDecision(decidingPlayer, new IntegerAwaitingDecision(1, "Choose a number of burdens to bid", 0) {
                 @Override
                 public void decisionMade(String result) throws DecisionResultInvalidException {
                     try {
@@ -43,7 +42,7 @@ public class BiddingGameProcess implements GameProcess {
                         throw new DecisionResultInvalidException();
                     }
                 }
-            });
+            }); */
         }
     }
 
