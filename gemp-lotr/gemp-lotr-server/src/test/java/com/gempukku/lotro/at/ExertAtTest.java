@@ -2,9 +2,9 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

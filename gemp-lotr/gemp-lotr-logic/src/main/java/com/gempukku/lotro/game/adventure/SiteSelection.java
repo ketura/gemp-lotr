@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.adventure;
 
-import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.DefaultGame;
 
 public interface SiteSelection {
-    public String getNextSite(LotroGame game);
+    public String getNextSite(DefaultGame game);
 }

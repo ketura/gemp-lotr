@@ -1,9 +1,8 @@
 package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.timing.GameStats;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.cards.LotroDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

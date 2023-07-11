@@ -1,11 +1,10 @@
 package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 public class RarityPackBox implements PackBox {
     private final SetDefinition _setRarity;

@@ -2,12 +2,13 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.hall.GameSettings;
-import com.gempukku.lotro.logic.timing.GameResultListener;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.timing.GameResultListener;
+import com.gempukku.lotro.cards.LotroDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;

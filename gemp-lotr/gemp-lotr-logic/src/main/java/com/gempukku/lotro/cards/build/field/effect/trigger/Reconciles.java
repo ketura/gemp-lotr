@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class Reconciles implements TriggerCheckerProducer {

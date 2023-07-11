@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.game.GameUtils;
 import org.json.simple.JSONObject;
 
 public class CantSpotFPCultures implements RequirementProducer {

@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.logic.modifiers.CantBeAssignedAgainstModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.game.modifiers.CantBeAssignedAgainstModifier;
+import com.gempukku.lotro.game.modifiers.Modifier;
 import org.json.simple.JSONObject;
 
 public class CantBeAssignedToSkirmishAgainst implements ModifierSourceProducer {

@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.Requirement;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.modifiers.Condition;
 
 public class RequirementCondition implements Condition {
     private final Requirement[] requirements;
@@ -15,7 +15,7 @@ public class RequirementCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(LotroGame game) {
+    public boolean isFullfilled(DefaultGame game) {
         for (Requirement requirement : requirements) {
             if (!requirement.accepts(actionContext))
                 return false;

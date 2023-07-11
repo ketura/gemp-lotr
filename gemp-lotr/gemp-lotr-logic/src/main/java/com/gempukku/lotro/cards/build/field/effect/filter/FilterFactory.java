@@ -6,12 +6,12 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolv
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.logic.modifiers.evaluator.SingleMemoryEvaluator;
-import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.game.modifiers.evaluator.SingleMemoryEvaluator;
+import com.gempukku.lotro.game.timing.results.CharacterLostSkirmishResult;
 
 import java.util.*;
 
@@ -217,7 +217,7 @@ public class FilterFactory {
                                         new SingleMemoryEvaluator(
                                                 new Evaluator() {
                                                     @Override
-                                                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                                    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
                                                         int minStrength = Integer.MAX_VALUE;
                                                         for (PhysicalCard card : Filters.filterActive(game, sourceFilterable))
                                                             minStrength = Math.min(minStrength, game.getModifiersQuerying().getStrength(game, card));

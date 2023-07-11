@@ -1,15 +1,19 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.DefaultLotroGame;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.LotroGame;
+import com.gempukku.lotro.cards.LotroDeck;
 import org.junit.Test;
 
 import java.util.*;
@@ -736,7 +740,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
+        _game = new LotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -777,7 +781,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
+        _game = new LotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -860,7 +864,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
+        _game = new LotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -1117,7 +1121,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat("movie");
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
+        _game = new LotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 

@@ -1,16 +1,21 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.logic.actions.SystemQueueAction;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.DefaultLotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.game.decisions.CardActionSelectionDecision;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.actions.Action;
+import com.gempukku.lotro.game.LotroGame;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.cards.LotroDeck;
 
 import java.util.*;
 
@@ -26,7 +31,7 @@ public abstract class AbstractAtTest {
         _formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
     }
 
-    protected DefaultLotroGame _game;
+    protected LotroGame _game;
     protected DefaultUserFeedback _userFeedback;
     public static final String P1 = "player1";
     public static final String P2 = "player2";
@@ -57,7 +62,7 @@ public abstract class AbstractAtTest {
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat(formatName);
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
+        _game = new LotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 

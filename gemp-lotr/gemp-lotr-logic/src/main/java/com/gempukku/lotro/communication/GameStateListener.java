@@ -1,9 +1,9 @@
 package com.gempukku.lotro.communication;
 
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.timing.GameStats;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.game.state.GameStats;
 
 import java.util.Collection;
 import java.util.List;

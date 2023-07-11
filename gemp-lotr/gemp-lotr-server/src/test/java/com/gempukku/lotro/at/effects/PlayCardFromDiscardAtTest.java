@@ -3,8 +3,8 @@ package com.gempukku.lotro.at.effects;
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
 import org.junit.Test;
 
 import java.util.Map;

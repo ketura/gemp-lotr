@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
 
 public interface ExtraPossessionClassTest {
-    boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo);
+    boolean isExtraPossessionClass(DefaultGame game, PhysicalCard self, PhysicalCard attachedTo);
 }

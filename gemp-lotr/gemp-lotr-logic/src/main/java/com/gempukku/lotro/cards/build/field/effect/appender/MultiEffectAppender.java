@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
 
 import java.util.LinkedList;
 import java.util.List;

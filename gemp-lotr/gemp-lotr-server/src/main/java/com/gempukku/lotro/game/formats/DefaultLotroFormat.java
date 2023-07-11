@@ -1,9 +1,14 @@
 package com.gempukku.lotro.game.formats;
 
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.adventure.Adventure;
+import com.gempukku.lotro.game.adventure.AdventureLibrary;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.cards.LotroDeck;
 
 import java.util.*;
 import java.util.stream.Collectors;

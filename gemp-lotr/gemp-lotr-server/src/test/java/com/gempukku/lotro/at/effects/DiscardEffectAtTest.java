@@ -1,19 +1,19 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.AbstractActionProxy;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
+import com.gempukku.lotro.game.actions.AbstractActionProxy;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.game.actions.RequiredTriggerAction;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -41,7 +41,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Filters.any)) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             discardedFromPlay.add(discardResult.getDiscardedCard());
@@ -84,7 +84,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Filters.any)) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             discardedFromPlay.add(discardResult.getDiscardedCard());
@@ -127,7 +127,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Filters.any)) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             discardedFromPlay.add(discardResult.getDiscardedCard());

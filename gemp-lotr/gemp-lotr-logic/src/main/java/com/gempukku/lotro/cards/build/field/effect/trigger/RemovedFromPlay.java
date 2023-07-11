@@ -6,11 +6,11 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
-import com.gempukku.lotro.logic.timing.results.ForEachKilledResult;
-import com.gempukku.lotro.logic.timing.results.ReturnCardsToHandResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
+import com.gempukku.lotro.game.timing.results.ForEachKilledResult;
+import com.gempukku.lotro.game.timing.results.ReturnCardsToHandResult;
 import org.json.simple.JSONObject;
 
 public class RemovedFromPlay implements TriggerCheckerProducer {

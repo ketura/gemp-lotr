@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.EffectResult;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -16,12 +16,12 @@ public class DefaultActionContext implements ActionContext {
     private final Map<String, String> valueMemory = new HashMap<>();
 
     private final String performingPlayer;
-    private final LotroGame game;
+    private final DefaultGame game;
     private final PhysicalCard source;
     private final EffectResult effectResult;
     private final Effect effect;
 
-    public DefaultActionContext(String performingPlayer, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DefaultActionContext(String performingPlayer, DefaultGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
         this.performingPlayer = performingPlayer;
         this.game = game;
         this.source = source;
@@ -94,7 +94,7 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public LotroGame getGame() {
+    public DefaultGame getGame() {
         return game;
     }
 

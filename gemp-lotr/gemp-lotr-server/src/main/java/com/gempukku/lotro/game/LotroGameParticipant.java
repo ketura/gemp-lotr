@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.LotroDeck;
 
 public class LotroGameParticipant {
     private final String _playerId;

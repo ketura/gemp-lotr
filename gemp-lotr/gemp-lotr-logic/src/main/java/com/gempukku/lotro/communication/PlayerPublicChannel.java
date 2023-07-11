@@ -1,7 +1,7 @@
 package com.gempukku.lotro.communication;
 
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.cards.PhysicalCard;
 
 import java.util.List;
 

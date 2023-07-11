@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.LotroGameParticipant;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.LotroDeck;
 
 import java.util.*;
 import org.apache.log4j.Logger;

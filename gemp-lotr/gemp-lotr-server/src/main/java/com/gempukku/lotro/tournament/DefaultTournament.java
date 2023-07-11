@@ -8,8 +8,7 @@ import com.gempukku.lotro.draft.DefaultDraft;
 import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftPack;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.logic.vo.LotroDeck;
-import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.cards.LotroDeck;
 import com.gempukku.lotro.packs.ProductLibrary;
 import org.apache.commons.lang.StringUtils;
 

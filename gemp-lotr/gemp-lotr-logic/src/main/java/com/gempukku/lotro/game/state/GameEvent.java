@@ -3,10 +3,9 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.timing.GameStats;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.cards.LotroDeck;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

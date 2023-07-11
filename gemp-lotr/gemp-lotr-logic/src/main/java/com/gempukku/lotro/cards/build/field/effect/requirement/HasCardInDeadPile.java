@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.GameUtils;
 import org.json.simple.JSONObject;
 
 public class HasCardInDeadPile implements RequirementProducer {
@@ -22,7 +22,7 @@ public class HasCardInDeadPile implements RequirementProducer {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         return (actionContext) -> {
             final Filterable filterable = filterableSource.getFilterable(actionContext);
-            final LotroGame game = actionContext.getGame();
+            final DefaultGame game = actionContext.getGame();
 
             // You can "spot" cards in dead pile, only for current player
             return Filters.filter(game.getGameState().getDeadPile(GameUtils.getFreePeoplePlayer(game)), game, filterable).size() >= count;

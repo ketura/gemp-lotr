@@ -5,9 +5,9 @@ import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.effects.discount.*;
+import com.gempukku.lotro.game.effects.discount.*;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.effects.DiscountEffect;
 import org.json.simple.JSONObject;
 
 public class PotentialDiscount implements EffectProcessor {

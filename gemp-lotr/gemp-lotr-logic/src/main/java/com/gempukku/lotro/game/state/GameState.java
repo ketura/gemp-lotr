@@ -1,12 +1,12 @@
 package com.gempukku.lotro.game.state;
 
+import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.logic.PlayerOrder;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.timing.GameStats;
+import com.gempukku.lotro.game.timing.PlayerOrder;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.game.modifiers.ModifierFlag;
 import org.apache.log4j.Logger;
 
 import java.security.InvalidParameterException;
@@ -326,7 +326,7 @@ public class GameState {
             listener.cardMoved(card);
     }
 
-    public void takeControlOfCard(String playerId, LotroGame game, PhysicalCard card, Zone zone) {
+    public void takeControlOfCard(String playerId, DefaultGame game, PhysicalCard card, Zone zone) {
         ((PhysicalCardImpl) card).setCardController(playerId);
         ((PhysicalCardImpl) card).setZone(zone);
         if (card.getBlueprint().getCardType() == CardType.SITE)
@@ -344,7 +344,7 @@ public class GameState {
             listener.cardMoved(card);
     }
 
-    public void attachCard(LotroGame game, PhysicalCard card, PhysicalCard attachTo) throws InvalidParameterException {
+    public void attachCard(DefaultGame game, PhysicalCard card, PhysicalCard attachTo) throws InvalidParameterException {
         if(card == attachTo)
             throw new InvalidParameterException("Cannot attach card to itself!");
 
@@ -352,7 +352,7 @@ public class GameState {
         addCardToZone(game, card, Zone.ATTACHED);
     }
 
-    public void stackCard(LotroGame game, PhysicalCard card, PhysicalCard stackOn) throws InvalidParameterException {
+    public void stackCard(DefaultGame game, PhysicalCard card, PhysicalCard stackOn) throws InvalidParameterException {
         if(card == stackOn)
             throw new InvalidParameterException("Cannot stack card on itself!");
 
@@ -501,11 +501,11 @@ public class GameState {
         }
     }
 
-    public void addCardToZone(LotroGame game, PhysicalCard card, Zone zone) {
+    public void addCardToZone(DefaultGame game, PhysicalCard card, Zone zone) {
         addCardToZone(game, card, zone, true);
     }
 
-    private void addCardToZone(LotroGame game, PhysicalCard card, Zone zone, boolean end) {
+    private void addCardToZone(DefaultGame game, PhysicalCard card, Zone zone, boolean end) {
         if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
             zone = Zone.REMOVED;
 
@@ -660,7 +660,7 @@ public class GameState {
         _playerThreats.put(playerId, oldThreats - count);
     }
 
-    public void movePlayerToNextSite(LotroGame game) {
+    public void movePlayerToNextSite(DefaultGame game) {
         final String currentPlayerId = getCurrentPlayerId();
         final int oldPlayerPosition = getPlayerPosition(currentPlayerId);
         stopAffecting(getCurrentSite());
@@ -838,7 +838,7 @@ public class GameState {
         return true;
     }
 
-    public void startAffectingCardsForCurrentPlayer(LotroGame game) {
+    public void startAffectingCardsForCurrentPlayer(DefaultGame game) {
         // Active non-sites are affecting
         for (PhysicalCardImpl physicalCard : _inPlay) {
             if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
@@ -864,11 +864,11 @@ public class GameState {
                 startAffectingInDiscard(game, discardedCard);
     }
 
-    private void startAffectingControlledSite(LotroGame game, PhysicalCard physicalCard) {
+    private void startAffectingControlledSite(DefaultGame game, PhysicalCard physicalCard) {
         ((PhysicalCardImpl) physicalCard).startAffectingGameControlledSite(game);
     }
 
-    public void reapplyAffectingForCard(LotroGame game, PhysicalCard card) {
+    public void reapplyAffectingForCard(DefaultGame game, PhysicalCard card) {
         ((PhysicalCardImpl) card).stopAffectingGame();
         ((PhysicalCardImpl) card).startAffectingGame(game);
     }
@@ -899,7 +899,7 @@ public class GameState {
         ((PhysicalCardImpl) physicalCard).stopAffectingGameControlledSite();
     }
 
-    private void startAffecting(LotroGame game, PhysicalCard card) {
+    private void startAffecting(DefaultGame game, PhysicalCard card) {
         ((PhysicalCardImpl) card).startAffectingGame(game);
     }
 
@@ -907,7 +907,7 @@ public class GameState {
         ((PhysicalCardImpl) card).stopAffectingGame();
     }
 
-    private void startAffectingStacked(LotroGame game, PhysicalCard card) {
+    private void startAffectingStacked(DefaultGame game, PhysicalCard card) {
         if (isCardAffectingGame(card))
             ((PhysicalCardImpl) card).startAffectingGameStacked(game);
     }
@@ -917,7 +917,7 @@ public class GameState {
             ((PhysicalCardImpl) card).stopAffectingGameStacked();
     }
 
-    private void startAffectingInDiscard(LotroGame game, PhysicalCard card) {
+    private void startAffectingInDiscard(DefaultGame game, PhysicalCard card) {
         if (isCardAffectingGame(card))
             ((PhysicalCardImpl) card).startAffectingGameInDiscard(game);
     }

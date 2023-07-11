@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.game.timing.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class CantSpot implements RequirementProducer {

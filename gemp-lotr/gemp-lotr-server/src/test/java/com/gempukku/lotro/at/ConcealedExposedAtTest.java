@@ -3,10 +3,10 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.cards.GenericCardTestHelper;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.HashMap;

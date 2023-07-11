@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.state;
 
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 
 import java.util.HashSet;
 import java.util.Set;

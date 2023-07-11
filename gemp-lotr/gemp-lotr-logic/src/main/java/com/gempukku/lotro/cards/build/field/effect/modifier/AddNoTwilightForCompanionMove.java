@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.AddNoTwilightForCompanionMoveModifier;
+import com.gempukku.lotro.game.modifiers.AddNoTwilightForCompanionMoveModifier;
 import org.json.simple.JSONObject;
 
 public class AddNoTwilightForCompanionMove implements ModifierSourceProducer {

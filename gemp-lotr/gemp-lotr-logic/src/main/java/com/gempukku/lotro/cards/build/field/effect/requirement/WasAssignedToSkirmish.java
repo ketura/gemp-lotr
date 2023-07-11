@@ -8,8 +8,8 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
+import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.timing.results.AssignedToSkirmishResult;
 import org.json.simple.JSONObject;
 
 public class WasAssignedToSkirmish implements RequirementProducer {

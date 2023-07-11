@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.build.field.effect.trigger;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.DiscardCardFromDeckResult;
+import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.results.DiscardCardFromDeckResult;
 import org.json.simple.JSONObject;
 
 public class DiscardFromDeck implements TriggerCheckerProducer {

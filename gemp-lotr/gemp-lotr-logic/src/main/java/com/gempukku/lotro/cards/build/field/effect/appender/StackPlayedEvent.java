@@ -7,12 +7,12 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.StackPlayedEventOnACardEffect;
-import com.gempukku.lotro.logic.timing.DoNothingEffect;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.PlayEventResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.effects.StackPlayedEventOnACardEffect;
+import com.gempukku.lotro.game.timing.DoNothingEffect;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.results.PlayEventResult;
 import org.json.simple.JSONObject;
 
 public class StackPlayedEvent implements EffectAppenderProducer {

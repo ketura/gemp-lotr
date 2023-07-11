@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.cards.PhysicalCard;
 import org.json.simple.JSONObject;
 
 public class HasInZoneData implements RequirementProducer {

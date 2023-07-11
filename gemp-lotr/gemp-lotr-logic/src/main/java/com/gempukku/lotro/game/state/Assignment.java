@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.state;
 
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.cards.PhysicalCard;
 
 import java.util.Set;
 

@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.logic.modifiers.CantTakeMoreThanXWoundsModifier;
+import com.gempukku.lotro.game.modifiers.CantTakeMoreThanXWoundsModifier;
 import org.json.simple.JSONObject;
 
 public class CantTakeMoreWoundsThan implements ModifierSourceProducer {

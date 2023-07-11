@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect.trigger;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.DiscardCardFromHandResult;
+import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.results.DiscardCardFromHandResult;
 import org.json.simple.JSONObject;
 
 public class DiscardFromHand implements TriggerCheckerProducer {

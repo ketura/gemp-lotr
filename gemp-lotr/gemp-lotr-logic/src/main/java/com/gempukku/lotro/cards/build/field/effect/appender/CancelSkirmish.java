@@ -9,10 +9,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.effects.CancelSkirmishEffect;
+import com.gempukku.lotro.game.timing.Effect;
 import org.json.simple.JSONObject;
 
 public class CancelSkirmish implements EffectAppenderProducer {
@@ -34,7 +34,7 @@ public class CancelSkirmish implements EffectAppenderProducer {
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
                 final Filterable involving = filterableSource.getFilterable(actionContext);
-                final LotroGame game = actionContext.getGame();
+                final DefaultGame game = actionContext.getGame();
                 return game.getGameState().getSkirmish() != null
                         && !game.getGameState().getSkirmish().isCancelled()
                         && (Filters.countActive(game, Filters.and(involving, Filters.inSkirmish)) > 0)

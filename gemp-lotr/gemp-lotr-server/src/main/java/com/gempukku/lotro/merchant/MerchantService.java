@@ -1,9 +1,10 @@
 package com.gempukku.lotro.merchant;
 
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 import org.apache.commons.collections.map.LRUMap;
 
 import java.io.IOException;

@@ -1,5 +1,8 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.common.CardType;
 
 import java.util.Collections;

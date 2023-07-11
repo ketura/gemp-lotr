@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect;
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.ActionSource;
 import com.gempukku.lotro.cards.build.Requirement;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
 
 import java.util.LinkedList;
 import java.util.List;

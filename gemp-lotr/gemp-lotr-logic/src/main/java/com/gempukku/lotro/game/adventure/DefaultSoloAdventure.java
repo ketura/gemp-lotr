@@ -1,23 +1,23 @@
 package com.gempukku.lotro.game.adventure;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.SystemQueueAction;
-import com.gempukku.lotro.logic.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.processes.GameProcess;
-import com.gempukku.lotro.logic.timing.processes.pregame.SetupSoloAdventureGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.ShadowPhaseOfAIPlayerGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.ai.AIPlayerAssignsArcheryTotalGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.ai.AIPlayerAssignsMinionsGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.regroup.DiscardAllMinionsGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.regroup.ReturnFollowersToSupportGameProcess;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
+import com.gempukku.lotro.game.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.timing.processes.GameProcess;
+import com.gempukku.lotro.game.timing.processes.pregame.SetupSoloAdventureGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.ShadowPhaseOfAIPlayerGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.ai.AIPlayerAssignsArcheryTotalGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.ai.AIPlayerAssignsMinionsGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.regroup.DiscardAllMinionsGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.regroup.ReturnFollowersToSupportGameProcess;
+import com.gempukku.lotro.game.timing.results.PlayCardResult;
 
 import java.util.Set;
 
@@ -43,7 +43,7 @@ public class DefaultSoloAdventure extends SoloAdventure {
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override
-                    protected void doPlayEffect(LotroGame game) {
+                    protected void doPlayEffect(DefaultGame game) {
                         final GameState gameState = game.getGameState();
                         try {
                             PhysicalCard newSite = gameState.createPhysicalCard("AI", _library, _siteSelection.getNextSite(game));
@@ -86,7 +86,7 @@ public class DefaultSoloAdventure extends SoloAdventure {
     }
 
     @Override
-    public GameProcess getPlayerStaysGameProcess(LotroGame game, GameProcess followingProcess) {
+    public GameProcess getPlayerStaysGameProcess(DefaultGame game, GameProcess followingProcess) {
         return new ReturnFollowersToSupportGameProcess(
                 new DiscardAllMinionsGameProcess(followingProcess));
     }

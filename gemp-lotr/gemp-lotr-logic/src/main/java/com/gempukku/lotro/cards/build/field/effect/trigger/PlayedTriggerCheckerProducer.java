@@ -6,10 +6,10 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
-import com.gempukku.lotro.logic.timing.results.PlayEventResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.results.PlayCardResult;
+import com.gempukku.lotro.game.timing.results.PlayEventResult;
 import org.json.simple.JSONObject;
 
 public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {

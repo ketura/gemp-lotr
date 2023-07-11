@@ -4,9 +4,9 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.HealResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.results.HealResult;
 import org.json.simple.JSONObject;
 
 public class Heals implements TriggerCheckerProducer {

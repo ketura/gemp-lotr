@@ -7,11 +7,11 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.effects.StackActionEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.effects.StackActionEffect;
+import com.gempukku.lotro.game.timing.Effect;
 import org.json.simple.JSONObject;
 
 public class ForEachPlayer implements EffectAppenderProducer {

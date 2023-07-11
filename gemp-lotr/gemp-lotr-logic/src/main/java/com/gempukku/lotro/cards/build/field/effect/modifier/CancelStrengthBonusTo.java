@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.game.modifiers.CancelStrengthBonusTargetModifier;
+import com.gempukku.lotro.game.modifiers.Modifier;
 import org.json.simple.JSONObject;
 
 public class CancelStrengthBonusTo implements ModifierSourceProducer {

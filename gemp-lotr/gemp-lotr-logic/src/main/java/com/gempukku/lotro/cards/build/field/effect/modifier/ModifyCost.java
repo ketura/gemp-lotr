@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.game.modifiers.TwilightCostModifier;
+import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class ModifyCost implements ModifierSourceProducer {

@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
+import com.gempukku.lotro.game.modifiers.Modifier;
+import com.gempukku.lotro.game.modifiers.ModifierFlag;
+import com.gempukku.lotro.game.modifiers.SpecialFlagModifier;
 import org.json.simple.JSONObject;
 
 public class SarumanFirstSentenceInactive implements ModifierSourceProducer {

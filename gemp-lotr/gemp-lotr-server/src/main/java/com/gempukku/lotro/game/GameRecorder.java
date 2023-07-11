@@ -7,7 +7,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.LotroDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

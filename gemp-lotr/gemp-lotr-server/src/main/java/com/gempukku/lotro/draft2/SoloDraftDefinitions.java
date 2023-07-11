@@ -3,7 +3,7 @@ package com.gempukku.lotro.draft2;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.draft2.builder.*;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;

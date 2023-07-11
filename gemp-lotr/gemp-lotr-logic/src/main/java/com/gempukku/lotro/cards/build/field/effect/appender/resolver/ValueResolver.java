@@ -4,10 +4,10 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.evaluator.*;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.modifiers.evaluator.*;
+import com.gempukku.lotro.game.GameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -169,7 +169,7 @@ public class ValueResolver {
                 if (keyword == null)
                     throw new InvalidCardDefinitionException("Keyword cannot be null");
                 return (actionContext) -> {
-                    final LotroGame game = actionContext.getGame();
+                    final DefaultGame game = actionContext.getGame();
                     int count = 0;
                     final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                     for (PhysicalCard cardFromMemory : cardsFromMemory) {
@@ -221,7 +221,7 @@ public class ValueResolver {
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new MultiplyEvaluator(multiplier, new Evaluator() {
                     @Override
-                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         int count = 0;
                         for (String player : game.getGameState().getPlayerOrder().getAllPlayers())

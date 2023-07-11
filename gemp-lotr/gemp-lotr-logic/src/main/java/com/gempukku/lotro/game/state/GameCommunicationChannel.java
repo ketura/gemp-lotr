@@ -4,9 +4,8 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.timing.GameStats;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.polling.LongPollableResource;
 import com.gempukku.polling.WaitingRequest;
 

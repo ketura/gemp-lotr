@@ -2,8 +2,7 @@ package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.JSONDefs;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.util.JsonUtils;
 import org.json.simple.parser.JSONParser;
 

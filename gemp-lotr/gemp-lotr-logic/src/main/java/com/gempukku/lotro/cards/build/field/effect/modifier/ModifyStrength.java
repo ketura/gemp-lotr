@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.game.modifiers.StrengthModifier;
+import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class ModifyStrength implements ModifierSourceProducer {

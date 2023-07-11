@@ -1,7 +1,7 @@
 package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;

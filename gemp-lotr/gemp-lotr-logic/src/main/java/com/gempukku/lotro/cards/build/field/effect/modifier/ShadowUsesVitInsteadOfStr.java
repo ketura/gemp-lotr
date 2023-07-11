@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.ShadowSkirmishVitalityStrengthOverrideModifier;
+import com.gempukku.lotro.game.modifiers.ShadowSkirmishVitalityStrengthOverrideModifier;
 import org.json.simple.JSONObject;
 
 public class ShadowUsesVitInsteadOfStr implements ModifierSourceProducer {

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.builder;
 
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -7,6 +8,8 @@ import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.adventure.AdventureLibrary;
+import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;

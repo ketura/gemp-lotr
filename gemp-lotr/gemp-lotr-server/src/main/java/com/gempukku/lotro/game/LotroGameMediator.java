@@ -3,19 +3,19 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.hall.GameTimer;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.DefaultLotroGame;
-import com.gempukku.lotro.logic.timing.GameResultListener;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.modifiers.Modifier;
+import com.gempukku.lotro.game.timing.GameResultListener;
+import com.gempukku.lotro.cards.LotroDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -26,7 +26,7 @@ public class LotroGameMediator {
 
     private final Map<String, GameCommunicationChannel> _communicationChannels = Collections.synchronizedMap(new HashMap<>());
     private final DefaultUserFeedback _userFeedback;
-    private final DefaultLotroGame _lotroGame;
+    private final LotroGame _lotroGame;
     private final Map<String, Integer> _playerClocks = new HashMap<>();
     private final Map<String, Long> _decisionQuerySentTimes = new HashMap<>();
     private final Set<String> _playersPlaying = new HashSet<>();
@@ -63,7 +63,7 @@ public class LotroGameMediator {
         }
 
         _userFeedback = new DefaultUserFeedback();
-        _lotroGame = new DefaultLotroGame(lotroFormat, _playerDecks, _userFeedback, library);
+        _lotroGame = new LotroGame(lotroFormat, _playerDecks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
     }
 
@@ -83,7 +83,7 @@ public class LotroGameMediator {
         return _gameId;
     }
 
-    public DefaultLotroGame getGame() { return _lotroGame; }
+    public LotroGame getGame() { return _lotroGame; }
 
     public boolean isAllowSpectators() {
         return _allowSpectators;

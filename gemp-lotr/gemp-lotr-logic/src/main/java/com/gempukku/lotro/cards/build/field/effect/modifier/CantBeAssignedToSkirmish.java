@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
-import com.gempukku.lotro.logic.modifiers.CantBeAssignedToSkirmishModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.game.modifiers.CantBeAssignedToSkirmishModifier;
+import com.gempukku.lotro.game.modifiers.Modifier;
 import org.json.simple.JSONObject;
 
 public class CantBeAssignedToSkirmish implements ModifierSourceProducer {

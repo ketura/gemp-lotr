@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.EffectResult;
 
 import java.util.Collection;
 
@@ -11,12 +11,12 @@ public class DelegateActionContext implements ActionContext {
     private final ActionContext delegate;
 
     private final String performingPlayer;
-    private final LotroGame game;
+    private final DefaultGame game;
     private final PhysicalCard source;
     private final EffectResult effectResult;
     private final Effect effect;
 
-    public DelegateActionContext(ActionContext delegate, String performingPlayer, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DelegateActionContext(ActionContext delegate, String performingPlayer, DefaultGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
         this.delegate = delegate;
         this.performingPlayer = performingPlayer;
         this.game = game;
@@ -61,7 +61,7 @@ public class DelegateActionContext implements ActionContext {
     }
 
     @Override
-    public LotroGame getGame() {
+    public DefaultGame getGame() {
         return game;
     }
 

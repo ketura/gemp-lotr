@@ -4,20 +4,20 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.filter.FilterFactory;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.Assignment;
-import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.RuleUtils;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.actions.AbstractActionProxy;
+import com.gempukku.lotro.game.actions.ActionProxy;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.actions.RequiredTriggerAction;
+import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.game.modifiers.Modifier;
+import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.timing.PlayConditions;
+import com.gempukku.lotro.game.timing.rules.RuleUtils;
 import org.junit.Assert;
 
 import java.util.*;
@@ -993,7 +993,7 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
         ApplyAdHocAction(new AbstractActionProxy() {
             @Override
-            public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult)  {
+            public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult)  {
                 RequiredTriggerAction action = new RequiredTriggerAction(null);
                 action.appendEffect(
                         new DiscardCardsFromPlayEffect(P2, null, filterables));

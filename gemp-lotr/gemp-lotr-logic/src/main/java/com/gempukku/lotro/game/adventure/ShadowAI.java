@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.adventure;
 
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.Action;
 
 public interface ShadowAI {
-    public Action getNextShadowAction(LotroGame game);
+    public Action getNextShadowAction(DefaultGame game);
 }

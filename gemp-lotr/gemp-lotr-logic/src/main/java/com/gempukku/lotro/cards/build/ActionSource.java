@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
 
 public interface ActionSource {
     boolean requiresRanger();

@@ -2,9 +2,9 @@ package com.gempukku.lotro.library;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.game.GameUtils;
 import org.junit.Test;
 
 import java.util.HashMap;

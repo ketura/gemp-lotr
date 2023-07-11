@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.logic.modifiers.HasInitiativeModifier;
+import com.gempukku.lotro.game.modifiers.HasInitiativeModifier;
 import org.json.simple.JSONObject;
 
 public class ShadowHasInitiative implements ModifierSourceProducer {

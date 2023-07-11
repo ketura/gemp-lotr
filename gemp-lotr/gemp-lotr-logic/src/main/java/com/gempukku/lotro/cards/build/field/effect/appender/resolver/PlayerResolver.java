@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.GameUtils;
 
 import java.util.Locale;
 

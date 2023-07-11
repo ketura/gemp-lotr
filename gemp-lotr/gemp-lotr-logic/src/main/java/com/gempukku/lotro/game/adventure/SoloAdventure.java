@@ -2,16 +2,15 @@ package com.gempukku.lotro.game.adventure;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.Adventure;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
-import com.gempukku.lotro.logic.modifiers.CantReturnToHandModifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
+import com.gempukku.lotro.game.modifiers.CantDiscardFromPlayModifier;
+import com.gempukku.lotro.game.modifiers.CantReturnToHandModifier;
+import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 
 public abstract class SoloAdventure implements Adventure {
     @Override
-    public void applyAdventureRules(LotroGame game, DefaultActionsEnvironment actionsEnvironment, ModifiersLogic modifiersLogic) {
+    public void applyAdventureRules(DefaultGame game, DefaultActionsEnvironment actionsEnvironment, ModifiersLogic modifiersLogic) {
         modifiersLogic.addAlwaysOnModifier(
                 new CantDiscardFromPlayModifier(null, "Can't be discarded from play", CardType.ADVENTURE, Filters.any));
         modifiersLogic.addAlwaysOnModifier(

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.LotroDeck;
 
 public class DeckSerialization {
     public static String buildContentsFromDeck(LotroDeck deck) {

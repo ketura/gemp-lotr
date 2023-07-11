@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.LotroDeck;
 import com.mysql.cj.util.StringUtils;
 
 import java.util.*;

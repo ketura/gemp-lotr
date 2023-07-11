@@ -2,7 +2,7 @@ package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

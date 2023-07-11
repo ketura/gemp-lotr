@@ -1,7 +1,8 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.logic.GameUtils;
 import com.google.common.base.Strings;
 
 import java.util.*;

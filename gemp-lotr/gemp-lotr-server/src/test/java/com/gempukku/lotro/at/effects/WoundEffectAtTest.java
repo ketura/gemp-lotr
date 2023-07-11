@@ -1,21 +1,21 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.NegateWoundEffect;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.effects.NegateWoundEffect;
+import com.gempukku.lotro.game.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.AbstractActionProxy;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.game.actions.AbstractActionProxy;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.game.actions.RequiredTriggerAction;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.effects.WoundCharactersEffect;
+import com.gempukku.lotro.game.modifiers.ModifierFlag;
+import com.gempukku.lotro.game.modifiers.SpecialFlagModifier;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.EffectResult;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachWounded(game, effectResult, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -74,7 +74,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachWounded(game, effectResult, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -112,7 +112,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
+                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect) {
                         if (TriggerConditions.isGettingWounded(effect, game, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -125,7 +125,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
                     }
 
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachWounded(game, effectResult, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -168,7 +168,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
+                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect) {
                         if (TriggerConditions.isGettingWounded(effect, game, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -181,7 +181,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
                     }
 
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachWounded(game, effectResult, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -222,7 +222,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
+                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect) {
                         if (TriggerConditions.isGettingWounded(effect, game, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -235,7 +235,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
                     }
 
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachWounded(game, effectResult, merry)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(

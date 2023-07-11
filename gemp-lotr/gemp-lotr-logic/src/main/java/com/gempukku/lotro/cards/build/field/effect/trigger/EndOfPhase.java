@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.game.timing.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class EndOfPhase implements TriggerCheckerProducer {

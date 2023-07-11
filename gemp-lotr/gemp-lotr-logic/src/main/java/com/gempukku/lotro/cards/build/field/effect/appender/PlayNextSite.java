@@ -10,11 +10,11 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.PlayNextSiteEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.effects.PlayNextSiteEffect;
+import com.gempukku.lotro.game.timing.Effect;
 import org.json.simple.JSONObject;
 
 public class PlayNextSite implements EffectAppenderProducer {
@@ -29,7 +29,7 @@ public class PlayNextSite implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
-                final LotroGame game = actionContext.getGame();
+                final DefaultGame game = actionContext.getGame();
                 final int nextSiteNumber = game.getGameState().getCurrentSiteNumber() + 1;
                 final PhysicalCard nextSite = game.getGameState().getSite(nextSiteNumber);
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
@@ -44,7 +44,7 @@ public class PlayNextSite implements EffectAppenderProducer {
                 if (game.getFormat().isOrderedSites()) {
                     Filter printedSiteNumber = new Filter() {
                         @Override
-                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
                             return physicalCard.getBlueprint().getSiteNumber() == nextSiteNumber;
                         }
                     };

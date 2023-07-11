@@ -6,16 +6,16 @@ import com.gempukku.lotro.cards.build.field.effect.DefaultActionSource;
 import com.gempukku.lotro.cards.build.field.effect.EffectUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppender;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
-import com.gempukku.lotro.logic.effects.IncrementTurnLimitEffect;
-import com.gempukku.lotro.logic.modifiers.AddActionToCardModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.ActivateCardAction;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.effects.IncrementPhaseLimitEffect;
+import com.gempukku.lotro.game.effects.IncrementTurnLimitEffect;
+import com.gempukku.lotro.game.modifiers.AddActionToCardModifier;
+import com.gempukku.lotro.game.modifiers.Modifier;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.PlayConditions;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -77,7 +77,7 @@ public class AddActivated implements ModifierSourceProducer {
             public Modifier getModifier(ActionContext actionContext) {
                 return new AddActionToCardModifier(actionContext.getSource(), null, filterableSource.getFilterable(actionContext)) {
                     @Override
-                    public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, PhysicalCard card) {
+                    public List<? extends ActivateCardAction> getExtraPhaseAction(DefaultGame game, PhysicalCard card) {
                         LinkedList<ActivateCardAction> result = new LinkedList<>();
                         for (ActionSource inPlayPhaseAction : actionSources) {
                             DefaultActionContext actionContext = new DefaultActionContext(card.getOwner(), game, card, null, null);
@@ -92,7 +92,7 @@ public class AddActivated implements ModifierSourceProducer {
                     }
 
                     @Override
-                    protected ActivateCardAction createExtraPhaseAction(LotroGame game, PhysicalCard matchingCard) {
+                    protected ActivateCardAction createExtraPhaseAction(DefaultGame game, PhysicalCard matchingCard) {
                         return null;
                     }
                 };

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
 import org.json.simple.JSONObject;
 
 public class AidCost implements EffectProcessor {

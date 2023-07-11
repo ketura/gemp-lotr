@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Signet;
-import com.gempukku.lotro.logic.modifiers.AddSignetModifier;
+import com.gempukku.lotro.game.modifiers.AddSignetModifier;
 import org.json.simple.JSONObject;
 
 public class AddSignet implements ModifierSourceProducer {

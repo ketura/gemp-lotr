@@ -7,14 +7,14 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.RuleUtils;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.game.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.game.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.game.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.rules.RuleUtils;
 import org.json.simple.JSONObject;
 
 public class ReduceArcheryTotal implements EffectAppenderProducer {

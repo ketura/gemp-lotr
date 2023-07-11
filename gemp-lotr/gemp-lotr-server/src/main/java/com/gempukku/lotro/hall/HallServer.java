@@ -1,6 +1,9 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.*;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.DeckInvalidException;
+import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatCommandCallback;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatRoomMediator;
@@ -13,23 +16,20 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.timing.GameResultListener;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.timing.GameResultListener;
+import com.gempukku.lotro.cards.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.*;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import org.apache.log4j.Logger;
-
 
 
 public class HallServer extends AbstractServer {

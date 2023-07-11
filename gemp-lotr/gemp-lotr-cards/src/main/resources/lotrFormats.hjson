@@ -17,6 +17,7 @@
         minimumDeckSize: 35
         maximumSameName: 9999
         validateShadowFPCount: false
+        mulliganRule: false
     }
     {
         name:"Fellowship Block",

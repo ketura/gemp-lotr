@@ -5,11 +5,11 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.ExtraPlayCost;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
+import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.modifiers.Condition;
 import org.json.simple.JSONObject;
 
 public class ExtraCost implements EffectProcessor {
@@ -22,12 +22,12 @@ public class ExtraCost implements EffectProcessor {
         blueprint.appendExtraPlayCost(
                 (actionContext) -> new ExtraPlayCost() {
                     @Override
-                    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
+                    public void appendExtraCosts(DefaultGame game, CostToEffectAction action, PhysicalCard card) {
                         costAppender.appendEffect(true, action, actionContext);
                     }
 
                     @Override
-                    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
+                    public boolean canPayExtraCostsToPlay(DefaultGame game, PhysicalCard card) {
                         return costAppender.isPlayableInFull(actionContext);
                     }
 

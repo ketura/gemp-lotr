@@ -1,6 +1,8 @@
 package com.gempukku.lotro.logic;
 
 import static org.junit.Assert.assertEquals;
+
+import com.gempukku.lotro.game.GameUtils;
 import org.junit.Test;
 
 public class GameUtilsTest {

@@ -2,10 +2,10 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +25,7 @@ public abstract class DelayedAppender implements EffectAppender {
     public final void appendEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
         final UnrespondableEffect effect = new UnrespondableEffect() {
             @Override
-            protected void doPlayEffect(LotroGame game) {
+            protected void doPlayEffect(DefaultGame game) {
                 // Need to insert them, but in the reverse order
                 final List<? extends Effect> effects = createEffects(cost, action, actionContext);
                 if (effects != null) {
@@ -39,7 +39,7 @@ public abstract class DelayedAppender implements EffectAppender {
             }
 
             @Override
-            public String getText(LotroGame game) {
+            public String getText(DefaultGame game) {
                 return text;
             }
         };

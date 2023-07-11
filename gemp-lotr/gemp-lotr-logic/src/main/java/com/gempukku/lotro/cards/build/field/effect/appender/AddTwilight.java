@@ -8,14 +8,14 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.game.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.game.effects.AddTwilightEffect;
+import com.gempukku.lotro.game.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 public class AddTwilight implements EffectAppenderProducer {
@@ -46,7 +46,7 @@ public class AddTwilight implements EffectAppenderProducer {
                         } else {
                             return new UnrespondableEffect() {
                                 @Override
-                                protected void doPlayEffect(LotroGame game) {
+                                protected void doPlayEffect(DefaultGame game) {
                                     actionContext.setValueToMemory(memorize, String.valueOf(min));
                                 }
                             };
