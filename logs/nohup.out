@@ -2884,3 +2884,220 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 17:02:21,747 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1/cardInfo?cardId=24&participantId=null&_=1689181341744
 2023-07-12 17:02:23,504 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1/cardInfo?cardId=31&participantId=null&_=1689181343502
 2023-07-12 17:02:25,081 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1/cardInfo?cardId=35&participantId=null&_=1689181345079
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-12 20:58:03,322  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-12 20:58:03,343 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-12 20:58:03,927  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-12 20:58:03,929  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-12 20:58:04,016 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-12 20:58:04,023 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-12 20:58:04,142 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-12 20:58:04,164 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-12 20:58:04,168 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-12 20:58:04,170 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-12 20:58:04,446 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-12 20:58:04,477 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-12 20:58:04,479  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-12 20:58:04,488 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-12 20:58:05,053 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-12 20:58:05,055 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-12 20:58:05,198  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-12 20:58:05,200 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-12 20:58:05,574 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-12 20:58:05,594 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-12 20:58:05,596  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-12 20:58:05,602 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-12 20:58:05,604 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-12 20:58:05,622 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-12 20:58:05,627 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-12 20:58:05,629 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-12 20:58:05,631 DEBUG ITournamentService:133 - Created result object
+2023-07-12 20:58:05,635 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-12 20:58:05,637 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@25aca718
+2023-07-12 20:58:05,743 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 106ms
+2023-07-12 20:58:05,743 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-12 20:58:05,748 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-12 20:58:05,751 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-12 20:58:05,753 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-12 20:58:05,756 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-12 20:58:05,758 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-12 20:58:05,760 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-12 20:58:05,763 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-12 20:58:05,765  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-12 20:58:08,344 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 125ms
+2023-07-12 20:58:30,685 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
+2023-07-12 20:58:30,697 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@1e3b96cc
+2023-07-12 20:58:30,712 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-12 20:58:30,716 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-12 20:58:32,562 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-12 20:58:32,564 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-12 20:58:32,567 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-12 20:58:32,571 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@70edfd60
+2023-07-12 20:58:32,578 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-12 20:58:32,728 DEBUG BiddingGameProcess:28 - qwer
+2023-07-12 20:58:32,730 DEBUG BiddingGameProcess:28 - asdf
+2023-07-12 20:58:32,741 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-12 20:58:34,673 ERROR CardGameMediator:353 - Error processing game decision
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
+	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
+	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
+	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
+	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
+	at com.gempukku.lotro.async.handler.GameRequestHandler.handleRequest(GameRequestHandler.java:68)
+	at com.gempukku.lotro.async.handler.RootUriRequestHandler.handleRequest(RootUriRequestHandler.java:108)
+	at com.gempukku.lotro.async.GempukkuHttpRequestHandler.channelRead0(GempukkuHttpRequestHandler.java:92)
+	at com.gempukku.lotro.async.GempukkuHttpRequestHandler.channelRead0(GempukkuHttpRequestHandler.java:33)
+	at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+	at io.netty.handler.codec.MessageToMessageCodec.channelRead(MessageToMessageCodec.java:111)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-07-12 21:02:35,054 TRACE Game1:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
+2023-07-12 21:03:35,679 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
+2023-07-12 21:03:39,692 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1
+2023-07-12 21:03:40,236 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1
+2023-07-12 21:03:41,233 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-12 21:07:14,069  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-12 21:07:14,088 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-12 21:07:14,647  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-12 21:07:14,649  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-12 21:07:14,719 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-12 21:07:14,726 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-12 21:07:14,853 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-12 21:07:14,879 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-12 21:07:14,883 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-12 21:07:14,885 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-12 21:07:15,260 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-12 21:07:15,301 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-12 21:07:15,302  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-12 21:07:15,312 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-12 21:07:15,734 DEBUG DbAccess:87 - setupDataSource - unable to connect
+2023-07-12 21:07:15,736 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-12 21:07:15,886  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-12 21:07:15,888 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-12 21:07:16,230 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-12 21:07:16,244 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-12 21:07:16,245  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-12 21:07:16,246 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-12 21:07:16,249 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-12 21:07:16,250 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-12 21:07:16,252 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-12 21:07:16,254 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-12 21:07:16,255 DEBUG ITournamentService:133 - Created result object
+2023-07-12 21:07:16,256 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-12 21:07:16,258 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@6b58b9e9
+2023-07-12 21:07:16,604 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 341ms
+2023-07-12 21:07:16,604 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 349ms
+2023-07-12 21:07:16,605 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-12 21:07:16,608 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-12 21:07:16,609 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-12 21:07:16,610 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-12 21:07:16,612 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-12 21:07:16,613 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-12 21:07:16,614 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-12 21:07:16,615 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-12 21:07:16,616  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-12 21:07:18,900 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 105ms
+2023-07-12 21:07:33,697 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-12 21:07:33,706 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@20188adf
+2023-07-12 21:07:33,715 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-12 21:07:33,718 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-12 21:07:37,059 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-12 21:07:37,061 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-12 21:07:37,062 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
+2023-07-12 21:07:37,065 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@3cda015b
+2023-07-12 21:07:37,070 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-12 21:07:37,206 DEBUG BiddingGameProcess:28 - qwer
+2023-07-12 21:07:37,207 DEBUG BiddingGameProcess:28 - asdf
+2023-07-12 21:07:37,218 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-12 21:07:39,911 ERROR CardGameMediator:353 - Error processing game decision
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
+	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
+	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
+	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
+	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
+	at com.gempukku.lotro.async.handler.GameRequestHandler.handleRequest(GameRequestHandler.java:68)
+	at com.gempukku.lotro.async.handler.RootUriRequestHandler.handleRequest(RootUriRequestHandler.java:108)
+	at com.gempukku.lotro.async.GempukkuHttpRequestHandler.channelRead0(GempukkuHttpRequestHandler.java:92)
+	at com.gempukku.lotro.async.GempukkuHttpRequestHandler.channelRead0(GempukkuHttpRequestHandler.java:33)
+	at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+	at io.netty.handler.codec.MessageToMessageCodec.channelRead(MessageToMessageCodec.java:111)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:103)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:436)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:327)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:299)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:251)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1410)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:379)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:365)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:919)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:722)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:658)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:584)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:496)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:995)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-07-12 21:07:40,179 DEBUG LoggingProxy:34 - GameHistoryDAO::addGameHistory(...) 104ms
