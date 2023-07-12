@@ -11,7 +11,6 @@ import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.actions.lotronly.PlayEventAction;
 import com.gempukku.lotro.game.actions.lotronly.PlayPermanentAction;
 import com.gempukku.lotro.game.rules.RuleUtils;
-import com.gempukku.lotro.game.timing.PlayConditions;
 import com.google.common.collect.ImmutableMap;
 import com.gempukku.lotro.game.rules.PlayUtils;
 

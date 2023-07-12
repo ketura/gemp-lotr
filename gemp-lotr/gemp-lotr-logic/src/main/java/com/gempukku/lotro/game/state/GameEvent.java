@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;

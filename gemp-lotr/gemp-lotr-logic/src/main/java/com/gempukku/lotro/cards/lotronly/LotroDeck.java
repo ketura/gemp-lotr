@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards;
+package com.gempukku.lotro.cards.lotronly;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,7 @@ public class LotroDeck {
     private String _ringBearer;
     private String _ring;
     private final List<String> _siteCards = new ArrayList<>();
-    private final List<String> _nonSiteCards = new ArrayList<>();
+    private final List<String> _drawDeckCards = new ArrayList<>();
     private final String _deckName;
     private String _notes;
 
@@ -31,15 +31,15 @@ public class LotroDeck {
     }
 
     public void addCard(String card) {
-        _nonSiteCards.add(card);
+        _drawDeckCards.add(card);
     }
 
     public void addSite(String card) {
         _siteCards.add(card);
     }
 
-    public List<String> getAdventureCards() {
-        return Collections.unmodifiableList(_nonSiteCards);
+    public List<String> getDrawDeckCards() {
+        return Collections.unmodifiableList(_drawDeckCards);
     }
 
     public List<String> getSites() {

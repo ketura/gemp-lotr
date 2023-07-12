@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
@@ -65,7 +65,7 @@ public class TribblesGame implements DefaultGame {
 
             LotroDeck lotroDeck = decks.get(playerId);
             deck.addAll(lotroDeck.getSites());
-            deck.addAll(lotroDeck.getAdventureCards());
+            deck.addAll(lotroDeck.getDrawDeckCards());
 
             cards.put(playerId, deck);
         }

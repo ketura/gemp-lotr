@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 public class DeckSerialization {
     public static String buildContentsFromDeck(LotroDeck deck) {
@@ -17,10 +17,10 @@ public class DeckSerialization {
             sb.append(deck.getSites().get(i));
         }
         sb.append("|");
-        for (int i = 0; i < deck.getAdventureCards().size(); i++) {
+        for (int i = 0; i < deck.getDrawDeckCards().size(); i++) {
             if (i > 0)
                 sb.append(",");
-            sb.append(deck.getAdventureCards().get(i));
+            sb.append(deck.getDrawDeckCards().get(i));
         }
 
         return sb.toString();

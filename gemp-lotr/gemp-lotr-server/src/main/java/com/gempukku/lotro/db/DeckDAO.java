@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.game.Player;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.Map;
 import java.util.Set;

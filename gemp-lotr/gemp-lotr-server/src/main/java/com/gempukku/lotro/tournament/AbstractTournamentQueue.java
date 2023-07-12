@@ -3,7 +3,7 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.io.IOException;
 import java.sql.SQLException;

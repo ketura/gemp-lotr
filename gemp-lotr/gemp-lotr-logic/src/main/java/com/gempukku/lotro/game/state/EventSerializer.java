@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -93,7 +93,7 @@ public class EventSerializer {
             deckElement.setAttribute("rb", deck.getRingBearer());
             deckElement.setAttribute("ring", deck.getRing());
             deckElement.setAttribute("sites", String.join(",", deck.getSites()));
-            deckElement.setAttribute("deck", String.join(",", deck.getAdventureCards()));
+            deckElement.setAttribute("deck", String.join(",", deck.getDrawDeckCards()));
 
             eventElem.appendChild(deckElement);
         }

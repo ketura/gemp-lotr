@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

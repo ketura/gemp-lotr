@@ -7,7 +7,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -199,7 +199,7 @@ public class GameRecorder {
                     deckElement.setAttribute("rb", deck.getRingBearer());
                     deckElement.setAttribute("ring", deck.getRing());
                     deckElement.setAttribute("sites", String.join(",", deck.getSites()));
-                    deckElement.setAttribute("deck", String.join(",", deck.getAdventureCards()));
+                    deckElement.setAttribute("deck", String.join(",", deck.getDrawDeckCards()));
 
                     info.appendChild(deckElement);
                 }

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.filter.FilterFactory;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.DefaultGame;

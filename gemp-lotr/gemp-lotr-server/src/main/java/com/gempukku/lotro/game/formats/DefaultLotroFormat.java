@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.adventure.Adventure;
 import com.gempukku.lotro.game.adventure.AdventureLibrary;
 import com.gempukku.lotro.game.rules.GameUtils;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -363,7 +363,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
         String prevLine = "";
         String newLine = "";
-        for (String card : deck.getAdventureCards()){
+        for (String card : deck.getDrawDeckCards()){
             newLine = validateCard(card);
             if(newLine == null || newLine.isEmpty())
                 continue;
@@ -402,7 +402,7 @@ public class DefaultLotroFormat implements LotroFormat {
         if (deck.getRingBearer() != null) {
             processCardCounts(deck.getRingBearer(), cardCountByName, cardCountByBaseBlueprintId);
         }
-        for (String blueprintId : deck.getAdventureCards())
+        for (String blueprintId : deck.getDrawDeckCards())
             processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
         for (String blueprintId : deck.getSites())
             processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
@@ -464,7 +464,7 @@ public class DefaultLotroFormat implements LotroFormat {
         if (deck.getRing() != null) {
             deckWithErrata.setRing(applyErrata(deck.getRing()));
         }
-        for (String card : deck.getAdventureCards()) {
+        for (String card : deck.getDrawDeckCards()) {
             deckWithErrata.addCard(applyErrata(card));
         }
         for (String site : deck.getSites()) {
@@ -498,13 +498,13 @@ public class DefaultLotroFormat implements LotroFormat {
 
     private String validateDeckStructure(LotroDeck deck) {
         String result = "";
-        if (deck.getAdventureCards().size() < _minimumDeckSize) {
-            result += "Deck contains below minimum number of cards: " + deck.getAdventureCards().size() + "<" + _minimumDeckSize + ".\n";
+        if (deck.getDrawDeckCards().size() < _minimumDeckSize) {
+            result += "Deck contains below minimum number of cards: " + deck.getDrawDeckCards().size() + "<" + _minimumDeckSize + ".\n";
         }
         if (_validateShadowFPCount) {
             int shadow = 0;
             int fp = 0;
-            for (String blueprintId : deck.getAdventureCards()) {
+            for (String blueprintId : deck.getDrawDeckCards()) {
                 try {
                     LotroCardBlueprint card = _library.getLotroCardBlueprint(blueprintId);
                     if (card.getSide() == Side.SHADOW)

@@ -19,7 +19,7 @@ import com.gempukku.lotro.game.modifiers.ModifierFlag;
 import com.gempukku.lotro.game.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.game.effects.EffectResult;
 import com.gempukku.lotro.game.timing.TriggerConditions;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.junit.Test;
 
 import java.util.*;

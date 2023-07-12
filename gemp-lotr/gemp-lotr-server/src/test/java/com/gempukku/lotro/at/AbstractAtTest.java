@@ -2,6 +2,7 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;

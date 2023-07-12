@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.modifiers.Modifier;
 import com.gempukku.lotro.game.timing.GameResultListener;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;

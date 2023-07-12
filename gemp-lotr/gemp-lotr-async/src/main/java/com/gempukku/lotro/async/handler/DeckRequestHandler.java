@@ -14,7 +14,7 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.SealedLeagueDefinition;
 import com.gempukku.lotro.game.rules.GameUtils;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -142,7 +142,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
             int fpCount = 0;
             int shadowCount = 0;
-            for (String card : deck.getAdventureCards()) {
+            for (String card : deck.getDrawDeckCards()) {
                 Side side = _library.getLotroCardBlueprint(card).getSide();
                 if (side == Side.SHADOW)
                     shadowCount++;
@@ -371,7 +371,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             result.append("<b>Ring:</b> " + generateCardTooltip(_library.getLotroCardBlueprint(ring), ring) + "<br/>");
 
         DefaultCardCollection deckCards = new DefaultCardCollection();
-        for (String card : deck.getAdventureCards())
+        for (String card : deck.getDrawDeckCards())
             deckCards.addItem(_library.getBaseBlueprintId(card), 1);
         for (String site : deck.getSites())
             deckCards.addItem(_library.getBaseBlueprintId(site), 1);
@@ -585,7 +585,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             deckElem.appendChild(site);
         }
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, _formatLibrary)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getDrawDeckCards()), _library, _formatLibrary)) {
             Element card = doc.createElement("card");
             String side;
             try {

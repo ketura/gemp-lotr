@@ -339,19 +339,19 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-11 18:42:01,027  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 18:42:04,763 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 120ms
 2023-07-11 18:42:22,593 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 18:42:22,601 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@203f7a70
+2023-07-11 18:42:22,601 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@203f7a70
 2023-07-11 18:42:22,613 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 18:42:22,616 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 18:42:25,125 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 18:42:25,127 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 18:42:25,129 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Tribbles
-2023-07-11 18:42:25,133 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@2fd7643e
+2023-07-11 18:42:25,133 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2fd7643e
 2023-07-11 18:42:25,152 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Tribbles
 2023-07-11 18:42:25,156 DEBUG HallServer:625 - Player 'Librarian' attempting to use deck 'Tribbles' but failed.
 2023-07-11 18:42:30,687 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 18:42:30,689 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 18:42:30,691 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 18:42:30,694 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@2bbdd038
+2023-07-11 18:42:30,694 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2bbdd038
 2023-07-11 18:42:30,700 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 18:42:30,898 DEBUG BiddingGameProcess:27 - BiddingGameProcess - process called
 2023-07-11 18:42:30,900 DEBUG BiddingGameProcess:28 - Naming players:
@@ -456,19 +456,19 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-11 19:09:10,650 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 147ms
 2023-07-11 19:09:13,015 DEBUG LoggingProxy:34 - CollectionDAO::getPlayerCollection(...) 100ms
 2023-07-11 19:09:28,224 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 19:09:28,234 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@78d7e8ea
+2023-07-11 19:09:28,234 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@78d7e8ea
 2023-07-11 19:09:28,246 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 19:09:28,250 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 19:09:30,813 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 19:09:30,815 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 19:09:30,817 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Tribbles
-2023-07-11 19:09:30,821 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@146932b
+2023-07-11 19:09:30,821 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@146932b
 2023-07-11 19:09:30,836 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Tribbles
 2023-07-11 19:09:30,840 DEBUG HallServer:625 - Player 'Librarian' attempting to use deck 'Tribbles' but failed.
 2023-07-11 19:09:37,540 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 19:09:37,542 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 19:09:37,544 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 19:09:37,547 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@2d3b3283
+2023-07-11 19:09:37,547 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2d3b3283
 2023-07-11 19:09:37,553 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 19:09:37,748 DEBUG BiddingGameProcess:28 - qwer
 2023-07-11 19:09:37,750 DEBUG BiddingGameProcess:28 - asdf
@@ -569,13 +569,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 19:21:42,038  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 19:21:44,768 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 152ms
 2023-07-11 19:21:58,690 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 19:21:58,699 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@151861de
+2023-07-11 19:21:58,699 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@151861de
 2023-07-11 19:21:58,709 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 19:21:58,712 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 19:22:03,426 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 19:22:03,427 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 19:22:03,428 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 19:22:03,431 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@272d5724
+2023-07-11 19:22:03,431 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@272d5724
 2023-07-11 19:22:03,437 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 19:22:03,619 DEBUG BiddingGameProcess:28 - qwer
 2023-07-11 19:22:03,620 DEBUG BiddingGameProcess:28 - asdf
@@ -676,13 +676,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 20:17:44,970  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 20:17:47,138 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 129ms
 2023-07-11 20:18:30,578 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 20:18:30,586 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@4e4f7b00
+2023-07-11 20:18:30,586 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@4e4f7b00
 2023-07-11 20:18:30,595 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 20:18:30,598 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 20:18:33,213 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 20:18:33,214 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 20:18:33,216 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 20:18:33,220 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@65e8bc52
+2023-07-11 20:18:33,220 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@65e8bc52
 2023-07-11 20:18:33,224 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 20:18:33,413 DEBUG BiddingGameProcess:28 - qwer
 2023-07-11 20:18:33,415 DEBUG BiddingGameProcess:28 - asdf
@@ -788,13 +788,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-11 20:25:19,337  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 20:25:23,280 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 144ms
 2023-07-11 20:25:43,032 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 20:25:43,042 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@68082ac4
+2023-07-11 20:25:43,042 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@68082ac4
 2023-07-11 20:25:43,055 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 20:25:43,059 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 20:25:52,498 DEBUG HallRequestHandler:97 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 20:25:52,500 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 20:25:52,502 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 20:25:52,507 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@6a852c91
+2023-07-11 20:25:52,507 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@6a852c91
 2023-07-11 20:25:52,513 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 20:25:52,715 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 20:25:52,717 DEBUG BiddingGameProcess:26 - asdf
@@ -906,13 +906,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-11 20:48:47,011 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689108526550
 2023-07-11 20:48:48,300 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 149ms
 2023-07-11 20:49:07,142 DEBUG HallServer:621 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 20:49:07,151 DEBUG HallServer:639 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@40c4bed1
+2023-07-11 20:49:07,151 DEBUG HallServer:639 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@40c4bed1
 2023-07-11 20:49:07,163 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 20:49:07,166 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 20:49:10,065 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 20:49:10,068 DEBUG HallServer:456 - HallServer - joinTableAsPlayer function called
 2023-07-11 20:49:10,069 DEBUG HallServer:621 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 20:49:10,075 DEBUG HallServer:639 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@6015b527
+2023-07-11 20:49:10,075 DEBUG HallServer:639 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@6015b527
 2023-07-11 20:49:10,081 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 20:49:10,285 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 20:49:10,287 DEBUG BiddingGameProcess:26 - asdf
@@ -1019,19 +1019,19 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-11 21:09:28,226 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemmp
 2023-07-11 21:09:28,269 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /favicon.ico
 2023-07-11 21:09:36,114 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 21:09:36,124 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@4aa20903
+2023-07-11 21:09:36,124 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@4aa20903
 2023-07-11 21:09:36,134 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 21:09:36,137 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 21:09:38,076 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 21:09:38,078 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 21:09:38,080 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Tribbles
-2023-07-11 21:09:38,085 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@4cd1927e
+2023-07-11 21:09:38,085 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@4cd1927e
 2023-07-11 21:09:38,103 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Tribbles
 2023-07-11 21:09:38,108 DEBUG HallServer:625 - Player 'Librarian' attempting to use deck 'Tribbles' but failed.
 2023-07-11 21:09:42,592 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 21:09:42,593 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 21:09:42,595 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 21:09:42,598 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@4f67e90e
+2023-07-11 21:09:42,598 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@4f67e90e
 2023-07-11 21:09:42,622 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 21:09:42,823 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 21:09:42,826 DEBUG BiddingGameProcess:26 - asdf
@@ -1091,13 +1091,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 21:23:25,534 DEBUG LoggingProxy:34 - DeckDAO::deleteDeckForPlayer(...) 128ms
 2023-07-11 22:03:50,203 DEBUG HallRequestHandler:17 - HTTP 409 response for /gemp-lotr-server/hall/update
 2023-07-11 22:03:52,426 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 22:03:52,429 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@2acc2641
+2023-07-11 22:03:52,429 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2acc2641
 2023-07-11 22:03:52,440 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 22:03:52,442 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 22:03:58,415 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 22:03:58,417 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 22:03:58,419 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 22:03:58,421 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@6d3604d8
+2023-07-11 22:03:58,421 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@6d3604d8
 2023-07-11 22:03:58,426 TRACE Game2:103 - System: Welcome to room: Game2
 2023-07-11 22:03:58,435 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 22:03:58,437 DEBUG BiddingGameProcess:26 - asdf
@@ -1197,13 +1197,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 22:16:06,215  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 22:16:08,839 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 159ms
 2023-07-11 22:16:22,127 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 22:16:22,140 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@576aebcd
+2023-07-11 22:16:22,140 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@576aebcd
 2023-07-11 22:16:22,151 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 22:16:22,156 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 22:16:25,040 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 22:16:25,044 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 22:16:25,048 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 22:16:25,054 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@bec1e4c
+2023-07-11 22:16:25,054 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@bec1e4c
 2023-07-11 22:16:25,068 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 22:16:25,306 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 22:16:25,307 DEBUG BiddingGameProcess:26 - asdf
@@ -1309,13 +1309,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-11 22:26:57,686 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 151ms
 2023-07-11 22:27:00,128 DEBUG LoggingProxy:34 - CollectionDAO::getPlayerCollection(...) 117ms
 2023-07-11 22:27:10,652 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 22:27:10,665 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@315df7ac
+2023-07-11 22:27:10,665 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@315df7ac
 2023-07-11 22:27:10,680 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 22:27:10,684 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 22:27:12,319 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 22:27:12,322 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 22:27:12,324 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 22:27:12,329 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@25ab0164
+2023-07-11 22:27:12,329 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@25ab0164
 2023-07-11 22:27:12,336 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 22:27:12,536 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 22:27:12,539 DEBUG BiddingGameProcess:26 - asdf
@@ -1415,13 +1415,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 23:03:55,143  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 23:03:58,236 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 211ms
 2023-07-11 23:04:10,832 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:04:10,842 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@74b46570
+2023-07-11 23:04:10,842 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@74b46570
 2023-07-11 23:04:10,854 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:04:10,857 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:04:12,880 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:04:12,882 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:04:12,884 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:04:12,889 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@5b4058a4
+2023-07-11 23:04:12,889 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@5b4058a4
 2023-07-11 23:04:12,896 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 23:04:13,128 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:04:13,130 DEBUG BiddingGameProcess:26 - asdf
@@ -1523,13 +1523,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 23:11:32,637 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 134ms
 2023-07-11 23:11:40,343 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/login
 2023-07-11 23:11:46,107 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:11:46,115 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@79fcd27f
+2023-07-11 23:11:46,115 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@79fcd27f
 2023-07-11 23:11:46,125 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:11:46,128 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:11:47,584 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:11:47,586 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:11:47,588 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:11:47,595 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@6b27c5a2
+2023-07-11 23:11:47,595 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@6b27c5a2
 2023-07-11 23:11:47,603 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 23:11:47,857 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:11:47,859 DEBUG BiddingGameProcess:26 - asdf
@@ -1672,13 +1672,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 23:16:34,023  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-11 23:16:36,586 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 158ms
 2023-07-11 23:16:49,169 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:16:49,180 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@68069c8a
+2023-07-11 23:16:49,180 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@68069c8a
 2023-07-11 23:16:49,194 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:16:49,198 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:16:51,005 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:16:51,007 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:16:51,008 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:16:51,013 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@417f9cdb
+2023-07-11 23:16:51,013 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@417f9cdb
 2023-07-11 23:16:51,020 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-11 23:16:51,229 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:16:51,231 DEBUG BiddingGameProcess:26 - asdf
@@ -1737,13 +1737,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:21:58,235 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1
 2023-07-11 23:22:03,194 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
 2023-07-11 23:41:34,129 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:41:34,132 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@7be4b95e
+2023-07-11 23:41:34,132 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@7be4b95e
 2023-07-11 23:41:34,138 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:41:34,141 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:41:36,006 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:41:36,009 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:41:36,010 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:41:36,012 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@5fc67b98
+2023-07-11 23:41:36,012 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@5fc67b98
 2023-07-11 23:41:36,019 TRACE Game2:103 - System: Welcome to room: Game2
 2023-07-11 23:41:36,021 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:41:36,023 DEBUG BiddingGameProcess:26 - asdf
@@ -1797,13 +1797,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 2023-07-11 23:42:43,878 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:42:43,880 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@55bd5f77
+2023-07-11 23:42:43,880 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@55bd5f77
 2023-07-11 23:42:43,884 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:42:43,885 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:42:47,021 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:42:47,023 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:42:47,024 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:42:47,028 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@3408424b
+2023-07-11 23:42:47,028 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@3408424b
 2023-07-11 23:42:47,035 TRACE Game3:103 - System: Welcome to room: Game3
 2023-07-11 23:42:47,040 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:42:47,042 DEBUG BiddingGameProcess:26 - asdf
@@ -1857,13 +1857,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 2023-07-11 23:43:16,767 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:43:16,768 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@aae9b4d
+2023-07-11 23:43:16,768 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@aae9b4d
 2023-07-11 23:43:16,772 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:43:16,773 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:43:19,045 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:43:19,047 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:43:19,049 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:43:19,051 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@72e32393
+2023-07-11 23:43:19,051 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@72e32393
 2023-07-11 23:43:19,055 TRACE Game4:103 - System: Welcome to room: Game4
 2023-07-11 23:43:46,569 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:43:46,573 DEBUG BiddingGameProcess:26 - asdf
@@ -1925,13 +1925,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:51:36,200 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/4
 2023-07-11 23:51:39,182 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game4
 2023-07-11 23:57:30,799 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-11 23:57:30,801 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@4bf4aa1c
+2023-07-11 23:57:30,801 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@4bf4aa1c
 2023-07-11 23:57:30,806 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-11 23:57:30,807 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-11 23:57:32,742 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-11 23:57:32,743 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-11 23:57:32,745 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-11 23:57:32,746 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@3d11ea2e
+2023-07-11 23:57:32,746 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@3d11ea2e
 2023-07-11 23:57:32,750 TRACE Game5:103 - System: Welcome to room: Game5
 2023-07-11 23:57:32,752 DEBUG BiddingGameProcess:26 - qwer
 2023-07-11 23:57:32,754 DEBUG BiddingGameProcess:26 - asdf
@@ -1987,13 +1987,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:58:12,385 DEBUG LoggingProxy:34 - GameHistoryDAO::addGameHistory(...) 354ms
 Listening for transport dt_socket at address: 8000
 2023-07-12 00:00:39,828 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 00:00:39,830 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@24d00764
+2023-07-12 00:00:39,830 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@24d00764
 2023-07-12 00:00:39,835 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 00:00:39,836 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 00:00:41,294 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 00:00:41,296 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 00:00:41,298 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 00:00:41,300 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@112d9c88
+2023-07-12 00:00:41,300 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@112d9c88
 2023-07-12 00:00:41,316 TRACE Game6:103 - System: Welcome to room: Game6
 2023-07-12 00:00:41,320 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 00:00:41,331 DEBUG BiddingGameProcess:26 - asdf
@@ -2049,13 +2049,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 00:00:43,777 DEBUG LoggingProxy:34 - GameHistoryDAO::addGameHistory(...) 393ms
 2023-07-12 00:02:12,803 TRACE Game5:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
 2023-07-12 00:02:34,270 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 00:02:34,272 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@746234cc
+2023-07-12 00:02:34,272 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@746234cc
 2023-07-12 00:02:34,278 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 00:02:34,280 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 00:02:35,656 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 00:02:35,657 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 00:02:35,658 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 00:02:35,660 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@3c64a754
+2023-07-12 00:02:35,660 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@3c64a754
 2023-07-12 00:02:35,665 TRACE Game7:103 - System: Welcome to room: Game7
 2023-07-12 00:02:35,668 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 00:02:35,669 DEBUG BiddingGameProcess:26 - asdf
@@ -2170,13 +2170,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-12 00:04:31,355 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689120270906
 2023-07-12 00:04:31,355 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689120270907
 2023-07-12 00:04:47,187 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 00:04:47,195 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@1db73c59
+2023-07-12 00:04:47,195 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@1db73c59
 2023-07-12 00:04:47,207 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 00:04:47,210 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 00:04:49,197 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 00:04:49,199 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 00:04:49,201 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 00:04:49,206 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@49013a2
+2023-07-12 00:04:49,206 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@49013a2
 2023-07-12 00:04:49,213 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-12 00:04:49,496 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 00:04:49,499 DEBUG BiddingGameProcess:26 - asdf
@@ -2230,13 +2230,13 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:833)
 2023-07-12 00:05:08,035 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 00:05:08,037 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@64423ee1
+2023-07-12 00:05:08,037 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@64423ee1
 2023-07-12 00:05:08,041 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 00:05:08,042 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 00:05:09,580 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 00:05:09,582 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 00:05:09,583 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 00:05:09,585 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@2a32a08b
+2023-07-12 00:05:09,585 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2a32a08b
 2023-07-12 00:05:09,592 TRACE Game2:103 - System: Welcome to room: Game2
 2023-07-12 00:05:17,502 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 00:05:17,506 DEBUG BiddingGameProcess:26 - asdf
@@ -2356,13 +2356,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 00:21:01,416 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689121261018
 2023-07-12 00:21:01,430 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689121261016
 2023-07-12 00:21:07,337 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 00:21:07,351 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@596131b6
+2023-07-12 00:21:07,351 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@596131b6
 2023-07-12 00:21:07,365 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 00:21:07,370 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 00:21:09,529 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 00:21:09,532 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 00:21:09,535 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 00:21:09,541 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@2903bcd6
+2023-07-12 00:21:09,541 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2903bcd6
 2023-07-12 00:21:09,552 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-12 00:21:09,793 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 00:21:09,796 DEBUG BiddingGameProcess:26 - asdf
@@ -2480,13 +2480,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 10:20:26,638  WARN LoggingProxy:30 - PlayerDAO::loginUser(...) 1208ms
 2023-07-12 10:20:27,231 DEBUG LoggingProxy:34 - CollectionDAO::getPlayerCollection(...) 114ms
 2023-07-12 10:20:39,351 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 10:20:39,360 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@5c7f0653
+2023-07-12 10:20:39,360 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@5c7f0653
 2023-07-12 10:20:39,372 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 10:20:39,375 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 10:20:41,735 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 10:20:41,737 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 10:20:41,738 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 10:20:41,741 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@37b4cb5c
+2023-07-12 10:20:41,741 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@37b4cb5c
 2023-07-12 10:20:41,746 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-12 10:20:41,853 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 10:20:41,854 DEBUG BiddingGameProcess:26 - asdf
@@ -2587,13 +2587,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 10:41:59,932 DEBUG AbstractServer:19 - Started: ChatServer
 2023-07-12 10:41:59,933  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-12 10:42:06,879 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 10:42:06,887 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@282bfff
+2023-07-12 10:42:06,887 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@282bfff
 2023-07-12 10:42:06,900 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 10:42:06,903 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 10:42:15,961 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 10:42:15,963 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 10:42:15,964 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 10:42:15,967 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@12b6fe69
+2023-07-12 10:42:15,967 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@12b6fe69
 2023-07-12 10:42:15,973 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-12 10:42:16,085 DEBUG BiddingGameProcess:26 - qwer
 2023-07-12 10:42:16,087 DEBUG BiddingGameProcess:26 - asdf
@@ -2705,13 +2705,13 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 14:49:18,782  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-12 14:49:22,691 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 139ms
 2023-07-12 14:49:33,992 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 14:49:34,001 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@c2b004
+2023-07-12 14:49:34,001 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@c2b004
 2023-07-12 14:49:34,010 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 14:49:34,014 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 14:49:35,581 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 14:49:35,584 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 14:49:35,586 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 14:49:35,590 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@5cd94111
+2023-07-12 14:49:35,590 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@5cd94111
 2023-07-12 14:49:35,596 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-12 14:49:35,743 DEBUG BiddingGameProcess:28 - qwer
 2023-07-12 14:49:35,745 DEBUG BiddingGameProcess:28 - asdf
@@ -2811,13 +2811,13 @@ Listening for transport dt_socket at address: 8000
 2023-07-12 16:17:36,931  INFO GempukkuServer:35 - GempukkuServer startup complete.
 2023-07-12 16:17:38,939 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 124ms
 2023-07-12 16:55:43,183 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck qwer Tribble Test
-2023-07-12 16:55:43,190 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.LotroDeck@54b6769b
+2023-07-12 16:55:43,190 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@54b6769b
 2023-07-12 16:55:43,196 DEBUG TableHolder:39 - TableHolder - createTable function called
 2023-07-12 16:55:43,200 DEBUG GameTable:21 - Capacity of game: 2
 2023-07-12 16:55:46,240 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
 2023-07-12 16:55:46,242 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
 2023-07-12 16:55:46,243 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
-2023-07-12 16:55:46,246 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.LotroDeck@583c6659
+2023-07-12 16:55:46,246 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@583c6659
 2023-07-12 16:55:46,250 TRACE Game1:103 - System: Welcome to room: Game1
 2023-07-12 16:55:46,373 DEBUG BiddingGameProcess:28 - qwer
 2023-07-12 16:55:46,375 DEBUG BiddingGameProcess:28 - asdf

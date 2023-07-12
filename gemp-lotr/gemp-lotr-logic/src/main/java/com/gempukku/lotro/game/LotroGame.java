@@ -21,7 +21,7 @@ import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.game.rules.lotronly.CharacterDeathRule;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -70,7 +70,7 @@ public class LotroGame implements DefaultGame {
 
             LotroDeck lotroDeck = decks.get(playerId);
             deck.addAll(lotroDeck.getSites());
-            deck.addAll(lotroDeck.getAdventureCards());
+            deck.addAll(lotroDeck.getDrawDeckCards());
 
             cards.put(playerId, deck);
             ringBearers.put(playerId, lotroDeck.getRingBearer());

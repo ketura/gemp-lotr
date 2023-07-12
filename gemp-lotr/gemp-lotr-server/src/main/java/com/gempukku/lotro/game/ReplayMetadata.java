@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.mysql.cj.util.StringUtils;
 
 import java.util.*;
@@ -54,7 +54,7 @@ public class ReplayMetadata {
                 TargetFormat = deck.getTargetFormat();
                 DeckName = deck.getDeckName();
                 AdventureDeck = deck.getSites();
-                DrawDeck = deck.getAdventureCards();
+                DrawDeck = deck.getDrawDeckCards();
                 RingBearer = deck.getRingBearer();
                 Ring = deck.getRing();
             }};

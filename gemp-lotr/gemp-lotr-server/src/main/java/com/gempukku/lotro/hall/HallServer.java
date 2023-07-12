@@ -18,7 +18,7 @@ import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.GameResultListener;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.*;
 import org.apache.log4j.Logger;
@@ -657,7 +657,7 @@ public class HallServer extends AbstractServer {
             for (String site : lotroDeck.getSites())
                 filteredSpecialCardsDeck.addSite(filterCard(site, ownedCollection));
 
-            for (Map.Entry<String, Integer> cardCount : CollectionUtils.getTotalCardCount(lotroDeck.getAdventureCards()).entrySet()) {
+            for (Map.Entry<String, Integer> cardCount : CollectionUtils.getTotalCardCount(lotroDeck.getDrawDeckCards()).entrySet()) {
                 String blueprintId = cardCount.getKey();
                 int count = cardCount.getValue();
 
