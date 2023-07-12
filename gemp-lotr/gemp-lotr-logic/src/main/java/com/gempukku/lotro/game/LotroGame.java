@@ -20,7 +20,7 @@ import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.game.rules.CharacterDeathRule;
+import com.gempukku.lotro.game.rules.lotronly.CharacterDeathRule;
 import com.gempukku.lotro.cards.LotroDeck;
 import org.apache.log4j.Logger;
 

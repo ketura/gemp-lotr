@@ -150,6 +150,12 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public String getTribblePower() { return null; }
+
+    @Override
+    public int getTribbleValue() { return 0; }
+
+    @Override
     public int[] getAllyHomeSiteNumbers() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }

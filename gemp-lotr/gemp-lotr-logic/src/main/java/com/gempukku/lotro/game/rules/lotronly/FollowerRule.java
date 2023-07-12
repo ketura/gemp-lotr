@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.rules;
+package com.gempukku.lotro.game.rules.lotronly;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
 import com.gempukku.lotro.game.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.game.effects.TransferPermanentEffect;
 import com.gempukku.lotro.game.effects.EffectResult;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayConditions;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 

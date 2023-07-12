@@ -215,6 +215,16 @@ public class CardGameMediator {
                     sb.append("<br><b>Site number:</b> " + siteNumber);
                 } catch (UnsupportedOperationException ignored) {
                 }
+                try {
+                    int tribbleValue = card.getBlueprint().getTribbleValue();
+                    sb.append("<br><b>Tribble value:</b> " + tribbleValue);
+                } catch (UnsupportedOperationException ignored) {
+                }
+                try {
+                    String tribblePower = card.getBlueprint().getTribblePower();
+                    sb.append("<br><b>Tribble power:</b> " + tribblePower);
+                } catch (UnsupportedOperationException ignored) {
+                }
 
                 StringBuilder keywords = new StringBuilder();
                 for (Keyword keyword : Keyword.values()) {

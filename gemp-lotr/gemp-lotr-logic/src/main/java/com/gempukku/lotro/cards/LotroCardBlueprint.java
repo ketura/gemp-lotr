@@ -50,6 +50,8 @@ public interface LotroCardBlueprint {
     int getResistance();
 
     int[] getAllyHomeSiteNumbers();
+    int getTribbleValue();
+    String getTribblePower();
 
     SitesBlock getAllyHomeSiteBlock();
 

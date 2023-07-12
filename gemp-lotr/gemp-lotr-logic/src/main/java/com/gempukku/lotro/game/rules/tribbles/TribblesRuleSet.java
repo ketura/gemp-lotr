@@ -8,9 +8,9 @@ import com.gempukku.lotro.game.rules.ActivatePhaseActionsFromHandRule;
 import com.gempukku.lotro.game.rules.ActivatePhaseActionsFromStackedRule;
 import com.gempukku.lotro.game.rules.ActivatePhaseActionsRule;
 import com.gempukku.lotro.game.rules.ActivateResponseAbilitiesRule;
-import com.gempukku.lotro.game.rules.ConcealedRule;
+import com.gempukku.lotro.game.rules.lotronly.ConcealedRule;
 import com.gempukku.lotro.game.rules.DiscardedCardRule;
-import com.gempukku.lotro.game.rules.FollowerRule;
+import com.gempukku.lotro.game.rules.lotronly.FollowerRule;
 import com.gempukku.lotro.game.rules.OptionalTriggersFromHandRule;
 import com.gempukku.lotro.game.rules.OptionalTriggersRule;
 import com.gempukku.lotro.game.rules.PlayResponseEventRule;
@@ -38,7 +38,7 @@ public class TribblesRuleSet extends RuleSet {
 
         new FollowerRule(_actionsEnvironment).applyRule();
 
-        new PlayCardRule(_actionsEnvironment).applyRule();
+        new TribblesPlayCardRule(_actionsEnvironment).applyRule();
         new PlayResponseEventRule(_actionsEnvironment).applyRule();
 
         new SanctuaryRule(_actionsEnvironment, _modifiersLogic).applyRule();

@@ -45,7 +45,8 @@ public class TribblesPlayUtils extends PlayUtils {
     }
 
 
-    public static CostToEffectAction getPlayCardAction(DefaultGame game, PhysicalCard card, int twilightModifier, Filterable additionalAttachmentFilter, boolean ignoreRoamingPenalty) {
+    public static CostToEffectAction getPlayCardAction(DefaultGame game, PhysicalCard card, int twilightModifier,
+                                                       Filterable additionalAttachmentFilter, boolean ignoreRoamingPenalty) {
         final LotroCardBlueprint blueprint = card.getBlueprint();
 
         if (blueprint.getCardType() != CardType.EVENT) {
@@ -77,20 +78,12 @@ public class TribblesPlayUtils extends PlayUtils {
         }
     }
 
-    public static boolean checkPlayRequirements(DefaultGame game, PhysicalCard card,
-                                                Filterable additionalAttachmentFilter, int withTwilightRemoved,
-                                                int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return checkPlayRequirements(game, card, additionalAttachmentFilter, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, false);
-    }
-
-    public static boolean checkPlayRequirements(DefaultGame game, PhysicalCard card, Filterable additionalAttachmentFilter, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile, boolean ignoreResponseEvents) {
+    public static boolean checkPlayRequirements(DefaultGame game, PhysicalCard card, Filterable additionalAttachmentFilter) {
         final LotroCardBlueprint blueprint = card.getBlueprint();
 
         // Check if card's own play requirements are met
         if (!card.getBlueprint().checkPlayRequirements(game, card))
             return false;
-
-        twilightModifier -= game.getModifiersQuerying().getPotentialDiscount(game, card);
 
         // Check if there exists a legal target (if needed)
         final Filterable validTargetFilter = blueprint.getValidTargetFilter(card.getOwner(), game, card);
@@ -101,34 +94,10 @@ public class TribblesPlayUtils extends PlayUtils {
                 return false;
         }
 
-        // Check if can play extra costs
-        if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, card))
-            return false;
-
         if (!game.getModifiersQuerying().canPlayCard(game, card.getOwner(), card))
             return false;
 
-        // Check uniqueness
-        if (!blueprint.skipUniquenessCheck() && !PlayConditions.checkUniqueness(game, card, ignoreCheckingDeadPile))
-            return false;
-
-        if (blueprint.getCardType() == CardType.COMPANION
-            && !(PlayConditions.checkRuleOfNine(game, card) && PlayConditions.checkPlayRingBearer(game, card)))
-            return false;
-
-        if(blueprint.getCardType() == CardType.EVENT)
-        {
-            if(game.getModifiersQuerying().hasKeyword(game, card, Keyword.RESPONSE)) {
-                if (ignoreResponseEvents)
-                    return false;
-            }
-            else {
-                final Keyword phaseKeyword = PhaseKeywordMap.get(game.getGameState().getCurrentPhase());
-                if (phaseKeyword != null && !game.getModifiersQuerying().hasKeyword(game, card, phaseKeyword))
-                    return false;
-            }
-        }
-
-        return (blueprint.getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, card, finalTargetFilter, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
+        // Return true if no other checks have failed
+        return true;
     }
 }

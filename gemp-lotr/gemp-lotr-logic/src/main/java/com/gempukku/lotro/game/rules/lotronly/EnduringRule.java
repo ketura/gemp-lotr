@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.rules;
+package com.gempukku.lotro.game.rules.lotronly;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;

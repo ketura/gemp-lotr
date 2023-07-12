@@ -53,7 +53,7 @@ public class TribblesGameState extends GameState {
         _currentPlayerId = firstPlayer;
         _format = format;
 
-        _nextTribble = 10;
+        _nextTribble = 1;
         _chainBroken = false;
 
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {

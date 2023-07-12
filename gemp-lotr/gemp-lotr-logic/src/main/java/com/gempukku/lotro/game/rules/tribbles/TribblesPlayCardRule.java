@@ -11,10 +11,10 @@ import com.gempukku.lotro.game.rules.GameUtils;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PlayCardRule {
+public class TribblesPlayCardRule {
     private final DefaultActionsEnvironment actionsEnvironment;
 
-    public PlayCardRule(DefaultActionsEnvironment actionsEnvironment) {
+    public TribblesPlayCardRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;
     }
 
@@ -26,8 +26,7 @@ public class PlayCardRule {
                         if (GameUtils.isCurrentPlayer(game, playerId)) {
                             List<Action> result = new LinkedList<>();
                             for (PhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game)) {
-                                if (TribblesPlayUtils.checkPlayRequirements(game, card, Filters.any, 0,
-                                        0, false, false, true))
+                                if (TribblesPlayUtils.checkPlayRequirements(game, card, Filters.any))
                                     result.add(TribblesPlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
                             }
                             return result;

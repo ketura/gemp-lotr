@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.timing.*;
 import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.game.timing.results.KilledResult;
 import com.gempukku.lotro.game.timing.results.ReturnCardsToHandResult;
-import com.gempukku.lotro.game.rules.CharacterDeathRule;
+import com.gempukku.lotro.game.rules.lotronly.CharacterDeathRule;
 import com.gempukku.lotro.game.rules.lotronly.InitiativeChangeRule;
 import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;

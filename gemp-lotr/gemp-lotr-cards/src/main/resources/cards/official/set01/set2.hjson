@@ -2,25 +2,37 @@
     2_001: {
         title: 1 Tribble - Cycle
         type: tribble
+        tribble-value: 1
+        tribble-power: cycle
     },
     2_002: {
         title: 1 Tribble - Exchange
         type: tribble
+        tribble-value: 1
+        tribble-power: exchange
     }
     2_003: {
         title: 1 Tribble - Replay
         type: tribble
+        tribble-value: 1
+        tribble-power: replay
     }
     2_004: {
         title: 10 Tribbles - Copy
         type: tribble
+        tribble-value: 10
+        tribble-power: copy
     }
     2_005: {
         title: 10 Tribbles - Cycle
         type: tribble
+        tribble-value: 10
+        tribble-power: cycle
     }
     2_006: {
         title: 10 Tribbles - Draw
         type: tribble
+        tribble-value: 10
+        tribble-power: draw
     }
 }
