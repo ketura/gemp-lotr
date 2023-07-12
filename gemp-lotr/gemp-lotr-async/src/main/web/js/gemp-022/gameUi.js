@@ -188,6 +188,7 @@ var GempLotrGameUI = Class.extend({
             return this.shadow;
         }
 
+        // REMOVE THIS
         if (this.skirmishFellowshipGroup.cardBelongs(cardData)) {
             return this.skirmishFellowshipGroup;
         }
@@ -205,6 +206,7 @@ var GempLotrGameUI = Class.extend({
                 }
             }
         }
+        // REMOVE ABOVE
 
         return null;
     },
@@ -301,8 +303,19 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.css({"border-radius": "7px"});
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            this.gameStateElem.append("<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
-                + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div><div id='adventureDeck" + i + "' class='adventureDeckSize'></div><div id='removedPile" + i + "' class='removedPileSize'></div></div></div>");
+            this.gameStateElem.append(
+                "<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] +
+                "<div id='clock" + i + "' class='clock'></div>" +
+                "<div class='playerStats'>" +
+                    "<div id='deck" + i + "' class='deckSize'></div>" +
+                    "<div id='hand" + i + "' class='handSize'></div>" +
+//                    "<div id='threats" + i + "' class='threatsSize'></div>" +
+                    "<div id='discard" + i + "' class='discardSize'></div>" +
+//                    "<div id='showStats" + i + "' class='showStats'></div>" +
+//                    "<div id='deadPile" + i + "' class='deadPileSize'></div>" +
+//                    "<div id='adventureDeck" + i + "' class='adventureDeckSize'></div>" +
+//                    "<div id='removedPile" + i + "' class='removedPileSize'>" +
+                "</div></div></div>");
         }
 
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
@@ -319,13 +332,13 @@ var GempLotrGameUI = Class.extend({
                                 if (index == playerIndex) {
                                     if ($(this).hasClass("opened")) {
                                         $(this).removeClass("opened").css({width: 150 - that.padding});
-                                        $("#discard" + playerIndex).css({display: "none"});
+//                                        $("#discard" + playerIndex).css({display: "none"});
                                         $("#deadPile" + playerIndex).css({display: "none"});
                                         $("#adventureDeck" + playerIndex).css({display: "none"});
                                         $("#removedPile" + playerIndex).css({display: "none"});
                                     } else {
                                         $(this).addClass("opened").css({width: 150 - that.padding + 168});
-                                        $("#discard" + playerIndex).css({display: "table-cell"});
+//                                        $("#discard" + playerIndex).css({display: "table-cell"});
                                         $("#deadPile" + playerIndex).css({display: "table-cell"});
                                         $("#adventureDeck" + playerIndex).css({display: "table-cell"});
                                         $("#removedPile" + playerIndex).css({display: "table-cell"});
@@ -910,14 +923,14 @@ var GempLotrGameUI = Class.extend({
                 width: advPathWidth - 4,
                 height: 30
             });
-
-            this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
+                // REMOVE BELOW
+ /*           this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
 
             this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
             this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, charsWidthWithAssignments, heightScales[2] * heightPerScale);
             this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
-
+  */              // REMOVE ABOVE
             var i = 0;
 
             if (this.skirmishGroupDiv != null) {
@@ -1040,7 +1053,7 @@ var GempLotrGameUI = Class.extend({
 
             this.gameStateElem.css({
                 position: "absolute",
-                left: padding * 2 + advPathWidth,
+                left: padding * 2, // + advPathWidth,
                 top: padding,
                 width: specialUiWidth - padding,
                 height: height - padding * 4 - alertHeight - chatHeight

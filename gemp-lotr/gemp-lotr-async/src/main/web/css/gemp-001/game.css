@@ -36,7 +36,7 @@ body {
 }
 
 .discardSize {
-    display: none;
+    display: table-cell;
     text-align: center;
     vertical-align: middle;
     font-size: 200%;
@@ -144,7 +144,7 @@ body {
     padding: 2px;
 }
 
-.fpArchery {
+/*.fpArchery {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
@@ -181,7 +181,7 @@ body {
     font-weight: bolder;
     width: 30px;
     height: 30px;
-}
+}*/
 
 .player {
     color: #ffffff;
