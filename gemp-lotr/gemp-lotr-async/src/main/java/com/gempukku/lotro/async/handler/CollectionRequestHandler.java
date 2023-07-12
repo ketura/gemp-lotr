@@ -2,8 +2,8 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -34,7 +34,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     private final LeagueService _leagueService;
     private final CollectionsManager _collectionsManager;
     private final ProductLibrary _productLibrary;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
     private final SortAndFilterCards _sortAndFilterCards;
     private final ImportCards _importCards;
@@ -46,7 +46,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         _leagueService = extractObject(context, LeagueService.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
         _productLibrary = extractObject(context, ProductLibrary.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _sortAndFilterCards = new SortAndFilterCards();
         _importCards = new ImportCards();

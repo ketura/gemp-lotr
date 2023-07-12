@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.DiscountEffect;
 
 public interface DiscountSource {

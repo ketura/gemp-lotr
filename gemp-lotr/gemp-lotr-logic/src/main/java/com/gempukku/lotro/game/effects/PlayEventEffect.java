@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.effects;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.PlayEventAction;
+import com.gempukku.lotro.game.actions.lotronly.PlayEventAction;
 import com.gempukku.lotro.game.timing.results.PlayEventResult;
 
 import java.util.Collections;

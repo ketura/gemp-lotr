@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 public class CorruptRingBearerEffect extends UnrespondableEffect {
     @Override

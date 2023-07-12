@@ -1,6 +1,6 @@
 package com.gempukku.lotro.collection;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -21,15 +21,15 @@ public class CollectionsManager {
     private final PlayerDAO _playerDAO;
     private final CollectionDAO _collectionDAO;
     private final TransferDAO _transferDAO;
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
 
     private CardCollection _defaultCollection;
 
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary) {
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final CardBlueprintLibrary cardBlueprintLibrary) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
         _transferDAO = transferDAO;
-        _cardLibrary = lotroCardBlueprintLibrary;
+        _cardLibrary = cardBlueprintLibrary;
 
         _defaultCollection = new CompleteCardCollection(_cardLibrary);
 

@@ -7,7 +7,6 @@ import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.StrengthModifier;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.game.timing.AbstractEffect;
 
 import java.util.Collection;
 

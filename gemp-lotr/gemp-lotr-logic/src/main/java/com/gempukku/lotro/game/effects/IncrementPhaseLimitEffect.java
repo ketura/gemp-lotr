@@ -3,7 +3,6 @@ package com.gempukku.lotro.game.effects;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 public class IncrementPhaseLimitEffect extends UnrespondableEffect {
     private final PhysicalCard card;

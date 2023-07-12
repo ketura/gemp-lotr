@@ -1,10 +1,8 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.LotroDeck;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.actions.ActionStack;
@@ -14,21 +12,20 @@ import com.gempukku.lotro.game.adventure.Adventure;
 import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.tribbles.TribblesGameState;
 import com.gempukku.lotro.game.state.GameStats;
 import com.gempukku.lotro.game.timing.GameResultListener;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.game.timing.processes.turn.TurnProcedure;
-import com.gempukku.lotro.game.timing.rules.CharacterDeathRule;
-import com.gempukku.lotro.game.timing.rules.RuleSet;
+import com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure;
+import com.gempukku.lotro.game.rules.tribbles.TribblesRuleSet;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class TribblesGame implements DefaultGame {
     private static final Logger log = Logger.getLogger(TribblesGame.class);
-    private final GameState _gameState;
+    private final TribblesGameState _gameState;
     private final ModifiersLogic _modifiersLogic = new ModifiersLogic();
     private final DefaultActionsEnvironment _actionsEnvironment;
     private final UserFeedback _userFeedback;
@@ -49,9 +46,10 @@ public class TribblesGame implements DefaultGame {
     private final Set<GameResultListener> _gameResultListeners = new HashSet<>();
 
     private final Set<String> _requestedCancel = new HashSet<>();
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
-    public TribblesGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
+    public TribblesGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback,
+                        final CardBlueprintLibrary library) {
         _library = library;
         _adventure = format.getAdventure();
         _format = format;
@@ -62,8 +60,6 @@ public class TribblesGame implements DefaultGame {
         _actionsEnvironment = new DefaultActionsEnvironment(this, _actionStack);
 
         final Map<String, List<String>> cards = new HashMap<>();
-        final Map<String, String> ringBearers = new HashMap<>();
-        final Map<String, String> rings = new HashMap<>();
         for (String playerId : decks.keySet()) {
             List<String> deck = new LinkedList<>();
 
@@ -72,27 +68,21 @@ public class TribblesGame implements DefaultGame {
             deck.addAll(lotroDeck.getAdventureCards());
 
             cards.put(playerId, deck);
-            ringBearers.put(playerId, lotroDeck.getRingBearer());
-            if (lotroDeck.getRing() != null)
-                rings.put(playerId, lotroDeck.getRing());
         }
 
-        _gameState = new GameState();
-
-        CharacterDeathRule characterDeathRule = new CharacterDeathRule(_actionsEnvironment);
-        characterDeathRule.applyRule();
+        _gameState = new TribblesGameState();
 
         _turnProcedure = new TurnProcedure(this, decks.keySet(), userFeedback, _actionStack,
                 new PlayerOrderFeedback() {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
                         final GameStats gameStats = _turnProcedure.getGameStats();
-                        _gameState.init(playerOrder, firstPlayer, cards, ringBearers, rings, library, format);
+                        _gameState.init(playerOrder, firstPlayer, cards, library, format);
                     }
-                }, characterDeathRule);
+                });
         _userFeedback = userFeedback;
 
-        RuleSet ruleSet = new RuleSet(this, _actionsEnvironment, _modifiersLogic);
+        TribblesRuleSet ruleSet = new TribblesRuleSet(this, _actionsEnvironment, _modifiersLogic);
         ruleSet.applyRuleSet();
 
         _adventure.applyAdventureRules(this, _actionsEnvironment, _modifiersLogic);
@@ -231,12 +221,12 @@ public class TribblesGame implements DefaultGame {
     }
 
     @Override
-    public GameState getGameState() {
+    public TribblesGameState getGameState() {
         return _gameState;
     }
 
     @Override
-    public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
+    public CardBlueprintLibrary getLotroCardBlueprintLibrary() {
         return _library;
     }
 
@@ -258,22 +248,6 @@ public class TribblesGame implements DefaultGame {
     @Override
     public UserFeedback getUserFeedback() {
         return _userFeedback;
-    }
-
-    @Override
-    public void checkRingBearerCorruption() {
-        GameState gameState = getGameState();
-        if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
-            // Ring-bearer death
-            PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
-            Zone zone = ringBearer.getZone();
-            if (zone != null && zone.isInPlay()) {
-                // Ring-bearer corruption
-                int ringBearerResistance = getModifiersQuerying().getResistance(this, ringBearer);
-                if (ringBearerResistance <= 0)
-                    playerLost(getGameState().getCurrentPlayerId(), "The Ring-Bearer is corrupted");
-            }
-        }
     }
 
     public void addGameStateListener(String playerId, GameStateListener gameStateListener) {

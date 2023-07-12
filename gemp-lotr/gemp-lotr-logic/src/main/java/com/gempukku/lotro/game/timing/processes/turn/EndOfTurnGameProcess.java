@@ -3,10 +3,10 @@ package com.gempukku.lotro.game.timing.processes.turn;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.effects.TriggeringResultEffect;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
-import com.gempukku.lotro.game.timing.AbstractSuccessfulEffect;
+import com.gempukku.lotro.game.effects.AbstractSuccessfulEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
 import com.gempukku.lotro.game.timing.results.EndOfTurnResult;
 

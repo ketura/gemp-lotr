@@ -2,7 +2,7 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.cards.LotroDeck;
@@ -15,9 +15,9 @@ import java.util.*;
 
 public class DbDeckDAO implements DeckDAO {
     private final DbAccess _dbAccess;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
-    public DbDeckDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
+    public DbDeckDAO(DbAccess dbAccess, CardBlueprintLibrary library) {
         _dbAccess = dbAccess;
         _library = library;
     }

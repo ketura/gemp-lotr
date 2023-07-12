@@ -1,6 +1,6 @@
 package com.gempukku.lotro.merchant;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
@@ -28,7 +28,7 @@ public class MerchantService {
     private final CollectionType _permanentCollection = CollectionType.MY_CARDS;
     private final CollectionsManager _collectionsManager;
 
-    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager) {
+    public MerchantService(CardBlueprintLibrary library, CollectionsManager collectionsManager) {
         _collectionsManager = collectionsManager;
 
         _merchant = new RarityBasedMerchant(library);

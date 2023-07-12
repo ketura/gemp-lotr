@@ -8,10 +8,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.StackPlayedEventOnACardEffect;
-import com.gempukku.lotro.game.timing.DoNothingEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.DoNothingEffect;
+import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.timing.results.PlayEventResult;
 import org.json.simple.JSONObject;
 

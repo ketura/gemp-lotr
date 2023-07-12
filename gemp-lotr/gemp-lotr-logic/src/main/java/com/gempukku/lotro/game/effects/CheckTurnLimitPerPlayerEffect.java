@@ -2,10 +2,8 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.actions.Action;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 public class CheckTurnLimitPerPlayerEffect extends UnrespondableEffect {
     private final Action _action;

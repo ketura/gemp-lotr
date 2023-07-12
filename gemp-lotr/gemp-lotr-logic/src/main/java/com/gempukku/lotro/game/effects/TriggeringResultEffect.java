@@ -1,9 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.EffectResult;
 
 public class TriggeringResultEffect extends AbstractSuccessfulEffect {
     private final Type _effectType;

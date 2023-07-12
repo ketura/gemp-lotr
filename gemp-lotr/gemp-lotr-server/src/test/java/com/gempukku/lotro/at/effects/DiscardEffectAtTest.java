@@ -9,10 +9,10 @@ import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.cards.PhysicalCardImpl;
-import com.gempukku.lotro.game.actions.RequiredTriggerAction;
+import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.EffectResult;
 import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
 import org.junit.Test;
 

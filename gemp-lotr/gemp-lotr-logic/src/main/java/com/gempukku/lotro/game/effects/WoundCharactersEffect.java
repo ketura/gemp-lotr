@@ -4,9 +4,8 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
-import com.gempukku.lotro.game.timing.Effect;
 import com.gempukku.lotro.game.timing.results.WoundResult;
 
 import java.util.Collection;

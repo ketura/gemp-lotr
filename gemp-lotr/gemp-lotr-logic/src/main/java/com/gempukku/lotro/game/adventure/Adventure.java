@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.adventure;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.timing.processes.GameProcess;

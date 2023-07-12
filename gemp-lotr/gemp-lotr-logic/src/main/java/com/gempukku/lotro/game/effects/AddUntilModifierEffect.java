@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolve
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 public class AddUntilModifierEffect extends UnrespondableEffect {
     private final Modifier _modifier;

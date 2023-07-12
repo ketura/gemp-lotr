@@ -10,7 +10,7 @@ import com.gempukku.lotro.game.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.game.effects.DrawCardsEffect;
 import com.gempukku.lotro.game.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.game.effects.TriggeringResultEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.timing.results.ReconcileResult;
 
 import java.util.HashSet;

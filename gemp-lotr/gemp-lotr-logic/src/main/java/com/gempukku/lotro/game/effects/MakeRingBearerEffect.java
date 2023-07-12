@@ -2,8 +2,7 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.rules.GameUtils;
 
 import java.util.Collections;
 

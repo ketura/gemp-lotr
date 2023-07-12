@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
-import com.gempukku.lotro.cards.LotroCardBlueprint;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

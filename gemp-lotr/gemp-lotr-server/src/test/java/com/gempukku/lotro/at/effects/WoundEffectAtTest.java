@@ -9,13 +9,13 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.PhysicalCardImpl;
-import com.gempukku.lotro.game.actions.RequiredTriggerAction;
+import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.effects.WoundCharactersEffect;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
 import com.gempukku.lotro.game.modifiers.SpecialFlagModifier;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.game.effects.EffectResult;
 import org.junit.Test;
 
 import java.util.Collections;

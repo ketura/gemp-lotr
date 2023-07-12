@@ -6,7 +6,7 @@ import com.gempukku.lotro.collection.CachedTransferDAO;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.*;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.log.LoggingProxy;
 import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentMatchDAO;
@@ -36,7 +36,7 @@ public class DaoBuilder {
         CachedIgnoreDAO ignoreDao = new CachedIgnoreDAO(dbIgnoreDao);
         objectMap.put(IgnoreDAO.class, ignoreDao);
 
-        DeckDAO dbDeckDao = LoggingProxy.createLoggingProxy(DeckDAO.class, new DbDeckDAO(dbAccess, extract(objectMap, LotroCardBlueprintLibrary.class)));
+        DeckDAO dbDeckDao = LoggingProxy.createLoggingProxy(DeckDAO.class, new DbDeckDAO(dbAccess, extract(objectMap, CardBlueprintLibrary.class)));
         CachedDeckDAO deckDao = new CachedDeckDAO(dbDeckDao);
         objectMap.put(DeckDAO.class, deckDao);
 

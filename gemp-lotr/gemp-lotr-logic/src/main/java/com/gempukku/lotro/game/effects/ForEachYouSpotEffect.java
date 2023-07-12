@@ -4,8 +4,6 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.decisions.ForEachYouSpotDecision;
-import com.gempukku.lotro.game.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.game.timing.Effect;
 
 public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
     private final String _playerId;

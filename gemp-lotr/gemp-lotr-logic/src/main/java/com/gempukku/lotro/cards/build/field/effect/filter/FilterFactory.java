@@ -8,7 +8,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.game.modifiers.evaluator.SingleMemoryEvaluator;
 import com.gempukku.lotro.game.timing.results.CharacterLostSkirmishResult;
@@ -35,7 +35,7 @@ public class FilterFactory {
         simpleFilters.put("attachedtoinsameregion",
                 actionContext -> {
                     final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
-                    return Filters.region(GameUtils.getRegion(attachedTo.getSiteNumber()));
+                    return Filters.region(LotroGameUtils.getRegion(attachedTo.getSiteNumber()));
                 });
         simpleFilters.put("bearer", (actionContext -> Filters.hasAttached(actionContext.getSource())));
         simpleFilters.put("character", (actionContext) -> Filters.character);
@@ -62,7 +62,7 @@ public class FilterFactory {
         simpleFilters.put("infierceskirmish", (actionContext) -> Filters.inFierceSkirmish);
         simpleFilters.put("inplay", (actionContext) -> Filters.inPlay);
         simpleFilters.put("insameregion",
-                actionContext -> Filters.region(GameUtils.getRegion(actionContext.getSource().getSiteNumber())));
+                actionContext -> Filters.region(LotroGameUtils.getRegion(actionContext.getSource().getSiteNumber())));
         simpleFilters.put("inskirmish", (actionContext) -> Filters.inSkirmish);
         simpleFilters.put("item", (actionContext) -> Filters.item);
         simpleFilters.put("mounted", (actionContext) -> Filters.mounted);
@@ -124,7 +124,7 @@ public class FilterFactory {
                 (parameter, environment) -> {
                     final FilterableSource againstFilterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return actionContext -> {
-                        final Side side = GameUtils.getSide(actionContext.getGame(), actionContext.getPerformingPlayer());
+                        final Side side = LotroGameUtils.getSide(actionContext.getGame(), actionContext.getPerformingPlayer());
                         return Filters.assignableToSkirmishAgainst(side, againstFilterableSource.getFilterable(actionContext));
                     };
                 });

@@ -3,11 +3,11 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
@@ -33,14 +33,14 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
     private final SoloDraftDefinitions _soloDraftDefinitions;
     private final LeagueService _leagueService;
     private final LotroFormatLibrary _formatLibrary;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
     private static final Logger _log = Logger.getLogger(LeagueRequestHandler.class);
 
     public LeagueRequestHandler(Map<Type, Object> context) {
         super(context);
 
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _leagueService = extractObject(context, LeagueService.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);

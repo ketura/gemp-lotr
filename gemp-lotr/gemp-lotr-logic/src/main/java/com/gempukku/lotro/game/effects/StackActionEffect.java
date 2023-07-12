@@ -2,8 +2,7 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 
 public class StackActionEffect implements Effect {
     private final CostToEffectAction _action;

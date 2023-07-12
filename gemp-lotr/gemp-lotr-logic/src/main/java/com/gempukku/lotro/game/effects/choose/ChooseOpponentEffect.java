@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects.choose;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.effects.UnrespondableEffect;
 
 public abstract class ChooseOpponentEffect extends UnrespondableEffect {
     private final String _playerId;

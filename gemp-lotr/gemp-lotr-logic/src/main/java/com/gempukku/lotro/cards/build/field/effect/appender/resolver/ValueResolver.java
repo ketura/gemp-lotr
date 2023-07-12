@@ -7,7 +7,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.evaluator.*;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.modifiers.evaluator.lotronly.CountSpottableEvaluator;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -99,7 +100,7 @@ public class ValueResolver {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (game, cardAffected) -> actionContext.getCardFromMemory(memory).getSiteNumber();
             } else if (type.equalsIgnoreCase("regionNumber")) {
-                return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
+                return (actionContext) -> (game, cardAffected) -> LotroGameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "limit");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
@@ -236,7 +237,7 @@ public class ValueResolver {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableCulturesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
+                    int spottable = LotroGameUtils.getSpottableCulturesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
                     int result = Math.max(0, spottable - over);
                     return new ConstantEvaluator(result);
                 };
@@ -246,7 +247,7 @@ public class ValueResolver {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableRacesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
+                    int spottable = LotroGameUtils.getSpottableRacesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
                     int result = Math.max(0, spottable - over);
                     return new ConstantEvaluator(result);
                 };
@@ -255,7 +256,7 @@ public class ValueResolver {
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableFPCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
+                    int spottable = LotroGameUtils.getSpottableFPCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
                     int result = Math.max(0, spottable - over);
                     result = Math.min(limit, result);
                     return new ConstantEvaluator(result);
@@ -265,7 +266,7 @@ public class ValueResolver {
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableShadowCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
+                    int spottable = LotroGameUtils.getSpottableShadowCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
                     int result = Math.max(0, spottable - over);
                     result = Math.min(limit, result);
                     return new ConstantEvaluator(result);

@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.modifiers.Condition;
 import org.json.simple.JSONObject;
 

@@ -2,8 +2,7 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
-import com.gempukku.lotro.game.timing.AbstractEffect;
+import com.gempukku.lotro.game.rules.GameUtils;
 
 public class RemoveThreatsEffect extends AbstractEffect {
     private final PhysicalCard _source;

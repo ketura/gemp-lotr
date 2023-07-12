@@ -11,7 +11,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
     private final ProductLibrary _productLibrary;
     private final SoloDraftDefinitions _soloDraftDefinitions;
     private final LeagueService _leagueService;
@@ -65,7 +65,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _adminService = extractObject(context, AdminService.class);
-        _cardLibrary = extractObject(context, LotroCardBlueprintLibrary.class);
+        _cardLibrary = extractObject(context, CardBlueprintLibrary.class);
         _productLibrary = extractObject(context, ProductLibrary.class);
         _chatServer = extractObject(context, ChatServer.class);
     }

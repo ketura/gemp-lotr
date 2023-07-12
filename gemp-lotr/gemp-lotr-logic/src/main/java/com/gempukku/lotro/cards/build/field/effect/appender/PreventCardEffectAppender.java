@@ -8,10 +8,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.PreventCardEffect;
 import com.gempukku.lotro.game.effects.PreventableCardEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class PreventCardEffectAppender implements EffectAppenderProducer {

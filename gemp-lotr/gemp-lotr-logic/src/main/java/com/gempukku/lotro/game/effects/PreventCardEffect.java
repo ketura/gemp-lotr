@@ -5,7 +5,6 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 public class PreventCardEffect extends UnrespondableEffect {
     private final PreventableCardEffect _effect;

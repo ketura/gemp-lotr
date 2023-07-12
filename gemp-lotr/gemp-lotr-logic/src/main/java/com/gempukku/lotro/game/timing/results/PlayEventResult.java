@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.timing.results;
 
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.game.actions.PlayEventAction;
+import com.gempukku.lotro.game.actions.lotronly.PlayEventAction;
 
 public class PlayEventResult extends PlayCardResult {
     private boolean _eventCancelled;

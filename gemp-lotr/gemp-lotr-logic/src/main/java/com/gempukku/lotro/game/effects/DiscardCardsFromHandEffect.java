@@ -4,9 +4,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
-import com.gempukku.lotro.game.timing.AbstractEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.results.DiscardCardFromHandResult;
 
 import java.util.Collection;

@@ -4,6 +4,9 @@ import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.game.effects.EffectResult;
+import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.state.GameStats;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.actions.ActionStack;
@@ -13,10 +16,10 @@ import com.gempukku.lotro.game.timing.*;
 import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.game.timing.results.KilledResult;
 import com.gempukku.lotro.game.timing.results.ReturnCardsToHandResult;
-import com.gempukku.lotro.game.timing.rules.CharacterDeathRule;
-import com.gempukku.lotro.game.timing.rules.InitiativeChangeRule;
-import com.gempukku.lotro.game.actions.OptionalTriggerAction;
-import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.rules.CharacterDeathRule;
+import com.gempukku.lotro.game.rules.lotronly.InitiativeChangeRule;
+import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.game.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -89,8 +92,6 @@ public class TurnProcedure {
 
             if (_gameStats.updateGameStats(_game))
                 _game.getGameState().sendGameStats(_gameStats);
-
-            _game.checkRingBearerCorruption();
         }
     }
 

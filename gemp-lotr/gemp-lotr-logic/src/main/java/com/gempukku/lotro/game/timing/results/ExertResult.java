@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.timing.results;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.Action;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.EffectResult;
 
 public class ExertResult extends EffectResult {
     private final Action _action;

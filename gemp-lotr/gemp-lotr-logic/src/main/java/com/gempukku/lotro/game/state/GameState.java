@@ -1,9 +1,11 @@
 package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.cards.*;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
@@ -69,7 +71,7 @@ public class GameState {
         return _nextCardId++;
     }
 
-    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, Map<String, String> ringBearers, Map<String, String> rings, LotroCardBlueprintLibrary library, LotroFormat format) {
+    public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards, Map<String, String> ringBearers, Map<String, String> rings, CardBlueprintLibrary library, LotroFormat format) {
         _playerOrder = playerOrder;
         _currentPlayerId = firstPlayer;
         _format = format;
@@ -143,7 +145,7 @@ public class GameState {
         _moving = moving;
     }
 
-    private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
+    private void addPlayerCards(String playerId, List<String> cards, CardBlueprintLibrary library) {
         for (String blueprintId : cards) {
             try {
                 PhysicalCardImpl physicalCard = createPhysicalCardImpl(playerId, library, blueprintId);
@@ -160,11 +162,11 @@ public class GameState {
         }
     }
 
-    public PhysicalCard createPhysicalCard(String ownerPlayerId, LotroCardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
+    public PhysicalCard createPhysicalCard(String ownerPlayerId, CardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
         return createPhysicalCardImpl(ownerPlayerId, library, blueprintId);
     }
 
-    private PhysicalCardImpl createPhysicalCardImpl(String playerId, LotroCardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
+    private PhysicalCardImpl createPhysicalCardImpl(String playerId, CardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
         LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
 
         int cardId = nextCardId();

@@ -6,8 +6,6 @@ import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.game.timing.AbstractEffect;
-import com.gempukku.lotro.game.timing.Effect;
 
 import java.util.Collection;
 import java.util.Collections;

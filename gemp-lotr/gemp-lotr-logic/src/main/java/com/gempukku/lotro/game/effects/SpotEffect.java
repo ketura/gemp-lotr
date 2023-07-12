@@ -3,8 +3,6 @@ package com.gempukku.lotro.game.effects;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.AbstractEffect;
-import com.gempukku.lotro.game.timing.Effect;
 
 public class SpotEffect extends AbstractEffect {
     private final int _count;

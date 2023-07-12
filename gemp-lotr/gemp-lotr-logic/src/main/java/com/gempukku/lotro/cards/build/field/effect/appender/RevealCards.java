@@ -10,9 +10,9 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.RevealCardEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;

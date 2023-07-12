@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
 
 import java.util.Collection;
@@ -260,23 +260,23 @@ public class PlayConditions {
 
     // "If you can spot X [elven] tokens..."
     public static boolean canSpotCultureTokensInPlay(DefaultGame game, Token token, int count) {
-        return GameUtils.getSpottableTokensTotal(game, token) >= count;
+        return LotroGameUtils.getSpottableTokensTotal(game, token) >= count;
     }
 
     // "If you can spot X [elven] tokens on conditions..."
     public static boolean canSpotCultureTokensOnCards(DefaultGame game, Token token, int count, Filterable... filters) {
-        return GameUtils.getSpottableCultureTokensOfType(game, token, filters) >= count;
+        return LotroGameUtils.getSpottableCultureTokensOfType(game, token, filters) >= count;
     }
 
     // "If you can spot X culture tokens on conditions..."
     // Strictly speaking this would only be needed if there was a card that could add culture tokens to cards
     // that did not match their own native culture.
     public static boolean canSpotAllCultureTokensOnCards(DefaultGame game, int count, Filterable... filters) {
-        return GameUtils.getAllSpottableCultureTokens(game, filters) >= count;
+        return LotroGameUtils.getAllSpottableCultureTokens(game, filters) >= count;
     }
 
     public static boolean canSpotFPCultures(DefaultGame game, int count, String playerId) {
-        return GameUtils.getSpottableFPCulturesCount(game, playerId) >= count;
+        return LotroGameUtils.getSpottableFPCulturesCount(game, playerId) >= count;
     }
 
     public static boolean hasInitiative(DefaultGame game, Side side) {

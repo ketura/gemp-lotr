@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.Condition;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.EffectResult;
 import com.gempukku.lotro.game.timing.results.PlayCardResult;
 
 public class CardPlayedInCurrentTurnCondition implements Condition {

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -23,7 +23,7 @@ public class NewSealedLeagueData implements LeagueData {
     //private final SealedLeagueProduct _leagueProduct;
     private final LotroFormatLibrary _formatLibrary;
 
-    public NewSealedLeagueData(LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, String parameters) {
+    public NewSealedLeagueData(CardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardLibrary);
         _formatLibrary = formatLibrary;
         

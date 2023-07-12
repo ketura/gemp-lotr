@@ -3,13 +3,14 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.hall.GameTimer;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -45,7 +46,7 @@ public class CardGameMediator {
     private int _channelNextIndex = 0;
     private volatile boolean _destroyed;
 
-    public CardGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library,
+    public CardGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, CardBlueprintLibrary library,
                             GameTimer gameTimer, boolean allowSpectators, boolean cancellable, boolean showInGameHall) {
         _gameId = gameId;
         _timeSettings = gameTimer;

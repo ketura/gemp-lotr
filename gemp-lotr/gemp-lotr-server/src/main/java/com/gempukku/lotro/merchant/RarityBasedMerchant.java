@@ -1,6 +1,6 @@
 package com.gempukku.lotro.merchant;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.Map;
 public class RarityBasedMerchant implements Merchant {
     private final Map<String, SetDefinition> _rarity = new HashMap<>();
 
-    public RarityBasedMerchant(LotroCardBlueprintLibrary library) {
+    public RarityBasedMerchant(CardBlueprintLibrary library) {
         for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("merchantable"))
                 _rarity.put(setDefinition.getSetId(), setDefinition);

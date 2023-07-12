@@ -4,8 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.game.actions.SkirmishPhaseAction;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.actions.lotronly.SkirmishPhaseAction;
 
 import java.util.Set;
 

@@ -5,12 +5,12 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.PlayUtils;
-import com.gempukku.lotro.game.actions.PlayPermanentAction;
+import com.gempukku.lotro.game.rules.PlayUtils;
+import com.gempukku.lotro.game.actions.lotronly.PlayPermanentAction;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.actions.Action;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 
 import java.util.Collection;
 import java.util.LinkedList;

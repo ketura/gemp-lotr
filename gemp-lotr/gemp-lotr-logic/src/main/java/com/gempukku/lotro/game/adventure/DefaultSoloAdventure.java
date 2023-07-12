@@ -1,34 +1,34 @@
 package com.gempukku.lotro.game.adventure;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.GameUtils;
-import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.pregame.SetupSoloAdventureGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.lotro.ShadowPhaseOfAIPlayerGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.lotro.ai.AIPlayerAssignsArcheryTotalGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.lotro.ai.AIPlayerAssignsMinionsGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.lotro.regroup.DiscardAllMinionsGameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.lotro.regroup.ReturnFollowersToSupportGameProcess;
+import com.gempukku.lotro.game.timing.processes.pregame.lotronly.SetupSoloAdventureGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.ShadowPhaseOfAIPlayerGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.ai.AIPlayerAssignsArcheryTotalGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.ai.AIPlayerAssignsMinionsGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.regroup.DiscardAllMinionsGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.regroup.ReturnFollowersToSupportGameProcess;
 import com.gempukku.lotro.game.timing.results.PlayCardResult;
 
 import java.util.Set;
 
 public class DefaultSoloAdventure extends SoloAdventure {
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final SiteSelection _siteSelection;
     private final ShadowAI _shadowAI;
     private final String _adventureCard;
     private final String _startingSite;
 
-    public DefaultSoloAdventure(LotroCardBlueprintLibrary library,
+    public DefaultSoloAdventure(CardBlueprintLibrary library,
                                 SiteSelection siteSelection, ShadowAI shadowAI,
                                 String adventureCard, String startingSite) {
         _library = library;

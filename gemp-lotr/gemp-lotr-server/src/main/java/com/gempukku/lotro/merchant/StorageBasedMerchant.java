@@ -1,7 +1,7 @@
 package com.gempukku.lotro.merchant;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.db.MerchantDAO;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.Date;
@@ -28,12 +28,12 @@ public class StorageBasedMerchant implements Merchant {
 
     private static final double PRICE_SHIFT_AFTER_TRANSACTION_PERC = 10;
 
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final MerchantDAO _merchantDao;
     private final Map<String, SetDefinition> _rarity = new HashMap<>();
     private final Date _merchantSetupDate;
 
-    public StorageBasedMerchant(LotroCardBlueprintLibrary library, MerchantDAO merchantDao, Date merchantSetupDate) {
+    public StorageBasedMerchant(CardBlueprintLibrary library, MerchantDAO merchantDao, Date merchantSetupDate) {
         _library = library;
         _merchantDao = merchantDao;
         _merchantSetupDate = merchantSetupDate;

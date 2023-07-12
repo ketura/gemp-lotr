@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 import com.gempukku.lotro.game.actions.Action;
 
 public class SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier extends AbstractModifier {
@@ -25,8 +25,8 @@ public class SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier extends Abs
     public boolean canPlayAction(DefaultGame game, String performingPlayer, Action action) {
         if (action.getActionTimeword() == _phase
                 && (
-                (_side == Side.FREE_PEOPLE && GameUtils.isFP(game, action.getPerformingPlayer()))
-                        || (_side == Side.SHADOW && GameUtils.isShadow(game, action.getPerformingPlayer()))))
+                (_side == Side.FREE_PEOPLE && LotroGameUtils.isFP(game, action.getPerformingPlayer()))
+                        || (_side == Side.SHADOW && LotroGameUtils.isShadow(game, action.getPerformingPlayer()))))
             return false;
         return true;
     }

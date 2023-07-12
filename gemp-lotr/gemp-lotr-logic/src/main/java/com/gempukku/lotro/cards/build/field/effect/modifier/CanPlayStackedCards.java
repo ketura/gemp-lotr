@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.PlayUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroPlayUtils;
 import com.gempukku.lotro.game.modifiers.AbstractModifier;
 import com.gempukku.lotro.game.modifiers.Modifier;
 import com.gempukku.lotro.game.modifiers.ModifierEffect;
@@ -36,9 +36,9 @@ public class CanPlayStackedCards implements ModifierSourceProducer {
                         new RequirementCondition(requirements, actionContext), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override
                     public List<? extends Action> getExtraPhaseActionFromStacked(DefaultGame game, PhysicalCard card) {
-                        if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, false))
+                        if (LotroPlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, false))
                             return Collections.singletonList(
-                                    PlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
+                                    LotroPlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
                         return null;
                     }
                 };

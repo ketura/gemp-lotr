@@ -3,15 +3,16 @@ package com.gempukku.lotro.cards.build;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.*;
+import com.gempukku.lotro.game.actions.Action;
+import com.gempukku.lotro.game.actions.lotronly.*;
 import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.game.PlayUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroPlayUtils;
 import com.gempukku.lotro.game.effects.DiscountEffect;
 import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.game.effects.EffectResult;
 
 import java.util.*;
 
@@ -801,8 +802,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         for (Requirement playInOtherPhaseCondition : playInOtherPhaseConditions) {
             DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
             if (playInOtherPhaseCondition.accepts(actionContext)
-                    && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false, false))
-                playCardActions.add(PlayUtils.getPlayCardAction(game, self, 0, Filters.any, false));
+                    && LotroPlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false, false))
+                playCardActions.add(LotroPlayUtils.getPlayCardAction(game, self, 0, Filters.any, false));
         }
 
         return playCardActions;

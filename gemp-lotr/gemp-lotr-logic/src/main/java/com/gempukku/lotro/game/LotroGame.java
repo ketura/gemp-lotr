@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
@@ -14,13 +14,13 @@ import com.gempukku.lotro.game.actions.ActionsEnvironment;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.timing.GameResultListener;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.game.timing.rules.RuleSet;
+import com.gempukku.lotro.game.rules.RuleSet;
 import com.gempukku.lotro.game.timing.processes.turn.TurnProcedure;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.game.timing.rules.CharacterDeathRule;
+import com.gempukku.lotro.game.rules.CharacterDeathRule;
 import com.gempukku.lotro.cards.LotroDeck;
 import org.apache.log4j.Logger;
 
@@ -50,9 +50,9 @@ public class LotroGame implements DefaultGame {
     private final Set<GameResultListener> _gameResultListeners = new HashSet<>();
 
     private final Set<String> _requestedCancel = new HashSet<>();
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
-    public LotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
+    public LotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final CardBlueprintLibrary library) {
         _library = library;
         _adventure = format.getAdventure();
         _format = format;
@@ -231,13 +231,12 @@ public class LotroGame implements DefaultGame {
             cancelGameRequested();
     }
 
-    @Override
     public GameState getGameState() {
         return _gameState;
     }
 
     @Override
-    public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
+    public CardBlueprintLibrary getLotroCardBlueprintLibrary() {
         return _library;
     }
 
@@ -261,7 +260,6 @@ public class LotroGame implements DefaultGame {
         return _userFeedback;
     }
 
-    @Override
     public void checkRingBearerCorruption() {
         GameState gameState = getGameState();
         if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {

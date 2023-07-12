@@ -3,7 +3,6 @@ package com.gempukku.lotro.game.effects;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.AbstractEffect;
 
 import java.util.HashSet;
 import java.util.LinkedList;

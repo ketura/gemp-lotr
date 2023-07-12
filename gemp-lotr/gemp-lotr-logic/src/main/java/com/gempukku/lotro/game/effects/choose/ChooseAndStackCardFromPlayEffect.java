@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.game.effects.StackCardFromPlayEffect;
-import com.gempukku.lotro.game.actions.SubAction;
-import com.gempukku.lotro.game.timing.AbstractSubActionEffect;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
+import com.gempukku.lotro.game.effects.AbstractSubActionEffect;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.timing.PlayConditions;
 

@@ -3,6 +3,7 @@ package com.gempukku.lotro.game.timing.processes.pregame;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.timing.processes.pregame.lotronly.MulliganProcess;
 import com.gempukku.lotro.game.timing.processes.turn.BetweenTurnsProcess;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
 

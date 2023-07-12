@@ -6,7 +6,7 @@ import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.*;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
 import io.netty.handler.codec.http.HttpMethod;
@@ -40,7 +40,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private final LotroFormatLibrary _formatLibrary;
     private final HallServer _hallServer;
     private final LeagueService _leagueService;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroServer _lotroServer;
     private final LongPollingSystem longPollingSystem;
 
@@ -52,7 +52,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _hallServer = extractObject(context, HallServer.class);
         _leagueService = extractObject(context, LeagueService.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _lotroServer = extractObject(context, LotroServer.class);
         this.longPollingSystem = longPollingSystem;
     }

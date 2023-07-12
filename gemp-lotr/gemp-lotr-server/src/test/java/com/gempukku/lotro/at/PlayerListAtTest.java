@@ -1,6 +1,6 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 

@@ -6,13 +6,13 @@ import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.cards.PhysicalCardVisitor;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.state.Assignment;
+import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.game.GameUtils;
-import com.gempukku.lotro.game.PlayUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroPlayUtils;
 import com.gempukku.lotro.game.modifiers.Condition;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.game.timing.rules.RuleUtils;
+import com.gempukku.lotro.game.rules.RuleUtils;
 
 import java.util.*;
 
@@ -609,7 +609,7 @@ public class Filters {
                 if (blueprint.getSide() != expectedSide)
                     return false;
 
-                return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, ignoreResponseEvents);
+                return LotroPlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile, ignoreResponseEvents);
             }
         };
     }
@@ -703,7 +703,7 @@ public class Filters {
                 new Filter() {
                     @Override
                     public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
-                        return RuleUtils.isAllyInRegion(physicalCard, GameUtils.getRegion(game), game.getGameState().getCurrentSiteBlock());
+                        return RuleUtils.isAllyInRegion(physicalCard, LotroGameUtils.getRegion(game), game.getGameState().getCurrentSiteBlock());
                     }
                 });
     }
@@ -748,7 +748,7 @@ public class Filters {
     public static final Filter currentRegion = new Filter() {
         @Override
         public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
-            return GameUtils.getRegion(game) == GameUtils.getRegion(physicalCard.getSiteNumber());
+            return LotroGameUtils.getRegion(game) == LotroGameUtils.getRegion(physicalCard.getSiteNumber());
         }
     };
 
@@ -786,7 +786,7 @@ public class Filters {
                 @Override
                 public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
                     int siteNumber = physicalCard.getSiteNumber();
-                    return GameUtils.getRegion(game) == GameUtils.getRegion(siteNumber);
+                    return LotroGameUtils.getRegion(game) == LotroGameUtils.getRegion(siteNumber);
                 }
             });
 
@@ -800,7 +800,7 @@ public class Filters {
                 if(physicalCard.getSiteNumber() == null)
                     return false;
 
-                int regionNumber = GameUtils.getRegion(physicalCard.getSiteNumber());
+                int regionNumber = LotroGameUtils.getRegion(physicalCard.getSiteNumber());
 
                 return regionNumber >= minRegionNumber && regionNumber <= maxRegionNumber;
             }

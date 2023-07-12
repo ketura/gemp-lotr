@@ -1,13 +1,13 @@
 package com.gempukku.lotro.game.formats;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.adventure.Adventure;
 import com.gempukku.lotro.game.adventure.AdventureLibrary;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.cards.LotroDeck;
 
 import java.util.*;
@@ -17,7 +17,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     public static final String CardRemovedError = "Deck contains card removed from the set";
     private final Adventure _adventure;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final String _name;
     private final String _code;
     private final int _order;
@@ -45,7 +45,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private final List<String> _limit3Cards = new ArrayList<>();
     private final Map<String,String> _errataCardMap = new TreeMap<>();
 
-    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, JSONDefs.Format def) throws InvalidPropertiesFormatException{
+    public DefaultLotroFormat(AdventureLibrary adventureLibrary, CardBlueprintLibrary library, JSONDefs.Format def) throws InvalidPropertiesFormatException{
         this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
                 def.validateShadowFPCount, def.minimumDeckSize, def.maximumSameName, def.mulliganRule, def.cancelRingBearerSkirmish,
                 def.ruleOfFour, def.winAtEndOfRegroup, def.discardPileIsPublic, def.winOnControlling5Sites, def.playtest, def.hall);
@@ -73,7 +73,7 @@ public class DefaultLotroFormat implements LotroFormat {
             def.errata.forEach(this::addCardErrata);
     }
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library,
+    public DefaultLotroFormat(CardBlueprintLibrary library,
                               Adventure adventure, String name, String code, int order, String surveyUrl,
                               SitesBlock siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,

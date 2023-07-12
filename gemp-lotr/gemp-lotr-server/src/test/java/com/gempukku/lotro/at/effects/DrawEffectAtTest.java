@@ -6,12 +6,12 @@ import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.PhysicalCardImpl;
-import com.gempukku.lotro.game.actions.RequiredTriggerAction;
+import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.effects.DrawCardsEffect;
 import com.gempukku.lotro.game.effects.PreventEffect;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.game.effects.EffectResult;
 import com.gempukku.lotro.game.timing.Preventable;
 import org.junit.Test;
 

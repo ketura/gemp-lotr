@@ -1,7 +1,7 @@
 package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class TengwarPackBox implements PackBox {
     private final List<CardCollection.Item> _cards = new ArrayList<>();
 
-    public TengwarPackBox(String[] sets, LotroCardBlueprintLibrary library) {
+    public TengwarPackBox(String[] sets, CardBlueprintLibrary library) {
         final Map<String,SetDefinition> setDefinitions = library.getSetDefinitions();
         for (String set : sets)
             for (String tengwarCard : setDefinitions.get(set).getTengwarCards())

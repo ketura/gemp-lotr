@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.timing.results;
 
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.effects.EffectResult;
 
 public class ReplaceSiteResult extends EffectResult {
     private final int _siteNumber;

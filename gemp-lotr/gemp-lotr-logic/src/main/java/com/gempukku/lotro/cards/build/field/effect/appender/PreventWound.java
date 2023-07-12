@@ -10,12 +10,12 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.PreventCardEffect;
 import com.gempukku.lotro.game.effects.PreventableCardEffect;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;

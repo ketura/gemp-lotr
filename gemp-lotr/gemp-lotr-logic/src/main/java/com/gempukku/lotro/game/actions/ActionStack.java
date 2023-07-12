@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.actions;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 
 import java.util.Stack;
 

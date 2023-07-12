@@ -1,10 +1,8 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
-import com.gempukku.lotro.game.actions.PreventSubAction;
-import com.gempukku.lotro.game.timing.AbstractSubActionEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.PreventSubAction;
 
 import java.util.Arrays;
 import java.util.Collections;

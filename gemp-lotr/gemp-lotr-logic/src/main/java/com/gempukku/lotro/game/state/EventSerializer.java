@@ -115,22 +115,6 @@ public class EventSerializer {
     }
 
     private void serializeGameStats(Document doc, Element eventElem, GameStats gameStats) {
-        if (gameStats.getWearingRing() != null)
-            eventElem.setAttribute("wearingRing", String.valueOf(gameStats.getWearingRing()));
-        eventElem.setAttribute("fellowshipArchery", String.valueOf(gameStats.getFellowshipArchery()));
-        eventElem.setAttribute("shadowArchery", String.valueOf(gameStats.getShadowArchery()));
-
-        eventElem.setAttribute("fellowshipStrength", String.valueOf(gameStats.getFellowshipSkirmishStrength()));
-        eventElem.setAttribute("shadowStrength", String.valueOf(gameStats.getShadowSkirmishStrength()));
-
-        eventElem.setAttribute("fellowshipDamageBonus", String.valueOf(gameStats.getFellowshipSkirmishDamageBonus()));
-        eventElem.setAttribute("shadowDamageBonus", String.valueOf(gameStats.getShadowSkirmishDamageBonus()));
-
-        eventElem.setAttribute("fpOverwhelmed", String.valueOf(gameStats.isFpOverwhelmed()));
-
-        eventElem.setAttribute("moveLimit", String.valueOf(gameStats.getMoveLimit()));
-        eventElem.setAttribute("moveCount", String.valueOf(gameStats.getMoveCount()));
-
         for (Map.Entry<String, Map<Zone, Integer>> playerZoneSizes : gameStats.getZoneSizes().entrySet()) {
             final Element playerZonesElem = doc.createElement("playerZones");
 
@@ -142,26 +126,7 @@ public class EventSerializer {
             eventElem.appendChild(playerZonesElem);
         }
 
-        for (Map.Entry<String, Integer> playerThreatEntry : gameStats.getThreats().entrySet()) {
-            Element threatsElem = doc.createElement("threats");
-            threatsElem.setAttribute("name", playerThreatEntry.getKey());
-            threatsElem.setAttribute("value", playerThreatEntry.getValue().toString());
-            eventElem.appendChild(threatsElem);
-        }
-
-        Map<Integer, Integer> charVitalities = gameStats.getCharVitalities();
-        Map<Integer, Integer> charSiteNumbers = gameStats.getSiteNumbers();
-        Map<Integer, String> charResistances = gameStats.getCharResistances();
-
         StringBuilder charStr = new StringBuilder();
-        for (Map.Entry<Integer, Integer> characters : gameStats.getCharStrengths().entrySet()) {
-            Integer charCardId = characters.getKey();
-            charStr.append(",").append(charCardId).append("=").append(characters.getValue()).append("|").append(charVitalities.get(charCardId));
-            if (charSiteNumbers.containsKey(charCardId))
-                charStr.append("|").append(charSiteNumbers.get(charCardId));
-            else if (charResistances.containsKey(charCardId))
-                charStr.append("|R").append(charResistances.get(charCardId));
-        }
         if (charStr.length() > 0)
             charStr.delete(0, 1);
 

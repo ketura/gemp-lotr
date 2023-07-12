@@ -4,8 +4,8 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
-import com.gempukku.lotro.game.actions.ActivateCardAction;
+import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.game.actions.lotronly.ActivateCardAction;
 
 import java.util.Collections;
 import java.util.List;

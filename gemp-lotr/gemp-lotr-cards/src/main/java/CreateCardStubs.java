@@ -3,7 +3,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.sets.SetDefinition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -40,7 +40,7 @@ public class CreateCardStubs {
     private static void produceForSet(File root, int set) {
         File setPath = new File(root, "set" + set);
 
-        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+        CardBlueprintLibrary library = new CardBlueprintLibrary();
         Map<String, Map<String, LotroCardBlueprint>> cardsByFileName = new HashMap<>();
 
         SetDefinition setDefinition = library.getSetDefinitions().get("" + set);

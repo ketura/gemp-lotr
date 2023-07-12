@@ -1,6 +1,6 @@
 package com.gempukku.lotro.builder;
 
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -29,8 +29,8 @@ public class ServerBuilder {
     private static final Logger logger = Logger.getLogger(ServerBuilder.class);
     public static void CreatePrerequisites(Map<Type, Object> objectMap) {
         logger.debug("Calling CreatePrerequisites function");
-        final LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-        objectMap.put(LotroCardBlueprintLibrary.class, library);
+        final CardBlueprintLibrary library = new CardBlueprintLibrary();
+        objectMap.put(CardBlueprintLibrary.class, library);
         objectMap.put(ProductLibrary.class, new ProductLibrary(library));
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
@@ -50,7 +50,7 @@ public class ServerBuilder {
         objectMap.put(LotroFormatLibrary.class,
                 new LotroFormatLibrary(
                         extract(objectMap, AdventureLibrary.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, CardBlueprintLibrary.class)));
 
         objectMap.put(GameHistoryService.class,
                 new GameHistoryService(
@@ -65,12 +65,12 @@ public class ServerBuilder {
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, CollectionDAO.class),
                         extract(objectMap, TransferDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, CardBlueprintLibrary.class)));
 
         objectMap.put(SoloDraftDefinitions.class,
                 new SoloDraftDefinitions(
                     extract(objectMap, CollectionsManager.class),
-                    extract(objectMap, LotroCardBlueprintLibrary.class),
+                    extract(objectMap, CardBlueprintLibrary.class),
                     extract(objectMap, LotroFormatLibrary.class)
                 ));
 
@@ -80,7 +80,7 @@ public class ServerBuilder {
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, SoloDraftDefinitions.class)));
 
@@ -104,11 +104,11 @@ public class ServerBuilder {
                         extract(objectMap, TournamentDAO.class),
                         extract(objectMap, TournamentPlayerDAO.class),
                         extract(objectMap, TournamentMatchDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, CardBlueprintLibrary.class)));
 
         objectMap.put(MerchantService.class,
                 new MerchantService(
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, CollectionsManager.class)));
 
         objectMap.put(ChatServer.class, new ChatServer(
@@ -118,7 +118,7 @@ public class ServerBuilder {
         objectMap.put(LotroServer.class,
                 new LotroServer(
                         extract(objectMap, DeckDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, GameRecorder.class)));
 
@@ -129,7 +129,7 @@ public class ServerBuilder {
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, LeagueService.class),
                         extract(objectMap, TournamentService.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, AdminService.class),

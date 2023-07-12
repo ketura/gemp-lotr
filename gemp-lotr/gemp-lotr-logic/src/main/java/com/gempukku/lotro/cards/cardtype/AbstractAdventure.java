@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.cardtype;
 
+import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.common.CardType;
 
 public class AbstractAdventure extends AbstractLotroCardBlueprint {

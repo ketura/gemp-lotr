@@ -7,11 +7,8 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.effects.*;
 import com.gempukku.lotro.game.timing.results.*;
-import com.gempukku.lotro.game.effects.DrawOneCardEffect;
-import com.gempukku.lotro.game.effects.KillEffect;
-import com.gempukku.lotro.game.effects.PreventableCardEffect;
-import com.gempukku.lotro.game.effects.WoundCharactersEffect;
 
 public class TriggerConditions {
     public static boolean losesInitiative(EffectResult effectResult, Side side) {

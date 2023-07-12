@@ -6,8 +6,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.RequiredTriggerAction;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 
 import java.util.Collections;

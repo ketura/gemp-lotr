@@ -1,5 +1,7 @@
 package com.gempukku.lotro.game.timing;
 
+import com.gempukku.lotro.game.effects.EffectResult;
+
 public class CostResolution {
     private final EffectResult[] _effectResults;
     private final boolean _successful;

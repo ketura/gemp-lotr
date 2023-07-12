@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.StrengthModifier;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.game.timing.AbstractEffect;
 
 public class SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect extends AbstractEffect {
     private final PhysicalCard _source;

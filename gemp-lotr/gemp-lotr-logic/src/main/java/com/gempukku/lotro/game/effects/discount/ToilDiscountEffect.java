@@ -5,10 +5,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.DiscountEffect;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
-import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.game.timing.AbstractSubActionEffect;
+import com.gempukku.lotro.game.effects.AbstractSubActionEffect;
 
 public class ToilDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
     private final CostToEffectAction _action;

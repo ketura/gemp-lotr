@@ -8,10 +8,10 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
-import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.effects.StackActionEffect;
-import com.gempukku.lotro.game.timing.Effect;
+import com.gempukku.lotro.game.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class Repeat implements EffectAppenderProducer {

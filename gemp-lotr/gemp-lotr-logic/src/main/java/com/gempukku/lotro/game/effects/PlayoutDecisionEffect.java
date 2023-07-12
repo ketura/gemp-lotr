@@ -2,8 +2,6 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
-import com.gempukku.lotro.game.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.game.timing.Effect;
 
 public class PlayoutDecisionEffect extends AbstractSuccessfulEffect {
     private final String _playerId;

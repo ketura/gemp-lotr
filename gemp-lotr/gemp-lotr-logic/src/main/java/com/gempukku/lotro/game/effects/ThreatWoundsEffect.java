@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.AbstractEffect;
 import com.gempukku.lotro.game.timing.results.KilledResult;
 import com.gempukku.lotro.game.timing.results.ThreatWoundTriggerResult;
 

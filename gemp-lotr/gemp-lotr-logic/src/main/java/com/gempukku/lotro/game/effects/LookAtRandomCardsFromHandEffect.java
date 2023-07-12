@@ -2,9 +2,8 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.game.timing.AbstractEffect;
 
 import java.util.Collections;
 import java.util.List;

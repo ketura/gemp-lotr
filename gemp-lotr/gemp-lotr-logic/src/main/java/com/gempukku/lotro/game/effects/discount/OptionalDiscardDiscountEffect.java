@@ -4,10 +4,10 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.DiscountEffect;
-import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.effects.OptionalEffect;
 import com.gempukku.lotro.game.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.game.timing.AbstractSubActionEffect;
+import com.gempukku.lotro.game.effects.AbstractSubActionEffect;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.timing.PlayConditions;
 

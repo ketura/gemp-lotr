@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.modifiers;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 
 public abstract class AbstractExtraPlayCostModifier extends AbstractModifier implements ExtraPlayCost {
 

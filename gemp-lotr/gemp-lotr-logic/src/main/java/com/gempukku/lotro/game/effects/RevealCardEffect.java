@@ -2,11 +2,9 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayOrder;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
-import com.gempukku.lotro.game.timing.AbstractSuccessfulEffect;
-import com.gempukku.lotro.game.timing.Effect;
 
 import java.util.Collection;
 import java.util.Collections;

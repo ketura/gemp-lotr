@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.actions.Action;
 
 import java.util.Collection;

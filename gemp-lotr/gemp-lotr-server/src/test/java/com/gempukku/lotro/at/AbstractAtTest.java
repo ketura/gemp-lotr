@@ -1,33 +1,30 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.*;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.game.actions.SystemQueueAction;
+import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.LotroGame;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.cards.LotroDeck;
+import com.gempukku.lotro.game.effects.Effect;
 
 import java.util.*;
 
 import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
-    protected static LotroCardBlueprintLibrary _cardLibrary;
+    protected static CardBlueprintLibrary _cardLibrary;
     protected static LotroFormatLibrary _formatLibrary;
     private final int cardId = 100;
 
     static {
-        _cardLibrary = new LotroCardBlueprintLibrary();
+        _cardLibrary = new CardBlueprintLibrary();
         _formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
     }
 

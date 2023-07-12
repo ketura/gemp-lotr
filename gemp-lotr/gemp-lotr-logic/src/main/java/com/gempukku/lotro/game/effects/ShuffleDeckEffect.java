@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
 
 public class ShuffleDeckEffect extends UnrespondableEffect {
     private final String _playerId;

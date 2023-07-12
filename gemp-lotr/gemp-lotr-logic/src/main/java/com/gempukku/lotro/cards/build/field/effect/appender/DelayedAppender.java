@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.UnrespondableEffect;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.game.effects.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;

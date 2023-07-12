@@ -2,8 +2,10 @@ package com.gempukku.lotro.game.actions;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.Effect;
-import com.gempukku.lotro.game.timing.EffectResult;
+import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
+import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.game.effects.EffectResult;
 import org.apache.log4j.Logger;
 
 import java.util.*;

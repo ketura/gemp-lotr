@@ -5,7 +5,7 @@ import com.gempukku.lotro.draft2.DraftChoiceDefinition;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.game.SortAndFilterCards;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import org.json.simple.JSONArray;
@@ -16,11 +16,11 @@ import java.util.*;
 public class DraftChoiceBuilder {
     public static final int HIGH_ENOUGH_PRIME_NUMBER = 9497;
     private final CollectionsManager _collectionsManager;
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
     private final LotroFormatLibrary _formatLibrary;
     private final SortAndFilterCards _sortAndFilterCards;
 
-    public DraftChoiceBuilder(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
+    public DraftChoiceBuilder(CollectionsManager collectionsManager, CardBlueprintLibrary cardLibrary,
                               LotroFormatLibrary formatLibrary) {
         _collectionsManager = collectionsManager;
         _cardLibrary = cardLibrary;

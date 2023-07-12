@@ -3,7 +3,7 @@ package com.gempukku.lotro.league;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     private final List<String> _uncommons = new ArrayList<>();
     private final List<String> _rares = new ArrayList<>();
 
-    public FixedLeaguePrizes(LotroCardBlueprintLibrary library) {
+    public FixedLeaguePrizes(CardBlueprintLibrary library) {
         for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("originalSet")) {
                 _commons.addAll(setDefinition.getCardsOfRarity("C"));

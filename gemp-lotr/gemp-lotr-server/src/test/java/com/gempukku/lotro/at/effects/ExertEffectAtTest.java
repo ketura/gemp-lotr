@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.PhysicalCardImpl;
-import com.gempukku.lotro.game.actions.ActivateCardAction;
+import com.gempukku.lotro.game.actions.lotronly.ActivateCardAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 

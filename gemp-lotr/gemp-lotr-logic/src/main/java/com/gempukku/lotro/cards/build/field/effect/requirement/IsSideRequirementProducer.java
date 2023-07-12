@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 import org.json.simple.JSONObject;
 
 public class IsSideRequirementProducer implements RequirementProducer{
@@ -19,7 +19,7 @@ public class IsSideRequirementProducer implements RequirementProducer{
         return new Requirement() {
             @Override
             public boolean accepts(ActionContext actionContext) {
-                return GameUtils.isSide(actionContext.getGame(), side, actionContext.getPerformingPlayer());
+                return LotroGameUtils.isSide(actionContext.getGame(), side, actionContext.getPerformingPlayer());
             }
         };
     }

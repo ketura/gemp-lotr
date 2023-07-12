@@ -3,10 +3,10 @@ package com.gempukku.lotro.game.effects.discount;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.DiscountEffect;
 import com.gempukku.lotro.game.effects.RemoveThreatsEffect;
-import com.gempukku.lotro.game.actions.SubAction;
+import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.game.timing.AbstractSubActionEffect;
+import com.gempukku.lotro.game.effects.AbstractSubActionEffect;
 import com.gempukku.lotro.game.actions.Action;
 
 public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {

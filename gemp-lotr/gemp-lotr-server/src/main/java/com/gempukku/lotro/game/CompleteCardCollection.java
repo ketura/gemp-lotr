@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.common.CardType;
 
 import java.util.Collections;
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class CompleteCardCollection implements CardCollection {
 
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
-    public CompleteCardCollection(LotroCardBlueprintLibrary library) {
+    public CompleteCardCollection(CardBlueprintLibrary library) {
         _library = library;
     }
     @Override

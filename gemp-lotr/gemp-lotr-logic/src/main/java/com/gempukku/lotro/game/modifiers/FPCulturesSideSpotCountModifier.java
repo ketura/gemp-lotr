@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.modifiers;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 
 public class FPCulturesSideSpotCountModifier extends AbstractModifier {
     private final Side _sidePlayer;
@@ -21,7 +21,7 @@ public class FPCulturesSideSpotCountModifier extends AbstractModifier {
 
     @Override
     public int getFPCulturesSpotCountModifier(DefaultGame game, String playerId) {
-        if (GameUtils.isSide(game, _sidePlayer, playerId))
+        if (LotroGameUtils.isSide(game, _sidePlayer, playerId))
             return _modifier;
         return 0;
     }

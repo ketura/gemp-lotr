@@ -1,9 +1,9 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.*;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.DeckInvalidException;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatCommandCallback;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatRoomMediator;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.game.GameUtils;
+import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.GameResultListener;
 import com.gempukku.lotro.cards.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
@@ -46,7 +46,7 @@ public class HallServer extends AbstractServer {
     private final ChatServer _chatServer;
     private final LeagueService _leagueService;
     private final TournamentService _tournamentService;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
     private final CollectionsManager _collectionsManager;
     private final LotroServer _lotroServer;
@@ -76,7 +76,7 @@ public class HallServer extends AbstractServer {
 
     private static final Logger _log = Logger.getLogger(HallServer.class);
 
-    public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
+    public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, CardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager,
                       AdminService adminService,
                       TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,

@@ -1,9 +1,10 @@
 package com.gempukku.lotro.cards.cardtype;
 
+import com.gempukku.lotro.cards.AbstractLotroCardBlueprint;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.PlayEventAction;
+import com.gempukku.lotro.game.actions.lotronly.PlayEventAction;
 
 public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     public AbstractEvent(Side side, int twilightCost, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {

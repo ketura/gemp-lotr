@@ -2,7 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.PrivateInformationException;
-import com.gempukku.lotro.cards.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.DeckDAO;
@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class LotroServer extends AbstractServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
 
-    private final LotroCardBlueprintLibrary _lotroCardBlueprintLibrary;
+    private final CardBlueprintLibrary _CardBlueprintLibrary;
 
     private final Map<String, CardGameMediator> _runningGames = new ConcurrentHashMap<>();
     private final Set<String> _gameDeathWarningsSent = new HashSet<>();
@@ -37,9 +37,9 @@ public class LotroServer extends AbstractServer {
 
     private final ReadWriteLock _lock = new ReentrantReadWriteLock();
 
-    public LotroServer(DeckDAO deckDao, LotroCardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder) {
+    public LotroServer(DeckDAO deckDao, CardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder) {
         _deckDao = deckDao;
-        _lotroCardBlueprintLibrary = library;
+        _CardBlueprintLibrary = library;
         _chatServer = chatServer;
         _gameRecorder = gameRecorder;
     }
@@ -111,7 +111,7 @@ public class LotroServer extends AbstractServer {
                 spectate = false;
             }
 
-            CardGameMediator cardGameMediator = new CardGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,
+            CardGameMediator cardGameMediator = new CardGameMediator(gameId, gameSettings.getLotroFormat(), participants, _CardBlueprintLibrary,
                     gameSettings.getTimeSettings(),
                     spectate, !gameSettings.isCompetitive(), gameSettings.isHiddenGame());
             cardGameMediator.addGameResultListener(

@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.game.actions.CostToEffectAction;
+import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.modifiers.StrengthModifier;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
