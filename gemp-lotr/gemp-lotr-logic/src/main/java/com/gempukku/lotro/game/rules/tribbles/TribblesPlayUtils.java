@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class TribblesPlayUtils extends PlayUtils {
     private static Zone getPlayToZone(PhysicalCard card) {
-        return Zone.ADVENTURE_DECK;
+        return Zone.PLAY_PILE;
     }
 
     public static Map<Phase, Keyword> PhaseKeywordMap = ImmutableMap.copyOf(new HashMap<>() {{
@@ -48,6 +48,7 @@ public class TribblesPlayUtils extends PlayUtils {
                                                        Filterable additionalAttachmentFilter, boolean ignoreRoamingPenalty) {
         final LotroCardBlueprint blueprint = card.getBlueprint();
 
+        game.getGameState().sendMessage("DEBUG: Called getPlayCardAction from TribblesPlayUtils");
         if (blueprint.getCardType() != CardType.EVENT) {
             final Filterable validTargetFilter = blueprint.getValidTargetFilter(card.getOwner(), game, card);
             if (validTargetFilter == null) {
