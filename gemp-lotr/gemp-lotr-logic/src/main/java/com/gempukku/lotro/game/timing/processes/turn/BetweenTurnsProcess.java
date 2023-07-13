@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.timing.processes.GameProcess;
 public class BetweenTurnsProcess implements GameProcess {
     @Override
     public void process(DefaultGame game) {
+        game.getGameState().sendMessage("DEBUG: Beginning BetweenTurnsProcess");
         PlayOrder playOrder = game.getGameState().getPlayerOrder().getClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
         playOrder.getNextPlayer();
 

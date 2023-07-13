@@ -17,7 +17,6 @@ import com.gempukku.lotro.game.rules.PlayResponseEventRule;
 import com.gempukku.lotro.game.rules.RequiredTriggersRule;
 import com.gempukku.lotro.game.rules.RuleSet;
 import com.gempukku.lotro.game.rules.StatModifiersRule;
-import com.gempukku.lotro.game.rules.lotronly.SanctuaryRule;
 
 public class TribblesRuleSet extends RuleSet {
     private final DefaultGame _game;
@@ -40,8 +39,6 @@ public class TribblesRuleSet extends RuleSet {
 
         new TribblesPlayCardRule(_actionsEnvironment).applyRule();
         new PlayResponseEventRule(_actionsEnvironment).applyRule();
-
-        new SanctuaryRule(_actionsEnvironment, _modifiersLogic).applyRule();
 
         new ActivateResponseAbilitiesRule(_actionsEnvironment).applyRule();
         new ActivatePhaseActionsRule(_actionsEnvironment).applyRule();

@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.timing.results.StartOfTurnResult;
 public class StartOfTurnGameProcess implements GameProcess {
     @Override
     public void process(DefaultGame game) {
+        game.getGameState().sendMessage("DEBUG: Beginning StartOfTurnGameProcess");
         game.getGameState().startAffectingCardsForCurrentPlayer(game);
 
         SystemQueueAction action = new SystemQueueAction();

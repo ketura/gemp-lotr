@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.timing.results.EndOfTurnResult;
 public class EndOfTurnGameProcess implements GameProcess {
     @Override
     public void process(DefaultGame game) {
+        game.getGameState().sendMessage("DEBUG: Beginning EndOfTurnGameProcess");
         SystemQueueAction action = new SystemQueueAction();
         action.setText("End of turn");
         action.appendEffect(

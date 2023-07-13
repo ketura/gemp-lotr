@@ -21,6 +21,7 @@ public class EndOfPhaseGameProcess implements GameProcess {
 
     @Override
     public void process(DefaultGame game) {
+        game.getGameState().sendMessage("DEBUG: Beginning EndOfPhaseGameProcess");
         SystemQueueAction action = new SystemQueueAction();
         action.setText("End of " + _phase + " phase");
         action.appendEffect(
