@@ -22,6 +22,7 @@ public class TribblesGameState extends GameState {
     private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
     private LotroFormat _format;
+    private final Map<String, List<PhysicalCardImpl>> _playPiles = new HashMap<>();
     private final Map<String, List<PhysicalCardImpl>> _adventureDecks = new HashMap<>();
     private final Map<String, List<PhysicalCardImpl>> _decks = new HashMap<>();
     private final Map<String, List<PhysicalCardImpl>> _hands = new HashMap<>();
@@ -66,6 +67,7 @@ public class TribblesGameState extends GameState {
             _removed.put(playerId, new LinkedList<>());
             _discards.put(playerId, new LinkedList<>());
             _stacked.put(playerId, new LinkedList<>());
+            _playPiles.put(playerId, new LinkedList<>());
 
             addPlayerCards(playerId, decks, library);
         }
@@ -215,6 +217,12 @@ public class TribblesGameState extends GameState {
                     listener.cardCreated(physicalCard);
             }
 
+            List<PhysicalCardImpl> playPile = _playPiles.get(playerId);
+            if (playPile != null) {
+                for (PhysicalCardImpl physicalCard : playPile)
+                    listener.cardCreated(physicalCard);
+            }
+
             listener.sendGameStats(gameStats);
         }
 
@@ -303,6 +311,8 @@ public class TribblesGameState extends GameState {
     private List<PhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
         if (zone == Zone.DECK)
             return _decks.get(playerId);
+        else if (zone == Zone.PLAY_PILE)
+            return _playPiles.get(playerId);
         else if (zone == Zone.ADVENTURE_DECK)
             return _adventureDecks.get(playerId);
         else if (zone == Zone.DISCARD)
@@ -466,6 +476,9 @@ public class TribblesGameState extends GameState {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
     }
 
+    public List<? extends PhysicalCard> getPlayPile(String playerId) {
+        return Collections.unmodifiableList(_playPiles.get(playerId));
+    }
     public List<? extends PhysicalCard> getInPlay() {
         return Collections.unmodifiableList(_inPlay);
     }

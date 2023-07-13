@@ -12,6 +12,7 @@ public enum Zone implements Filterable {
     // Private knowledge
     HAND("hand", false, true, false), DISCARD("discard", false, true, false),
     ADVENTURE_DECK("adventureDeck", false, true, false),
+    PLAY_PILE("play pile", true, true,true),
 
     // Nobody sees
     VOID("void", false, false, false), VOID_FROM_HAND("voidFromHand", false, false, false), DECK("deck", false, false, false);

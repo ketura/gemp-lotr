@@ -70,10 +70,12 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
     @Override
     public Effect nextEffect(DefaultGame game) {
+//        game.getGameState().sendMessage("DEBUG: Calling nextEffect from lotronly/PlayPermanentAction");
         if (!_cardRemoved) {
             _cardRemoved = true;
             final Zone playedFromZone = _permanentPlayed.getZone();
-            game.getGameState().sendMessage(_permanentPlayed.getOwner() + " plays " + GameUtils.getCardLink(_permanentPlayed) + " from " + playedFromZone.getHumanReadable());
+            game.getGameState().sendMessage(_permanentPlayed.getOwner() + " plays " + GameUtils.getCardLink(_permanentPlayed) +
+                    " from " + playedFromZone.getHumanReadable() + " to " + _toZone.getHumanReadable());
             game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
             if (playedFromZone == Zone.HAND)
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID_FROM_HAND);

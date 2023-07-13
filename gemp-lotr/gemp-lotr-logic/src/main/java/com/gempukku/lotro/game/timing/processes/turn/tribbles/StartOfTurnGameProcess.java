@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.timing.processes.turn;
+package com.gempukku.lotro.game.timing.processes.turn.tribbles;
 
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
@@ -33,6 +33,6 @@ public class StartOfTurnGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new FellowshipGameProcess();
+        return new TribblesTurnProcess();
     }
 }
