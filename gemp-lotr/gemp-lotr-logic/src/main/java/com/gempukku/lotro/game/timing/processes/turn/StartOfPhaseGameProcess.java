@@ -28,7 +28,6 @@ public class StartOfPhaseGameProcess implements GameProcess {
 
     @Override
     public void process(DefaultGame game) {
-        game.getGameState().sendMessage("DEBUG: Beginning StartOfPhaseGameProcess");
         game.getGameState().setCurrentPhase(_phase);
         SystemQueueAction action = new SystemQueueAction();
         action.setText("Start of " + _phase + " phase");

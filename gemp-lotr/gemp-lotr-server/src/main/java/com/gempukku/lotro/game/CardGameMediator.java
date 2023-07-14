@@ -189,7 +189,8 @@ public class CardGameMediator {
                 }
 
                 sb.append("<br><br><b>Effective stats:</b>");
-                try {
+                        // Commmented out stats displays below specific to LotR
+/*                try {
                     PhysicalCard target = card.getAttachedTo();
                     int twilightCost = _tribblesgame.getModifiersQuerying().getTwilightCost(_tribblesgame, card, target, 0, false);
                     sb.append("<br><b>Twilight cost:</b> " + twilightCost);
@@ -214,7 +215,7 @@ public class CardGameMediator {
                     int siteNumber = _tribblesgame.getModifiersQuerying().getMinionSiteNumber(_tribblesgame, card);
                     sb.append("<br><b>Site number:</b> " + siteNumber);
                 } catch (UnsupportedOperationException ignored) {
-                }
+                }*/
                 try {
                     int tribbleValue = card.getBlueprint().getTribbleValue();
                     sb.append("<br><b>Tribble value:</b> " + tribbleValue);
@@ -223,6 +224,11 @@ public class CardGameMediator {
                 try {
                     String tribblePower = card.getBlueprint().getTribblePower();
                     sb.append("<br><b>Tribble power:</b> " + tribblePower);
+                } catch (UnsupportedOperationException ignored) {
+                }
+                try {
+                    String imageUrl = card.getBlueprint().getImageUrl();
+                    sb.append("<br><b>Image URL:</b> " + imageUrl);
                 } catch (UnsupportedOperationException ignored) {
                 }
 
