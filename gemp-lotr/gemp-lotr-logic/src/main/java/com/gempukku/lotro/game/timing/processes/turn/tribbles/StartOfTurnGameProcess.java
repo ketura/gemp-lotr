@@ -5,7 +5,6 @@ import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.effects.TriggeringResultEffect;
 import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.lotronly.FellowshipGameProcess;
 import com.gempukku.lotro.game.timing.results.StartOfTurnResult;
 
 public class StartOfTurnGameProcess implements GameProcess {

@@ -48,7 +48,6 @@ public class TribblesPlayUtils extends PlayUtils {
                                                        Filterable additionalAttachmentFilter, boolean ignoreRoamingPenalty) {
         final LotroCardBlueprint blueprint = card.getBlueprint();
 
-        game.getGameState().sendMessage("DEBUG: Called getPlayCardAction from TribblesPlayUtils");
         if (blueprint.getCardType() != CardType.EVENT) {
             final Filterable validTargetFilter = blueprint.getValidTargetFilter(card.getOwner(), game, card);
             if (validTargetFilter == null) {

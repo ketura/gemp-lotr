@@ -11,7 +11,6 @@ import java.util.List;
 public class PhysicalCardImpl implements PhysicalCard {
     private int _cardId;
     private final String _blueprintId;
-    private final String _imageUrl;
     private final String _owner;
     private String _cardController;
     private Zone _zone;
@@ -34,7 +33,6 @@ public class PhysicalCardImpl implements PhysicalCard {
         _blueprintId = blueprintId;
         _owner = owner;
         _blueprint = blueprint;
-        _imageUrl = blueprint.getImageUrl();
     }
 
     public void setCardId(int cardId) {

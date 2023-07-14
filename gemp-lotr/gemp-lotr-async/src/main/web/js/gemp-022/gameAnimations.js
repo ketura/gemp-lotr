@@ -202,6 +202,7 @@ var GameAnimations = Class.extend({
         var participantId = element.getAttribute("participantId");
         var cardId = element.getAttribute("cardId");
         var zone = element.getAttribute("zone");
+        var imageUrl = element.getAttribute("imageUrl");
 
         var that = this;
         $("#main").queue(
