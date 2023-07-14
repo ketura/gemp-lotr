@@ -264,14 +264,19 @@ public class TribblesGame implements DefaultGame {
     }
 
     public boolean checkPlayRequirements(PhysicalCard card) {
+//        _gameState.sendMessage("Calling game.checkPlayRequirements for card " + card.getBlueprint().getTitle());
 
         // Check if card's own play requirements are met
-        if (!card.getBlueprint().checkPlayRequirements(this, card))
+        if (!card.getBlueprint().checkPlayRequirements(this, card)) {
+//            _gameState.sendMessage("card.checkPlayRequirements failed");
             return false;
+        }
 
         // Check if the card's playability has been modified in the current game state
-        if (getModifiersQuerying().canPlayCard(this, card.getOwner(), card))
-            return true;
+        if (!_modifiersLogic.canPlayCard(this, card.getOwner(), card)) {
+//            _gameState.sendMessage("getModifiersQuerying.canPlayCard failed");
+            return false;
+        }
 
         // Otherwise, the play requirements are met if the card is next in the tribble sequence
         return isNextInSequence(card);
@@ -279,6 +284,11 @@ public class TribblesGame implements DefaultGame {
 
     public boolean isNextInSequence(PhysicalCard card) {
         final int cardValue = card.getBlueprint().getTribbleValue();
+        if (_gameState.isChainBroken() && (cardValue == 1)) {
+            return true;
+        }
+/*        _gameState.sendMessage(card.getBlueprint().getTitle() + " tribble value = " + cardValue +
+                "; nextTribble value = " + _gameState.getNextTribble()); */
         return (cardValue == _gameState.getNextTribble());
     }
 }

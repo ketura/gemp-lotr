@@ -27,7 +27,7 @@ public class TribblesPlayCardRule {
                             List<Action> result = new LinkedList<>();
                             for (PhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game)) {
                                 if (game.checkPlayRequirements(card))
-                                    result.add(TribblesPlayUtils.getPlayCardAction(game, card, 0, false));
+                                    result.add(TribblesPlayUtils.getPlayCardAction(game, card, false));
                             }
                             return result;
                         }

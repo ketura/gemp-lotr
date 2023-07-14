@@ -16,6 +16,7 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
     public TribblesPlayerPlaysOrDraws(String playerId, GameProcess followingGameProcess) {
         _playerId = playerId;
         _followingGameProcess = followingGameProcess;
+        _nextProcess = followingGameProcess;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
         final List<Action> playableActions = game.getActionsEnvironment().getPhaseActions(_playerId);
 
         if (playableActions.size() == 0 && game.shouldAutoPass(_playerId, game.getGameState().getCurrentPhase())) {
-            playerPassed();
+            playerPassed(game);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardActionSelectionDecision(game, 1, "Play " + game.getGameState().getCurrentPhase().getHumanReadable() + " action or Pass", playableActions) {
@@ -32,16 +33,18 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);
                             if (action != null) {
-                                _nextProcess = new TribblesPlayerPlaysOrDraws(_playerId, _followingGameProcess);
+//                                _nextProcess = new TribblesPlayerPlaysOrDraws(_playerId, _followingGameProcess);
                                 game.getActionsEnvironment().addActionToStack(action);
                             } else
-                                playerPassed();
+                                playerPassed(game);
                         }
                     });
         }
     }
 
-    private void playerPassed() {
+    private void playerPassed(DefaultGame game) {
+        game.getGameState().playerDrawsCard(_playerId);
+        game.getGameState().playerPassEffect();
         _nextProcess = _followingGameProcess;
     }
 

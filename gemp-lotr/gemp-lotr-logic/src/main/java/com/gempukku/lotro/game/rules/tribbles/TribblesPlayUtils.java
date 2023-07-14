@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.actions.lotronly.PlayPermanentAction;
+import com.gempukku.lotro.game.actions.tribbles.TribblesPlayPermanentAction;
 import com.gempukku.lotro.game.rules.PlayUtils;
 
 public class TribblesPlayUtils extends PlayUtils {
@@ -12,9 +12,10 @@ public class TribblesPlayUtils extends PlayUtils {
         return Zone.PLAY_PILE;
     }
 
-    public static CostToEffectAction getPlayCardAction(DefaultGame game, PhysicalCard card, int twilightModifier,
+    public static CostToEffectAction getPlayCardAction(DefaultGame game, PhysicalCard card,
                                                        boolean ignoreRoamingPenalty) {
-        PlayPermanentAction action = new PlayPermanentAction(card, getPlayToZone(card), twilightModifier, ignoreRoamingPenalty);
+        TribblesPlayPermanentAction action =
+                new TribblesPlayPermanentAction(card, getPlayToZone(card));
         game.getModifiersQuerying().appendExtraCosts(game, action, card);
         game.getModifiersQuerying().appendPotentialDiscounts(game, action, card);
         return action;

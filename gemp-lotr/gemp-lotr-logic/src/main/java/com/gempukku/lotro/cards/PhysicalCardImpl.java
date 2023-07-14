@@ -43,6 +43,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     public String getBlueprintId() {
         return _blueprintId;
     }
+
     @Override
     public String getImageUrl() {
         return _blueprint.getImageUrl();
@@ -186,4 +187,5 @@ public class PhysicalCardImpl implements PhysicalCard {
     public void setSiteNumber(Integer number) {
         _siteNumber = number;
     }
+
 }

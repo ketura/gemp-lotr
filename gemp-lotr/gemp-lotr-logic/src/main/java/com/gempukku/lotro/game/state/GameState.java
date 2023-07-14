@@ -1090,4 +1090,10 @@ public class GameState {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.sendWarning(player, warning);
     }
+
+    public void playEffectReturningResult(PhysicalCard cardPlayed) {
+        sendMessage("DEBUG: playEffectReturningResult called for a default game state");
+    }
+
+    public void playerPassEffect() {}
 }

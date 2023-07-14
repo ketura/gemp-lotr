@@ -128,7 +128,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.DISCARD);
             }
         }
-
         return null;
     }
 

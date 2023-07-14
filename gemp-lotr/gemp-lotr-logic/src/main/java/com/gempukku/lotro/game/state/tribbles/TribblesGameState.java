@@ -698,6 +698,29 @@ public class TribblesGameState extends GameState {
     public int getNextTribble() { return _nextTribble; }
 
     public void breakChain() {
+        sendMessage("DEBUG: Chain broken!");
         _chainBroken = true;
+    }
+
+    public boolean isChainBroken() {
+        return _chainBroken;
+    }
+
+    @Override
+    public void playEffectReturningResult(PhysicalCard cardPlayed) {
+        int tribblePlayed = cardPlayed.getBlueprint().getTribbleValue();
+        int currentTribble = _nextTribble;
+        if (tribblePlayed == 100000) {
+            _nextTribble = 1;
+        } else {
+            _nextTribble = tribblePlayed * 10;
+        }
+        _chainBroken = false;
+        sendMessage("DEBUG: Tribble chain advanced from " + currentTribble + " to " + _nextTribble);
+    }
+
+    @Override
+    public void playerPassEffect() {
+        this.breakChain();
     }
 }
