@@ -47,6 +47,7 @@ public class GameEvent {
     private Integer _index;
     private String _blueprintId;
     private Integer _cardId;
+    private String _imageUrl;
     private Integer _targetCardId;
     private String _phase;
     private Integer _count;
@@ -193,7 +194,7 @@ public class GameEvent {
     }
 
     public GameEvent card(PhysicalCard physicalCard) {
-        GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone());
+        GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).imageUrl(physicalCard.getImageUrl());
         if (physicalCard.getCardController() != null)
             gameEvent = gameEvent.controllerId(physicalCard.getCardController());
         PhysicalCard attachedTo = physicalCard.getAttachedTo();
@@ -222,6 +223,12 @@ public class GameEvent {
 
     public GameEvent cardId(int cardId) {
         _cardId = cardId;
+        return this;
+    }
+
+    public String getImageUrl() { return _imageUrl; }
+    public GameEvent imageUrl(String imageUrl) {
+        _imageUrl = imageUrl;
         return this;
     }
 

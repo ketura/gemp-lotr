@@ -25,6 +25,7 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
     public LotroCardBlueprintBuilder() {
         fieldProcessors.put("title", new TitleFieldProcessor());
         fieldProcessors.put("subtitle", new SubtitleFieldProcessor());
+        fieldProcessors.put("image-url", new ImageUrlFieldProcessor());
         fieldProcessors.put("tribble-value", new TribbleValueFieldProcessor());
         fieldProcessors.put("tribble-power", new TribblePowerFieldProcessor());
         fieldProcessors.put("unique", new UniqueFieldProcessor());

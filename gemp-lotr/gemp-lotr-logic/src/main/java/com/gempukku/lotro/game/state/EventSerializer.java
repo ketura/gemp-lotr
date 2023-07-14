@@ -21,6 +21,8 @@ public class EventSerializer {
             eventElem.setAttribute("blueprintId", gameEvent.getBlueprintId());
         if (gameEvent.getCardId() != null)
             eventElem.setAttribute("cardId", gameEvent.getCardId().toString());
+        if (gameEvent.getImageUrl() != null)
+            eventElem.setAttribute("imageUrl", gameEvent.getImageUrl());
         if (gameEvent.getIndex() != null)
             eventElem.setAttribute("index", gameEvent.getIndex().toString());
         if (gameEvent.getControllerId() != null)

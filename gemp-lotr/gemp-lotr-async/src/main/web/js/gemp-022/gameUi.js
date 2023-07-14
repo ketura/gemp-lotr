@@ -311,7 +311,7 @@ var GempLotrGameUI = Class.extend({
                     "<div id='hand" + i + "' class='handSize'></div>" +
 //                    "<div id='threats" + i + "' class='threatsSize'></div>" +
                     "<div id='discard" + i + "' class='discardSize'></div>" +
-//                    "<div id='showStats" + i + "' class='showStats'></div>" +
+                    "<div id='showStats" + i + "' class='showStats'></div>" +
 //                    "<div id='deadPile" + i + "' class='deadPileSize'></div>" +
 //                    "<div id='adventureDeck" + i + "' class='adventureDeckSize'></div>" +
 //                    "<div id='removedPile" + i + "' class='removedPileSize'>" +

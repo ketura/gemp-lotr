@@ -7,6 +7,7 @@ public interface PhysicalCard extends Filterable {
     public Zone getZone();
 
     public String getBlueprintId();
+    public String getImageUrl();
 
     public String getOwner();
 

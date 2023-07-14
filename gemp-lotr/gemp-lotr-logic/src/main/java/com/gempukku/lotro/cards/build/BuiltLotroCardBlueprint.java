@@ -19,6 +19,7 @@ import java.util.*;
 public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private String title;
     private String subtitle;
+    private String imageUrl;
     private boolean unique;
     private Side side;
     private CardType cardType;
@@ -262,6 +263,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
     }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     public void setUnique(boolean unique) {
         this.unique = unique;
@@ -367,6 +369,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     public String getSubtitle() {
         return subtitle;
     }
+    @Override
+    public String getImageUrl() { return imageUrl; }
 
     @Override
     public Signet getSignet() {
