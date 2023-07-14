@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.state.GameState;
@@ -21,4 +22,5 @@ public interface DefaultGame {
     public LotroFormat getFormat();
     public boolean shouldAutoPass(String playerId, Phase phase);
     public boolean isSolo();
+    public boolean checkPlayRequirements(PhysicalCard card);
 }

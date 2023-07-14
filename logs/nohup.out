@@ -5067,3 +5067,148 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-14 13:33:53,236 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1
 2023-07-14 13:33:54,473 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
 2023-07-14 13:33:59,223 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-14 13:57:26,025  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-14 13:57:26,035 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-14 13:57:26,788  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-14 13:57:26,790  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-14 13:57:26,885 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-14 13:57:26,896 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-14 13:57:27,074 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-14 13:57:27,115 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-14 13:57:27,125 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-14 13:57:27,129 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-14 13:57:27,519 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-14 13:57:27,559 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-14 13:57:27,561  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-14 13:57:27,579 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-14 13:57:28,280 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-14 13:57:28,283 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-14 13:57:28,417  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-14 13:57:28,420 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-14 13:57:28,817 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-14 13:57:28,853 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-14 13:57:28,858  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-14 13:57:28,864 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-14 13:57:28,878 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-14 13:57:28,888 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-14 13:57:28,894 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-14 13:57:28,896 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-14 13:57:28,898 DEBUG ITournamentService:133 - Created result object
+2023-07-14 13:57:28,901 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-14 13:57:28,905 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@40238dd0
+2023-07-14 13:57:29,013 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 106ms
+2023-07-14 13:57:29,013 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 110ms
+2023-07-14 13:57:29,019 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-14 13:57:29,021 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-14 13:57:29,023 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-14 13:57:29,025 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-14 13:57:29,028 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-14 13:57:29,030 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-14 13:57:29,031 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-14 13:57:29,033 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-14 13:57:29,035  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-14 13:59:11,283 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689343151052
+2023-07-14 13:59:11,286 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1689343151053
+2023-07-14 13:59:11,283 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689343151054
+2023-07-14 13:59:11,283 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689343151056
+2023-07-14 13:59:11,289 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689343151055
+2023-07-14 13:59:12,607 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 144ms
+2023-07-14 13:59:18,270 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689343157855
+2023-07-14 13:59:18,271 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1689343157856
+2023-07-14 13:59:18,293 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689343157859
+2023-07-14 13:59:18,297 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689343157857
+2023-07-14 13:59:18,294 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689343157858
+2023-07-14 13:59:23,236 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-14 13:59:23,241 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'TribblesTest' but failed.
+2023-07-14 13:59:23,244 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-14 13:59:23,254 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@156b581b
+2023-07-14 13:59:23,272 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-14 13:59:23,275 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-14 13:59:25,172 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-14 13:59:25,175 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-14 13:59:25,177 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck TribblesTest
+2023-07-14 13:59:25,182 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'TribblesTest' but failed.
+2023-07-14 13:59:25,185 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-14 13:59:25,187 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@1704392f
+2023-07-14 13:59:25,195 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-14 13:59:25,349 DEBUG BiddingGameProcess:28 - qwer
+2023-07-14 13:59:25,352 DEBUG BiddingGameProcess:28 - asdf
+2023-07-14 13:59:25,365 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-14 14:08:39,518 TRACE Game1:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
+2023-07-14 14:09:47,096 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
+2023-07-14 14:09:47,207 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-14 14:50:14,073  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-14 14:50:14,083 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-14 14:50:14,879  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-14 14:50:14,881  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-14 14:50:14,976 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-14 14:50:14,985 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-14 14:50:15,137 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-14 14:50:15,170 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-14 14:50:15,184 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-14 14:50:15,187 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-14 14:50:15,628 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-14 14:50:15,669 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-14 14:50:15,670  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-14 14:50:15,680 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-14 14:50:16,372 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-14 14:50:16,374 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-14 14:50:16,510  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-14 14:50:16,512 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-14 14:50:16,883 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-14 14:50:16,906 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-14 14:50:16,909  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-14 14:50:16,911 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-14 14:50:16,916 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-14 14:50:16,919 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-14 14:50:16,927 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-14 14:50:16,929 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-14 14:50:16,935 DEBUG ITournamentService:133 - Created result object
+2023-07-14 14:50:16,937 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-14 14:50:16,940 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@40238dd0
+2023-07-14 14:50:17,026 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-14 14:50:17,030 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-14 14:50:17,031 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-14 14:50:17,033 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-14 14:50:17,044 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-14 14:50:17,047 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-14 14:50:17,049 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-14 14:50:17,050 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-14 14:50:17,052  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-14 14:50:33,553 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689346233317
+2023-07-14 14:50:33,557 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1689346233316
+2023-07-14 14:50:33,554 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689346233315
+2023-07-14 14:50:33,572 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689346233318
+2023-07-14 14:50:33,573 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689346233319
+2023-07-14 14:50:34,898 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 154ms
+2023-07-14 14:50:41,524 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689346241295
+2023-07-14 14:50:41,529 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1689346241296
+2023-07-14 14:50:41,536 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689346241297
+2023-07-14 14:50:41,545 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689346241298
+2023-07-14 14:50:41,548 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689346241299
+2023-07-14 14:50:46,654 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck TribblesTest
+2023-07-14 14:50:46,659 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'TribblesTest' but failed.
+2023-07-14 14:50:46,661 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-14 14:50:46,672 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@4e2b2ea3
+2023-07-14 14:50:46,698 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-14 14:50:46,701 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-14 14:50:48,250 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-14 14:50:48,252 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-14 14:50:48,254 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-14 14:50:48,259 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'TribblesTest' but failed.
+2023-07-14 14:50:48,261 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-14 14:50:48,267 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@320840b0
+2023-07-14 14:50:48,283 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-14 14:50:48,461 DEBUG BiddingGameProcess:28 - qwer
+2023-07-14 14:50:48,464 DEBUG BiddingGameProcess:28 - asdf
+2023-07-14 14:50:48,485 DEBUG GameTable:25 - GameTable - startGame function called;

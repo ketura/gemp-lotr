@@ -695,6 +695,8 @@ public class TribblesGameState extends GameState {
         _nextTribble = num;
     }
 
+    public int getNextTribble() { return _nextTribble; }
+
     public void breakChain() {
         _chainBroken = true;
     }

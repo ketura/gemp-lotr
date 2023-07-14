@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.communication.GameStateListener;
@@ -260,5 +261,24 @@ public class TribblesGame implements DefaultGame {
 
     public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
         _autoPassConfiguration.put(playerId, phases);
+    }
+
+    public boolean checkPlayRequirements(PhysicalCard card) {
+
+        // Check if card's own play requirements are met
+        if (!card.getBlueprint().checkPlayRequirements(this, card))
+            return false;
+
+        // Check if the card's playability has been modified in the current game state
+        if (getModifiersQuerying().canPlayCard(this, card.getOwner(), card))
+            return true;
+
+        // Otherwise, the play requirements are met if the card is next in the tribble sequence
+        return isNextInSequence(card);
+    }
+
+    public boolean isNextInSequence(PhysicalCard card) {
+        final int cardValue = card.getBlueprint().getTribbleValue();
+        return (cardValue == _gameState.getNextTribble());
     }
 }

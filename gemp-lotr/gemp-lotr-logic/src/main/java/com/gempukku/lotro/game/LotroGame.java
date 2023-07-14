@@ -286,4 +286,7 @@ public class LotroGame implements DefaultGame {
     public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
         _autoPassConfiguration.put(playerId, phases);
     }
+
+    // Dummy function. LotroGame will eventually be deprecated.
+    public boolean checkPlayRequirements(PhysicalCard card) { return true; }
 }
