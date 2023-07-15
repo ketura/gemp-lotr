@@ -223,8 +223,6 @@ var GameAnimations = Class.extend({
                 var cardDiv = that.game.createCardDiv(card, null, card.isFoil(), card.hasErrata());
                 if (zone == "DISCARD")
                     that.game.discardPileDialogs[participantId].append(cardDiv);
-                else if (zone == "PLAY_PILE")
-                    that.game.discardPileDialogs[participantId].append(cardDiv);
                 else if (zone == "DEAD")
                     that.game.deadPileDialogs[participantId].append(cardDiv);
                 else if (zone == "ADVENTURE_DECK")
