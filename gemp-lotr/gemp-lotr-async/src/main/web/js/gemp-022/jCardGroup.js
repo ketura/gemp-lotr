@@ -465,8 +465,8 @@ var StackedCardGroup = CardGroup.extend({
             this.layoutAttached(cardData, y, height, layoutVars)
 
             this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
-            layoutVars.x += cardWidth;
-            layoutVars.x += this.padding;
+//            layoutVars.x += cardWidth;
+            layoutVars.x += 2;
         }
     },
 

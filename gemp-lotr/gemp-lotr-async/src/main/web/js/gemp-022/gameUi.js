@@ -273,7 +273,7 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
-        this.supportOpponent = new NormalCardGroup($("#main"), function (card) {
+        this.supportOpponent = new StackedCardGroup($("#main"), function (card) {
             return (card.zone == "PLAY_PILE" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.charactersOpponent = new NormalCardGroup($("#main"), function (card) {
@@ -285,7 +285,7 @@ var GempLotrGameUI = Class.extend({
         this.charactersPlayer = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.supportPlayer = new NormalCardGroup($("#main"), function (card) {
+        this.supportPlayer = new StackedCardGroup($("#main"), function (card) {
             return (card.zone == "PLAY_PILE" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         if (!this.spectatorMode) {
@@ -925,11 +925,22 @@ var GempLotrGameUI = Class.extend({
             });
                 // REMOVE BELOW
 //           this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
-            this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
+            this.supportOpponent.setBounds(
+                advPathWidth + specialUiWidth + (padding * 2),
+                padding + yScales[0] * heightPerScale,
+                (width - (advPathWidth + specialUiWidth + padding * 3)) / 1.5,
+                heightScales[0] * heightPerScale * 2.5
+            );
+            this.supportPlayer.setBounds(
+                advPathWidth + specialUiWidth + (padding * 2),
+                padding * 5 + yScales[3] * heightPerScale,
+                (width - (advPathWidth + specialUiWidth + padding * 3)) / 1.5,
+                heightScales[0] * heightPerScale * 2.5
+            );
 
-            this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
+//            this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
 //            this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, charsWidthWithAssignments, heightScales[2] * heightPerScale);
-            this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
+//            this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
                 // REMOVE ABOVE
             var i = 0;
 
@@ -1047,7 +1058,6 @@ var GempLotrGameUI = Class.extend({
                 }
             }
 
-            this.supportPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 5 + yScales[4] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[4] * heightPerScale);
             if (!this.spectatorMode)
                 this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
 
