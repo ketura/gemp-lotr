@@ -1,8 +1,8 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class CostAtTest extends AbstractAtTest {
 
         initializeGameWithDecks(decks);
 
-        PhysicalCardImpl hobbitSword = createCard(P1, "1_299");
+        LotroPhysicalCardImpl hobbitSword = createCard(P1, "1_299");
 
         _game.getGameState().addCardToZone(_game, hobbitSword, Zone.HAND);
 
@@ -41,8 +41,8 @@ public class CostAtTest extends AbstractAtTest {
     public void exertExtraCost() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        final PhysicalCardImpl azog = createCard(P2, "32_28");
-        final PhysicalCardImpl fimbul = createCard(P2, "30_33");
+        final LotroPhysicalCardImpl azog = createCard(P2, "32_28");
+        final LotroPhysicalCardImpl fimbul = createCard(P2, "30_33");
 
         _game.getGameState().addCardToZone(_game, azog, Zone.HAND);
         _game.getGameState().addCardToZone(_game, fimbul, Zone.HAND);

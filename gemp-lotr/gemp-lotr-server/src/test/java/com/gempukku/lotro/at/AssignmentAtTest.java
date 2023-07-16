@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
@@ -27,9 +27,9 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl hobbitPartyGuest = new PhysicalCardImpl(101, "1_297", P1, _cardLibrary.getLotroCardBlueprint("1_297"));
-        PhysicalCardImpl orcAssassin = new PhysicalCardImpl(102, "1_262", P2, _cardLibrary.getLotroCardBlueprint("1_262"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl hobbitPartyGuest = new LotroPhysicalCardImpl(101, "1_297", P1, _cardLibrary.getLotroCardBlueprint("1_297"));
+        LotroPhysicalCardImpl orcAssassin = new LotroPhysicalCardImpl(102, "1_262", P2, _cardLibrary.getLotroCardBlueprint("1_262"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, hobbitPartyGuest, Zone.SUPPORT);
@@ -68,10 +68,10 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl pippin = new PhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
-        PhysicalCardImpl saruman = new PhysicalCardImpl(102, "3_69", P2, _cardLibrary.getLotroCardBlueprint("3_69"));
-        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(103, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl pippin = new LotroPhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
+        LotroPhysicalCardImpl saruman = new LotroPhysicalCardImpl(102, "3_69", P2, _cardLibrary.getLotroCardBlueprint("3_69"));
+        LotroPhysicalCardImpl urukHaiRaidingParty = new LotroPhysicalCardImpl(103, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, pippin, Zone.FREE_CHARACTERS);
@@ -133,10 +133,10 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl pippin = new PhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
-        PhysicalCardImpl urukHaiRaidingParty1 = new PhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
-        PhysicalCardImpl urukHaiRaidingParty2 = new PhysicalCardImpl(103, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl pippin = new LotroPhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
+        LotroPhysicalCardImpl urukHaiRaidingParty1 = new LotroPhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl urukHaiRaidingParty2 = new LotroPhysicalCardImpl(103, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, pippin, Zone.FREE_CHARACTERS);
@@ -202,10 +202,10 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl pippin = new PhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
-        PhysicalCardImpl urukHaiRaidingParty1 = new PhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
-        PhysicalCardImpl urukHaiRaidingParty2 = new PhysicalCardImpl(103, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl pippin = new LotroPhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
+        LotroPhysicalCardImpl urukHaiRaidingParty1 = new LotroPhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl urukHaiRaidingParty2 = new LotroPhysicalCardImpl(103, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, pippin, Zone.FREE_CHARACTERS);
@@ -268,10 +268,10 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl pippin = new PhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
-        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
-        PhysicalCardImpl gateTroll = new PhysicalCardImpl(103, "6_128", P2, _cardLibrary.getLotroCardBlueprint("6_128"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl pippin = new LotroPhysicalCardImpl(101, "1_306", P1, _cardLibrary.getLotroCardBlueprint("1_306"));
+        LotroPhysicalCardImpl urukHaiRaidingParty = new LotroPhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl gateTroll = new LotroPhysicalCardImpl(103, "6_128", P2, _cardLibrary.getLotroCardBlueprint("6_128"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addCardToZone(_game, pippin, Zone.FREE_CHARACTERS);
@@ -344,8 +344,8 @@ public class AssignmentAtTest extends AbstractAtTest {
         // End fellowship phase
         playerDecided(P1, "");
 
-        PhysicalCardImpl theBalrog = new PhysicalCardImpl(102, "6_76", P2, _cardLibrary.getLotroCardBlueprint("6_76"));
-        PhysicalCardImpl otherMinion = new PhysicalCardImpl(103, "2_61", P2, _cardLibrary.getLotroCardBlueprint("2_61"));
+        LotroPhysicalCardImpl theBalrog = new LotroPhysicalCardImpl(102, "6_76", P2, _cardLibrary.getLotroCardBlueprint("6_76"));
+        LotroPhysicalCardImpl otherMinion = new LotroPhysicalCardImpl(103, "2_61", P2, _cardLibrary.getLotroCardBlueprint("2_61"));
 
         _game.getGameState().addCardToZone(_game, theBalrog, Zone.SHADOW_CHARACTERS);
         _game.getGameState().addCardToZone(_game, otherMinion, Zone.SHADOW_CHARACTERS);
@@ -404,8 +404,8 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl elrond = new PhysicalCardImpl(101, "1_40", P1, _cardLibrary.getLotroCardBlueprint("1_40"));
-        PhysicalCardImpl dunlendingWarrior = new PhysicalCardImpl(102, "4_18", P2, _cardLibrary.getLotroCardBlueprint("4_18"));
+        LotroPhysicalCardImpl elrond = new LotroPhysicalCardImpl(101, "1_40", P1, _cardLibrary.getLotroCardBlueprint("1_40"));
+        LotroPhysicalCardImpl dunlendingWarrior = new LotroPhysicalCardImpl(102, "4_18", P2, _cardLibrary.getLotroCardBlueprint("4_18"));
 
         _game.getGameState().addCardToZone(_game, elrond, Zone.SUPPORT);
 
@@ -447,10 +447,10 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl carasGaladhon = new PhysicalCardImpl(100, "3_115", P1, _cardLibrary.getLotroCardBlueprint("3_115"));
-        PhysicalCardImpl orcAssassin1 = new PhysicalCardImpl(101, "1_262", P2, _cardLibrary.getLotroCardBlueprint("1_262"));
-        PhysicalCardImpl orcAssassin2 = new PhysicalCardImpl(102, "1_262", P2, _cardLibrary.getLotroCardBlueprint("1_262"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl carasGaladhon = new LotroPhysicalCardImpl(100, "3_115", P1, _cardLibrary.getLotroCardBlueprint("3_115"));
+        LotroPhysicalCardImpl orcAssassin1 = new LotroPhysicalCardImpl(101, "1_262", P2, _cardLibrary.getLotroCardBlueprint("1_262"));
+        LotroPhysicalCardImpl orcAssassin2 = new LotroPhysicalCardImpl(102, "1_262", P2, _cardLibrary.getLotroCardBlueprint("1_262"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
 
@@ -516,9 +516,9 @@ public class AssignmentAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        PhysicalCardImpl slowKindledCourage = new PhysicalCardImpl(101, "7_328", P1, _cardLibrary.getLotroCardBlueprint("7_328"));
-        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
+        LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(100, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        LotroPhysicalCardImpl slowKindledCourage = new LotroPhysicalCardImpl(101, "7_328", P1, _cardLibrary.getLotroCardBlueprint("7_328"));
+        LotroPhysicalCardImpl urukHaiRaidingParty = new LotroPhysicalCardImpl(102, "1_158", P2, _cardLibrary.getLotroCardBlueprint("1_158"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, slowKindledCourage,  merry);

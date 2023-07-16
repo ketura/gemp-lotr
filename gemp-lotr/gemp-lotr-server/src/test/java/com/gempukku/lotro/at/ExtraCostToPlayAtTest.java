@@ -2,7 +2,7 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class ExtraCostToPlayAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _cardLibrary.getLotroCardBlueprint("10_26"));
+        LotroPhysicalCardImpl wraith= new LotroPhysicalCardImpl(100, "10_26", P1, _cardLibrary.getLotroCardBlueprint("10_26"));
 
         _game.getGameState().addCardToZone(_game, wraith, Zone.HAND);
 
@@ -35,7 +35,7 @@ public class ExtraCostToPlayAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl wraith= new PhysicalCardImpl(100, "10_26", P1, _cardLibrary.getLotroCardBlueprint("10_26"));
+        LotroPhysicalCardImpl wraith= new LotroPhysicalCardImpl(100, "10_26", P1, _cardLibrary.getLotroCardBlueprint("10_26"));
 
         _game.getGameState().addCardToZone(_game, wraith, Zone.HAND);
         _game.getGameState().addThreats(P1, 3);

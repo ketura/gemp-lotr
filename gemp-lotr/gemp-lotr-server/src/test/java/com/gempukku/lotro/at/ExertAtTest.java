@@ -1,9 +1,9 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
@@ -14,10 +14,10 @@ public class ExertAtTest extends AbstractAtTest{
     public void glorfindelCantExertWhenExhausted() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl glorfindel = createCard(P1, "9_16");
-        PhysicalCardImpl elvenBow = createCard(P1, "1_41");
+        LotroPhysicalCardImpl glorfindel = createCard(P1, "9_16");
+        LotroPhysicalCardImpl elvenBow = createCard(P1, "1_41");
 
-        PhysicalCardImpl cantea = createCard(P2, "1_230");
+        LotroPhysicalCardImpl cantea = createCard(P2, "1_230");
 
         skipMulligans();
 

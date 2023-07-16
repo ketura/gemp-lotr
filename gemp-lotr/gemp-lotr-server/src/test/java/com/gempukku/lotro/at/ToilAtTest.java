@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -22,7 +22,7 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
 
         skipMulligans();
 
@@ -43,7 +43,7 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
 
         skipMulligans();
 
@@ -69,8 +69,8 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -94,8 +94,8 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -125,8 +125,8 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -164,8 +164,8 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -203,9 +203,9 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad1 = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
-        PhysicalCardImpl corpsOfHarad2 = new PhysicalCardImpl(102, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad1 = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl corpsOfHarad2 = new LotroPhysicalCardImpl(102, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -245,9 +245,9 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad1 = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
-        PhysicalCardImpl corpsOfHarad2 = new PhysicalCardImpl(102, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad1 = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl corpsOfHarad2 = new LotroPhysicalCardImpl(102, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -287,12 +287,12 @@ public class ToilAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legionOfHarad = new PhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
-        PhysicalCardImpl corpsOfHarad1 = new PhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
-        PhysicalCardImpl corpsOfHarad2 = new PhysicalCardImpl(102, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
-        PhysicalCardImpl corpsOfHarad3 = new PhysicalCardImpl(103, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
-        PhysicalCardImpl corpsOfHarad4 = new PhysicalCardImpl(104, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
-        PhysicalCardImpl corpsOfHarad5 = new PhysicalCardImpl(105, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl legionOfHarad = new LotroPhysicalCardImpl(100, "11_88", P2, _cardLibrary.getLotroCardBlueprint("11_88"));
+        LotroPhysicalCardImpl corpsOfHarad1 = new LotroPhysicalCardImpl(101, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl corpsOfHarad2 = new LotroPhysicalCardImpl(102, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl corpsOfHarad3 = new LotroPhysicalCardImpl(103, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl corpsOfHarad4 = new LotroPhysicalCardImpl(104, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
+        LotroPhysicalCardImpl corpsOfHarad5 = new LotroPhysicalCardImpl(105, "11_73", P2, _cardLibrary.getLotroCardBlueprint("11_73"));
 
         skipMulligans();
 
@@ -338,8 +338,8 @@ public class ToilAtTest extends AbstractAtTest {
     public void berserkerTorchPlaysCorrectly() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl urukDominator = createCard(P2, "12_152");
-        PhysicalCardImpl berserkerTorch = createCard(P2, "12_136");
+        LotroPhysicalCardImpl urukDominator = createCard(P2, "12_152");
+        LotroPhysicalCardImpl berserkerTorch = createCard(P2, "12_136");
 
         skipMulligans();
 

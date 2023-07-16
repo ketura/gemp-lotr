@@ -2,7 +2,7 @@ package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -14,10 +14,10 @@ public class PlayCardFromStackedAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl goblinSwarms = createCard(P2, "1_183");
+        final LotroPhysicalCardImpl goblinSwarms = createCard(P2, "1_183");
         _game.getGameState().addCardToZone(_game, goblinSwarms, Zone.SUPPORT);
 
-        final PhysicalCardImpl goblinRunner = createCard(P2, "1_178");
+        final LotroPhysicalCardImpl goblinRunner = createCard(P2, "1_178");
         _game.getGameState().stackCard(_game, goblinRunner, goblinSwarms);
 
         _game.getGameState().setTwilight(20);

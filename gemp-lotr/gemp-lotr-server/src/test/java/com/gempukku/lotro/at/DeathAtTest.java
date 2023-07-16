@@ -3,7 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
@@ -19,8 +19,8 @@ public class DeathAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
-        PhysicalCardImpl sagaOfElendil = new PhysicalCardImpl(101, "1_114", P1, _cardLibrary.getLotroCardBlueprint("1_114"));
+        LotroPhysicalCardImpl boromir = new LotroPhysicalCardImpl(100, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
+        LotroPhysicalCardImpl sagaOfElendil = new LotroPhysicalCardImpl(101, "1_114", P1, _cardLibrary.getLotroCardBlueprint("1_114"));
 
         skipMulligans();
 
@@ -60,7 +60,7 @@ public class DeathAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl boromir = new PhysicalCardImpl(100, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
+        LotroPhysicalCardImpl boromir = new LotroPhysicalCardImpl(100, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
 
         skipMulligans();
 

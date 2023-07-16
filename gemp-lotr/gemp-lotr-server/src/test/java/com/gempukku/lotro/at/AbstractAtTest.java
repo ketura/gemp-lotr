@@ -3,6 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
@@ -34,8 +35,8 @@ public abstract class AbstractAtTest {
     public static final String P1 = "player1";
     public static final String P2 = "player2";
 
-    protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
-        return (PhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _cardLibrary, blueprintId);
+    protected LotroPhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
+        return (LotroPhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _cardLibrary, blueprintId);
     }
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {
@@ -142,7 +143,7 @@ public abstract class AbstractAtTest {
         decks.put(player, deck);
     }
 
-    protected void moveCardToZone(PhysicalCardImpl card, Zone zone) {
+    protected void moveCardToZone(LotroPhysicalCardImpl card, Zone zone) {
         _game.getGameState().addCardToZone(_game, card, zone);
     }
 

@@ -1,5 +1,7 @@
-package com.gempukku.lotro.cards;
+package com.gempukku.lotro.cards.lotronly;
 
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.Modifier;
@@ -8,7 +10,7 @@ import com.gempukku.lotro.game.modifiers.ModifierHook;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PhysicalCardImpl implements PhysicalCard {
+public class LotroPhysicalCardImpl implements PhysicalCard {
     private int _cardId;
     private final String _blueprintId;
     private final String _owner;
@@ -16,8 +18,8 @@ public class PhysicalCardImpl implements PhysicalCard {
     private Zone _zone;
     private final LotroCardBlueprint _blueprint;
 
-    private PhysicalCardImpl _attachedTo;
-    private PhysicalCardImpl _stackedOn;
+    private LotroPhysicalCardImpl _attachedTo;
+    private LotroPhysicalCardImpl _stackedOn;
 
     private List<ModifierHook> _modifierHooks;
     private List<ModifierHook> _modifierHooksStacked;
@@ -28,7 +30,7 @@ public class PhysicalCardImpl implements PhysicalCard {
 
     private Integer _siteNumber;
 
-    public PhysicalCardImpl(int cardId, String blueprintId, String owner, LotroCardBlueprint blueprint) {
+    public LotroPhysicalCardImpl(int cardId, String blueprintId, String owner, LotroCardBlueprint blueprint) {
         _cardId = cardId;
         _blueprintId = blueprintId;
         _owner = owner;
@@ -150,7 +152,7 @@ public class PhysicalCardImpl implements PhysicalCard {
         return _blueprint;
     }
 
-    public void attachTo(PhysicalCardImpl physicalCard) {
+    public void attachTo(LotroPhysicalCardImpl physicalCard) {
         _attachedTo = physicalCard;
     }
 
@@ -159,7 +161,7 @@ public class PhysicalCardImpl implements PhysicalCard {
         return _attachedTo;
     }
 
-    public void stackOn(PhysicalCardImpl physicalCard) {
+    public void stackOn(LotroPhysicalCardImpl physicalCard) {
         _stackedOn = physicalCard;
     }
 

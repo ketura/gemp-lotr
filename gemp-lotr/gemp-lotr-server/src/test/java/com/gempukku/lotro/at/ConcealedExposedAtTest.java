@@ -1,10 +1,10 @@
 package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.cards.GenericCardTestHelper;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.modifiers.KeywordModifier;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+        LotroPhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
 
         scn.FreepsMoveCharToTable(aragorn);
 
@@ -49,8 +49,8 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
+        LotroPhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+        LotroPhysicalCardImpl nostranger = scn.GetFreepsCard("nostranger");
 
         scn.FreepsMoveCardToHand(aragorn);
 
@@ -72,8 +72,8 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
-        PhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
+        LotroPhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+        LotroPhysicalCardImpl arwen = scn.GetFreepsCard("arwen");
 
         scn.FreepsMoveCardToHand(aragorn);
         scn.FreepsMoveCharToTable(arwen);
@@ -97,7 +97,7 @@ public class ConcealedExposedAtTest extends AbstractAtTest {
         //Pre-game setup
         GenericCardTestHelper scn = GetScenario();
 
-        PhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
+        LotroPhysicalCardImpl aragorn = scn.GetFreepsCard("aragorn");
 
         scn.FreepsMoveCardToHand(aragorn);
 

@@ -3,7 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class HarrowdaleAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl harrowdale = new PhysicalCardImpl(100, "11_243", P1, _cardLibrary.getLotroCardBlueprint("11_243"));
+        LotroPhysicalCardImpl harrowdale = new LotroPhysicalCardImpl(100, "11_243", P1, _cardLibrary.getLotroCardBlueprint("11_243"));
         harrowdale.setSiteNumber(1);
         _game.getGameState().removeCardsFromZone(P1, Collections.singleton(_game.getGameState().getSite(1)));
         _game.getGameState().addCardToZone(_game, harrowdale, Zone.ADVENTURE_PATH);
@@ -64,7 +64,7 @@ public class HarrowdaleAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl harrowdale = new PhysicalCardImpl(100, "11_243", P1, _cardLibrary.getLotroCardBlueprint("11_243"));
+        LotroPhysicalCardImpl harrowdale = new LotroPhysicalCardImpl(100, "11_243", P1, _cardLibrary.getLotroCardBlueprint("11_243"));
         harrowdale.setSiteNumber(2);
         _game.getGameState().addCardToZone(_game, harrowdale, Zone.ADVENTURE_PATH);
 
