@@ -1,8 +1,5 @@
-package com.gempukku.lotro.cards.lotronly;
+package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.Modifier;
@@ -11,7 +8,7 @@ import com.gempukku.lotro.game.modifiers.ModifierHook;
 import java.util.LinkedList;
 import java.util.List;
 
-public class LotroPhysicalCardImpl extends PhysicalCardImpl {
+public class PhysicalCardImpl implements PhysicalCard {
     private int _cardId;
     private final String _blueprintId;
     private final String _owner;
@@ -19,8 +16,8 @@ public class LotroPhysicalCardImpl extends PhysicalCardImpl {
     private Zone _zone;
     private final LotroCardBlueprint _blueprint;
 
-    private LotroPhysicalCardImpl _attachedTo;
-    private LotroPhysicalCardImpl _stackedOn;
+    private PhysicalCardImpl _attachedTo;
+    private PhysicalCardImpl _stackedOn;
 
     private List<ModifierHook> _modifierHooks;
     private List<ModifierHook> _modifierHooksStacked;
@@ -31,8 +28,7 @@ public class LotroPhysicalCardImpl extends PhysicalCardImpl {
 
     private Integer _siteNumber;
 
-    public LotroPhysicalCardImpl(int cardId, String blueprintId, String owner, LotroCardBlueprint blueprint) {
-        super(cardId, blueprintId, owner, blueprint);
+    public PhysicalCardImpl(int cardId, String blueprintId, String owner, LotroCardBlueprint blueprint) {
         _cardId = cardId;
         _blueprintId = blueprintId;
         _owner = owner;
@@ -154,7 +150,7 @@ public class LotroPhysicalCardImpl extends PhysicalCardImpl {
         return _blueprint;
     }
 
-    public void attachTo(LotroPhysicalCardImpl physicalCard) {
+    public void attachTo(PhysicalCardImpl physicalCard) {
         _attachedTo = physicalCard;
     }
 
@@ -163,7 +159,7 @@ public class LotroPhysicalCardImpl extends PhysicalCardImpl {
         return _attachedTo;
     }
 
-    public void stackOn(LotroPhysicalCardImpl physicalCard) {
+    public void stackOn(PhysicalCardImpl physicalCard) {
         _stackedOn = physicalCard;
     }
 
