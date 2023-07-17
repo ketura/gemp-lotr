@@ -30,8 +30,6 @@ var TribblesGameUI = Class.extend({
     discardPileGroups: null,
     adventureDeckDialogs: null,
     adventureDeckGroups: null,
-    deadPileDialogs: null,
-    deadPileGroups: null,
     removedPileDialogs: null,
     removedPileGroups: null,
     miscPileDialogs: null,
@@ -140,8 +138,6 @@ var TribblesGameUI = Class.extend({
         this.discardPileGroups = {};
         this.adventureDeckDialogs = {};
         this.adventureDeckGroups = {};
-        this.deadPileDialogs = {};
-        this.deadPileGroups = {};
         this.removedPileDialogs = {};
         this.removedPileGroups = {};
         this.miscPileDialogs = {};
@@ -304,7 +300,6 @@ var TribblesGameUI = Class.extend({
 //                    "<div id='threats" + i + "' class='threatsSize'></div>" +
                     "<div id='discard" + i + "' class='discardSize'></div>" +
                     "<div id='showStats" + i + "' class='showStats'></div>" +
-//                    "<div id='deadPile" + i + "' class='deadPileSize'></div>" +
 //                    "<div id='adventureDeck" + i + "' class='adventureDeckSize'></div>" +
 //                    "<div id='removedPile" + i + "' class='removedPileSize'>" +
                 "</div></div></div>");
@@ -325,13 +320,11 @@ var TribblesGameUI = Class.extend({
                                     if ($(this).hasClass("opened")) {
                                         $(this).removeClass("opened").css({width: 150 - that.padding});
 //                                        $("#discard" + playerIndex).css({display: "none"});
-                                        $("#deadPile" + playerIndex).css({display: "none"});
                                         $("#adventureDeck" + playerIndex).css({display: "none"});
                                         $("#removedPile" + playerIndex).css({display: "none"});
                                     } else {
                                         $(this).addClass("opened").css({width: 150 - that.padding + 168});
 //                                        $("#discard" + playerIndex).css({display: "table-cell"});
-                                        $("#deadPile" + playerIndex).css({display: "table-cell"});
                                         $("#adventureDeck" + playerIndex).css({display: "table-cell"});
                                         $("#removedPile" + playerIndex).css({display: "table-cell"});
                                     }
@@ -369,17 +362,6 @@ var TribblesGameUI = Class.extend({
         }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            $("#deadPile" + i).addClass("clickable").click(
-                (function (index) {
-                    return function () {
-                        var dialog = that.deadPileDialogs[that.allPlayerIds[index]];
-                        var group = that.deadPileGroups[that.allPlayerIds[index]];
-                        openSizeDialog(dialog);
-                        that.dialogResize(dialog, group);
-                        group.layoutCards();
-                    };
-                })(i));
-            
             $("#removedPile" + i).addClass("clickable").click(
                 (function (index) {
                     return function () {
@@ -915,8 +897,7 @@ var TribblesGameUI = Class.extend({
                 width: advPathWidth - 4,
                 height: 30
             });
-                // REMOVE BELOW
-//           this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
+
             this.playPileOpponent.setBounds(
                 advPathWidth + specialUiWidth + (padding * 2),
                 padding + yScales[0] * heightPerScale,
@@ -930,10 +911,6 @@ var TribblesGameUI = Class.extend({
                 heightScales[0] * heightPerScale * 2.5
             );
 
-//            this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
-//            this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, charsWidthWithAssignments, heightScales[2] * heightPerScale);
-//            this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
-                // REMOVE ABOVE
             var i = 0;
 
             if (this.skirmishGroupDiv != null) {
@@ -1077,10 +1054,6 @@ var TribblesGameUI = Class.extend({
                 if (this.adventureDeckGroups.hasOwnProperty(playerId))
                     this.adventureDeckGroups[playerId].layoutCards();
 
-            for (var playerId in this.deadPileGroups)
-                if (this.deadPileGroups.hasOwnProperty(playerId))
-                    this.deadPileGroups[playerId].layoutCards();
-                
             for (var playerId in this.removedPileGroups)
                 if (this.removedPileGroups.hasOwnProperty(playerId))
                     this.removedPileGroups[playerId].layoutCards();
@@ -1461,7 +1434,6 @@ var TribblesGameUI = Class.extend({
             
             participantId = this.allPlayerIds[i];
             
-            this.createPile(participantId, "Dead Pile", "deadPileDialogs", "deadPileGroups");
             this.createPile(participantId, "'Removed From Game' Pile", "removedPileDialogs", "removedPileGroups");
             
             if(discardPublic) {

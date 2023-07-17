@@ -223,8 +223,6 @@ var GameAnimations = Class.extend({
                 var cardDiv = that.game.createCardDiv(card, null, card.isFoil(), card.hasErrata());
                 if (zone == "DISCARD")
                     that.game.discardPileDialogs[participantId].append(cardDiv);
-                else if (zone == "DEAD")
-                    that.game.deadPileDialogs[participantId].append(cardDiv);
                 else if (zone == "ADVENTURE_DECK")
                     that.game.adventureDeckDialogs[participantId].append(cardDiv);
                 else if (zone == "REMOVED")
@@ -253,7 +251,7 @@ var GameAnimations = Class.extend({
         }
 
         if (animate && (this.game.spectatorMode || this.game.replayMode || (participantId != this.game.bottomPlayerId))
-            && zone != "DISCARD" && zone != "DEAD" && zone != "HAND" && zone != "ADVENTURE_DECK" && zone != "DECK") {
+            && zone != "DISCARD" && zone != "HAND" && zone != "ADVENTURE_DECK" && zone != "DECK") {
             var oldValues = {};
 
             $("#main").queue(
@@ -802,14 +800,12 @@ var GameAnimations = Class.extend({
                     var hand = playerZone.getAttribute("HAND");
                     var discard = playerZone.getAttribute("DISCARD");
                     var adventureDeck = playerZone.getAttribute("ADVENTURE_DECK");
-                    var dead = playerZone.getAttribute("DEAD");
                     var deck = playerZone.getAttribute("DECK");
                     var removed = playerZone.getAttribute("REMOVED");
 
                     $("#deck" + that.game.getPlayerIndex(playerId)).text(deck);
                     $("#hand" + that.game.getPlayerIndex(playerId)).text(hand);
                     $("#discard" + that.game.getPlayerIndex(playerId)).text(discard);
-                    $("#deadPile" + that.game.getPlayerIndex(playerId)).text(dead);
                     $("#adventureDeck" + that.game.getPlayerIndex(playerId)).text(adventureDeck);
                     $("#removedPile" + that.game.getPlayerIndex(playerId)).text(removed);
                 }

@@ -46,17 +46,6 @@ body {
     background-image: url('/gemp-lotr/images/discard-42.png');
 }
 
-.deadPileSize {
-    display: none;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 200%;
-    font-weight: bolder;
-    width: 42px;
-    height: 42px;
-    background-image: url('/gemp-lotr/images/deadPile-42.png');
-}
-
 .adventureDeckSize {
     display: none;
     text-align: center;
