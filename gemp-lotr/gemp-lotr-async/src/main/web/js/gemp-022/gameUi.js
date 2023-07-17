@@ -1,4 +1,4 @@
-var GempLotrGameUI = Class.extend({
+var TribblesGameUI = Class.extend({
     padding: 5,
 
     bottomPlayerId: null,
@@ -18,11 +18,11 @@ var GempLotrGameUI = Class.extend({
     infoDialog: null,
 
     advPathGroup: null,
-    supportOpponent: null,
+    playPileOpponent: null,
     charactersOpponent: null,
     shadow: null,
     charactersPlayer: null,
-    supportPlayer: null,
+    playPilePlayer: null,
     hand: null,
     specialGroup: null,
 
@@ -97,14 +97,6 @@ var GempLotrGameUI = Class.extend({
                 }
             });
         
-        // window.onbeforeunload = function(event) {
-        //     var e = e || window.event;
-        //     if (e) {
-        //         e.returnValue = "If you are done with this game, please go to the 'Options' tab and click the 'Concede Game' button first.";
-        //     }
-        //     return message;
-        // };
-
         $.expr[':'].cardId = function (obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
             var cardData = $(obj).data("card");
@@ -174,11 +166,11 @@ var GempLotrGameUI = Class.extend({
         if (this.charactersOpponent.cardBelongs(cardData)) {
             return this.charactersOpponent;
         }
-        if (this.supportPlayer.cardBelongs(cardData)) {
-            return this.supportPlayer;
+        if (this.playPilePlayer.cardBelongs(cardData)) {
+            return this.playPilePlayer;
         }
-        if (this.supportOpponent.cardBelongs(cardData)) {
-            return this.supportOpponent;
+        if (this.playPileOpponent.cardBelongs(cardData)) {
+            return this.playPileOpponent;
         }
         if (this.hand != null)
             if (this.hand.cardBelongs(cardData)) {
@@ -225,12 +217,12 @@ var GempLotrGameUI = Class.extend({
             this.charactersOpponent.layoutCards();
             return;
         }
-        if (this.supportPlayer.cardBelongs(cardData)) {
-            this.supportPlayer.layoutCards();
+        if (this.playPilePlayer.cardBelongs(cardData)) {
+            this.playPilePlayer.layoutCards();
             return;
         }
-        if (this.supportOpponent.cardBelongs(cardData)) {
-            this.supportOpponent.layoutCards();
+        if (this.playPileOpponent.cardBelongs(cardData)) {
+            this.playPileOpponent.layoutCards();
             return;
         }
         if (this.hand != null)
@@ -273,7 +265,7 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
-        this.supportOpponent = new StackedCardGroup($("#main"), function (card) {
+        this.playPileOpponent = new StackedCardGroup($("#main"), function (card) {
             return (card.zone == "PLAY_PILE" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.charactersOpponent = new NormalCardGroup($("#main"), function (card) {
@@ -285,7 +277,7 @@ var GempLotrGameUI = Class.extend({
         this.charactersPlayer = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.supportPlayer = new StackedCardGroup($("#main"), function (card) {
+        this.playPilePlayer = new StackedCardGroup($("#main"), function (card) {
             return (card.zone == "PLAY_PILE" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         if (!this.spectatorMode) {
@@ -925,13 +917,13 @@ var GempLotrGameUI = Class.extend({
             });
                 // REMOVE BELOW
 //           this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
-            this.supportOpponent.setBounds(
+            this.playPileOpponent.setBounds(
                 advPathWidth + specialUiWidth + (padding * 2),
                 padding + yScales[0] * heightPerScale,
                 (width - (advPathWidth + specialUiWidth + padding * 3)) / 1.5,
                 heightScales[0] * heightPerScale * 2.5
             );
-            this.supportPlayer.setBounds(
+            this.playPilePlayer.setBounds(
                 advPathWidth + specialUiWidth + (padding * 2),
                 padding * 5 + yScales[3] * heightPerScale,
                 (width - (advPathWidth + specialUiWidth + padding * 3)) / 1.5,
@@ -1424,8 +1416,8 @@ var GempLotrGameUI = Class.extend({
         this.advPathGroup.layoutCards();
         this.charactersPlayer.layoutCards();
         this.charactersOpponent.layoutCards();
-        this.supportPlayer.layoutCards();
-        this.supportOpponent.layoutCards();
+        this.playPilePlayer.layoutCards();
+        this.playPileOpponent.layoutCards();
         if (!this.spectatorMode)
             this.hand.layoutCards();
         this.shadow.layoutCards();
