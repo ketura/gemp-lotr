@@ -1431,7 +1431,7 @@ java.lang.NullPointerException: Cannot invoke "java.util.List.getClass()" becaus
 	at java.base/java.util.Collections.unmodifiableList(Collections.java:1319)
 	at com.gempukku.lotro.game.state.GameState.getDeadPile(GameState.java:624)
 	at com.gempukku.lotro.game.state.GameStats.updateGameStats(GameStats.java:137)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:82)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:82)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -1540,7 +1540,7 @@ java.lang.NullPointerException: Cannot invoke "java.util.List.getClass()" becaus
 	at com.gempukku.lotro.game.state.GameState.getVoidFromHand(GameState.java:608)
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasInitiative(ModifiersLogic.java:989)
 	at com.gempukku.lotro.game.timing.rules.lotronly.InitiativeChangeRule.checkInitiativeChange(InitiativeChangeRule.java:13)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:51)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:51)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -1688,9 +1688,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -1753,9 +1753,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -1813,9 +1813,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -1874,9 +1874,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -1941,9 +1941,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2003,9 +2003,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2065,9 +2065,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:140)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:66)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:127)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2186,9 +2186,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2246,9 +2246,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2372,7 +2372,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:67)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:67)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2496,9 +2496,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:335)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2603,9 +2603,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:137)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:63)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:335)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2721,9 +2721,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:335)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2827,9 +2827,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:335)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -2949,9 +2949,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3057,9 +3057,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3128,9 +3128,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3199,9 +3199,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3259,9 +3259,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3332,9 +3332,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3401,9 +3401,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3469,9 +3469,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3534,9 +3534,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3789,9 +3789,9 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure$PlayOutEffectResults.nextEffect(TurnProcedure.java:139)
 	at com.gempukku.lotro.game.actions.ActionStack.getNextEffect(ActionStack.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:65)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -3907,7 +3907,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -4018,7 +4018,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -4326,7 +4326,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -4450,7 +4450,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.game.DefaultGa
 	at com.gempukku.lotro.game.state.tribbles.TribblesGameState.addCardToZone(TribblesGameState.java:373)
 	at com.gempukku.lotro.game.state.tribbles.TribblesGameState.playerDrawsCard(TribblesGameState.java:676)
 	at com.gempukku.lotro.game.timing.processes.pregame.PlayersDrawStartingHandGameProcess.process(PlayersDrawStartingHandGameProcess.java:26)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:59)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:59)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -4677,7 +4677,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:125)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:345)
 	at com.gempukku.lotro.async.handler.GameRequestHandler.updateGameState(GameRequestHandler.java:95)
@@ -5271,3 +5271,335 @@ Listening for transport dt_socket at address: 8000
 2023-07-16 11:48:27,431 DEBUG BiddingGameProcess:28 - qwer
 2023-07-16 11:48:27,433 DEBUG BiddingGameProcess:28 - asdf
 2023-07-16 11:48:27,446 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-17 00:54:20,808  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-17 00:54:20,818 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-17 00:54:21,280  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-17 00:54:21,282  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-17 00:54:21,347 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-17 00:54:21,355 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-17 00:54:21,455 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-17 00:54:21,475 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-17 00:54:21,480 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-17 00:54:21,482 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-17 00:54:21,798 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-17 00:54:21,830 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-17 00:54:21,832  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-17 00:54:21,842 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-17 00:54:27,110 DEBUG DbAccess:87 - setupDataSource - unable to connect
+2023-07-17 00:54:27,113 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-17 00:54:27,210  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-17 00:54:27,212 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-17 00:54:27,548 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-17 00:54:27,575 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-17 00:54:27,577  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-17 00:54:27,580 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-17 00:54:27,583 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-17 00:54:27,584 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-17 00:54:27,592 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-17 00:54:27,601 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-17 00:54:27,603 DEBUG ITournamentService:133 - Created result object
+2023-07-17 00:54:27,605 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-17 00:54:27,607 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@3224a577
+2023-07-17 00:54:27,611 DEBUG DbTournamentDAO:91 - Unable to connect to data source
+Exception in thread "main" java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnfinishedTournaments(DbTournamentDAO.java:92)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnfinishedTournaments(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getLiveTournaments(TournamentService.java:134)
+	at com.gempukku.lotro.hall.HallServer.doAfterStartup(HallServer.java:283)
+	at com.gempukku.lotro.AbstractServer.startServer(AbstractServer.java:20)
+	at com.gempukku.lotro.builder.ServerBuilder.StartServers(ServerBuilder.java:151)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:34)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+2023-07-17 00:54:27,608 ERROR ServerCleaner:43 - Error while cleaning up a server
+java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:185)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnstartedScheduledTournamentQueues(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getUnstartedScheduledTournamentQueues(TournamentService.java:191)
+	at com.gempukku.lotro.hall.HallServer.cleanup(HallServer.java:839)
+	at com.gempukku.lotro.ServerCleaner$CleaningThread.run(ServerCleaner.java:40)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:171)
+	... 7 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 17 more
+Caused by: java.net.UnknownHostException: db
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:948)
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1638)
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1504)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:130)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 20 more
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnfinishedTournaments(DbTournamentDAO.java:89)
+	... 10 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 20 more
+Caused by: java.net.UnknownHostException: db
+	at java.base/java.net.InetAddress$CachedAddresses.get(InetAddress.java:948)
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1638)
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1504)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:130)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 23 more
+2023-07-17 00:55:33,644 ERROR LoggingProxy:28 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 5006ms
+2023-07-17 00:55:33,646 ERROR ServerCleaner:43 - Error while cleaning up a server
+java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:185)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnstartedScheduledTournamentQueues(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getUnstartedScheduledTournamentQueues(TournamentService.java:191)
+	at com.gempukku.lotro.hall.HallServer.cleanup(HallServer.java:839)
+	at com.gempukku.lotro.ServerCleaner$CleaningThread.run(ServerCleaner.java:40)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:171)
+	... 7 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 17 more
+Caused by: java.net.UnknownHostException: db: Try again
+	at java.base/java.net.Inet4AddressImpl.lookupAllHostAddr(Native Method)
+	at java.base/java.net.Inet4AddressImpl.lookupAllHostAddr(Inet4AddressImpl.java:43)
+	at java.base/java.net.InetAddress$PlatformResolver.lookupByName(InetAddress.java:1048)
+	at java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1648)
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:997)
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1638)
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1504)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:130)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 20 more
+2023-07-17 00:56:39,667 ERROR LoggingProxy:28 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 5005ms
+2023-07-17 00:56:39,669 ERROR ServerCleaner:43 - Error while cleaning up a server
+java.lang.RuntimeException: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:185)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at com.gempukku.lotro.log.LoggingProxy.lambda$createLoggingProxy$0(LoggingProxy.java:21)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.getUnstartedScheduledTournamentQueues(Unknown Source)
+	at com.gempukku.lotro.tournament.TournamentService.getUnstartedScheduledTournamentQueues(TournamentService.java:191)
+	at com.gempukku.lotro.hall.HallServer.cleanup(HallServer.java:839)
+	at com.gempukku.lotro.ServerCleaner$CleaningThread.run(ServerCleaner.java:40)
+Caused by: com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createCommunicationsException(SQLError.java:174)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:64)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:828)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:191)
+	at org.apache.commons.dbcp.DriverManagerConnectionFactory.createConnection(DriverManagerConnectionFactory.java:78)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at com.gempukku.lotro.db.DbTournamentDAO.getUnstartedScheduledTournamentQueues(DbTournamentDAO.java:171)
+	... 7 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:67)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:948)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
+	... 17 more
+Caused by: java.net.UnknownHostException: db: Try again
+	at java.base/java.net.Inet4AddressImpl.lookupAllHostAddr(Native Method)
+	at java.base/java.net.Inet4AddressImpl.lookupAllHostAddr(Inet4AddressImpl.java:43)
+	at java.base/java.net.InetAddress$PlatformResolver.lookupByName(InetAddress.java:1048)
+	at java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1648)
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:997)
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1638)
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1504)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:130)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 20 more
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-17 00:57:52,475  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-17 00:57:52,487 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-17 00:57:53,102  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-17 00:57:53,105  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-17 00:57:53,169 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-17 00:57:53,177 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-17 00:57:53,280 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-17 00:57:53,314 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-17 00:57:53,320 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-17 00:57:53,322 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-17 00:57:53,643 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-17 00:57:53,677 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-17 00:57:53,679  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-17 00:57:53,688 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-17 00:57:54,199 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-17 00:57:54,201 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-17 00:57:54,303  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-17 00:57:54,305 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-17 00:57:54,659 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-17 00:57:54,683 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-17 00:57:54,686  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-17 00:57:54,688 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-17 00:57:54,692 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-17 00:57:54,699 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-17 00:57:54,704 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-17 00:57:54,706 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-17 00:57:54,708 DEBUG ITournamentService:133 - Created result object
+2023-07-17 00:57:54,712 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-17 00:57:54,714 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@40238dd0
+2023-07-17 00:57:54,804 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-17 00:57:54,806 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-17 00:57:54,808 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-17 00:57:54,811 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-17 00:57:54,813 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-17 00:57:54,816 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-17 00:57:54,818 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-17 00:57:54,820 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-17 00:57:54,822  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-17 00:57:59,349 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689555479052
+2023-07-17 00:57:59,352 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689555479054
+2023-07-17 00:57:59,361 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689555479055
+2023-07-17 00:57:59,358 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1689555479053
+2023-07-17 00:57:59,379 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689555479056
+2023-07-17 00:58:01,955 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 177ms
+2023-07-17 00:58:03,096 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689555482869
+2023-07-17 00:58:03,098 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1689555482870
+2023-07-17 00:58:03,106 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1689555482871
+2023-07-17 00:58:03,116 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1689555482872
+2023-07-17 00:58:03,119 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1689555482873
+2023-07-17 00:58:09,520 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck TribblesTest
+2023-07-17 00:58:09,529 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'TribblesTest' but failed.
+2023-07-17 00:58:09,532 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-17 00:58:09,543 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@19566211
+2023-07-17 00:58:09,557 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-17 00:58:09,560 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-17 00:58:10,456 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-17 00:58:10,459 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-17 00:58:10,462 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-17 00:58:10,465 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'TribblesTest' but failed.
+2023-07-17 00:58:10,467 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-17 00:58:10,469 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@7a04e0b8
+2023-07-17 00:58:10,476 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-17 00:58:10,606 DEBUG BiddingGameProcess:28 - qwer
+2023-07-17 00:58:10,608 DEBUG BiddingGameProcess:28 - asdf
+2023-07-17 00:58:10,620 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-17 01:03:32,741  INFO LoggingProxy:32 - GameHistoryDAO::addGameHistory(...) 639ms
+2023-07-17 01:07:32,809 TRACE Game1:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
+2023-07-17 01:08:34,677 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/1
+2023-07-17 01:08:40,479 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
+2023-07-17 01:08:40,591 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game1
