@@ -1,25 +1,20 @@
 package com.gempukku.lotro.cards.lotronly;
 
+import com.gempukku.lotro.cards.CardDeck;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LotroDeck {
+public class LotroDeck extends CardDeck {
     private String _ringBearer;
     private String _ring;
     private final List<String> _siteCards = new ArrayList<>();
-    private final List<String> _drawDeckCards = new ArrayList<>();
-    private final String _deckName;
-    private String _notes;
-
-    private String _targetFormat = "Anything Goes";
 
     public LotroDeck(String deckName) {
+        super(deckName);
         _deckName = deckName;
-    }
-
-    public String getDeckName() {
-        return _deckName;
+        _targetFormat = "Anything Goes";
     }
 
     public void setRingBearer(String ringBearer) {
@@ -30,16 +25,8 @@ public class LotroDeck {
         _ring = ring;
     }
 
-    public void addCard(String card) {
-        _drawDeckCards.add(card);
-    }
-
     public void addSite(String card) {
         _siteCards.add(card);
-    }
-
-    public List<String> getDrawDeckCards() {
-        return Collections.unmodifiableList(_drawDeckCards);
     }
 
     public List<String> getSites() {
@@ -52,16 +39,5 @@ public class LotroDeck {
 
     public String getRing() {
         return _ring;
-    }
-
-    public String getTargetFormat() { return _targetFormat; }
-    public void setTargetFormat(String value) { _targetFormat = value; }
-
-    public String getNotes() {
-        return _notes;
-    }
-
-    public void setNotes(String value) {
-        _notes = value;
     }
 }
