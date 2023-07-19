@@ -370,14 +370,9 @@ var StackedCardGroup = CardGroup.extend({
         } while (!result);
     },
 
+        // Stacked implementation
     getAttachedCardsWidth:function (maxDimension, cardData) {
-        var result = 0;
-        for (var i = 0; i < cardData.attachedCards.length; i++) {
-            var attachedCardData = cardData.attachedCards[i].data("card");
-            result += attachedCardData.getWidthForMaxDimension(maxDimension);
-            result += this.getAttachedCardsWidth(maxDimension, attachedCardData);
-        }
-        return result;
+        return 0;
     },
 
     layoutInRowsIfPossible:function (cardsToLayout, proportionsArray, rowCount) {
@@ -458,7 +453,6 @@ var StackedCardGroup = CardGroup.extend({
             this.layoutAttached(cardData, y, height, layoutVars)
 
             this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
-//            layoutVars.x += cardWidth;
             layoutVars.x += 2;
         }
     },
@@ -479,8 +473,7 @@ var StackedCardGroup = CardGroup.extend({
             var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(rowHeight);
 
-            var attachmentWidths = this.getAttachedCardsWidth(rowHeight, cardData) * 0.2;
-            var cardWidthWithAttachments = cardWidth + attachmentWidths;
+            var cardWidthWithAttachments = cardWidth;
             if (layoutVars.x + cardWidthWithAttachments > this.width) {
                 row++;
                 layoutVars.x = 0;
