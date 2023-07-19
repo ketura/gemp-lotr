@@ -65,4 +65,27 @@ public class LotroDeck extends CardDeck {
     public String getRing() {
         return _ring;
     }
+
+    public String buildContentsFromDeck() {
+        StringBuilder sb = new StringBuilder();
+        if (_ringBearer != null)
+            sb.append(_ringBearer);
+        sb.append("|");
+        if (_ring != null)
+            sb.append(_ring);
+        sb.append("|");
+        for (int i = 0; i < this.getSites().size(); i++) {
+            if (i > 0)
+                sb.append(",");
+            sb.append(this.getSites().get(i));
+        }
+        sb.append("|");
+        for (int i = 0; i < this.getDrawDeckCards().size(); i++) {
+            if (i > 0)
+                sb.append(",");
+            sb.append(this.getDrawDeckCards().get(i));
+        }
+
+        return sb.toString();
+    }
 }

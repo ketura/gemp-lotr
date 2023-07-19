@@ -93,7 +93,7 @@ public class DbDeckDAO implements DeckDAO {
     }
 
     private void storeDeckToDB(int playerId, String name, String target_format, String notes, LotroDeck deck, boolean newDeck) {
-        String contents = DeckSerialization.buildContentsFromDeck(deck);
+        String contents = deck.buildContentsFromDeck();
         try {
             if (newDeck)
                 storeDeckInDB(playerId, name, target_format, notes, contents);
@@ -106,7 +106,7 @@ public class DbDeckDAO implements DeckDAO {
 
     public synchronized LotroDeck buildLotroDeckFromContents(String deckName, String contents, String target_format, String notes) {
         if (contents.contains("|")) {
-            return DeckSerialization.buildDeckFromContents(deckName, contents, target_format, notes);
+            return new LotroDeck(deckName, contents, target_format, notes);
         } else {
             // Old format
             List<String> cardsList = Arrays.asList(contents.split(","));
