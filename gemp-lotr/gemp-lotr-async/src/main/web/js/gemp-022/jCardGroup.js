@@ -431,14 +431,14 @@ var StackedCardGroup = CardGroup.extend({
 
         // Stacked implementation
     layoutAttached:function (cardData, y, height, layoutVars) {
-        for (var i = 0; i < cardData.attachedCards.length; i++) {
-            var attachedCardData = cardData.attachedCards[i].data("card");
-            var attachedCardWidth = attachedCardData.getWidthForMaxDimension(height);
-            this.layoutAttached(attachedCardData, y, height, layoutVars);
-            this.layoutCard(cardData.attachedCards[i], this.x + layoutVars.x, this.y + y, attachedCardWidth, attachedCardData.getHeightForWidth(attachedCardWidth), layoutVars.index);
-            layoutVars.x += Math.floor(attachedCardWidth * 0.2);
-            layoutVars.index++;
-        }
+        // If attachedCards.length = 0 do nothing
+        // If attachedCards.length = 1
+/*        var attachedCardData = cardData.attachedCards[0].data("card");
+        var attachedCardWidth = attachedCardData.getWidthForMaxDimension(height);
+        this.layoutAttached(attachedCardData, y, height, layoutVars);
+        this.layoutCard(cardData.attachedCards[0], this.x + layoutVars.x, this.y + y, attachedCardWidth, attachedCardData.getHeightForWidth(attachedCardWidth), layoutVars.index);
+        layoutVars.x += Math.floor(attachedCardWidth * 0.2);
+        layoutVars.index++;*/
     },
 
         // Stacked implementation
@@ -455,7 +455,7 @@ var StackedCardGroup = CardGroup.extend({
             var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(height);
 
-            this.layoutAttached(cardData, y, height, layoutVars)
+//            this.layoutAttached(cardData, y, height, layoutVars)
 
             this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
             layoutVars.x += 2;
@@ -485,7 +485,7 @@ var StackedCardGroup = CardGroup.extend({
                 y = yBias + row * (rowHeight + this.padding);
             }
 
-            this.layoutAttached(cardData, y, rowHeight, layoutVars);
+//            this.layoutAttached(cardData, y, rowHeight, layoutVars);
             this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
             layoutVars.x += cardWidth;
             if (layoutVars.x > this.width)
