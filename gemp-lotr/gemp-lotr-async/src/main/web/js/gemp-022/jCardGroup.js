@@ -375,6 +375,7 @@ var StackedCardGroup = CardGroup.extend({
         return 0;
     },
 
+        // Stacked implementation
     layoutInRowsIfPossible:function (cardsToLayout, proportionsArray, rowCount) {
         if (rowCount == 1) {
             var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
@@ -394,6 +395,7 @@ var StackedCardGroup = CardGroup.extend({
         }
     },
 
+        // Stacked implementation
     getHeightForLayoutInOneRow:function (proportionsArray) {
         var maxHeightNeeded = this.maxCardHeight;
         var maxWidthNeeded = this.maxCardHeight * cardScale; // cardScale defined in jCards.js
@@ -406,6 +408,7 @@ var StackedCardGroup = CardGroup.extend({
         return Math.floor(maxHeightNeeded * scalingFactor);
     },
 
+        // Stacked implementation
     tryIfCanLayoutInRows:function (rowCount, proportionsArray) {
         var rowHeight = (this.height - (this.padding * (rowCount - 1))) / rowCount;
         if (this.maxCardHeight != null)
@@ -426,6 +429,7 @@ var StackedCardGroup = CardGroup.extend({
         return true;
     },
 
+        // Stacked implementation
     layoutAttached:function (cardData, y, height, layoutVars) {
         for (var i = 0; i < cardData.attachedCards.length; i++) {
             var attachedCardData = cardData.attachedCards[i].data("card");
@@ -437,6 +441,7 @@ var StackedCardGroup = CardGroup.extend({
         }
     },
 
+        // Stacked implementation
     layoutInRow:function (cardsToLayout, height) {
         if (this.maxCardHeight != null)
             height = Math.min(this.maxCardHeight, height);
@@ -457,6 +462,7 @@ var StackedCardGroup = CardGroup.extend({
         }
     },
 
+        // Stacked implementation
     layoutInRows:function (rowCount, cardsToLayout) {
         var rowHeight = (this.height - ((rowCount - 1) * this.padding)) / rowCount;
         if (this.maxCardHeight != null)
@@ -473,8 +479,7 @@ var StackedCardGroup = CardGroup.extend({
             var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(rowHeight);
 
-            var cardWidthWithAttachments = cardWidth;
-            if (layoutVars.x + cardWidthWithAttachments > this.width) {
+            if (layoutVars.x + cardWidth > this.width) {
                 row++;
                 layoutVars.x = 0;
                 y = yBias + row * (rowHeight + this.padding);
