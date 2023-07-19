@@ -348,12 +348,14 @@ var NormalCardGroup = CardGroup.extend({
 
 var StackedCardGroup = CardGroup.extend({
 
+        // Stacked implementation
     init:function (container, belongTest, createDiv) {
         this._super(container, belongTest, createDiv);
-        this.padding = 3;
-        this.maxCardHeight = 250;
+        this.padding = 2;
+        this.maxCardHeight = 150;
     },
 
+        // Stacked implementation
     layoutCards:function () {
         var cardsToLayout = this.getCardElems();
 
@@ -375,7 +377,7 @@ var StackedCardGroup = CardGroup.extend({
         if (rowCount == 1) {
             var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
             if (oneRowHeight * 2 + this.padding > this.height) {
-                this.layoutInRow(cardsToLayout, oneRowHeight);
+                this.layoutInStack(cardsToLayout, oneRowHeight);
                 return true;
             } else {
                 return false;
@@ -425,20 +427,21 @@ var StackedCardGroup = CardGroup.extend({
     },
 
         // Stacked implementation
-    layoutInRow:function (cardsToLayout, height) {
+    layoutInStack:function (cardsToLayout, height) {
         if (this.maxCardHeight != null)
             height = Math.min(this.maxCardHeight, height);
         var layoutVars = {};
-        layoutVars.x = 0;
-        var y = Math.floor((this.height - height) / 2);
+        layoutVars.x = this.x;
+        layoutVars.y = this.y + Math.floor((this.height - height) / 2);
 
         for (var cardIndex in cardsToLayout) {
             layoutVars.index = 10;
             var cardElem = cardsToLayout[cardIndex];
             var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(height);
-            this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
-            layoutVars.x += 2;
+            this.layoutCard(cardElem, layoutVars.x, layoutVars.y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
+            layoutVars.x += this.padding;
+            layoutVars.y += this.padding;
         }
     },
 
