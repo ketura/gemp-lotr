@@ -430,18 +430,6 @@ var StackedCardGroup = CardGroup.extend({
     },
 
         // Stacked implementation
-    layoutAttached:function (cardData, y, height, layoutVars) {
-        // If attachedCards.length = 0 do nothing
-        // If attachedCards.length = 1
-/*        var attachedCardData = cardData.attachedCards[0].data("card");
-        var attachedCardWidth = attachedCardData.getWidthForMaxDimension(height);
-        this.layoutAttached(attachedCardData, y, height, layoutVars);
-        this.layoutCard(cardData.attachedCards[0], this.x + layoutVars.x, this.y + y, attachedCardWidth, attachedCardData.getHeightForWidth(attachedCardWidth), layoutVars.index);
-        layoutVars.x += Math.floor(attachedCardWidth * 0.2);
-        layoutVars.index++;*/
-    },
-
-        // Stacked implementation
     layoutInRow:function (cardsToLayout, height) {
         if (this.maxCardHeight != null)
             height = Math.min(this.maxCardHeight, height);
@@ -454,9 +442,6 @@ var StackedCardGroup = CardGroup.extend({
             var cardElem = cardsToLayout[cardIndex];
             var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(height);
-
-//            this.layoutAttached(cardData, y, height, layoutVars)
-
             this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
             layoutVars.x += 2;
         }
@@ -485,7 +470,6 @@ var StackedCardGroup = CardGroup.extend({
                 y = yBias + row * (rowHeight + this.padding);
             }
 
-//            this.layoutAttached(cardData, y, rowHeight, layoutVars);
             this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
             layoutVars.x += cardWidth;
             if (layoutVars.x > this.width)
