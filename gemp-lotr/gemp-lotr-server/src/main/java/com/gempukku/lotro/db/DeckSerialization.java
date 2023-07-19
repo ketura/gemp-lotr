@@ -27,27 +27,6 @@ public class DeckSerialization {
     }
 
     public static LotroDeck buildDeckFromContents(String deckName, String contents, String targetFormat, String notes) {
-        // New format
-        String[] parts = contents.split("\\|");
-
-        LotroDeck deck = new LotroDeck(deckName);
-        deck.setTargetFormat(targetFormat);
-        deck.setNotes(notes);
-        if (parts.length > 0 && !parts[0].equals(""))
-            deck.setRingBearer(parts[0]);
-        if (parts.length > 1 && !parts[1].equals(""))
-            deck.setRing(parts[1]);
-        if (parts.length > 2)
-            for (String site : parts[2].split(",")) {
-                if (!site.equals(""))
-                    deck.addSite(site);
-            }
-        if (parts.length > 3)
-            for (String card : parts[3].split(",")) {
-                if (!card.equals(""))
-                    deck.addCard(card);
-            }
-
-        return deck;
+        return new LotroDeck(deckName, contents, targetFormat, notes);
     }
 }

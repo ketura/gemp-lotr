@@ -12,6 +12,29 @@ public class CardDeck {
     public CardDeck(String deckName) {
         _deckName = deckName;
     }
+    public CardDeck(String deckName, String contents, String targetFormat, String notes) {
+        // New format
+        String[] parts = contents.split("\\|");
+        _deckName = deckName;
+        _targetFormat = targetFormat;
+        _notes = notes;
+
+        if (parts.length > 0 && !parts[0].equals(""))
+            this.addCard(parts[0]);
+        if (parts.length > 1 && !parts[1].equals(""))
+            this.addCard(parts[1]);
+        if (parts.length > 2)
+            for (String card : parts[2].split(",")) {
+                if (!card.equals(""))
+                    this.addCard(card);
+            }
+        if (parts.length > 3)
+            for (String card : parts[3].split(",")) {
+                if (!card.equals(""))
+                    this.addCard(card);
+            }
+    }
+
     public String getDeckName() {
         return _deckName;
     }
