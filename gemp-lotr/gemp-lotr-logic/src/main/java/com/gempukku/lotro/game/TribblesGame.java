@@ -18,7 +18,7 @@ import com.gempukku.lotro.game.state.GameStats;
 import com.gempukku.lotro.game.timing.GameResultListener;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.game.timing.processes.turn.tribbles.TurnProcedure;
+import com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure;
 import com.gempukku.lotro.game.rules.tribbles.TribblesRuleSet;
 import org.apache.log4j.Logger;
 
@@ -30,7 +30,7 @@ public class TribblesGame implements DefaultGame {
     private final ModifiersLogic _modifiersLogic = new ModifiersLogic();
     private final DefaultActionsEnvironment _actionsEnvironment;
     private final UserFeedback _userFeedback;
-    private final TurnProcedure _turnProcedure;
+    private final TribblesTurnProcedure _turnProcedure;
     private final ActionStack _actionStack;
     private boolean _cancelled;
     private boolean _finished;
@@ -73,7 +73,7 @@ public class TribblesGame implements DefaultGame {
 
         _gameState = new TribblesGameState();
 
-        _turnProcedure = new TurnProcedure(this, decks.keySet(), userFeedback, _actionStack,
+        _turnProcedure = new TribblesTurnProcedure(this, decks.keySet(), userFeedback, _actionStack,
                 new PlayerOrderFeedback() {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {

@@ -22,15 +22,15 @@ import java.util.*;
 // Action generates multiple Effects, both costs and result of an action are Effects.
 
 // Decision is also an Effect.
-public class TurnProcedure {
+public class TribblesTurnProcedure {
     private final UserFeedback _userFeedback;
     private final DefaultGame _game;
     private final ActionStack _actionStack;
     private GameProcess _gameProcess;
     private boolean _playedGameProcess;
     private final GameStats _gameStats;
-    public TurnProcedure(DefaultGame lotroGame, Set<String> players, final UserFeedback userFeedback,
-                         ActionStack actionStack, final PlayerOrderFeedback playerOrderFeedback) {
+    public TribblesTurnProcedure(DefaultGame lotroGame, Set<String> players, final UserFeedback userFeedback,
+                                 ActionStack actionStack, final PlayerOrderFeedback playerOrderFeedback) {
         _userFeedback = userFeedback;
         _game = lotroGame;
         _actionStack = actionStack;
