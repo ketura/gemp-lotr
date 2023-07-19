@@ -28,10 +28,9 @@ public class CachedDeckDAO implements DeckDAO, Cached {
     }
 
     @Override
-    public LotroDeck buildDeckFromContents(String deckName, String contents, String target_format, String notes) {
-        return _delegate.buildDeckFromContents(deckName, contents, target_format, notes);
+    public LotroDeck buildLotroDeckFromContents(String deckName, String contents, String target_format, String notes) {
+        return _delegate.buildLotroDeckFromContents(deckName, contents, target_format, notes);
     }
-
     private String constructPlayerDeckNamesKey(Player player) {
         return player.getName();
     }

@@ -192,14 +192,14 @@ public class LotroServer extends AbstractServer {
             if (cnt != 3)
                 return null;
 
-            return _deckDao.buildDeckFromContents(deckName, contents, targetFormat, notes);
+            return _deckDao.buildLotroDeckFromContents(deckName, contents, targetFormat, notes);
         } else {
             // Old format
             List<String> cards = Arrays.asList(contents.split(","));
             if (cards.size() < 2)
                 return null;
 
-            return _deckDao.buildDeckFromContents(deckName, contents, targetFormat, notes);
+            return _deckDao.buildLotroDeckFromContents(deckName, contents, targetFormat, notes);
         }
     }
 

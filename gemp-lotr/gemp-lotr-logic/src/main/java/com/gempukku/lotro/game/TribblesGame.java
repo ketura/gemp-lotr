@@ -1,20 +1,20 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.CardBlueprintLibrary;
-import com.gempukku.lotro.cards.PhysicalCard;
-import com.gempukku.lotro.cards.lotronly.LotroDeck;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.communication.GameStateListener;
+import com.gempukku.lotro.cards.CardBlueprintLibrary; // has some LotR stuff
+import com.gempukku.lotro.cards.PhysicalCard; // has some LotR stuff
+import com.gempukku.lotro.cards.lotronly.LotroDeck; // has some LotR stuff
+import com.gempukku.lotro.common.Phase; // has some LotR stuff
+import com.gempukku.lotro.communication.GameStateListener; // has some LotR stuff
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.actions.ActionStack;
 import com.gempukku.lotro.game.actions.ActionsEnvironment;
-import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.game.adventure.Adventure;
-import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
-import com.gempukku.lotro.game.modifiers.ModifiersLogic;
-import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.actions.DefaultActionsEnvironment; // sort of has some LotR stuff (costs for effects)
+import com.gempukku.lotro.game.adventure.Adventure; // LotR-specific
+import com.gempukku.lotro.game.modifiers.ModifiersEnvironment; // has some LotR stuff
+import com.gempukku.lotro.game.modifiers.ModifiersLogic; // has some LotR stuff
+import com.gempukku.lotro.game.modifiers.ModifiersQuerying; // has some LotR stuff
 import com.gempukku.lotro.game.state.tribbles.TribblesGameState;
-import com.gempukku.lotro.game.state.GameStats;
+import com.gempukku.lotro.game.state.GameStats; // relies on a couple LotR things (like "adventure deck")
 import com.gempukku.lotro.game.timing.GameResultListener;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;

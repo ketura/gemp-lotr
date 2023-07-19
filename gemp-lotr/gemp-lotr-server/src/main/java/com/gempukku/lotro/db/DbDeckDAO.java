@@ -80,7 +80,7 @@ public class DbDeckDAO implements DeckDAO {
                     statement.setString(2, name);
                     try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
-                            return buildDeckFromContents(name, rs.getString(1), rs.getString(2), rs.getString(3));
+                            return buildLotroDeckFromContents(name, rs.getString(1), rs.getString(2), rs.getString(3));
 
                         return null;
                     }
@@ -104,7 +104,7 @@ public class DbDeckDAO implements DeckDAO {
         }
     }
 
-    public synchronized LotroDeck buildDeckFromContents(String deckName, String contents, String target_format, String notes) {
+    public synchronized LotroDeck buildLotroDeckFromContents(String deckName, String contents, String target_format, String notes) {
         if (contents.contains("|")) {
             return DeckSerialization.buildDeckFromContents(deckName, contents, target_format, notes);
         } else {
