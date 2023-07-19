@@ -371,11 +371,6 @@ var StackedCardGroup = CardGroup.extend({
     },
 
         // Stacked implementation
-    getAttachedCardsWidth:function (maxDimension, cardData) {
-        return 0;
-    },
-
-        // Stacked implementation
     layoutInRowsIfPossible:function (cardsToLayout, proportionsArray, rowCount) {
         if (rowCount == 1) {
             var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
