@@ -6,6 +6,7 @@ var CardGroup = Class.extend({
     height:null,
     belongTestFunc:null,
     padding:5,
+    containerPadding:3,
     maxCardHeight:497,
     descDiv:null,
 
@@ -38,10 +39,10 @@ var CardGroup = Class.extend({
     },
 
     setBounds:function (x, y, width, height) {
-        this.x = x + 3;
-        this.y = y + 3;
-        this.width = width - 6;
-        this.height = height - 6;
+        this.x = x + this.containerPadding;
+        this.y = y + this.containerPadding;
+        this.width = width - (this.containerPadding * 2);
+        this.height = height - (this.containerPadding * 2);
         if (this.descDiv != null)
             this.descDiv.css({left:x + "px", top:y + "px", width:width, height:height, position:"absolute"});
         this.layoutCards();
@@ -347,6 +348,7 @@ var NormalCardGroup = CardGroup.extend({
 });
 
 var StackedCardGroup = CardGroup.extend({
+    // StackedCardGroup assumes all cards are vertical
 
     overlap:null,
 
@@ -366,32 +368,29 @@ var StackedCardGroup = CardGroup.extend({
             proportionsArray.push(cardScale); // cardScale defined in jCards.js
         }
 
-        var rows = 0;
-        var result = false;
-        do {
-            rows++;
-            result = this.layoutInRowsIfPossible(cardsToLayout, proportionsArray, rows);
-        } while (!result);
+        this.overlap = this.scaleOverlapToFit(proportionsArray);
+        var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
+        this.layoutInStack(cardsToLayout, oneRowHeight);
+
     },
 
         // Stacked implementation
-    layoutInRowsIfPossible:function (cardsToLayout, proportionsArray, rowCount) {
-        if (rowCount == 1) {
-            var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
-            if (oneRowHeight * 2 + this.padding > this.height) {
-                this.layoutInStack(cardsToLayout, oneRowHeight);
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (this.tryIfCanLayoutInRows(rowCount, proportionsArray)) {
-                this.layoutInRows(rowCount, cardsToLayout);
-                return true;
-            } else {
-                return false;
-            }
+    scaleOverlapToFit:function (proportionsArray) {
+        var newOverlap = this.overlap;
+        var cardCount = proportionsArray.length - 1;
+        var maxCardWidth = this.maxCardHeight * cardScale; // cardScale defined in jCards.js
+        var heightAvailable = this.height - (this.containerPadding * 2);
+        var widthAvailable = this.width - (this.containerPadding * 2);
+
+        if ((this.maxCardHeight + newOverlap * cardCount) > heightAvailable) {
+            newOverlap = (heightAvailable - this.maxCardHeight) / cardCount;
         }
+        if ((this.maxCardWidth + newOverlap * cardCount) > widthAvailable) {
+            newOverlap = (widthAvailable - this.maxCardWidth) / cardCount;
+        }
+
+        // Don't allow overlap to get smaller than 1
+        return Math.max(newOverlap, 1);
     },
 
         // Stacked implementation
@@ -399,9 +398,9 @@ var StackedCardGroup = CardGroup.extend({
         var maxHeightNeeded = this.maxCardHeight;
         var maxWidthNeeded = this.maxCardHeight * cardScale; // cardScale defined in jCards.js
 
-            // Remove padding from this calculation because padding will not be scaled
-        var maxWidthAvailable = this.width - (this.padding * (proportionsArray.length - 1));
-        var maxHeightAvailable = this.height - (this.padding * (proportionsArray.length - 1));
+            // Remove padding from this calculation because overlap will not be scaled
+        var maxWidthAvailable = this.width - (this.overlap * (proportionsArray.length - 1));
+        var maxHeightAvailable = this.height - (this.overlap * (proportionsArray.length - 1));
 
         var scalingFactor = Math.min(1, (maxWidthAvailable / maxWidthNeeded), (maxHeightAvailable / maxHeightNeeded));
         return Math.floor(maxHeightNeeded * scalingFactor);
@@ -434,7 +433,7 @@ var StackedCardGroup = CardGroup.extend({
             height = Math.min(this.maxCardHeight, height);
         var layoutVars = {};
         layoutVars.x = this.x;
-        layoutVars.y = this.y + Math.floor((this.height - height) / 2);
+        layoutVars.y = this.y;
 
         for (var cardIndex in cardsToLayout) {
             layoutVars.index = 10;
