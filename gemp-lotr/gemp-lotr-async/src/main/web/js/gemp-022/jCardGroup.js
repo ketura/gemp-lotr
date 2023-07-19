@@ -348,10 +348,12 @@ var NormalCardGroup = CardGroup.extend({
 
 var StackedCardGroup = CardGroup.extend({
 
+    overlap:null,
+
         // Stacked implementation
     init:function (container, belongTest, createDiv) {
         this._super(container, belongTest, createDiv);
-        this.padding = 2;
+        this.overlap = 6;
         this.maxCardHeight = 150;
     },
 
@@ -440,8 +442,8 @@ var StackedCardGroup = CardGroup.extend({
             var cardData = cardElem.data("card");
             var cardWidth = cardData.getWidthForMaxDimension(height);
             this.layoutCard(cardElem, layoutVars.x, layoutVars.y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
-            layoutVars.x += this.padding;
-            layoutVars.y += this.padding;
+            layoutVars.x += this.overlap;
+            layoutVars.y += this.overlap;
         }
     },
 
