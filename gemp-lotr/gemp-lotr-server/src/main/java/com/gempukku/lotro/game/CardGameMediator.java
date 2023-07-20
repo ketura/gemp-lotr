@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.game.modifiers.Modifier;
 import com.gempukku.lotro.game.timing.GameResultListener;
-import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.CardDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -31,7 +31,7 @@ public class CardGameMediator {
     private final Map<String, Integer> _playerClocks = new HashMap<>();
     private final Map<String, Long> _decisionQuerySentTimes = new HashMap<>();
     private final Set<String> _playersPlaying = new HashSet<>();
-    private final Map<String, LotroDeck> _playerDecks = new HashMap<>();
+    private final Map<String, CardDeck> _playerDecks = new HashMap<>();
 
     private final String _gameId;
 
@@ -46,7 +46,7 @@ public class CardGameMediator {
     private int _channelNextIndex = 0;
     private volatile boolean _destroyed;
 
-    public CardGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, CardBlueprintLibrary library,
+    public CardGameMediator(String gameId, LotroFormat lotroFormat, GameParticipant[] participants, CardBlueprintLibrary library,
                             GameTimer gameTimer, boolean allowSpectators, boolean cancellable, boolean showInGameHall) {
         _gameId = gameId;
         _timeSettings = gameTimer;
@@ -56,7 +56,7 @@ public class CardGameMediator {
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
-        for (LotroGameParticipant participant : participants) {
+        for (GameParticipant participant : participants) {
             String participantId = participant.getPlayerId();
             _playerDecks.put(participantId, participant.getDeck());
             _playerClocks.put(participantId, 0);

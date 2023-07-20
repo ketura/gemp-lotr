@@ -3,7 +3,7 @@ package com.gempukku.lotro.hall;
 import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.CardGameMediator;
-import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.game.GameParticipant;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
@@ -52,7 +52,7 @@ public class TableHolder {
 
         GameTable table = new GameTable(gameSettings);
 
-        boolean tableFull = table.addPlayer(new LotroGameParticipant(player.getName(), lotroDeck));
+        boolean tableFull = table.addPlayer(new GameParticipant(player.getName(), lotroDeck));
         if (tableFull) {
             runningTables.put(tableId, table);
             return table;
@@ -85,13 +85,13 @@ public class TableHolder {
                 throw new HallException("You have already played ranked league game against this player in that series");
         }
 
-        final boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(player.getName(), lotroDeck));
+        final boolean tableFull = awaitingTable.addPlayer(new GameParticipant(player.getName(), lotroDeck));
         if (tableFull) {
             awaitingTables.remove(tableId);
             runningTables.put(tableId, awaitingTable);
 
             // Leave all other tables this player is waiting on
-            for (LotroGameParticipant awaitingTablePlayer : awaitingTable.getPlayers())
+            for (GameParticipant awaitingTablePlayer : awaitingTable.getPlayers())
                 leaveAwaitingTablesForPlayer(awaitingTablePlayer.getPlayerId());
 
             return awaitingTable;
@@ -99,11 +99,11 @@ public class TableHolder {
         return null;
     }
 
-    public GameTable setupTournamentTable(GameSettings gameSettings, LotroGameParticipant[] participants) {
+    public GameTable setupTournamentTable(GameSettings gameSettings, GameParticipant[] participants) {
         String tableId = String.valueOf(_nextTableId++);
 
         GameTable table = new GameTable(gameSettings);
-        for (LotroGameParticipant participant : participants) {
+        for (GameParticipant participant : participants) {
             table.addPlayer(participant);
         }
         runningTables.put(tableId, table);

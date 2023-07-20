@@ -9,6 +9,7 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.hall.GameSettings;
 import com.gempukku.lotro.game.timing.GameResultListener;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.CardDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -85,7 +86,7 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public CardGameMediator createNewGame(String tournamentName, final LotroGameParticipant[] participants, GameSettings gameSettings) {
+    public CardGameMediator createNewGame(String tournamentName, final GameParticipant[] participants, GameSettings gameSettings) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -94,7 +95,7 @@ public class LotroServer extends AbstractServer {
 
             if (gameSettings.isCompetitive()) {
                 Set<String> allowedUsers = new HashSet<>();
-                for (LotroGameParticipant participant : participants)
+                for (GameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else
@@ -139,8 +140,8 @@ public class LotroServer extends AbstractServer {
             }
 
             StringBuilder players = new StringBuilder();
-            Map<String, LotroDeck> decks =  new HashMap<>();
-            for (LotroGameParticipant participant : participants) {
+            Map<String, CardDeck> decks =  new HashMap<>();
+            for (GameParticipant participant : participants) {
                 if (players.length() > 0)
                     players.append(", ");
                 players.append(participant.getPlayerId());

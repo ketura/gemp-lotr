@@ -1,7 +1,7 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.CardGameMediator;
-import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.game.GameParticipant;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -10,7 +10,7 @@ public class GameTable {
     private static final Logger logger = Logger.getLogger(GameTable.class);
 
     private final GameSettings gameSettings;
-    private final Map<String, LotroGameParticipant> players = new HashMap<>();
+    private final Map<String, GameParticipant> players = new HashMap<>();
 
     private CardGameMediator cardGameMediator;
     private final int capacity;
@@ -34,7 +34,7 @@ public class GameTable {
         return cardGameMediator != null;
     }
 
-    public boolean addPlayer(LotroGameParticipant player) {
+    public boolean addPlayer(GameParticipant player) {
         players.put(player.getPlayerId(), player);
         return players.size() == capacity;
     }
@@ -52,7 +52,7 @@ public class GameTable {
         return new LinkedList<>(players.keySet());
     }
 
-    public Set<LotroGameParticipant> getPlayers() {
+    public Set<GameParticipant> getPlayers() {
         return Collections.unmodifiableSet(new HashSet<>(players.values()));
     }
 

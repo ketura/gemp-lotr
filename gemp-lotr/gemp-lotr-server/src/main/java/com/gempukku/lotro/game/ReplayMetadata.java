@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.CardDeck;
 import com.mysql.cj.util.StringUtils;
 
 import java.util.*;
@@ -43,7 +43,7 @@ public class ReplayMetadata {
 
     public HashSet<Integer> PlayedCards = new HashSet<>();
 
-    public ReplayMetadata(DBDefs.GameHistory game, Map<String, LotroDeck> decks) {
+    public ReplayMetadata(DBDefs.GameHistory game, Map<String, CardDeck> decks) {
         GameReplayInfo = game;
 
         for(var pair : decks.entrySet()) {
@@ -53,10 +53,10 @@ public class ReplayMetadata {
                 Owner = player;
                 TargetFormat = deck.getTargetFormat();
                 DeckName = deck.getDeckName();
-                AdventureDeck = deck.getSites();
+//                AdventureDeck = deck.getSites();
                 DrawDeck = deck.getDrawDeckCards();
-                RingBearer = deck.getRingBearer();
-                Ring = deck.getRing();
+//                RingBearer = deck.getRingBearer();
+//                Ring = deck.getRing();
             }};
 
             Decks.put(player, metadata);

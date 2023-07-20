@@ -2,7 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary; // has some LotR stuff
 import com.gempukku.lotro.cards.PhysicalCard; // has some LotR stuff
-import com.gempukku.lotro.cards.lotronly.LotroDeck; // has some LotR stuff
+import com.gempukku.lotro.cards.CardDeck;
 import com.gempukku.lotro.common.Phase; // has some LotR stuff
 import com.gempukku.lotro.communication.GameStateListener; // has some LotR stuff
 import com.gempukku.lotro.communication.UserFeedback;
@@ -49,7 +49,7 @@ public class TribblesGame implements DefaultGame {
     private final Set<String> _requestedCancel = new HashSet<>();
     private final CardBlueprintLibrary _library;
 
-    public TribblesGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback,
+    public TribblesGame(LotroFormat format, Map<String, CardDeck> decks, UserFeedback userFeedback,
                         final CardBlueprintLibrary library) {
         _library = library;
         _adventure = format.getAdventure();
@@ -64,9 +64,8 @@ public class TribblesGame implements DefaultGame {
         for (String playerId : decks.keySet()) {
             List<String> deck = new LinkedList<>();
 
-            LotroDeck lotroDeck = decks.get(playerId);
-            deck.addAll(lotroDeck.getSites());
-            deck.addAll(lotroDeck.getDrawDeckCards());
+            CardDeck playerDeck = decks.get(playerId);
+            deck.addAll(playerDeck.getDrawDeckCards());
 
             cards.put(playerId, deck);
         }

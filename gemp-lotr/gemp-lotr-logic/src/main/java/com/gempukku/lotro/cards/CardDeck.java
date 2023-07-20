@@ -13,7 +13,7 @@ public class CardDeck {
         _deckName = deckName;
     }
     public CardDeck(String deckName, String contents, String targetFormat, String notes) {
-        // New format
+        // Assumes "new format" of LotR Gemp syntax
         String[] parts = contents.split("\\|");
         _deckName = deckName;
         _targetFormat = targetFormat;

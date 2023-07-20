@@ -742,8 +742,8 @@ public class HallServer extends AbstractServer {
     }
 
     private void createGameFromTable(GameTable gameTable) {
-        Set<LotroGameParticipant> players = gameTable.getPlayers();
-        LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[0]);
+        Set<GameParticipant> players = gameTable.getPlayers();
+        GameParticipant[] participants = players.toArray(new GameParticipant[0]);
         final League league = gameTable.getGameSettings().getLeague();
         final LeagueSerieData leagueSerie = gameTable.getGameSettings().getLeagueSerie();
 
@@ -766,7 +766,7 @@ public class HallServer extends AbstractServer {
         gameTable.startGame(mediator);
     }
 
-    private CardGameMediator createGameMediator(LotroGameParticipant[] participants, GameResultListener listener, String tournamentName, GameSettings gameSettings) {
+    private CardGameMediator createGameMediator(GameParticipant[] participants, GameResultListener listener, String tournamentName, GameSettings gameSettings) {
         final CardGameMediator cardGameMediator = _lotroServer.createNewGame(tournamentName, participants, gameSettings);
         if (listener != null)
             cardGameMediator.addGameResultListener(listener);
@@ -877,13 +877,13 @@ public class HallServer extends AbstractServer {
 
         @Override
         public void createGame(String playerOne, LotroDeck deckOne, String playerTwo, LotroDeck deckTwo) {
-            final LotroGameParticipant[] participants = new LotroGameParticipant[2];
-            participants[0] = new LotroGameParticipant(playerOne, deckOne);
-            participants[1] = new LotroGameParticipant(playerTwo, deckTwo);
+            final GameParticipant[] participants = new GameParticipant[2];
+            participants[0] = new GameParticipant(playerOne, deckOne);
+            participants[1] = new GameParticipant(playerTwo, deckTwo);
             createGameInternal(participants);
         }
 
-        private void createGameInternal(final LotroGameParticipant[] participants) {
+        private void createGameInternal(final GameParticipant[] participants) {
             _hallDataAccessLock.writeLock().lock();
             try {
                 if (!_shutdown) {
