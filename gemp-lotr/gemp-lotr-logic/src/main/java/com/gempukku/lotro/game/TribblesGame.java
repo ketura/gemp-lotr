@@ -185,9 +185,14 @@ public class TribblesGame implements DefaultGame {
 
     private void gameWon(String winner, String reason) {
         _winnerPlayerId = winner;
+        int winningPoints = 0;
 
         if (_gameState != null)
             _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
+            for (PhysicalCard winnerCard : _gameState.getPlayPile(_winnerPlayerId)) {
+                winningPoints += winnerCard.getBlueprint().getTribbleValue();
+            }
+            _gameState.sendMessage(_winnerPlayerId + " went out with " + winningPoints + " points");
 
         _gameState.finish();
 

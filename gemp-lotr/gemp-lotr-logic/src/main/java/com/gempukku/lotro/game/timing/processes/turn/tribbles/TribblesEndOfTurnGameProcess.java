@@ -36,8 +36,9 @@ public class TribblesEndOfTurnGameProcess implements GameProcess {
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfTurn();
                         game.getGameState().stopAffectingCardsForCurrentPlayer();
                         for (String playerId : game.getPlayers()) {
-                            if (game.getGameState().getHand(playerId).size() == 0)
+                            if (game.getGameState().getHand(playerId).size() == 0) {
                                 game.playerWon(playerId, "No cards remaining in hand");
+                            }
                         }
                     }
                 });
