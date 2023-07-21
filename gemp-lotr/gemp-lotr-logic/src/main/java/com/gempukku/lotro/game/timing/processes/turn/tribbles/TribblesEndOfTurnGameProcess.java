@@ -1,6 +1,5 @@
 package com.gempukku.lotro.game.timing.processes.turn.tribbles;
 
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
@@ -36,8 +35,10 @@ public class TribblesEndOfTurnGameProcess implements GameProcess {
                         ((ModifiersLogic) game.getModifiersEnvironment()).signalEndOfTurn();
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfTurn();
                         game.getGameState().stopAffectingCardsForCurrentPlayer();
-                        game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
-                        game.getGameState().sendMessage("End of turn, players swap roles.");
+                        for (String playerId : game.getPlayers()) {
+                            if (game.getGameState().getHand(playerId).size() == 0)
+                                game.playerWon(playerId, "No cards remaining in hand");
+                        }
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);

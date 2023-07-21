@@ -9,18 +9,21 @@ import com.gempukku.lotro.game.actions.ActionsEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
 
+import java.util.Set;
+
 public interface DefaultGame {
-    public GameState getGameState();
-    public CardBlueprintLibrary getLotroCardBlueprintLibrary();
-    public ModifiersEnvironment getModifiersEnvironment();
-    public ModifiersQuerying getModifiersQuerying();
-    public ActionsEnvironment getActionsEnvironment();
-    public UserFeedback getUserFeedback();
-    public void playerWon(String currentPlayerId, String reason);
-    public void playerLost(String currentPlayerId, String reason);
-    public String getWinnerPlayerId();
-    public LotroFormat getFormat();
-    public boolean shouldAutoPass(String playerId, Phase phase);
-    public boolean isSolo();
-    public boolean checkPlayRequirements(PhysicalCard card);
+    GameState getGameState();
+    CardBlueprintLibrary getLotroCardBlueprintLibrary();
+    ModifiersEnvironment getModifiersEnvironment();
+    ModifiersQuerying getModifiersQuerying();
+    ActionsEnvironment getActionsEnvironment();
+    UserFeedback getUserFeedback();
+    void playerWon(String currentPlayerId, String reason);
+    void playerLost(String currentPlayerId, String reason);
+    String getWinnerPlayerId();
+    LotroFormat getFormat();
+    boolean shouldAutoPass(String playerId, Phase phase);
+    boolean isSolo();
+    boolean checkPlayRequirements(PhysicalCard card);
+    Set<String> getPlayers();
 }

@@ -290,4 +290,5 @@ public class TribblesGame implements DefaultGame {
                 "; nextTribble value = " + _gameState.getNextTribble()); */
         return (cardValue == _gameState.getNextTribble());
     }
+    public Set<String> getPlayers() { return _allPlayers; }
 }

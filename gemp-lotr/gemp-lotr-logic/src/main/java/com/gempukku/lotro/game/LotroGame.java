@@ -289,4 +289,5 @@ public class LotroGame implements DefaultGame {
 
     // Dummy function. LotroGame will eventually be deprecated.
     public boolean checkPlayRequirements(PhysicalCard card) { return true; }
+    public Set<String> getPlayers() { return _allPlayers; }
 }

@@ -20,7 +20,6 @@ public class TribblesPlayerDrawsAndCanPlayProcess implements GameProcess {
 
     @Override
     public void process(final DefaultGame game) {
-        game.getGameState().sendMessage("DEBUG: Beginning TribblesPlayerDrawsAndCanPlayProcess");
         game.getGameState().playerDrawsCard(_playerId);
         List<? extends PhysicalCard> playerHand = game.getGameState().getHand(_playerId);
         PhysicalCard cardDrawn = playerHand.get(playerHand.size() - 1);
