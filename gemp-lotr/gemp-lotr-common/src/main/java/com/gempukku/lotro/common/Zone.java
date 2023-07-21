@@ -12,15 +12,17 @@ public enum Zone implements Filterable {
     STACKED("stacked", true, true, false),
     DEAD("dead pile", true, true, false),
     REMOVED("removed", true, true, false),
+    /* Not a perfect implementation of play pile. Only the top card is visible,
+        but it is visible to all players. It should be considered "in play".
+        All parameters set to "true" for now so that it can be visually
+        observed in the game UI.
+     */
+    PLAY_PILE("play pile", true, true,true),
 
     // Private knowledge
     HAND("hand", false, true, false),
     DISCARD("discard", false, true, false),
     ADVENTURE_DECK("adventureDeck", false, true, false),
-            /* Not a perfect implementation of play pile. Only the top card is visible,
-                but it is visible to all players. It should be considered "in play".
-             */
-    PLAY_PILE("play pile", false, true,true),
 
     // Nobody sees
     VOID("void", false, false, false),
