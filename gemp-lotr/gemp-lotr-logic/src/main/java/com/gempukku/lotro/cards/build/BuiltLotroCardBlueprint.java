@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.Action;
+import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.actions.lotronly.*;
 import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
@@ -194,12 +195,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (inDiscardModifiers == null)
             inDiscardModifiers = new LinkedList<>();
         inDiscardModifiers.add(modifierSource);
-    }
-
-    public void appendControlledSiteModifier(ModifierSource modifierSource) {
-        if (controlledSiteModifiers == null)
-            controlledSiteModifiers = new LinkedList<>();
-        controlledSiteModifiers.add(modifierSource);
     }
 
     public void appendTargetFilter(FilterableSource targetFilter) {

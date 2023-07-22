@@ -80,11 +80,6 @@ public class PlaySiteEffect extends AbstractEffect {
     }
 
     @Override
-    public Effect.Type getType() {
-        return null;
-    }
-
-    @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         final int siteNumber = getSiteNumberToPlay(game);
 
@@ -137,7 +132,7 @@ public class PlaySiteEffect extends AbstractEffect {
                             }
 
                             sitePlayedCallback(newSite);
-                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null, false));
+                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null));
                         }
                     });
 

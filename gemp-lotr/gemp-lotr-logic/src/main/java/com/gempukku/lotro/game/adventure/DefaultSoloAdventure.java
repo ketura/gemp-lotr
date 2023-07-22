@@ -51,7 +51,7 @@ public class DefaultSoloAdventure extends SoloAdventure {
                             gameState.addCardToZone(game, newSite, Zone.ADVENTURE_PATH);
                             gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
 
-                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null, false));
+                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null));
                         } catch (CardNotFoundException exp) {
                             throw new RuntimeException("Unable to create a requested card", exp);
                         }

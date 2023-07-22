@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.actions.lotronly;
+package com.gempukku.lotro.game.actions;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
@@ -8,21 +8,16 @@ import com.gempukku.lotro.game.effects.ActivateCardEffect;
 import com.gempukku.lotro.game.effects.Effect;
 
 public class ActivateCardAction extends AbstractCostToEffectAction {
-    private final PhysicalCard _physicalCard;
 
-    private ActivateCardEffect _activateCardEffect;
-
-    private final String _message;
-
-    private boolean _sentMessage;
-    private boolean _activated;
-
-    private boolean _prevented;
+    protected final PhysicalCard _physicalCard;
+    protected ActivateCardEffect _activateCardEffect;
+    protected boolean _sentMessage;
+    protected boolean _activated;
+    protected boolean _prevented;
 
     public ActivateCardAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         setText("Use " + GameUtils.getFullName(_physicalCard));
-        _message = GameUtils.getCardLink(_physicalCard) + " is used";
     }
 
     @Override
@@ -50,8 +45,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
             _sentMessage = true;
             if (_physicalCard != null && _physicalCard.getZone().isInPlay())
                 game.getGameState().activatedCard(getPerformingPlayer(), _physicalCard);
-            if (_message != null)
-                game.getGameState().sendMessage(_message);
+            game.getGameState().sendMessage(GameUtils.getCardLink(_physicalCard) + " is used");
         }
 
         if (!isCostFailed()) {
@@ -65,11 +59,8 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
                 return _activateCardEffect;
             }
 
-            if (!_activateCardEffect.getActivateCardResult().isEffectCancelled() && !_prevented) {
-                Effect effect = getNextEffect();
-                if (effect != null)
-                    return effect;
-            }
+            if (!_activateCardEffect.getActivateCardResult().isEffectCancelled() && !_prevented)
+                return getNextEffect();
         }
         return null;
     }

@@ -13,9 +13,9 @@ public class PlayEventEffect extends PlayCardEffect {
     private final PlayEventResult _playEventResult;
 
     public PlayEventEffect(PlayEventAction action, Zone playedFrom, PhysicalCard cardPlayed, boolean requiresRanger, boolean paidToil) {
-        super(playedFrom, cardPlayed, (Zone) null, null, paidToil);
+        super(playedFrom, cardPlayed, (Zone) null, null);
         _cardPlayed = cardPlayed;
-        _playEventResult = new PlayEventResult(action, playedFrom, getPlayedCard(), requiresRanger, paidToil);
+        _playEventResult = new PlayEventResult(action, playedFrom, getPlayedCard(), requiresRanger);
     }
 
     public PlayEventResult getPlayEventResult() {

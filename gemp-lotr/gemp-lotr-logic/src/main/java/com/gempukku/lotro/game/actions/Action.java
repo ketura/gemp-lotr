@@ -6,29 +6,30 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.Effect;
 
 public interface Action {
-    public enum Type {
-        PLAY_CARD, SPECIAL_ABILITY, TRIGGER, TRANSFER, RECONCILE, RESOLVE_DAMAGE, OTHER
+    enum Type {
+        PLAY_CARD, SPECIAL_ABILITY, TRIGGER, TRANSFER, RECONCILE, RESOLVE_DAMAGE, OTHER,
+        TRIBBLE_POWER
     }
 
-    public Type getType();
+    Type getType();
 
-    public PhysicalCard getActionSource();
+    PhysicalCard getActionSource();
 
-    public void setActionTimeword(Phase phase);
+    void setActionTimeword(Phase phase);
 
-    public PhysicalCard getActionAttachedToCard();
+    PhysicalCard getActionAttachedToCard();
 
-    public void setVirtualCardAction(boolean virtualCardAction);
+    void setVirtualCardAction(boolean virtualCardAction);
 
-    public boolean isVirtualCardAction();
+    boolean isVirtualCardAction();
 
-    public void setPerformingPlayer(String playerId);
+    void setPerformingPlayer(String playerId);
 
-    public String getPerformingPlayer();
+    String getPerformingPlayer();
 
-    public Phase getActionTimeword();
+    Phase getActionTimeword();
 
-    public String getText(DefaultGame game);
+    String getText(DefaultGame game);
 
-    public Effect nextEffect(DefaultGame game);
+    Effect nextEffect(DefaultGame game);
 }

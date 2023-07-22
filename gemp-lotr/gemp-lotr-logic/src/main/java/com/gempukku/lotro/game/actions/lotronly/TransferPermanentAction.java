@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.actions.lotronly;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.ActivateCardAction;
+import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.game.effects.PayTwilightCostEffect;
@@ -14,12 +14,10 @@ import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import java.util.Collection;
 
 public class TransferPermanentAction extends ActivateCardAction {
-    private final PhysicalCard _transferredCard;
 
     public TransferPermanentAction(final PhysicalCard card, Filter filter) {
         super(card);
-        _transferredCard = card;
-        setText("Transfer " + GameUtils.getFullName(_transferredCard));
+        setText("Transfer " + GameUtils.getFullName(card));
 
         appendCost(
                 new UnrespondableEffect() {

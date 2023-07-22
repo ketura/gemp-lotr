@@ -12,30 +12,16 @@ import java.util.Collections;
 public class TribblesPlayCardEffect extends AbstractEffect {
     private final Zone _playedFrom;
     private final PhysicalCard _cardPlayed;
-    private PhysicalCard _attachedToCard;
     private final Zone _zone;
-    private final PhysicalCard _attachedOrStackedPlayedFrom;
-    private final boolean _paidToil;
 
-    public TribblesPlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
+    public TribblesPlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _zone = playedTo;
-        _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
-        _paidToil = paidToil;
     }
 
     public PhysicalCard getPlayedCard() {
         return _cardPlayed;
-    }
-
-    public PhysicalCard getAttachedTo() {
-        return _attachedToCard;
-    }
-
-    @Override
-    public Type getType() {
-        return null;
     }
 
     @Override
@@ -51,17 +37,12 @@ public class TribblesPlayCardEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         game.getGameState().removeCardsFromZone(_cardPlayed.getOwner(), Collections.singleton(_cardPlayed));
-        if (_attachedToCard != null) {
-            game.getGameState().attachCard(game, _cardPlayed, _attachedToCard);
-        } else {
-            game.getGameState().addCardToZone(game, _cardPlayed, _zone);
-        }
+        game.getGameState().addCardToZone(game, _cardPlayed, _zone);
 
         // Defined by the game. For Tribbles, this is where the chain is advanced.
         game.getGameState().playEffectReturningResult(_cardPlayed);
 
-        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard,
-                _attachedOrStackedPlayedFrom, _paidToil));
+        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed));
 
         return new FullEffectResult(true);
     }

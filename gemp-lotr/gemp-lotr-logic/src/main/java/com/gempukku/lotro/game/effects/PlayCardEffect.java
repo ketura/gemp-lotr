@@ -14,22 +14,19 @@ public class PlayCardEffect extends AbstractEffect {
     private PhysicalCard _attachedToCard;
     private final Zone _zone;
     private final PhysicalCard _attachedOrStackedPlayedFrom;
-    private final boolean _paidToil;
 
-    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
+    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _zone = playedTo;
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
-        _paidToil = paidToil;
     }
 
-    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, PhysicalCard attachedToCard, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
+    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, PhysicalCard attachedToCard, PhysicalCard attachedOrStackedPlayedFrom) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _attachedToCard = attachedToCard;
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
-        _paidToil = paidToil;
         _zone = Zone.ATTACHED;
     }
 
@@ -39,11 +36,6 @@ public class PlayCardEffect extends AbstractEffect {
 
     public PhysicalCard getAttachedTo() {
         return _attachedToCard;
-    }
-
-    @Override
-    public Effect.Type getType() {
-        return null;
     }
 
     @Override
@@ -65,7 +57,7 @@ public class PlayCardEffect extends AbstractEffect {
             game.getGameState().addCardToZone(game, _cardPlayed, _zone);
         }
 
-        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom, _paidToil));
+        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom));
 
         return new FullEffectResult(true);
     }

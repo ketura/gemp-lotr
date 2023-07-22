@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppend
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.ActivateCardAction;
+import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.game.effects.IncrementTurnLimitEffect;
