@@ -4,7 +4,7 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.effects.EffectResult;
 import com.gempukku.lotro.game.timing.results.KilledResult;

@@ -1,7 +1,8 @@
-package com.gempukku.lotro.game.actions.lotronly;
+package com.gempukku.lotro.game.actions;
 
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.Effect;
 
@@ -70,9 +71,7 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
             if (cost != null)
                 return cost;
 
-            Effect effect = getNextEffect();
-            if (effect != null)
-                return effect;
+            return getNextEffect();
         }
         return null;
     }

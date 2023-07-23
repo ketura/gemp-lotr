@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 
 import java.util.HashSet;
 import java.util.Set;

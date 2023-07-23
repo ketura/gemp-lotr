@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.*;
-import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.adventure.InvalidSoloAdventureException;
 import com.gempukku.lotro.game.decisions.ActionSelectionDecision;

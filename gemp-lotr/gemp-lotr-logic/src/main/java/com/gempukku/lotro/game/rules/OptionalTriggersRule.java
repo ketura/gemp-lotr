@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.effects.EffectResult;
 
@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class OptionalTriggersRule {
-    private final DefaultActionsEnvironment actionsEnvironment;
+    protected final DefaultActionsEnvironment actionsEnvironment;
 
     public OptionalTriggersRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
+import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.actions.lotronly.*;
 import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.game.DefaultGame;

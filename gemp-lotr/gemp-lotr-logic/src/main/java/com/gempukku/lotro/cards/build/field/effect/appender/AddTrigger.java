@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.game.actions.ActionProxy;
 import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.actions.lotronly.OptionalTriggerAction;
+import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.game.effects.AddUntilEndOfTurnActionProxyEffect;
