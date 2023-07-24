@@ -31,6 +31,7 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);
                             if (action != null) {
+                                _nextProcess = new TribblesPlayerPlaysOrDraws(_playerId, new TribblesEndOfTurnGameProcess());
                                 game.getActionsEnvironment().addActionToStack(action);
                             } else
                                 _nextProcess = new TribblesPlayerDrawsAndCanPlayProcess(_playerId);

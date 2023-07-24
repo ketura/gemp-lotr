@@ -312,8 +312,8 @@ public class TribblesGameState extends GameState {
     private List<LotroPhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
         if (zone == Zone.DECK)
             return _decks.get(playerId);
-        else if (zone == Zone.PLAY_PILE)
-            return _playPiles.get(playerId);
+/*        else if (zone == Zone.PLAY_PILE)
+            return _playPiles.get(playerId); */
         else if (zone == Zone.ADVENTURE_DECK)
             return _adventureDecks.get(playerId);
         else if (zone == Zone.DISCARD)
