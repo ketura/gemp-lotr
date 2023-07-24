@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.PlayUtils;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -41,7 +41,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
         _ignoreCheckingDeadPile = ignoreCheckingDeadPile;
         // Card has to be in hand when you start playing the card (we need to copy the collection)
-        _filter = Filters.and(filters, Filters.in(new LinkedList<PhysicalCard>(game.getGameState().getHand(playerId))));
+        _filter = Filters.and(filters, Filters.in(new LinkedList<LotroPhysicalCard>(game.getGameState().getHand(playerId))));
         _twilightModifier = twilightModifier;
     }
 
@@ -50,7 +50,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
         return "Play card from hand";
     }
 
-    private Collection<PhysicalCard> getPlayableInHandCards(DefaultGame game) {
+    private Collection<LotroPhysicalCard> getPlayableInHandCards(DefaultGame game) {
         return Filters.filter(game.getGameState().getHand(_playerId), game, _filter, Filters.playable(game, _twilightModifier, _ignoreRoamingPenalty, _ignoreCheckingDeadPile));
     }
 
@@ -66,7 +66,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
 
     @Override
     public void playEffect(final DefaultGame game) {
-        Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
+        Collection<LotroPhysicalCard> playableInHand = getPlayableInHandCards(game);
         if (playableInHand.size() == 1)
             playCard(game, playableInHand.iterator().next());
         else if (playableInHand.size() > 1) {
@@ -74,14 +74,14 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
                     new CardsSelectionDecision(1, "Choose a card to play", playableInHand, 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
+                            final LotroPhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
                             playCard(game, selectedCard);
                         }
                     });
         }
     }
 
-    private void playCard(DefaultGame game, final PhysicalCard selectedCard) {
+    private void playCard(DefaultGame game, final LotroPhysicalCard selectedCard) {
         _playCardAction = PlayUtils.getPlayCardAction(game, selectedCard, _twilightModifier, Filters.any, _ignoreRoamingPenalty);
         _playCardAction.appendEffect(
                 new UnrespondableEffect() {
@@ -93,7 +93,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
         game.getActionsEnvironment().addActionToStack(_playCardAction);
     }
 
-    protected void afterCardPlayed(PhysicalCard cardPlayed) {
+    protected void afterCardPlayed(LotroPhysicalCard cardPlayed) {
     }
 
     @Override

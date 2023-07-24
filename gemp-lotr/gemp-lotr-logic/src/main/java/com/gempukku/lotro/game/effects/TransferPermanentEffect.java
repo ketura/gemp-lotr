@@ -1,16 +1,16 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.results.CardTransferredResult;
 
 public class TransferPermanentEffect extends AbstractEffect {
-    private final PhysicalCard _physicalCard;
-    private final PhysicalCard _targetCard;
+    private final LotroPhysicalCard _physicalCard;
+    private final LotroPhysicalCard _targetCard;
 
-    public TransferPermanentEffect(PhysicalCard physicalCard, PhysicalCard targetCard) {
+    public TransferPermanentEffect(LotroPhysicalCard physicalCard, LotroPhysicalCard targetCard) {
         _physicalCard = physicalCard;
         _targetCard = targetCard;
     }
@@ -38,7 +38,7 @@ public class TransferPermanentEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             gameState.sendMessage(_physicalCard.getOwner() + " transfers " + GameUtils.getCardLink(_physicalCard) + " to " + GameUtils.getCardLink(_targetCard));
-            PhysicalCard transferredFrom = _physicalCard.getAttachedTo();
+            LotroPhysicalCard transferredFrom = _physicalCard.getAttachedTo();
             gameState.transferCard(_physicalCard, _targetCard);
 
             game.getActionsEnvironment().emitEffectResult(

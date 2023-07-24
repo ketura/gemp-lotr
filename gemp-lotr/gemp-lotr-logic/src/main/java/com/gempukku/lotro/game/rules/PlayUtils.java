@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.rules;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.AttachPermanentAction;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayUtils {
-    private static Zone getPlayToZone(PhysicalCard card) {
+    private static Zone getPlayToZone(LotroPhysicalCard card) {
         final CardType cardType = card.getBlueprint().getCardType();
         return switch (cardType) {
             case COMPANION -> Zone.FREE_CHARACTERS;
@@ -35,17 +35,17 @@ public class PlayUtils {
         put(Phase.REGROUP, Keyword.REGROUP);
     }});
 
-    private static Filter getFullAttachValidTargetFilter(final DefaultGame game, final PhysicalCard card, int twilightModifier, int withTwilightRemoved) {
+    private static Filter getFullAttachValidTargetFilter(final DefaultGame game, final LotroPhysicalCard card, int twilightModifier, int withTwilightRemoved) {
         return Filters.and(RuleUtils.getFullValidTargetFilter(card.getOwner(), game, card),
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                         return game.getModifiersQuerying().canHavePlayedOn(game, card, physicalCard);
                     }
                 },
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                         if (card.getBlueprint().getSide() == Side.SHADOW) {
                             final int twilightCostOnTarget = game.getModifiersQuerying().getTwilightCost(game, card, physicalCard, twilightModifier, false);
                             int potentialDiscount = game.getModifiersQuerying().getPotentialDiscount(game, card);
@@ -58,7 +58,7 @@ public class PlayUtils {
     }
 
 
-    public static CostToEffectAction getPlayCardAction(DefaultGame game, PhysicalCard card, int twilightModifier, Filterable additionalAttachmentFilter, boolean ignoreRoamingPenalty) {
+    public static CostToEffectAction getPlayCardAction(DefaultGame game, LotroPhysicalCard card, int twilightModifier, Filterable additionalAttachmentFilter, boolean ignoreRoamingPenalty) {
         final LotroCardBlueprint blueprint = card.getBlueprint();
 
         if (blueprint.getCardType() != CardType.EVENT) {

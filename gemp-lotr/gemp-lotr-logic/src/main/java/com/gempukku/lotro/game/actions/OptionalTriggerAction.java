@@ -1,26 +1,26 @@
 package com.gempukku.lotro.game.actions;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.Effect;
 
 public class OptionalTriggerAction extends AbstractCostToEffectAction {
-    private PhysicalCard _physicalCard;
-    private final PhysicalCard _actionAttachedToCard;
+    private LotroPhysicalCard _physicalCard;
+    private final LotroPhysicalCard _actionAttachedToCard;
 
     private String _message;
 
     private boolean _sentMessage;
     private String _triggerIdentifier;
 
-    public OptionalTriggerAction(String triggerIdentifier, PhysicalCard attachedToCard) {
+    public OptionalTriggerAction(String triggerIdentifier, LotroPhysicalCard attachedToCard) {
         _actionAttachedToCard = attachedToCard;
         _triggerIdentifier = triggerIdentifier;
     }
 
-    public OptionalTriggerAction(PhysicalCard physicalCard) {
+    public OptionalTriggerAction(LotroPhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         _actionAttachedToCard = physicalCard;
 
@@ -47,12 +47,12 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _physicalCard;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _actionAttachedToCard;
     }
 

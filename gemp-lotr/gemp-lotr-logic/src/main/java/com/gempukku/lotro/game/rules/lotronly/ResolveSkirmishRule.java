@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.rules.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
@@ -36,7 +36,7 @@ public class ResolveSkirmishRule {
                             return Collections.singletonList(action);
                         } else if (effectResult.getType() == EffectResult.Type.SKIRMISH_FINISHED_WITH_OVERWHELM) {
                             OverwhelmSkirmishResult skirmishResult = (OverwhelmSkirmishResult) effectResult;
-                            Set<PhysicalCard> losers = new HashSet<>(skirmishResult.getInSkirmishLosers());
+                            Set<LotroPhysicalCard> losers = new HashSet<>(skirmishResult.getInSkirmishLosers());
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.setText("Resolve skirmish overwhelm");

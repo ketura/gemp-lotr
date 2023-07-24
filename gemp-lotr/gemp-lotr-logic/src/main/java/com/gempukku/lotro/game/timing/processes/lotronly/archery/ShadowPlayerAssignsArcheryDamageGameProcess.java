@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.archery;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.effects.ChooseAndWoundCharactersEffect;
@@ -29,7 +29,7 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
                             Filters.owner(_playerId),
                             new Filter() {
                                 @Override
-                                public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                                public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                     return game.getModifiersQuerying().canTakeArcheryWound(game, physicalCard);
                                 }
                             });

@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.PlayUtils;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -62,7 +62,7 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsToPlay = actionContext.getCardsFromMemory(memorize);
+                        final Collection<? extends LotroPhysicalCard> cardsToPlay = actionContext.getCardsFromMemory(memorize);
                         if (cardsToPlay.size() == 1) {
                             final int costModifier = costModifierSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
 

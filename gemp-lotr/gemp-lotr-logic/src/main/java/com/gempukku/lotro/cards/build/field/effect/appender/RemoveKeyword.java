@@ -10,9 +10,9 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.AddUntilModifierEffect;
 import com.gempukku.lotro.game.modifiers.RemoveKeywordModifier;
@@ -40,7 +40,7 @@ public class RemoveKeyword implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         return new AddUntilModifierEffect(
                                 new RemoveKeywordModifier(actionContext.getSource(), Filters.in(cardsFromMemory), keyword), until);
                     }

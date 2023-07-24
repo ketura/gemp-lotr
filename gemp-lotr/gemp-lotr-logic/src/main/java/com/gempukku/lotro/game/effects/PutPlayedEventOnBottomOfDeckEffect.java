@@ -1,16 +1,16 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 
 import java.util.Collections;
 
 public class PutPlayedEventOnBottomOfDeckEffect extends AbstractEffect {
-    private final PhysicalCard card;
+    private final LotroPhysicalCard card;
 
-    public PutPlayedEventOnBottomOfDeckEffect(PhysicalCard card) {
+    public PutPlayedEventOnBottomOfDeckEffect(LotroPhysicalCard card) {
         this.card = card;
     }
 

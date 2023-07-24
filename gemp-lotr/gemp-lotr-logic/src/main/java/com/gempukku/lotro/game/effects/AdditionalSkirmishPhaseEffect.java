@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.game.actions.lotronly.SkirmishPhaseAction;
@@ -9,10 +9,10 @@ import com.gempukku.lotro.game.actions.lotronly.SkirmishPhaseAction;
 import java.util.Set;
 
 public class AdditionalSkirmishPhaseEffect extends UnrespondableEffect {
-    private final PhysicalCard _fpCard;
-    private final Set<PhysicalCard> _shadowCards;
+    private final LotroPhysicalCard _fpCard;
+    private final Set<LotroPhysicalCard> _shadowCards;
 
-    public AdditionalSkirmishPhaseEffect(PhysicalCard fpCard, Set<PhysicalCard> shadowCards) {
+    public AdditionalSkirmishPhaseEffect(LotroPhysicalCard fpCard, Set<LotroPhysicalCard> shadowCards) {
         _fpCard = fpCard;
         _shadowCards = shadowCards;
     }

@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.adventure;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -46,7 +46,7 @@ public class DefaultSoloAdventure extends SoloAdventure {
                     protected void doPlayEffect(DefaultGame game) {
                         final GameState gameState = game.getGameState();
                         try {
-                            PhysicalCard newSite = gameState.createPhysicalCard("AI", _library, _siteSelection.getNextSite(game));
+                            LotroPhysicalCard newSite = gameState.createPhysicalCard("AI", _library, _siteSelection.getNextSite(game));
                             newSite.setSiteNumber(gameState.getCurrentSiteNumber() + 1);
                             gameState.addCardToZone(game, newSite, Zone.ADVENTURE_PATH);
                             gameState.sendMessage(newSite.getOwner() + " plays " + GameUtils.getCardLink(newSite));
@@ -76,7 +76,7 @@ public class DefaultSoloAdventure extends SoloAdventure {
     }
 
     @Override
-    public GameProcess getAfterFellowshipAssignmentGameProcess(Set<PhysicalCard> leftoverMinions, GameProcess followingProcess) {
+    public GameProcess getAfterFellowshipAssignmentGameProcess(Set<LotroPhysicalCard> leftoverMinions, GameProcess followingProcess) {
         return new AIPlayerAssignsMinionsGameProcess(leftoverMinions, followingProcess);
     }
 

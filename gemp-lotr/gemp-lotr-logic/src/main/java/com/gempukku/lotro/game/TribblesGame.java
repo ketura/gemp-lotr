@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary; // has some LotR stuff
-import com.gempukku.lotro.cards.PhysicalCard; // has some LotR stuff
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard; // has some LotR stuff
 import com.gempukku.lotro.cards.CardDeck;
 import com.gempukku.lotro.common.Phase; // has some LotR stuff
 import com.gempukku.lotro.communication.GameStateListener; // has some LotR stuff
@@ -189,7 +189,7 @@ public class TribblesGame implements DefaultGame {
 
         if (_gameState != null)
             _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
-            for (PhysicalCard winnerCard : _gameState.getPlayPile(_winnerPlayerId)) {
+            for (LotroPhysicalCard winnerCard : _gameState.getPlayPile(_winnerPlayerId)) {
                 winningPoints += winnerCard.getBlueprint().getTribbleValue();
             }
             _gameState.sendMessage(_winnerPlayerId + " went out with " + winningPoints + " points");
@@ -267,7 +267,7 @@ public class TribblesGame implements DefaultGame {
         _autoPassConfiguration.put(playerId, phases);
     }
 
-    public boolean checkPlayRequirements(PhysicalCard card) {
+    public boolean checkPlayRequirements(LotroPhysicalCard card) {
 //        _gameState.sendMessage("Calling game.checkPlayRequirements for card " + card.getBlueprint().getTitle());
 
         // Check if card's own play requirements are met
@@ -286,7 +286,7 @@ public class TribblesGame implements DefaultGame {
         return isNextInSequence(card);
     }
 
-    public boolean isNextInSequence(PhysicalCard card) {
+    public boolean isNextInSequence(LotroPhysicalCard card) {
         final int cardValue = card.getBlueprint().getTribbleValue();
         if (_gameState.isChainBroken() && (cardValue == 1)) {
             return true;

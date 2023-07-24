@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.PlayEventAction;
 import com.gempukku.lotro.game.timing.results.PlayEventResult;
@@ -9,10 +9,10 @@ import com.gempukku.lotro.game.timing.results.PlayEventResult;
 import java.util.Collections;
 
 public class PlayEventEffect extends PlayCardEffect {
-    private final PhysicalCard _cardPlayed;
+    private final LotroPhysicalCard _cardPlayed;
     private final PlayEventResult _playEventResult;
 
-    public PlayEventEffect(PlayEventAction action, Zone playedFrom, PhysicalCard cardPlayed, boolean requiresRanger, boolean paidToil) {
+    public PlayEventEffect(PlayEventAction action, Zone playedFrom, LotroPhysicalCard cardPlayed, boolean requiresRanger, boolean paidToil) {
         super(playedFrom, cardPlayed, (Zone) null, null);
         _cardPlayed = cardPlayed;
         _playEventResult = new PlayEventResult(action, playedFrom, getPlayedCard(), requiresRanger);

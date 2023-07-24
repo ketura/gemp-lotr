@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.TransferPermanentEffect;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -47,14 +47,14 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
         return null;
     }
 
-    private Filterable getValidTargetFilter(DefaultGame game, final PhysicalCard attachment) {
+    private Filterable getValidTargetFilter(DefaultGame game, final LotroPhysicalCard attachment) {
         if (_skipOriginalTargetCheck) {
             return Filters.and(
                     _transferTo,
                     Filters.not(attachment.getAttachedTo()),
                     new Filter() {
                         @Override
-                        public boolean accepts(DefaultGame game, PhysicalCard target) {
+                        public boolean accepts(DefaultGame game, LotroPhysicalCard target) {
                             return game.getModifiersQuerying().canHaveTransferredOn(game, attachment, target);
                         }
                     });
@@ -65,20 +65,20 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                     Filters.not(attachment.getAttachedTo()),
                     new Filter() {
                         @Override
-                        public boolean accepts(DefaultGame game, PhysicalCard target) {
+                        public boolean accepts(DefaultGame game, LotroPhysicalCard target) {
                             return game.getModifiersQuerying().canHaveTransferredOn(game, attachment, target);
                         }
                     });
         }
     }
 
-    private Collection<PhysicalCard> getPossibleAttachmentsToTransfer(final DefaultGame game) {
+    private Collection<LotroPhysicalCard> getPossibleAttachmentsToTransfer(final DefaultGame game) {
         return Filters.filterActive(game,
                 _attachedCard,
                 Filters.attachedTo(_attachedTo),
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, final PhysicalCard transferredCard) {
+                    public boolean accepts(DefaultGame game, final LotroPhysicalCard transferredCard) {
                         if (transferredCard.getBlueprint().getValidTargetFilter(transferredCard.getOwner(), game, transferredCard) == null)
                             return false;
 
@@ -97,25 +97,25 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final DefaultGame game) {
-        final Collection<PhysicalCard> possibleAttachmentsToTransfer = getPossibleAttachmentsToTransfer(game);
+        final Collection<LotroPhysicalCard> possibleAttachmentsToTransfer = getPossibleAttachmentsToTransfer(game);
         if (possibleAttachmentsToTransfer.size() > 0) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose card to transfer", possibleAttachmentsToTransfer, 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            final Set<PhysicalCard> selectedAttachments = getSelectedCardsByResponse(result);
+                            final Set<LotroPhysicalCard> selectedAttachments = getSelectedCardsByResponse(result);
                             if (selectedAttachments.size() == 1) {
-                                final PhysicalCard attachment = selectedAttachments.iterator().next();
-                                final PhysicalCard transferredFrom = attachment.getAttachedTo();
-                                final Collection<PhysicalCard> validTargets = Filters.filterActive(game, getValidTargetFilter(game, attachment));
+                                final LotroPhysicalCard attachment = selectedAttachments.iterator().next();
+                                final LotroPhysicalCard transferredFrom = attachment.getAttachedTo();
+                                final Collection<LotroPhysicalCard> validTargets = Filters.filterActive(game, getValidTargetFilter(game, attachment));
                                 game.getUserFeedback().sendAwaitingDecision(
                                         _playerId,
                                         new CardsSelectionDecision(1, "Choose transfer target", validTargets, 1, 1) {
                                             @Override
                                             public void decisionMade(String result) throws DecisionResultInvalidException {
-                                                final Set<PhysicalCard> selectedTargets = getSelectedCardsByResponse(result);
+                                                final Set<LotroPhysicalCard> selectedTargets = getSelectedCardsByResponse(result);
                                                 if (selectedTargets.size() == 1) {
-                                                    final PhysicalCard selectedTarget = selectedTargets.iterator().next();
+                                                    final LotroPhysicalCard selectedTarget = selectedTargets.iterator().next();
                                                     SubAction subAction = new SubAction(_action);
                                                     subAction.appendEffect(
                                                             new TransferPermanentEffect(attachment, selectedTarget) {
@@ -136,7 +136,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
         return new FullEffectResult(false);
     }
 
-    protected void afterTransferCallback(PhysicalCard transferredCard, PhysicalCard transferredFrom, PhysicalCard transferredTo) {
+    protected void afterTransferCallback(LotroPhysicalCard transferredCard, LotroPhysicalCard transferredFrom, LotroPhysicalCard transferredTo) {
 
     }
 }

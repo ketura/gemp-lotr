@@ -1,11 +1,11 @@
 package com.gempukku.lotro.game.timing;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.*;
 import com.gempukku.lotro.game.timing.results.*;
@@ -385,7 +385,7 @@ public class TriggerConditions {
 
     public static boolean activated(DefaultGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.ACTIVATE) {
-            PhysicalCard source = ((ActivateCardResult) effectResult).getSource();
+            LotroPhysicalCard source = ((ActivateCardResult) effectResult).getSource();
             return Filters.and(filters).accepts(game, source);
         }
         return false;
@@ -393,7 +393,7 @@ public class TriggerConditions {
 
     public static boolean played(DefaultGame game, EffectResult effectResult, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
-            PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
+            LotroPhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
             return Filters.and(filters).accepts(game, playedCard);
         }
         return false;
@@ -402,7 +402,7 @@ public class TriggerConditions {
     public static boolean playedFromZone(DefaultGame game, EffectResult effectResult, Zone zone, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             final PlayCardResult playResult = (PlayCardResult) effectResult;
-            PhysicalCard playedCard = playResult.getPlayedCard();
+            LotroPhysicalCard playedCard = playResult.getPlayedCard();
             return (playResult.getPlayedFrom() == zone && Filters.and(filters).accepts(game, playedCard));
         }
         return false;
@@ -411,7 +411,7 @@ public class TriggerConditions {
     public static boolean playedFromStacked(DefaultGame game, EffectResult effectResult, Filterable stackedOnFilter, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             final PlayCardResult playResult = (PlayCardResult) effectResult;
-            PhysicalCard playedCard = playResult.getPlayedCard();
+            LotroPhysicalCard playedCard = playResult.getPlayedCard();
             return (playResult.getPlayedFrom() == Zone.STACKED
                     && Filters.and(stackedOnFilter).accepts(game, playResult.getAttachedOrStackedPlayedFrom())
                     && Filters.and(filters).accepts(game, playedCard));
@@ -422,10 +422,10 @@ public class TriggerConditions {
     public static boolean playedOn(DefaultGame game, EffectResult effectResult, Filterable targetFilter, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             final PlayCardResult playResult = (PlayCardResult) effectResult;
-            final PhysicalCard attachedTo = playResult.getAttachedTo();
+            final LotroPhysicalCard attachedTo = playResult.getAttachedTo();
             if (attachedTo == null)
                 return false;
-            PhysicalCard playedCard = playResult.getPlayedCard();
+            LotroPhysicalCard playedCard = playResult.getPlayedCard();
             return Filters.and(filters).accepts(game, playedCard)
                     && Filters.and(targetFilter).accepts(game, attachedTo);
         }

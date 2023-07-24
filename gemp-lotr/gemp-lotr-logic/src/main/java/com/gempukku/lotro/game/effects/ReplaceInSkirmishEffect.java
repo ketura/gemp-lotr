@@ -2,14 +2,14 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class ReplaceInSkirmishEffect extends AbstractEffect {
-    private final PhysicalCard _replacedBy;
+    private final LotroPhysicalCard _replacedBy;
     private final Filterable[] _replacingFilter;
 
-    public ReplaceInSkirmishEffect(PhysicalCard replacedBy, Filterable... replacingFilter) {
+    public ReplaceInSkirmishEffect(LotroPhysicalCard replacedBy, Filterable... replacingFilter) {
         _replacedBy = replacedBy;
         _replacingFilter = replacingFilter;
     }

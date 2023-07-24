@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.timing.processes;
 
 import com.gempukku.lotro.cards.CompletePhysicalCardVisitor;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.Action;
 
@@ -20,7 +20,7 @@ public class GatherPlayableActionsFromDiscardVisitor extends CompletePhysicalCar
     }
 
     @Override
-    protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
+    protected void doVisitPhysicalCard(LotroPhysicalCard physicalCard) {
         List<? extends Action> list = physicalCard.getBlueprint().getPhaseActionsFromDiscard(_playerId, _game, physicalCard);
         if (list != null) {
             for (Action action : list) {

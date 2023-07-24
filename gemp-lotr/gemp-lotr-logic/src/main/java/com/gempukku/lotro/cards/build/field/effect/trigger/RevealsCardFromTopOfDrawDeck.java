@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.timing.results.RevealCardFromTopOfDeckResult;
 import org.json.simple.JSONObject;
@@ -32,7 +32,7 @@ public class RevealsCardFromTopOfDrawDeck implements TriggerCheckerProducer {
                 if (TriggerConditions.revealedCardsFromTopOfDeck(actionContext.getEffectResult(), actionContext.getPerformingPlayer())) {
                     RevealCardFromTopOfDeckResult revealCardFromTopOfDeckResult = (RevealCardFromTopOfDeckResult) actionContext.getEffectResult();
                     final Filterable filterable = filterableSource.getFilterable(actionContext);
-                    final PhysicalCard revealedCard = revealCardFromTopOfDeckResult.getRevealedCard();
+                    final LotroPhysicalCard revealedCard = revealCardFromTopOfDeckResult.getRevealedCard();
                     return Filters.and(filterable).accepts(actionContext.getGame(), revealedCard);
                 }
                 return false;

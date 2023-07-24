@@ -1,23 +1,23 @@
 package com.gempukku.lotro.game.modifiers.evaluator;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class VitalityEvaluator implements Evaluator {
     private final int _multiplier;
-    private final PhysicalCard _physicalCard;
+    private final LotroPhysicalCard _physicalCard;
 
-    public VitalityEvaluator(PhysicalCard physicalCard) {
+    public VitalityEvaluator(LotroPhysicalCard physicalCard) {
         this(physicalCard, 1);
     }
 
-    public VitalityEvaluator(PhysicalCard physicalCard, int multiplier) {
+    public VitalityEvaluator(LotroPhysicalCard physicalCard, int multiplier) {
         _physicalCard = physicalCard;
         _multiplier = multiplier;
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
         return _multiplier * game.getModifiersQuerying().getVitality(game, _physicalCard);
     }
 }

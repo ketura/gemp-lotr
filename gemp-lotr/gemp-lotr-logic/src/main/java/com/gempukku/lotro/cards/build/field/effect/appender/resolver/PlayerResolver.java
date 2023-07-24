@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
 
 import java.util.Locale;
@@ -25,7 +25,7 @@ public class PlayerResolver {
         else if (type.toLowerCase(Locale.ROOT).startsWith("ownerfrommemory(") && type.endsWith(")")) {
             String memory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return (actionContext) -> {
-                final PhysicalCard cardFromMemory = actionContext.getCardFromMemory(memory);
+                final LotroPhysicalCard cardFromMemory = actionContext.getCardFromMemory(memory);
                 if (cardFromMemory != null)
                     return cardFromMemory.getOwner();
                 else

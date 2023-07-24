@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.game.effects.Effect;
@@ -34,7 +34,7 @@ public class RevealRandomCardsFromHand implements EffectAppenderProducer {
 
                 return new RevealRandomCardsFromHandEffect(actionContext.getPerformingPlayer(), handPlayer, actionContext.getSource(), count) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                    protected void cardsRevealed(List<LotroPhysicalCard> revealedCards) {
                         actionContext.setCardMemory(memorized, revealedCards);
                     }
                 };

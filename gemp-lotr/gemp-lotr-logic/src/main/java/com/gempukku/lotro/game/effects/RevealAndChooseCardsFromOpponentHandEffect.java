@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -19,13 +19,13 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
     private final Action _action;
     private final String _playerId;
     private final String _opponentId;
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _text;
     private final Filterable _selectionFilter;
     private final int _minChosen;
     private final int _maxChosen;
 
-    protected RevealAndChooseCardsFromOpponentHandEffect(Action action, String playerId, String opponentId, PhysicalCard source, String text, Filterable selectionFilter, int minChosen, int maxChosen) {
+    protected RevealAndChooseCardsFromOpponentHandEffect(Action action, String playerId, String opponentId, LotroPhysicalCard source, String text, Filterable selectionFilter, int minChosen, int maxChosen) {
         _action = action;
         _playerId = playerId;
         _opponentId = opponentId;
@@ -45,7 +45,7 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
     @Override
     public void playEffect(DefaultGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId)) {
-            List<PhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
+            List<LotroPhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _opponentId + " cards in hand - " + getAppendedNames(opponentHand));
 
             final PlayOrder playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_opponentId, false);
@@ -55,13 +55,13 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
             String nextPlayer;
             while ((nextPlayer = playOrder.getNextPlayer()) != null) {
                 if (nextPlayer.equals(_playerId)) {
-                    Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game, _selectionFilter);
+                    Collection<LotroPhysicalCard> selectable = Filters.filter(opponentHand, game, _selectionFilter);
 
                     game.getUserFeedback().sendAwaitingDecision(nextPlayer,
                             new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                    List<LotroPhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                     cardsSelected(selectedCards);
                                 }
                             });
@@ -87,5 +87,5 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
         return null;
     }
 
-    protected abstract void cardsSelected(List<PhysicalCard> selectedCards);
+    protected abstract void cardsSelected(List<LotroPhysicalCard> selectedCards);
 }

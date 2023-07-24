@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.game.timing.results.ForEachKilledResult;
@@ -34,19 +34,19 @@ public class RemovedFromPlay implements TriggerCheckerProducer {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 final boolean killResult = TriggerConditions.forEachKilled(actionContext.getGame(), actionContext.getEffectResult(), filterable);
                 if (killResult && memorize != null) {
-                    final PhysicalCard killedCard = ((ForEachKilledResult) actionContext.getEffectResult()).getKilledCard();
+                    final LotroPhysicalCard killedCard = ((ForEachKilledResult) actionContext.getEffectResult()).getKilledCard();
                     actionContext.setCardMemory(memorize, killedCard);
                 }
 
                 final boolean discardResult = TriggerConditions.forEachDiscardedFromPlay(actionContext.getGame(), actionContext.getEffectResult(), filterable);
                 if (discardResult && memorize != null) {
-                    final PhysicalCard discardedCard = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getDiscardedCard();
+                    final LotroPhysicalCard discardedCard = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getDiscardedCard();
                     actionContext.setCardMemory(memorize, discardedCard);
                 }
 
                 final boolean returnedResult = TriggerConditions.forEachReturnedToHand(actionContext.getGame(), actionContext.getEffectResult(), filterable);
                 if (returnedResult && memorize != null) {
-                    final PhysicalCard returnedCard = ((ReturnCardsToHandResult) actionContext.getEffectResult()).getReturnedCard();
+                    final LotroPhysicalCard returnedCard = ((ReturnCardsToHandResult) actionContext.getEffectResult()).getReturnedCard();
                     actionContext.setCardMemory(memorize, returnedCard);
                 }
                 return killResult || discardResult || returnedResult;

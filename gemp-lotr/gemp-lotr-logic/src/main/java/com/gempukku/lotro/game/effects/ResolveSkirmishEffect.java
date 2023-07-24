@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.game.rules.RuleUtils;
@@ -44,7 +44,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 		int fpStrength = RuleUtils.getFellowshipSkirmishStrength(game);
 		int shadowStrength = RuleUtils.getShadowSkirmishStrength(game);
 
-		final PhysicalCard fellowshipCharacter = skirmish.getFellowshipCharacter();
+		final LotroPhysicalCard fellowshipCharacter = skirmish.getFellowshipCharacter();
 
 		int multiplier = 2;
 		if (fellowshipCharacter != null)
@@ -69,7 +69,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 
 		Result result = getUpcomingResult(game);
 
-		Set<PhysicalCard> involving = new HashSet<>();
+		Set<LotroPhysicalCard> involving = new HashSet<>();
 		if (skirmish.getFellowshipCharacter() != null)
 			involving.add(skirmish.getFellowshipCharacter());
 		involving.addAll(skirmish.getShadowCharacters());
@@ -78,48 +78,48 @@ public class ResolveSkirmishEffect extends AbstractEffect {
 			game.getGameState().sendMessage("Skirmish resolved with a normal win");
 			game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
 
-			for (PhysicalCard minion : skirmish.getShadowCharacters())
+			for (LotroPhysicalCard minion : skirmish.getShadowCharacters())
 				game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.NORMAL, minion, involving));
 			if (skirmish.getFellowshipCharacter() != null)
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, skirmish.getFellowshipCharacter(), involving));
-			for (PhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
+			for (LotroPhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, removedCharacter, involving));
 		} else if (result == Result.SHADOW_LOSES) {
 			game.getGameState().sendMessage("Skirmish resolved with a normal win");
 			game.getActionsEnvironment().emitEffectResult(new NormalSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
 
-			for (PhysicalCard minion : skirmish.getShadowCharacters())
+			for (LotroPhysicalCard minion : skirmish.getShadowCharacters())
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, minion, involving));
 			if (skirmish.getFellowshipCharacter() != null)
 				game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.NORMAL, skirmish.getFellowshipCharacter(), involving));
-			for (PhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
+			for (LotroPhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.NORMAL, removedCharacter, involving));
 		} else if (result == Result.FELLOWSHIP_OVERWHELMED) {
 			game.getGameState().sendMessage("Skirmish resolved with an overwhelm");
 			game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(skirmish.getShadowCharacters(), fpList(skirmish.getFellowshipCharacter()), skirmish.getRemovedFromSkirmish()));
 
-			for (PhysicalCard minion : skirmish.getShadowCharacters())
+			for (LotroPhysicalCard minion : skirmish.getShadowCharacters())
 				game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.OVERWHELM, minion, involving));
 			if (skirmish.getFellowshipCharacter() != null)
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, skirmish.getFellowshipCharacter(), involving));
-			for (PhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
+			for (LotroPhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, removedCharacter, involving));
 		} else {
 			game.getGameState().sendMessage("Skirmish resolved with an overwhelm");
 			game.getActionsEnvironment().emitEffectResult(new OverwhelmSkirmishResult(fpList(skirmish.getFellowshipCharacter()), skirmish.getShadowCharacters(), skirmish.getRemovedFromSkirmish()));
 
-			for (PhysicalCard minion : skirmish.getShadowCharacters())
+			for (LotroPhysicalCard minion : skirmish.getShadowCharacters())
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, minion, involving));
 			if (skirmish.getFellowshipCharacter() != null)
 				game.getActionsEnvironment().emitEffectResult(new CharacterWonSkirmishResult(CharacterWonSkirmishResult.SkirmishType.OVERWHELM, skirmish.getFellowshipCharacter(), involving));
-			for (PhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
+			for (LotroPhysicalCard removedCharacter : skirmish.getRemovedFromSkirmish())
 				game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, removedCharacter, involving));
 		}
 
 		return new FullEffectResult(true);
 	}
 
-	private Set<PhysicalCard> fpList(PhysicalCard card) {
+	private Set<LotroPhysicalCard> fpList(LotroPhysicalCard card) {
 		if (card != null)
 			return Collections.singleton(card);
 		else

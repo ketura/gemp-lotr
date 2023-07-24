@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -15,7 +15,7 @@ import java.util.Collection;
 
 public class TransferPermanentAction extends ActivateCardAction {
 
-    public TransferPermanentAction(final PhysicalCard card, Filter filter) {
+    public TransferPermanentAction(final LotroPhysicalCard card, Filter filter) {
         super(card);
         setText("Transfer " + GameUtils.getFullName(card));
 
@@ -30,7 +30,7 @@ public class TransferPermanentAction extends ActivateCardAction {
         appendEffect(
                 new ChooseActiveCardsEffect(null, card.getOwner(), "Choose target to attach to", 1, 1, filter) {
                     @Override
-                    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> target) {
+                    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> target) {
                         if (target.size() > 0) {
                             appendEffect(new TransferPermanentEffect(card, target.iterator().next()));
                         }

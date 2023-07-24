@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.timing.results;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.effects.EffectResult;
 
 import java.util.Collections;
@@ -8,15 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CharacterLostSkirmishResult extends EffectResult {
-    private final PhysicalCard _loser;
-    private final Set<PhysicalCard> _involving;
+    private final LotroPhysicalCard _loser;
+    private final Set<LotroPhysicalCard> _involving;
     private final SkirmishType _type;
 
     public enum SkirmishType {
         OVERWHELM, NORMAL
     }
 
-    public CharacterLostSkirmishResult(SkirmishType type, PhysicalCard loser, PhysicalCard involving) {
+    public CharacterLostSkirmishResult(SkirmishType type, LotroPhysicalCard loser, LotroPhysicalCard involving) {
         super(Type.CHARACTER_LOST_SKIRMISH);
         _type = type;
         _loser = loser;
@@ -26,14 +26,14 @@ public class CharacterLostSkirmishResult extends EffectResult {
             _involving = Collections.singleton(involving);
     }
 
-    public CharacterLostSkirmishResult(SkirmishType type, PhysicalCard loser, Set<PhysicalCard> involving) {
+    public CharacterLostSkirmishResult(SkirmishType type, LotroPhysicalCard loser, Set<LotroPhysicalCard> involving) {
         super(Type.CHARACTER_LOST_SKIRMISH);
         _type = type;
         _loser = loser;
         _involving = new HashSet<>(involving);
     }
 
-    public Set<PhysicalCard> getInvolving() {
+    public Set<LotroPhysicalCard> getInvolving() {
         return _involving;
     }
 
@@ -41,7 +41,7 @@ public class CharacterLostSkirmishResult extends EffectResult {
         return _type;
     }
 
-    public PhysicalCard getLoser() {
+    public LotroPhysicalCard getLoser() {
         return _loser;
     }
 }

@@ -921,7 +921,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.game.PhysicalCardImpl.startAffectingGame(com.gempukku.lotro.game.LotroGame)" because "card" is null
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffecting(TribblesGameState.java:903)
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffectingCardsForCurrentPlayer(TribblesGameState.java:854)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.StartOfTurnGameProcess.process(StartOfTurnGameProcess.java:13)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesStartOfTurnGameProcess.process(StartOfTurnGameProcess.java:13)
 	at com.gempukku.lotro.game.timing.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.DefaultLotroGame.carryOutPendingActionsUntilDecisionNeeded(DefaultLotroGame.java:136)
 	at com.gempukku.lotro.game.LotroGameMediator.playerAnswered(LotroGameMediator.java:335)
@@ -1040,7 +1040,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl.startAffectingGame(com.gempukku.lotro.game.DefaultGame)" because "card" is null
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffecting(TribblesGameState.java:903)
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffectingCardsForCurrentPlayer(TribblesGameState.java:854)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.StartOfTurnGameProcess.process(StartOfTurnGameProcess.java:13)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesStartOfTurnGameProcess.process(StartOfTurnGameProcess.java:13)
 	at com.gempukku.lotro.game.timing.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.LotroGame.carryOutPendingActionsUntilDecisionNeeded(LotroGame.java:136)
 	at com.gempukku.lotro.game.LotroGameMediator.playerAnswered(LotroGameMediator.java:334)
@@ -1106,7 +1106,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly
 java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl.startAffectingGame(com.gempukku.lotro.game.DefaultGame)" because "card" is null
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffecting(TribblesGameState.java:903)
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffectingCardsForCurrentPlayer(TribblesGameState.java:854)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.StartOfTurnGameProcess.process(StartOfTurnGameProcess.java:13)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesStartOfTurnGameProcess.process(StartOfTurnGameProcess.java:13)
 	at com.gempukku.lotro.game.timing.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:69)
 	at com.gempukku.lotro.game.LotroGame.carryOutPendingActionsUntilDecisionNeeded(LotroGame.java:136)
 	at com.gempukku.lotro.game.LotroGameMediator.playerAnswered(LotroGameMediator.java:334)
@@ -1212,7 +1212,7 @@ Listening for transport dt_socket at address: 8000
 java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl.startAffectingGame(com.gempukku.lotro.game.DefaultGame)" because "card" is null
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffecting(TribblesGameState.java:903)
 	at com.gempukku.lotro.game.state.TribblesGameState.startAffectingCardsForCurrentPlayer(TribblesGameState.java:854)
-	at com.gempukku.lotro.game.timing.processes.turn.tribbles.StartOfTurnGameProcess.process(StartOfTurnGameProcess.java:14)
+	at com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesStartOfTurnGameProcess.process(StartOfTurnGameProcess.java:14)
 	at com.gempukku.lotro.game.timing.processes.turn.TurnProcedure.carryOutPendingActionsUntilDecisionNeeded(TurnProcedure.java:70)
 	at com.gempukku.lotro.game.TribblesGame.carryOutPendingActionsUntilDecisionNeeded(TribblesGame.java:135)
 	at com.gempukku.lotro.game.CardGameMediator.playerAnswered(CardGameMediator.java:334)
@@ -1684,7 +1684,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-11 23:16:51,231 DEBUG BiddingGameProcess:26 - asdf
 2023-07-11 23:16:51,242 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-11 23:16:54,215 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -1749,7 +1749,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:41:36,023 DEBUG BiddingGameProcess:26 - asdf
 2023-07-11 23:41:36,026 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-11 23:41:37,980 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -1809,7 +1809,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:42:47,042 DEBUG BiddingGameProcess:26 - asdf
 2023-07-11 23:42:47,046 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-11 23:42:48,843 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -1870,7 +1870,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:45:25,091 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-11 23:45:49,773 TRACE Game2:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
 2023-07-11 23:46:30,485 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -1937,7 +1937,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-11 23:57:32,754 DEBUG BiddingGameProcess:26 - asdf
 2023-07-11 23:57:40,055 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-11 23:58:11,931 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -1999,7 +1999,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-12 00:00:41,331 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 00:00:41,335 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 00:00:43,286 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -2061,7 +2061,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 00:02:35,669 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 00:02:35,671 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 00:02:37,191 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -2182,7 +2182,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-12 00:04:49,499 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 00:04:49,517 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 00:04:51,687 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -2242,7 +2242,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 00:05:17,506 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 00:05:17,511 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 00:05:22,316 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -2368,7 +2368,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 00:21:09,796 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 00:21:09,813 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 00:21:12,925 ERROR CardGameMediator:342 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
@@ -2492,7 +2492,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 10:20:41,854 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 10:20:41,864 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 10:20:43,798 ERROR CardGameMediator:343 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -2599,7 +2599,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 10:42:16,087 DEBUG BiddingGameProcess:26 - asdf
 2023-07-12 10:42:16,096 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 10:42:18,056 ERROR CardGameMediator:343 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.timing.rules.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:168)
@@ -2717,7 +2717,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 14:49:35,745 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 14:49:35,757 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 14:49:37,743 ERROR CardGameMediator:343 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -2823,7 +2823,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-12 16:55:46,375 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 16:55:46,386 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 16:55:48,953 ERROR CardGameMediator:343 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -2945,7 +2945,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-12 20:58:32,730 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 20:58:32,741 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 20:58:34,673 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3053,7 +3053,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-12 21:07:37,207 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 21:07:37,218 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 21:07:39,911 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3124,7 +3124,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 21:32:16,671 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 21:32:16,672 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 21:32:18,388 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3195,7 +3195,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 21:37:54,413 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 21:37:54,414 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 21:37:56,683 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3255,7 +3255,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 21:40:33,305 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 21:40:33,308 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 21:40:37,835 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3328,7 +3328,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 21:47:19,406 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 21:47:19,407 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 21:47:21,847 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3397,7 +3397,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 21:53:53,593 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 21:53:53,595 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 21:53:55,387 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3465,7 +3465,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 22:00:47,777 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 22:00:47,778 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 22:00:49,800 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3530,7 +3530,7 @@ java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.Physical
 2023-07-12 22:04:06,971 DEBUG BiddingGameProcess:28 - asdf
 2023-07-12 22:04:06,973 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-12 22:04:09,895 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3785,7 +3785,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-13 21:02:07,747 DEBUG BiddingGameProcess:28 - Librarian
 2023-07-13 21:02:07,758 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-13 21:02:11,218 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because "physicalCard" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because "physicalCard" is null
 	at com.gempukku.lotro.game.modifiers.ModifiersLogic.hasKeyword(ModifiersLogic.java:305)
 	at com.gempukku.lotro.game.rules.lotronly.SanctuaryRule$1.getRequiredAfterTriggers(SanctuaryRule.java:36)
 	at com.gempukku.lotro.game.actions.DefaultActionsEnvironment.getRequiredAfterTriggers(DefaultActionsEnvironment.java:170)
@@ -3903,7 +3903,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-13 21:09:23,983 DEBUG BiddingGameProcess:28 - asdf
 2023-07-13 21:09:23,994 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-13 21:10:07,943 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
@@ -4014,7 +4014,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-13 21:25:15,224 DEBUG BiddingGameProcess:28 - asdf
 2023-07-13 21:25:15,235 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-13 21:25:40,901 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
@@ -4322,7 +4322,7 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-13 21:51:05,247 DEBUG BiddingGameProcess:28 - asdf
 2023-07-13 21:51:05,258 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-13 21:51:44,118 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
@@ -4673,7 +4673,7 @@ Listening for transport dt_socket at address: 8000
 2023-07-13 23:33:58,917 DEBUG BiddingGameProcess:28 - asdf
 2023-07-13 23:33:58,929 DEBUG GameTable:25 - GameTable - startGame function called;
 2023-07-13 23:34:30,038 ERROR CardGameMediator:353 - Error processing game decision
-java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.PhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
+java.lang.NullPointerException: Cannot invoke "com.gempukku.lotro.cards.lotronly.LotroPhysicalCard.getBlueprint()" because the return value of "com.gempukku.lotro.game.state.GameState.getCurrentSite()" is null
 	at com.gempukku.lotro.game.adventure.DefaultAdventure$1.doPlayEffect(DefaultAdventure.java:45)
 	at com.gempukku.lotro.game.effects.UnrespondableEffect.playEffectReturningResult(UnrespondableEffect.java:25)
 	at com.gempukku.lotro.game.effects.AbstractEffect.playEffect(AbstractEffect.java:17)
@@ -6590,3 +6590,1737 @@ log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
 2023-07-21 16:59:54,109 DEBUG BiddingGameProcess:28 - qwer
 2023-07-21 16:59:54,111 DEBUG BiddingGameProcess:28 - asdf
 2023-07-21 16:59:54,121 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 21:06:59,984  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 21:06:59,994 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 21:07:00,492  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 21:07:00,494  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 21:07:00,565 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 21:07:00,572 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 21:07:00,673 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 21:07:00,696 ERROR CardBlueprintLibrary:223 - Unable to load card 2_001
+com.gempukku.lotro.cards.build.InvalidCardDefinitionException: Unable to find effect of type: cycle
+	at com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory.getEffectAppender(EffectAppenderFactory.java:161)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processCostsAndEffects(EffectUtils.java:36)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processRequirementsCostsAndEffects(EffectUtils.java:17)
+	at com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor.processEffect(TriggerEffectProcessor.java:31)
+	at com.gempukku.lotro.cards.build.field.EffectFieldProcessor.processField(EffectFieldProcessor.java:46)
+	at com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder.buildFromJson(LotroCardBlueprintBuilder.java:72)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCardsFromFile(CardBlueprintLibrary.java:220)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:194)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:66)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:52)
+	at com.gempukku.lotro.builder.ServerBuilder.CreatePrerequisites(ServerBuilder.java:32)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:27)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+2023-07-23 21:07:00,705 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 21:07:00,709 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 21:07:00,710 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 21:07:01,018 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 21:07:01,053 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 21:07:01,055  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 21:07:01,067 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:07:01,710 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 21:07:01,711 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:07:01,825  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 21:07:01,826 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 21:07:02,119 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 21:07:02,133 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 21:07:02,134  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 21:07:02,136 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 21:07:02,137 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 21:07:02,138 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 21:07:02,141 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 21:07:02,142 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 21:07:02,144 DEBUG ITournamentService:133 - Created result object
+2023-07-23 21:07:02,145 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 21:07:02,147 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@6fb365ed
+2023-07-23 21:07:02,385 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 238ms
+2023-07-23 21:07:02,386 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 232ms
+2023-07-23 21:07:02,388 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 21:07:02,389 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 21:07:02,391 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 21:07:02,394 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 21:07:02,395 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 21:07:02,398 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 21:07:02,399 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 21:07:02,401 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 21:07:02,405  INFO GempukkuServer:35 - GempukkuServer startup complete.
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 21:07:23,049  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 21:07:23,059 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 21:07:23,552  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 21:07:23,553  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 21:07:23,622 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 21:07:23,630 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 21:07:23,731 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 21:07:23,757 ERROR CardBlueprintLibrary:223 - Unable to load card 2_001
+com.gempukku.lotro.cards.build.InvalidCardDefinitionException: Unable to find effect of type: cycle
+	at com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory.getEffectAppender(EffectAppenderFactory.java:161)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processCostsAndEffects(EffectUtils.java:36)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processRequirementsCostsAndEffects(EffectUtils.java:17)
+	at com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor.processEffect(TriggerEffectProcessor.java:31)
+	at com.gempukku.lotro.cards.build.field.EffectFieldProcessor.processField(EffectFieldProcessor.java:46)
+	at com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder.buildFromJson(LotroCardBlueprintBuilder.java:72)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCardsFromFile(CardBlueprintLibrary.java:220)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:194)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:66)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:52)
+	at com.gempukku.lotro.builder.ServerBuilder.CreatePrerequisites(ServerBuilder.java:32)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:27)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+2023-07-23 21:07:23,765 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 21:07:23,768 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 21:07:23,770 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 21:07:24,141 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 21:07:24,181 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 21:07:24,182  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 21:07:24,196 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:07:24,924 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 21:07:24,926 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:07:25,080  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 21:07:25,082 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 21:07:25,540 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 21:07:25,561 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 21:07:25,564  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 21:07:25,565 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 21:07:25,568 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 21:07:25,570 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 21:07:25,576 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 21:07:25,578 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 21:07:25,580 DEBUG ITournamentService:133 - Created result object
+2023-07-23 21:07:25,582 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 21:07:25,584 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@6fb365ed
+2023-07-23 21:07:25,738 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 146ms
+2023-07-23 21:07:25,744 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 21:07:25,749 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 21:07:25,743 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 141ms
+2023-07-23 21:07:25,760 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 21:07:25,773 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 21:07:25,777 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 21:07:25,782 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 21:07:25,785 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 21:07:25,787 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 21:07:25,790  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 21:07:37,330 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 252ms
+2023-07-23 21:07:38,616 DEBUG LoggingProxy:34 - PlayerDAO::loginUser(...) 115ms
+2023-07-23 21:07:39,548 DEBUG LoggingProxy:34 - CollectionDAO::getPlayerCollection(...) 148ms
+2023-07-23 21:07:48,987 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck TribblesTest
+2023-07-23 21:07:48,993 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'TribblesTest' but failed.
+2023-07-23 21:07:48,995 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-23 21:07:49,001 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@6bb73bc4
+2023-07-23 21:07:49,108 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 21:07:49,111 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 21:07:49,925 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 21:07:49,927 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 21:07:49,928 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-23 21:07:49,933 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'TribblesTest' but failed.
+2023-07-23 21:07:49,935 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-23 21:07:49,937 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@350cbb83
+2023-07-23 21:07:50,046 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 21:07:50,209 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 21:07:50,211 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 21:07:50,226 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 21:10:43,904  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 21:10:43,914 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 21:10:44,413  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 21:10:44,415  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 21:10:44,500 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 21:10:44,509 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 21:10:44,630 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 21:10:44,660 ERROR CardBlueprintLibrary:223 - Unable to load card 2_001
+com.gempukku.lotro.cards.build.InvalidCardDefinitionException: Unable to find effect of type: cycle
+	at com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory.getEffectAppender(EffectAppenderFactory.java:161)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processCostsAndEffects(EffectUtils.java:36)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processRequirementsCostsAndEffects(EffectUtils.java:17)
+	at com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor.processEffect(TriggerEffectProcessor.java:31)
+	at com.gempukku.lotro.cards.build.field.EffectFieldProcessor.processField(EffectFieldProcessor.java:46)
+	at com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder.buildFromJson(LotroCardBlueprintBuilder.java:72)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCardsFromFile(CardBlueprintLibrary.java:220)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:194)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:66)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:52)
+	at com.gempukku.lotro.builder.ServerBuilder.CreatePrerequisites(ServerBuilder.java:32)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:27)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+2023-07-23 21:10:44,666 ERROR CardBlueprintLibrary:223 - Unable to load card 2_002
+com.gempukku.lotro.cards.build.InvalidCardDefinitionException: Unable to find effect of type: exchange
+	at com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory.getEffectAppender(EffectAppenderFactory.java:161)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processCostsAndEffects(EffectUtils.java:36)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processRequirementsCostsAndEffects(EffectUtils.java:17)
+	at com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor.processEffect(TriggerEffectProcessor.java:31)
+	at com.gempukku.lotro.cards.build.field.EffectFieldProcessor.processField(EffectFieldProcessor.java:46)
+	at com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder.buildFromJson(LotroCardBlueprintBuilder.java:72)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCardsFromFile(CardBlueprintLibrary.java:220)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:194)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:66)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:52)
+	at com.gempukku.lotro.builder.ServerBuilder.CreatePrerequisites(ServerBuilder.java:32)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:27)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+2023-07-23 21:10:44,668 ERROR CardBlueprintLibrary:223 - Unable to load card 2_003
+com.gempukku.lotro.cards.build.InvalidCardDefinitionException: Unable to find effect of type: replay
+	at com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory.getEffectAppender(EffectAppenderFactory.java:161)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processCostsAndEffects(EffectUtils.java:36)
+	at com.gempukku.lotro.cards.build.field.effect.EffectUtils.processRequirementsCostsAndEffects(EffectUtils.java:17)
+	at com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor.processEffect(TriggerEffectProcessor.java:31)
+	at com.gempukku.lotro.cards.build.field.EffectFieldProcessor.processField(EffectFieldProcessor.java:46)
+	at com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder.buildFromJson(LotroCardBlueprintBuilder.java:72)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCardsFromFile(CardBlueprintLibrary.java:220)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:194)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.loadCards(CardBlueprintLibrary.java:198)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:66)
+	at com.gempukku.lotro.cards.CardBlueprintLibrary.<init>(CardBlueprintLibrary.java:52)
+	at com.gempukku.lotro.builder.ServerBuilder.CreatePrerequisites(ServerBuilder.java:32)
+	at com.gempukku.lotro.async.GempukkuServer.<init>(GempukkuServer.java:27)
+	at com.gempukku.lotro.async.LotroAsyncServer.main(LotroAsyncServer.java:25)
+2023-07-23 21:10:44,672 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 21:10:44,676 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 21:10:44,678 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 21:10:44,963 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 21:10:44,996 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 21:10:44,997  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 21:10:45,006 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:10:45,546 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 21:10:45,548 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:10:45,649  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 21:10:45,651 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 21:10:45,942 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 21:10:45,968 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 21:10:45,970  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 21:10:45,975 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 21:10:45,978 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 21:10:45,981 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 21:10:45,986 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 21:10:45,988 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 21:10:45,989 DEBUG ITournamentService:133 - Created result object
+2023-07-23 21:10:45,991 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 21:10:45,992 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@16414e40
+2023-07-23 21:10:46,085 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 21:10:46,087 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 21:10:46,088 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 21:10:46,090 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 21:10:46,091 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 21:10:46,092 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 21:10:46,094 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 21:10:46,095 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 21:10:46,096  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 21:10:47,780 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=null&_=1690146647751
+2023-07-23 21:10:47,781 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game1?participantId=null&_=1690146647751
+2023-07-23 21:10:47,783 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/game/1?participantId=null&_=1690146647757
+2023-07-23 21:10:51,350 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690146651270
+2023-07-23 21:10:51,352 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690146651271
+2023-07-23 21:10:51,359 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690146651272
+2023-07-23 21:10:51,367 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690146651273
+2023-07-23 21:10:51,368 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690146651274
+2023-07-23 21:10:56,508 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690146656278
+2023-07-23 21:10:56,508 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690146656279
+2023-07-23 21:10:56,527 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690146656281
+2023-07-23 21:10:56,528 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690146656280
+2023-07-23 21:10:56,537 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690146656282
+2023-07-23 21:11:03,648 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck TribblesTest
+2023-07-23 21:11:03,655 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'TribblesTest' but failed.
+2023-07-23 21:11:03,658 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-23 21:11:03,665 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@7fe88262
+2023-07-23 21:11:04,003 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 21:11:04,008 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 21:11:04,699 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 21:11:04,702 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 21:11:04,704 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-23 21:11:04,711 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'TribblesTest' but failed.
+2023-07-23 21:11:04,714 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-23 21:11:04,717 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@63022d89
+2023-07-23 21:11:04,868 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 21:11:05,034 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 21:11:05,036 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 21:11:05,048 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 21:33:07,142  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 21:33:07,155 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 21:33:07,641  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 21:33:07,643  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 21:33:07,706 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 21:33:07,713 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 21:33:07,814 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 21:33:07,837 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 21:33:07,840 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 21:33:07,842 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 21:33:08,121 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 21:33:08,156 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 21:33:08,158  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 21:33:08,167 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:33:08,723 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 21:33:08,725 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:33:08,834  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 21:33:08,835 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 21:33:09,162 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 21:33:09,182 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 21:33:09,184  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 21:33:09,185 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 21:33:09,188 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 21:33:09,192 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 21:33:09,200 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 21:33:09,201 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 21:33:09,203 DEBUG ITournamentService:133 - Created result object
+2023-07-23 21:33:09,205 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 21:33:09,208 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@dbd8e44
+2023-07-23 21:33:09,285 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 21:33:09,286 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 21:33:09,291 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 21:33:09,292 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 21:33:09,294 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 21:33:09,295 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 21:33:09,296 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 21:33:09,297 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 21:33:09,299  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 21:34:18,623 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148058394
+2023-07-23 21:34:18,624 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690148058393
+2023-07-23 21:34:18,628 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148058392
+2023-07-23 21:34:18,630 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690148058396
+2023-07-23 21:34:18,643 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690148058395
+2023-07-23 21:34:19,705 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 127ms
+2023-07-23 21:34:21,876 DEBUG LoggingProxy:34 - CollectionDAO::getPlayerCollection(...) 110ms
+2023-07-23 21:34:25,269 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148064887
+2023-07-23 21:34:25,290 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690148064890
+2023-07-23 21:34:25,295 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690148064891
+2023-07-23 21:34:25,326 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148064889
+2023-07-23 21:34:25,358 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690148064888
+2023-07-23 21:34:32,396 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck TribblesTest
+2023-07-23 21:34:32,407 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'TribblesTest' but failed.
+2023-07-23 21:34:32,411 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-23 21:34:32,424 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2fbbe551
+2023-07-23 21:34:32,447 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 21:34:32,450 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 21:34:33,722 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 21:34:33,724 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 21:34:33,726 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck TribblesTest
+2023-07-23 21:34:33,730 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'TribblesTest' but failed.
+2023-07-23 21:34:33,732 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck TribblesTest
+2023-07-23 21:34:33,734 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@583a95b3
+2023-07-23 21:34:33,741 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 21:34:33,885 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 21:34:33,887 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 21:34:33,903 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-23 21:35:29,906 DEBUG LoggingProxy:34 - PlayerDAO::updateLastReward(...) 366ms
+2023-07-23 21:35:35,135 DEBUG LoggingProxy:34 - TransferDAO::consumeUndeliveredPackages(...) 106ms
+2023-07-23 21:35:50,394 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,397 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,398 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,400 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,401 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,404 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,406 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,409 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,411 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,412 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,414 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,416 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,417 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,419 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,420 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,422 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,424 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,425 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,426 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:50,428 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,429 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,430 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,432 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,434 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,435 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,437 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,438 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,440 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,442 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,443 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,445 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,446 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,448 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:50,450 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,452 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,453 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,455 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,457 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,458 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,460 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,462 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,463 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,465 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,466 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,468 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,470 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,473 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:50,475 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,476 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,478 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,480 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,481 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,482 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,484 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,485 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,487 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,490 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,492 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,493 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,494 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:50,496 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,498 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,499 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,500 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,501 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,502 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,503 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,504 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,505 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,506 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,508 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,509 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:50,510 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,511 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,512 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,513 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,515 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,516 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,517 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,518 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,519 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,520 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,521 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:50,522 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,226 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,229 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,231 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,232 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,233 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,235 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,236 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,237 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,238 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,239 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,240 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,241 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,242 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,244 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,246 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,248 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,250 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,251 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,252 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,254 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,255 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,256 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,258 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,259 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,260 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,261 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,262 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,263 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,264 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,265 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,266 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,267 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,268 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,269 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,270 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,271 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,272 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,273 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,274 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,276 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,277 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,278 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,280 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,281 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,282 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,283 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,284 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,285 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,286 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,287 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,288 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,288 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,290 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,290 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,291 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,292 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,293 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,294 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,296 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,297 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,298 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,299 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,300 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,301 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,302 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,304 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,305 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,306 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,308 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,309 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,310 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,312 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,313 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,314 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,315 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,316 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,317 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,318 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,319 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,320 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,322 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,323 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,324 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,325 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,826 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,827 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,830 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,831 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,833 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,834 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,835 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,836 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,837 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,838 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,839 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,840 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,841 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,842 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,843 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,845 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,847 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,849 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,850 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:54,851 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,853 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,854 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,855 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,856 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,857 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,857 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,858 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,859 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,860 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,861 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,863 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,864 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,865 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:54,866 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,867 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,868 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,869 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,870 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,871 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,872 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,873 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,874 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,875 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,876 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,877 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,878 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,879 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:54,880 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,881 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,882 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,883 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,884 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,885 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,886 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,887 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,888 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,889 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,890 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,890 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,891 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:54,892 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,893 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,895 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,896 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,897 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,898 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,899 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,901 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,902 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,903 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,904 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,905 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:54,906 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,906 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,907 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,909 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,909 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,910 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,911 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,912 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,913 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,914 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,915 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:54,916 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,066 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,068 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,070 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,071 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,072 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,073 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,074 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,075 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,076 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,077 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,079 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,081 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,082 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,084 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,085 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,086 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,087 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,088 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,089 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,089 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,090 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,091 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,092 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,093 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,095 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,096 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,097 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,099 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,100 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,101 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,102 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,104 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,105 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,106 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,107 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,108 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,109 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,111 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,112 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,113 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,114 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,115 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,116 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,118 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,119 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,120 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,121 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,122 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,123 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,125 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,126 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,127 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,129 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,130 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,131 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,132 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,134 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,137 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,138 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,139 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,140 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,141 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,143 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,144 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,145 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,147 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,148 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,150 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,151 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,153 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,154 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,155 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,156 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,157 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,158 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,159 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,160 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,162 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,163 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,165 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,167 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,168 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,169 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,170 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,250 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,251 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,253 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,254 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,255 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,256 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,257 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,258 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,259 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,261 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,264 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,267 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,269 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,271 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,272 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,273 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,274 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,275 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,276 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:35:55,277 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,279 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,280 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,282 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,283 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,284 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,285 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,286 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,287 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,288 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,289 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,290 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,291 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,292 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:35:55,293 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,293 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,295 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,296 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,297 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,298 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,299 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,299 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,300 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,301 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,302 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,303 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,304 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,305 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:35:55,306 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,307 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,308 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,309 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,310 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,312 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,313 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,314 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,315 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,316 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,317 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,318 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,319 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:35:55,320 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,321 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,322 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,323 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,324 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,325 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,327 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,328 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,329 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,330 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,331 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,333 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:35:55,334 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,335 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,336 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,337 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,338 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,339 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,339 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,340 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,341 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,342 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,344 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:35:55,345 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,043 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,045 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,047 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,049 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,050 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,051 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,052 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,053 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,054 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,055 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,056 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,057 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,058 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,060 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,061 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,063 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,064 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,065 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,066 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,067 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,068 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,069 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,070 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,071 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,072 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,073 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,074 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,075 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,076 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,077 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,078 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,079 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,080 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,081 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,082 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,083 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,084 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,085 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,085 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,086 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,087 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,088 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,089 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,090 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,091 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,092 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,094 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,095 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,096 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,097 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,098 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,099 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,100 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,101 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,102 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,103 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,104 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,105 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,106 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,107 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,108 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,109 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,110 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,111 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,112 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,113 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,114 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,115 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,116 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,117 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,118 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,119 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:22,120 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,121 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,121 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,123 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,124 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,126 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,127 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,128 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,130 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,131 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,132 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,133 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:22,939 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,941 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,942 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,943 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,945 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,946 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,947 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,948 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,949 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,950 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,951 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,952 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,953 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,954 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,955 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,955 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,956 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,958 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,959 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:22,961 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,962 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,963 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,964 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,965 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,966 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,967 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,968 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,969 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,970 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,971 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,972 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,974 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,975 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:22,976 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,978 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,979 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,980 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,981 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,982 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,983 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,984 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,984 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,985 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,986 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,987 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,988 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,989 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:22,990 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,991 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,992 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,993 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,994 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,995 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,996 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,997 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,998 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,999 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:22,999 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,000 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,001 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,002 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,003 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,004 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,005 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,006 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,007 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,008 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,009 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,010 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,011 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,013 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,014 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,015 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,017 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,017 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,019 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,020 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,021 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,021 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,022 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,023 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,024 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,025 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,026 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,106 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,108 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,109 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,110 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,112 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,114 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,114 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,115 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,116 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,117 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,118 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,119 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,120 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,122 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,123 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,124 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,125 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,127 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,128 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,130 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,131 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,132 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,133 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,134 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,135 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,136 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,137 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,138 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,139 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,140 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,141 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,142 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,144 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,145 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,146 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,147 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,148 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,149 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,150 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,150 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,151 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,152 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,153 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,154 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,155 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,156 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,157 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,157 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,158 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,160 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,161 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,162 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,163 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,164 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,165 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,166 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,167 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,168 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,169 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,170 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,171 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,172 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,173 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,174 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,175 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,176 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,177 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,178 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,179 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,180 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,182 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,184 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,185 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,186 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,187 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,188 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,191 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,192 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,194 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,196 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,197 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,198 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,200 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,201 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,276 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,278 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,280 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,281 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,282 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,284 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,285 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,286 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,288 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,289 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,290 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,292 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,293 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,295 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,296 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,297 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,299 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,300 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,301 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,302 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,303 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,304 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,305 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,306 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,307 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,308 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,309 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,310 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,311 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,312 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,313 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,314 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,315 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,316 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,317 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,319 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,320 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,321 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,322 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,324 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,325 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,326 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,327 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,328 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,330 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,331 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,333 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,334 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,336 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,337 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,338 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,339 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,341 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,342 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,343 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,344 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,346 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,347 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,348 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,349 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,350 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,351 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,352 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,353 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,355 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,356 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,357 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,359 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,361 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,363 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,364 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,366 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,367 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,368 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,369 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,370 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,371 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,372 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,373 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,374 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,376 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,378 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,379 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,380 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,444 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,447 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,449 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,451 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,452 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,453 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,455 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,456 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,457 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,459 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,460 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,462 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,463 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,464 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,465 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,467 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,468 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,470 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,471 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:36:23,472 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,473 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,474 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,475 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,476 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,477 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,478 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,479 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,480 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,482 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,483 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,484 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,485 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,486 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:36:23,487 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,488 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,490 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,490 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,491 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,492 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,494 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,495 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,496 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,497 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,499 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,500 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,501 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,501 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:36:23,502 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,503 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,504 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,505 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,506 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,507 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,508 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,509 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,510 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,511 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,513 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,514 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,515 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:36:23,516 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,517 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,518 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,519 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,520 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,520 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,521 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,522 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,523 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,524 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,524 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,525 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:36:23,526 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,529 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,530 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,531 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,532 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,533 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,534 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,535 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,536 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,537 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,538 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:36:23,539 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 21:37:58,610  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 21:37:58,620 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 21:37:59,375  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 21:37:59,376  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 21:37:59,451 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 21:37:59,458 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 21:37:59,574 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 21:37:59,600 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 21:37:59,605 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 21:37:59,606 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 21:37:59,995 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 21:38:00,052 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 21:38:00,054  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 21:38:00,065 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:38:00,607 DEBUG DbAccess:87 - setupDataSource - unable to connect
+2023-07-23 21:38:00,610 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:38:00,744  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 21:38:00,745 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 21:38:01,134 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 21:38:01,157 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 21:38:01,159  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 21:38:01,160 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 21:38:01,170 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 21:38:01,173 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 21:38:01,180 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 21:38:01,181 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 21:38:01,182 DEBUG ITournamentService:133 - Created result object
+2023-07-23 21:38:01,184 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 21:38:01,187 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@42a15bdc
+2023-07-23 21:38:01,586 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 392ms
+2023-07-23 21:38:01,586 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 399ms
+2023-07-23 21:38:01,588 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 21:38:01,590 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 21:38:01,592 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 21:38:01,594 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 21:38:01,595 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 21:38:01,597 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 21:38:01,599 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 21:38:01,600 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 21:38:01,602  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 21:38:04,109 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 142ms
+2023-07-23 21:38:22,917 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,919 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,921 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,922 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,923 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,924 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,926 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,928 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,929 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,931 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,933 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,934 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,935 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,936 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,937 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,938 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,939 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,940 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,941 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_001
+2023-07-23 21:38:22,943 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,944 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,946 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,947 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,949 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,950 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,951 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,953 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,954 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,956 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,957 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,958 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,959 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,961 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_002
+2023-07-23 21:38:22,963 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,965 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,966 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,968 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,969 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,971 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,972 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,973 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,974 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,976 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,977 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,979 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,981 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,983 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_003
+2023-07-23 21:38:22,984 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,986 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,987 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,988 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,989 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,990 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,991 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,993 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,995 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,996 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,998 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:22,999 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:23,000 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_004
+2023-07-23 21:38:23,002 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,003 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,005 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,006 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,007 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,009 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,011 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,012 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,014 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,015 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,016 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,018 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_005
+2023-07-23 21:38:23,019 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,020 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,022 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,023 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,024 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,027 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,030 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,031 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,033 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,035 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,036 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:38:23,037 DEBUG DeckRequestHandler:597 - Non-sided card?? 2_006
+2023-07-23 21:41:24,277 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-23 21:41:24,281 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 21:41:24,285 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 21:41:24,293 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@42c00a80
+2023-07-23 21:41:24,303 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 21:41:24,309 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 21:41:25,004 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 21:41:25,005 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 21:41:25,006 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-23 21:41:25,009 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 21:41:25,010 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 21:41:25,011 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@24cd1578
+2023-07-23 21:41:25,015 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 21:41:25,153 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 21:41:25,155 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 21:41:25,169 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 21:49:07,156  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 21:49:07,165 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 21:49:07,768  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 21:49:07,770  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 21:49:07,836 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 21:49:07,843 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 21:49:07,943 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 21:49:08,004 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 21:49:08,009 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 21:49:08,010 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 21:49:08,288 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 21:49:08,320 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 21:49:08,321  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 21:49:08,339 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:49:08,858 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 21:49:08,859 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 21:49:08,970  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 21:49:08,972 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 21:49:09,305 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 21:49:09,325 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 21:49:09,327  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 21:49:09,328 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 21:49:09,333 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 21:49:09,335 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 21:49:09,342 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 21:49:09,346 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 21:49:09,348 DEBUG ITournamentService:133 - Created result object
+2023-07-23 21:49:09,349 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 21:49:09,350 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@4f1bfe23
+2023-07-23 21:49:09,539 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 181ms
+2023-07-23 21:49:09,540 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 189ms
+2023-07-23 21:49:09,541 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 21:49:09,544 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 21:49:09,545 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 21:49:09,546 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 21:49:09,547 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 21:49:09,549 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 21:49:09,550 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 21:49:09,551 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 21:49:09,552  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 21:49:22,464 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690148962158
+2023-07-23 21:49:22,478 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148962155
+2023-07-23 21:49:22,479 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148962157
+2023-07-23 21:49:22,479 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690148962159
+2023-07-23 21:49:22,479 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690148962156
+2023-07-23 21:49:24,841 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148964428
+2023-07-23 21:49:24,853 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690148964430
+2023-07-23 21:49:24,858 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690148964431
+2023-07-23 21:49:24,895 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690148964432
+2023-07-23 21:49:24,944 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690148964429
+2023-07-23 21:49:25,831 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 121ms
+2023-07-23 21:49:32,441 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-23 21:49:32,448 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 21:49:32,451 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 21:49:32,458 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@723de3af
+2023-07-23 21:49:32,502 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 21:49:32,505 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 21:49:35,090 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 21:49:35,092 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 21:49:35,095 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-23 21:49:35,098 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 21:49:35,100 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 21:49:35,102 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@61d37b95
+2023-07-23 21:49:35,107 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 21:49:35,253 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 21:49:35,254 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 21:49:35,267 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-23 21:56:01,800 DEBUG GempukkuHttpRequestHandler:99 - HTTP 410 response for 172.28.1.1: /gemp-lotr-server/game/1
+2023-07-23 21:56:16,469 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-23 21:56:16,474 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 21:56:16,475 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 21:56:16,477 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@7067c310
+2023-07-23 21:56:16,481 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 21:56:16,483 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 21:56:17,416 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 21:56:17,418 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 21:56:17,420 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-23 21:56:17,424 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 21:56:17,425 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 21:56:17,427 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@3b8538aa
+2023-07-23 21:56:17,437 TRACE Game2:103 - System: Welcome to room: Game2
+2023-07-23 21:56:17,441 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 21:56:17,442 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 21:56:17,445 DEBUG GameTable:25 - GameTable - startGame function called;
+2023-07-23 21:58:47,248 TRACE Game1:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
+2023-07-23 22:05:48,816 TRACE Game2:103 - System: This game is already finished and will be shortly removed, please move to the Game Hall
+2023-07-23 22:06:48,842 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game2
+2023-07-23 22:06:52,853 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/2
+2023-07-23 22:06:55,224 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/chat/Game2
+2023-07-23 22:11:25,770 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/2/cardInfo?cardId=23&participantId=null&_=1690150285766
+2023-07-23 22:11:27,846 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/2/cardInfo?cardId=10&participantId=null&_=1690150287844
+2023-07-23 22:11:51,294 DEBUG GempukkuHttpRequestHandler:99 - HTTP 404 response for 172.28.1.1: /gemp-lotr-server/game/2/cardInfo?cardId=84&participantId=null&_=1690150311291
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 22:20:46,168  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 22:20:46,180 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 22:20:46,980  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 22:20:46,982  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 22:20:47,089 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 22:20:47,099 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 22:20:47,214 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 22:20:47,274 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 22:20:47,279 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 22:20:47,280 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 22:20:47,624 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 22:20:47,663 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 22:20:47,665  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 22:20:47,676 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 22:20:48,416 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 22:20:48,420 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 22:20:48,575  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 22:20:48,576 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 22:20:48,955 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 22:20:48,967 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 22:20:48,969  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 22:20:48,970 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 22:20:48,973 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 22:20:48,975 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 22:20:48,977 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 22:20:48,978 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 22:20:48,979 DEBUG ITournamentService:133 - Created result object
+2023-07-23 22:20:48,981 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 22:20:48,992 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@4f1bfe23
+2023-07-23 22:20:49,077 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 22:20:49,079 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 22:20:49,080 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 22:20:49,081 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 22:20:49,082 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 22:20:49,083 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 22:20:49,084 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 22:20:49,086 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 22:20:49,087  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 22:20:50,751 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690150850519
+2023-07-23 22:20:50,758 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690150850516
+2023-07-23 22:20:50,758 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690150850520
+2023-07-23 22:20:50,763 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690150850518
+2023-07-23 22:20:50,759 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690150850517
+2023-07-23 22:20:52,602 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 141ms
+2023-07-23 22:20:55,685 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690150855516
+2023-07-23 22:20:55,686 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690150855517
+2023-07-23 22:20:55,695 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690150855518
+2023-07-23 22:20:55,706 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690150855519
+2023-07-23 22:20:55,707 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690150855520
+2023-07-23 22:21:01,261 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-23 22:21:01,267 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 22:21:01,269 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 22:21:01,277 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@68fc6f0f
+2023-07-23 22:21:01,294 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 22:21:01,301 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 22:21:02,231 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 22:21:02,232 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 22:21:02,234 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-23 22:21:02,238 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 22:21:02,240 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 22:21:02,241 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@761cfd83
+2023-07-23 22:21:02,247 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 22:21:02,387 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 22:21:02,389 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 22:21:02,399 DEBUG GameTable:25 - GameTable - startGame function called;
+Listening for transport dt_socket at address: 8000
+2023-07-23 22:42:34,149 DEBUG GempukkuHttpRequestHandler:99 - HTTP 410 response for 172.28.1.1: /gemp-lotr-server/game/1
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-23 22:43:58,614  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-23 22:43:58,624 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-23 22:43:59,413  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-23 22:43:59,415  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-23 22:43:59,519 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-23 22:43:59,532 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-23 22:43:59,673 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-23 22:43:59,782 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-23 22:43:59,792 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-23 22:43:59,794 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-23 22:44:00,172 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-23 22:44:00,206 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-23 22:44:00,207  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-23 22:44:00,217 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-23 22:44:01,262 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-23 22:44:01,273 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-23 22:44:01,721  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-23 22:44:01,724 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-23 22:44:02,267 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-23 22:44:02,308 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-23 22:44:02,312  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-23 22:44:02,314 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-23 22:44:02,326 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-23 22:44:02,330 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-23 22:44:02,351 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-23 22:44:02,355 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-23 22:44:02,357 DEBUG ITournamentService:133 - Created result object
+2023-07-23 22:44:02,360 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-23 22:44:02,366 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@4f1bfe23
+2023-07-23 22:44:02,593 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 228ms
+2023-07-23 22:44:02,593 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 214ms
+2023-07-23 22:44:02,603 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-23 22:44:02,606 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-23 22:44:02,609 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-23 22:44:02,612 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-23 22:44:02,614 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-23 22:44:02,617 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-23 22:44:02,619 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-23 22:44:02,621 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-23 22:44:02,623  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-23 22:44:05,565 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690152245245
+2023-07-23 22:44:05,580 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690152245249
+2023-07-23 22:44:05,597 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690152245247
+2023-07-23 22:44:05,759 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690152245246
+2023-07-23 22:44:06,080 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690152245248
+2023-07-23 22:44:06,542 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690152245790
+2023-07-23 22:44:06,547 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690152245792
+2023-07-23 22:44:06,545 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690152245791
+2023-07-23 22:44:06,563 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690152245794
+2023-07-23 22:44:06,552 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690152245793
+2023-07-23 22:44:07,737 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 236ms
+2023-07-23 22:44:14,384 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-23 22:44:14,397 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 22:44:14,399 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 22:44:14,405 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@2a728821
+2023-07-23 22:44:14,421 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-23 22:44:14,423 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-23 22:44:15,295 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-23 22:44:15,296 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-23 22:44:15,298 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-23 22:44:15,303 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-23 22:44:15,304 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-23 22:44:15,306 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@9b8d971
+2023-07-23 22:44:15,311 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-23 22:44:15,448 DEBUG BiddingGameProcess:28 - qwer
+2023-07-23 22:44:15,450 DEBUG BiddingGameProcess:28 - asdf
+2023-07-23 22:44:15,460 DEBUG GameTable:25 - GameTable - startGame function called;
+Listening for transport dt_socket at address: 8000
+2023-07-24 03:15:37,972 DEBUG GempukkuHttpRequestHandler:99 - HTTP 410 response for 172.28.1.1: /gemp-lotr-server/game/1
+2023-07-24 03:15:39,433 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game1?participantId=null&_=1690168539424
+2023-07-24 03:15:39,447 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=null&_=1690168539422
+2023-07-24 03:15:39,489 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/game/1?participantId=null&_=1690168539433
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [immediateFlush] in org.apache.log4j.PatternLayout.
+log4j:WARN No such property [bufferSize] in org.apache.log4j.PatternLayout.
+2023-07-24 09:56:03,213  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-24 09:56:03,224 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-24 09:56:03,722  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-24 09:56:03,724  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-24 09:56:03,801 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-24 09:56:03,813 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-24 09:56:03,918 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-24 09:56:03,974 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-24 09:56:03,979 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-24 09:56:03,981 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-24 09:56:04,276 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-24 09:56:04,309 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-24 09:56:04,310  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-24 09:56:04,319 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-24 09:56:04,895 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-24 09:56:04,897 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-24 09:56:04,999  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-24 09:56:05,001 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-24 09:56:05,346 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-24 09:56:05,363 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-24 09:56:05,364  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-24 09:56:05,365 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-24 09:56:05,368 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-24 09:56:05,370 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-24 09:56:05,374 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-24 09:56:05,390 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-24 09:56:05,393 DEBUG ITournamentService:133 - Created result object
+2023-07-24 09:56:05,395 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-24 09:56:05,397 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@4f1bfe23
+2023-07-24 09:56:05,596 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 218ms
+2023-07-24 09:56:05,597 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 196ms
+2023-07-24 09:56:05,601 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-24 09:56:05,603 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-24 09:56:05,605 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-24 09:56:05,607 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-24 09:56:05,609 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-24 09:56:05,613 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-24 09:56:05,614 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-24 09:56:05,616 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-24 09:56:05,617  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-24 09:56:23,546 DEBUG LoggingProxy:34 - GameHistoryDAO::getGamesPlayedCount(...) 105ms
+2023-07-24 09:56:33,148 DEBUG LoggingProxy:34 - TransferDAO::consumeUndeliveredPackages(...) 498ms
+2023-07-24 09:56:37,613 DEBUG LoggingProxy:34 - PlayerDAO::updateLastReward(...) 126ms
+2023-07-24 09:56:38,822 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-24 09:56:38,829 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-24 09:56:38,832 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-24 09:56:38,836 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@7f92af93
+2023-07-24 09:56:38,850 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-24 09:56:38,853 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-24 09:56:40,032 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-24 09:56:40,034 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-24 09:56:40,036 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-24 09:56:40,040 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-24 09:56:40,042 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-24 09:56:40,044 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@7a8b7425
+2023-07-24 09:56:40,051 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-24 09:56:40,181 DEBUG BiddingGameProcess:28 - qwer
+2023-07-24 09:56:40,184 DEBUG BiddingGameProcess:28 - asdf
+2023-07-24 09:56:40,198 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-24 14:14:40,050  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-24 14:14:40,079 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-24 14:14:41,585  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-24 14:14:41,590  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-24 14:14:41,750 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-24 14:14:41,771 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-24 14:14:42,052 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-24 14:14:42,208 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-24 14:14:42,223 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-24 14:14:42,226 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-24 14:14:43,127 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-24 14:14:43,261 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-24 14:14:43,266  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-24 14:14:43,300 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-24 14:14:45,226 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-24 14:14:45,234 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-24 14:14:45,635  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-24 14:14:45,639 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-24 14:14:46,672 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-24 14:14:46,752 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-24 14:14:46,761  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-24 14:14:46,772 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-24 14:14:46,790 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-24 14:14:46,797 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-24 14:14:46,818 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-24 14:14:46,827 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-24 14:14:46,834 DEBUG ITournamentService:133 - Created result object
+2023-07-24 14:14:46,849 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-24 14:14:46,857 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@4f1bfe23
+2023-07-24 14:14:47,205 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 326ms
+2023-07-24 14:14:47,205 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 310ms
+2023-07-24 14:14:47,219 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-24 14:14:47,227 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-24 14:14:47,235 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-24 14:14:47,241 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-24 14:14:47,250 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-24 14:14:47,267 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-24 14:14:47,273 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-24 14:14:47,279 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-24 14:14:47,285  INFO GempukkuServer:35 - GempukkuServer startup complete.
+2023-07-24 14:14:53,615 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690208092464
+2023-07-24 14:14:53,617 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690208092465
+2023-07-24 14:14:53,657 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690208092468
+2023-07-24 14:14:53,711 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690208092466
+2023-07-24 14:14:53,814 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690208092467
+2023-07-24 14:14:57,749  WARN LoggingProxy:30 - GameHistoryDAO::getGamesPlayedCount(...) 1275ms
+2023-07-24 14:14:58,231 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/chat/Game%20Hall?participantId=&_=1690208097913
+2023-07-24 14:14:58,236 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690208097912
+2023-07-24 14:14:58,250 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/player?participantId=&_=1690208097914
+2023-07-24 14:14:58,273 DEBUG HallRequestHandler:17 - HTTP 401 response for /gemp-lotr-server/hall?participantId=&_=1690208097915
+2023-07-24 14:14:58,273 DEBUG GempukkuHttpRequestHandler:99 - HTTP 401 response for 172.28.1.1: /gemp-lotr-server/deck/list?participantId=&_=1690208097916
+2023-07-24 14:15:01,026 DEBUG LoggingProxy:34 - PlayerDAO::loginUser(...) 145ms
+2023-07-24 14:15:01,895 DEBUG LoggingProxy:34 - CollectionDAO::getPlayerCollection(...) 102ms
+2023-07-24 14:15:08,464 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player qwer 32846 and deck Cycle Tribbles
+2023-07-24 14:15:08,475 DEBUG HallServer:625 - Player 'qwer' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-24 14:15:08,480 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-24 14:15:08,498 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@19936340
+2023-07-24 14:15:08,533 DEBUG TableHolder:39 - TableHolder - createTable function called
+2023-07-24 14:15:08,540 DEBUG GameTable:21 - Capacity of game: 2
+2023-07-24 14:15:09,621 DEBUG HallRequestHandler:98 - HallRequestHandler - calling joinTableAsPlayer function from JoinTable
+2023-07-24 14:15:09,624 DEBUG HallServer:457 - HallServer - joinTableAsPlayer function called
+2023-07-24 14:15:09,626 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player asdf 32845 and deck Cycle Tribbles
+2023-07-24 14:15:09,634 DEBUG HallServer:625 - Player 'asdf' attempting to use deck 'Cycle Tribbles' but failed.
+2023-07-24 14:15:09,638 DEBUG HallServer:622 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck Cycle Tribbles
+2023-07-24 14:15:09,642 DEBUG HallServer:640 - HallServer - calling validateUserAndDeck function for player Librarian 32847 and deck com.gempukku.lotro.cards.lotronly.LotroDeck@6ef527a5
+2023-07-24 14:15:09,651 TRACE Game1:103 - System: Welcome to room: Game1
+2023-07-24 14:15:09,926 DEBUG BiddingGameProcess:28 - qwer
+2023-07-24 14:15:09,928 DEBUG BiddingGameProcess:28 - asdf
+2023-07-24 14:15:09,950 DEBUG GameTable:25 - GameTable - startGame function called;
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
+Listening for transport dt_socket at address: 8000
+2023-07-24 14:17:53,795  INFO GempukkuServer:26 - GempukkuServer loading prerequisites...
+2023-07-24 14:17:53,841 DEBUG ServerBuilder:31 - Calling CreatePrerequisites function
+2023-07-24 14:17:55,837  INFO CardBlueprintLibrary:59 - Locking blueprint library in constructor
+2023-07-24 14:17:55,841  INFO CardBlueprintLibrary:62 - Unlocking blueprint library in constructor
+2023-07-24 14:17:55,981 DEBUG CardBlueprintLibrary:159 - Loading set 1 (1st Edition Premiere) to _allsets
+2023-07-24 14:17:55,999 DEBUG CardBlueprintLibrary:159 - Loading set 2 (More Tribbles, More Troubles) to _allsets
+2023-07-24 14:17:56,294 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set1.hjson
+2023-07-24 14:17:56,438 DEBUG CardBlueprintLibrary:236 - Loaded JSON card file set2.hjson
+2023-07-24 14:17:56,454 DEBUG CardBlueprintLibrary:258 - Java cards for set 1 successfully loaded
+2023-07-24 14:17:56,458 DEBUG CardBlueprintLibrary:258 - Java cards for set 2 successfully loaded
+2023-07-24 14:17:57,179 DEBUG ProductLibrary:85 - Loading pack definitions for FotR - Booster
+2023-07-24 14:17:57,258 DEBUG ServerBuilder:42 - Ending CreatePrerequisites function
+2023-07-24 14:17:57,260  INFO GempukkuServer:29 - GempukkuServer loading DAOs...
+2023-07-24 14:17:57,279 DEBUG DbAccess:25 - Creating DbAccess for jdbc:mysql://db:3306/gemp_db
+2023-07-24 14:17:58,679 DEBUG DbAccess:85 - setupDataSource - connection successfully created
+2023-07-24 14:17:58,682 DEBUG DbAccess:33 - DbAccess - _dataSource created for jdbc:mysql://db:3306/gemp_db
+2023-07-24 14:17:58,907  INFO GempukkuServer:31 - GempukkuServer loading services...
+2023-07-24 14:17:58,910 DEBUG ServerBuilder:46 - Calling CreateServices function
+2023-07-24 14:17:59,512 TRACE Game Hall:103 - System: Welcome to room: Game Hall
+2023-07-24 14:17:59,563 DEBUG ServerBuilder:139 - Ending CreateServices function
+2023-07-24 14:17:59,567  INFO GempukkuServer:33 - GempukkuServer starting servers...
+2023-07-24 14:17:59,570 DEBUG ServerBuilder:150 - Function StartServers - starting HallServer
+2023-07-24 14:17:59,580 DEBUG AbstractServer:15 - Starting startServer function for HallServer
+2023-07-24 14:17:59,584 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.hall.HallServer
+2023-07-24 14:17:59,602 DEBUG AbstractServer:19 - Started: HallServer
+2023-07-24 14:17:59,605 DEBUG ITournamentService:131 - Calling getLiveTournaments function
+2023-07-24 14:17:59,611 DEBUG ITournamentService:133 - Created result object
+2023-07-24 14:17:59,618 DEBUG DbTournamentDAO:75 - Called getUnfinishedTournaments function
+2023-07-24 14:17:59,621 DEBUG DbTournamentDAO:76 - getUnfinishedTournaments function - attempting connection to org.apache.commons.dbcp.PoolingDataSource@4f1bfe23
+2023-07-24 14:17:59,782 DEBUG LoggingProxy:34 - TournamentDAO::getUnfinishedTournaments(...) 157ms
+2023-07-24 14:17:59,783 DEBUG LoggingProxy:34 - TournamentDAO::getUnstartedScheduledTournamentQueues(...) 164ms
+2023-07-24 14:17:59,786 DEBUG ServerBuilder:152 - Function StartServers - starting LotroServer
+2023-07-24 14:17:59,791 DEBUG AbstractServer:15 - Starting startServer function for LotroServer
+2023-07-24 14:17:59,795 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.game.LotroServer
+2023-07-24 14:17:59,799 DEBUG AbstractServer:19 - Started: LotroServer
+2023-07-24 14:17:59,802 DEBUG ServerBuilder:154 - Function StartServers - starting ChatServer
+2023-07-24 14:17:59,805 DEBUG AbstractServer:15 - Starting startServer function for ChatServer
+2023-07-24 14:17:59,807 DEBUG ServerCleaner:15 - Adding server: class com.gempukku.lotro.chat.ChatServer
+2023-07-24 14:17:59,811 DEBUG AbstractServer:19 - Started: ChatServer
+2023-07-24 14:17:59,814  INFO GempukkuServer:35 - GempukkuServer startup complete.

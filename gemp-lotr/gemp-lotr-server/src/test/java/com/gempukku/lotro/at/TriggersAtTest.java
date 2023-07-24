@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -299,7 +299,7 @@ public class TriggersAtTest extends AbstractAtTest {
 
         playerDecided(P1, "0");
 
-        PhysicalCard siteOne = _game.getGameState().getSite(1);
+        LotroPhysicalCard siteOne = _game.getGameState().getSite(1);
 
         playerDecided(P1, "" + siteOne.getCardId());
 

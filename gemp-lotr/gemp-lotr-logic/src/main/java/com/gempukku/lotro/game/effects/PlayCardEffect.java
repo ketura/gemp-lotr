@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.results.PlayCardResult;
@@ -10,19 +10,19 @@ import java.util.Collections;
 
 public class PlayCardEffect extends AbstractEffect {
     private final Zone _playedFrom;
-    private final PhysicalCard _cardPlayed;
-    private PhysicalCard _attachedToCard;
+    private final LotroPhysicalCard _cardPlayed;
+    private LotroPhysicalCard _attachedToCard;
     private final Zone _zone;
-    private final PhysicalCard _attachedOrStackedPlayedFrom;
+    private final LotroPhysicalCard _attachedOrStackedPlayedFrom;
 
-    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom) {
+    public PlayCardEffect(Zone playedFrom, LotroPhysicalCard cardPlayed, Zone playedTo, LotroPhysicalCard attachedOrStackedPlayedFrom) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _zone = playedTo;
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
     }
 
-    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, PhysicalCard attachedToCard, PhysicalCard attachedOrStackedPlayedFrom) {
+    public PlayCardEffect(Zone playedFrom, LotroPhysicalCard cardPlayed, LotroPhysicalCard attachedToCard, LotroPhysicalCard attachedOrStackedPlayedFrom) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _attachedToCard = attachedToCard;
@@ -30,11 +30,11 @@ public class PlayCardEffect extends AbstractEffect {
         _zone = Zone.ATTACHED;
     }
 
-    public PhysicalCard getPlayedCard() {
+    public LotroPhysicalCard getPlayedCard() {
         return _cardPlayed;
     }
 
-    public PhysicalCard getAttachedTo() {
+    public LotroPhysicalCard getAttachedTo() {
         return _attachedToCard;
     }
 

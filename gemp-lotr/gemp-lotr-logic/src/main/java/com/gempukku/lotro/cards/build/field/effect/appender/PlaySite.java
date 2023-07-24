@@ -5,11 +5,11 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.PlaySiteEffect;
@@ -41,7 +41,7 @@ public class PlaySite implements EffectAppenderProducer {
                 if (game.getFormat().isOrderedSites()) {
                     Filter printedSiteNumber = new Filter() {
                         @Override
-                        public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                        public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                             return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
                         }
                     };
@@ -64,7 +64,7 @@ public class PlaySite implements EffectAppenderProducer {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 return new PlaySiteEffect(action, actionContext.getPerformingPlayer(), block, siteNumber, filterable) {
                     @Override
-                    protected void sitePlayedCallback(PhysicalCard site) {
+                    protected void sitePlayedCallback(LotroPhysicalCard site) {
                         if (memorize != null) {
                             actionContext.setCardMemory(memorize, site);
                         }

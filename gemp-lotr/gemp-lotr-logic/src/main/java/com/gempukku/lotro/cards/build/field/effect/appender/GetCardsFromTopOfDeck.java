@@ -7,10 +7,10 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.Effect;
@@ -38,9 +38,9 @@ public class GetCardsFromTopOfDeck implements EffectAppenderProducer {
                 return new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(DefaultGame game) {
-                        final List<? extends PhysicalCard> deck = game.getGameState().getDeck(actionContext.getPerformingPlayer());
-                        List<PhysicalCard> result = new LinkedList<>();
-                        for (PhysicalCard physicalCard : deck) {
+                        final List<? extends LotroPhysicalCard> deck = game.getGameState().getDeck(actionContext.getPerformingPlayer());
+                        List<LotroPhysicalCard> result = new LinkedList<>();
+                        for (LotroPhysicalCard physicalCard : deck) {
                             if (acceptFilter.accepts(game, physicalCard))
                                 result.add(physicalCard);
                             else

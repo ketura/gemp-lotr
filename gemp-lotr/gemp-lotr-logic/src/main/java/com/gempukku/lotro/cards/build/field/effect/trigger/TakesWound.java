@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.timing.results.WoundResult;
 import org.json.simple.JSONObject;
@@ -43,7 +43,7 @@ public class TakesWound implements TriggerCheckerProducer {
                     }
                 }
                 if (result && memorize != null) {
-                    final PhysicalCard woundedCard = ((WoundResult) actionContext.getEffectResult()).getWoundedCard();
+                    final LotroPhysicalCard woundedCard = ((WoundResult) actionContext.getEffectResult()).getWoundedCard();
                     actionContext.setCardMemory(memorize, woundedCard);
                 }
                 return result;

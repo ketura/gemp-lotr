@@ -11,7 +11,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.AddUntilModifierEffect;
@@ -62,8 +62,8 @@ public class AddKeyword implements EffectAppenderProducer {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         List<Effect> result = new LinkedList<>();
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
-                        for (PhysicalCard physicalCard : cardsFromMemory) {
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        for (LotroPhysicalCard physicalCard : cardsFromMemory) {
                             final int keywordCount = amount.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), physicalCard);
                             result.add(new AddUntilModifierEffect(
                                     new KeywordModifier(actionContext.getSource(), physicalCard, keywordFunction.apply(actionContext), keywordCount), until));

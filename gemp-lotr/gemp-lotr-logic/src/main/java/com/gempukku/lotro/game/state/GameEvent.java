@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.state;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
@@ -193,14 +193,14 @@ public class GameEvent {
         return this;
     }
 
-    public GameEvent card(PhysicalCard physicalCard) {
+    public GameEvent card(LotroPhysicalCard physicalCard) {
         GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId()).participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).imageUrl(physicalCard.getImageUrl());
         if (physicalCard.getCardController() != null)
             gameEvent = gameEvent.controllerId(physicalCard.getCardController());
-        PhysicalCard attachedTo = physicalCard.getAttachedTo();
+        LotroPhysicalCard attachedTo = physicalCard.getAttachedTo();
         if (attachedTo != null)
             gameEvent = gameEvent.targetCardId(attachedTo.getCardId());
-        PhysicalCard stackedOn = physicalCard.getStackedOn();
+        LotroPhysicalCard stackedOn = physicalCard.getStackedOn();
         if (stackedOn != null)
             gameEvent = gameEvent.targetCardId(stackedOn.getCardId());
         if (physicalCard.getBlueprint().getCardType() == CardType.SITE && physicalCard.getZone().isInPlay())

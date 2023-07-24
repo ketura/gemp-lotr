@@ -3,7 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
@@ -82,7 +82,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(5, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
@@ -107,7 +107,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(6, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
@@ -138,7 +138,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
@@ -177,7 +177,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
@@ -218,7 +218,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
@@ -260,7 +260,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());
@@ -308,7 +308,7 @@ public class ToilAtTest extends AbstractAtTest {
 
         assertEquals(8, _game.getGameState().getTwilightPool());
 
-        PhysicalCard kingsTent = _game.getGameState().getSite(2);
+        LotroPhysicalCard kingsTent = _game.getGameState().getSite(2);
 
         AwaitingDecision shadowPhaseDecision = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowPhaseDecision.getDecisionType());

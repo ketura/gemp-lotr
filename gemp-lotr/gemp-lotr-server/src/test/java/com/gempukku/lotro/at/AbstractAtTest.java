@@ -3,6 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
@@ -89,7 +90,7 @@ public abstract class AbstractAtTest {
         }
     }
 
-    protected String[] toCardIdArray(PhysicalCard... cards) {
+    protected String[] toCardIdArray(LotroPhysicalCard... cards) {
         String[] result = new String[cards.length];
         for (int i = 0; i < cards.length; i++)
             result[i] = String.valueOf(cards[i].getCardId());

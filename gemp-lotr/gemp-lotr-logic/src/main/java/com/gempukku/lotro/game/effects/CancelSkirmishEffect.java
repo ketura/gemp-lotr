@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.results.SkirmishCancelledResult;
 
@@ -38,7 +38,7 @@ public class CancelSkirmishEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         if (isPlayableInFull(game)) {
-            final PhysicalCard fellowshipCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
+            final LotroPhysicalCard fellowshipCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
             if (fellowshipCharacter != null)
                 game.getActionsEnvironment().emitEffectResult(
                         new SkirmishCancelledResult(fellowshipCharacter));

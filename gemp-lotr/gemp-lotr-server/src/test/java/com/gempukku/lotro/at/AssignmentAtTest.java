@@ -1,10 +1,10 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
@@ -368,7 +368,7 @@ public class AssignmentAtTest extends AbstractAtTest {
         final List<Assignment> assignmentsBeforeFreePlayer = _game.getGameState().getAssignments();
         assertEquals(0, assignmentsBeforeFreePlayer.size());
 
-        PhysicalCard galadriel = _game.getGameState().getRingBearer(P1);
+        LotroPhysicalCard galadriel = _game.getGameState().getRingBearer(P1);
 
         AwaitingDecision fpAssignment = _userFeedback.getAwaitingDecision(P1);
 

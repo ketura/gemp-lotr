@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.AssignmentEffect;
@@ -15,9 +15,9 @@ import com.gempukku.lotro.game.actions.Action;
 public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffect {
     private final Action _action;
     private final String _playerId;
-    private final PhysicalCard _companion;
+    private final LotroPhysicalCard _companion;
 
-    public ChooseAndAssignMinionToCompanionEffect(Action action, String playerId, PhysicalCard companion, Filterable... filters) {
+    public ChooseAndAssignMinionToCompanionEffect(Action action, String playerId, LotroPhysicalCard companion, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose minion to assign " + GameUtils.getCardLink(companion) + " to", filters);
         _action = action;
         _playerId = playerId;
@@ -31,19 +31,19 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
     }
 
     @Override
-    protected void cardSelected(DefaultGame game, PhysicalCard card) {
+    protected void cardSelected(DefaultGame game, LotroPhysicalCard card) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new AssignmentEffect(_playerId, _companion, card) {
                     @Override
-                    protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {
+                    protected void assignmentMadeCallback(LotroPhysicalCard fpChar, LotroPhysicalCard minion) {
                         ChooseAndAssignMinionToCompanionEffect.this.assignmentMadeCallback(fpChar, minion);
                     }
                 });
         game.getActionsEnvironment().addActionToStack(subAction);
     }
 
-    protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {
+    protected void assignmentMadeCallback(LotroPhysicalCard fpChar, LotroPhysicalCard minion) {
 
     }
 }

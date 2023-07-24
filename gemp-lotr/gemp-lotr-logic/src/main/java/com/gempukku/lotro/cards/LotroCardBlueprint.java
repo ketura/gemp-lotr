@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
@@ -40,11 +41,11 @@ public interface LotroCardBlueprint {
 
     int getKeywordCount(Keyword keyword);
 
-    Filterable getValidTargetFilter(String playerId, DefaultGame game, PhysicalCard self);
+    Filterable getValidTargetFilter(String playerId, DefaultGame game, LotroPhysicalCard self);
 
     int getTwilightCost();
 
-    int getTwilightCostModifier(DefaultGame game, PhysicalCard self, PhysicalCard target);
+    int getTwilightCostModifier(DefaultGame game, LotroPhysicalCard self, LotroPhysicalCard target);
 
     int getStrength();
 
@@ -58,57 +59,57 @@ public interface LotroCardBlueprint {
 
     SitesBlock getAllyHomeSiteBlock();
 
-    PlayEventAction getPlayEventCardAction(String playerId, DefaultGame game, PhysicalCard self);
+    PlayEventAction getPlayEventCardAction(String playerId, DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends Modifier> getInPlayModifiers(DefaultGame game, PhysicalCard self);
+    List<? extends Modifier> getInPlayModifiers(DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends Modifier> getStackedOnModifiers(DefaultGame game, PhysicalCard self);
+    List<? extends Modifier> getStackedOnModifiers(DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends Modifier> getInDiscardModifiers(DefaultGame game, PhysicalCard self);
+    List<? extends Modifier> getInDiscardModifiers(DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends Modifier> getControlledSiteModifiers(DefaultGame game, PhysicalCard self);
+    List<? extends Modifier> getControlledSiteModifiers(DefaultGame game, LotroPhysicalCard self);
 
-    boolean checkPlayRequirements(DefaultGame game, PhysicalCard self);
+    boolean checkPlayRequirements(DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends Action> getPhaseActionsInHand(String playerId, DefaultGame game, PhysicalCard self);
+    List<? extends Action> getPhaseActionsInHand(String playerId, DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends Action> getPhaseActionsFromDiscard(String playerId, DefaultGame game, PhysicalCard self);
+    List<? extends Action> getPhaseActionsFromDiscard(String playerId, DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, DefaultGame game, PhysicalCard self);
+    List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, DefaultGame game, LotroPhysicalCard self);
 
-    List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, DefaultGame game, PhysicalCard self);
+    List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, DefaultGame game, LotroPhysicalCard self);
 
-    List<RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect, PhysicalCard self);
+    List<RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect, LotroPhysicalCard self);
 
-    List<RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult, PhysicalCard self);
-
-
-    List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, DefaultGame game, Effect effect, PhysicalCard self);
-
-    List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult, PhysicalCard self);
+    List<RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
 
 
-    List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, DefaultGame game, Effect effect, PhysicalCard self);
+    List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self);
 
-    List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, DefaultGame game, EffectResult effectResult, PhysicalCard self);
-
-
-    List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, DefaultGame game, EffectResult effectResult, PhysicalCard self);
-
-    List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, DefaultGame game, Effect effect, PhysicalCard self);
+    List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
 
 
-    List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult, PhysicalCard self);
+    List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self);
+
+    List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
 
 
-    RequiredTriggerAction getDiscardedFromPlayRequiredTrigger(DefaultGame game, PhysicalCard self);
+    List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
 
-    OptionalTriggerAction getDiscardedFromPlayOptionalTrigger(String playerId, DefaultGame game, PhysicalCard self);
+    List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self);
 
 
-    RequiredTriggerAction getKilledRequiredTrigger(DefaultGame game, PhysicalCard self);
+    List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
 
-    OptionalTriggerAction getKilledOptionalTrigger(String playerId, DefaultGame game, PhysicalCard self);
+
+    RequiredTriggerAction getDiscardedFromPlayRequiredTrigger(DefaultGame game, LotroPhysicalCard self);
+
+    OptionalTriggerAction getDiscardedFromPlayOptionalTrigger(String playerId, DefaultGame game, LotroPhysicalCard self);
+
+
+    RequiredTriggerAction getKilledRequiredTrigger(DefaultGame game, LotroPhysicalCard self);
+
+    OptionalTriggerAction getKilledOptionalTrigger(String playerId, DefaultGame game, LotroPhysicalCard self);
 
     SitesBlock getSiteBlock();
 
@@ -116,21 +117,21 @@ public interface LotroCardBlueprint {
 
     Set<PossessionClass> getPossessionClasses();
 
-    boolean isExtraPossessionClass(DefaultGame game, PhysicalCard self, PhysicalCard attachedTo);
+    boolean isExtraPossessionClass(DefaultGame game, LotroPhysicalCard self, LotroPhysicalCard attachedTo);
 
     Direction getSiteDirection();
 
-    String getDisplayableInformation(PhysicalCard self);
+    String getDisplayableInformation(LotroPhysicalCard self);
 
-    List<? extends ExtraPlayCost> getExtraCostToPlay(DefaultGame game, PhysicalCard self);
+    List<? extends ExtraPlayCost> getExtraCostToPlay(DefaultGame game, LotroPhysicalCard self);
 
-    int getPotentialDiscount(DefaultGame game, String playerId, PhysicalCard self);
+    int getPotentialDiscount(DefaultGame game, String playerId, LotroPhysicalCard self);
 
-    void appendPotentialDiscountEffects(DefaultGame game, CostToEffectAction action, String playerId, PhysicalCard self);
+    void appendPotentialDiscountEffects(DefaultGame game, CostToEffectAction action, String playerId, LotroPhysicalCard self);
 
-    boolean canPayAidCost(DefaultGame game, PhysicalCard self);
+    boolean canPayAidCost(DefaultGame game, LotroPhysicalCard self);
 
-    void appendAidCosts(DefaultGame game, CostToEffectAction action, PhysicalCard self);
+    void appendAidCosts(DefaultGame game, CostToEffectAction action, LotroPhysicalCard self);
 
     boolean skipUniquenessCheck();
 }

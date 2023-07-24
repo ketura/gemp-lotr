@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.modifiers.evaluator.lotronly;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
@@ -36,7 +36,7 @@ public class CountSpottableEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard self) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard self) {
         final int active = Math.max(0, Filters.countSpottable(game, _filters) - _over.evaluateExpression(game, self));
         if (_limit == null)
             return active;

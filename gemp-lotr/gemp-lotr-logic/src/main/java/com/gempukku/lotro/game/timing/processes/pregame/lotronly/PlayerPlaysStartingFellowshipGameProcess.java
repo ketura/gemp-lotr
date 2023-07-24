@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.timing.processes.pregame.lotronly;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.results.FinishedPlayingFellowshipResult;
 import com.gempukku.lotro.game.rules.lotronly.LotroPlayUtils;
@@ -30,7 +30,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
 
     @Override
     public void process(DefaultGame game) {
-        Collection<PhysicalCard> possibleCharacters = getPossibleCharacters(game, _playerId);
+        Collection<LotroPhysicalCard> possibleCharacters = getPossibleCharacters(game, _playerId);
         if (possibleCharacters.size() == 0) {
             game.getActionsEnvironment().emitEffectResult(new FinishedPlayingFellowshipResult(_playerId));
             _nextProcess = _followingGameProcess;
@@ -38,12 +38,12 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
             game.getUserFeedback().sendAwaitingDecision(_playerId, createChooseNextCharacterDecision(game, _playerId, possibleCharacters));
     }
 
-    private Collection<PhysicalCard> getPossibleCharacters(final DefaultGame game, final String playerId) {
+    private Collection<LotroPhysicalCard> getPossibleCharacters(final DefaultGame game, final String playerId) {
         return Filters.filter(game.getGameState().getDeck(playerId), game,
                 CardType.COMPANION,
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                         int twilightCost = game.getModifiersQuerying().getTwilightCost(game, physicalCard, null, 0, false);
                         return game.getGameState().getTwilightPool() + twilightCost <= 4
                                 && LotroPlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, 0, 0, false, false, true);
@@ -51,17 +51,17 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                 });
     }
 
-    private AwaitingDecision createChooseNextCharacterDecision(final DefaultGame game, final String playerId, final Collection<PhysicalCard> possibleCharacters) {
+    private AwaitingDecision createChooseNextCharacterDecision(final DefaultGame game, final String playerId, final Collection<LotroPhysicalCard> possibleCharacters) {
         return new ArbitraryCardsSelectionDecision(1, "Starting fellowship - Choose next character or press DONE",
                 new LinkedList<>(possibleCharacters), 0, 1) {
             @Override
             public void decisionMade(String result) throws DecisionResultInvalidException {
-                List<PhysicalCard> selectedCharacters = getSelectedCardsByResponse(result);
+                List<LotroPhysicalCard> selectedCharacters = getSelectedCardsByResponse(result);
                 if (selectedCharacters.size() == 0) {
                     game.getActionsEnvironment().emitEffectResult(new FinishedPlayingFellowshipResult(_playerId));
                     _nextProcess = _followingGameProcess;
                 } else {
-                    PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
+                    LotroPhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
                     Action playCardAction = LotroPlayUtils.getPlayCardAction(game, selectedPhysicalCard, 0, Filters.any, false);
                     game.getActionsEnvironment().addActionToStack(playCardAction);
                     _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_playerId, _followingGameProcess);

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.timing.processes.turn;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.effects.EffectResult;
@@ -192,10 +192,10 @@ public class TurnProcedure {
 
     private class PlayoutRequiredBeforeResponsesEffect extends UnrespondableEffect {
         private final SystemQueueAction _action;
-        private final Set<PhysicalCard> _cardTriggersUsed;
+        private final Set<LotroPhysicalCard> _cardTriggersUsed;
         private final Effect _effect;
 
-        private PlayoutRequiredBeforeResponsesEffect(SystemQueueAction action, Set<PhysicalCard> cardTriggersUsed, Effect effect) {
+        private PlayoutRequiredBeforeResponsesEffect(SystemQueueAction action, Set<LotroPhysicalCard> cardTriggersUsed, Effect effect) {
             _action = action;
             _cardTriggersUsed = cardTriggersUsed;
             _effect = effect;
@@ -230,12 +230,12 @@ public class TurnProcedure {
 
     private class PlayoutOptionalBeforeResponsesEffect extends UnrespondableEffect {
         private final SystemQueueAction _action;
-        private final Set<PhysicalCard> _cardTriggersUsed;
+        private final Set<LotroPhysicalCard> _cardTriggersUsed;
         private final PlayOrder _playOrder;
         private final int _passCount;
         private final Effect _effect;
 
-        private PlayoutOptionalBeforeResponsesEffect(SystemQueueAction action, Set<PhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect) {
+        private PlayoutOptionalBeforeResponsesEffect(SystemQueueAction action, Set<LotroPhysicalCard> cardTriggersUsed, PlayOrder playOrder, int passCount, Effect effect) {
             _action = action;
             _cardTriggersUsed = cardTriggersUsed;
             _playOrder = playOrder;

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 
@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerDeck;
-    private final Collection<PhysicalCard> _cards;
+    private final Collection<LotroPhysicalCard> _cards;
 
-    public ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(PhysicalCard source, String playerDeck, Collection<PhysicalCard> cards) {
+    public ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect(LotroPhysicalCard source, String playerDeck, Collection<LotroPhysicalCard> cards) {
         _source = source;
         _playerDeck = playerDeck;
         _cards = cards;
@@ -32,7 +32,7 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
 
     @Override
     public boolean isPlayableInFull(DefaultGame game) {
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() != Zone.STACKED && !card.getZone().isInPlay())
                 return false;
         }
@@ -42,10 +42,10 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
 
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
-        Set<PhysicalCard> toShuffleIn = new HashSet<>();
-        Set<PhysicalCard> inPlay = new HashSet<>();
+        Set<LotroPhysicalCard> toShuffleIn = new HashSet<>();
+        Set<LotroPhysicalCard> inPlay = new HashSet<>();
 
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone().isInPlay()) {
                 inPlay.add(card);
                 toShuffleIn.add(card);
@@ -66,7 +66,7 @@ public class ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect extends AbstractEf
         return new FullEffectResult(inPlay.size() == _cards.size());
     }
 
-    protected void cardsShuffledCallback(Set<PhysicalCard> cardsShuffled) {
+    protected void cardsShuffledCallback(Set<LotroPhysicalCard> cardsShuffled) {
 
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.assign;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -10,11 +10,11 @@ import java.util.Set;
 
 public class ShadowPlayersAssignTheirMinionsGameProcess implements GameProcess {
     private final GameProcess _followingProcess;
-    private final Set<PhysicalCard> _leftoverMinions;
+    private final Set<LotroPhysicalCard> _leftoverMinions;
     private PlayOrder _shadowOrder;
     private String _firstShadowPlayer;
 
-    public ShadowPlayersAssignTheirMinionsGameProcess(GameProcess followingProcess, Set<PhysicalCard> leftoverMinions) {
+    public ShadowPlayersAssignTheirMinionsGameProcess(GameProcess followingProcess, Set<LotroPhysicalCard> leftoverMinions) {
         _followingProcess = followingProcess;
         _leftoverMinions = leftoverMinions;
     }

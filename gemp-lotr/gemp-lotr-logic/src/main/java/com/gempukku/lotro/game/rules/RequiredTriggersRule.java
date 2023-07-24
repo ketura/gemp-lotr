@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.effects.Effect;
@@ -27,7 +27,7 @@ public class RequiredTriggersRule {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect) {
                         List<RequiredTriggerAction> result = new LinkedList<>();
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter())) {
+                        for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter())) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
                                 final List<? extends RequiredTriggerAction> actions = activableCard.getBlueprint().getRequiredBeforeTriggers(game, effect, activableCard);
                                 if (actions != null)
@@ -41,7 +41,7 @@ public class RequiredTriggersRule {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         List<RequiredTriggerAction> result = new LinkedList<>();
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter())) {
+                        for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter())) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
                                 final List<? extends RequiredTriggerAction> actions = activableCard.getBlueprint().getRequiredAfterTriggers(game, effectResult, activableCard);
                                 if (actions != null)
@@ -60,7 +60,7 @@ public class RequiredTriggersRule {
                 Filters.and(CardType.SITE,
                         new Filter() {
                             @Override
-                            public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                            public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                 if (game.getGameState().getCurrentPhase().isRealPhase())
                                     return Filters.currentSite.accepts(game, physicalCard);
                                 return false;

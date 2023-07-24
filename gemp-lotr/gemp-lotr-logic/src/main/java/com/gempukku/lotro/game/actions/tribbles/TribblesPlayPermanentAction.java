@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.actions.tribbles;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.rules.GameUtils;
 import java.util.Collections;
 
 public class TribblesPlayPermanentAction extends AbstractCostToEffectAction {
-    private final PhysicalCard _permanentPlayed;
+    private final LotroPhysicalCard _permanentPlayed;
     private boolean _cardRemoved;
 
     private Effect _playCardEffect;
@@ -19,7 +19,7 @@ public class TribblesPlayPermanentAction extends AbstractCostToEffectAction {
     private final Zone _fromZone;
     private final Zone _toZone;
 
-    public TribblesPlayPermanentAction(PhysicalCard card, Zone zone) {
+    public TribblesPlayPermanentAction(LotroPhysicalCard card, Zone zone) {
         _permanentPlayed = card;
         setText("Play " + GameUtils.getFullName(_permanentPlayed));
         setPerformingPlayer(card.getOwner());
@@ -34,12 +34,12 @@ public class TribblesPlayPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _permanentPlayed;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _permanentPlayed;
     }
 

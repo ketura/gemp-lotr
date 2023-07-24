@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.DiscountEffect;
@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.effects.Effect;
 import java.util.Collections;
 
 public class PlayPermanentAction extends AbstractCostToEffectAction {
-    private final PhysicalCard _permanentPlayed;
+    private final LotroPhysicalCard _permanentPlayed;
     private int _twilightModifier;
     private final boolean _ignoreRoamingPenalty;
 
@@ -30,9 +30,9 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     private boolean _skipShuffling;
     private final Zone _fromZone;
     private final Zone _toZone;
-    private PhysicalCard _playedFromCard;
+    private LotroPhysicalCard _playedFromCard;
 
-    public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayPermanentAction(LotroPhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {
         _permanentPlayed = card;
         setText("Play " + GameUtils.getFullName(_permanentPlayed));
         setPerformingPlayer(card.getOwner());
@@ -58,12 +58,12 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _permanentPlayed;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _permanentPlayed;
     }
 

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.skirmish;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
@@ -31,8 +31,8 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
             final List<Assignment> assignments = gameState.getAssignments();
 
             if (assignments.size() > 0) {
-                Set<PhysicalCard> nonLurkerSkirmishFps = new HashSet<>();
-                Set<PhysicalCard> lurkerSkirmishFps = new HashSet<>();
+                Set<LotroPhysicalCard> nonLurkerSkirmishFps = new HashSet<>();
+                Set<LotroPhysicalCard> lurkerSkirmishFps = new HashSet<>();
                 for (Assignment assignment : assignments) {
                     if (Filters.filter(assignment.getShadowCharacters(), game, Keyword.LURKER).size() > 0)
                         lurkerSkirmishFps.add(assignment.getFellowshipCharacter());
@@ -50,7 +50,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
 
                 SystemQueueAction chooseNextSkirmishAction = new SystemQueueAction();
 
-                Set<PhysicalCard> skirmishChoice;
+                Set<LotroPhysicalCard> skirmishChoice;
                 if (nonLurkerSkirmishFps.size() > 0)
                     skirmishChoice = nonLurkerSkirmishFps;
                 else
@@ -58,7 +58,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
 
                 ChooseActiveCardEffect chooseNextSkirmish = new ChooseActiveCardEffect(null, playerChoosingSkirmishOrder, "Choose next skirmish to resolve", Filters.in(skirmishChoice)) {
                     @Override
-                    protected void cardSelected(DefaultGame game, PhysicalCard card) {
+                    protected void cardSelected(DefaultGame game, LotroPhysicalCard card) {
                         game.getGameState().sendMessage("Next skirmish to resolve is for " + GameUtils.getCardLink(card));
                         final Assignment assignment = findAssignment(assignments, card);
                         game.getGameState().removeAssignment(assignment);
@@ -78,7 +78,7 @@ public class PlayoutSkirmishesGameProcess implements GameProcess {
         }
     }
 
-    private Assignment findAssignment(List<Assignment> assignments, PhysicalCard freePeopleCharacter) {
+    private Assignment findAssignment(List<Assignment> assignments, LotroPhysicalCard freePeopleCharacter) {
         for (Assignment assignment : assignments) {
             if (assignment.getFellowshipCharacter() == freePeopleCharacter)
                 return assignment;

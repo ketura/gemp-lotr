@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.modifiers.evaluator;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class MinEvaluator implements Evaluator {
@@ -13,7 +13,7 @@ public class MinEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
         return Math.max(_limit, _evaluator.evaluateExpression(game, cardAffected));
     }
 }

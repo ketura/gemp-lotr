@@ -1,17 +1,17 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 
 import java.util.Collections;
 
 public class StackCardFromDeckEffect extends AbstractEffect {
-    private final PhysicalCard _card;
-    private final PhysicalCard _stackOn;
+    private final LotroPhysicalCard _card;
+    private final LotroPhysicalCard _stackOn;
 
-    public StackCardFromDeckEffect(PhysicalCard card, PhysicalCard stackOn) {
+    public StackCardFromDeckEffect(LotroPhysicalCard card, LotroPhysicalCard stackOn) {
         _card = card;
         _stackOn = stackOn;
     }

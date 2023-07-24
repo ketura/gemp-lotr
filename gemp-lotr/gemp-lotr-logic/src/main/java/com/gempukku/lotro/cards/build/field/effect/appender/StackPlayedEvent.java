@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.StackPlayedEventOnACardEffect;
 import com.gempukku.lotro.game.effects.DoNothingEffect;
@@ -30,7 +30,7 @@ public class StackPlayedEvent implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final PhysicalCard card = actionContext.getCardFromMemory("_temp1");
+                        final LotroPhysicalCard card = actionContext.getCardFromMemory("_temp1");
                         if (card != null) {
                             final PlayEventResult playEventResult = (PlayEventResult) actionContext.getEffectResult();
                             return new StackPlayedEventOnACardEffect(playEventResult.getPlayEventAction(), card);

@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.assign;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -21,10 +21,10 @@ import java.util.Set;
 public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     private final PlayOrder _shadowOrder;
     private final String _playerId;
-    private final Set<PhysicalCard> _leftoverMinions;
+    private final Set<LotroPhysicalCard> _leftoverMinions;
     private final GameProcess _followingGameProcess;
 
-    public ShadowPlayerAssignsHisMinionsGameProcess(PlayOrder shadowOrder, String playerId, Set<PhysicalCard> leftoverMinions, GameProcess followingGameProcess) {
+    public ShadowPlayerAssignsHisMinionsGameProcess(PlayOrder shadowOrder, String playerId, Set<LotroPhysicalCard> leftoverMinions, GameProcess followingGameProcess) {
         _shadowOrder = shadowOrder;
         _playerId = playerId;
         _leftoverMinions = leftoverMinions;
@@ -36,9 +36,9 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
         GameState gameState = game.getGameState();
         Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId), Filters.in(_leftoverMinions));
 
-        final Collection<PhysicalCard> minions = Filters.filterActive(game, minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
+        final Collection<LotroPhysicalCard> minions = Filters.filterActive(game, minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
         if (minions.size() > 0) {
-            final Collection<PhysicalCard> freePeopleTargets =
+            final Collection<LotroPhysicalCard> freePeopleTargets =
                     Filters.filterActive(game,
                             Filters.and(
                                     Filters.or(
@@ -49,7 +49,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
+                            Map<LotroPhysicalCard, Set<LotroPhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
                             SystemQueueAction action = new SystemQueueAction();
                             action.appendEffect(

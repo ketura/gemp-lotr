@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -48,9 +48,9 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(DefaultGame game) {
-        final List<? extends PhysicalCard> deck = game.getGameState().getDeck(_deckId);
+        final List<? extends LotroPhysicalCard> deck = game.getGameState().getDeck(_deckId);
         int count = Math.min(deck.size(), _count);
-        Set<PhysicalCard> cards = new HashSet<>(deck.subList(0, count));
+        Set<LotroPhysicalCard> cards = new HashSet<>(deck.subList(0, count));
 
         game.getGameState().sendMessage(_playerId + " reorders top " + count + " cards of draw deck");
 
@@ -61,18 +61,18 @@ public class ReorderTopCardsOfDeckEffect extends AbstractSubActionEffect {
     }
 
     private class ChooseAndPutNextCardFromDeckOnTopOfDeck extends ChooseArbitraryCardsEffect {
-        private final Collection<PhysicalCard> _remainingCards;
+        private final Collection<LotroPhysicalCard> _remainingCards;
         private final CostToEffectAction _subAction;
 
-        public ChooseAndPutNextCardFromDeckOnTopOfDeck(CostToEffectAction subAction, Collection<PhysicalCard> remainingCards) {
+        public ChooseAndPutNextCardFromDeckOnTopOfDeck(CostToEffectAction subAction, Collection<LotroPhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on top of the deck", remainingCards, 1, 1);
             _subAction = subAction;
             _remainingCards = remainingCards;
         }
 
         @Override
-        protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> selectedCards) {
-            for (PhysicalCard selectedCard : selectedCards) {
+        protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> selectedCards) {
+            for (LotroPhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
                         new PutCardFromDeckOnTopOfDeckEffect(_playerId, selectedCard, false));
                 _remainingCards.remove(selectedCard);

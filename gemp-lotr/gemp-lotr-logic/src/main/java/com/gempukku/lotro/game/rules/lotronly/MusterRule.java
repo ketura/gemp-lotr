@@ -1,11 +1,11 @@
 package com.gempukku.lotro.game.rules.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.effects.ChooseAndDiscardCardsFromHandEffect;
@@ -33,7 +33,7 @@ public class MusterRule {
                         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
                                 && game.getGameState().getHand(playerId).size() > 0) {
-                            PhysicalCard firstMuster = Filters.findFirstActive(game, Filters.owner(playerId), Keyword.MUSTER);
+                            LotroPhysicalCard firstMuster = Filters.findFirstActive(game, Filters.owner(playerId), Keyword.MUSTER);
                             if (firstMuster != null) {
                                 final OptionalTriggerAction action = new OptionalTriggerAction(firstMuster);
                                 action.setTriggerIdentifier("muster-"+playerId);
@@ -42,12 +42,12 @@ public class MusterRule {
                                 ChooseAndDiscardCardsFromHandEffect effect = new ChooseAndDiscardCardsFromHandEffect(action, playerId, false,
                                         new ConstantEvaluator(0), new Evaluator() {
                                     @Override
-                                    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
+                                    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
                                         return Filters.filterActive(game, Filters.owner(playerId), Keyword.MUSTER).size();
                                     }
                                 }) {
                                     @Override
-                                    protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
+                                    protected void cardsBeingDiscardedCallback(Collection<LotroPhysicalCard> cardsBeingDiscarded) {
                                         if (cardsBeingDiscarded.size() > 0)
                                             action.appendEffect(
                                                     new DrawCardsEffect(action, playerId, cardsBeingDiscarded.size()));

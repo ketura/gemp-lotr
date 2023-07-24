@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.timing.processes.pregame.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.timing.PlayerOrder;
@@ -29,10 +29,10 @@ public class SetupSoloAdventureGameProcess implements GameProcess {
         _playerOrderFeedback.setPlayerOrder(new PlayerOrder(Collections.singletonList(_player)), _player);
         final GameState gameState = game.getGameState();
         try {
-            final PhysicalCard adventureCard = gameState.createPhysicalCard(_player, game.getLotroCardBlueprintLibrary(), _adventureCard);
+            final LotroPhysicalCard adventureCard = gameState.createPhysicalCard(_player, game.getLotroCardBlueprintLibrary(), _adventureCard);
             gameState.addCardToZone(game, adventureCard, Zone.SUPPORT);
 
-            final PhysicalCard startingSite = gameState.createPhysicalCard("AI", game.getLotroCardBlueprintLibrary(), _startingSite);
+            final LotroPhysicalCard startingSite = gameState.createPhysicalCard("AI", game.getLotroCardBlueprintLibrary(), _startingSite);
             startingSite.setSiteNumber(1);
             gameState.addCardToZone(game, startingSite, Zone.ADVENTURE_PATH);
 

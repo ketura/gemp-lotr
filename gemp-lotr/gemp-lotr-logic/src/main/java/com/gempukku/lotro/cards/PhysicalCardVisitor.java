@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 
 public interface PhysicalCardVisitor {
-    public boolean visitPhysicalCard(PhysicalCard physicalCard);
+    public boolean visitPhysicalCard(LotroPhysicalCard physicalCard);
 }

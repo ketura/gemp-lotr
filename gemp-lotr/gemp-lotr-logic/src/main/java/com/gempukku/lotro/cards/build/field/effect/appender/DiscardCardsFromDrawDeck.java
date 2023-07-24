@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.game.effects.Effect;
@@ -36,9 +36,9 @@ public class DiscardCardsFromDrawDeck implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsToDiscard = actionContext.getCardsFromMemory(memorize);
+                        final Collection<? extends LotroPhysicalCard> cardsToDiscard = actionContext.getCardsFromMemory(memorize);
                         List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard physicalCard : cardsToDiscard) {
+                        for (LotroPhysicalCard physicalCard : cardsToDiscard) {
                             result.add(new DiscardCardFromDeckEffect(physicalCard));
                         }
 

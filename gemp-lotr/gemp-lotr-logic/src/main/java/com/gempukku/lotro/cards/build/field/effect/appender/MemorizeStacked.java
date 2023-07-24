@@ -7,9 +7,9 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.Effect;
@@ -40,10 +40,10 @@ public class MemorizeStacked implements EffectAppenderProducer {
                     protected void doPlayEffect(DefaultGame game) {
                         final Filterable filterable = filterSource.getFilterable(actionContext);
                         final Filterable onFilterable = onFilterSource.getFilterable(actionContext);
-                        final Collection<PhysicalCard> cardsWithStack = Filters.filterActive(game, onFilterable);
+                        final Collection<LotroPhysicalCard> cardsWithStack = Filters.filterActive(game, onFilterable);
 
-                        List<PhysicalCard> cardsToMemorize = new LinkedList<>();
-                        for (PhysicalCard cardWithStack : cardsWithStack)
+                        List<LotroPhysicalCard> cardsToMemorize = new LinkedList<>();
+                        for (LotroPhysicalCard cardWithStack : cardsWithStack)
                             cardsToMemorize.addAll(Filters.filter(game.getGameState().getStackedCards(cardWithStack), game, filterable));
                         actionContext.setCardMemory(memory, cardsToMemorize);
                     }

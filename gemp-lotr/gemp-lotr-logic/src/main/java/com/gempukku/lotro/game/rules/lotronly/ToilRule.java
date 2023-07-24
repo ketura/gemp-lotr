@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.rules.lotronly;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.discount.ToilDiscountEffect;
@@ -21,7 +21,7 @@ public class ToilRule {
         modifiersLogic.addAlwaysOnModifier(
                 new AbstractModifier(null, "Toil discount", Keyword.TOIL, ModifierEffect.POTENTIAL_DISCOUNT_MODIFIER) {
                     @Override
-                    public int getPotentialDiscount(DefaultGame game, PhysicalCard discountCard) {
+                    public int getPotentialDiscount(DefaultGame game, LotroPhysicalCard discountCard) {
                         int toilCount = game.getModifiersQuerying().getKeywordCount(game, discountCard, Keyword.TOIL);
                         if (toilCount > 0)
                             return toilCount * Filters.countActive(game, Filters.owner(discountCard.getOwner()),
@@ -31,7 +31,7 @@ public class ToilRule {
                     }
 
                     @Override
-                    public void appendPotentialDiscounts(DefaultGame game, CostToEffectAction action, PhysicalCard card) {
+                    public void appendPotentialDiscounts(DefaultGame game, CostToEffectAction action, LotroPhysicalCard card) {
                         int toilCount = game.getModifiersQuerying().getKeywordCount(game, card, Keyword.TOIL);
                         if (toilCount > 0)
                             action.appendPotentialDiscount(

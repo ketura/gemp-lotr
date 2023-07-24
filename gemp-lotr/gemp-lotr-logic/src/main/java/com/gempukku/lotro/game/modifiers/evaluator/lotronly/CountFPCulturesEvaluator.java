@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.modifiers.evaluator.lotronly;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
@@ -13,7 +13,7 @@ public class CountFPCulturesEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
         return LotroGameUtils.getSpottableFPCulturesCount(game, _playerId);
     }
 }

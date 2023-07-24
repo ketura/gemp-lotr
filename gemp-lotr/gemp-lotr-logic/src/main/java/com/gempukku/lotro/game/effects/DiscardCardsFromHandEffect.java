@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -12,12 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DiscardCardsFromHandEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerId;
-    private final Collection<? extends PhysicalCard> _cards;
+    private final Collection<? extends LotroPhysicalCard> _cards;
     private final boolean _forced;
 
-    public DiscardCardsFromHandEffect(PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, boolean forced) {
+    public DiscardCardsFromHandEffect(LotroPhysicalCard source, String playerId, Collection<? extends LotroPhysicalCard> cards, boolean forced) {
         _source = source;
         _playerId = playerId;
         _cards = cards;
@@ -36,7 +36,7 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(DefaultGame game) {
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() != Zone.HAND)
                 return false;
         }
@@ -50,8 +50,8 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
         if (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source)) {
             GameState gameState = game.getGameState();
 
-            Set<PhysicalCard> discardedCards = new HashSet<>();
-            for (PhysicalCard card : _cards)
+            Set<LotroPhysicalCard> discardedCards = new HashSet<>();
+            for (LotroPhysicalCard card : _cards)
                 if (card.getZone() == Zone.HAND)
                     discardedCards.add(card);
 
@@ -61,7 +61,7 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
             if (_source != null)
                 sourcePlayer = _source.getOwner();
             gameState.removeCardsFromZone(sourcePlayer, discardedCards);
-            for (PhysicalCard card : discardedCards) {
+            for (LotroPhysicalCard card : discardedCards) {
                 gameState.addCardToZone(game, card, Zone.DISCARD);
                 game.getActionsEnvironment().emitEffectResult(new DiscardCardFromHandResult(_source, card, _playerId, _forced));
             }

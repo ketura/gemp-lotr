@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -30,7 +30,7 @@ public class AppendCardIdsToWhileInZone implements EffectAppenderProducer {
                         String value = (String) actionContext.getSource().getWhileInZoneData();
                         if (value == null)
                             value = "";
-                        for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                        for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                             value += "," + physicalCard.getCardId();
                         }
                         actionContext.getSource().setWhileInZoneData(value);

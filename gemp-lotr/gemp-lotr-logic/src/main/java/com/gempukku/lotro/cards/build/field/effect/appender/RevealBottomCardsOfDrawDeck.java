@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.RevealBottomCardsOfDrawDeckEffect;
 import com.gempukku.lotro.game.effects.Effect;
@@ -41,7 +41,7 @@ public class RevealBottomCardsOfDrawDeck implements EffectAppenderProducer {
 
                 return new RevealBottomCardsOfDrawDeckEffect(actionContext.getSource(), deckId, count) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                    protected void cardsRevealed(List<LotroPhysicalCard> revealedCards) {
                         if (memorize != null)
                             actionContext.setCardMemory(memorize, revealedCards);
                     }

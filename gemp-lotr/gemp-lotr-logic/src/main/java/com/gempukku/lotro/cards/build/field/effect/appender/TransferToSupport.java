@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.TransferToSupportEffect;
 import com.gempukku.lotro.game.effects.Effect;
@@ -32,7 +32,7 @@ public class TransferToSupport implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> transferCard = actionContext.getCardsFromMemory("_temp1");
+                        final Collection<? extends LotroPhysicalCard> transferCard = actionContext.getCardsFromMemory("_temp1");
                         if (transferCard.isEmpty())
                             return null;
 

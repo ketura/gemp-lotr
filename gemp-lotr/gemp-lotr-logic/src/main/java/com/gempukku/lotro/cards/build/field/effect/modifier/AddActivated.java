@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.DefaultActionSource;
 import com.gempukku.lotro.cards.build.field.effect.EffectUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppender;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -77,7 +77,7 @@ public class AddActivated implements ModifierSourceProducer {
             public Modifier getModifier(ActionContext actionContext) {
                 return new AddActionToCardModifier(actionContext.getSource(), null, filterableSource.getFilterable(actionContext)) {
                     @Override
-                    public List<? extends ActivateCardAction> getExtraPhaseAction(DefaultGame game, PhysicalCard card) {
+                    public List<? extends ActivateCardAction> getExtraPhaseAction(DefaultGame game, LotroPhysicalCard card) {
                         LinkedList<ActivateCardAction> result = new LinkedList<>();
                         for (ActionSource inPlayPhaseAction : actionSources) {
                             DefaultActionContext actionContext = new DefaultActionContext(card.getOwner(), game, card, null, null);
@@ -92,7 +92,7 @@ public class AddActivated implements ModifierSourceProducer {
                     }
 
                     @Override
-                    protected ActivateCardAction createExtraPhaseAction(DefaultGame game, PhysicalCard matchingCard) {
+                    protected ActivateCardAction createExtraPhaseAction(DefaultGame game, LotroPhysicalCard matchingCard) {
                         return null;
                     }
                 };

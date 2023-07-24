@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.PutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -18,10 +18,10 @@ public class ChooseAndPutCardFromDiscardOnBottomOfDeckEffect extends ChooseCards
     }
 
     @Override
-    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
         if (cards.size() > 0) {
             SubAction subAction = new SubAction(_action);
-            for (PhysicalCard card : cards)
+            for (LotroPhysicalCard card : cards)
                 subAction.appendEffect(new PutCardFromDiscardOnBottomOfDeckEffect(card));
             game.getActionsEnvironment().addActionToStack(subAction);
         }

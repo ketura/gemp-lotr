@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.rules.tribbles;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -8,11 +8,11 @@ import com.gempukku.lotro.game.actions.tribbles.TribblesPlayPermanentAction;
 import com.gempukku.lotro.game.rules.PlayUtils;
 
 public class TribblesPlayUtils extends PlayUtils {
-    private static Zone getPlayToZone(PhysicalCard card) {
+    private static Zone getPlayToZone(LotroPhysicalCard card) {
         return Zone.PLAY_PILE;
     }
 
-    public static CostToEffectAction getPlayCardAction(DefaultGame game, PhysicalCard card,
+    public static CostToEffectAction getPlayCardAction(DefaultGame game, LotroPhysicalCard card,
                                                        boolean ignoreRoamingPenalty) {
         TribblesPlayPermanentAction action =
                 new TribblesPlayPermanentAction(card, getPlayToZone(card));
@@ -21,7 +21,7 @@ public class TribblesPlayUtils extends PlayUtils {
         return action;
     }
 
-    public static boolean checkPlayRequirements(DefaultGame game, PhysicalCard card) {
+    public static boolean checkPlayRequirements(DefaultGame game, LotroPhysicalCard card) {
 
         // Check if card's own play requirements are met
         if (!card.getBlueprint().checkPlayRequirements(game, card))

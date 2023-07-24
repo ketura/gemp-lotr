@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -12,15 +12,15 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class RevealCardsFromYourHandEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _handPlayerId;
-    private final Collection<? extends PhysicalCard> _cards;
+    private final Collection<? extends LotroPhysicalCard> _cards;
 
-    public RevealCardsFromYourHandEffect(PhysicalCard source, String handPlayerId, PhysicalCard card) {
+    public RevealCardsFromYourHandEffect(LotroPhysicalCard source, String handPlayerId, LotroPhysicalCard card) {
         this(source, handPlayerId, Collections.singleton(card));
     }
 
-    public RevealCardsFromYourHandEffect(PhysicalCard source, String handPlayerId, Collection<? extends PhysicalCard> cards) {
+    public RevealCardsFromYourHandEffect(LotroPhysicalCard source, String handPlayerId, Collection<? extends LotroPhysicalCard> cards) {
         _source = source;
         _handPlayerId = handPlayerId;
         _cards = cards;
@@ -38,7 +38,7 @@ public class RevealCardsFromYourHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(DefaultGame game) {
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() != Zone.HAND)
                 return false;
         }
@@ -64,7 +64,7 @@ public class RevealCardsFromYourHandEffect extends AbstractEffect {
                     });
         }
 
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _handPlayerId, card));
         }
 

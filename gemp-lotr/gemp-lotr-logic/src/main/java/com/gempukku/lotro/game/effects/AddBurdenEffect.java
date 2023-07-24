@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
@@ -10,21 +10,21 @@ import com.gempukku.lotro.game.timing.results.AddBurdenResult;
 
 public class AddBurdenEffect extends AbstractEffect implements Preventable {
     private final String _performingPlayer;
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final Evaluator _count;
     private int _prevented;
 
-    public AddBurdenEffect(String performingPlayer, PhysicalCard source, int count) {
+    public AddBurdenEffect(String performingPlayer, LotroPhysicalCard source, int count) {
         this(performingPlayer, source, new ConstantEvaluator(count));
     }
 
-    public AddBurdenEffect(String performingPlayer, PhysicalCard source, Evaluator count) {
+    public AddBurdenEffect(String performingPlayer, LotroPhysicalCard source, Evaluator count) {
         _performingPlayer = performingPlayer;
         _source = source;
         _count = count;
     }
 
-    public PhysicalCard getSource() {
+    public LotroPhysicalCard getSource() {
         return _source;
     }
 

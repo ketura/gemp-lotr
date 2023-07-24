@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -43,7 +43,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final DefaultGame game) {
-        final Collection<PhysicalCard> selectableCards = Filters.filter(game.getGameState().getHand(_playerId), game, _filter);
+        final Collection<LotroPhysicalCard> selectableCards = Filters.filter(game.getGameState().getHand(_playerId), game, _filter);
         int maximum = Math.min(_maximum, selectableCards.size());
 
         boolean success = selectableCards.size() >= _minimum;
@@ -57,7 +57,7 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
                     new CardsSelectionDecision(1, getText(game), selectableCards, minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            Set<LotroPhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             cardsSelected(game, selectedCards);
                         }
                     }
@@ -67,5 +67,5 @@ public abstract class ChooseCardsFromHandEffect extends AbstractEffect {
         return new FullEffectResult(success);
     }
 
-    protected abstract void cardsSelected(DefaultGame game, Collection<PhysicalCard> selectedCards);
+    protected abstract void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> selectedCards);
 }

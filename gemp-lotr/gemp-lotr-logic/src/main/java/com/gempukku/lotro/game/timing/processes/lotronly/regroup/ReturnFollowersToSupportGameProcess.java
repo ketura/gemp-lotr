@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.regroup;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.effects.UnrespondableEffect;
@@ -25,9 +25,9 @@ public class ReturnFollowersToSupportGameProcess implements GameProcess {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(DefaultGame game) {
-                        Collection<PhysicalCard> followers = Filters.filterActive(game, CardType.FOLLOWER, Zone.ATTACHED);
+                        Collection<LotroPhysicalCard> followers = Filters.filterActive(game, CardType.FOLLOWER, Zone.ATTACHED);
                         game.getGameState().removeCardsFromZone(game.getGameState().getCurrentPlayerId(), followers);
-                        for (PhysicalCard attachedFollowers : followers)
+                        for (LotroPhysicalCard attachedFollowers : followers)
                             game.getGameState().addCardToZone(game, attachedFollowers, Zone.SUPPORT);
                     }
                 });

@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.effects;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.actions.Action;
@@ -41,11 +41,11 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     @Override
-    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++) {
-            PhysicalCard source = (_action.getActionSource() != null) ? _action.getActionSource() : null;
-            WoundCharactersEffect woundEffect = new WoundCharactersEffect(source, cards.toArray(new PhysicalCard[cards.size()]));
+            LotroPhysicalCard source = (_action.getActionSource() != null) ? _action.getActionSource() : null;
+            WoundCharactersEffect woundEffect = new WoundCharactersEffect(source, cards.toArray(new LotroPhysicalCard[cards.size()]));
             if (_sourceText != null)
                 woundEffect.setSourceText(_sourceText);
             subAction.appendEffect(woundEffect);
@@ -54,7 +54,7 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
         woundedCardsCallback(cards);
     }
 
-    protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
+    protected void woundedCardsCallback(Collection<LotroPhysicalCard> cards) {
 
     }
 }

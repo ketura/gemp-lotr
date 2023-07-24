@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -13,18 +13,18 @@ import com.gempukku.lotro.game.timing.results.KilledResult;
 import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
-    private final Collection<? extends PhysicalCard> _cards;
+    private final Collection<? extends LotroPhysicalCard> _cards;
     private final Cause _cause;
 
     public enum Cause {
         WOUNDS, OVERWHELM, CARD_EFFECT
     }
 
-    public KillEffect(PhysicalCard card, Cause cause) {
+    public KillEffect(LotroPhysicalCard card, Cause cause) {
         this(Collections.singleton(card), cause);
     }
 
-    public KillEffect(Collection<? extends PhysicalCard> cards, Cause cause) {
+    public KillEffect(Collection<? extends LotroPhysicalCard> cards, Cause cause) {
         _cards = cards;
         _cause = cause;
     }
@@ -38,9 +38,9 @@ public class KillEffect extends AbstractSuccessfulEffect {
         return Effect.Type.BEFORE_KILLED;
     }
 
-    public List<PhysicalCard> getCharactersToBeKilled() {
-        List<PhysicalCard> result = new LinkedList<>();
-        for (PhysicalCard card : _cards) {
+    public List<LotroPhysicalCard> getCharactersToBeKilled() {
+        List<LotroPhysicalCard> result = new LinkedList<>();
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() != null && card.getZone().isInPlay())
                 result.add(card);
         }
@@ -50,29 +50,29 @@ public class KillEffect extends AbstractSuccessfulEffect {
 
     @Override
     public String getText(DefaultGame game) {
-        List<PhysicalCard> cards = getCharactersToBeKilled();
+        List<LotroPhysicalCard> cards = getCharactersToBeKilled();
         return "Kill - " + getAppendedTextNames(cards);
     }
 
     @Override
     public void playEffect(DefaultGame game) {
-        List<PhysicalCard> toBeKilled = getCharactersToBeKilled();
+        List<LotroPhysicalCard> toBeKilled = getCharactersToBeKilled();
 
         GameState gameState = game.getGameState();
 
-        for (PhysicalCard card : toBeKilled)
+        for (LotroPhysicalCard card : toBeKilled)
             gameState.sendMessage(GameUtils.getCardLink(card) + " gets killed");
 
         // For result
-        Set<PhysicalCard> discardedCards = new HashSet<>();
-        Set<PhysicalCard> killedCards = new HashSet<>();
+        Set<LotroPhysicalCard> discardedCards = new HashSet<>();
+        Set<LotroPhysicalCard> killedCards = new HashSet<>();
 
         // Prepare the moves
-        Set<PhysicalCard> toRemoveFromZone = new HashSet<>();
-        Set<PhysicalCard> toAddToDeadPile = new HashSet<>();
-        Set<PhysicalCard> toAddToDiscard = new HashSet<>();
+        Set<LotroPhysicalCard> toRemoveFromZone = new HashSet<>();
+        Set<LotroPhysicalCard> toAddToDeadPile = new HashSet<>();
+        Set<LotroPhysicalCard> toAddToDiscard = new HashSet<>();
 
-        for (PhysicalCard card : toBeKilled) {
+        for (LotroPhysicalCard card : toBeKilled) {
             toRemoveFromZone.add(card);
 
             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
@@ -90,17 +90,17 @@ public class KillEffect extends AbstractSuccessfulEffect {
 
         gameState.removeCardsFromZone(null, toRemoveFromZone);
 
-        for (PhysicalCard deadCard : toAddToDeadPile)
+        for (LotroPhysicalCard deadCard : toAddToDeadPile)
             gameState.addCardToZone(game, deadCard, Zone.DEAD);
 
-        for (PhysicalCard discardedCard : toAddToDiscard)
+        for (LotroPhysicalCard discardedCard : toAddToDiscard)
             gameState.addCardToZone(game, discardedCard, Zone.DISCARD);
 
         if (killedCards.size() > 0)
             game.getActionsEnvironment().emitEffectResult(new KilledResult(killedCards, _cause));
-        for (PhysicalCard killedCard : killedCards)
+        for (LotroPhysicalCard killedCard : killedCards)
             game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
-        for (PhysicalCard discardedCard : discardedCards)
+        for (LotroPhysicalCard discardedCard : discardedCards)
             game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, null, discardedCard));
 
     }

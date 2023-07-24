@@ -1,7 +1,7 @@
 package com.gempukku.lotro.communication;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.state.GameStats;
 
@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Set;
 
 public interface GameStateListener {
-    public void cardCreated(PhysicalCard card);
-    public void cardCreated(PhysicalCard card, boolean overridePlayerVisibility);
+    public void cardCreated(LotroPhysicalCard card);
+    public void cardCreated(LotroPhysicalCard card, boolean overridePlayerVisibility);
 
-    public void cardMoved(PhysicalCard card);
+    public void cardMoved(LotroPhysicalCard card);
 
-    public void cardsRemoved(String playerPerforming, Collection<PhysicalCard> cards);
+    public void cardsRemoved(String playerPerforming, Collection<LotroPhysicalCard> cards);
 
     public void initializeBoard(List<String> playerIds, boolean discardIsPublic);
 
@@ -27,33 +27,33 @@ public interface GameStateListener {
 
     public void setCurrentPhase(String currentPhase);
 
-    public void addAssignment(PhysicalCard fp, Set<PhysicalCard> minions);
+    public void addAssignment(LotroPhysicalCard fp, Set<LotroPhysicalCard> minions);
 
-    public void removeAssignment(PhysicalCard fp);
+    public void removeAssignment(LotroPhysicalCard fp);
 
-    public void startSkirmish(PhysicalCard fp, Set<PhysicalCard> minions);
+    public void startSkirmish(LotroPhysicalCard fp, Set<LotroPhysicalCard> minions);
 
-    public void addToSkirmish(PhysicalCard card);
+    public void addToSkirmish(LotroPhysicalCard card);
 
-    public void removeFromSkirmish(PhysicalCard card);
+    public void removeFromSkirmish(LotroPhysicalCard card);
 
     public void finishSkirmish();
 
-    public void addTokens(PhysicalCard card, Token token, int count);
+    public void addTokens(LotroPhysicalCard card, Token token, int count);
 
-    public void removeTokens(PhysicalCard card, Token token, int count);
+    public void removeTokens(LotroPhysicalCard card, Token token, int count);
 
     public void sendMessage(String message);
 
-    public void setSite(PhysicalCard card);
+    public void setSite(LotroPhysicalCard card);
 
     public void sendGameStats(GameStats gameStats);
 
-    public void cardAffectedByCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCard);
+    public void cardAffectedByCard(String playerPerforming, LotroPhysicalCard card, Collection<LotroPhysicalCard> affectedCard);
 
-    public void eventPlayed(PhysicalCard card);
+    public void eventPlayed(LotroPhysicalCard card);
 
-    public void cardActivated(String playerPerforming, PhysicalCard card);
+    public void cardActivated(String playerPerforming, LotroPhysicalCard card);
 
     public void decisionRequired(String playerId, AwaitingDecision awaitingDecision);
 

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.timing.processes.turn.tribbles;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.Action;
@@ -21,8 +21,8 @@ public class TribblesPlayerDrawsAndCanPlayProcess implements GameProcess {
     @Override
     public void process(final DefaultGame game) {
         game.getGameState().playerDrawsCard(_playerId);
-        List<? extends PhysicalCard> playerHand = game.getGameState().getHand(_playerId);
-        PhysicalCard cardDrawn = playerHand.get(playerHand.size() - 1);
+        List<? extends LotroPhysicalCard> playerHand = game.getGameState().getHand(_playerId);
+        LotroPhysicalCard cardDrawn = playerHand.get(playerHand.size() - 1);
         final List<Action> playableActions = new LinkedList<>();
         if (game.checkPlayRequirements(cardDrawn)) {
             TribblesPlayPermanentAction action = new TribblesPlayPermanentAction(cardDrawn, Zone.PLAY_PILE);

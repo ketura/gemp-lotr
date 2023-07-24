@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.modifiers.evaluator;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class CardMatchesEvaluator implements Evaluator {
@@ -23,7 +23,7 @@ public class CardMatchesEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard self) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard self) {
         return Filters.and(_filters).accepts(game, self) ? _matches.evaluateExpression(game, self) : _default;
     }
 }

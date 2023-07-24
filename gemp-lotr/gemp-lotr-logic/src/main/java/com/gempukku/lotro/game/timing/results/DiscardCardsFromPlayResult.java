@@ -1,14 +1,14 @@
 package com.gempukku.lotro.game.timing.results;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.effects.EffectResult;
 
 public class DiscardCardsFromPlayResult extends EffectResult {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _performingPlayer;
-    private final PhysicalCard _card;
+    private final LotroPhysicalCard _card;
 
-    public DiscardCardsFromPlayResult(PhysicalCard source, String performingPlayer, PhysicalCard card) {
+    public DiscardCardsFromPlayResult(LotroPhysicalCard source, String performingPlayer, LotroPhysicalCard card) {
         super(EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY);
         _source = source;
         _performingPlayer = performingPlayer;
@@ -19,11 +19,11 @@ public class DiscardCardsFromPlayResult extends EffectResult {
         return _performingPlayer;
     }
 
-    public PhysicalCard getDiscardedCard() {
+    public LotroPhysicalCard getDiscardedCard() {
         return _card;
     }
 
-    public PhysicalCard getSource() {
+    public LotroPhysicalCard getSource() {
         return _source;
     }
 }

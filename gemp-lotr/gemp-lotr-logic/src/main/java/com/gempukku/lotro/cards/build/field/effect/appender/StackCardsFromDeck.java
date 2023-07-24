@@ -9,7 +9,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.game.effects.StackCardFromDeckEffect;
@@ -40,12 +40,12 @@ public class StackCardsFromDeck implements EffectAppenderProducer {
                 new DelayedAppender() {
             @Override
             protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                final PhysicalCard card = actionContext.getCardFromMemory("_temp1");
+                final LotroPhysicalCard card = actionContext.getCardFromMemory("_temp1");
                 if (card != null) {
-                    final Collection<? extends PhysicalCard> cardsInDeck = actionContext.getCardsFromMemory("_temp2");
+                    final Collection<? extends LotroPhysicalCard> cardsInDeck = actionContext.getCardsFromMemory("_temp2");
 
                     List<Effect> result = new LinkedList<>();
-                    for (PhysicalCard physicalCard : cardsInDeck) {
+                    for (LotroPhysicalCard physicalCard : cardsInDeck) {
                         result.add(new StackCardFromDeckEffect(physicalCard, card));
                     }
 

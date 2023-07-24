@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.actions.tribbles;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.effects.ActivateCardEffect;
@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.rules.GameUtils;
 
 public class ActivateTribblePowerAction extends ActivateCardAction {
-    public ActivateTribblePowerAction(PhysicalCard physicalCard) {
+    public ActivateTribblePowerAction(LotroPhysicalCard physicalCard) {
         super(physicalCard);
         setText("Activate " + GameUtils.getFullName(_physicalCard));
     }

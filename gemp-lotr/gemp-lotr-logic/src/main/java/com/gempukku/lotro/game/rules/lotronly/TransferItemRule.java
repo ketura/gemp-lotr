@@ -9,7 +9,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.lotronly.TransferPermanentAction;
 import com.gempukku.lotro.game.actions.Action;
@@ -32,13 +32,13 @@ public class TransferItemRule {
                     public List<? extends Action> getPhaseActions(String playerId, DefaultGame game) {
                         if (LotroGameUtils.isFP(game, playerId) && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
                             List<Action> result = new LinkedList<>();
-                            for (PhysicalCard card : Filters.filter(game.getGameState().getInPlay(), game, getTransferableCardsFilter(playerId))) {
+                            for (LotroPhysicalCard card : Filters.filter(game.getGameState().getInPlay(), game, getTransferableCardsFilter(playerId))) {
                                 if (game.getModifiersQuerying().canBeTransferred(game, card)) {
                                     final Filter validTargetFilter = RuleUtils.getFullValidTargetFilter(card.getOwner(), game, card);
                                     if (Filters.countActive(game, validTargetFilter) > 0) {
                                         Filter validTransferFilter;
 
-                                        PhysicalCard attachedToCard = card.getAttachedTo();
+                                        LotroPhysicalCard attachedToCard = card.getAttachedTo();
                                         LotroCardBlueprint attachedTo = attachedToCard.getBlueprint();
                                         if (attachedTo.getCardType() == CardType.COMPANION) {
                                             validTransferFilter = Filters.and(validTargetFilter,
@@ -59,7 +59,7 @@ public class TransferItemRule {
                                                 Filters.not(card.getAttachedTo()),
                                                 new Filter() {
                                                     @Override
-                                                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                                                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                                         return game.getModifiersQuerying().canHaveTransferredOn(game, card, physicalCard);
                                                     }
                                                 });

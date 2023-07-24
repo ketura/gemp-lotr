@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.rules.tribbles;
 
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.game.actions.Action;
@@ -27,7 +27,7 @@ public class TribblesPlayCardRule {
                     public List<? extends Action> getPhaseActions(String playerId, DefaultGame game) {
                         if (GameUtils.isCurrentPlayer(game, playerId)) {
                             List<Action> result = new LinkedList<>();
-                            for (PhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game)) {
+                            for (LotroPhysicalCard card : Filters.filter(game.getGameState().getHand(playerId), game)) {
                                 if (game.checkPlayRequirements(card)) {
                                     TribblesPlayPermanentAction action = new TribblesPlayPermanentAction(card, Zone.PLAY_PILE);
                                     game.getModifiersQuerying().appendExtraCosts(game, action, card);

@@ -9,7 +9,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.PutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.game.effects.ShuffleDeckEffect;
@@ -38,9 +38,9 @@ public class PutCardsFromDeckIntoHand implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
+                        final Collection<? extends LotroPhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
                         List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard card : cards) {
+                        for (LotroPhysicalCard card : cards) {
                             result.add(
                                     new PutCardFromDeckIntoHandEffect(card, reveal));
                         }

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.game.effects.ExertCharactersEffect;
@@ -51,7 +51,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
             final int exertTimes = times;
             Filter filter = new Filter() {
                 @Override
-                public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                     return game.getModifiersQuerying().canBeExerted(game, _action.getActionSource(), physicalCard)
                             && game.getModifiersQuerying().getVitality(game, physicalCard) > exertTimes;
                 }
@@ -67,7 +67,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     protected Filter getExtraFilterForPlayabilityCheck(DefaultGame game) {
         return new Filter() {
             @Override
-            public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+            public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                 return game.getModifiersQuerying().canBeExerted(game, _action.getActionSource(), physicalCard)
                         && game.getModifiersQuerying().getVitality(game, physicalCard) > _times;
             }
@@ -75,13 +75,13 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     }
 
     @Override
-    protected final void cardsSelected(DefaultGame game, Collection<PhysicalCard> characters) {
+    protected final void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> characters) {
         _resultSubAction = new SubAction(_action);
         for (int i = 0; i < _times; i++) {
             final boolean first = (i==0);
-            final ExertCharactersEffect effect = new ExertCharactersEffect(_action, _action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])) {
+            final ExertCharactersEffect effect = new ExertCharactersEffect(_action, _action.getActionSource(), characters.toArray(new LotroPhysicalCard[characters.size()])) {
                 @Override
-                protected void forEachExertedByEffect(PhysicalCard physicalCard) {
+                protected void forEachExertedByEffect(LotroPhysicalCard physicalCard) {
                     if (first)
                         ChooseAndExertCharactersEffect.this.forEachCardExertedCallback(physicalCard);
                 }
@@ -94,11 +94,11 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
         cardsToBeExertedCallback(characters);
     }
 
-    protected void cardsToBeExertedCallback(Collection<PhysicalCard> characters) {
+    protected void cardsToBeExertedCallback(Collection<LotroPhysicalCard> characters) {
 
     }
 
-    protected void forEachCardExertedCallback(PhysicalCard character) {
+    protected void forEachCardExertedCallback(LotroPhysicalCard character) {
 
     }
 

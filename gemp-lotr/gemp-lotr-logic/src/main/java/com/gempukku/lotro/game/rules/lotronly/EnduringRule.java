@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.rules.lotronly;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.modifiers.StrengthModifier;
@@ -20,7 +20,7 @@ public class EnduringRule {
                 new StrengthModifier(null, Filters.and(Filters.wounded, Keyword.ENDURING), null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(DefaultGame game, PhysicalCard self) {
+                            public int evaluateExpression(DefaultGame game, LotroPhysicalCard self) {
                                 return 2 * game.getGameState().getWounds(self);
                             }
                         }));

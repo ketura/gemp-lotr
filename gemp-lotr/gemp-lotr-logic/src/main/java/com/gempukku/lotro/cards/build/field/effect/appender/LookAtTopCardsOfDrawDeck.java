@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.LookAtTopCardOfADeckEffect;
 import com.gempukku.lotro.game.effects.Effect;
@@ -41,7 +41,7 @@ public class LookAtTopCardsOfDrawDeck implements EffectAppenderProducer {
 
                 return new LookAtTopCardOfADeckEffect(actionContext.getPerformingPlayer(), count, deckId) {
                     @Override
-                    protected void cardsLookedAt(List<? extends PhysicalCard> cards) {
+                    protected void cardsLookedAt(List<? extends LotroPhysicalCard> cards) {
                         if (memorize != null)
                             actionContext.setCardMemory(memorize, cards);
                     }

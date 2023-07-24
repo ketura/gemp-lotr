@@ -1,14 +1,14 @@
 package com.gempukku.lotro.game.decisions;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 
 import java.util.*;
 
 public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecision {
-    private final List<PhysicalCard> _freeCharacters;
-    private final List<PhysicalCard> _minions;
+    private final List<LotroPhysicalCard> _freeCharacters;
+    private final List<LotroPhysicalCard> _minions;
 
-    public PlayerAssignMinionsDecision(int id, String text, Collection<PhysicalCard> freeCharacters, Collection<PhysicalCard> minions) {
+    public PlayerAssignMinionsDecision(int id, String text, Collection<LotroPhysicalCard> freeCharacters, Collection<LotroPhysicalCard> minions) {
         super(id, text, AwaitingDecisionType.ASSIGN_MINIONS);
         _freeCharacters = new LinkedList<>(freeCharacters);
         _minions = new LinkedList<>(minions);
@@ -16,24 +16,24 @@ public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecisi
         setParam("minions", getCardIds(_minions));
     }
 
-    protected Map<PhysicalCard, Set<PhysicalCard>> getAssignmentsBasedOnResponse(String response) throws DecisionResultInvalidException {
-        Map<PhysicalCard, Set<PhysicalCard>> assignments = new HashMap<>();
+    protected Map<LotroPhysicalCard, Set<LotroPhysicalCard>> getAssignmentsBasedOnResponse(String response) throws DecisionResultInvalidException {
+        Map<LotroPhysicalCard, Set<LotroPhysicalCard>> assignments = new HashMap<>();
         if (response.equals(""))
             return assignments;
 
-        Set<PhysicalCard> assignedMinions = new HashSet<>();
+        Set<LotroPhysicalCard> assignedMinions = new HashSet<>();
 
         try {
             String[] groups = response.split(",");
             for (String group : groups) {
                 String[] cardIds = group.split(" ");
-                PhysicalCard freeCard = getCardId(_freeCharacters, Integer.parseInt(cardIds[0]));
+                LotroPhysicalCard freeCard = getCardId(_freeCharacters, Integer.parseInt(cardIds[0]));
                 if (assignments.containsKey(freeCard))
                     throw new DecisionResultInvalidException();
 
-                Set<PhysicalCard> minions = new HashSet<>();
+                Set<LotroPhysicalCard> minions = new HashSet<>();
                 for (int i = 1; i < cardIds.length; i++) {
-                    PhysicalCard minion = getCardId(_minions, Integer.parseInt(cardIds[i]));
+                    LotroPhysicalCard minion = getCardId(_minions, Integer.parseInt(cardIds[i]));
                     if (assignedMinions.contains(minion))
                         throw new DecisionResultInvalidException();
                     minions.add(minion);
@@ -49,15 +49,15 @@ public abstract class PlayerAssignMinionsDecision extends AbstractAwaitingDecisi
         return assignments;
     }
 
-    private PhysicalCard getCardId(List<PhysicalCard> physicalCards, int cardId) throws DecisionResultInvalidException {
-        for (PhysicalCard physicalCard : physicalCards) {
+    private LotroPhysicalCard getCardId(List<LotroPhysicalCard> physicalCards, int cardId) throws DecisionResultInvalidException {
+        for (LotroPhysicalCard physicalCard : physicalCards) {
             if (physicalCard.getCardId() == cardId)
                 return physicalCard;
         }
         throw new DecisionResultInvalidException();
     }
 
-    private String[] getCardIds(List<PhysicalCard> cards) {
+    private String[] getCardIds(List<LotroPhysicalCard> cards) {
         String[] result = new String[cards.size()];
         for (int i = 0; i < cards.size(); i++)
             result[i] = String.valueOf(cards.get(i).getCardId());

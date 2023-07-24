@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -9,17 +9,17 @@ import com.gempukku.lotro.game.rules.GameUtils;
 import java.util.Arrays;
 
 public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
-    private final PhysicalCard[] physicalCards;
+    private final LotroPhysicalCard[] physicalCards;
     private final boolean _reveal;
 
-    public PutCardFromHandOnBottomOfDeckEffect(boolean reveal, PhysicalCard... physicalCard) {
+    public PutCardFromHandOnBottomOfDeckEffect(boolean reveal, LotroPhysicalCard... physicalCard) {
         physicalCards = physicalCard;
         _reveal = reveal;
     }
 
     @Override
     public boolean isPlayableInFull(DefaultGame game) {
-        for (PhysicalCard card : physicalCards) {
+        for (LotroPhysicalCard card : physicalCards) {
             if (card.getZone() != Zone.HAND)
                 return false;
         }
@@ -42,7 +42,7 @@ public class PutCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             GameState gameState = game.getGameState();
             gameState.removeCardsFromZone(physicalCards[0].getOwner(), Arrays.asList(physicalCards));
-            for (PhysicalCard physicalCard : physicalCards) {
+            for (LotroPhysicalCard physicalCard : physicalCards) {
                 if(_reveal) {
                     gameState.sendMessage(physicalCard.getOwner() + " puts " + GameUtils.getCardLink(physicalCard) + " from from hand on bottom of their deck");
                 }

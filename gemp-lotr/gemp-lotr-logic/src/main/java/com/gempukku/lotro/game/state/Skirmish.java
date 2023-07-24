@@ -1,22 +1,22 @@
 package com.gempukku.lotro.game.state;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Skirmish {
-    private PhysicalCard _fellowshipCharacter;
-    private final Set<PhysicalCard> _shadowCharacters;
+    private LotroPhysicalCard _fellowshipCharacter;
+    private final Set<LotroPhysicalCard> _shadowCharacters;
     private boolean _cancelled;
 
     private Evaluator _fpStrengthOverrideEvaluator;
     private Evaluator _shadowStrengthOverrideEvaluator;
 
-    private final Set<PhysicalCard> _removedFromSkirmish = new HashSet<>();
+    private final Set<LotroPhysicalCard> _removedFromSkirmish = new HashSet<>();
 
-    public Skirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
+    public Skirmish(LotroPhysicalCard fellowshipCharacter, Set<LotroPhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;
         _shadowCharacters = shadowCharacters;
     }
@@ -37,23 +37,23 @@ public class Skirmish {
         _shadowStrengthOverrideEvaluator = shadowStrengthOverrideEvaluator;
     }
 
-    public PhysicalCard getFellowshipCharacter() {
+    public LotroPhysicalCard getFellowshipCharacter() {
         return _fellowshipCharacter;
     }
 
-    public Set<PhysicalCard> getShadowCharacters() {
+    public Set<LotroPhysicalCard> getShadowCharacters() {
         return _shadowCharacters;
     }
 
-    public void setFellowshipCharacter(PhysicalCard fellowshipCharacter) {
+    public void setFellowshipCharacter(LotroPhysicalCard fellowshipCharacter) {
         _fellowshipCharacter = fellowshipCharacter;
     }
 
-    public void addRemovedFromSkirmish(PhysicalCard loser) {
+    public void addRemovedFromSkirmish(LotroPhysicalCard loser) {
         _removedFromSkirmish.add(loser);
     }
 
-    public Set<PhysicalCard> getRemovedFromSkirmish() {
+    public Set<LotroPhysicalCard> getRemovedFromSkirmish() {
         return _removedFromSkirmish;
     }
 

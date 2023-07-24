@@ -9,7 +9,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.Effect;
@@ -39,10 +39,10 @@ public class FilterCardsInMemory implements EffectAppenderProducer {
                     @Override
                     protected void doPlayEffect(DefaultGame game) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
-                        List<PhysicalCard> matchingCards = new LinkedList<>();
-                        List<PhysicalCard> notMatchingCards = new LinkedList<>();
-                        for (PhysicalCard physicalCard : cardsFromMemory) {
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        List<LotroPhysicalCard> matchingCards = new LinkedList<>();
+                        List<LotroPhysicalCard> notMatchingCards = new LinkedList<>();
+                        for (LotroPhysicalCard physicalCard : cardsFromMemory) {
                             if (Filters.and(filterable).accepts(game, physicalCard))
                                 matchingCards.add(physicalCard);
                             else

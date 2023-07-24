@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.ExertCharactersEffect;
@@ -38,13 +38,13 @@ public class PlaceNoWoundForExert implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
+                        final Collection<? extends LotroPhysicalCard> cards = actionContext.getCardsFromMemory("_temp");
                         final ExertCharactersEffect exertEffect = (ExertCharactersEffect) actionContext.getEffect();
 
                         return new UnrespondableEffect() {
                             @Override
                             protected void doPlayEffect(DefaultGame game) {
-                                for (PhysicalCard card : cards) {
+                                for (LotroPhysicalCard card : cards) {
                                     exertEffect.placeNoWoundOn(card);
                                 }
 

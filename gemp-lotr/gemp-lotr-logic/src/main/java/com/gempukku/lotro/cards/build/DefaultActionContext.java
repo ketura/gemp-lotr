@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.effects.EffectResult;
@@ -12,16 +12,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DefaultActionContext implements ActionContext {
-    private final Multimap<String, PhysicalCard> cardMemory = HashMultimap.create();
+    private final Multimap<String, LotroPhysicalCard> cardMemory = HashMultimap.create();
     private final Map<String, String> valueMemory = new HashMap<>();
 
     private final String performingPlayer;
     private final DefaultGame game;
-    private final PhysicalCard source;
+    private final LotroPhysicalCard source;
     private final EffectResult effectResult;
     private final Effect effect;
 
-    public DefaultActionContext(String performingPlayer, DefaultGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DefaultActionContext(String performingPlayer, DefaultGame game, LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
         this.performingPlayer = performingPlayer;
         this.game = game;
         this.source = source;
@@ -49,7 +49,7 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public void setCardMemory(String memory, PhysicalCard card) {
+    public void setCardMemory(String memory, LotroPhysicalCard card) {
         if(memory != null) {
             memory = memory.toLowerCase();
         }
@@ -59,7 +59,7 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public void setCardMemory(String memory, Collection<? extends PhysicalCard> cards) {
+    public void setCardMemory(String memory, Collection<? extends LotroPhysicalCard> cards) {
         if(memory != null) {
             memory = memory.toLowerCase();
         }
@@ -68,7 +68,7 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public Collection<? extends PhysicalCard> getCardsFromMemory(String memory) {
+    public Collection<? extends LotroPhysicalCard> getCardsFromMemory(String memory) {
         if(memory != null) {
             memory = memory.toLowerCase();
         }
@@ -76,11 +76,11 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public PhysicalCard getCardFromMemory(String memory) {
+    public LotroPhysicalCard getCardFromMemory(String memory) {
         if(memory != null) {
             memory = memory.toLowerCase();
         }
-        final Collection<PhysicalCard> physicalCards = cardMemory.get(memory);
+        final Collection<LotroPhysicalCard> physicalCards = cardMemory.get(memory);
         if (physicalCards.size() == 0)
             return null;
         if (physicalCards.size() != 1)
@@ -99,7 +99,7 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public PhysicalCard getSource() {
+    public LotroPhysicalCard getSource() {
         return source;
     }
 

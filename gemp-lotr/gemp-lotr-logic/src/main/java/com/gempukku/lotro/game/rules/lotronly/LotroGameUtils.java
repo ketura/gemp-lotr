@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.rules.lotronly;
 
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -132,7 +132,7 @@ public class LotroGameUtils extends GameUtils {
 
         final var cards = Filters.filterActive(game, Filters.and(filters, Filters.hasToken(token)));
 
-        for (PhysicalCard physicalCard : cards)
+        for (LotroPhysicalCard physicalCard : cards)
             tokensTotal += game.getGameState().getTokenCount(physicalCard, token);
 
         return tokensTotal;
@@ -144,7 +144,7 @@ public class LotroGameUtils extends GameUtils {
 
         final var cards = Filters.filterActive(game, Filters.and(filters, Filters.hasAnyCultureTokens()));
 
-        for (PhysicalCard physicalCard : cards) {
+        for (LotroPhysicalCard physicalCard : cards) {
             var tokens = game.getGameState().getTokens(physicalCard);
             for(var token : tokens.entrySet()) {
                 if(token.getKey().getCulture() != null) {
@@ -158,7 +158,7 @@ public class LotroGameUtils extends GameUtils {
 
     public static int getSpottableCulturesCount(DefaultGame game, Filterable... filters) {
         Set<Culture> cultures = new HashSet<>();
-        for (PhysicalCard physicalCard : Filters.filterActive(game, filters)) {
+        for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filters)) {
             final Culture culture = physicalCard.getBlueprint().getCulture();
             if (culture != null)
                 cultures.add(culture);
@@ -168,7 +168,7 @@ public class LotroGameUtils extends GameUtils {
 
     public static int getSpottableRacesCount(DefaultGame game, Filterable... filters) {
         Set<Race> races = new HashSet<>();
-        for (PhysicalCard physicalCard : Filters.filterActive(game, filters)) {
+        for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filters)) {
             final Race race = physicalCard.getBlueprint().getRace();
             if (race != null)
                 races.add(race);

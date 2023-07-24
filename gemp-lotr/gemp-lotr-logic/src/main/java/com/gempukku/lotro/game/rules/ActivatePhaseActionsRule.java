@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
 import com.gempukku.lotro.game.actions.Action;
@@ -26,7 +26,7 @@ public class ActivatePhaseActionsRule {
                     @Override
                     public List<? extends Action> getPhaseActions(String playerId, DefaultGame game) {
                         List<Action> result = new LinkedList<>();
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
+                        for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
                                 final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getPhaseActionsInPlay(playerId, game, activableCard);
                                 if (actions != null)
@@ -52,7 +52,7 @@ public class ActivatePhaseActionsRule {
                 Filters.and(CardType.SITE,
                         new Filter() {
                             @Override
-                            public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                            public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                 if (game.getGameState().getCurrentPhase().isRealPhase())
                                     return Filters.currentSite.accepts(game, physicalCard);
                                 return false;

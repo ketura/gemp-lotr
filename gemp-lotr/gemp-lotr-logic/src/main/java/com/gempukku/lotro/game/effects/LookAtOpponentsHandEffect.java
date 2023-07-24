@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
 
@@ -35,7 +35,7 @@ public class LookAtOpponentsHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId)) {
-            List<PhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
+            List<LotroPhysicalCard> opponentHand = new LinkedList<>(game.getGameState().getHand(_opponentId));
 
             game.getGameState().sendMessage(_playerId + " looked at " + _opponentId + "'s entire hand");
 

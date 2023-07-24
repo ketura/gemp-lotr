@@ -12,8 +12,8 @@ import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.AddUntilModifierEffect;
 import com.gempukku.lotro.game.modifiers.lotronly.AllyParticipatesInArcheryFireAndSkirmishesModifier;
@@ -39,7 +39,7 @@ public class AllyCanParticipateInArcheryFireAndSkirmishes implements EffectAppen
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory("_temp");
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory("_temp");
                         return new AddUntilModifierEffect(
                                 new AllyParticipatesInArcheryFireAndSkirmishesModifier(actionContext.getSource(), Filters.in(cardsFromMemory)), until);
                     }

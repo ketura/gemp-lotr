@@ -1,22 +1,22 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
 
 public class AddTokenEffect extends AbstractEffect {
-    private final PhysicalCard _source;
-    private final PhysicalCard _target;
+    private final LotroPhysicalCard _source;
+    private final LotroPhysicalCard _target;
     private final Token _token;
     private final int _count;
 
-    public AddTokenEffect(PhysicalCard source, PhysicalCard target, Token token) {
+    public AddTokenEffect(LotroPhysicalCard source, LotroPhysicalCard target, Token token) {
         this(source, target, token, 1);
     }
 
-    public AddTokenEffect(PhysicalCard source, PhysicalCard target, Token token, int count) {
+    public AddTokenEffect(LotroPhysicalCard source, LotroPhysicalCard target, Token token, int count) {
         _source = source;
         _target = target;
         _token = token;

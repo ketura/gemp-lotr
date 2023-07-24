@@ -1,16 +1,16 @@
 package com.gempukku.lotro.game.timing.results;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.effects.EffectResult;
 
 public class PlayCardResult extends EffectResult {
     private final Zone _playedFrom;
-    private final PhysicalCard _playedCard;
-    private final PhysicalCard _attachedTo;
-    private final PhysicalCard _attachedOrStackedPlayedFrom;
+    private final LotroPhysicalCard _playedCard;
+    private final LotroPhysicalCard _attachedTo;
+    private final LotroPhysicalCard _attachedOrStackedPlayedFrom;
 
-    public PlayCardResult(Zone playedFrom, PhysicalCard playedCard) {
+    public PlayCardResult(Zone playedFrom, LotroPhysicalCard playedCard) {
         super(EffectResult.Type.PLAY);
         _playedFrom = playedFrom;
         _playedCard = playedCard;
@@ -18,7 +18,7 @@ public class PlayCardResult extends EffectResult {
         _attachedOrStackedPlayedFrom = null;
     }
 
-    public PlayCardResult(Zone playedFrom, PhysicalCard playedCard, PhysicalCard attachedTo, PhysicalCard attachedOrStackedPlayedFrom) {
+    public PlayCardResult(Zone playedFrom, LotroPhysicalCard playedCard, LotroPhysicalCard attachedTo, LotroPhysicalCard attachedOrStackedPlayedFrom) {
         super(EffectResult.Type.PLAY);
         _playedFrom = playedFrom;
         _playedCard = playedCard;
@@ -26,15 +26,15 @@ public class PlayCardResult extends EffectResult {
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
     }
 
-    public PhysicalCard getPlayedCard() {
+    public LotroPhysicalCard getPlayedCard() {
         return _playedCard;
     }
 
-    public PhysicalCard getAttachedTo() {
+    public LotroPhysicalCard getAttachedTo() {
         return _attachedTo;
     }
 
-    public PhysicalCard getAttachedOrStackedPlayedFrom() {
+    public LotroPhysicalCard getAttachedOrStackedPlayedFrom() {
         return _attachedOrStackedPlayedFrom;
     }
 

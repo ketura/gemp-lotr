@@ -11,7 +11,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.AddUntilModifierEffect;
 import com.gempukku.lotro.game.modifiers.OverwhelmedByMultiplierModifier;
@@ -39,7 +39,7 @@ public class CantBeOverwhelmedMultiplier implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
 
                         return new AddUntilModifierEffect(
                                 new OverwhelmedByMultiplierModifier(actionContext.getSource(), Filters.in(cardsFromMemory), multiplier), until);

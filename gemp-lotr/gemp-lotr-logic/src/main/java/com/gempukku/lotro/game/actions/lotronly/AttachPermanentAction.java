@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.*;
@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.effects.Effect;
 import java.util.Collections;
 
 public class AttachPermanentAction extends AbstractCostToEffectAction {
-    private final PhysicalCard _cardToAttach;
+    private final LotroPhysicalCard _cardToAttach;
 
     private boolean _cardRemoved;
 
@@ -31,9 +31,9 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     private int _twilightModifier;
     private final Zone _playedFrom;
-    private PhysicalCard _target;
+    private LotroPhysicalCard _target;
 
-    public AttachPermanentAction(final DefaultGame game, final PhysicalCard card, Filter filter, final int twilightModifier) {
+    public AttachPermanentAction(final DefaultGame game, final LotroPhysicalCard card, Filter filter, final int twilightModifier) {
         _cardToAttach = card;
         setText("Play " + GameUtils.getFullName(_cardToAttach));
         _playedFrom = card.getZone();
@@ -42,7 +42,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + GameUtils.getFullName(card) + ". Choose target to attach to", filter) {
                     @Override
-                    protected void cardSelected(DefaultGame game, PhysicalCard target) {
+                    protected void cardSelected(DefaultGame game, LotroPhysicalCard target) {
                         _target = target;
                         if (_exertTarget) {
                             appendCost(
@@ -59,7 +59,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
         return Type.PLAY_CARD;
     }
 
-    public PhysicalCard getTarget() {
+    public LotroPhysicalCard getTarget() {
         return _target;
     }
 
@@ -68,12 +68,12 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _cardToAttach;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _cardToAttach;
     }
 

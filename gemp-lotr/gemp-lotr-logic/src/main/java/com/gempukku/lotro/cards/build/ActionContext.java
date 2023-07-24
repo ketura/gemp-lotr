@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.Effect;
 import com.gempukku.lotro.game.effects.EffectResult;
@@ -12,19 +12,19 @@ public interface ActionContext {
 
     String getValueFromMemory(String memory);
 
-    void setCardMemory(String memory, PhysicalCard card);
+    void setCardMemory(String memory, LotroPhysicalCard card);
 
-    void setCardMemory(String memory, Collection<? extends PhysicalCard> cards);
+    void setCardMemory(String memory, Collection<? extends LotroPhysicalCard> cards);
 
-    Collection<? extends PhysicalCard> getCardsFromMemory(String memory);
+    Collection<? extends LotroPhysicalCard> getCardsFromMemory(String memory);
 
-    PhysicalCard getCardFromMemory(String memory);
+    LotroPhysicalCard getCardFromMemory(String memory);
 
     String getPerformingPlayer();
 
     DefaultGame getGame();
 
-    PhysicalCard getSource();
+    LotroPhysicalCard getSource();
 
     EffectResult getEffectResult();
 

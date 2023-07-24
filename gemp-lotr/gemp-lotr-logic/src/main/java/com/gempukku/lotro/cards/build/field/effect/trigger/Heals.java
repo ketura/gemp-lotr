@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect.trigger;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.timing.results.HealResult;
 import org.json.simple.JSONObject;
@@ -32,7 +32,7 @@ public class Heals implements TriggerCheckerProducer {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 final boolean result = TriggerConditions.forEachHealed(actionContext.getGame(), actionContext.getEffectResult(), playerSource.getPlayer(actionContext), filterable);
                 if (result && memorize != null) {
-                    final PhysicalCard healedCard = ((HealResult) actionContext.getEffectResult()).getHealedCard();
+                    final LotroPhysicalCard healedCard = ((HealResult) actionContext.getEffectResult()).getHealedCard();
                     actionContext.setCardMemory(memorize, healedCard);
                 }
                 return result;

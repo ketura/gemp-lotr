@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.effects.ResolveSkirmishEffect;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.game.timing.results.StartOfPhaseResult;
 import java.util.Set;
 
 public class SkirmishPhaseAction extends SystemQueueAction {
-    public SkirmishPhaseAction(final PhysicalCard fellowshipCharacter, final Set<PhysicalCard> shadowCharacters) {
+    public SkirmishPhaseAction(final LotroPhysicalCard fellowshipCharacter, final Set<LotroPhysicalCard> shadowCharacters) {
         appendEffect(
                 new UnrespondableEffect() {
                     @Override

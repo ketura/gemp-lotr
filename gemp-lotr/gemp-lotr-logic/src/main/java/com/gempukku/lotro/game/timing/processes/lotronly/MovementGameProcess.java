@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.timing.processes.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
@@ -25,7 +25,7 @@ public class MovementGameProcess implements GameProcess {
 
     @Override
     public void process(DefaultGame game) {
-        PhysicalCard currentSite = game.getGameState().getCurrentSite();
+        LotroPhysicalCard currentSite = game.getGameState().getCurrentSite();
         final SystemQueueAction action = new SystemQueueAction();
         action.appendEffect(
                 new UnrespondableEffect() {
@@ -66,7 +66,7 @@ public class MovementGameProcess implements GameProcess {
                         int companionsAddingTwilightForMoveCount = Filters.countActive(game, CardType.COMPANION,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                         return game.getModifiersQuerying().addsTwilightForCompanionMove(game, physicalCard);
                                     }
                                 });

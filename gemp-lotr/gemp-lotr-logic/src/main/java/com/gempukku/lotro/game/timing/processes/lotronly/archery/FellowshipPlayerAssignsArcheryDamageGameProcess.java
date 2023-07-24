@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.archery;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.effects.ChooseAndWoundCharactersEffect;
@@ -35,13 +35,13 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                                                             Filters.allyAtHome,
                                                             new Filter() {
                                                                 @Override
-                                                                public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                                                                public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                                                     return !game.getModifiersQuerying().isAllyPreventedFromParticipatingInArcheryFire(game, physicalCard);
                                                                 }
                                                             }),
                                                     new Filter() {
                                                         @Override
-                                                        public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                                                        public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                                             return game.getModifiersQuerying().isAllyAllowedToParticipateInArcheryFire(game, physicalCard);
                                                         }
                                                     })
@@ -49,7 +49,7 @@ public class FellowshipPlayerAssignsArcheryDamageGameProcess implements GameProc
                             ),
                             new Filter() {
                                 @Override
-                                public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                                public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                     return game.getModifiersQuerying().canTakeArcheryWound(game, physicalCard);
                                 }
                             }

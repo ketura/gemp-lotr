@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.WoundCharactersEffect;
 import com.gempukku.lotro.game.modifiers.ModifiersQuerying;
@@ -41,7 +41,7 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
             return new WoundCharactersEffect(_skirmishResult.getWinners(), Filters.in(_skirmishResult.getInSkirmishLosers()),
                     new Filter() {
                         @Override
-                        public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                        public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                             return game.getModifiersQuerying().canTakeWoundsFromLosingSkirmish(game, physicalCard, _skirmishResult.getWinners());
                         }
                     });
@@ -59,10 +59,10 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
     }
 
     private int calculateDamageToDo(DefaultGame game) {
-        Set<PhysicalCard> winners = _skirmishResult.getWinners();
+        Set<LotroPhysicalCard> winners = _skirmishResult.getWinners();
         int dmg = 1;
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        for (PhysicalCard winner : winners)
+        for (LotroPhysicalCard winner : winners)
             dmg += game.getModifiersQuerying().getKeywordCount(game, winner, Keyword.DAMAGE);
 
         return dmg;

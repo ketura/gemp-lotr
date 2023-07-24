@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.RemoveCardsFromDiscardEffect;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubActionEffect {
     private final Action _action;
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerId;
     private final int _minimum;
     private final int _maximum;
@@ -25,7 +25,7 @@ public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubA
     private CostToEffectAction _resultSubAction;
     private boolean _success;
 
-    public ChooseAndRemoveFromTheGameCardsInDiscardEffect(Action action, PhysicalCard source, String playerId, int minimum, int maximum, Filterable... filters) {
+    public ChooseAndRemoveFromTheGameCardsInDiscardEffect(Action action, LotroPhysicalCard source, String playerId, int minimum, int maximum, Filterable... filters) {
         _action = action;
         _source = source;
         _playerId = playerId;
@@ -51,7 +51,7 @@ public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubA
 
     @Override
     public void playEffect(final DefaultGame game) {
-        final Collection<PhysicalCard> possibleTargets = Filters.filter(game.getGameState().getDiscard(_playerId), game, _filters);
+        final Collection<LotroPhysicalCard> possibleTargets = Filters.filter(game.getGameState().getDiscard(_playerId), game, _filters);
 
         if (possibleTargets.size() <= _minimum) {
             processForCards(game, possibleTargets);
@@ -62,14 +62,14 @@ public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubA
                     new ArbitraryCardsSelectionDecision(1, "Choose cards to remove from the game", possibleTargets, min, max) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            final List<LotroPhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             processForCards(game, selectedCards);
                         }
                     });
         }
     }
 
-    private void processForCards(DefaultGame game, Collection<PhysicalCard> cards) {
+    private void processForCards(DefaultGame game, Collection<LotroPhysicalCard> cards) {
         _resultSubAction = new SubAction(_action);
         _resultSubAction.appendEffect(
                 new RemoveCardsFromDiscardEffect(_playerId, _source, cards));

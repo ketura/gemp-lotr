@@ -1,10 +1,9 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.Action;
-import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.game.effects.Effect;
 
 public class SubAction extends AbstractCostToEffectAction {
@@ -20,12 +19,12 @@ public class SubAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _action.getActionAttachedToCard();
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _action.getActionSource();
     }
 

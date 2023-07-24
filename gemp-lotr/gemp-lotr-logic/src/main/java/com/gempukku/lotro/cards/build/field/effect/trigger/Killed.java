@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.timing.results.ForEachKilledResult;
 import org.json.simple.JSONObject;
@@ -32,7 +32,7 @@ public class Killed implements TriggerCheckerProducer {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 final boolean result = TriggerConditions.forEachKilled(actionContext.getGame(), actionContext.getEffectResult(), filterable);
                 if (result && memorize != null) {
-                    final PhysicalCard killedCard = ((ForEachKilledResult) actionContext.getEffectResult()).getKilledCard();
+                    final LotroPhysicalCard killedCard = ((ForEachKilledResult) actionContext.getEffectResult()).getKilledCard();
                     actionContext.setCardMemory(memorize, killedCard);
                 }
                 return result;

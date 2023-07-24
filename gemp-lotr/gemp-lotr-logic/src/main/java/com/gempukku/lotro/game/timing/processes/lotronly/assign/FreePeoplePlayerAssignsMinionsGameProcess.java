@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.timing.processes.lotronly.assign;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
-    private Set<PhysicalCard> _leftoverMinions;
+    private Set<LotroPhysicalCard> _leftoverMinions;
     private final GameProcess _followingAssignments;
     private DefaultGame _game;
 
@@ -44,9 +44,9 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                     protected void doPlayEffect(final DefaultGame game) {
                         final GameState gameState = game.getGameState();
 
-                        final Collection<PhysicalCard> minions = Filters.filterActive(game, CardType.MINION, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
+                        final Collection<LotroPhysicalCard> minions = Filters.filterActive(game, CardType.MINION, Filters.assignableToSkirmish(Side.FREE_PEOPLE, true, false));
                         if (minions.size() > 0) {
-                            final Collection<PhysicalCard> freePeopleTargets =
+                            final Collection<LotroPhysicalCard> freePeopleTargets =
                                     Filters.filterActive(game,
                                             Filters.and(
                                                     Filters.or(
@@ -58,12 +58,12 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                     new PlayerAssignMinionsDecision(1, "Assign minions to companions or allies at home", freePeopleTargets, minions) {
                                         @Override
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                                            Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
+                                            Map<LotroPhysicalCard, Set<LotroPhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                                            Set<PhysicalCard> unassignedMinions = new HashSet<>(Filters.filterActive(game, CardType.MINION));
+                                            Set<LotroPhysicalCard> unassignedMinions = new HashSet<>(Filters.filterActive(game, CardType.MINION));
                                             // Validate minion count (Defender)
-                                            for (PhysicalCard freeCard : assignments.keySet()) {
-                                                Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
+                                            for (LotroPhysicalCard freeCard : assignments.keySet()) {
+                                                Set<LotroPhysicalCard> minionsAssigned = assignments.get(freeCard);
                                                 if (minionsAssigned.size() + getMinionsAssignedBeforeCount(freeCard, gameState) > 1 + game.getModifiersQuerying().getKeywordCount(game, freeCard, Keyword.DEFENDER))
                                                     throw new DecisionResultInvalidException(GameUtils.getFullName(freeCard) + " can't have so many minions assigned");
                                                 unassignedMinions.removeAll(minionsAssigned);
@@ -86,7 +86,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
         game.getActionsEnvironment().addActionToStack(action);
     }
 
-    private int getMinionsAssignedBeforeCount(PhysicalCard freeCard, GameState gameState) {
+    private int getMinionsAssignedBeforeCount(LotroPhysicalCard freeCard, GameState gameState) {
         for (Assignment assignment : gameState.getAssignments()) {
             if (assignment.getFellowshipCharacter() == freeCard)
                 return assignment.getShadowCharacters().size();

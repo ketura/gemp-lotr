@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -12,11 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerId;
     private final int _count;
 
-    public RevealTopCardsOfDrawDeckEffect(PhysicalCard source, String playerId, int count) {
+    public RevealTopCardsOfDrawDeckEffect(LotroPhysicalCard source, String playerId, int count) {
         _source = source;
         _playerId = playerId;
         _count = count;
@@ -39,9 +39,9 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
-        List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerId);
+        List<? extends LotroPhysicalCard> deck = game.getGameState().getDeck(_playerId);
         int count = Math.min(deck.size(), _count);
-        LinkedList<PhysicalCard> topCards = new LinkedList<>(deck.subList(0, count));
+        LinkedList<LotroPhysicalCard> topCards = new LinkedList<>(deck.subList(0, count));
         if (topCards.size() > 0) {
             final PlayOrder playerOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_source.getOwner(), false);
 
@@ -56,7 +56,7 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
             }
 
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from top of " + _playerId + " deck - " + getAppendedNames(topCards));
-            for (PhysicalCard topCard : topCards) {
+            for (LotroPhysicalCard topCard : topCards) {
                 game.getActionsEnvironment().emitEffectResult(
                         new RevealCardFromTopOfDeckResult(_playerId, topCard));
             }
@@ -65,5 +65,5 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
         return new FullEffectResult(topCards.size() == _count);
     }
 
-    protected abstract void cardsRevealed(List<PhysicalCard> revealedCards);
+    protected abstract void cardsRevealed(List<LotroPhysicalCard> revealedCards);
 }

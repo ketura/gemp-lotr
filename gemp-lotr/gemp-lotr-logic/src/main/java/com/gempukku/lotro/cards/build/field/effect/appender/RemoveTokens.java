@@ -12,7 +12,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolv
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.RemoveTokenEffect;
@@ -59,14 +59,14 @@ public class RemoveTokens implements EffectAppenderProducer {
 
                     @Override
                     protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
 
                         final int tokenCount = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
                         final DefaultGame game = actionContext.getGame();
 
                         List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard card : cardsFromMemory) {
+                        for (LotroPhysicalCard card : cardsFromMemory) {
                             if (token != null)
                                 result.add(new RemoveTokenEffect(actionContext.getSource(), card, token, tokenCount));
                             else {
@@ -81,7 +81,7 @@ public class RemoveTokens implements EffectAppenderProducer {
         return result;
     }
 
-    private Token getCultureTokenOnCard(DefaultGame game, PhysicalCard card) {
+    private Token getCultureTokenOnCard(DefaultGame game, LotroPhysicalCard card) {
         for (Token token : Token.values())
             if (token.getCulture() != null && game.getGameState().getTokenCount(card, token) > 0)
                 return token;

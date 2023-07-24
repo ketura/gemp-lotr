@@ -1,10 +1,9 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.DiscountEffect;
 import com.gempukku.lotro.game.effects.PayTwilightCostEffect;
@@ -14,7 +13,7 @@ import com.gempukku.lotro.game.effects.Effect;
 import java.util.Collections;
 
 public class PlayEventAction extends AbstractCostToEffectAction {
-    private final PhysicalCard _eventPlayed;
+    private final LotroPhysicalCard _eventPlayed;
     private final boolean _requiresRanger;
 
     private boolean _cardRemoved;
@@ -29,11 +28,11 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     private final Zone _playedFrom;
 
-    public PlayEventAction(PhysicalCard card) {
+    public PlayEventAction(LotroPhysicalCard card) {
         this(card, false);
     }
 
-    public PlayEventAction(PhysicalCard card, boolean requiresRanger) {
+    public PlayEventAction(LotroPhysicalCard card, boolean requiresRanger) {
         _eventPlayed = card;
         _requiresRanger = requiresRanger;
 
@@ -42,7 +41,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         setText("Play " + GameUtils.getFullName(_eventPlayed));
     }
 
-    public PhysicalCard getEventPlayed() {
+    public LotroPhysicalCard getEventPlayed() {
         return _eventPlayed;
     }
 
@@ -56,12 +55,12 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _eventPlayed;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _eventPlayed;
     }
 

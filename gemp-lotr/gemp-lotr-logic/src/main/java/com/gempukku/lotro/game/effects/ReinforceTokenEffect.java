@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
 
@@ -11,15 +11,15 @@ public class ReinforceTokenEffect extends ChooseActiveCardEffect {
     private final Token _token;
     private final int _count;
 
-    public ReinforceTokenEffect(PhysicalCard source, String playerId, Token token) {
+    public ReinforceTokenEffect(LotroPhysicalCard source, String playerId, Token token) {
         this(source, playerId, token, 1);
     }
 
-    public ReinforceTokenEffect(PhysicalCard source, String playerId, Token token, int count) {
+    public ReinforceTokenEffect(LotroPhysicalCard source, String playerId, Token token, int count) {
         super(source, playerId, "Choose card to reinforce", Filters.owner(playerId), (token != null) ? Filters.hasToken(token) : Filters.hasAnyCultureTokens(1),
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS);
                     }
                 });
@@ -36,7 +36,7 @@ public class ReinforceTokenEffect extends ChooseActiveCardEffect {
     }
 
     @Override
-    protected void cardSelected(DefaultGame game, PhysicalCard card) {
+    protected void cardSelected(DefaultGame game, LotroPhysicalCard card) {
         if (_token != null)
             game.getGameState().addTokens(card, _token, _count);
         else

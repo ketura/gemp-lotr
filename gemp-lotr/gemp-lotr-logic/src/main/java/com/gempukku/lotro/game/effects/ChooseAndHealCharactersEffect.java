@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.actions.Action;
@@ -35,7 +35,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
         return Filters.and(
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                         return game.getGameState().getWounds(physicalCard) >= _count && game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
@@ -47,24 +47,24 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
                 Filters.wounded,
                 new Filter() {
                     @Override
-                    public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                         return game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
     }
 
     @Override
-    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++)
             subAction.appendEffect(new HealCharactersEffect(_action.getActionSource(), _action.getPerformingPlayer(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
 
-        for (PhysicalCard character : cards)
+        for (LotroPhysicalCard character : cards)
             forEachCardChosenToHealCallback(character);
     }
 
-    protected void forEachCardChosenToHealCallback(PhysicalCard character) {
+    protected void forEachCardChosenToHealCallback(LotroPhysicalCard character) {
 
     }
 }

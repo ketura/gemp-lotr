@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.ReplaceFpCharacterInAssignmentEffect;
 import com.gempukku.lotro.game.effects.DoNothingEffect;
@@ -31,8 +31,8 @@ public class ReplaceInAssignment implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final PhysicalCard oldCard = actionContext.getCardFromMemory("_oldAssignee");
-                        final PhysicalCard newCard = actionContext.getCardFromMemory("_newAssignee");
+                        final LotroPhysicalCard oldCard = actionContext.getCardFromMemory("_oldAssignee");
+                        final LotroPhysicalCard newCard = actionContext.getCardFromMemory("_newAssignee");
                         if (oldCard != null && newCard != null)
                             return new ReplaceFpCharacterInAssignmentEffect(newCard, oldCard);
                         else

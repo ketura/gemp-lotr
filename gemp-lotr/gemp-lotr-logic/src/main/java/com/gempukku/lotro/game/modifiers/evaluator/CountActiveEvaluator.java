@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.modifiers.evaluator;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class CountActiveEvaluator implements Evaluator {
@@ -25,7 +25,7 @@ public class CountActiveEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard self) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard self) {
         final int active = Math.max(0, Filters.countActive(game, _filters) - _over);
         if (_limit == null)
             return active;

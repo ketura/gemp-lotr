@@ -1,22 +1,22 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class PayTwilightCostEffect extends AbstractEffect {
-    private final PhysicalCard _physicalCard;
+    private final LotroPhysicalCard _physicalCard;
     private final int _twilightModifier;
     private final boolean _ignoreRoamingPenalty;
 
-    public PayTwilightCostEffect(PhysicalCard physicalCard) {
+    public PayTwilightCostEffect(LotroPhysicalCard physicalCard) {
         this(physicalCard, 0);
     }
 
-    public PayTwilightCostEffect(PhysicalCard physicalCard, int twilightModifier) {
+    public PayTwilightCostEffect(LotroPhysicalCard physicalCard, int twilightModifier) {
         this(physicalCard, twilightModifier, false);
     }
 
-    public PayTwilightCostEffect(PhysicalCard physicalCard, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PayTwilightCostEffect(LotroPhysicalCard physicalCard, int twilightModifier, boolean ignoreRoamingPenalty) {
         _physicalCard = physicalCard;
         _twilightModifier = twilightModifier;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;

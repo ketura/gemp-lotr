@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -41,7 +41,7 @@ public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffe
 
     @Override
     public void playEffect(DefaultGame game) {
-        final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game, _filters);
+        final Collection<LotroPhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game, _filters);
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, cards));
@@ -49,18 +49,18 @@ public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffe
     }
 
     private class ChooseAndPutNextCardFromHandOnBottomOfLibrary extends ChooseArbitraryCardsEffect {
-        private final Collection<PhysicalCard> _remainingCards;
+        private final Collection<LotroPhysicalCard> _remainingCards;
         private final CostToEffectAction _subAction;
 
-        public ChooseAndPutNextCardFromHandOnBottomOfLibrary(CostToEffectAction subAction, Collection<PhysicalCard> remainingCards) {
+        public ChooseAndPutNextCardFromHandOnBottomOfLibrary(CostToEffectAction subAction, Collection<LotroPhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on bottom of your deck", remainingCards, 1, 1);
             _subAction = subAction;
             _remainingCards = remainingCards;
         }
 
         @Override
-        protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> selectedCards) {
-            for (PhysicalCard selectedCard : selectedCards) {
+        protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> selectedCards) {
+            for (LotroPhysicalCard selectedCard : selectedCards) {
                 _subAction.appendEffect(
                         new PutCardFromHandOnBottomOfDeckEffect(_reveal, selectedCard));
                 _remainingCards.remove(selectedCard);

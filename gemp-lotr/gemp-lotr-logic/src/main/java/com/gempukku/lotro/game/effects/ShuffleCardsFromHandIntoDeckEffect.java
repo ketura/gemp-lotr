@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 import java.util.Collection;
@@ -9,11 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ShuffleCardsFromHandIntoDeckEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerDeck;
-    private final Collection<? extends PhysicalCard> _cards;
+    private final Collection<? extends LotroPhysicalCard> _cards;
 
-    public ShuffleCardsFromHandIntoDeckEffect(PhysicalCard source, String playerDeck, Collection<? extends PhysicalCard> cards) {
+    public ShuffleCardsFromHandIntoDeckEffect(LotroPhysicalCard source, String playerDeck, Collection<? extends LotroPhysicalCard> cards) {
         _source = source;
         _playerDeck = playerDeck;
         _cards = cards;
@@ -31,7 +31,7 @@ public class ShuffleCardsFromHandIntoDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(DefaultGame game) {
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() != Zone.HAND)
                 return false;
         }
@@ -41,8 +41,8 @@ public class ShuffleCardsFromHandIntoDeckEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
-        Set<PhysicalCard> toShuffleIn = new HashSet<>();
-        for (PhysicalCard card : _cards) {
+        Set<LotroPhysicalCard> toShuffleIn = new HashSet<>();
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() == Zone.HAND)
                 toShuffleIn.add(card);
         }

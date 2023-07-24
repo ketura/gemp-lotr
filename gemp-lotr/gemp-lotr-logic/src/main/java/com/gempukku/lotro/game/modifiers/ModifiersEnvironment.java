@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.modifiers;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
 
 public interface ModifiersEnvironment {
     public ModifierHook addAlwaysOnModifier(Modifier modifier);
@@ -12,7 +12,7 @@ public interface ModifiersEnvironment {
 
     public void addUntilEndOfTurnModifier(Modifier modifier);
 
-    public void addedWound(PhysicalCard card);
+    public void addedWound(LotroPhysicalCard card);
 
-    public int getWoundsTakenInCurrentPhase(PhysicalCard card);
+    public int getWoundsTakenInCurrentPhase(LotroPhysicalCard card);
 }

@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -36,7 +36,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, hobbitSword, merry);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        final Set<LotroPhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
@@ -79,7 +79,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getGameState().attachCard(_game, alatar, merry);
         _game.getGameState().attachCard(_game, whisperInTheDark, alatar);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        final Set<LotroPhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
@@ -122,7 +122,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().stackCard(_game, hobbitSword, merry);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        final Set<LotroPhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {

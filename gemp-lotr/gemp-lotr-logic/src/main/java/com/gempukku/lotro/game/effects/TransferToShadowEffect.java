@@ -1,15 +1,15 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 import java.util.Collections;
 
 public class TransferToShadowEffect extends AbstractEffect {
-    private final PhysicalCard _card;
+    private final LotroPhysicalCard _card;
 
-    public TransferToShadowEffect(PhysicalCard card) {
+    public TransferToShadowEffect(LotroPhysicalCard card) {
         _card = card;
     }
 

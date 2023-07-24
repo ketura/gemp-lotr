@@ -1,16 +1,16 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.timing.PlayConditions;
 
 public class ReplaceFpCharacterInAssignmentEffect extends AbstractEffect {
-    private final PhysicalCard _replacedBy;
-    private final PhysicalCard _replacing;
+    private final LotroPhysicalCard _replacedBy;
+    private final LotroPhysicalCard _replacing;
 
-    public ReplaceFpCharacterInAssignmentEffect(PhysicalCard replacedBy, PhysicalCard replacing) {
+    public ReplaceFpCharacterInAssignmentEffect(LotroPhysicalCard replacedBy, LotroPhysicalCard replacing) {
         _replacedBy = replacedBy;
         _replacing = replacing;
     }
@@ -30,7 +30,7 @@ public class ReplaceFpCharacterInAssignmentEffect extends AbstractEffect {
         return PlayConditions.isActive(game, _replacedBy) && PlayConditions.isActive(game, _replacing, Filters.assignedToSkirmish, Filters.not(Filters.inSkirmish));
     }
 
-    private Assignment getAssignment(DefaultGame game, PhysicalCard fpChar) {
+    private Assignment getAssignment(DefaultGame game, LotroPhysicalCard fpChar) {
         for (Assignment assignment : game.getGameState().getAssignments()) {
             if (assignment.getFellowshipCharacter() == fpChar)
                 return assignment;

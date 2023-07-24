@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Set;
 
 public abstract class ChooseActiveCardsEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerId;
     private String _choiceText;
     private final int _minimum;
@@ -22,7 +22,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     private boolean _shortcut = true;
 
-    public ChooseActiveCardsEffect(PhysicalCard source, String playerId, String choiceText, int minimum, int maximum, Filterable... filters) {
+    public ChooseActiveCardsEffect(LotroPhysicalCard source, String playerId, String choiceText, int minimum, int maximum, Filterable... filters) {
         _source = source;
         _playerId = playerId;
         _choiceText = choiceText;
@@ -64,7 +64,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final DefaultGame game) {
-        final Collection<PhysicalCard> matchingCards = Filters.filterActive(game, Filters.and(_filters, getExtraFilterForPlaying(game)));
+        final Collection<LotroPhysicalCard> matchingCards = Filters.filterActive(game, Filters.and(_filters, getExtraFilterForPlaying(game)));
         // Lets get the count realistic
         int maximum = Math.min(_maximum, matchingCards.size());
 
@@ -83,7 +83,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
                     new CardsSelectionDecision(1, _choiceText, matchingCards, minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            Set<LotroPhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             validateChoice(game, selectedCards);
                             if (_source != null && selectedCards.size() > 0)
                                 game.getGameState().cardAffectsCard(_playerId, _source, selectedCards);
@@ -95,9 +95,9 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         return new FullEffectResult(matchingCards.size() >= _minimum);
     }
 
-    protected abstract void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards);
+    protected abstract void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards);
 
-    protected void validateChoice(DefaultGame game, Collection<PhysicalCard> cards) {
+    protected void validateChoice(DefaultGame game, Collection<LotroPhysicalCard> cards) {
 
     }
 }

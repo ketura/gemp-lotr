@@ -6,9 +6,9 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.requirement.RequirementProducer;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import org.json.simple.JSONObject;
 
 public class CanSpotWounds implements RequirementProducer {
@@ -24,7 +24,7 @@ public class CanSpotWounds implements RequirementProducer {
         return actionContext -> {
             final Filterable filterable = filterableSource.getFilterable(actionContext);
 
-            for (PhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterable)) {
+            for (LotroPhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterable)) {
                 if (actionContext.getGame().getGameState().getWounds(physicalCard) >= count) {
                     return true;
                 }

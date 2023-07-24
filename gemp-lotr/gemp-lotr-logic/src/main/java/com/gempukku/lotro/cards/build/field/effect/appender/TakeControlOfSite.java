@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.game.DefaultGame;
@@ -27,7 +27,7 @@ public class TakeControlOfSite implements EffectAppenderProducer {
                     maxUnoccupiedSite = Math.min(maxUnoccupiedSite, game.getGameState().getPlayerPosition(playerId) - 1);
 
                 for (int i = 1; i <= maxUnoccupiedSite; i++) {
-                    final PhysicalCard site = game.getGameState().getSite(i);
+                    final LotroPhysicalCard site = game.getGameState().getSite(i);
                     if (site.getCardController() == null)
                         return true;
                 }

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.PutCardFromStackedOnTopOfDeckEffect;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -19,10 +19,10 @@ public class ChooseAndPutCardFromStackedOnTopOfDeckEffect extends ChooseStackedC
     }
 
     @Override
-    protected void cardsChosen(DefaultGame game, Collection<PhysicalCard> stackedCards) {
+    protected void cardsChosen(DefaultGame game, Collection<LotroPhysicalCard> stackedCards) {
         if (stackedCards.size() > 0) {
             SubAction subAction = new SubAction(_action);
-            for (PhysicalCard card : stackedCards)
+            for (LotroPhysicalCard card : stackedCards)
                 subAction.appendEffect(new PutCardFromStackedOnTopOfDeckEffect(card));
             game.getActionsEnvironment().addActionToStack(subAction);
         }

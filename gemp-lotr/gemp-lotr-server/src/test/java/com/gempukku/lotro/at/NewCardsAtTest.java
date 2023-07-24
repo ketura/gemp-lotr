@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
 import org.junit.Test;
@@ -169,7 +169,7 @@ public class NewCardsAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, getOutOfTheShire, Zone.HAND);
         _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
 
-        final PhysicalCard frodo = _game.getGameState().getRingBearer(P1);
+        final LotroPhysicalCard frodo = _game.getGameState().getRingBearer(P1);
 
         skipMulligans();
 

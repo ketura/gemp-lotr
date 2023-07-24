@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -10,9 +10,9 @@ import com.gempukku.lotro.game.timing.results.DrawCardOrPutIntoHandResult;
 import java.util.Collections;
 
 public class PutCardFromDiscardIntoHandEffect extends AbstractEffect {
-    private final PhysicalCard _card;
+    private final LotroPhysicalCard _card;
 
-    public PutCardFromDiscardIntoHandEffect(PhysicalCard card) {
+    public PutCardFromDiscardIntoHandEffect(LotroPhysicalCard card) {
         _card = card;
     }
 

@@ -1,17 +1,17 @@
 package com.gempukku.lotro.game.actions.lotronly;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.Effect;
 
 public class RequiredTriggerAction extends AbstractCostToEffectAction {
-    private final PhysicalCard _physicalCard;
+    private final LotroPhysicalCard _physicalCard;
 
     private boolean _sentMessage;
     private String _message;
 
-    public RequiredTriggerAction(PhysicalCard physicalCard) {
+    public RequiredTriggerAction(LotroPhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         if (physicalCard != null) {
             setText("Required trigger from " + GameUtils.getCardLink(_physicalCard));
@@ -25,12 +25,12 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _physicalCard;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _physicalCard;
     }
 

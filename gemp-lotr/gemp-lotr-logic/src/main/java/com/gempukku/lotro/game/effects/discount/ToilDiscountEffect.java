@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects.discount;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.DiscountEffect;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.effects.AbstractSubActionEffect;
 
 public class ToilDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
     private final CostToEffectAction _action;
-    private final PhysicalCard _payingFor;
+    private final LotroPhysicalCard _payingFor;
     private final String _ownerId;
     private final Culture _culture;
     private final int _toilCount;
@@ -21,7 +21,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
     private int _exertedCount;
     private int _paidToil;
 
-    public ToilDiscountEffect(CostToEffectAction action, PhysicalCard payingFor, String ownerId, Culture culture, int toilCount) {
+    public ToilDiscountEffect(CostToEffectAction action, LotroPhysicalCard payingFor, String ownerId, Culture culture, int toilCount) {
         _action = action;
         _payingFor = payingFor;
         _ownerId = ownerId;
@@ -43,7 +43,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
         return Type.BEFORE_TOIL;
     }
 
-    public PhysicalCard getPayingFor() {
+    public LotroPhysicalCard getPayingFor() {
         return _payingFor;
     }
 
@@ -75,7 +75,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
             SubAction subAction = new SubAction(_action);
             final ChooseAndExertCharactersEffect effect = new ChooseAndExertCharactersEffect(subAction, _ownerId, minimalExerts, Integer.MAX_VALUE, Filters.owner(_ownerId), _culture, Filters.character) {
                 @Override
-                protected void forEachCardExertedCallback(PhysicalCard character) {
+                protected void forEachCardExertedCallback(LotroPhysicalCard character) {
                     _action.setPaidToil(true);
                     _exertedCount++;
                 }

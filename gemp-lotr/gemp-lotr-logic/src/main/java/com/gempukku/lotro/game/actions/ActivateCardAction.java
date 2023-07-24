@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.actions;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -9,13 +9,13 @@ import com.gempukku.lotro.game.effects.Effect;
 
 public class ActivateCardAction extends AbstractCostToEffectAction {
 
-    protected final PhysicalCard _physicalCard;
+    protected final LotroPhysicalCard _physicalCard;
     protected ActivateCardEffect _activateCardEffect;
     protected boolean _sentMessage;
     protected boolean _activated;
     protected boolean _prevented;
 
-    public ActivateCardAction(PhysicalCard physicalCard) {
+    public ActivateCardAction(LotroPhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         setText("Use " + GameUtils.getFullName(_physicalCard));
     }
@@ -26,12 +26,12 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return _physicalCard;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return _physicalCard;
     }
 

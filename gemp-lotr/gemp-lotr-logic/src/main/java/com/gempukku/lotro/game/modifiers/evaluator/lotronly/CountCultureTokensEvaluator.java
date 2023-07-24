@@ -3,7 +3,7 @@ package com.gempukku.lotro.game.modifiers.evaluator.lotronly;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 
@@ -23,9 +23,9 @@ public class CountCultureTokensEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
+    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
         int count = 0;
-        for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.and(_filters, Filters.hasAnyCultureTokens(1)))) {
+        for (LotroPhysicalCard physicalCard : Filters.filterActive(game, Filters.and(_filters, Filters.hasAnyCultureTokens(1)))) {
             for (Map.Entry<Token, Integer> tokens : game.getGameState().getTokens(physicalCard).entrySet()) {
                 if (tokens.getKey().getCulture() != null
                         && ((_token == null) || tokens.getKey() == _token))

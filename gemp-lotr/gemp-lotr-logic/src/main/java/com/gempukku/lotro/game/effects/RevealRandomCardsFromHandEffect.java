@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -11,12 +11,12 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final int _count;
     private final String _actingPlayer;
     private final String _playerHand;
 
-    protected RevealRandomCardsFromHandEffect(String actingPlayer, String handOfPlayer, PhysicalCard source, int count) {
+    protected RevealRandomCardsFromHandEffect(String actingPlayer, String handOfPlayer, LotroPhysicalCard source, int count) {
         _actingPlayer = actingPlayer;
         _playerHand = handOfPlayer;
         _source = source;
@@ -36,7 +36,7 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         if (_actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _playerHand, _actingPlayer)) {
-            List<PhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_playerHand), _count);
+            List<LotroPhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_playerHand), _count);
 
             if (randomCards.size() > 0) {
                 final PlayOrder playerOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_source.getOwner(), false);
@@ -57,7 +57,7 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
                 game.getGameState().sendMessage("No cards in " + _playerHand + " hand to reveal");
             }
             cardsRevealed(randomCards);
-            for (PhysicalCard randomCard : randomCards)
+            for (LotroPhysicalCard randomCard : randomCards)
                 game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _playerHand, randomCard));
 
             return new FullEffectResult(randomCards.size() == _count);
@@ -72,5 +72,5 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
         return _actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _playerHand, _actingPlayer);
     }
 
-    protected abstract void cardsRevealed(List<PhysicalCard> revealedCards);
+    protected abstract void cardsRevealed(List<LotroPhysicalCard> revealedCards);
 }

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.actions;
 
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.Effect;
 
@@ -13,11 +13,11 @@ public interface Action {
 
     Type getType();
 
-    PhysicalCard getActionSource();
+    LotroPhysicalCard getActionSource();
 
     void setActionTimeword(Phase phase);
 
-    PhysicalCard getActionAttachedToCard();
+    LotroPhysicalCard getActionAttachedToCard();
 
     void setVirtualCardAction(boolean virtualCardAction);
 

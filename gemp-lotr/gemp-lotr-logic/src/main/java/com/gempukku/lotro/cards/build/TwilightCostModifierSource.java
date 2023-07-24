@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 
 public interface TwilightCostModifierSource {
-    int getTwilightCostModifier(ActionContext actionContext, PhysicalCard target);
+    int getTwilightCostModifier(ActionContext actionContext, LotroPhysicalCard target);
 }

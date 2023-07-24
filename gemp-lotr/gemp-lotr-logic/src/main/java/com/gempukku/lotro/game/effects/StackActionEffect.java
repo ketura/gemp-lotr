@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 
@@ -32,7 +32,7 @@ public class StackActionEffect implements Effect {
     }
 
     @Override
-    public PhysicalCard getSource() {
+    public LotroPhysicalCard getSource() {
         return _action.getActionSource();
     }
 

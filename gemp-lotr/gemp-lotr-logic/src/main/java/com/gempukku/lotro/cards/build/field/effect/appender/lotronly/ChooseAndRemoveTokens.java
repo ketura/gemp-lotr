@@ -11,10 +11,10 @@ import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
@@ -57,7 +57,7 @@ public class ChooseAndRemoveTokens implements EffectAppenderProducer {
 
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final PhysicalCard cardFromMemory = actionContext.getCardFromMemory(memorizeCard);
+                        final LotroPhysicalCard cardFromMemory = actionContext.getCardFromMemory(memorizeCard);
 
                         int min = valueSource.getMinimum(actionContext);
                         int max = valueSource.getMaximum(actionContext);
@@ -92,7 +92,7 @@ public class ChooseAndRemoveTokens implements EffectAppenderProducer {
 
                     @Override
                     protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final PhysicalCard cardFromMemory = actionContext.getCardFromMemory(memorizeCard);
+                        final LotroPhysicalCard cardFromMemory = actionContext.getCardFromMemory(memorizeCard);
                         int tokenCount = Integer.parseInt(actionContext.getValueFromMemory(memory));
 
                         List<Effect> result = new LinkedList<>();
@@ -108,7 +108,7 @@ public class ChooseAndRemoveTokens implements EffectAppenderProducer {
         return result;
     }
 
-    private Token getCultureTokenOnCard(DefaultGame game, PhysicalCard card) {
+    private Token getCultureTokenOnCard(DefaultGame game, LotroPhysicalCard card) {
         for (Token token : Token.values())
             if (token.getCulture() != null && game.getGameState().getTokenCount(card, token) > 0)
                 return token;

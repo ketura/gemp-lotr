@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.lotronly;
 
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.cards.PhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
@@ -159,7 +158,7 @@ public class LotroPhysicalCardImpl extends PhysicalCardImpl {
     }
 
     @Override
-    public PhysicalCard getAttachedTo() {
+    public LotroPhysicalCard getAttachedTo() {
         return _attachedTo;
     }
 
@@ -168,7 +167,7 @@ public class LotroPhysicalCardImpl extends PhysicalCardImpl {
     }
 
     @Override
-    public PhysicalCard getStackedOn() {
+    public LotroPhysicalCard getStackedOn() {
         return _stackedOn;
     }
 

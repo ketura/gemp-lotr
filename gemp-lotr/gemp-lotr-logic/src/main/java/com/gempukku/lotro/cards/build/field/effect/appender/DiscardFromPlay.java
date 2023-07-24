@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.game.effects.Effect;
@@ -41,10 +41,10 @@ public class DiscardFromPlay implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final String discardingPlayerId = discardingPlayer.getPlayer(actionContext);
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         if (stackedCardsMemory != null) {
-                            List<PhysicalCard> stackedCards = new LinkedList<>();
-                            for (PhysicalCard physicalCard : cardsFromMemory) {
+                            List<LotroPhysicalCard> stackedCards = new LinkedList<>();
+                            for (LotroPhysicalCard physicalCard : cardsFromMemory) {
                                 stackedCards.addAll(actionContext.getGame().getGameState().getStackedCards(physicalCard));
                             }
 

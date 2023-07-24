@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -12,14 +12,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DiscardStackedCardsEffect extends AbstractEffect {
-    private final PhysicalCard _source;
-    private final Collection<? extends PhysicalCard> _cards;
+    private final LotroPhysicalCard _source;
+    private final Collection<? extends LotroPhysicalCard> _cards;
 
-    public DiscardStackedCardsEffect(PhysicalCard source, PhysicalCard card) {
+    public DiscardStackedCardsEffect(LotroPhysicalCard source, LotroPhysicalCard card) {
         this(source, Collections.singleton(card));
     }
 
-    public DiscardStackedCardsEffect(PhysicalCard source, Collection<? extends PhysicalCard> cards) {
+    public DiscardStackedCardsEffect(LotroPhysicalCard source, Collection<? extends LotroPhysicalCard> cards) {
         _source = source;
         _cards = cards;
     }
@@ -36,7 +36,7 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(DefaultGame game) {
-        for (PhysicalCard card : _cards) {
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() != Zone.STACKED)
                 return false;
         }
@@ -47,8 +47,8 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         GameState gameState = game.getGameState();
 
-        Set<PhysicalCard> toDiscard = new HashSet<>();
-        for (PhysicalCard card : _cards) {
+        Set<LotroPhysicalCard> toDiscard = new HashSet<>();
+        for (LotroPhysicalCard card : _cards) {
             if (card.getZone() == Zone.STACKED)
                 toDiscard.add(card);
         }
@@ -56,7 +56,7 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
         if (toDiscard.size() > 0)
             gameState.sendMessage(getAppendedNames(toDiscard) + " " + GameUtils.be(toDiscard) + " discarded from being stacked");
         gameState.removeCardsFromZone(_source.getOwner(), toDiscard);
-        for (PhysicalCard card : toDiscard)
+        for (LotroPhysicalCard card : toDiscard)
             gameState.addCardToZone(game, card, Zone.DISCARD);
 
         return new FullEffectResult(toDiscard.size() == _cards.size());

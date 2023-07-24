@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.decisions.CardsSelectionDecision;
@@ -74,7 +74,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
         if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _action.getActionSource()))
             return;
 
-        Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game, _filter);
+        Collection<LotroPhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game, _filter);
         int maximum = Math.min(_maximum.evaluateExpression(game, null), hand.size());
 
         int minimum = _minimum.evaluateExpression(game, null);
@@ -90,7 +90,7 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
                     new CardsSelectionDecision(1, _text, hand, minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                            Set<LotroPhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, cards, _forced));
                             processSubAction(game, subAction);
@@ -100,6 +100,6 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
         }
     }
 
-    protected void cardsBeingDiscardedCallback(Collection<PhysicalCard> cardsBeingDiscarded) {
+    protected void cardsBeingDiscardedCallback(Collection<LotroPhysicalCard> cardsBeingDiscarded) {
     }
 }

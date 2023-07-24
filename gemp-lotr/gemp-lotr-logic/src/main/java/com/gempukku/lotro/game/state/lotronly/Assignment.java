@@ -1,23 +1,23 @@
 package com.gempukku.lotro.game.state.lotronly;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 
 import java.util.Set;
 
 public class Assignment {
-    private final PhysicalCard _fellowshipCharacter;
-    private final Set<PhysicalCard> _shadowCharacters;
+    private final LotroPhysicalCard _fellowshipCharacter;
+    private final Set<LotroPhysicalCard> _shadowCharacters;
 
-    public Assignment(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
+    public Assignment(LotroPhysicalCard fellowshipCharacter, Set<LotroPhysicalCard> shadowCharacters) {
         _fellowshipCharacter = fellowshipCharacter;
         _shadowCharacters = shadowCharacters;
     }
 
-    public PhysicalCard getFellowshipCharacter() {
+    public LotroPhysicalCard getFellowshipCharacter() {
         return _fellowshipCharacter;
     }
 
-    public Set<PhysicalCard> getShadowCharacters() {
+    public Set<LotroPhysicalCard> getShadowCharacters() {
         return _shadowCharacters;
     }
 }

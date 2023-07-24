@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.effects.AssignmentEffect;
@@ -15,14 +15,14 @@ import com.gempukku.lotro.game.actions.Action;
 public class ChooseAndAssignCharacterToMinionEffect extends ChooseActiveCardEffect {
     private final Action _action;
     private final String _playerId;
-    private final PhysicalCard _minion;
+    private final LotroPhysicalCard _minion;
     private final boolean _skipAllyLocationCheck;
 
-    public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, PhysicalCard minion, Filterable... filters) {
+    public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, LotroPhysicalCard minion, Filterable... filters) {
         this(action, playerId, minion, false, filters);
     }
 
-    public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, PhysicalCard minion, boolean skipAllyLocationCheck, Filterable... filters) {
+    public ChooseAndAssignCharacterToMinionEffect(Action action, String playerId, LotroPhysicalCard minion, boolean skipAllyLocationCheck, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose character to assign " + GameUtils.getCardLink(minion) + " to", filters);
         _action = action;
         _playerId = playerId;
@@ -37,7 +37,7 @@ public class ChooseAndAssignCharacterToMinionEffect extends ChooseActiveCardEffe
     }
 
     @Override
-    protected void cardSelected(DefaultGame game, PhysicalCard card) {
+    protected void cardSelected(DefaultGame game, LotroPhysicalCard card) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new AssignmentEffect(_playerId, card, _minion, _skipAllyLocationCheck));

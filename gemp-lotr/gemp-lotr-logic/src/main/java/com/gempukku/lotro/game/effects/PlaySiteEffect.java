@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.rules.GameUtils;
@@ -44,7 +44,7 @@ public class PlaySiteEffect extends AbstractEffect {
         return _siteNumber;
     }
 
-    private Collection<PhysicalCard> getMatchingSites(DefaultGame game) {
+    private Collection<LotroPhysicalCard> getMatchingSites(DefaultGame game) {
         final int siteNumber = getSiteNumberToPlay(game);
 
         if (siteNumber > 9 || siteNumber < 1)
@@ -53,7 +53,7 @@ public class PlaySiteEffect extends AbstractEffect {
         if (game.getFormat().isOrderedSites()) {
             Filter printedSiteNumber = new Filter() {
                 @Override
-                public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                     return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
                 }
             };
@@ -83,9 +83,9 @@ public class PlaySiteEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         final int siteNumber = getSiteNumberToPlay(game);
 
-        Collection<PhysicalCard> newSite = getMatchingSites(game);
+        Collection<LotroPhysicalCard> newSite = getMatchingSites(game);
 
-        PhysicalCard currentSite = game.getGameState().getSite(siteNumber);
+        LotroPhysicalCard currentSite = game.getGameState().getSite(siteNumber);
 
         if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game, _playerId, currentSite))
                 && game.getModifiersQuerying().canPlaySite(game, _playerId)) {
@@ -93,15 +93,15 @@ public class PlaySiteEffect extends AbstractEffect {
             subAction.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerId, "Choose site to play", newSite, 1, 1) {
                         @Override
-                        protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> selectedCards) {
-                            PhysicalCard newSite = selectedCards.iterator().next();
+                        protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> selectedCards) {
+                            LotroPhysicalCard newSite = selectedCards.iterator().next();
 
                             GameState gameState = game.getGameState();
-                            PhysicalCard oldSite = gameState.getSite(siteNumber);
+                            LotroPhysicalCard oldSite = gameState.getSite(siteNumber);
 
                             Zone zone = null;
                             String controlled = null;
-                            List<PhysicalCard> stacked = null;
+                            List<LotroPhysicalCard> stacked = null;
 
                             if (oldSite != null) {
                                 controlled = oldSite.getCardController();
@@ -127,7 +127,7 @@ public class PlaySiteEffect extends AbstractEffect {
 
                             if (controlled != null) {
                                 gameState.takeControlOfCard(controlled, game, newSite, zone);
-                                for (PhysicalCard physicalCard : stacked)
+                                for (LotroPhysicalCard physicalCard : stacked)
                                     gameState.stackCard(game, physicalCard, newSite);
                             }
 
@@ -147,7 +147,7 @@ public class PlaySiteEffect extends AbstractEffect {
         }
     }
 
-    protected void sitePlayedCallback(PhysicalCard site) {
+    protected void sitePlayedCallback(LotroPhysicalCard site) {
 
     }
 }

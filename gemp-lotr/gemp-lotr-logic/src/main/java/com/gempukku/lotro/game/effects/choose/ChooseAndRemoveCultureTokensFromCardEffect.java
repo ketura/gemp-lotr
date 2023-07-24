@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
@@ -13,7 +13,7 @@ public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCard
     private final Token _token;
     private final int _count;
 
-    public ChooseAndRemoveCultureTokensFromCardEffect(PhysicalCard source, String playerId, Token token, int count, Filterable... filters) {
+    public ChooseAndRemoveCultureTokensFromCardEffect(LotroPhysicalCard source, String playerId, Token token, int count, Filterable... filters) {
         super(source, playerId, "Choose card to remove tokens from", filters);
         _token = token;
         _count = count;
@@ -31,7 +31,7 @@ public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCard
     }
 
     @Override
-    protected void cardSelected(DefaultGame game, PhysicalCard card) {
+    protected void cardSelected(DefaultGame game, LotroPhysicalCard card) {
         if (_token != null)
             game.getGameState().removeTokens(card, _token, _count);
         else

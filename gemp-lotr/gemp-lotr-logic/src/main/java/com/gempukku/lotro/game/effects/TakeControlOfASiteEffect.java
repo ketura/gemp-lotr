@@ -1,24 +1,24 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.Preventable;
 import com.gempukku.lotro.game.timing.results.TakeControlOfSiteResult;
 
 public class TakeControlOfASiteEffect extends AbstractEffect implements Preventable {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _playerId;
 
     private boolean _prevented;
 
-    public TakeControlOfASiteEffect(PhysicalCard source, String playerId) {
+    public TakeControlOfASiteEffect(LotroPhysicalCard source, String playerId) {
         _source = source;
         _playerId = playerId;
     }
 
-    public PhysicalCard getSource() {
+    public LotroPhysicalCard getSource() {
         return _source;
     }
 
@@ -27,13 +27,13 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
         return getFirstControllableSite(game) != null;
     }
 
-    private PhysicalCard getFirstControllableSite(DefaultGame game) {
+    private LotroPhysicalCard getFirstControllableSite(DefaultGame game) {
         int maxUnoccupiedSite = Integer.MAX_VALUE;
         for (String playerId : game.getGameState().getPlayerOrder().getAllPlayers())
             maxUnoccupiedSite = Math.min(maxUnoccupiedSite, game.getGameState().getPlayerPosition(playerId) - 1);
 
         for (int i = 1; i <= maxUnoccupiedSite; i++) {
-            final PhysicalCard site = game.getGameState().getSite(i);
+            final LotroPhysicalCard site = game.getGameState().getSite(i);
             if (site.getCardController() == null)
                 return site;
         }
@@ -63,7 +63,7 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
 
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
-        PhysicalCard site = getFirstControllableSite(game);
+        LotroPhysicalCard site = getFirstControllableSite(game);
         if (site != null && !_prevented) {
             game.getGameState().takeControlOfCard(_playerId, game, site, Zone.SUPPORT);
             game.getGameState().sendMessage(_playerId + " took control of " + GameUtils.getCardLink(site));

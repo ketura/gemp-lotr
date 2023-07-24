@@ -7,24 +7,13 @@ public interface PhysicalCard extends Filterable {
     Zone getZone();
     String getBlueprintId();
     String getImageUrl();
-
     String getOwner();
-
     String getCardController();
-
     int getCardId();
-
     LotroCardBlueprint getBlueprint();
-
     PhysicalCard getAttachedTo();
-
     PhysicalCard getStackedOn();
-
     void setWhileInZoneData(Object object);
-
     Object getWhileInZoneData();
 
-    void setSiteNumber(Integer number);
-
-    Integer getSiteNumber();
 }

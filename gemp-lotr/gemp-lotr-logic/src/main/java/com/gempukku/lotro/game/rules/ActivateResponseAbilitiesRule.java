@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.rules;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.ActivateCardAction;
@@ -28,7 +28,7 @@ public class ActivateResponseAbilitiesRule {
                     @Override
                     public List<? extends Action> getOptionalBeforeActions(String playerId, DefaultGame game, Effect effect) {
                         List<Action> result = new LinkedList<>();
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
+                        for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
                                 final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getOptionalInPlayBeforeActions(playerId, game, effect, activableCard);
                                 if (actions != null)
@@ -42,7 +42,7 @@ public class ActivateResponseAbilitiesRule {
                     @Override
                     public List<? extends Action> getOptionalAfterActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         List<Action> result = new LinkedList<>();
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
+                        for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
                                 final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getOptionalInPlayAfterActions(playerId, game, effectResult, activableCard);
                                 if (actions != null)
@@ -61,7 +61,7 @@ public class ActivateResponseAbilitiesRule {
                 Filters.and(CardType.SITE,
                         new Filter() {
                             @Override
-                            public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+                            public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                                 if (game.getGameState().getCurrentPhase().isRealPhase())
                                     return Filters.currentSite.accepts(game, physicalCard);
                                 return false;

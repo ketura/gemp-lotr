@@ -1,14 +1,14 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class PayPlayOnTwilightCostEffect extends AbstractEffect {
-    private final PhysicalCard _physicalCard;
-    private final PhysicalCard _target;
+    private final LotroPhysicalCard _physicalCard;
+    private final LotroPhysicalCard _target;
     private final int _twilightModifier;
 
-    public PayPlayOnTwilightCostEffect(PhysicalCard physicalCard, PhysicalCard target, int twilightModifier) {
+    public PayPlayOnTwilightCostEffect(LotroPhysicalCard physicalCard, LotroPhysicalCard target, int twilightModifier) {
         _physicalCard = physicalCard;
         _target = target;
         _twilightModifier = twilightModifier;

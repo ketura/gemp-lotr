@@ -4,7 +4,7 @@ import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
@@ -142,7 +142,7 @@ public class CardGameMediator {
     public String produceCardInfo(Player player, int cardId) {
         _readLock.lock();
         try {
-            PhysicalCard card = _tribblesgame.getGameState().findCardById(cardId);
+            LotroPhysicalCard card = _tribblesgame.getGameState().findCardById(cardId);
             if (card == null || card.getZone() == null)
                 return null;
 
@@ -157,7 +157,7 @@ public class CardGameMediator {
                 sb.append("<b>Affecting card:</b>");
                 Collection<Modifier> modifiers = _tribblesgame.getModifiersQuerying().getModifiersAffecting(_tribblesgame, card);
                 for (Modifier modifier : modifiers) {
-                    PhysicalCard source = modifier.getSource();
+                    LotroPhysicalCard source = modifier.getSource();
                     if (source != null)
                         sb.append("<br><b>" + GameUtils.getCardLink(source) + ":</b> " + modifier.getText(_tribblesgame, card));
                     else
@@ -176,7 +176,7 @@ public class CardGameMediator {
                         sb.append("<br>" + tokenIntegerEntry.getKey().toString() + ": " + tokenIntegerEntry.getValue());
                 }
 
-                List<PhysicalCard> stackedCards = _tribblesgame.getGameState().getStackedCards(card);
+                List<LotroPhysicalCard> stackedCards = _tribblesgame.getGameState().getStackedCards(card);
                 if (stackedCards != null && stackedCards.size() > 0) {
                     sb.append("<br><b>Stacked cards:</b>");
                     sb.append("<br>" + GameUtils.getAppendedNames(stackedCards));

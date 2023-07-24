@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.Modifier;
@@ -8,7 +9,7 @@ import com.gempukku.lotro.game.modifiers.ModifierHook;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PhysicalCardImpl implements PhysicalCard {
+public class PhysicalCardImpl implements LotroPhysicalCard {
     private int _cardId;
     private final String _blueprintId;
     private final String _owner;
@@ -155,7 +156,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     }
 
     @Override
-    public PhysicalCard getAttachedTo() {
+    public LotroPhysicalCard getAttachedTo() {
         return _attachedTo;
     }
 
@@ -164,7 +165,7 @@ public class PhysicalCardImpl implements PhysicalCard {
     }
 
     @Override
-    public PhysicalCard getStackedOn() {
+    public LotroPhysicalCard getStackedOn() {
         return _stackedOn;
     }
 

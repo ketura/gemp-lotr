@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.modifiers;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
 public class MoveLimitModifier extends AbstractModifier {
     private final Evaluator _moveLimitModifier;
 
-    public MoveLimitModifier(PhysicalCard source, int moveLimitModifier) {
+    public MoveLimitModifier(LotroPhysicalCard source, int moveLimitModifier) {
         super(source, null, null, null, ModifierEffect.MOVE_LIMIT_MODIFIER);
         _moveLimitModifier = new ConstantEvaluator(moveLimitModifier);
     }

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.game.effects;
 
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
 public class RemoveCharacterFromSkirmishEffect extends AbstractEffect {
-    private final PhysicalCard _source;
-    private final PhysicalCard _toRemove;
+    private final LotroPhysicalCard _source;
+    private final LotroPhysicalCard _toRemove;
 
-    public RemoveCharacterFromSkirmishEffect(PhysicalCard source, PhysicalCard toRemove) {
+    public RemoveCharacterFromSkirmishEffect(LotroPhysicalCard source, LotroPhysicalCard toRemove) {
         _source = source;
         _toRemove = toRemove;
     }

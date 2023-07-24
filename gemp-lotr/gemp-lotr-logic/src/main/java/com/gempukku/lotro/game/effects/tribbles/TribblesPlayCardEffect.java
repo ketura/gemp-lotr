@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects.tribbles;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.AbstractEffect;
@@ -11,16 +11,16 @@ import java.util.Collections;
 
 public class TribblesPlayCardEffect extends AbstractEffect {
     private final Zone _playedFrom;
-    private final PhysicalCard _cardPlayed;
+    private final LotroPhysicalCard _cardPlayed;
     private final Zone _zone;
 
-    public TribblesPlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo) {
+    public TribblesPlayCardEffect(Zone playedFrom, LotroPhysicalCard cardPlayed, Zone playedTo) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _zone = playedTo;
     }
 
-    public PhysicalCard getPlayedCard() {
+    public LotroPhysicalCard getPlayedCard() {
         return _cardPlayed;
     }
 

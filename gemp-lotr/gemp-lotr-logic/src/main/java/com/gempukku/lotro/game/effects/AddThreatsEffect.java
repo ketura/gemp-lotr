@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
@@ -13,16 +13,16 @@ import com.gempukku.lotro.game.timing.results.AddThreatResult;
 public class AddThreatsEffect extends AbstractEffect {
     private Action _action;
     private final String _performingPlayer;
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final Evaluator _count;
 
-    public AddThreatsEffect(String performingPlayer, PhysicalCard source, Evaluator count) {
+    public AddThreatsEffect(String performingPlayer, LotroPhysicalCard source, Evaluator count) {
         _performingPlayer = performingPlayer;
         _source = source;
         _count = count;
     }
 
-    public AddThreatsEffect(String performingPlayer, PhysicalCard source, int count) {
+    public AddThreatsEffect(String performingPlayer, LotroPhysicalCard source, int count) {
         this(performingPlayer, source, new ConstantEvaluator(count));
     }
 

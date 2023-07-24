@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
@@ -38,7 +38,7 @@ public class CardResolver {
 
     public static EffectAppender resolveStackedCards(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, FilterableSource stackedOn,
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+        Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource = actionContext -> {
             final Filterable stackedOnFilter = stackedOn.getFilterable(actionContext);
             return Filters.filter(actionContext.getGame().getGameState().getAllCards(), actionContext.getGame(), Filters.stackedOn(stackedOnFilter));
         };
@@ -52,7 +52,7 @@ public class CardResolver {
                 String choicePlayerId = playerSource.getPlayer(actionContext);
                 return new ChooseStackedCardsEffect(action, choicePlayerId, min, max, stackedOn.getFilterable(actionContext), Filters.in(possibleCards)) {
                     @Override
-                    protected void cardsChosen(DefaultGame game, Collection<PhysicalCard> stackedCards) {
+                    protected void cardsChosen(DefaultGame game, Collection<LotroPhysicalCard> stackedCards) {
                         actionContext.setCardMemory(memory, stackedCards);
                     }
 
@@ -78,7 +78,7 @@ public class CardResolver {
 
     public static EffectAppender resolveCardsInHand(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, boolean showMatchingOnly, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final PlayerSource handSource = PlayerResolver.resolvePlayer(handPlayer, environment);
-        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+        Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource = actionContext -> {
             String handPlayer1 = handSource.getPlayer(actionContext);
             return actionContext.getGame().getGameState().getHand(handPlayer1);
         };
@@ -98,8 +98,8 @@ public class CardResolver {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(DefaultGame game) {
-                            List<? extends PhysicalCard> hand = game.getGameState().getHand(handPlayer);
-                            List<PhysicalCard> randomCardsFromHand = GameUtils.getRandomCards(hand, 2);
+                            List<? extends LotroPhysicalCard> hand = game.getGameState().getHand(handPlayer);
+                            List<LotroPhysicalCard> randomCardsFromHand = GameUtils.getRandomCards(hand, 2);
                             actionContext.setCardMemory(memory, randomCardsFromHand);
                         }
                     };
@@ -119,7 +119,7 @@ public class CardResolver {
                 if (handId.equals(choicePlayerId)) {
                     return new ChooseCardsFromHandEffect(choicePlayerId, min, max, Filters.in(possibleCards)) {
                         @Override
-                        protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+                        protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
                             actionContext.setCardMemory(memory, cards);
                         }
 
@@ -129,10 +129,10 @@ public class CardResolver {
                         }
                     };
                 } else {
-                    List<? extends PhysicalCard> cardsInHand = actionContext.getGame().getGameState().getHand(handId);
+                    List<? extends LotroPhysicalCard> cardsInHand = actionContext.getGame().getGameState().getHand(handId);
                     return new ChooseArbitraryCardsEffect(choicePlayerId, GameUtils.SubstituteText(choiceText, actionContext), cardsInHand, Filters.in(possibleCards), min, max, showMatchingOnly) {
                         @Override
-                        protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> selectedCards) {
+                        protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> selectedCards) {
                             actionContext.setCardMemory(memory, selectedCards);
                         }
                     };
@@ -169,7 +169,7 @@ public class CardResolver {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
         final PlayerSource targetPlayerDiscardSource = PlayerResolver.resolvePlayer(targetPlayerDiscard, environment);
 
-        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+        Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource = actionContext -> {
             String targetPlayerId = targetPlayerDiscardSource.getPlayer(actionContext);
             return actionContext.getGame().getGameState().getDiscard(targetPlayerId);
         };
@@ -186,7 +186,7 @@ public class CardResolver {
                 String targetPlayerDiscardId = targetPlayerDiscardSource.getPlayer(actionContext);
                 return new ChooseCardsFromDiscardEffect(choicePlayerId, targetPlayerDiscardId, min, max, Filters.in(possibleCards)) {
                     @Override
-                    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+                    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);
                     }
 
@@ -210,7 +210,7 @@ public class CardResolver {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
         final PlayerSource deckSource = PlayerResolver.resolvePlayer(targetDeck, environment);
 
-        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext -> {
+        Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource = actionContext -> {
             String deckId = deckSource.getPlayer(actionContext);
             return actionContext.getGame().getGameState().getDeck(deckId);
         };
@@ -225,7 +225,7 @@ public class CardResolver {
                 String targetDeckId = deckSource.getPlayer(actionContext);
                 return new ChooseCardsFromDeckEffect(choicePlayerId, targetDeckId, min, max, Filters.in(possibleCards)) {
                     @Override
-                    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+                    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);
                     }
 
@@ -258,7 +258,7 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCards(String type, FilterableSource additionalFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource = actionContext ->
+        Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource = actionContext ->
                 Filters.filterActive(actionContext.getGame(), Filters.any);
 
         if (type.equals("self")) {
@@ -273,7 +273,7 @@ public class CardResolver {
 
                 @Override
                 protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                    Collection<PhysicalCard> result = filterCards(actionContext, additionalFilter);
+                    Collection<LotroPhysicalCard> result = filterCards(actionContext, additionalFilter);
                     return new AbstractEffect() {
                         @Override
                         public boolean isPlayableInFull(DefaultGame game) {
@@ -294,9 +294,9 @@ public class CardResolver {
                     };
                 }
 
-                private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
-                    PhysicalCard source = actionContext.getSource();
-                    PhysicalCard attachedTo = source.getAttachedTo();
+                private Collection<LotroPhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+                    LotroPhysicalCard source = actionContext.getSource();
+                    LotroPhysicalCard attachedTo = source.getAttachedTo();
                     if (attachedTo == null)
                         return Collections.emptySet();
                     
@@ -316,7 +316,7 @@ public class CardResolver {
                 String choicePlayerId = playerSource.getPlayer(actionContext);
                 return new ChooseActiveCardsEffect(actionContext.getSource(), choicePlayerId, GameUtils.SubstituteText(choiceText, actionContext), min, max, Filters.in(possibleCards)) {
                     @Override
-                    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+                    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
                         actionContext.setCardMemory(memory, cards);
                     }
                 };
@@ -329,7 +329,7 @@ public class CardResolver {
 
     private static DelayedAppender resolveSelf(FilterableSource choiceFilter, FilterableSource playabilityFilter,
                                                ValueSource countSource, String memory,
-                                               Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource) {
+                                               Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource) {
         return new DelayedAppender() {
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
@@ -339,7 +339,7 @@ public class CardResolver {
 
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
+                Collection<LotroPhysicalCard> result = filterCards(actionContext, choiceFilter);
                 return new AbstractEffect() {
                     @Override
                     public boolean isPlayableInFull(DefaultGame game) {
@@ -360,8 +360,8 @@ public class CardResolver {
                 };
             }
 
-            private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
-                PhysicalCard source = actionContext.getSource();
+            private Collection<LotroPhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+                LotroPhysicalCard source = actionContext.getSource();
                 Filterable additionalFilterable = Filters.any;
                 if (filter != null)
                     additionalFilterable = filter.getFilterable(actionContext);
@@ -372,7 +372,7 @@ public class CardResolver {
 
     private static DelayedAppender resolveMemoryCards(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter,
                                                       ValueSource countSource, String memory,
-                                                      Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource) throws InvalidCardDefinitionException {
+                                                      Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource) throws InvalidCardDefinitionException {
         String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
         if (sourceMemory.contains("(") || sourceMemory.contains(")"))
             throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
@@ -390,7 +390,7 @@ public class CardResolver {
 
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                Collection<PhysicalCard> result = filterCards(actionContext, choiceFilter);
+                Collection<LotroPhysicalCard> result = filterCards(actionContext, choiceFilter);
                 return new AbstractEffect() {
                     @Override
                     public boolean isPlayableInFull(DefaultGame game) {
@@ -411,8 +411,8 @@ public class CardResolver {
                 };
             }
 
-            private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
-                Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
+            private Collection<LotroPhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+                Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
                 Filterable additionalFilterable = Filters.any;
                 if (filter != null)
                     additionalFilterable = filter.getFilterable(actionContext);
@@ -422,7 +422,7 @@ public class CardResolver {
     }
 
     private static DelayedAppender resolveChoiceCards(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter,
-                                                      ValueSource countSource, CardGenerationEnvironment environment, Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource, ChoiceEffectSource effectSource) throws InvalidCardDefinitionException {
+                                                      ValueSource countSource, CardGenerationEnvironment environment, Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource, ChoiceEffectSource effectSource) throws InvalidCardDefinitionException {
         final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
@@ -440,7 +440,7 @@ public class CardResolver {
                 return effectSource.createEffect(filterCards(actionContext, choiceFilter), action, actionContext, min, max);
             }
 
-            private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+            private Collection<LotroPhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
                 Filterable filterable = filterableSource.getFilterable(actionContext);
                 Filterable additionalFilterable = Filters.any;
                 if (filter != null)
@@ -450,7 +450,7 @@ public class CardResolver {
         };
     }
 
-    private static DelayedAppender resolveAllCards(String type, FilterableSource additionalFilter, String memory, CardGenerationEnvironment environment, Function<ActionContext, Iterable<? extends PhysicalCard>> cardSource) throws InvalidCardDefinitionException {
+    private static DelayedAppender resolveAllCards(String type, FilterableSource additionalFilter, String memory, CardGenerationEnvironment environment, Function<ActionContext, Iterable<? extends LotroPhysicalCard>> cardSource) throws InvalidCardDefinitionException {
         final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         return new DelayedAppender() {
@@ -462,7 +462,7 @@ public class CardResolver {
                         actionContext.setCardMemory(memory, filterCards(actionContext, additionalFilter));
                     }
 
-                    private Collection<PhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
+                    private Collection<LotroPhysicalCard> filterCards(ActionContext actionContext, FilterableSource filter) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         Filterable additionalFilterable = Filters.any;
                         if (filter != null)
@@ -475,7 +475,7 @@ public class CardResolver {
     }
 
     private interface ChoiceEffectSource {
-        Effect createEffect(Collection<? extends PhysicalCard> possibleCards, CostToEffectAction action, ActionContext actionContext,
+        Effect createEffect(Collection<? extends LotroPhysicalCard> possibleCards, CostToEffectAction action, ActionContext actionContext,
                             int min, int max);
     }
 }

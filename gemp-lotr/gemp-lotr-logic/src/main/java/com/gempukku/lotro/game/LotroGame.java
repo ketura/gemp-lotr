@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
@@ -264,7 +264,7 @@ public class LotroGame implements DefaultGame {
         GameState gameState = getGameState();
         if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS && gameState.getCurrentPhase() != Phase.PUT_RING_BEARER) {
             // Ring-bearer death
-            PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
+            LotroPhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
             Zone zone = ringBearer.getZone();
             if (zone != null && zone.isInPlay()) {
                 // Ring-bearer corruption
@@ -288,6 +288,6 @@ public class LotroGame implements DefaultGame {
     }
 
     // Dummy function. LotroGame will eventually be deprecated.
-    public boolean checkPlayRequirements(PhysicalCard card) { return true; }
+    public boolean checkPlayRequirements(LotroPhysicalCard card) { return true; }
     public Set<String> getPlayers() { return _allPlayers; }
 }

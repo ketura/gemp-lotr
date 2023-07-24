@@ -1,26 +1,26 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.results.RemoveBurdenResult;
 
 public class RemoveBurdenEffect extends AbstractEffect {
     private final String _performingPlayerId;
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final int _count;
 
-    public RemoveBurdenEffect(String performingPlayerId, PhysicalCard source) {
+    public RemoveBurdenEffect(String performingPlayerId, LotroPhysicalCard source) {
         this(performingPlayerId, source, 1);
     }
 
-    public RemoveBurdenEffect(String performingPlayerId, PhysicalCard source, int count) {
+    public RemoveBurdenEffect(String performingPlayerId, LotroPhysicalCard source, int count) {
         _performingPlayerId = performingPlayerId;
         _source = source;
         _count = count;
     }
 
-    public PhysicalCard getSource() {
+    public LotroPhysicalCard getSource() {
         return _source;
     }
 

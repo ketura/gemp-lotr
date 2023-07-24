@@ -9,7 +9,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.game.effects.DoNothingEffect;
@@ -36,7 +36,7 @@ public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final PhysicalCard card = actionContext.getCardFromMemory(cardMemory);
+                        final LotroPhysicalCard card = actionContext.getCardFromMemory(cardMemory);
                         if (card != null) {
                             final String deckId = playerSource.getPlayer(actionContext);
 

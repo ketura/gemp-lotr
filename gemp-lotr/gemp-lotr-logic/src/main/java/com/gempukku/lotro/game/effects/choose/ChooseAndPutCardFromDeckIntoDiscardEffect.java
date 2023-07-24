@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.effects.choose;
 
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -23,10 +23,10 @@ public class ChooseAndPutCardFromDeckIntoDiscardEffect extends ChooseCardsFromDe
     }
 
     @Override
-    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
         if (cards.size() > 0) {
             SubAction subAction = new SubAction(_action);
-            for (PhysicalCard card : cards)
+            for (LotroPhysicalCard card : cards)
                 subAction.appendEffect(new DiscardCardFromDeckEffect(card));
             game.getActionsEnvironment().addActionToStack(subAction);
         }

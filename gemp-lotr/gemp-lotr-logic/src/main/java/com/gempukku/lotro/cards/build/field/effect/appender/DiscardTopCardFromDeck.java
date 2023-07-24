@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.game.effects.DiscardTopCardFromDeckEffect;
@@ -46,7 +46,7 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
                 return new DiscardTopCardFromDeckEffect(actionContext.getSource(), deckId, count, forced) {
                     @Override
-                    protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                    protected void cardsDiscardedCallback(Collection<LotroPhysicalCard> cards) {
                         if (memorize != null)
                             actionContext.setCardMemory(memorize, cards);
                     }

@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.filter.FilterFactory;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.state.lotronly.Assignment;
 import com.gempukku.lotro.game.DefaultGame;
@@ -323,9 +324,9 @@ public class GenericCardTestHelper extends AbstractAtTest {
     public int GetFreepsHandCount() { return GetFreepsHand().size(); }
     public int GetShadowHandCount() { return GetShadowHand().size(); }
 
-    public List<? extends PhysicalCard> GetFreepsHand() { return GetPlayerHand(P1); }
-    public List<? extends PhysicalCard> GetShadowHand() { return GetPlayerHand(P2); }
-    public List<? extends PhysicalCard> GetPlayerHand(String player)
+    public List<? extends LotroPhysicalCard> GetFreepsHand() { return GetPlayerHand(P1); }
+    public List<? extends LotroPhysicalCard> GetShadowHand() { return GetPlayerHand(P2); }
+    public List<? extends LotroPhysicalCard> GetPlayerHand(String player)
     {
         return _game.getGameState().getHand(player);
     }

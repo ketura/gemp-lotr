@@ -2,6 +2,7 @@ package com.gempukku.lotro.game.state.tribbles;
 
 import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
@@ -122,7 +123,7 @@ public class TribblesGameState extends GameState {
         }
     }
 
-    public PhysicalCard createPhysicalCard(String ownerPlayerId, CardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
+    public LotroPhysicalCard createPhysicalCard(String ownerPlayerId, CardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
         return createPhysicalCardImpl(ownerPlayerId, library, blueprintId);
     }
 
@@ -176,16 +177,16 @@ public class TribblesGameState extends GameState {
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
-            Set<PhysicalCard> cardsLeftToSent = new LinkedHashSet<>(_inPlay);
-            Set<PhysicalCard> sentCardsFromPlay = new HashSet<>();
+            Set<LotroPhysicalCard> cardsLeftToSent = new LinkedHashSet<>(_inPlay);
+            Set<LotroPhysicalCard> sentCardsFromPlay = new HashSet<>();
 
             int cardsToSendAtLoopStart;
             do {
                 cardsToSendAtLoopStart = cardsLeftToSent.size();
-                Iterator<PhysicalCard> cardIterator = cardsLeftToSent.iterator();
+                Iterator<LotroPhysicalCard> cardIterator = cardsLeftToSent.iterator();
                 while (cardIterator.hasNext()) {
-                    PhysicalCard physicalCard = cardIterator.next();
-                    PhysicalCard attachedTo = physicalCard.getAttachedTo();
+                    LotroPhysicalCard physicalCard = cardIterator.next();
+                    LotroPhysicalCard attachedTo = physicalCard.getAttachedTo();
                     if (attachedTo == null || sentCardsFromPlay.contains(attachedTo)) {
                         listener.cardCreated(physicalCard);
                         sentCardsFromPlay.add(physicalCard);
@@ -253,7 +254,7 @@ public class TribblesGameState extends GameState {
         _playerDecisions.remove(playerId);
     }
 
-    public void transferCard(PhysicalCard card, PhysicalCard transferTo) {
+    public void transferCard(LotroPhysicalCard card, LotroPhysicalCard transferTo) {
         if (card.getZone() != Zone.ATTACHED)
             ((LotroPhysicalCardImpl) card).setZone(Zone.ATTACHED);
 
@@ -262,7 +263,7 @@ public class TribblesGameState extends GameState {
             listener.cardMoved(card);
     }
 
-    public void takeControlOfCard(String playerId, DefaultGame game, PhysicalCard card, Zone zone) {
+    public void takeControlOfCard(String playerId, DefaultGame game, LotroPhysicalCard card, Zone zone) {
         ((LotroPhysicalCardImpl) card).setCardController(playerId);
         ((LotroPhysicalCardImpl) card).setZone(zone);
         if (card.getBlueprint().getCardType() == CardType.SITE)
@@ -271,14 +272,14 @@ public class TribblesGameState extends GameState {
             listener.cardMoved(card);
     }
 
-    public void loseControlOfCard(PhysicalCard card, Zone zone) {
+    public void loseControlOfCard(LotroPhysicalCard card, Zone zone) {
         ((LotroPhysicalCardImpl) card).setCardController(null);
         ((LotroPhysicalCardImpl) card).setZone(zone);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardMoved(card);
     }
 
-    public void attachCard(DefaultGame game, PhysicalCard card, PhysicalCard attachTo) throws InvalidParameterException {
+    public void attachCard(DefaultGame game, LotroPhysicalCard card, LotroPhysicalCard attachTo) throws InvalidParameterException {
         if(card == attachTo)
             throw new InvalidParameterException("Cannot attach card to itself!");
 
@@ -286,7 +287,7 @@ public class TribblesGameState extends GameState {
         addCardToZone(game, card, Zone.ATTACHED);
     }
 
-    public void stackCard(DefaultGame game, PhysicalCard card, PhysicalCard stackOn) throws InvalidParameterException {
+    public void stackCard(DefaultGame game, LotroPhysicalCard card, LotroPhysicalCard stackOn) throws InvalidParameterException {
         if(card == stackOn)
             throw new InvalidParameterException("Cannot stack card on itself!");
 
@@ -294,17 +295,17 @@ public class TribblesGameState extends GameState {
         addCardToZone(game, card, Zone.STACKED);
     }
 
-    public void cardAffectsCard(String playerPerforming, PhysicalCard card, Collection<PhysicalCard> affectedCards) {
+    public void cardAffectsCard(String playerPerforming, LotroPhysicalCard card, Collection<LotroPhysicalCard> affectedCards) {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardAffectedByCard(playerPerforming, card, affectedCards);
     }
 
-    public void eventPlayed(PhysicalCard card) {
+    public void eventPlayed(LotroPhysicalCard card) {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.eventPlayed(card);
     }
 
-    public void activatedCard(String playerPerforming, PhysicalCard card) {
+    public void activatedCard(String playerPerforming, LotroPhysicalCard card) {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardActivated(playerPerforming, card);
     }
@@ -328,14 +329,14 @@ public class TribblesGameState extends GameState {
             return _inPlay;
     }
 
-    public void removeCardsFromZone(String playerPerforming, Collection<PhysicalCard> cards) {
-        for (PhysicalCard card : cards) {
+    public void removeCardsFromZone(String playerPerforming, Collection<LotroPhysicalCard> cards) {
+        for (LotroPhysicalCard card : cards) {
             List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), card.getZone());
             if (!zoneCards.contains(card))
                 _log.error("Card was not found in the expected zone");
         }
 
-        for (PhysicalCard card : cards) {
+        for (LotroPhysicalCard card : cards) {
             Zone zone = card.getZone();
 
             if (zone.isInPlay())
@@ -365,16 +366,16 @@ public class TribblesGameState extends GameState {
         for (GameStateListener listener : getAllGameStateListeners())
             listener.cardsRemoved(playerPerforming, cards);
 
-        for (PhysicalCard card : cards) {
+        for (LotroPhysicalCard card : cards) {
             ((LotroPhysicalCardImpl) card).setZone(null);
         }
     }
 
-    public void addCardToZone(DefaultGame game, PhysicalCard card, Zone zone) {
+    public void addCardToZone(DefaultGame game, LotroPhysicalCard card, Zone zone) {
         addCardToZone(game, card, zone, true);
     }
 
-    private void addCardToZone(DefaultGame game, PhysicalCard card, Zone zone, boolean end) {
+    private void addCardToZone(DefaultGame game, LotroPhysicalCard card, Zone zone, boolean end) {
         if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
             zone = Zone.REMOVED;
 
@@ -412,17 +413,17 @@ public class TribblesGameState extends GameState {
         }
     }
 
-    private void assignNewCardId(PhysicalCard card) {
+    private void assignNewCardId(LotroPhysicalCard card) {
         _allCards.remove(card.getCardId());
         int newCardId = nextCardId();
         ((LotroPhysicalCardImpl) card).setCardId(newCardId);
         _allCards.put(newCardId, ((LotroPhysicalCardImpl) card));
     }
 
-    public void shuffleCardsIntoDeck(Collection<? extends PhysicalCard> cards, String playerId) {
+    public void shuffleCardsIntoDeck(Collection<? extends LotroPhysicalCard> cards, String playerId) {
         List<LotroPhysicalCardImpl> zoneCards = _decks.get(playerId);
 
-        for (PhysicalCard card : cards) {
+        for (LotroPhysicalCard card : cards) {
             zoneCards.add((LotroPhysicalCardImpl) card);
 
             ((LotroPhysicalCardImpl) card).setZone(Zone.DECK);
@@ -431,11 +432,11 @@ public class TribblesGameState extends GameState {
         shuffleDeck(playerId);
     }
 
-    public void putCardOnBottomOfDeck(PhysicalCard card) {
+    public void putCardOnBottomOfDeck(LotroPhysicalCard card) {
         addCardToZone(null, card, Zone.DECK, true);
     }
 
-    public void putCardOnTopOfDeck(PhysicalCard card) {
+    public void putCardOnTopOfDeck(LotroPhysicalCard card) {
         addCardToZone(null, card, Zone.DECK, false);
     }
 
@@ -449,42 +450,42 @@ public class TribblesGameState extends GameState {
         return false;
     }
 
-    public PhysicalCard findCardById(int cardId) {
+    public LotroPhysicalCard findCardById(int cardId) {
         return _allCards.get(cardId);
     }
 
-    public Iterable<? extends PhysicalCard> getAllCards() {
+    public Iterable<? extends LotroPhysicalCard> getAllCards() {
         return Collections.unmodifiableCollection(_allCards.values());
     }
 
-    public List<? extends PhysicalCard> getHand(String playerId) {
+    public List<? extends LotroPhysicalCard> getHand(String playerId) {
         return Collections.unmodifiableList(_hands.get(playerId));
     }
 
-    public List<? extends PhysicalCard> getRemoved(String playerId) {
+    public List<? extends LotroPhysicalCard> getRemoved(String playerId) {
         return Collections.unmodifiableList(_removed.get(playerId));
     }
 
-    public List<? extends PhysicalCard> getDeck(String playerId) {
+    public List<? extends LotroPhysicalCard> getDeck(String playerId) {
         return Collections.unmodifiableList(_decks.get(playerId));
     }
 
-    public List<? extends PhysicalCard> getDiscard(String playerId) {
+    public List<? extends LotroPhysicalCard> getDiscard(String playerId) {
         return Collections.unmodifiableList(_discards.get(playerId));
     }
 
-    public List<? extends PhysicalCard> getAdventureDeck(String playerId) {
+    public List<? extends LotroPhysicalCard> getAdventureDeck(String playerId) {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
     }
 
-    public List<? extends PhysicalCard> getPlayPile(String playerId) {
+    public List<? extends LotroPhysicalCard> getPlayPile(String playerId) {
         return Collections.unmodifiableList(_playPiles.get(playerId));
     }
-    public List<? extends PhysicalCard> getInPlay() {
+    public List<? extends LotroPhysicalCard> getInPlay() {
         return Collections.unmodifiableList(_inPlay);
     }
 
-    public List<? extends PhysicalCard> getStacked(String playerId) {
+    public List<? extends LotroPhysicalCard> getStacked(String playerId) {
         return Collections.unmodifiableList(_stacked.get(playerId));
     }
 
@@ -502,8 +503,8 @@ public class TribblesGameState extends GameState {
         return _playerPosition.getOrDefault(playerId, 0);
     }
 
-    public List<PhysicalCard> getAttachedCards(PhysicalCard card) {
-        List<PhysicalCard> result = new LinkedList<>();
+    public List<LotroPhysicalCard> getAttachedCards(LotroPhysicalCard card) {
+        List<LotroPhysicalCard> result = new LinkedList<>();
         for (LotroPhysicalCardImpl physicalCard : _inPlay) {
             if (physicalCard.getAttachedTo() != null && physicalCard.getAttachedTo() == card)
                 result.add(physicalCard);
@@ -511,8 +512,8 @@ public class TribblesGameState extends GameState {
         return result;
     }
 
-    public List<PhysicalCard> getStackedCards(PhysicalCard card) {
-        List<PhysicalCard> result = new LinkedList<>();
+    public List<LotroPhysicalCard> getStackedCards(LotroPhysicalCard card) {
+        List<LotroPhysicalCard> result = new LinkedList<>();
         for (List<LotroPhysicalCardImpl> physicalCardList : _stacked.values()) {
             for (LotroPhysicalCardImpl physicalCard : physicalCardList) {
                 if (physicalCard.getStackedOn() == card)
@@ -529,7 +530,7 @@ public class TribblesGameState extends GameState {
             listener.setCurrentPlayerId(_currentPlayerId);
     }
 
-    public boolean isCardInPlayActive(PhysicalCard card) {
+    public boolean isCardInPlayActive(LotroPhysicalCard card) {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
@@ -573,11 +574,11 @@ public class TribblesGameState extends GameState {
                 startAffectingInDiscard(game, discardedCard);
     }
 
-    private void startAffectingControlledSite(DefaultGame game, PhysicalCard physicalCard) {
+    private void startAffectingControlledSite(DefaultGame game, LotroPhysicalCard physicalCard) {
         ((LotroPhysicalCardImpl) physicalCard).startAffectingGameControlledSite(game);
     }
 
-    public void reapplyAffectingForCard(DefaultGame game, PhysicalCard card) {
+    public void reapplyAffectingForCard(DefaultGame game, LotroPhysicalCard card) {
         ((LotroPhysicalCardImpl) card).stopAffectingGame();
         ((LotroPhysicalCardImpl) card).startAffectingGame(game);
     }
@@ -598,35 +599,35 @@ public class TribblesGameState extends GameState {
                 stopAffectingInDiscard(discardedCard);
     }
 
-    private void startAffecting(DefaultGame game, PhysicalCard card) {
+    private void startAffecting(DefaultGame game, LotroPhysicalCard card) {
         ((LotroPhysicalCardImpl) card).startAffectingGame(game);
     }
 
-    private void stopAffecting(PhysicalCard card) {
+    private void stopAffecting(LotroPhysicalCard card) {
         ((LotroPhysicalCardImpl) card).stopAffectingGame();
     }
 
-    private void startAffectingStacked(DefaultGame game, PhysicalCard card) {
+    private void startAffectingStacked(DefaultGame game, LotroPhysicalCard card) {
         if (isCardAffectingGame(card))
             ((LotroPhysicalCardImpl) card).startAffectingGameStacked(game);
     }
 
-    private void stopAffectingStacked(PhysicalCard card) {
+    private void stopAffectingStacked(LotroPhysicalCard card) {
         if (isCardAffectingGame(card))
             ((LotroPhysicalCardImpl) card).stopAffectingGameStacked();
     }
 
-    private void startAffectingInDiscard(DefaultGame game, PhysicalCard card) {
+    private void startAffectingInDiscard(DefaultGame game, LotroPhysicalCard card) {
         if (isCardAffectingGame(card))
             ((LotroPhysicalCardImpl) card).startAffectingGameInDiscard(game);
     }
 
-    private void stopAffectingInDiscard(PhysicalCard card) {
+    private void stopAffectingInDiscard(LotroPhysicalCard card) {
         if (isCardAffectingGame(card))
             ((LotroPhysicalCardImpl) card).stopAffectingGameInDiscard();
     }
 
-    private boolean isCardAffectingGame(PhysicalCard card) {
+    private boolean isCardAffectingGame(LotroPhysicalCard card) {
         final Side side = card.getBlueprint().getSide();
         if (side == Side.SHADOW)
             return !getCurrentPlayerId().equals(card.getOwner());
@@ -646,10 +647,10 @@ public class TribblesGameState extends GameState {
         return _currentPhase;
     }
 
-    public PhysicalCard removeTopDeckCard(String player) {
+    public LotroPhysicalCard removeTopDeckCard(String player) {
         List<LotroPhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
-            final PhysicalCard topDeckCard = deck.get(0);
+            final LotroPhysicalCard topDeckCard = deck.get(0);
             removeCardsFromZone(null, Collections.singleton(topDeckCard));
             return topDeckCard;
         } else {
@@ -657,10 +658,10 @@ public class TribblesGameState extends GameState {
         }
     }
 
-    public PhysicalCard removeBottomDeckCard(String player) {
+    public LotroPhysicalCard removeBottomDeckCard(String player) {
         List<LotroPhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
-            final PhysicalCard topDeckCard = deck.get(deck.size() - 1);
+            final LotroPhysicalCard topDeckCard = deck.get(deck.size() - 1);
             removeCardsFromZone(null, Collections.singleton(topDeckCard));
             return topDeckCard;
         } else {
@@ -671,7 +672,7 @@ public class TribblesGameState extends GameState {
     public void playerDrawsCard(String player) {
         List<LotroPhysicalCardImpl> deck = _decks.get(player);
         if (deck.size() > 0) {
-            PhysicalCard card = deck.get(0);
+            LotroPhysicalCard card = deck.get(0);
             removeCardsFromZone(null, Collections.singleton(card));
             addCardToZone(null, card, Zone.HAND);
         }
@@ -708,7 +709,7 @@ public class TribblesGameState extends GameState {
     }
 
     @Override
-    public void playEffectReturningResult(PhysicalCard cardPlayed) {
+    public void playEffectReturningResult(LotroPhysicalCard cardPlayed) {
         int tribblePlayed = cardPlayed.getBlueprint().getTribbleValue();
         int currentTribble = _nextTribble;
         if (tribblePlayed == 100000) {

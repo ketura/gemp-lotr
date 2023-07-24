@@ -2,7 +2,7 @@ package com.gempukku.lotro.game.effects.discount;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.DiscountEffect;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public class ExertCharactersDiscountEffect extends AbstractSubActionEffect implements DiscountEffect {
     private final Action _action;
-    private final PhysicalCard _payingFor;
+    private final LotroPhysicalCard _payingFor;
     private final String _ownerId;
     private final int _multiplier;
     private final Filterable[] _exertFilter;
@@ -22,7 +22,7 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
 
     private int _exertedCount;
 
-    public ExertCharactersDiscountEffect(Action action, PhysicalCard payingFor, String ownerId, int multiplier, Filterable... exertFilter) {
+    public ExertCharactersDiscountEffect(Action action, LotroPhysicalCard payingFor, String ownerId, int multiplier, Filterable... exertFilter) {
         _action = action;
         _payingFor = payingFor;
         _ownerId = ownerId;
@@ -69,12 +69,12 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
             subAction.appendEffect(
                     new ChooseAndExertCharactersEffect(subAction, _ownerId, minimalExerts, Integer.MAX_VALUE, Filters.and(_exertFilter), Filters.character) {
                         @Override
-                        protected void forEachCardExertedCallback(PhysicalCard character) {
+                        protected void forEachCardExertedCallback(LotroPhysicalCard character) {
                             _exertedCount++;
                         }
 
                         @Override
-                        protected void cardsToBeExertedCallback(Collection<PhysicalCard> characters) {
+                        protected void cardsToBeExertedCallback(Collection<LotroPhysicalCard> characters) {
                             discountPaidCallback(_exertedCount);
                         }
                     });

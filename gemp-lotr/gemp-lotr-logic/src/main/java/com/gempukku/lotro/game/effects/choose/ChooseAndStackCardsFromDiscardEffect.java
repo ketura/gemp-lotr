@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
@@ -19,10 +19,10 @@ public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
     private final String _playerId;
     private final int _minimum;
     private final int _maximum;
-    private final PhysicalCard _stackOn;
+    private final LotroPhysicalCard _stackOn;
     private final Filterable[] _filter;
 
-    public ChooseAndStackCardsFromDiscardEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, Filterable... filter) {
+    public ChooseAndStackCardsFromDiscardEffect(Action action, String playerId, int minimum, int maximum, LotroPhysicalCard stackOn, Filterable... filter) {
         _action = action;
         _playerId = playerId;
         _minimum = minimum;
@@ -48,13 +48,13 @@ public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final DefaultGame game) {
-        Collection<PhysicalCard> discard = Filters.filter(game.getGameState().getDiscard(_playerId), game, _filter);
+        Collection<LotroPhysicalCard> discard = Filters.filter(game.getGameState().getDiscard(_playerId), game, _filter);
 
         final boolean success = discard.size() >= _minimum;
 
         if (discard.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
-            for (PhysicalCard card : discard)
+            for (LotroPhysicalCard card : discard)
                 subAction.appendEffect(new StackCardFromDiscardEffect(card, _stackOn));
             game.getActionsEnvironment().addActionToStack(subAction);
             stackFromDiscardCallback(discard);
@@ -63,9 +63,9 @@ public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
                     new ArbitraryCardsSelectionDecision(1, "Choose cards to stack", discard, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            List<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                            List<LotroPhysicalCard> cards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
-                            for (PhysicalCard card : cards)
+                            for (LotroPhysicalCard card : cards)
                                 subAction.appendEffect(new StackCardFromDiscardEffect(card, _stackOn));
                             game.getActionsEnvironment().addActionToStack(subAction);
                             stackFromDiscardCallback(cards);
@@ -76,7 +76,7 @@ public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
         return new FullEffectResult(success);
     }
 
-    public void stackFromDiscardCallback(Collection<PhysicalCard> cardsStacked) {
+    public void stackFromDiscardCallback(Collection<LotroPhysicalCard> cardsStacked) {
 
     }
 }

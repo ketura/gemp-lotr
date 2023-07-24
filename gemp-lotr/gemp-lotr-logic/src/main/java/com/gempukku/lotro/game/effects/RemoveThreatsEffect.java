@@ -1,14 +1,14 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 
 public class RemoveThreatsEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final int _count;
 
-    public RemoveThreatsEffect(PhysicalCard source, int count) {
+    public RemoveThreatsEffect(LotroPhysicalCard source, int count) {
         _source = source;
         _count = count;
     }

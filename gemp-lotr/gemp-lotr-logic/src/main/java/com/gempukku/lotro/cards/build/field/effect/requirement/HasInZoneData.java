@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.build.field.effect.requirement;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import org.json.simple.JSONObject;
 
 public class HasInZoneData implements RequirementProducer {
@@ -20,7 +20,7 @@ public class HasInZoneData implements RequirementProducer {
             @Override
             public boolean accepts(ActionContext actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
-                for (PhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterable)) {
+                for (LotroPhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterable)) {
                     if (physicalCard.getWhileInZoneData() != null)
                         return true;
                 }

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.results.AssignAgainstResult;
@@ -14,14 +14,14 @@ public class AssignmentEffect extends AbstractEffect {
     private final String _playerId;
     private boolean _ignoreSingleMinionRestriction;
     private final boolean _skipAllyLocationCheck;
-    private final PhysicalCard _fpChar;
-    private final PhysicalCard _minion;
+    private final LotroPhysicalCard _fpChar;
+    private final LotroPhysicalCard _minion;
 
-    public AssignmentEffect(String playerId, PhysicalCard fpChar, PhysicalCard minion) {
+    public AssignmentEffect(String playerId, LotroPhysicalCard fpChar, LotroPhysicalCard minion) {
         this(playerId, fpChar, minion, false);
     }
 
-    public AssignmentEffect(String playerId, PhysicalCard fpChar, PhysicalCard minion, boolean skipAllyLocationCheck) {
+    public AssignmentEffect(String playerId, LotroPhysicalCard fpChar, LotroPhysicalCard minion, boolean skipAllyLocationCheck) {
         _playerId = playerId;
         _fpChar = fpChar;
         _minion = minion;
@@ -69,7 +69,7 @@ public class AssignmentEffect extends AbstractEffect {
         return new FullEffectResult(false);
     }
 
-    protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {
+    protected void assignmentMadeCallback(LotroPhysicalCard fpChar, LotroPhysicalCard minion) {
 
     }
 }

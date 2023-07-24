@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.actions;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.decisions.CardsSelectionDecision;
@@ -62,12 +62,12 @@ public class PlayerReconcilesAction implements Action {
     }
 
     @Override
-    public PhysicalCard getActionSource() {
+    public LotroPhysicalCard getActionSource() {
         return null;
     }
 
     @Override
-    public PhysicalCard getActionAttachedToCard() {
+    public LotroPhysicalCard getActionAttachedToCard() {
         return null;
     }
 
@@ -85,7 +85,7 @@ public class PlayerReconcilesAction implements Action {
             final int handSize = game.getFormat().getHandSize();
 
             GameState gameState = _game.getGameState();
-            final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));
+            final Set<? extends LotroPhysicalCard> cardsInHand = new HashSet<LotroPhysicalCard>(gameState.getHand(_playerId));
 
             // Formats which are set to end the game at the end of the regroup phase instead of at the start of the regroup phase
             // should prematurely end the game instead of doing a true reconcile.
@@ -102,7 +102,7 @@ public class PlayerReconcilesAction implements Action {
                             new CardsSelectionDecision(1, "Choose cards to discard down to "+handSize, cardsInHand, cardsInHand.size() - handSize, cardsInHand.size() - handSize) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
+                                    Set<LotroPhysicalCard> cards = getSelectedCardsByResponse(result);
                                     _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, cards, false));
                                     _effectQueue.add(
                                             new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
@@ -113,7 +113,7 @@ public class PlayerReconcilesAction implements Action {
                             new CardsSelectionDecision(1, "Reconcile - choose card to discard or press DONE", cardsInHand, 0, 1) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
-                                    Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                    Set<LotroPhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                     if (selectedCards.size() > 0) {
                                         _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, selectedCards, false));
                                     }

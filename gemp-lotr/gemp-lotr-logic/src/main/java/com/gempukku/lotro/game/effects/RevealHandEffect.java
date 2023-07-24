@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.rules.GameUtils;
 import com.gempukku.lotro.game.timing.PlayOrder;
@@ -12,11 +12,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class RevealHandEffect extends AbstractEffect {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final String _actingPlayer;
     private final String _handPlayerId;
 
-    public RevealHandEffect(PhysicalCard source, String actingPlayer, String handPlayerId) {
+    public RevealHandEffect(LotroPhysicalCard source, String actingPlayer, String handPlayerId) {
         _source = source;
         _actingPlayer = actingPlayer;
         _handPlayerId = handPlayerId;
@@ -40,7 +40,7 @@ public class RevealHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _handPlayerId, _actingPlayer)) {
-            final List<? extends PhysicalCard> hand = game.getGameState().getHand(_handPlayerId);
+            final List<? extends LotroPhysicalCard> hand = game.getGameState().getHand(_handPlayerId);
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _handPlayerId + " cards in hand - " + getAppendedNames(hand));
 
             final PlayOrder playerOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_handPlayerId, false);
@@ -59,7 +59,7 @@ public class RevealHandEffect extends AbstractEffect {
 
             cardsRevealed(hand);
 
-            for (PhysicalCard card : hand) {
+            for (LotroPhysicalCard card : hand) {
                 game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _handPlayerId, card));
             }
 
@@ -69,7 +69,7 @@ public class RevealHandEffect extends AbstractEffect {
         }
     }
 
-    protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
+    protected void cardsRevealed(Collection<? extends LotroPhysicalCard> cards) {
 
     }
 }

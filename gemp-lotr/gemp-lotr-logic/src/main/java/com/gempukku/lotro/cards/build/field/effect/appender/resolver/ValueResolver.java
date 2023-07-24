@@ -2,9 +2,9 @@ package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.modifiers.evaluator.*;
 import com.gempukku.lotro.game.modifiers.evaluator.lotronly.CountSpottableEvaluator;
@@ -142,7 +142,7 @@ public class ValueResolver {
                             (game, cardAffected) -> {
                                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                                 int wounds = 0;
-                                for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                                     wounds += actionContext.getGame().getGameState().getWounds(physicalCard);
                                 }
 
@@ -157,7 +157,7 @@ public class ValueResolver {
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return (actionContext) -> (game, cardAffected) -> {
                     int count = 0;
-                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterableSource.getFilterable(actionContext))) {
+                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterableSource.getFilterable(actionContext))) {
                         count += game.getModifiersQuerying().getKeywordCount(game, physicalCard, keyword);
                     }
                     return count;
@@ -172,8 +172,8 @@ public class ValueResolver {
                 return (actionContext) -> {
                     final DefaultGame game = actionContext.getGame();
                     int count = 0;
-                    final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
-                    for (PhysicalCard cardFromMemory : cardsFromMemory) {
+                    final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                    for (LotroPhysicalCard cardFromMemory : cardsFromMemory) {
                         count += game.getModifiersQuerying().getKeywordCount(game, cardFromMemory, keyword);
                     }
                     return new ConstantEvaluator(count);
@@ -222,7 +222,7 @@ public class ValueResolver {
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new MultiplyEvaluator(multiplier, new Evaluator() {
                     @Override
-                    public int evaluateExpression(DefaultGame game, PhysicalCard cardAffected) {
+                    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         int count = 0;
                         for (String player : game.getGameState().getPlayerOrder().getAllPlayers())
@@ -328,7 +328,7 @@ public class ValueResolver {
                                 (game, cardAffected) -> {
                                     final Filterable filterable = vitalitySource.getFilterable(actionContext);
                                     int strength = 0;
-                                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                                         strength += game.getModifiersQuerying().getStrength(game, physicalCard);
                                     }
 
@@ -353,7 +353,7 @@ public class ValueResolver {
                                 (game, cardAffected) -> {
                                     final Filterable filterable = vitalitySource.getFilterable(actionContext);
                                     int vitality = 0;
-                                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                                         vitality += game.getModifiersQuerying().getVitality(game, physicalCard);
                                     }
 
@@ -367,7 +367,7 @@ public class ValueResolver {
 
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
                     int result = 0;
-                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                    for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         result += physicalCard.getBlueprint().getStrength();
                     }
                     return result;
@@ -378,7 +378,7 @@ public class ValueResolver {
 
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
                     int result = 0;
-                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                    for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         result += game.getModifiersQuerying().getStrength(game, physicalCard);
                     }
                     return result;
@@ -419,7 +419,7 @@ public class ValueResolver {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
                     int total = 0;
-                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                    for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         total += physicalCard.getBlueprint().getTwilightCost();
                     }
                     return multiplier * total;
@@ -470,7 +470,7 @@ public class ValueResolver {
                 return actionContext -> (game, cardAffected) -> {
                     int result = 0;
                     final Filterable filterable = filterableSource.getFilterable(actionContext);
-                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                         result += game.getGameState().getTokenCount(physicalCard, tokenForCulture);
                     }
 

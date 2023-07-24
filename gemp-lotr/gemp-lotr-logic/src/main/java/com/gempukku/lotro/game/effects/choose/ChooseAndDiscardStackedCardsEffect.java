@@ -1,8 +1,8 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.SubAction;
 import com.gempukku.lotro.game.decisions.CardsSelectionDecision;
@@ -51,9 +51,9 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
 
     @Override
     public void playEffect(final DefaultGame game) {
-        List<PhysicalCard> discardableCards = new LinkedList<>();
+        List<LotroPhysicalCard> discardableCards = new LinkedList<>();
 
-        for (PhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOnFilter))
+        for (LotroPhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOnFilter))
             discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _stackedCardFilter));
 
         if (discardableCards.size() <= _minimum) {
@@ -66,7 +66,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
                     new CardsSelectionDecision(1, "Choose cards to discard", discardableCards, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
-                            Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                            Set<LotroPhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                             SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), selectedCards));
                             discardingCardsCallback(selectedCards);
@@ -76,7 +76,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
         }
     }
 
-    protected void discardingCardsCallback(Collection<PhysicalCard> cards) {
+    protected void discardingCardsCallback(Collection<LotroPhysicalCard> cards) {
 
     }
 }

@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect.trigger;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.timing.TriggerConditions;
 import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
 import org.json.simple.JSONObject;
@@ -39,7 +39,7 @@ public class Discarded implements TriggerCheckerProducer {
                         result = false;
                 }
                 if (result && memorize != null) {
-                    final PhysicalCard discardedCard = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getDiscardedCard();
+                    final LotroPhysicalCard discardedCard = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getDiscardedCard();
                     actionContext.setCardMemory(memorize, discardedCard);
                 }
                 return result;

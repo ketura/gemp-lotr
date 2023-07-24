@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.effects;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.decisions.ArbitraryCardsSelectionDecision;
 
@@ -38,8 +38,8 @@ public class LookAtTopCardOfADeckEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(DefaultGame game) {
-        List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerDeckId);
-        List<? extends PhysicalCard> cards = game.getGameState().getDeck(_playerDeckId).subList(0, Math.min(deck.size(), _count));
+        List<? extends LotroPhysicalCard> deck = game.getGameState().getDeck(_playerDeckId);
+        List<? extends LotroPhysicalCard> cards = game.getGameState().getDeck(_playerDeckId).subList(0, Math.min(deck.size(), _count));
 
         String message = "Cards on top of deck (left is top)";
         if(_count == deck.size())
@@ -55,7 +55,7 @@ public class LookAtTopCardOfADeckEffect extends AbstractEffect {
         return new FullEffectResult(deck.size() >= _count);
     }
 
-    protected void cardsLookedAt(List<? extends PhysicalCard> cards) {
+    protected void cardsLookedAt(List<? extends LotroPhysicalCard> cards) {
 
     }
 }

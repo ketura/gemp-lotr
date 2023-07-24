@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.game.timing.TriggerConditions;
@@ -13,10 +13,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class PreventAllWoundsActionProxy extends AbstractActionProxy {
-    private final PhysicalCard _source;
+    private final LotroPhysicalCard _source;
     private final Filter _filters;
 
-    public PreventAllWoundsActionProxy(PhysicalCard source, Filterable... filters) {
+    public PreventAllWoundsActionProxy(LotroPhysicalCard source, Filterable... filters) {
         _source = source;
         _filters = Filters.and(filters);
     }

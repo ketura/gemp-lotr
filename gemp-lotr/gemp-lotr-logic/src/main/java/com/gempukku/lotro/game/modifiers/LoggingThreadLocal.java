@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.modifiers;
 
-import com.gempukku.lotro.cards.PhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import org.apache.log4j.Logger;
 
 public class LoggingThreadLocal {
@@ -30,7 +30,7 @@ public class LoggingThreadLocal {
 //        _level.set(0);
     }
 
-    public static void logMethodStart(PhysicalCard card, String desc) {
+    public static void logMethodStart(LotroPhysicalCard card, String desc) {
 //        StringBuilder builder = _logLocal.get();
 //        if (builder != null) {
 //            int level = _level.get();

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.game.effects.choose;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.game.effects.ReturnCardsToHandEffect;
@@ -24,14 +24,14 @@ public class ChooseAndReturnCardsToHandEffect extends ChooseActiveCardsEffect {
     protected Filter getExtraFilterForPlaying(DefaultGame game) {
         return new Filter() {
             @Override
-            public boolean accepts(DefaultGame game, PhysicalCard physicalCard) {
+            public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
                 return (_action.getActionSource() == null || game.getModifiersQuerying().canBeReturnedToHand(game, physicalCard, _action.getActionSource()));
             }
         };
     }
 
     @Override
-    protected void cardsSelected(DefaultGame game, Collection<PhysicalCard> cards) {
+    protected void cardsSelected(DefaultGame game, Collection<LotroPhysicalCard> cards) {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new ReturnCardsToHandEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);

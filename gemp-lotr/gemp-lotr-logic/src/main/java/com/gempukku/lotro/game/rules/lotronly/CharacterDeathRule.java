@@ -1,11 +1,11 @@
 package com.gempukku.lotro.game.rules.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import java.util.*;
 
 public class CharacterDeathRule {
-    private final Set<PhysicalCard> _charactersAlreadyOnWayToDeath = new HashSet<>();
+    private final Set<LotroPhysicalCard> _charactersAlreadyOnWayToDeath = new HashSet<>();
     private final DefaultActionsEnvironment _actionsEnvironment;
 
     public CharacterDeathRule(DefaultActionsEnvironment actionsEnvironment) {
@@ -31,7 +31,7 @@ public class CharacterDeathRule {
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ZERO_VITALITY) {
                             ZeroVitalityResult zeroVitalityResult = (ZeroVitalityResult) effectResult;
-                            final Set<PhysicalCard> characters = zeroVitalityResult.getCharacters();
+                            final Set<LotroPhysicalCard> characters = zeroVitalityResult.getCharacters();
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
                             action.setText("Character death");
                             action.appendEffect(
@@ -55,11 +55,11 @@ public class CharacterDeathRule {
         if (game.getGameState().getCurrentPhase() != Phase.PUT_RING_BEARER && game.getGameState().getCurrentPhase() != Phase.BETWEEN_TURNS) {
             GameState gameState = game.getGameState();
 
-            Collection<PhysicalCard> characters = Filters.filterActive(game,
+            Collection<LotroPhysicalCard> characters = Filters.filterActive(game,
                     Filters.or(CardType.ALLY, CardType.COMPANION, CardType.MINION));
 
-            Set<PhysicalCard> deadChars = new HashSet<>();
-            for (PhysicalCard character : characters)
+            Set<LotroPhysicalCard> deadChars = new HashSet<>();
+            for (LotroPhysicalCard character : characters)
                 if (!_charactersAlreadyOnWayToDeath.contains(character) && game.getModifiersQuerying().getVitality(game, character) <= 0)
                     deadChars.add(character);
 

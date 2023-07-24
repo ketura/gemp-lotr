@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.rules;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.Action;
 import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
@@ -26,7 +26,7 @@ public class ActivatePhaseActionsFromDiscardRule {
                     public List<? extends Action> getPhaseActions(String playerId, DefaultGame game) {
                         List<Action> result = new LinkedList<>();
                         final Side side = LotroGameUtils.getSide(game, playerId);
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getDiscard(playerId), game, side)) {
+                        for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getDiscard(playerId), game, side)) {
                             List<? extends Action> list = activableCard.getBlueprint().getPhaseActionsFromDiscard(playerId, game, activableCard);
                             if (list != null) {
                                 for (Action action : list) {

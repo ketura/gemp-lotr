@@ -1,11 +1,11 @@
 package com.gempukku.lotro.game.rules.lotronly;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.actions.AbstractActionProxy;
-import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.OptionalTriggerAction;
 import com.gempukku.lotro.game.effects.AddTwilightEffect;
@@ -31,7 +31,7 @@ public class AmbushRule {
                         if (effectResult.getType() == EffectResult.Type.ASSIGNED_AGAINST) {
                             AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
-                                PhysicalCard assignedCard = assignmentResult.getAssignedCard();
+                                LotroPhysicalCard assignedCard = assignmentResult.getAssignedCard();
                                 if (Filters.and(CardType.MINION, Keyword.AMBUSH, Filters.owner(playerId)).accepts(game, assignedCard)) {
                                     final int count = game.getModifiersQuerying().getKeywordCount(game, assignedCard, Keyword.AMBUSH);
                                     OptionalTriggerAction action = new OptionalTriggerAction("ambush" + assignedCard.getCardId(), assignedCard);
