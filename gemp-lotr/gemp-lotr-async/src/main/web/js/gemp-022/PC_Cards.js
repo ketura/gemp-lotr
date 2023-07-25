@@ -9,6 +9,18 @@ var PCCards = {
 '2_004': 'https://www.trekcc.org/tribbles/cardimages/mtmt/4V.jpg',
 '2_005': 'https://www.trekcc.org/tribbles/cardimages/mtmt/5V.jpg',
 '2_006': 'https://www.trekcc.org/tribbles/cardimages/mtmt/6V.jpg',
+'2_007': 'https://www.trekcc.org/tribbles/cardimages/mtmt/7V.jpg',
+'2_008': 'https://www.trekcc.org/tribbles/cardimages/mtmt/8V.jpg',
+'2_009': 'https://www.trekcc.org/tribbles/cardimages/mtmt/9V.jpg',
+'2_010': 'https://www.trekcc.org/tribbles/cardimages/mtmt/10V.jpg',
+'2_011': 'https://www.trekcc.org/tribbles/cardimages/mtmt/11V.jpg',
+'2_012': 'https://www.trekcc.org/tribbles/cardimages/mtmt/12V.jpg',
+'2_013': 'https://www.trekcc.org/tribbles/cardimages/mtmt/13V.jpg',
+'2_014': 'https://www.trekcc.org/tribbles/cardimages/mtmt/14V.jpg',
+'2_015': 'https://www.trekcc.org/tribbles/cardimages/mtmt/15V.jpg',
+'2_016': 'https://www.trekcc.org/tribbles/cardimages/mtmt/16V.jpg',
+'2_017': 'https://www.trekcc.org/tribbles/cardimages/mtmt/17V.jpg',
+'2_018': 'https://www.trekcc.org/tribbles/cardimages/mtmt/18V.jpg',
 
 
 /*'1_003': 'http://trekcc.org/1e/cardimages/errata/interphasegenerator.jpg',

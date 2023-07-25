@@ -476,16 +476,16 @@ public class CardBlueprintLibrary {
 
             while ((line = bufferedReader.readLine()) != null) {
                 String blueprintId = setNo + "_" + line.substring(setNo.length() + 1);
-                if (line.endsWith("T")) {
+/*                if (line.endsWith("T")) {
                     if (!line.startsWith(setNo))
                         throw new IllegalStateException("Seems the rarity is for some other set");
                     rarity.addTengwarCard(blueprintId);
-                } else {
-                    if (!line.startsWith(setNo))
-                        throw new IllegalStateException("Seems the rarity is for some other set");
-                    String cardRarity = line.substring(setNo.length(), setNo.length() + 1);
-                    rarity.addCard(blueprintId, cardRarity);
-                }
+                } else {*/
+                if (!line.startsWith(setNo))
+                    throw new IllegalStateException("Seems the rarity is for some other set");
+                String cardRarity = line.substring(setNo.length(), setNo.length() + 1);
+                rarity.addCard(blueprintId, cardRarity);
+//                }
             }
         } finally {
             IOUtils.closeQuietly(bufferedReader);
