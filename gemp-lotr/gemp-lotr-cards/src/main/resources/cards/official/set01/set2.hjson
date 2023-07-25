@@ -49,6 +49,22 @@
         tribble-value: 10
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/5V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
     }
     2_006: {
         title: 10 Tribbles - Draw
@@ -56,5 +72,23 @@
         tribble-value: 10
         tribble-power: draw
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/6V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChooseOpponent
+                    memorize: opp
+                }
+                {
+                    type: drawCards
+                    player: FromMemory(opp)
+                }
+            ]
+		}
     }
 }
