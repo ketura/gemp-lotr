@@ -313,8 +313,8 @@ public class TribblesGameState extends GameState {
     private List<LotroPhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
         if (zone == Zone.DECK)
             return _decks.get(playerId);
-/*        else if (zone == Zone.PLAY_PILE)
-            return _playPiles.get(playerId); */
+        else if (zone == Zone.PLAY_PILE)
+            return _playPiles.get(playerId);
         else if (zone == Zone.ADVENTURE_DECK)
             return _adventureDecks.get(playerId);
         else if (zone == Zone.DISCARD)
@@ -325,7 +325,7 @@ public class TribblesGameState extends GameState {
             return _removed.get(playerId);
         else if (zone == Zone.STACKED)
             return _stacked.get(playerId);
-        else
+        else // This should never be accessed
             return _inPlay;
     }
 
@@ -339,9 +339,10 @@ public class TribblesGameState extends GameState {
         for (LotroPhysicalCard card : cards) {
             Zone zone = card.getZone();
 
-            if (zone.isInPlay())
+            if (zone.isInPlay()) {
                 if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP))
                     stopAffecting(card);
+            }
 
             if (zone == Zone.STACKED)
                 stopAffectingStacked(card);
@@ -350,6 +351,8 @@ public class TribblesGameState extends GameState {
 
             List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
             zoneCards.remove(card);
+            if (zone.isInPlay())
+                _inPlay.remove(card);
 
             if (zone == Zone.ATTACHED)
                 ((LotroPhysicalCardImpl) card).attachTo(null);
@@ -379,8 +382,10 @@ public class TribblesGameState extends GameState {
         if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
             zone = Zone.REMOVED;
 
-        if (zone.isInPlay())
+        if (zone.isInPlay()) {
             assignNewCardId(card);
+            _inPlay.add((LotroPhysicalCardImpl) card);
+        }
 
         List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
         if (end)
