@@ -17,7 +17,12 @@ public class GameTable {
 
     public GameTable(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
-        this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
+        String formatName = gameSettings.getLotroFormat().getName();
+        if (formatName.equals("Tribbles")) {
+            this.capacity = 2;
+        } else {
+            this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
+        }
         logger.debug("Capacity of game: " + this.capacity);
     }
 
