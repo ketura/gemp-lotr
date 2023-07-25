@@ -5,20 +5,22 @@
         tribble-value: 1
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/1V.jpg
-		effects: [
-			{
-				type: trigger
-				optional: true
-				trigger: {
-					type: played
-					filter: self
-				}
-				effect: {
-					type: putcardsfromhandonbottomofdeck
-				}
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
 			}
-		]
-
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
     },
     2_002: {
         title: 1 Tribble - Exchange
