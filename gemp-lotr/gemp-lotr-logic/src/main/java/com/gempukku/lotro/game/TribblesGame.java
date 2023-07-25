@@ -20,12 +20,10 @@ import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure;
 import com.gempukku.lotro.game.rules.tribbles.TribblesRuleSet;
-import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class TribblesGame implements DefaultGame {
-    private static final Logger log = Logger.getLogger(TribblesGame.class);
     private final TribblesGameState _gameState;
     private final ModifiersLogic _modifiersLogic = new ModifiersLogic();
     private final DefaultActionsEnvironment _actionsEnvironment;
@@ -91,10 +89,11 @@ public class TribblesGame implements DefaultGame {
 
     @Override
     public boolean shouldAutoPass(String playerId, Phase phase) {
-        final Set<Phase> passablePhases = _autoPassConfiguration.get(playerId);
+/*        final Set<Phase> passablePhases = _autoPassConfiguration.get(playerId);
         if (passablePhases == null)
             return false;
-        return passablePhases.contains(phase);
+        return passablePhases.contains(phase); */
+        return false;
     }
 
     @Override

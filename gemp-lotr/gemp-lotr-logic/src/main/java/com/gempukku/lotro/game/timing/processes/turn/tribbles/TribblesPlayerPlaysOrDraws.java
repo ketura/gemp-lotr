@@ -26,7 +26,8 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
             _nextProcess = new TribblesPlayerDrawsAndCanPlayProcess(_playerId);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardActionSelectionDecision(game, 1, "Play " + game.getGameState().getCurrentPhase().getHumanReadable() + " action or Pass", playableActions) {
+                    new CardActionSelectionDecision(game, 1,
+                            "Select Tribble to play or click 'Pass' to draw a card", playableActions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);
