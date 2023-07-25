@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayOrder;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.tribbles.StartOfTurnGameProcess;
+import com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesStartOfTurnGameProcess;
 
 public class BetweenTurnsProcess implements GameProcess {
     @Override
@@ -20,6 +20,6 @@ public class BetweenTurnsProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new StartOfTurnGameProcess();
+        return new TribblesStartOfTurnGameProcess();
     }
 }

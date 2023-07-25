@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
 import com.gempukku.lotro.game.timing.results.StartOfTurnResult;
 
-public class StartOfTurnGameProcess implements GameProcess {
+public class TribblesStartOfTurnGameProcess implements GameProcess {
     @Override
     public void process(DefaultGame game) {
         game.getGameState().sendMessage("DEBUG: Beginning StartOfTurnGameProcess");
@@ -19,8 +19,7 @@ public class StartOfTurnGameProcess implements GameProcess {
             @Override
             protected void doPlayEffect(DefaultGame game) {
                 var state = game.getGameState();
-                state.sendMessage("\n\n========\n\nStart of turn.");
-                state.sendMessage("Free Peoples player: " + state.getCurrentPlayerId());
+                state.sendMessage("\n\n========\n\nStart of " + state.getCurrentPlayerId() + "'s turn.");
             }
         });
 

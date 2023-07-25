@@ -21,6 +21,7 @@ public class TribblesPlayerDrawsAndCanPlayProcess implements GameProcess {
     @Override
     public void process(final DefaultGame game) {
         game.getGameState().playerDrawsCard(_playerId);
+        game.getGameState().sendMessage(_playerId + " drew a card");
         List<? extends LotroPhysicalCard> playerHand = game.getGameState().getHand(_playerId);
         LotroPhysicalCard cardDrawn = playerHand.get(playerHand.size() - 1);
         final List<Action> playableActions = new LinkedList<>();

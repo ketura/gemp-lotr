@@ -9,7 +9,7 @@ public class TribblesTurnProcess implements GameProcess {
     private GameProcess _followingGameProcess;
     @Override
     public void process(DefaultGame game) {
-        game.getGameState().sendMessage("DEBUG: Beginning TribblesTurnProcess");
+//        game.getGameState().sendMessage("DEBUG: Beginning TribblesTurnProcess");
         _followingGameProcess = new StartOfPhaseGameProcess(
                 Phase.FELLOWSHIP,
                 new TribblesPlayerPlaysOrDraws(

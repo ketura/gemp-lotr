@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.timing.results.EndOfTurnResult;
 public class TribblesEndOfTurnGameProcess implements GameProcess {
     @Override
     public void process(DefaultGame game) {
-        game.getGameState().sendMessage("DEBUG: Beginning TribblesEndOfTurnGameProcess");
+//        game.getGameState().sendMessage("DEBUG: Beginning TribblesEndOfTurnGameProcess");
         SystemQueueAction action = new SystemQueueAction();
         action.setText("End of turn");
         action.appendEffect(

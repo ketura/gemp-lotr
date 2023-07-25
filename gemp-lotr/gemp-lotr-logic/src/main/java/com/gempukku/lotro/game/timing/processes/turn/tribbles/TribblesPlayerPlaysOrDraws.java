@@ -19,7 +19,7 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
 
     @Override
     public void process(final DefaultGame game) {
-        game.getGameState().sendMessage("DEBUG: Beginning TribblesPlayerPlaysOrDraws");
+//        game.getGameState().sendMessage("DEBUG: Beginning TribblesPlayerPlaysOrDraws");
         final List<Action> playableActions = game.getActionsEnvironment().getPhaseActions(_playerId);
 
         if (playableActions.size() == 0 && game.shouldAutoPass(_playerId, game.getGameState().getCurrentPhase())) {
@@ -31,7 +31,7 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);
                             if (action != null) {
-                                _nextProcess = new TribblesPlayerPlaysOrDraws(_playerId, new TribblesEndOfTurnGameProcess());
+                                _nextProcess = new TribblesEndOfTurnGameProcess();
                                 game.getActionsEnvironment().addActionToStack(action);
                             } else
                                 _nextProcess = new TribblesPlayerDrawsAndCanPlayProcess(_playerId);

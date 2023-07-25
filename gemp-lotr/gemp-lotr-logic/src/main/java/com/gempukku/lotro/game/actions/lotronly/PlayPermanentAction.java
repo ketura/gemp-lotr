@@ -73,8 +73,8 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
         if (!_cardRemoved) {
             _cardRemoved = true;
             final Zone playedFromZone = _permanentPlayed.getZone();
-            game.getGameState().sendMessage(_permanentPlayed.getOwner() + " plays " + GameUtils.getCardLink(_permanentPlayed) +
-                    " from " + playedFromZone.getHumanReadable() + " to " + _toZone.getHumanReadable());
+            game.getGameState().sendMessage(_permanentPlayed.getOwner() + " plays " +
+                    GameUtils.getCardLink(_permanentPlayed));
             game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
             if (playedFromZone == Zone.HAND)
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID_FROM_HAND);
@@ -117,9 +117,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
                 return _playCardEffect;
             }
 
-            Effect effect = getNextEffect();
-            if (effect != null)
-                return effect;
+            return getNextEffect();
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;

@@ -578,11 +578,6 @@ public class TribblesGameState extends GameState {
         ((LotroPhysicalCardImpl) physicalCard).startAffectingGameControlledSite(game);
     }
 
-    public void reapplyAffectingForCard(DefaultGame game, LotroPhysicalCard card) {
-        ((LotroPhysicalCardImpl) card).stopAffectingGame();
-        ((LotroPhysicalCardImpl) card).startAffectingGame(game);
-    }
-
     public void stopAffectingCardsForCurrentPlayer() {
         for (LotroPhysicalCardImpl physicalCard : _inPlay) {
             if (isCardInPlayActive(physicalCard) && physicalCard.getBlueprint().getCardType() != CardType.SITE)
@@ -700,7 +695,7 @@ public class TribblesGameState extends GameState {
     public int getNextTribble() { return _nextTribble; }
 
     public void breakChain() {
-        sendMessage("DEBUG: Chain broken!");
+        sendMessage("The chain has been broken.");
         _chainBroken = true;
     }
 
@@ -718,7 +713,7 @@ public class TribblesGameState extends GameState {
             _nextTribble = tribblePlayed * 10;
         }
         _chainBroken = false;
-        sendMessage("DEBUG: Tribble chain advanced from " + currentTribble + " to " + _nextTribble);
+        sendMessage("Tribble chain advanced from " + currentTribble + " to " + _nextTribble);
     }
 
     @Override
