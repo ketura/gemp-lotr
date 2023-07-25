@@ -28,6 +28,23 @@
         tribble-value: 1
         tribble-power: exchange
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/2V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
     }
     2_003: {
         title: 1 Tribble - Replay
