@@ -305,7 +305,8 @@ var TribblesGameUI = Class.extend({
                 "</div></div></div>");
         }
 
-        this.gameStateElem.append("<div class='twilightPool'>0</div>");
+//        this.gameStateElem.append("<div class='twilightPool'>0</div>");
+        this.gameStateElem.append("<div class='tribbleSequence'>1</div>");
         this.gameStateElem.append("<div class='phase'></div>");
 
         $("#main").append(this.gameStateElem);
@@ -1286,7 +1287,10 @@ var TribblesGameUI = Class.extend({
             this.animations.cardActivated(gameEvent, animate);
         } else if (eventType == "D") {
             this.animations.processDecision(gameEvent, animate);
-        } else if (eventType == "EG") {
+        } else if (eventType = "TSEQ") {
+            this.animations.tribbleSequence(gameEvent, animate);
+        }
+        else if (eventType == "EG") {
             this.processGameEnd();
         }
     },

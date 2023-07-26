@@ -469,6 +469,16 @@ var GameAnimations = Class.extend({
             });
     },
 
+    tribbleSequence:function (element, animate) {
+        var that = this;
+        $("#main").queue(
+            function (next) {
+                var message = element.getAttribute("message");
+                $(".tribbleSequence").html(message);
+                next();
+            });
+    },
+
     turnChange:function (element, animate) {
         var that = this;
         $("#main").queue(

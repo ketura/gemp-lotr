@@ -702,6 +702,9 @@ public class TribblesGameState extends GameState {
     public void breakChain() {
         sendMessage("The chain has been broken.");
         _chainBroken = true;
+        for (GameStateListener listener : getAllGameStateListeners()) {
+            listener.setTribbleSequence("1 or " + _nextTribble);
+        }
     }
 
     public boolean isChainBroken() {
@@ -719,6 +722,9 @@ public class TribblesGameState extends GameState {
         }
         _chainBroken = false;
         sendMessage("Tribble chain advanced from " + currentTribble + " to " + _nextTribble);
+        for (GameStateListener listener : getAllGameStateListeners()) {
+            listener.setTribbleSequence(String.valueOf(_nextTribble));
+        }
     }
 
     @Override

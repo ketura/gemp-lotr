@@ -197,16 +197,16 @@ body {
     font-size: 120%;
 }
 
-.twilightPool {
-    float: right;
+.tribbleSequence {
+    float: left;
     font-size: 30px;
-    width: 40px;
-    border-radius: 7px;
-    border: 1px solid #ffffff;
-    background-color: #000000;
+    width: 100px;
+//    border-radius: 7px;
+//    border: 1px solid #ffffff;
+//    background-color: #000000;
     color: #ffffff;
     padding: 2px;
-    text-align: right;
+    text-align: left;
 }
 
 .skirmish {

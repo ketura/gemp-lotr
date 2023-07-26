@@ -23,6 +23,8 @@ public interface GameStateListener {
 
     public void setTwilight(int twilightPool);
 
+    public void setTribbleSequence(String tribbleSequence);
+
     public void setCurrentPlayerId(String playerId);
 
     public void setCurrentPhase(String currentPhase);
