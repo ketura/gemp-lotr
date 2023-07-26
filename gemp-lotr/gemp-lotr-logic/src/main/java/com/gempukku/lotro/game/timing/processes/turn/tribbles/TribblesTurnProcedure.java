@@ -316,7 +316,7 @@ public class TribblesTurnProcedure {
         public void doPlayEffect(DefaultGame game) {
             if (_actions.size() == 1) {
                 _game.getActionsEnvironment().addActionToStack(_actions.get(0));
-            } else if (areAllActionsTheSame(game)) {
+            } else if (areAllActionsTheSame()) {
                 Action anyAction = _actions.get(0);
                 _actions.remove(anyAction);
                 _game.getActionsEnvironment().addActionToStack(anyAction);
@@ -335,7 +335,7 @@ public class TribblesTurnProcedure {
             }
         }
 
-        private boolean areAllActionsTheSame(DefaultGame game) {
+        private boolean areAllActionsTheSame() {
             Iterator<Action> actionIterator = _actions.iterator();
 
             Action firstAction = actionIterator.next();
