@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.effects.AbstractSuccessfulEffect;
 import com.gempukku.lotro.game.effects.TriggeringResultEffect;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.turn.BetweenTurnsProcess;
 import com.gempukku.lotro.game.timing.results.EndOfTurnResult;
 
 public class TribblesEndOfTurnGameProcess implements GameProcess {
@@ -47,6 +46,6 @@ public class TribblesEndOfTurnGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new BetweenTurnsProcess();
+        return new TribblesBetweenTurnsProcess();
     }
 }

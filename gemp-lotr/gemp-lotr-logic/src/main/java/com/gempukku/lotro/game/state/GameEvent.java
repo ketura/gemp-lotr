@@ -17,6 +17,7 @@ public class GameEvent {
         PARTICIPANTS("P"), GAME_PHASE_CHANGE("GPC"), TURN_CHANGE("TC"), PLAYER_POSITION("PP"),
         TWILIGHT_POOL_UPDATE("TP"),
         TRIBBLE_SEQUENCE_UPDATE("TSEQ"),
+        PLAYER_DECKED("PLAYER_DECKED"),
         PUT_CARD_INTO_PLAY("PCIP"), MOVE_CARD_IN_PLAY("MCIP"), REMOVE_CARD_FROM_PLAY("RCFP"),
         ADD_ASSIGNMENT("AA"), REMOVE_ASSIGNMENT("RA"),
         START_SKIRMISH("SS"), REMOVE_FROM_SKIRMISH("RFS"), ADD_TO_SKIRMISH("ATS"), END_SKIRMISH("ES"),
@@ -52,6 +53,7 @@ public class GameEvent {
     private Integer _targetCardId;
     private String _phase;
     private Integer _count;
+    private Boolean _bool;
     private Token _token;
     private int[] _otherCardIds;
     private Map<String, LotroDeck> _decks;
@@ -137,6 +139,15 @@ public class GameEvent {
 
     public GameEvent count(int count) {
         _count = count;
+        return this;
+    }
+
+    public Boolean getBool() {
+        return _bool;
+    }
+
+    public GameEvent bool(boolean bool) {
+        _bool = bool;
         return this;
     }
 

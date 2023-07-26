@@ -24,6 +24,7 @@ public class TribblesPlayerDrawsAndCanPlayProcess extends DefaultGameProcess<Tri
     public void process(final TribblesGame game) {
         if (game.getGameState().getDeck(_playerId).size() == 0) {
             game.getGameState().sendMessage(_playerId + " can't draw a card");
+            game.getGameState().setPlayerDecked(_playerId, true);
         } else {
             game.getGameState().playerDrawsCard(_playerId);
             game.getGameState().sendMessage(_playerId + " drew a card");

@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TribblesGameState extends GameState {
     private static final Logger _log = Logger.getLogger(TribblesGameState.class);
-    private static final int LAST_MESSAGE_STORED_COUNT = 15;
+    private static final int LAST_MESSAGE_STORED_COUNT = 30;
     private PlayerOrder _playerOrder;
     private LotroFormat _format;
     private final Map<String, List<LotroPhysicalCardImpl>> _playPiles = new HashMap<>();
@@ -38,6 +38,7 @@ public class TribblesGameState extends GameState {
     private boolean _consecutiveAction;
 
     private final Map<String, Integer> _playerPosition = new HashMap<>();
+    private final Map<String, Boolean> _playerDecked = new HashMap<>();
     private final Map<String, AwaitingDecision> _playerDecisions = new HashMap<>();
 
     private final Set<GameStateListener> _gameStateListeners = new HashSet<>();
@@ -58,6 +59,10 @@ public class TribblesGameState extends GameState {
 
         _nextTribble = 1;
         _chainBroken = false;
+
+        for (String player : playerOrder.getAllPlayers()) {
+            _playerDecked.put(player, false);
+        }
 
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
             String playerId = stringListEntry.getKey();
@@ -176,6 +181,8 @@ public class TribblesGameState extends GameState {
                 listener.setCurrentPhase(getPhaseString());
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
+            for (Map.Entry<String, Boolean> stringBooleanEntry : _playerDecked.entrySet())
+                listener.setPlayerDecked(stringBooleanEntry.getKey(), stringBooleanEntry.getValue());
 
             Set<LotroPhysicalCard> cardsLeftToSent = new LinkedHashSet<>(_inPlay);
             Set<LotroPhysicalCard> sentCardsFromPlay = new HashSet<>();
@@ -506,6 +513,16 @@ public class TribblesGameState extends GameState {
 
     public int getPlayerPosition(String playerId) {
         return _playerPosition.getOrDefault(playerId, 0);
+    }
+
+    public void setPlayerDecked(String playerId, boolean bool) {
+        _playerDecked.put(playerId, bool);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.setPlayerDecked(playerId, bool);
+    }
+
+    public boolean getPlayerDecked(String playerId) {
+        return _playerDecked.get(playerId);
     }
 
     public List<LotroPhysicalCard> getAttachedCards(LotroPhysicalCard card) {

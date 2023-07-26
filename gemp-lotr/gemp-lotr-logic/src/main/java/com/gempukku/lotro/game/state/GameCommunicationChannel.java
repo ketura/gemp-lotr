@@ -150,6 +150,11 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     }
 
     @Override
+    public void setPlayerDecked(String participant, boolean bool) {
+        appendEvent(new GameEvent(PLAYER_DECKED).participantId(participant).bool(bool));
+    }
+
+    @Override
     public void setTwilight(int twilightPool) {
         appendEvent(new GameEvent(TWILIGHT_POOL_UPDATE).count(twilightPool));
     }

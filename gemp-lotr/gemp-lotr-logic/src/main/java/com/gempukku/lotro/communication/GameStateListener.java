@@ -21,6 +21,8 @@ public interface GameStateListener {
 
     public void setPlayerPosition(String playerId, int i);
 
+    public void setPlayerDecked(String playerId, boolean bool);
+
     public void setTwilight(int twilightPool);
 
     public void setTribbleSequence(String tribbleSequence);
