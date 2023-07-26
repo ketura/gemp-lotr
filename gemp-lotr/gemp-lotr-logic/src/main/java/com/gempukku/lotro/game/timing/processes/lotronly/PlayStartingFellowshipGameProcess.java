@@ -1,9 +1,9 @@
-package com.gempukku.lotro.game.timing.processes.pregame.lotronly;
+package com.gempukku.lotro.game.timing.processes.lotronly;
 
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayOrder;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.pregame.PlayersDrawStartingHandGameProcess;
+import com.gempukku.lotro.game.timing.processes.PlayersDrawStartingHandGameProcess;
 
 public class PlayStartingFellowshipGameProcess implements GameProcess {
     private final PlayOrder _playOrder;

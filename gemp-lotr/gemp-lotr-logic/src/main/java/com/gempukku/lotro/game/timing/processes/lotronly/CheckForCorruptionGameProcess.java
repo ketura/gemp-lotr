@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.timing.processes.pregame.lotronly;
+package com.gempukku.lotro.game.timing.processes.lotronly;
 
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayOrder;

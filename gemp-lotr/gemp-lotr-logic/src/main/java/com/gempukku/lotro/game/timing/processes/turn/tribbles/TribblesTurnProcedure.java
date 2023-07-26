@@ -1,5 +1,7 @@
 package com.gempukku.lotro.game.timing.processes.turn.tribbles;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardDeck;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.DefaultGame;
@@ -16,6 +18,7 @@ import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.state.GameStats;
 import com.gempukku.lotro.game.timing.*;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
+import com.gempukku.lotro.game.TribblesGame;
 
 import java.util.*;
 
@@ -24,20 +27,21 @@ import java.util.*;
 // Decision is also an Effect.
 public class TribblesTurnProcedure {
     private final UserFeedback _userFeedback;
-    private final DefaultGame _game;
+    private final TribblesGame _game;
     private final ActionStack _actionStack;
     private GameProcess _gameProcess;
     private boolean _playedGameProcess;
     private final GameStats _gameStats;
-    public TribblesTurnProcedure(DefaultGame lotroGame, Set<String> players, final UserFeedback userFeedback,
-                                 ActionStack actionStack, final PlayerOrderFeedback playerOrderFeedback) {
+    public TribblesTurnProcedure(TribblesGame tribblesGame, Map<String, CardDeck> decks, final UserFeedback userFeedback,
+                                 CardBlueprintLibrary library, ActionStack actionStack,
+                                 final PlayerOrderFeedback playerOrderFeedback) {
         _userFeedback = userFeedback;
-        _game = lotroGame;
+        _game = tribblesGame;
         _actionStack = actionStack;
 
         _gameStats = new GameStats();
 
-        _gameProcess = lotroGame.getFormat().getAdventure().getStartingGameProcess(players, playerOrderFeedback);
+        _gameProcess = new TribblesSeatingOrderProcess(decks, library, playerOrderFeedback);
     }
 
     public GameStats getGameStats() {

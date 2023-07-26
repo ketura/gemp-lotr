@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.pregame.lotronly.SetupSoloAdventureGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.SetupSoloAdventureGameProcess;
 import com.gempukku.lotro.game.timing.processes.lotronly.ShadowPhaseOfAIPlayerGameProcess;
 import com.gempukku.lotro.game.timing.processes.lotronly.ai.AIPlayerAssignsArcheryTotalGameProcess;
 import com.gempukku.lotro.game.timing.processes.lotronly.ai.AIPlayerAssignsMinionsGameProcess;

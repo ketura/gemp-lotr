@@ -39,7 +39,8 @@ public class PutCardsFromHandOnBottomOfDeck implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, player, "Choose cards from hand", environment));
+                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, player,
+                        "Choose cards from hand", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

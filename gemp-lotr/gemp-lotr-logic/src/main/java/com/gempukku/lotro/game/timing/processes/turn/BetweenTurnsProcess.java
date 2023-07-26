@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.timing.processes.GameProcess;
 import com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesStartOfTurnGameProcess;
 
 public class BetweenTurnsProcess implements GameProcess {
+
     @Override
     public void process(DefaultGame game) {
         game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);

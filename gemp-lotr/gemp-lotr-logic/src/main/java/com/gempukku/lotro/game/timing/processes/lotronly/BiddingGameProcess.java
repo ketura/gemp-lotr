@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.timing.processes.pregame.lotronly;
+package com.gempukku.lotro.game.timing.processes.lotronly;
 
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.gempukku.lotro.game.timing.processes.pregame.ChooseSeatingOrderGameProcess;
+import com.gempukku.lotro.game.timing.processes.ChooseSeatingOrderGameProcess;
 import org.apache.log4j.Logger;
 
 public class BiddingGameProcess implements GameProcess {

@@ -12,7 +12,7 @@ import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.effects.UnrespondableEffect;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.pregame.lotronly.BiddingGameProcess;
+import com.gempukku.lotro.game.timing.processes.lotronly.BiddingGameProcess;
 import com.gempukku.lotro.game.timing.processes.lotronly.ShadowPhasesGameProcess;
 import com.gempukku.lotro.game.timing.processes.lotronly.archery.FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess;
 import com.gempukku.lotro.game.timing.processes.lotronly.assign.ShadowPlayersAssignTheirMinionsGameProcess;

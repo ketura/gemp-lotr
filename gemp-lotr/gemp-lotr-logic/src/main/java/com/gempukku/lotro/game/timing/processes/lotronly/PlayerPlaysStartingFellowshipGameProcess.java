@@ -1,4 +1,4 @@
-package com.gempukku.lotro.game.timing.processes.pregame.lotronly;
+package com.gempukku.lotro.game.timing.processes.lotronly;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;

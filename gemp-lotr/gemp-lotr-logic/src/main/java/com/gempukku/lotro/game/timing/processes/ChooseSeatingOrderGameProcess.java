@@ -1,10 +1,11 @@
-package com.gempukku.lotro.game.timing.processes.pregame;
+package com.gempukku.lotro.game.timing.processes;
 
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
+import com.gempukku.lotro.game.timing.processes.PlayersDrawStartingHandGameProcess;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

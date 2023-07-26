@@ -60,17 +60,16 @@ public class TribblesGame implements DefaultGame {
 
         final Map<String, List<String>> cards = new HashMap<>();
         for (String playerId : decks.keySet()) {
-            List<String> deck = new LinkedList<>();
 
             CardDeck playerDeck = decks.get(playerId);
-            deck.addAll(playerDeck.getDrawDeckCards());
+            List<String> deck = new LinkedList<>(playerDeck.getDrawDeckCards());
 
             cards.put(playerId, deck);
         }
 
         _gameState = new TribblesGameState();
 
-        _turnProcedure = new TribblesTurnProcedure(this, decks.keySet(), userFeedback, _actionStack,
+        _turnProcedure = new TribblesTurnProcedure(this, decks, userFeedback, _library, _actionStack,
                 new PlayerOrderFeedback() {
                     @Override
                     public void setPlayerOrder(PlayerOrder playerOrder, String firstPlayer) {
@@ -188,10 +187,11 @@ public class TribblesGame implements DefaultGame {
 
         if (_gameState != null)
             _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
-            for (LotroPhysicalCard winnerCard : _gameState.getPlayPile(_winnerPlayerId)) {
-                winningPoints += winnerCard.getBlueprint().getTribbleValue();
-            }
-            _gameState.sendMessage(_winnerPlayerId + " went out with " + winningPoints + " points");
+
+        for (LotroPhysicalCard winnerCard : _gameState.getPlayPile(_winnerPlayerId)) {
+            winningPoints += winnerCard.getBlueprint().getTribbleValue();
+        }
+        _gameState.sendMessage(_winnerPlayerId + " went out with " + winningPoints + " points");
 
         _gameState.finish();
 
