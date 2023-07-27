@@ -1,3 +1,5 @@
+// Set 150: Trials and Tribble-ations
+
 {
     150_002: {
         title: 1 Tribble - Discard
@@ -13,7 +15,8 @@
 			    filter: self
 			}
             effect: {
-                type: DiscardFromHand
+                type: discardFromHand
+                forced: true
             }
 		}
     }
