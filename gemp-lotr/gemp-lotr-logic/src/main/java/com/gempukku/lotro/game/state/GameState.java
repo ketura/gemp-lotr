@@ -21,7 +21,7 @@ public class GameState {
     private static final Logger _log = Logger.getLogger(GameState.class);
     private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
-
+    protected boolean _isReversed = false;
     private LotroFormat _format;
 
     private final Map<String, List<LotroPhysicalCardImpl>> _adventureDecks = new HashMap<>();
@@ -1098,4 +1098,12 @@ public class GameState {
     }
 
     public void playerPassEffect() {}
+
+    public void reversePlayerOrder() {
+        _isReversed = !_isReversed;
+    }
+
+    public boolean isReversed() {
+        return _isReversed;
+    }
 }

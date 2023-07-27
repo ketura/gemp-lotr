@@ -24,6 +24,12 @@
     needsLoading: false
   }
   {
+    setId: "157"
+    setName: Nothing But Tribble
+    rarityFile: "/set157-rarity.txt"
+    needsLoading: false
+  }
+  {
     setId: "164"
     setName: "Big Tribble in Little Qo'noS"
     rarityFile: "/set164-rarity.txt"

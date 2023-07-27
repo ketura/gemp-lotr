@@ -135,6 +135,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("revealhand", new RevealHand());
         effectAppenderProducers.put("revealrandomcardsfromhand", new RevealRandomCardsFromHand());
         effectAppenderProducers.put("revealtopcardsofdrawdeck", new RevealTopCardsOfDrawDeck());
+        effectAppenderProducers.put("reverseplayerorder", new ReversePlayerOrder());
         effectAppenderProducers.put("shadowcanthaveinitiative", new ShadowCantHaveInitiative());
         effectAppenderProducers.put("shufflecardsfromdiscardintodrawdeck", new ShuffleCardsFromDiscardIntoDrawDeck());
         effectAppenderProducers.put("shufflecardsfromhandintodrawdeck", new ShuffleCardsFromHandIntoDrawDeck());

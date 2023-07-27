@@ -9,8 +9,7 @@
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/1V.jpg
 //        cardId: 3737
 		effects: {
-			type: trigger
-			optional: true
+			type: ActivatedTrigger
 			trigger: {
 			    type: played
 			    filter: self
@@ -58,8 +57,7 @@
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/5V.jpg
 //        cardId: 3779
 		effects: {
-			type: trigger
-			optional: true
+			type: ActivatedTrigger
 			trigger: {
 			    type: played
 			    filter: self

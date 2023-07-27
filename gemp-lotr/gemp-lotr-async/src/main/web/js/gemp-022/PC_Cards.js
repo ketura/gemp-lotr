@@ -39,6 +39,10 @@ var PCCards = {
 '150_009': 'https://www.trekcc.org/tribbles/cardimages/tat/45V.jpg',
 '150_013': 'https://www.trekcc.org/tribbles/cardimages/tat/49V.jpg',
 
+// Set 157 - Nothing But Tribble
+'157_011': 'https://www.trekcc.org/tribbles/cardimages/nbt/65V.jpg',
+'157_015': 'https://www.trekcc.org/tribbles/cardimages/nbt/69V.jpg',
+
 // Set 164 - Big Tribble in Little Qo'noS
 '164_002': 'https://www.trekcc.org/tribbles/cardimages/btilq/74V.jpg',
 '164_004': 'https://www.trekcc.org/tribbles/cardimages/btilq/76V.jpg',
