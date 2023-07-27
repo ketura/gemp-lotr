@@ -20,18 +20,23 @@
             }
 		}
     }
-    150_003: {
-        title: 1 Tribble - Go
+    150_013: {
+        title: "1,000 Tribbles - Discard"
         type: tribble
-        tribble-value: 1
-        tribble-power: go
-        image-url: https://www.trekcc.org/tribbles/cardimages/tat/39V.jpg
-    }
-    150_004: {
-        title: 10 Tribbles - Avalanche
-        type: tribble
-        tribble-value: 10
-        tribble-power: avalanche
-        image-url: https://www.trekcc.org/tribbles/cardimages/tat/40V.jpg
+        tribble-value: 1000
+        tribble-power: discard
+        image-url: https://www.trekcc.org/tribbles/cardimages/tat/49V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: {
+                type: discardFromHand
+                forced: true
+            }
+		}
     }
 }

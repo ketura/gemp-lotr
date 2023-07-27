@@ -1,0 +1,51 @@
+// Set 190: Star Trek 50 [Tribbles]
+
+{
+    190_005: {
+        title: 100 Tribbles - Cycle
+        type: tribble
+        tribble-value: 100
+        tribble-power: cycle
+        image-url: https://www.trekcc.org/tribbles/cardimages/50th/122V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+    }
+    190_012: {
+        title: "10,000 Tribbles - Exchange"
+        type: tribble
+        tribble-value: 10000
+        tribble-power: exchange
+        image-url: https://www.trekcc.org/tribbles/cardimages/50th/129V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
+    }
+}

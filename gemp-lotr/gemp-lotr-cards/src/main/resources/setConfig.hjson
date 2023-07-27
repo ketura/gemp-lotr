@@ -12,9 +12,27 @@
     needsLoading: false
   }
   {
+    setId: "145"
+    setName: No Tribble at All
+    rarityFile: "/set145-rarity.txt"
+    needsLoading: false
+  }
+  {
     setId: "150"
     setName: Trials and Tribble-ations
     rarityFile: "/set150-rarity.txt"
+    needsLoading: false
+  }
+  {
+    setId: "164"
+    setName: "Big Tribble in Little Qo'noS"
+    rarityFile: "/set164-rarity.txt"
+    needsLoading: false
+  }
+  {
+    setId: "190"
+    setName: Star Trek 50 [Tribbles]
+    rarityFile: "/set190-rarity.txt"
     needsLoading: false
   }
 ]

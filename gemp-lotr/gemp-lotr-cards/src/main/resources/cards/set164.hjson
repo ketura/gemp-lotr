@@ -1,0 +1,148 @@
+// Set 164: Big Tribble in Little Qo'noS
+
+{
+    164_002: {
+        title: 1 Tribble - Draw
+        type: tribble
+        tribble-value: 1
+        tribble-power: draw
+        image-url: https://www.trekcc.org/tribbles/cardimages/btilq/74V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChooseOpponent
+                    memorize: opp
+                }
+                {
+                    type: drawCards
+                    player: FromMemory(opp)
+                }
+            ]
+		}
+    }
+    164_004: {
+        title: 10 Tribbles - Exchange
+        type: tribble
+        tribble-value: 10
+        tribble-power: exchange
+        image-url: https://www.trekcc.org/tribbles/cardimages/btilq/76V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
+    }
+    164_007: {
+        title: 100 Tribbles - Exchange
+        type: tribble
+        tribble-value: 100
+        tribble-power: exchange
+        image-url: https://www.trekcc.org/tribbles/cardimages/btilq/79V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
+    }
+    164_010: {
+        title: "1,000 Tribbles - Cycle"
+        type: tribble
+        tribble-value: 1000
+        tribble-power: cycle
+        image-url: https://www.trekcc.org/tribbles/cardimages/btilq/82V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+    }
+    164_014: {
+        title: "10,000 Tribbles - Cycle"
+        type: tribble
+        tribble-value: 10000
+        tribble-power: cycle
+        image-url: https://www.trekcc.org/tribbles/cardimages/btilq/86V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+    }
+    164_018: {
+        title: "100,000 Tribbles - Draw"
+        type: tribble
+        tribble-value: 100000
+        tribble-power: draw
+        image-url: https://www.trekcc.org/tribbles/cardimages/btilq/90V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChooseOpponent
+                    memorize: opp
+                }
+                {
+                    type: drawCards
+                    player: FromMemory(opp)
+                }
+            ]
+		}
+    }
+}

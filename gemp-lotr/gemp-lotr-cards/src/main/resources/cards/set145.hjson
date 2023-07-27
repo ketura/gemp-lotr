@@ -1,0 +1,64 @@
+// Set 145: No Tribble at All
+
+{
+    145_002: {
+        title: 1 Tribble - Evolve
+        type: tribble
+        tribble-value: 1
+        tribble-power: evolve
+        image-url: https://www.trekcc.org/tribbles/cardimages/ntaa/20V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: {
+			    type: discardFromHand
+			    forced: true
+			    count: {
+			        type: forEachInHand
+			    }
+			    memorize: discardedCards
+			}
+			effect: {
+				type: drawCards
+				count: {
+				    type:forEachInMemory
+                    memory: discardedCards
+				}
+			}
+		}
+    }
+    145_005: {
+        title: 10 Tribbles - Evolve
+        type: tribble
+        tribble-value: 10
+        tribble-power: evolve
+        image-url: https://www.trekcc.org/tribbles/cardimages/ntaa/23V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: {
+			    type: discardFromHand
+			    forced: true
+			    count: {
+			        type: forEachInHand
+			    }
+			    memorize: discardedCards
+			}
+			effect: {
+				type: drawCards
+				count: {
+				    type:forEachInMemory
+                    memory: discardedCards
+				}
+			}
+		}
+    }
+}

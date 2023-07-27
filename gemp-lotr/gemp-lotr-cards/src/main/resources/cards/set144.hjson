@@ -50,22 +50,6 @@
 			}
 		}
     }
-    144_003: {
-        title: 1 Tribble - Replay
-        type: tribble
-        tribble-value: 1
-        tribble-power: replay
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/3V.jpg
-//        cardId: 3750
-    }
-    144_004: {
-        title: 10 Tribbles - Copy
-        type: tribble
-        tribble-value: 10
-        tribble-power: copy
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/4V.jpg
-//        cardId: 3778
-    }
     144_005: {
         title: 10 Tribbles - Cycle
         type: tribble
@@ -116,14 +100,6 @@
             ]
 		}
     }
-    144_007: {
-        title: 100 Tribbles - Copy
-        type: tribble
-        tribble-value: 100
-        tribble-power: copy
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/7V.jpg
-//        cardId: 3820
-    }
     144_008: {
         title: 100 Tribbles - Draw
         type: tribble
@@ -150,14 +126,6 @@
             ]
 		}
     }
-    144_009: {
-        title: 100 Tribbles - Score
-        type: tribble
-        tribble-value: 100
-        tribble-power: score
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/9V.jpg
-//        cardId: 3837
-    }
     144_010: {
         title: "1,000 Tribbles - Exchange"
         type: tribble
@@ -181,61 +149,5 @@
 				type: PutCardsFromDiscardIntoHand
 			}
 		}
-    }
-    144_011: {
-        title: "1,000 Tribbles - Recycle"
-        type: tribble
-        tribble-value: 1000
-        tribble-power: recycle
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/11V.jpg
-    }
-    144_012: {
-        title: "1,000 Tribbles - Score"
-        type: tribble
-        tribble-value: 1000
-        tribble-power: score
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/12V.jpg
-    }
-    144_013: {
-        title: "10,000 Tribbles - Antidote"
-        type: tribble
-        tribble-value: 10000
-        tribble-power: antidote
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/13V.jpg
-    }
-    144_014: {
-        title: "10,000 Tribbles - Kill"
-        type: tribble
-        tribble-value: 10000
-        tribble-power: kill
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/14V.jpg
-    }
-    144_015: {
-        title: "10,000 Tribbles - Recycle"
-        type: tribble
-        tribble-value: 10000
-        tribble-power: recycle
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/15V.jpg
-    }
-    144_016: {
-        title: "100,000 Tribbles - Antidote"
-        type: tribble
-        tribble-value: 100000
-        tribble-power: antidote
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/16V.jpg
-    }
-    144_017: {
-        title: "100,000 Tribbles - Kill"
-        type: tribble
-        tribble-value: 100000
-        tribble-power: kill
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/17V.jpg
-    }
-    144_018: {
-        title: "100,000 Tribbles - Replay"
-        type: tribble
-        tribble-value: 100000
-        tribble-power: replay
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/18V.jpg
     }
 }
