@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>GEMP: LotR-TCG - Main Hall</title>
+<title>Star Trek CCG - Ten Forward</title>
 	<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	<link rel="manifest" href="images/icons/site.webmanifest">
-	
+
 	<meta property="og:title" content="GEMP: Play the LotR-TCG" />
 	<meta property="og:description" content="Play the Lord of the Rings TCG for free in your browser using GEMP.  No limits, no clean-up, and no budget.  Build your deck and play today!" />
 	<meta property="og:url" content="https://play.lotrtcgpc.net" />
@@ -76,9 +76,6 @@
 				<a href="includes/info.html" class="custom-icon icon-stats">Server Info</a>
 			</li>
 			<li>
-				<a href="includes/user.html" class="custom-icon icon-users">Users</a>
-			</li>
-			<li>
 				<a href="includes/account.html" class="custom-icon icon-account">My Account</a>
 			</li>
 			<li>
@@ -136,13 +133,13 @@
 				<div id="tablesDiv">
 					<div id="waitingTablesHeader" class='eventHeader waitingTables'>Waiting Tables<span class='count'>(0)</span></div>
 					<div id="waitingTablesContent" class='visibilityToggle'>
-						<table class='tables waitingTables'>
+						<table class="tables waitingTables">
 							<tr>
-								<th width='20%'>Format</th>
-								<th width='40%'>Table Info</th>
-								<th width='10%'>Status</th>
-								<th width='20%'>Players</th>
-								<th width='10%'>Actions</th>
+								<th class="format">Format</th>
+								<th class="tableinfo">Table Info</th>
+								<th class="status">Status</th>
+								<th class="players">Players</th>
+								<th class="actions">Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -151,11 +148,11 @@
 					<div id="playingTablesContent" class='visibilityToggle'>
 						<table class='tables playingTables'>
 							<tr>
-								<th width='20%'>Format</th>
-								<th width='40%'>Table Info</th>
-								<th width='10%'>Status</th>
-								<th width='20%'>Players</th>
-								<th width='10%'>Actions</th>
+								<th class="format">Format</th>
+								<th class="tableinfo">Table Info</th>
+								<th class="status">Status</th>
+								<th class="players">Players</th>
+								<th class="actions">Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -164,11 +161,11 @@
 					<div id="finishedTablesContent" class='visibilityToggle'>
 						<table class='tables finishedTables'>
 							<tr>
-								<th width='20%'>Format</th>
-								<th width='40%'>Table Info</th>
-								<th width='10%'>Status</th>
-								<th width='20%'>Players</th>
-								<th width='10%'>Winner</th>
+								<th class="format">Format</th>
+								<th class="tableinfo">Table Info</th>
+								<th class="status">Status</th>
+								<th class="players">Players</th>
+								<th class="actions">Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -177,15 +174,15 @@
 					<div id="tournamentQueuesContent" class='visibilityToggle'>
 						<table class='tables queues'>
 							<tr>
-								<th width='10%'>Format</th>
-								<th width='8%'>Collection</th>
-								<th width='20%'>Queue name</th>
-								<th width='16%'>Starts</th>
-								<th width='10%'>System</th>
-								<th width='6%'>Players</th>
-								<th width='8%'>Cost</th>
-								<th width='12%'>Prizes</th>
-								<th width='10%'>Actions</th>
+								<th>Format</th>
+								<th>Collection</th>
+								<th>Queue name</th>
+								<th>Starts</th>
+								<th>System</th>
+								<th>Players</th>
+								<th>Cost</th>
+								<th>Prizes</th>
+								<th>Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -194,14 +191,14 @@
 					<div id="activeTournamentsContent" class='visibilityToggle'>
 						<table class='tables tournaments'>
 							<tr>
-								<th width='10%'>Format</th>
-								<th width='10%'>Collection</th>
-								<th width='25%'>Tournament name</th>
-								<th width='15%'>System</th>
-								<th width='10%'>Stage</th>
-								<th width='10%'>Round</th>
-								<th width='10%'>Players</th>
-								<th width='10%'>Actions</th>
+								<th>Format</th>
+								<th>Collection</th>
+								<th>Tournament name</th>
+								<th>System</th>
+								<th>Stage</th>
+								<th>Round</th>
+								<th>Players</th>
+								<th>Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -222,8 +219,8 @@
 			</select>
 			<input id='tableDescInput' type='text' maxlength='100' placeHolder='Description (or player to invite)'>
 			<div class="checkboxes">
-				<label id="inviteCheckbox"><input type='checkbox' id='isInviteOnlyCheckbox'>Invite Only</input></label>
-				<label id="privateCheckbox"><input type='checkbox' id='isPrivateCheckbox'>Private</input></label>
+				<label id="inviteCheckbox"><input type='checkbox' id='isInviteOnlyCheckbox'>Invite Only</label>
+				<label id="privateCheckbox"><input type='checkbox' id='isPrivateCheckbox'>Private</label>
 			</div>
 			<button id="createTableBut">Create table</button>
 	</div>
