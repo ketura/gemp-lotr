@@ -1,14 +1,20 @@
 [
   {
-    setId: "1",
-    setName: "1st Edition Premiere",
-    rarityFile: "/set1-rarity.txt",
+    setId: "101"
+    setName: Premiere
+    rarityFile: "/set101-rarity.txt"
     needsLoading: false
   }
   {
-    setId: "2",
-    setName: "More Tribbles, More Troubles",
-    rarityFile: "/set2-rarity.txt",
+    setId: "144"
+    setName: "More Tribbles, More Troubles"
+    rarityFile: "/set144-rarity.txt"
+    needsLoading: false
+  }
+  {
+    setId: "150"
+    setName: Trials and Tribble-ations
+    rarityFile: "/set150-rarity.txt"
     needsLoading: false
   }
 ]

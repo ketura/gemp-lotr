@@ -1,9 +1,9 @@
 {
-    1_001: {
+    101_001: {
         title: Betazoid Gift Box
         type: artifact
     },
-    1_002: {
+    101_002: {
         title: Horga'hn
         type: artifact
     }

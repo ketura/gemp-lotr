@@ -1,9 +1,9 @@
 [	
 	{
-		name: FotR - Booster
+		name: Premiere - Booster
 		type: booster
 		data: {
-			set: "1"
+			set: "101"
 		}
 	}
 ]
