@@ -278,7 +278,7 @@ public class TribblesTurnProcedure {
 
             if (possibleActions.size() > 0) {
                 _game.getUserFeedback().sendAwaitingDecision(activePlayer,
-                        new CardActionSelectionDecision(game, 1, "Optional responses", possibleActions) {
+                        new CardActionSelectionDecision(game, 1, "Activate Tribble power?", possibleActions) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Action action = getSelectedAction(result);

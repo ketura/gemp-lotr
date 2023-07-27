@@ -5,6 +5,7 @@
         tribble-value: 1
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/1V.jpg
+//        cardId: 3737
 		effects: {
 			type: trigger
 			optional: true
@@ -21,13 +22,14 @@
 				type: drawCards
 			}
 		}
-    },
+    }
     2_002: {
         title: 1 Tribble - Exchange
         type: tribble
         tribble-value: 1
         tribble-power: exchange
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/2V.jpg
+//        cardId: 3744
 		effects: {
 			type: trigger
 			optional: true
@@ -52,6 +54,7 @@
         tribble-value: 1
         tribble-power: replay
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/3V.jpg
+//        cardId: 3750
     }
     2_004: {
         title: 10 Tribbles - Copy
@@ -59,6 +62,7 @@
         tribble-value: 10
         tribble-power: copy
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/4V.jpg
+//        cardId: 3778
     }
     2_005: {
         title: 10 Tribbles - Cycle
@@ -66,6 +70,7 @@
         tribble-value: 10
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/5V.jpg
+//        cardId: 3779
 		effects: {
 			type: trigger
 			optional: true
@@ -89,31 +94,7 @@
         tribble-value: 10
         tribble-power: draw
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/6V.jpg
-		effects: {
-			type: trigger
-			optional: true
-			trigger: {
-			    type: played
-			    filter: self
-			}
-            effect: [
-                {
-                    type: ChooseOpponent
-                    memorize: opp
-                }
-                {
-                    type: drawCards
-                    player: FromMemory(opp)
-                }
-            ]
-		}
-    }
-    2_006: {
-        title: 10 Tribbles - Draw
-        type: tribble
-        tribble-value: 10
-        tribble-power: draw
-        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/6V.jpg
+//        cardId: 3780
 		effects: {
 			type: trigger
 			optional: true
@@ -139,6 +120,7 @@
         tribble-value: 100
         tribble-power: copy
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/7V.jpg
+//        cardId: 3820
     }
     2_008: {
         title: 100 Tribbles - Draw
@@ -146,6 +128,25 @@
         tribble-value: 100
         tribble-power: draw
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/8V.jpg
+//        cardId: 3821
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChooseOpponent
+                    memorize: opp
+                }
+                {
+                    type: drawCards
+                    player: FromMemory(opp)
+                }
+            ]
+		}
     }
     2_009: {
         title: 100 Tribbles - Score
@@ -153,6 +154,7 @@
         tribble-value: 100
         tribble-power: score
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/9V.jpg
+//        cardId: 3837
     }
     2_010: {
         title: "1,000 Tribbles - Exchange"
@@ -160,6 +162,23 @@
         tribble-value: 1000
         tribble-power: exchange
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/10V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
     }
     2_011: {
         title: "1,000 Tribbles - Recycle"
@@ -188,6 +207,24 @@
         tribble-value: 10000
         tribble-power: kill
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/14V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChooseOpponent
+                    memorize: opp
+                }
+                {
+                    type: discardtopcardsfromplaypile
+                    player: FromMemory(opp)
+                }
+            ]
+		}
     }
     2_015: {
         title: "10,000 Tribbles - Recycle"
@@ -209,6 +246,24 @@
         tribble-value: 100000
         tribble-power: kill
         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/17V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChooseOpponent
+                    memorize: opp
+                }
+                {
+                    type: discardtopcardsfromplaypile
+                    player: FromMemory(opp)
+                }
+            ]
+		}
     }
     2_018: {
         title: "100,000 Tribbles - Replay"
