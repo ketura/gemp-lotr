@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
         _dbAccess = dbAccess;
     }
 
-    public void userJoinsLeague(String leagueId, Player player, String remoteAddr) {
+    public void userJoinsLeague(String leagueId, User player, String remoteAddr) {
         try {
             try (Connection conn = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = conn.prepareStatement("insert into league_participation (league_type, player_name, join_ip) values (?,?,?)")) {

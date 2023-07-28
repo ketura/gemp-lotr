@@ -37,8 +37,6 @@ public class TribblesGameState extends GameState {
     private String _currentPlayerId;
     private Phase _currentPhase = Phase.PUT_RING_BEARER;
     private boolean _consecutiveAction;
-
-    private final Map<String, Integer> _playerPosition = new HashMap<>();
     private final Map<String, Boolean> _playerDecked = new HashMap<>();
     private final Map<String, AwaitingDecision> _playerDecisions = new HashMap<>();
 
@@ -181,8 +179,6 @@ public class TribblesGameState extends GameState {
                 listener.setCurrentPlayerId(_currentPlayerId);
             if (_currentPhase != null)
                 listener.setCurrentPhase(getPhaseString());
-            for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
-                listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
             for (Map.Entry<String, Boolean> stringBooleanEntry : _playerDecked.entrySet())
                 listener.setPlayerDecked(stringBooleanEntry.getKey(), stringBooleanEntry.getValue());
 
@@ -526,16 +522,6 @@ public class TribblesGameState extends GameState {
 
     public void setCurrentPlayerId(String playerId) {
         _currentPlayerId = playerId;
-    }
-
-    public void setPlayerPosition(String playerId, int i) {
-        _playerPosition.put(playerId, i);
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.setPlayerPosition(playerId, i);
-    }
-
-    public int getPlayerPosition(String playerId) {
-        return _playerPosition.getOrDefault(playerId, 0);
     }
 
     public void setPlayerDecked(String playerId, boolean bool) {

@@ -65,7 +65,7 @@ public class HallServer extends AbstractServer {
 
     private final TableHolder tableHolder;
 
-    private final Map<Player, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<>();
+    private final Map<User, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<>();
     private int _nextChannelNumber = 0;
 
     private final Map<String, Tournament> _runningTournaments = new LinkedHashMap<>();
@@ -343,7 +343,7 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
+    public void createNewTable(String type, User player, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -363,7 +363,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void spoofNewTable(String type, Player player, Player librarian, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
+    public void spoofNewTable(String type, User player, User librarian, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -424,7 +424,7 @@ public class HallServer extends AbstractServer {
                 league != null, isPrivate, isInviteOnly, isHidden, gameTimer, description);
     }
 
-    public boolean joinQueue(String queueId, Player player, String deckName) throws HallException, SQLException, IOException {
+    public boolean joinQueue(String queueId, User player, String deckName) throws HallException, SQLException, IOException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -453,7 +453,7 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
+    public boolean joinTableAsPlayer(String tableId, User player, String deckName) throws HallException {
         logger.debug("HallServer - joinTableAsPlayer function called");
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
@@ -475,7 +475,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public boolean joinTableAsPlayerWithSpoofedDeck(String tableId, Player player, Player librarian, String deckName) throws HallException {
+    public boolean joinTableAsPlayerWithSpoofedDeck(String tableId, User player, User librarian, String deckName) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -496,7 +496,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void leaveQueue(String queueId, Player player) throws SQLException, IOException {
+    public void leaveQueue(String queueId, User player) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             TournamentQueue tournamentQueue = _tournamentQueues.get(queueId);
@@ -509,7 +509,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private boolean leaveQueuesForLeavingPlayer(Player player) throws SQLException, IOException {
+    private boolean leaveQueuesForLeavingPlayer(User player) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             boolean result = false;
@@ -525,7 +525,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void dropFromTournament(String tournamentId, Player player) {
+    public void dropFromTournament(String tournamentId, User player) {
         _hallDataAccessLock.writeLock().lock();
         try {
             Tournament tournament = _runningTournaments.get(tournamentId);
@@ -538,7 +538,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void leaveAwaitingTable(Player player, String tableId) {
+    public void leaveAwaitingTable(User player, String tableId) {
         _hallDataAccessLock.writeLock().lock();
         try {
             if (tableHolder.leaveAwaitingTable(player, tableId))
@@ -548,7 +548,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public boolean leaveAwaitingTablesForLeavingPlayer(Player player) {
+    public boolean leaveAwaitingTablesForLeavingPlayer(User player) {
         _hallDataAccessLock.writeLock().lock();
         try {
             return tableHolder.leaveAwaitingTablesForPlayer(player);
@@ -557,7 +557,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void signupUserForHall(Player player, HallChannelVisitor hallChannelVisitor) {
+    public void signupUserForHall(User player, HallChannelVisitor hallChannelVisitor) {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel channel = new HallCommunicationChannel(_nextChannelNumber++);
@@ -568,7 +568,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public HallCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
+    public HallCommunicationChannel getCommunicationChannel(User player, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
@@ -586,7 +586,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    protected void processHall(Player player, HallInfoVisitor visitor) {
+    protected void processHall(User player, HallInfoVisitor visitor) {
         final boolean isAdmin = player.getType().contains("a");
         _hallDataAccessLock.readLock().lock();
         try {
@@ -618,7 +618,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, User player, String deckName, CollectionType collectionType) throws HallException {
         logger.debug("HallServer - calling validateUserAndDeck function for player " + player.getName() + " " + player.getId() + " and deck " + deckName);
         LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player, deckName);
         if (lotroDeck == null) {
@@ -636,7 +636,7 @@ public class HallServer extends AbstractServer {
         return lotroDeck;
     }
 
-    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, User player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
         logger.debug("HallServer - calling validateUserAndDeck function for player " + player.getName() + " " + player.getId() + " and deck " + lotroDeck);
         String validation = format.validateDeckForHall(lotroDeck);
         if(validation == null || !validation.isEmpty())
@@ -798,10 +798,10 @@ public class HallServer extends AbstractServer {
             tableHolder.removeFinishedGames();
 
             long currentTime = System.currentTimeMillis();
-            Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<>(_playerChannelCommunication);
-            for (Map.Entry<Player, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
+            Map<User, HallCommunicationChannel> visitCopy = new LinkedHashMap<>(_playerChannelCommunication);
+            for (Map.Entry<User, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
                 if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerTableInactivityPeriod) {
-                    Player player = lastVisitedPlayer.getKey();
+                    User player = lastVisitedPlayer.getKey();
                     boolean leftTables = leaveAwaitingTablesForLeavingPlayer(player);
                     boolean leftQueues = leaveQueuesForLeavingPlayer(player);
                     if (leftTables || leftQueues)
@@ -809,7 +809,7 @@ public class HallServer extends AbstractServer {
                 }
 
                 if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerChatInactivityPeriod) {
-                    Player player = lastVisitedPlayer.getKey();
+                    User player = lastVisitedPlayer.getKey();
                     _playerChannelCommunication.remove(player);
                 }
             }

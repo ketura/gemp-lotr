@@ -9,7 +9,7 @@ import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.game.ChatCommunicationChannel;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
 import io.netty.handler.codec.http.HttpMethod;
@@ -85,15 +85,15 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String message = getFormParameterSafely(postDecoder, "message");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
             if (chatRoom == null)
                 throw new HttpProcessingException(404);
 
             try {
-                final boolean admin = resourceOwner.hasType(Player.Type.ADMIN);
-                final boolean leagueAdmin = resourceOwner.hasType(Player.Type.LEAGUE_ADMIN);
+                final boolean admin = resourceOwner.hasType(User.Type.ADMIN);
+                final boolean leagueAdmin = resourceOwner.hasType(User.Type.LEAGUE_ADMIN);
                 if (message != null && message.trim().length() > 0) {
                     String newMsg;
                     newMsg = message.trim().replaceAll("\n\n\n+", "\n\n\n");
@@ -237,13 +237,13 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
             throw new HttpProcessingException(404);
         try {
-            final boolean admin = resourceOwner.hasType(Player.Type.ADMIN);
+            final boolean admin = resourceOwner.hasType(User.Type.ADMIN);
             List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), admin);
             Collection<String> usersInRoom = chatRoom.getUsersInRoom(admin);
 
@@ -293,11 +293,11 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private String formatPlayerNameForChatList(String userInRoom) {
-        final Player player = _playerDao.getPlayer(userInRoom);
+        final User player = _playerDao.getPlayer(userInRoom);
         if (player != null) {
-            if (player.hasType(Player.Type.ADMIN))
+            if (player.hasType(User.Type.ADMIN))
                 return "* "+userInRoom;
-            else if (player.hasType(Player.Type.LEAGUE_ADMIN))
+            else if (player.hasType(User.Type.LEAGUE_ADMIN))
                 return "+ "+userInRoom;
         }
         return userInRoom;

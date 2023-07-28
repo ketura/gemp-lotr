@@ -195,7 +195,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         try {
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String deckName = getFormParameterSafely(postDecoder, "deckName");
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
 
@@ -212,7 +212,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             String deckName = getFormParameterSafely(postDecoder, "deckName");
             String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             LotroDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
             if (deck == null)
@@ -233,7 +233,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             String notes = getFormParameterSafely(postDecoder, "notes");
             String contents = getFormParameterSafely(postDecoder, "deckContents");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             LotroFormat validatedFormat = validateFormat(targetFormat);
 
@@ -260,7 +260,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         String code = resourceOwner.getName() + "|" + deckName;
 
@@ -276,7 +276,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
         String shareCode = getQueryParameterSafely(queryDecoder, "id");
 
-        Player resourceOwner;
+        User resourceOwner;
         LotroDeck deck;
 
         if (shareCode != null)
@@ -438,7 +438,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         responseWriter.writeXmlResponse(serializeDeck(resourceOwner, deckName));
     }
@@ -454,7 +454,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         List<Map.Entry<LotroFormat, String>> decks = GetDeckNamesAndFormats(resourceOwner);
         SortDecks(decks);
@@ -479,7 +479,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         return doc;
     }
 
-    private List<Map.Entry<LotroFormat, String>> GetDeckNamesAndFormats(Player player)
+    private List<Map.Entry<LotroFormat, String>> GetDeckNamesAndFormats(User player)
     {
         Set<Map.Entry<String, String>> names = new HashSet(_deckDao.getPlayerDeckNames(player));
 
@@ -522,7 +522,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         responseWriter.writeXmlResponse(doc);
     }
 
-    private Document serializeDeck(Player player, String deckName) throws ParserConfigurationException {
+    private Document serializeDeck(User player, String deckName) throws ParserConfigurationException {
         LotroDeck deck = _deckDao.getDeckForPlayer(player, deckName);
 
         return serializeDeck(deck);

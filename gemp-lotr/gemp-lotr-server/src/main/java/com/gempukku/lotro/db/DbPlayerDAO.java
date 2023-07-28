@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.common.DBDefs;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import org.sql2o.Sql2o;
 
 import java.security.MessageDigest;
@@ -34,7 +34,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public Player getPlayer(int id) {
+    public User getPlayer(int id) {
         try {
             return getPlayerFromDBById(id);
         } catch (SQLException exp) {
@@ -43,7 +43,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public Player getPlayer(String playerName) {
+    public User getPlayer(String playerName) {
         try {
             return getPlayerFromDBByName(playerName);
         } catch (SQLException exp) {
@@ -52,8 +52,8 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public List<Player> findSimilarAccounts(String login) throws SQLException {
-        final Player player = getPlayerFromDBByName(login);
+    public List<User> findSimilarAccounts(String login) throws SQLException {
+        final User player = getPlayerFromDBByName(login);
         if (player == null)
             return null;
 
@@ -78,7 +78,7 @@ public class DbPlayerDAO implements PlayerDAO {
                     nextParamIndex += 2;
                 }
                 try (ResultSet rs = statement.executeQuery()) {
-                    List<Player> players = new LinkedList<>();
+                    List<User> players = new LinkedList<>();
                     while (rs.next())
                         players.add(getPlayerFromResultSet(rs));
                     return players;
@@ -163,7 +163,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public boolean addPlayerFlag(String login, Player.Type flag) throws SQLException {
+    public boolean addPlayerFlag(String login, User.Type flag) throws SQLException {
         try {
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
 
@@ -188,7 +188,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public boolean removePlayerFlag(String login, Player.Type flag) throws SQLException {
+    public boolean removePlayerFlag(String login, User.Type flag) throws SQLException {
         try {
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
 
@@ -213,7 +213,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public Player loginUser(String login, String password) throws SQLException {
+    public User loginUser(String login, String password) throws SQLException {
 
         try {
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
@@ -233,14 +233,14 @@ public class DbPlayerDAO implements PlayerDAO {
                 if(def == null)
                     return null;
 
-                return new Player(def);
+                return new User(def);
             }
         } catch (Exception ex) {
             throw new RuntimeException("Unable to retrieve login entries", ex);
         }
     }
 
-    private Player getPlayerFromResultSet(ResultSet rs) throws SQLException {
+    private User getPlayerFromResultSet(ResultSet rs) throws SQLException {
         int id = rs.getInt(1);
         String name = rs.getString(2);
         String password = rs.getString(3);
@@ -258,11 +258,11 @@ public class DbPlayerDAO implements PlayerDAO {
         String createIp = rs.getString(7);
         String lastIp = rs.getString(8);
 
-        return new Player(id, name, password, type, lastLoginReward, bannedUntil, createIp, lastIp);
+        return new User(id, name, password, type, lastLoginReward, bannedUntil, createIp, lastIp);
     }
 
     @Override
-    public void setLastReward(Player player, int currentReward) throws SQLException {
+    public void setLastReward(User player, int currentReward) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=?")) {
                 statement.setInt(1, currentReward);
@@ -274,7 +274,7 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public synchronized boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
+    public synchronized boolean updateLastReward(User player, int previousReward, int currentReward) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=? and last_login_reward=?")) {
                 statement.setInt(1, currentReward);
@@ -333,7 +333,7 @@ public class DbPlayerDAO implements PlayerDAO {
                 conn.createQuery(sql)
                         .addParameter("login", login)
                         .addParameter("password", encodePassword(password))
-                        .addParameter("type", Player.Type.USER.toString())
+                        .addParameter("type", User.Type.USER.toString())
                         .addParameter("create_ip", remoteAddr)
                         .executeUpdate();
 
@@ -426,7 +426,7 @@ public class DbPlayerDAO implements PlayerDAO {
         return hexString.toString();
     }
 
-    private Player getPlayerFromDBById(int id) throws SQLException {
+    private User getPlayerFromDBById(int id) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where id=?")) {
                 statement.setInt(1, id);
@@ -441,7 +441,7 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
-    private Player getPlayerFromDBByName(String playerName) throws SQLException {
+    private User getPlayerFromDBByName(String playerName) throws SQLException {
         try (Connection conn = _dbAccess.getDataSource().getConnection()) {
             try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=?")) {
                 statement.setString(1, playerName);

@@ -60,12 +60,12 @@ public class SoloDraftLeagueData implements LeagueData {
         return Collections.singletonList(_serie);
     }
 
-    private long getSeed(Player player) {
+    private long getSeed(User player) {
         return _collectionType.getCode().hashCode() + player.getId() * HIGH_ENOUGH_PRIME_NUMBER;
     }
 
     @Override
-    public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
+    public CardCollection joinLeague(CollectionsManager collectionsManager, User player, int currentTime) {
         MutableCardCollection startingCollection = new DefaultCardCollection();
         long seed = getSeed(player);
 

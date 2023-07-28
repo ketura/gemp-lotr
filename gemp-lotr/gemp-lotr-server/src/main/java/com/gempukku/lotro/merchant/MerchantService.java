@@ -106,7 +106,7 @@ public class MerchantService {
         return Collections.unmodifiableSet(_merchantableItems);
     }
 
-    public PriceGuarantee priceCards(Player player, Collection<CardItem> cardBlueprintIds) {
+    public PriceGuarantee priceCards(User player, Collection<CardItem> cardBlueprintIds) {
         Lock lock = _lock.readLock();
         lock.lock();
         try {
@@ -139,7 +139,7 @@ public class MerchantService {
         }
     }
 
-    public void merchantBuysCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
+    public void merchantBuysCard(User player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
         priceCards(player, Collections.singleton(new BasicCardItem(blueprintId)));
 
         Date currentTime = new Date();
@@ -164,7 +164,7 @@ public class MerchantService {
         }
     }
 
-    public void merchantSellsCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
+    public void merchantSellsCard(User player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
         priceCards(player, Collections.singleton(new BasicCardItem(blueprintId)));
 
         Date currentTime = new Date();
@@ -189,7 +189,7 @@ public class MerchantService {
         }
     }
 
-    public void tradeForFoil(Player player, String blueprintId) throws MerchantException, SQLException, IOException {
+    public void tradeForFoil(User player, String blueprintId) throws MerchantException, SQLException, IOException {
         if (!blueprintId.contains("_") || blueprintId.endsWith("*"))
             throw new MerchantException("Unable to trade in this type of item");
         Lock lock = _lock.writeLock();

@@ -139,7 +139,7 @@ public class CardGameMediator {
         return _tribblesgame.isFinished();
     }
 
-    public String produceCardInfo(Player player, int cardId) {
+    public String produceCardInfo(User player, int cardId) {
         _readLock.lock();
         try {
             LotroPhysicalCard card = _tribblesgame.getGameState().findCardById(cardId);
@@ -305,7 +305,7 @@ public class CardGameMediator {
         }
     }
 
-    public void concede(Player player) {
+    public void concede(User player) {
         String playerId = player.getName();
         _writeLock.lock();
         try {
@@ -318,7 +318,7 @@ public class CardGameMediator {
         }
     }
 
-    public void cancel(Player player) {
+    public void cancel(User player) {
         _tribblesgame.getGameState().sendWarning(player.getName(), "You can't cancel this game");
 
         String playerId = player.getName();
@@ -331,7 +331,7 @@ public class CardGameMediator {
         }
     }
 
-    public synchronized void playerAnswered(Player player, int channelNumber, int decisionId, String answer) throws SubscriptionConflictException, SubscriptionExpiredException {
+    public synchronized void playerAnswered(User player, int channelNumber, int decisionId, String answer) throws SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         _writeLock.lock();
         try {
@@ -372,9 +372,9 @@ public class CardGameMediator {
         }
     }
 
-    public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
+    public GameCommunicationChannel getCommunicationChannel(User player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
-        if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))
+        if (!player.hasType(User.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();
@@ -412,9 +412,9 @@ public class CardGameMediator {
         }
     }
 
-    public void signupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
+    public void signupUserForGame(User player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
         String playerName = player.getName();
-        if (!player.hasType(Player.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))
+        if (!player.hasType(User.Type.ADMIN) && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();

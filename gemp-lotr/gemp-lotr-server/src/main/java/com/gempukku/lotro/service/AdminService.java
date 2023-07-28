@@ -2,7 +2,7 @@ package com.gempukku.lotro.service;
 
 import com.gempukku.lotro.db.IpBanDAO;
 import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 
 import java.sql.SQLException;
 
@@ -63,7 +63,7 @@ public class AdminService {
     }
 
     public boolean banIp(String login) {
-        final Player player = _playerDAO.getPlayer(login);
+        final User player = _playerDAO.getPlayer(login);
         if (player == null)
             return false;
         final String lastIp = player.getLastIp();
@@ -74,7 +74,7 @@ public class AdminService {
     }
 
     public boolean banIpPrefix(String login) {
-        final Player player = _playerDAO.getPlayer(login);
+        final User player = _playerDAO.getPlayer(login);
         if (player == null)
             return false;
         final String lastIp = player.getLastIp();

@@ -62,7 +62,7 @@ public class NewSealedLeagueData implements LeagueData {
     }
 
     @Override
-    public CardCollection joinLeague(CollectionsManager collectionManager, Player player, int currentTime) {
+    public CardCollection joinLeague(CollectionsManager collectionManager, User player, int currentTime) {
         MutableCardCollection startingCollection = new DefaultCardCollection();
         for (int i = 0; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
@@ -87,8 +87,8 @@ public class NewSealedLeagueData implements LeagueData {
             if (currentTime >= serie.getStart()) {
                 var sealedLeague = _formatLibrary.GetSealedTemplate(_leagueTemplateName);
                 var leagueProduct = sealedLeague.GetProductForSerie(i);
-                Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
-                for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
+                Map<User, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
+                for (Map.Entry<User, CardCollection> playerCardCollectionEntry : map.entrySet()) {
                     collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct);
                 }
                 status = i + 1;

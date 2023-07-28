@@ -7,7 +7,7 @@ import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class NewConstructedLeagueData implements LeagueData {
     }
 
     @Override
-    public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime) {
+    public CardCollection joinLeague(CollectionsManager collecionsManager, User player, int currentTime) {
         return null;
     }
 

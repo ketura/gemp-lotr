@@ -108,7 +108,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
         int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = constructCollection(resourceOwner, collectionType);
 
@@ -162,7 +162,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         responseWriter.writeXmlResponse(doc, headers);
     }
 
-    private CardCollection constructCollection(Player player, String collectionType) {
+    private CardCollection constructCollection(User player, String collectionType) {
         return _collectionsManager.getPlayerCollection(player, collectionType);
     }
 
@@ -173,7 +173,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         String selection = getFormParameterSafely(postDecoder, "selection");
         String packId = getFormParameterSafely(postDecoder, "pack");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CollectionType collectionTypeObj = createCollectionType(collectionType);
         CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _productLibrary, packId);
@@ -215,7 +215,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

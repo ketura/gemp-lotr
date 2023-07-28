@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.CardGameMediator;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
@@ -82,7 +82,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
             decisionId = Integer.parseInt(decisionIdStr);
         String decisionValue = getFormParameterSafely(postDecoder, "decisionValue");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
@@ -112,12 +112,12 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     private class GameUpdateLongPollingResource implements LongPollingResource {
         private final GameCommunicationChannel _gameCommunicationChannel;
         private final CardGameMediator _gameMediator;
-        private final Player _resourceOwner;
+        private final User _resourceOwner;
         private final int _channelNumber;
         private final ResponseWriter _responseWriter;
         private boolean _processed;
 
-        private GameUpdateLongPollingResource(GameCommunicationChannel gameCommunicationChannel, int channelNumber, CardGameMediator gameMediator, Player resourceOwner, ResponseWriter responseWriter) {
+        private GameUpdateLongPollingResource(GameCommunicationChannel gameCommunicationChannel, int channelNumber, CardGameMediator gameMediator, User resourceOwner, ResponseWriter responseWriter) {
             _gameCommunicationChannel = gameCommunicationChannel;
             _channelNumber = channelNumber;
             _gameMediator = gameMediator;
@@ -159,7 +159,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
@@ -178,7 +178,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
@@ -201,7 +201,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         } else {
             int cardId = Integer.parseInt(cardIdStr);
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             CardGameMediator gameMediator = _lotroServer.getGameById(gameId);
             if (gameMediator == null)
@@ -215,7 +215,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardGameMediator gameMediator = _lotroServer.getGameById(gameId);
 

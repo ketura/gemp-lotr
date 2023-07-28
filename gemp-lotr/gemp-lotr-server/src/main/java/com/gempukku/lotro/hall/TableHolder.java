@@ -4,7 +4,7 @@ import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.CardGameMediator;
 import com.gempukku.lotro.game.GameParticipant;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
@@ -35,7 +35,7 @@ public class TableHolder {
         awaitingTables.clear();
     }
 
-    public GameTable createTable(Player player, GameSettings gameSettings, LotroDeck lotroDeck) throws HallException {
+    public GameTable createTable(User player, GameSettings gameSettings, LotroDeck lotroDeck) throws HallException {
         logger.debug("TableHolder - createTable function called");
         String tableId = String.valueOf(_nextTableId++);
 
@@ -62,7 +62,7 @@ public class TableHolder {
         return null;
     }
 
-    public GameTable joinTable(String tableId, Player player, LotroDeck lotroDeck) throws HallException {
+    public GameTable joinTable(String tableId, User player, LotroDeck lotroDeck) throws HallException {
         final GameTable awaitingTable = awaitingTables.get(tableId);
 
         if (awaitingTable == null || awaitingTable.wasGameStarted())
@@ -121,7 +121,7 @@ public class TableHolder {
         throw new HallException("Table was already removed");
     }
 
-    public boolean leaveAwaitingTable(Player player, String tableId) {
+    public boolean leaveAwaitingTable(User player, String tableId) {
         GameTable table = awaitingTables.get(tableId);
         if (table != null && table.hasPlayer(player.getName())) {
             boolean empty = table.removePlayer(player.getName());
@@ -132,7 +132,7 @@ public class TableHolder {
         return false;
     }
 
-    public boolean leaveAwaitingTablesForPlayer(Player player) {
+    public boolean leaveAwaitingTablesForPlayer(User player) {
         return leaveAwaitingTablesForPlayer(player.getName());
     }
 
@@ -151,7 +151,7 @@ public class TableHolder {
         return result;
     }
 
-    private void verifyNotPlayingLeagueGame(Player player, League league) throws HallException {
+    private void verifyNotPlayingLeagueGame(User player, League league) throws HallException {
         for (GameTable awaitingTable : awaitingTables.values()) {
             if (league.equals(awaitingTable.getGameSettings().getLeague())
                     && awaitingTable.hasPlayer(player.getName())) {
@@ -168,7 +168,7 @@ public class TableHolder {
         }
     }
 
-    public void processTables(boolean isAdmin, Player player, HallInfoVisitor visitor) {
+    public void processTables(boolean isAdmin, User player, HallInfoVisitor visitor) {
         // First waiting
         for (Map.Entry<String, GameTable> tableInformation : awaitingTables.entrySet()) {
             final GameTable table = tableInformation.getValue();

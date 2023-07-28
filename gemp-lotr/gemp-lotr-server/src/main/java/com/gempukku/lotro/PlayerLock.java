@@ -1,9 +1,9 @@
 package com.gempukku.lotro;
 
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 
 public class PlayerLock {
-    public static Object getLock(Player player) {
+    public static Object getLock(User player) {
         return player.getName().intern();
     }
 

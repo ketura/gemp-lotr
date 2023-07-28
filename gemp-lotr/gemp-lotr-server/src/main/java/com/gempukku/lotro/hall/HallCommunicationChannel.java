@@ -1,6 +1,6 @@
 package com.gempukku.lotro.hall;
 
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.polling.LongPollableResource;
 import com.gempukku.polling.WaitingRequest;
 import org.apache.commons.lang.StringUtils;
@@ -57,7 +57,7 @@ public class HallCommunicationChannel implements LongPollableResource {
         return _lastConsumed;
     }
 
-    public void processCommunicationChannel(HallServer hallServer, final Player player, final HallChannelVisitor hallChannelVisitor) {
+    public void processCommunicationChannel(HallServer hallServer, final User player, final HallChannelVisitor hallChannelVisitor) {
         updateLastAccess();
 
         hallChannelVisitor.channelNumber(_channelNumber);

@@ -11,7 +11,7 @@ import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueService;
@@ -76,7 +76,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         SoloDraftLeagueData soloDraftLeagueData = (SoloDraftLeagueData) leagueData;
         CollectionType collectionType = soloDraftLeagueData.getCollectionType();
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, collectionType.getCode());
 
@@ -139,7 +139,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         SoloDraftLeagueData soloDraftLeagueData = (SoloDraftLeagueData) leagueData;
         CollectionType collectionType = soloDraftLeagueData.getCollectionType();
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, collectionType.getCode());
         boolean finished = (Boolean) collection.getExtraInformation().get("finished");

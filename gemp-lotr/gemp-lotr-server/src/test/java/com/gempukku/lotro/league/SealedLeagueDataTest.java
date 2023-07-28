@@ -6,7 +6,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.google.common.collect.Iterables;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class SealedLeagueDataTest extends AbstractAtTest {
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Player player = new Player(1, "Test", "pass", "u", null, null, null, null);
+            User player = new User(1, "Test", "pass", "u", null, null, null, null);
             data.joinLeague(collectionsManager, player, i);
             Mockito.verify(collectionsManager, new Times(1))
                 .addPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
@@ -62,7 +62,7 @@ public class SealedLeagueDataTest extends AbstractAtTest {
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Player player = new Player(1, "Test", "pass", "u", null, null, null, null);
+            User player = new User(1, "Test", "pass", "u", null, null, null, null);
             data.joinLeague(collectionsManager, player, i);
             Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
                     new ArgumentMatcher<>() {
@@ -126,8 +126,8 @@ public class SealedLeagueDataTest extends AbstractAtTest {
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Map<Player, CardCollection> playersInLeague = new HashMap<>();
-            Player player = new Player(1, "Test", "pass", "u", null, null, null, null);
+            Map<User, CardCollection> playersInLeague = new HashMap<>();
+            User player = new User(1, "Test", "pass", "u", null, null, null, null);
             playersInLeague.put(player, new DefaultCardCollection());
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(playersInLeague);
             int result = data.process(collectionsManager, null, 1, i);

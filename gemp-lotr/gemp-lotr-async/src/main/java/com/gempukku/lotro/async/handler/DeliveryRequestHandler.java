@@ -4,7 +4,7 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.google.common.collect.Iterables;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
@@ -37,7 +37,7 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
     }
 
     private void getDelivery(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        Player resourceOwner = getResourceOwnerSafely(request, null);
+        User resourceOwner = getResourceOwnerSafely(request, null);
         Map<String, ? extends CardCollection> delivery = _transferDAO.consumeUndeliveredPackages(resourceOwner.getName());
         if (delivery == null)
             throw new HttpProcessingException(404);

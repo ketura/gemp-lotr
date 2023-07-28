@@ -92,7 +92,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         String deckName = getFormParameterSafely(postDecoder, "deckName");
         logger.debug("HallRequestHandler - calling joinTableAsPlayer function from JoinTable");
@@ -103,7 +103,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         } catch (HallException e) {
             try {
                 //Try again assuming it's a new player using the default deck library decks
-                Player libraryOwner = _playerDao.getPlayer("Librarian");
+                User libraryOwner = _playerDao.getPlayer("Librarian");
                 _hallServer.joinTableAsPlayerWithSpoofedDeck(tableId, resourceOwner, libraryOwner, deckName);
                 responseWriter.writeXmlResponse(null);
                 return;
@@ -127,7 +127,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         _hallServer.leaveAwaitingTable(resourceOwner, tableId);
         responseWriter.writeXmlResponse(null);
@@ -152,7 +152,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             // the participants and admins.
             boolean isHidden = timer.toLowerCase().equals(GameTimer.GLACIAL_TIMER.name());
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             if(isInviteOnly) {
                 if(desc.length()==0) {
@@ -189,7 +189,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 try
                 {
                     //try again assuming it's a new player with one of the default library decks selected
-                    Player librarian = _playerDao.getPlayer("Librarian");
+                    User librarian = _playerDao.getPlayer("Librarian");
                     _hallServer.spoofNewTable(format, resourceOwner, librarian, deckName, timer, "(New Player) " + desc, isInviteOnly, isPrivate, isHidden);
                     responseWriter.writeXmlResponse(null);
                     return;
@@ -228,7 +228,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         _hallServer.dropFromTournament(tournamentId, resourceOwner);
 
@@ -244,7 +244,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         String deckName = getFormParameterSafely(postDecoder, "deckName");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         try {
             _hallServer.joinQueue(queueId, resourceOwner, deckName);
@@ -265,7 +265,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         _hallServer.leaveQueue(queueId, resourceOwner);
 
@@ -383,14 +383,14 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         try {
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
             Document doc = documentBuilder.newDocument();
 
-            Player player = getResourceOwnerSafely(request, null);
+            User player = getResourceOwnerSafely(request, null);
 
             Element hall = doc.createElement("hall");
             hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode()).getCurrency()));
@@ -434,7 +434,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             processLoginReward(resourceOwner.getName());
 
             try {
@@ -458,11 +458,11 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private class HallUpdateLongPollingResource implements LongPollingResource {
         private final HttpRequest _request;
         private final HallCommunicationChannel _hallCommunicationChannel;
-        private final Player _resourceOwner;
+        private final User _resourceOwner;
         private final ResponseWriter _responseWriter;
         private boolean _processed;
 
-        private HallUpdateLongPollingResource(HallCommunicationChannel hallCommunicationChannel, HttpRequest request, Player resourceOwner, ResponseWriter responseWriter) {
+        private HallUpdateLongPollingResource(HallCommunicationChannel hallCommunicationChannel, HttpRequest request, User resourceOwner, ResponseWriter responseWriter) {
             _hallCommunicationChannel = hallCommunicationChannel;
             _request = request;
             _resourceOwner = resourceOwner;

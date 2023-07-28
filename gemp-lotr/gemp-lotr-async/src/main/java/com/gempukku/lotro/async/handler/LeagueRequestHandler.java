@@ -8,7 +8,7 @@ import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -64,7 +64,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         try {
         String participantId = getFormParameterSafely(postDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         League league = _leagueService.getLeagueByType(leagueType);
         if (league == null)
@@ -86,7 +86,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         Document doc = documentBuilder.newDocument();
 

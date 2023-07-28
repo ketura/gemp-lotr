@@ -13,7 +13,7 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.io.IOException;
@@ -94,11 +94,11 @@ public class LeagueService {
         }
     }
 
-    public synchronized boolean isPlayerInLeague(League league, Player player) {
+    public synchronized boolean isPlayerInLeague(League league, User player) {
         return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
-    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr) throws SQLException, IOException {
+    public synchronized boolean playerJoinsLeague(League league, User player, String remoteAddr) throws SQLException, IOException {
         if (isPlayerInLeague(league, player))
             return false;
         int cost = league.getCost();

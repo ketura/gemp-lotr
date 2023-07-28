@@ -12,7 +12,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.*;
@@ -122,7 +122,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         try {
             String login = getFormParameterSafely(postDecoder, "login").trim();
 
-            List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
+            List<User> similarPlayers = _playerDAO.findSimilarAccounts(login);
             if (similarPlayers == null)
                 throw new HttpProcessingException(400);
 
@@ -132,7 +132,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             Document doc = documentBuilder.newDocument();
             Element players = doc.createElement("players");
 
-            for (Player similarPlayer : similarPlayers) {
+            for (User similarPlayer : similarPlayers) {
                 Element playerElem = doc.createElement("player");
                 playerElem.setAttribute("id", String.valueOf(similarPlayer.getId()));
                 playerElem.setAttribute("name", similarPlayer.getName());
@@ -151,14 +151,14 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         }
     }
 
-    private String getStatus(Player similarPlayer) {
+    private String getStatus(User similarPlayer) {
         if (similarPlayer.getType().equals(""))
             return "Banned permanently";
         if (similarPlayer.getBannedUntil() != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             return "Banned until " + format.format(similarPlayer.getBannedUntil());
         }
-        if (similarPlayer.hasType(Player.Type.UNBANNED))
+        if (similarPlayer.hasType(User.Type.UNBANNED))
             return "Unbanned";
         return "OK";
     }
@@ -265,9 +265,9 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
             Collection<CardCollection.Item> productItems = getProductItems(product);
 
-            Map<Player, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
+            Map<User, CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
 
-            for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
+            for (Map.Entry<User, CardCollection> playerCollection : playersCollection.entrySet())
                 _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
 
             responseWriter.writeHtmlResponse("OK");
@@ -290,7 +290,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             List<String> playerNames = getItems(players);
 
             for (String playerName : playerNames) {
-                Player player = _playerDao.getPlayer(playerName);
+                User player = _playerDao.getPlayer(playerName);
 
             _collectionManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
         }
@@ -756,16 +756,16 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     private void validateAdmin(HttpRequest request) throws HttpProcessingException {
-        Player player = getResourceOwnerSafely(request, null);
+        User player = getResourceOwnerSafely(request, null);
 
-        if (!player.hasType(Player.Type.ADMIN))
+        if (!player.hasType(User.Type.ADMIN))
             throw new HttpProcessingException(403);
     }
 
     private void validateLeagueAdmin(HttpRequest request) throws HttpProcessingException {
-        Player player = getResourceOwnerSafely(request, null);
+        User player = getResourceOwnerSafely(request, null);
 
-        if (!player.hasType(Player.Type.LEAGUE_ADMIN))
+        if (!player.hasType(User.Type.LEAGUE_ADMIN))
             throw new HttpProcessingException(403);
     }
 }

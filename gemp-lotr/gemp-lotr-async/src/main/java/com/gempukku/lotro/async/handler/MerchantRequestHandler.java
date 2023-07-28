@@ -63,7 +63,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             try {
                 _merchantService.tradeForFoil(resourceOwner, blueprintId);
                 responseWriter.writeHtmlResponse("OK");
@@ -88,7 +88,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
             Document doc = documentBuilder.newDocument();
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             try {
                 _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
                 responseWriter.writeHtmlResponse("OK");
@@ -114,7 +114,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             Document doc = documentBuilder.newDocument();
 
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             try {
                 _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
                 responseWriter.writeHtmlResponse("OK");
@@ -135,7 +135,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
         int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode());
 

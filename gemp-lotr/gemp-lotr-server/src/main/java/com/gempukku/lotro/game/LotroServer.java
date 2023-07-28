@@ -177,7 +177,7 @@ public class LotroServer extends AbstractServer {
         }
     }
 
-    public LotroDeck getParticipantDeck(Player player, String deckName) {
+    public LotroDeck getParticipantDeck(User player, String deckName) {
         return _deckDao.getDeckForPlayer(player, deckName);
     }
 
