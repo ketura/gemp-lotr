@@ -18,7 +18,7 @@ public class ReversePlayerOrder implements EffectAppenderProducer {
                 return new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(DefaultGame game) {
-                        actionContext.getGame().getGameState().reversePlayerOrder();
+                        actionContext.getGame().getGameState().getPlayerOrder().reversePlayerOrder();
                     }
                 };
             }

@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.TribblesGame;
 import com.gempukku.lotro.game.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.modifiers.ModifierFlag;
 import com.gempukku.lotro.game.state.GameState;
@@ -47,6 +48,7 @@ public class TribblesGameState extends GameState {
     private int _nextCardId = 0;
     private int _nextTribble;
     private boolean _chainBroken;
+    private int _currentRound = 0;
     private int nextCardId() {
         return _nextCardId++;
     }
@@ -317,7 +319,7 @@ public class TribblesGameState extends GameState {
             listener.cardActivated(playerPerforming, card);
     }
 
-    private List<LotroPhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
+    private List<LotroPhysicalCardImpl> getZoneCards(String playerId, Zone zone) {
         if (zone == Zone.DECK)
             return _decks.get(playerId);
         else if (zone == Zone.PLAY_PILE)
@@ -338,7 +340,7 @@ public class TribblesGameState extends GameState {
 
     public void removeCardsFromZone(String playerPerforming, Collection<LotroPhysicalCard> cards) {
         for (LotroPhysicalCard card : cards) {
-            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), card.getZone());
+            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getZone());
             if (!zoneCards.contains(card))
                 _log.error("Card was not found in the expected zone");
         }
@@ -356,7 +358,7 @@ public class TribblesGameState extends GameState {
             else if (zone == Zone.DISCARD)
                 stopAffectingInDiscard(card);
 
-            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), zone);
             zoneCards.remove(card);
             if (zone.isInPlay())
                 _inPlay.remove(card);
@@ -394,7 +396,7 @@ public class TribblesGameState extends GameState {
             _inPlay.add((LotroPhysicalCardImpl) card);
         }
 
-        List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+        List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), zone);
         if (end)
             zoneCards.add((LotroPhysicalCardImpl) card);
         else
@@ -444,6 +446,23 @@ public class TribblesGameState extends GameState {
         shuffleDeck(playerId);
     }
 
+    public void shufflePlayPileIntoDeck(TribblesGame game, String playerId) {
+        List<LotroPhysicalCard> playPile = new LinkedList<>(getPlayPile(playerId));
+        removeCardsFromZone(playerId, playPile);
+        for (LotroPhysicalCard card : playPile) {
+            addCardToZone(game, card, Zone.DECK);
+        }
+        shuffleDeck(playerId);
+    }
+
+    public void discardHand(TribblesGame game, String playerId) {
+        List<LotroPhysicalCard> hand = new LinkedList<>(getHand(playerId));
+        removeCardsFromZone(playerId, hand);
+        for (LotroPhysicalCard card : hand) {
+            addCardToZone(game, card, Zone.DISCARD);
+        }
+    }
+
     public void putCardOnBottomOfDeck(LotroPhysicalCard card) {
         addCardToZone(null, card, Zone.DECK, true);
     }
@@ -490,7 +509,7 @@ public class TribblesGameState extends GameState {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
     }
 
-    public List<? extends LotroPhysicalCard> getPlayPile(String playerId) {
+    public List<LotroPhysicalCard> getPlayPile(String playerId) {
         return Collections.unmodifiableList(_playPiles.get(playerId));
     }
     public List<? extends LotroPhysicalCard> getInPlay() {
@@ -503,6 +522,10 @@ public class TribblesGameState extends GameState {
 
     public String getCurrentPlayerId() {
         return _currentPlayerId;
+    }
+
+    public void setCurrentPlayerId(String playerId) {
+        _currentPlayerId = playerId;
     }
 
     public void setPlayerPosition(String playerId, int i) {
@@ -716,15 +739,17 @@ public class TribblesGameState extends GameState {
 
     public int getNextTribble() { return _nextTribble; }
 
-    public void breakChain() {
-        sendMessage("The chain has been broken.");
-        _chainBroken = true;
-        for (GameStateListener listener : getAllGameStateListeners()) {
-            listener.setTribbleSequence("1 or " + _nextTribble);
+    public void setChainBroken(boolean chainBroken) {
+        _chainBroken = chainBroken;
+        if (chainBroken) {
+            sendMessage("The chain has been broken.");
+            for (GameStateListener listener : getAllGameStateListeners()) {
+                listener.setTribbleSequence("1 or " + _nextTribble);
+            }
         }
     }
 
-    public boolean isChainBroken() {
+    public boolean getChainBroken() {
         return _chainBroken;
     }
 
@@ -746,6 +771,25 @@ public class TribblesGameState extends GameState {
 
     @Override
     public void playerPassEffect() {
-        this.breakChain();
+        this.setChainBroken(true);
+    }
+
+    public void playerWentOut(String player) {
+        // TODO
+    }
+
+    public void playerScored(String player, int points) {
+        // TODO
+    }
+
+    public void advanceRoundNum() {
+        _currentRound++;
+    }
+
+    public int getRoundNum() {
+        return _currentRound;
+    }
+    public boolean isLastRound() {
+        return (_currentRound == 5);
     }
 }

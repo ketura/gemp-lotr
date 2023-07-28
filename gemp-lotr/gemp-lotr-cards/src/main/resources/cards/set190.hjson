@@ -8,7 +8,8 @@
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/50th/122V.jpg
 		effects: {
-			type: ActivatedTrigger
+			type: trigger
+			optional: true
 			trigger: {
 			    type: played
 			    filter: self

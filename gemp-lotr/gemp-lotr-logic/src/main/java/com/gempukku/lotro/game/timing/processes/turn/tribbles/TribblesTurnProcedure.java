@@ -41,7 +41,7 @@ public class TribblesTurnProcedure {
 
         _gameStats = new GameStats();
 
-        _gameProcess = new TribblesSeatingOrderProcess(decks, library, playerOrderFeedback);
+        _gameProcess = new TribblesPlayerOrderProcess(decks, library, playerOrderFeedback);
     }
 
     public GameStats getGameStats() {

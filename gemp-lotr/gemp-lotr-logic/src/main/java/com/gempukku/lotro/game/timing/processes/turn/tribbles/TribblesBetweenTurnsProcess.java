@@ -12,7 +12,7 @@ public class TribblesBetweenTurnsProcess extends DefaultGameProcess<TribblesGame
     public void process(TribblesGame game) {
         game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
         PlayOrder playOrder;
-        if (!game.getGameState().isReversed()) {
+        if (!game.getGameState().getPlayerOrder().getReversed()) {
             playOrder = game.getGameState().getPlayerOrder().getClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
         } else {
             playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
@@ -23,7 +23,7 @@ public class TribblesBetweenTurnsProcess extends DefaultGameProcess<TribblesGame
 
         while (game.getGameState().getPlayerDecked(currentPlayer)) {
             game.getGameState().sendMessage(currentPlayer + " is decked. Skipping their turn.");
-            if (!game.getGameState().isReversed()) {
+            if (!game.getGameState().getPlayerOrder().getReversed()) {
                 playOrder = game.getGameState().getPlayerOrder().getClockwisePlayOrder(currentPlayer, false);
             } else {
                 playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(currentPlayer, false);
@@ -32,7 +32,7 @@ public class TribblesBetweenTurnsProcess extends DefaultGameProcess<TribblesGame
         }
 
         String playOrderLabel;
-        if (!game.getGameState().isReversed()) {
+        if (!game.getGameState().getPlayerOrder().getReversed()) {
             playOrderLabel = "clockwise";
         } else {
             playOrderLabel = "counterclockwise";

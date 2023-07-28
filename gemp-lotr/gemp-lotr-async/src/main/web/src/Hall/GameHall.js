@@ -4,8 +4,8 @@ var chat;
 	$(document).ready(function () {
 
 		$("#main").tabs();
-		//Hiding the Users tab until that feature is ready
-		$("#tabs > ul :nth-child(5)").hide();
+		//Hiding the Users tab until that feature is ready (CL - removed this in the STCCG code)
+//		$("#tabs > ul :nth-child(5)").hide();
 		
 		chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr-server", true, null, false, null, true);
 		chat.showTimestamps = true;

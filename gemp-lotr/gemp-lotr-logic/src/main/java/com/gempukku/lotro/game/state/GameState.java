@@ -21,7 +21,6 @@ public class GameState {
     private static final Logger _log = Logger.getLogger(GameState.class);
     private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
-    protected boolean _isReversed = false;
     private LotroFormat _format;
 
     private final Map<String, List<LotroPhysicalCardImpl>> _adventureDecks = new HashMap<>();
@@ -391,7 +390,7 @@ public class GameState {
         return _rings.get(playerId);
     }
 
-    private List<LotroPhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
+    private List<LotroPhysicalCardImpl> getZoneCards(String playerId, Zone zone) {
         if (zone == Zone.DECK)
             return _decks.get(playerId);
         else if (zone == Zone.ADVENTURE_DECK)
@@ -453,7 +452,7 @@ public class GameState {
 
     public void removeCardsFromZone(String playerPerforming, Collection<LotroPhysicalCard> cards) {
         for (LotroPhysicalCard card : cards) {
-            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), card.getZone());
+            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getZone());
             if (!zoneCards.contains(card))
                 _log.error("Card was not found in the expected zone");
         }
@@ -462,7 +461,8 @@ public class GameState {
             Zone zone = card.getZone();
 
             if (zone.isInPlay())
-                if (card.getBlueprint().getCardType() != CardType.SITE || (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == card))
+                if (card.getBlueprint().getCardType() != CardType.SITE ||
+                        (getCurrentPhase() != Phase.PLAY_STARTING_FELLOWSHIP && getCurrentSite() == card))
                     stopAffecting(card);
 
             if (zone == Zone.STACKED)
@@ -470,7 +470,7 @@ public class GameState {
             else if (zone == Zone.DISCARD)
                 stopAffectingInDiscard(card);
 
-            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+            List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), zone);
             zoneCards.remove(card);
 
             if (zone == Zone.ATTACHED)
@@ -516,7 +516,7 @@ public class GameState {
         if (zone.isInPlay())
             assignNewCardId(card);
 
-        List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), zone);
+        List<LotroPhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), zone);
         if (end)
             zoneCards.add((LotroPhysicalCardImpl) card);
         else
@@ -1099,11 +1099,4 @@ public class GameState {
 
     public void playerPassEffect() {}
 
-    public void reversePlayerOrder() {
-        _isReversed = !_isReversed;
-    }
-
-    public boolean isReversed() {
-        return _isReversed;
-    }
 }

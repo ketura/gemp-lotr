@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class PlayerOrder {
+    private boolean _isReversed;
     private final List<String> _turnOrder;
 
     public PlayerOrder(List<String> turnOrder) {
         _turnOrder = turnOrder;
+        _isReversed = false;
     }
 
     public String getFirstPlayer() {
@@ -47,5 +49,12 @@ public class PlayerOrder {
 
     public int getPlayerCount() {
         return _turnOrder.size();
+    }
+
+    public boolean getReversed() { return _isReversed; }
+    public void setReversed(boolean isReversed) { _isReversed = isReversed; }
+
+    public void reversePlayerOrder() {
+        _isReversed = !_isReversed;
     }
 }

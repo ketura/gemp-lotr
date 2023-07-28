@@ -81,7 +81,8 @@
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/btilq/82V.jpg
 		effects: {
-			type: ActivatedTrigger
+			type: trigger
+			optional: true
 			trigger: {
 			    type: played
 			    filter: self
@@ -103,7 +104,8 @@
         tribble-power: cycle
         image-url: https://www.trekcc.org/tribbles/cardimages/btilq/86V.jpg
 		effects: {
-			type: ActivatedTrigger
+			type: trigger
+			optional: true
 			trigger: {
 			    type: played
 			    filter: self

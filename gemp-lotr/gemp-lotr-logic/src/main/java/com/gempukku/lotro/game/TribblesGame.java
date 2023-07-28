@@ -183,15 +183,8 @@ public class TribblesGame implements DefaultGame {
 
     private void gameWon(String winner, String reason) {
         _winnerPlayerId = winner;
-        int winningPoints = 0;
-
         if (_gameState != null)
             _gameState.sendMessage(_winnerPlayerId + " is the winner due to: " + reason);
-
-        for (LotroPhysicalCard winnerCard : _gameState.getPlayPile(_winnerPlayerId)) {
-            winningPoints += winnerCard.getBlueprint().getTribbleValue();
-        }
-        _gameState.sendMessage(_winnerPlayerId + " went out with " + winningPoints + " points");
 
         _gameState.finish();
 
@@ -287,7 +280,7 @@ public class TribblesGame implements DefaultGame {
 
     public boolean isNextInSequence(LotroPhysicalCard card) {
         final int cardValue = card.getBlueprint().getTribbleValue();
-        if (_gameState.isChainBroken() && (cardValue == 1)) {
+        if (_gameState.getChainBroken() && (cardValue == 1)) {
             return true;
         }
 /*        _gameState.sendMessage(card.getBlueprint().getTitle() + " tribble value = " + cardValue +
@@ -295,4 +288,5 @@ public class TribblesGame implements DefaultGame {
         return (cardValue == _gameState.getNextTribble());
     }
     public Set<String> getPlayers() { return _allPlayers; }
+
 }

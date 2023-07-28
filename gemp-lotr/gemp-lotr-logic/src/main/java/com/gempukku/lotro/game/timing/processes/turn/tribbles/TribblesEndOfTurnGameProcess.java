@@ -1,17 +1,20 @@
 package com.gempukku.lotro.game.timing.processes.turn.tribbles;
 
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TribblesGame;
 import com.gempukku.lotro.game.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
 import com.gempukku.lotro.game.effects.AbstractSuccessfulEffect;
 import com.gempukku.lotro.game.effects.TriggeringResultEffect;
 import com.gempukku.lotro.game.modifiers.ModifiersLogic;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
+import com.gempukku.lotro.game.timing.processes.DefaultGameProcess;
 import com.gempukku.lotro.game.timing.results.EndOfTurnResult;
 
-public class TribblesEndOfTurnGameProcess implements GameProcess {
+public class TribblesEndOfTurnGameProcess extends DefaultGameProcess<TribblesGame> {
+    private GameProcess _nextProcess;
     @Override
-    public void process(DefaultGame game) {
+    public void process(TribblesGame game) {
 //        game.getGameState().sendMessage("DEBUG: Beginning TribblesEndOfTurnGameProcess");
         SystemQueueAction action = new SystemQueueAction();
         action.setText("End of turn");
@@ -34,18 +37,24 @@ public class TribblesEndOfTurnGameProcess implements GameProcess {
                         ((ModifiersLogic) game.getModifiersEnvironment()).signalEndOfTurn();
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfTurn();
                         game.getGameState().stopAffectingCardsForCurrentPlayer();
-                        for (String playerId : game.getPlayers()) {
-                            if (game.getGameState().getHand(playerId).size() == 0) {
-                                game.playerWon(playerId, "No cards remaining in hand");
-                            }
-                        }
                     }
                 });
+        boolean playerWentOut = false;
+        for (String playerId : game.getPlayers()) {
+            if (game.getGameState().getHand(playerId).size() == 0) {
+                playerWentOut = true;
+            }
+        }
+        if (playerWentOut) {
+            _nextProcess = new TribblesEndOfRoundGameProcess();
+        } else {
+            _nextProcess = new TribblesBetweenTurnsProcess();
+        }
         game.getActionsEnvironment().addActionToStack(action);
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return new TribblesBetweenTurnsProcess();
+        return _nextProcess;
     }
 }

@@ -7,13 +7,12 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.timing.PlayerOrder;
 import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.game.timing.processes.GameProcess;
-import com.gempukku.lotro.game.timing.processes.PlayersDrawStartingHandGameProcess;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TribblesSeatingOrderProcess implements GameProcess {
+public class TribblesPlayerOrderProcess implements GameProcess {
     private final Map<String, Integer> _startingTribbles = new LinkedHashMap<>();
     private final PlayerOrderFeedback _playerOrderFeedback;
     private final LinkedList<String> _players = new LinkedList<>();
@@ -21,8 +20,8 @@ public class TribblesSeatingOrderProcess implements GameProcess {
     private final CardBlueprintLibrary _library;
     private String _firstPlayer;
 
-    public TribblesSeatingOrderProcess(Map<String, CardDeck> decks, CardBlueprintLibrary library,
-                                       PlayerOrderFeedback playerOrderFeedback) {
+    public TribblesPlayerOrderProcess(Map<String, CardDeck> decks, CardBlueprintLibrary library,
+                                      PlayerOrderFeedback playerOrderFeedback) {
         _players.addAll(decks.keySet());
         Collections.shuffle(_players, ThreadLocalRandom.current());
         _decks = decks;
@@ -62,6 +61,6 @@ public class TribblesSeatingOrderProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new PlayersDrawStartingHandGameProcess(_firstPlayer);
+        return new TribblesStartOfRoundGameProcess(_firstPlayer);
     }
 }

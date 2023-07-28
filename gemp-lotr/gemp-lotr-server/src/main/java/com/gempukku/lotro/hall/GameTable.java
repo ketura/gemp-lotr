@@ -19,7 +19,7 @@ public class GameTable {
         this.gameSettings = gameSettings;
         String formatName = gameSettings.getLotroFormat().getName();
         if (formatName.equals("Tribbles")) {
-            this.capacity = 3;
+            this.capacity = 2;
         } else {
             this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
         }
