@@ -31,6 +31,31 @@
 			}
 		}
     }
+    145_003: {
+        title: 1 Tribble - Process
+        type: tribble
+        tribble-value: 1
+        tribble-power: process
+        image-url: https://www.trekcc.org/tribbles/cardimages/ntaa/21V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			effect:[
+			    {
+                    type: drawCards
+                    count: 3
+				}
+				{
+				    type: putcardsfromhandonbottomofdeck
+				    count: 2
+				}
+	        ]
+		}
+    }
     145_005: {
         title: 10 Tribbles - Evolve
         type: tribble
@@ -59,6 +84,31 @@
                     memory: discardedCards
 				}
 			}
+		}
+    }
+    145_011: {
+        title: "1,000 Tribbles - Process"
+        type: tribble
+        tribble-value: 1
+        tribble-power: process
+        image-url: https://www.trekcc.org/tribbles/cardimages/ntaa/29V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			effect:[
+			    {
+                    type: drawCards
+                    count: 3
+				}
+				{
+				    type: putcardsfromhandonbottomofdeck
+				    count: 2
+				}
+	        ]
 		}
     }
 }

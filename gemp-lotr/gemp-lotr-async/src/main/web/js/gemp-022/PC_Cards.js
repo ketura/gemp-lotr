@@ -26,7 +26,10 @@ var PCCards = {
 
 // Set 145 - No Tribble at All
 '145_002': 'https://www.trekcc.org/tribbles/cardimages/ntaa/20V.jpg',
+'145_003': 'https://www.trekcc.org/tribbles/cardimages/ntaa/21V.jpg',
+'145_004': 'https://www.trekcc.org/tribbles/cardimages/ntaa/22V.jpg',
 '145_005': 'https://www.trekcc.org/tribbles/cardimages/ntaa/23V.jpg',
+'145_011': 'https://www.trekcc.org/tribbles/cardimages/ntaa/29V.jpg',
 
 // Set 150 - Trials and Tribble-ations
 '150_002': 'https://www.trekcc.org/tribbles/cardimages/tat/38V.jpg',
@@ -38,6 +41,11 @@ var PCCards = {
 '150_008': 'https://www.trekcc.org/tribbles/cardimages/tat/44V.jpg',
 '150_009': 'https://www.trekcc.org/tribbles/cardimages/tat/45V.jpg',
 '150_013': 'https://www.trekcc.org/tribbles/cardimages/tat/49V.jpg',
+'150_014': 'https://www.trekcc.org/tribbles/cardimages/tat/50V.jpg',
+'150_015': 'https://www.trekcc.org/tribbles/cardimages/tat/51V.jpg',
+'150_016': 'https://www.trekcc.org/tribbles/cardimages/tat/52V.jpg',
+'150_017': 'https://www.trekcc.org/tribbles/cardimages/tat/53V.jpg',
+'150_018': 'https://www.trekcc.org/tribbles/cardimages/tat/54V.jpg',
 
 // Set 157 - Nothing But Tribble
 '157_011': 'https://www.trekcc.org/tribbles/cardimages/nbt/65V.jpg',
