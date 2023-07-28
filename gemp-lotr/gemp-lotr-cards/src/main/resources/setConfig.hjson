@@ -41,4 +41,10 @@
     rarityFile: "/set190-rarity.txt"
     needsLoading: false
   }
+  {
+    setId: "221"
+    setName: A Tribble of a Different Color
+    rarityFile: "/set221-rarity.txt"
+    needsLoading: false
+  }
 ]

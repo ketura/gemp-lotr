@@ -55,5 +55,8 @@ var PCCards = {
 '190_005': 'https://www.trekcc.org/tribbles/cardimages/50th/122V.jpg',
 '190_012': 'https://www.trekcc.org/tribbles/cardimages/50th/129V.jpg',
 
+// Set 221 - A Tribble of a Different Color
+'221_001': 'https://www.trekcc.org/tribbles/cardimages/toadc/136V.jpg',
+'221_004': 'https://www.trekcc.org/tribbles/cardimages/toadc/139V.jpg',
 
 }

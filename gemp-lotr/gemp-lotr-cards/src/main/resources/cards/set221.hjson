@@ -1,0 +1,32 @@
+// A Tribble of a Different Color
+
+{
+    221_004: {
+         title: 1 Tribble - Recycle
+         type: tribble
+         tribble-value: 1
+         tribble-power: recycle
+         image-url: https://www.trekcc.org/tribbles/cardimages/toadc/139V.jpg
+         effects: {
+ 			type: trigger
+ 			optional: true
+ 			trigger: {
+ 			    type: played
+ 			    filter: self
+ 			}
+ 			effect: [
+ 			    {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: shufflecardsfromdiscardintodrawdeck
+                    count: {
+                        type: forEachInDiscard
+                    }
+                    player: fromMemory(playerChosen)
+                }
+            ]
+ 		}
+    }
+}

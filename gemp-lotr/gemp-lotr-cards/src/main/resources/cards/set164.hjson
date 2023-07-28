@@ -16,12 +16,12 @@
 			}
             effect: [
                 {
-                    type: ChooseOpponent
-                    memorize: opp
+                    type: ChoosePlayer
+                    memorize: playerChosen
                 }
                 {
                     type: drawCards
-                    player: FromMemory(opp)
+                    player: FromMemory(playerChosen)
                 }
             ]
 		}
@@ -135,12 +135,12 @@
 			}
             effect: [
                 {
-                    type: ChooseOpponent
-                    memorize: opp
+                    type: ChoosePlayer
+                    memorize: playerChosen
                 }
                 {
                     type: drawCards
-                    player: FromMemory(opp)
+                    player: FromMemory(playerChosen)
                 }
             ]
 		}

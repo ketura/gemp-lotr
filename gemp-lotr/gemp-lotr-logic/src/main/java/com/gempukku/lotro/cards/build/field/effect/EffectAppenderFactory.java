@@ -46,11 +46,11 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
         effectAppenderProducers.put("chooseopponent", new ChooseOpponent());
+        effectAppenderProducers.put("chooseplayer", new ChoosePlayer());
         effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());
         effectAppenderProducers.put("conditional", new ConditionalEffect());
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
         effectAppenderProducers.put("costtoeffect", new CostToEffect());
-//        effectAppenderProducers.put("cycle", new TribblePowerCycle());
         effectAppenderProducers.put("discard", new DiscardFromPlay());
         effectAppenderProducers.put("discardbottomcardsfromdeck", new DiscardBottomCardFromDeck());
         effectAppenderProducers.put("discardcardatrandomfromhand", new DiscardCardAtRandomFromHand());
@@ -61,7 +61,6 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("doesnotaddtoarcherytotal", new DoesNotAddToArcheryTotal());
         effectAppenderProducers.put("drawcards", new DrawCards());
         effectAppenderProducers.put("endphase", new EndPhase());
-//        effectAppenderProducers.put("exchange", new TribblePowerExchange());
         effectAppenderProducers.put("exert", new Exert());
         effectAppenderProducers.put("exhaust", new Exhaust());
         effectAppenderProducers.put("filtercardsinmemory", new FilterCardsInMemory());
@@ -126,7 +125,6 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("repeat", new Repeat());
         effectAppenderProducers.put("replaceinassignment", new ReplaceInAssignment());
         effectAppenderProducers.put("replaceinskirmish", new ReplaceInSkirmish());
-//        effectAppenderProducers.put("replay", new TribblePowerReplay());
         effectAppenderProducers.put("resetwhileinzonedata", new ResetWhileInZoneData());
         effectAppenderProducers.put("returntohand", new ReturnToHand());
         effectAppenderProducers.put("revealbottomcardsofdrawdeck", new RevealBottomCardsOfDrawDeck());

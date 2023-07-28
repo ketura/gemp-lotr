@@ -90,12 +90,12 @@
 			}
             effect: [
                 {
-                    type: ChooseOpponent
-                    memorize: opp
+                    type: ChoosePlayer
+                    memorize: playerChosen
                 }
                 {
                     type: drawCards
-                    player: FromMemory(opp)
+                    player: FromMemory(playerChosen)
                 }
             ]
 		}
@@ -116,12 +116,12 @@
 			}
             effect: [
                 {
-                    type: ChooseOpponent
-                    memorize: opp
+                    type: ChoosePlayer
+                    memorize: playerChosen
                 }
                 {
                     type: drawCards
-                    player: FromMemory(opp)
+                    player: FromMemory(playerChosen)
                 }
             ]
 		}
@@ -149,5 +149,61 @@
 				type: PutCardsFromDiscardIntoHand
 			}
 		}
+    }
+    144_011: {
+         title: "1,000 Tribbles - Recycle"
+         type: tribble
+         tribble-value: 1000
+         tribble-power: recycle
+         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/11V.jpg
+         effects: {
+ 			type: trigger
+ 			optional: true
+ 			trigger: {
+ 			    type: played
+ 			    filter: self
+ 			}
+ 			effect: [
+ 			    {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: shufflecardsfromdiscardintodrawdeck
+                    count: {
+                        type: forEachInDiscard
+                    }
+                    player: fromMemory(playerChosen)
+                }
+            ]
+ 		}
+    }
+    144_015: {
+         title: "10,000 Tribbles - Recycle"
+         type: tribble
+         tribble-value: 10000
+         tribble-power: recycle
+         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/15V.jpg
+         effects: {
+ 			type: trigger
+ 			optional: true
+ 			trigger: {
+ 			    type: played
+ 			    filter: self
+ 			}
+ 			effect: [
+ 			    {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: shufflecardsfromdiscardintodrawdeck
+                    count: {
+                        type: forEachInDiscard
+                    }
+                    player: fromMemory(playerChosen)
+                }
+            ]
+ 		}
     }
 }
