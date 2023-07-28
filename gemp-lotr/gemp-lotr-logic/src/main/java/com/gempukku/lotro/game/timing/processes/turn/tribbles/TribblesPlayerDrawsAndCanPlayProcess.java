@@ -39,13 +39,18 @@ public class TribblesPlayerDrawsAndCanPlayProcess extends DefaultGameProcess<Tri
             if (playableActions.size() == 0 && game.shouldAutoPass(_playerId, game.getGameState().getCurrentPhase())) {
                 playerPassed(game);
             } else {
+                String userMessage;
+                if (playableActions.size() == 0) {
+                    userMessage = "The card drawn can't be played. Click 'Pass' to end your turn.";
+                } else {
+                    userMessage = "Play card that was just drawn or click 'Pass' to end your turn.";
+                }
                 game.getUserFeedback().sendAwaitingDecision(_playerId,
-                        new CardActionSelectionDecision(game, 1, "Play card that was just drawn or Pass", playableActions) {
+                        new CardActionSelectionDecision(game, 1, userMessage, playableActions) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Action action = getSelectedAction(result);
                                 if (action != null) {
-                                    //                                _nextProcess = new TribblesPlayerPlaysOrDraws(_playerId, _followingGameProcess);
                                     game.getActionsEnvironment().addActionToStack(action);
                                 } else
                                     playerPassed(game);

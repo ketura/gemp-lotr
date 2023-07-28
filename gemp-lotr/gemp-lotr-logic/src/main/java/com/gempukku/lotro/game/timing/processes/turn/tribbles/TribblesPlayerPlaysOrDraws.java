@@ -25,9 +25,14 @@ public class TribblesPlayerPlaysOrDraws implements GameProcess {
         if (playableActions.size() == 0 && game.shouldAutoPass(_playerId, game.getGameState().getCurrentPhase())) {
             _nextProcess = new TribblesPlayerDrawsAndCanPlayProcess(_playerId);
         } else {
+            String userMessage;
+            if (playableActions.size() == 0) {
+                userMessage = "No Tribbles can be played. Click 'Pass' to draw a card.";
+            } else {
+                userMessage = "Select Tribble to play or click 'Pass' to draw a card.";
+            }
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new CardActionSelectionDecision(game, 1,
-                            "Select Tribble to play or click 'Pass' to draw a card", playableActions) {
+                    new CardActionSelectionDecision(game, 1, userMessage, playableActions) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Action action = getSelectedAction(result);
