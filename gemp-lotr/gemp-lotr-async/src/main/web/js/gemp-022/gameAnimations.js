@@ -731,7 +731,7 @@ var GameAnimations = Class.extend({
                 var index = that.game.getPlayerIndex(participantId);
                 that.game.playerScores[index] = score;
 
-                // TODO - playerScores is never displayed anywhere
+                // TODO - Deprecated. This has been added elsewhere.
 
 //                that.game.advPathGroup.setPositions(that.game.playerPositions);
 
@@ -858,6 +858,16 @@ var GameAnimations = Class.extend({
                     $("#adventureDeck" + that.game.getPlayerIndex(playerId)).text(adventureDeck);
                     $("#removedPile" + that.game.getPlayerIndex(playerId)).text(removed);
                 }
+
+                var playerScores = element.getElementsByTagName("playerScores");
+                for (var i = 0; i < playerScores.length; i++) {
+                    var playerScore = playerScores[i];
+                    var playerId = playerScore.getAttribute("name");
+                    var score = playerScore.getAttribute("score");
+
+                    $("#score" + that.game.getPlayerIndex(playerId)).text(Number(score).toLocaleString("en-US") + ' Tribbles');
+                }
+
 
                 var playerThreats = element.getElementsByTagName("threats")
                 for (var i = 0; i < playerThreats.length; i++) {

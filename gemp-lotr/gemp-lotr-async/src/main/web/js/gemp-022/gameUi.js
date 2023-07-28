@@ -299,7 +299,8 @@ var TribblesGameUI = Class.extend({
                     "<div id='hand" + i + "' class='handSize'></div>" +
 //                    "<div id='threats" + i + "' class='threatsSize'></div>" +
                     "<div id='discard" + i + "' class='discardSize'></div>" +
-                    "<div id='showStats" + i + "' class='showStats'></div>" +
+                    "<div id='score" + i + "' class='playerScore'></div>" +
+//                    "<div id='showStats" + i + "' class='showStats'></div>" +
 //                    "<div id='adventureDeck" + i + "' class='adventureDeckSize'></div>" +
 //                    "<div id='removedPile" + i + "' class='removedPileSize'>" +
                 "</div></div></div>");
@@ -1035,7 +1036,7 @@ var TribblesGameUI = Class.extend({
                 position: "absolute",
                 left: padding * 2, // + advPathWidth,
                 top: padding,
-                width: specialUiWidth - padding,
+                width: specialUiWidth - padding + 75,
                 height: height - padding * 4 - alertHeight - chatHeight
             });
             this.alertBox.css({

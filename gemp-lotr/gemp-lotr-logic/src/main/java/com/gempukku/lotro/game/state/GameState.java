@@ -1099,4 +1099,5 @@ public class GameState {
 
     public void playerPassEffect() {}
 
+    public int getPlayerScore(String playerId) { return 0; }
 }

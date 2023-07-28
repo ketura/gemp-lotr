@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class GameStats {
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<>();
+    private Map<String, Integer> _playerScores = new HashMap<>();
 
     /**
      * @return If the stats have changed
@@ -38,6 +39,18 @@ public class GameStats {
             _zoneSizes = newZoneSizes;
         }
 
+        Map<String, Integer> newPlayerScores = new HashMap<>();
+        if (playerOrder != null) {
+            for (String player : playerOrder.getAllPlayers()) {
+                newPlayerScores.put(player, game.getGameState().getPlayerScore(player));
+            }
+        }
+
+        if (!newPlayerScores.equals(_playerScores)) {
+            changed = true;
+            _playerScores = newPlayerScores;
+        }
+
         return changed;
     }
 
@@ -45,9 +58,12 @@ public class GameStats {
         return Collections.unmodifiableMap(_zoneSizes);
     }
 
+    public Map<String, Integer> getPlayerScores() { return Collections.unmodifiableMap(_playerScores); }
+
     public GameStats makeACopy() {
         GameStats copy = new GameStats();
         copy._zoneSizes = _zoneSizes;
+        copy._playerScores = _playerScores;
         return copy;
     }
 }

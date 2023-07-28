@@ -46,6 +46,17 @@ body {
     background-image: url('/gemp-lotr/images/discard-42.png');
 }
 
+.playerScore {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: black;
+    font-size: 150%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+}
+
 .adventureDeckSize {
     display: none;
     text-align: center;

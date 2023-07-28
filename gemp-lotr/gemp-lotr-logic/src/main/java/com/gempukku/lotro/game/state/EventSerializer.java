@@ -128,6 +128,13 @@ public class EventSerializer {
             eventElem.appendChild(playerZonesElem);
         }
 
+        for (Map.Entry<String, Integer> playerScore : gameStats.getPlayerScores().entrySet()) {
+            final Element playerScoreElem = doc.createElement("playerScores");
+            playerScoreElem.setAttribute("name", playerScore.getKey());
+            playerScoreElem.setAttribute("score", playerScore.getValue().toString());
+            eventElem.appendChild(playerScoreElem);
+        }
+
         StringBuilder charStr = new StringBuilder();
         if (charStr.length() > 0)
             charStr.delete(0, 1);

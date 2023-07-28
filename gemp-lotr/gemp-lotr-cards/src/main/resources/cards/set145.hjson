@@ -89,7 +89,7 @@
     145_011: {
         title: "1,000 Tribbles - Process"
         type: tribble
-        tribble-value: 1
+        tribble-value: 1000
         tribble-power: process
         image-url: https://www.trekcc.org/tribbles/cardimages/ntaa/29V.jpg
 		effects: {

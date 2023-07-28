@@ -757,7 +757,7 @@ public class TribblesGameState extends GameState {
     public void playerScored(String player, int points) {
         _players.get(player).scorePoints(points);
         for (GameStateListener listener : getAllGameStateListeners())
-            listener.setPlayerScore(player, _players.get(player).getScore());
+            listener.setPlayerScore(player, getPlayerScore(player));
     }
 
     public void advanceRoundNum() {
@@ -769,6 +769,10 @@ public class TribblesGameState extends GameState {
     }
     public boolean isLastRound() {
         return (_currentRound == 5);
+    }
+
+    public int getPlayerScore(String playerId) {
+        return _players.get(playerId).getScore();
     }
 
 }
