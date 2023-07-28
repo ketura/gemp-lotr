@@ -155,6 +155,11 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     }
 
     @Override
+    public void setPlayerScore(String participant, int points) {
+        appendEvent(new GameEvent(PLAYER_SCORE).participantId(participant).score(points));
+    }
+
+    @Override
     public void setTwilight(int twilightPool) {
         appendEvent(new GameEvent(TWILIGHT_POOL_UPDATE).count(twilightPool));
     }

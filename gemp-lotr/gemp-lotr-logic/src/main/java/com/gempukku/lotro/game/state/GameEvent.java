@@ -17,7 +17,8 @@ public class GameEvent {
         PARTICIPANTS("P"), GAME_PHASE_CHANGE("GPC"), TURN_CHANGE("TC"), PLAYER_POSITION("PP"),
         TWILIGHT_POOL_UPDATE("TP"),
         TRIBBLE_SEQUENCE_UPDATE("TSEQ"),
-        PLAYER_DECKED("PLAYER_DECKED"),
+        PLAYER_DECKED("PLAYER_DECKED"), // TODO: Not implemented in JavaScript
+        PLAYER_SCORE("PLAYER_SCORE"), // TODO: Not implemented in JavaScript
         PUT_CARD_INTO_PLAY("PCIP"), MOVE_CARD_IN_PLAY("MCIP"), REMOVE_CARD_FROM_PLAY("RCFP"),
         ADD_ASSIGNMENT("AA"), REMOVE_ASSIGNMENT("RA"),
         START_SKIRMISH("SS"), REMOVE_FROM_SKIRMISH("RFS"), ADD_TO_SKIRMISH("ATS"), END_SKIRMISH("ES"),
@@ -62,6 +63,7 @@ public class GameEvent {
     private ZonedDateTime _timestamp;
     private Integer _version;
     private boolean _discardIsPublic;
+    private Integer _score;
 
     public GameEvent(Type type) {
         _type = type;
@@ -270,4 +272,15 @@ public class GameEvent {
         _discardIsPublic = discardPublic;
         return this;
     }
+
+    public Integer getScore() {
+        return _score;
+    }
+
+    public GameEvent score(Integer score) {
+        _score = score;
+        return this;
+    }
+
+
 }

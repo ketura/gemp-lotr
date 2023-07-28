@@ -718,6 +718,45 @@ var GameAnimations = Class.extend({
         }
     },
 
+    playerScore:function (element, animate) {
+        var that = this;
+        $("#main").queue(
+            function (next) {
+                var participantId = element.getAttribute("participantId");
+                var score = element.getAttribute("score");
+
+                if (that.game.playerScores == null)
+                    that.game.playerScores = new Array();
+
+                var index = that.game.getPlayerIndex(participantId);
+                that.game.playerScores[index] = score;
+
+                // TODO - playerScores is never displayed anywhere
+
+//                that.game.advPathGroup.setPositions(that.game.playerPositions);
+
+                next();
+            });
+                // TODO - This should always animate
+/*        if (animate) {
+            $("#main").queue(
+                function (next) {
+                    that.game.advPathGroup.layoutCards();
+                    next();
+                });
+        } */
+
+                // TODO - Sample code from tribblesequence inserted here for an example
+/*        $("#main").queue(
+            function (next) {
+                var message = element.getAttribute("message");
+                $(".tribbleSequence").html(message);
+                next();
+            }); */
+
+
+    },
+
     playerPosition:function (element, animate) {
         var that = this;
         $("#main").queue(

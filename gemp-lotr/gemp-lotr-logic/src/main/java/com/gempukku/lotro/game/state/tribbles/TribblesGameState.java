@@ -14,9 +14,11 @@ import com.gempukku.lotro.game.modifiers.ModifierFlag;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.GameStats;
 import com.gempukku.lotro.game.timing.PlayerOrder;
+import com.gempukku.lotro.game.Player;
 import org.apache.log4j.Logger;
 
 import java.security.InvalidParameterException;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,6 +27,7 @@ public class TribblesGameState extends GameState {
     private static final int LAST_MESSAGE_STORED_COUNT = 30;
     private PlayerOrder _playerOrder;
     private LotroFormat _format;
+    private final Map<String, Player> _players = new HashMap<>();
     private final Map<String, List<LotroPhysicalCardImpl>> _playPiles = new HashMap<>();
     private final Map<String, List<LotroPhysicalCardImpl>> _adventureDecks = new HashMap<>();
     private final Map<String, List<LotroPhysicalCardImpl>> _decks = new HashMap<>();
@@ -34,15 +37,12 @@ public class TribblesGameState extends GameState {
     private final Map<String, List<LotroPhysicalCardImpl>> _removed = new HashMap<>();
     private final List<LotroPhysicalCardImpl> _inPlay = new LinkedList<>();
     private final Map<Integer, LotroPhysicalCardImpl> _allCards = new HashMap<>();
-    private String _currentPlayerId;
     private Phase _currentPhase = Phase.PUT_RING_BEARER;
     private boolean _consecutiveAction;
-    private final Map<String, Boolean> _playerDecked = new HashMap<>();
     private final Map<String, AwaitingDecision> _playerDecisions = new HashMap<>();
 
     private final Set<GameStateListener> _gameStateListeners = new HashSet<>();
     private final LinkedList<String> _lastMessages = new LinkedList<>();
-
     private int _nextCardId = 0;
     private int _nextTribble;
     private boolean _chainBroken;
@@ -54,15 +54,15 @@ public class TribblesGameState extends GameState {
     public void init(PlayerOrder playerOrder, String firstPlayer, Map<String, List<String>> cards,
                      CardBlueprintLibrary library, LotroFormat format) {
         _playerOrder = playerOrder;
-        _currentPlayerId = firstPlayer;
+        setCurrentPlayerId(firstPlayer);
         _format = format;
+
+        for (String player : playerOrder.getAllPlayers()) {
+            _players.put(player, new Player(player));
+        }
 
         _nextTribble = 1;
         _chainBroken = false;
-
-        for (String player : playerOrder.getAllPlayers()) {
-            _playerDecked.put(player, false);
-        }
 
         for (Map.Entry<String, List<String>> stringListEntry : cards.entrySet()) {
             String playerId = stringListEntry.getKey();
@@ -175,12 +175,14 @@ public class TribblesGameState extends GameState {
     private void sendStateToPlayer(String playerId, GameStateListener listener, GameStats gameStats) {
         if (_playerOrder != null) {
             listener.initializeBoard(_playerOrder.getAllPlayers(), _format.discardPileIsPublic());
-            if (_currentPlayerId != null)
-                listener.setCurrentPlayerId(_currentPlayerId);
+            if (getCurrentPlayerId() != null)
+                listener.setCurrentPlayerId(getCurrentPlayerId());
             if (_currentPhase != null)
                 listener.setCurrentPhase(getPhaseString());
-            for (Map.Entry<String, Boolean> stringBooleanEntry : _playerDecked.entrySet())
-                listener.setPlayerDecked(stringBooleanEntry.getKey(), stringBooleanEntry.getValue());
+            for (Player player : _players.values()) {
+                listener.setPlayerDecked(player.getPlayerId(), player.getDecked());
+                listener.setPlayerScore(player.getPlayerId(), player.getScore());
+            }
 
             Set<LotroPhysicalCard> cardsLeftToSent = new LinkedHashSet<>(_inPlay);
             Set<LotroPhysicalCard> sentCardsFromPlay = new HashSet<>();
@@ -517,21 +519,21 @@ public class TribblesGameState extends GameState {
     }
 
     public String getCurrentPlayerId() {
-        return _currentPlayerId;
+        return _playerOrder.getCurrentPlayer();
     }
 
     public void setCurrentPlayerId(String playerId) {
-        _currentPlayerId = playerId;
+        _playerOrder.setCurrentPlayer(playerId);
     }
 
     public void setPlayerDecked(String playerId, boolean bool) {
-        _playerDecked.put(playerId, bool);
+        _players.get(playerId).setDecked(bool);
         for (GameStateListener listener : getAllGameStateListeners())
             listener.setPlayerDecked(playerId, bool);
     }
 
     public boolean getPlayerDecked(String playerId) {
-        return _playerDecked.get(playerId);
+        return _players.get(playerId).getDecked();
     }
 
     public List<LotroPhysicalCard> getAttachedCards(LotroPhysicalCard card) {
@@ -555,28 +557,15 @@ public class TribblesGameState extends GameState {
     }
 
     public void startPlayerTurn(String playerId) {
-        _currentPlayerId = playerId;
+        _playerOrder.setCurrentPlayer(playerId);
 
         for (GameStateListener listener : getAllGameStateListeners())
-            listener.setCurrentPlayerId(_currentPlayerId);
+            listener.setCurrentPlayerId(playerId);
     }
 
     public boolean isCardInPlayActive(LotroPhysicalCard card) {
-        Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
-        if (card.getBlueprint().getCardType() == CardType.SITE)
-            return _currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP;
-
-        if (card.getBlueprint().getCardType() == CardType.THE_ONE_RING)
-            return card.getOwner().equals(_currentPlayerId);
-
-        if (card.getOwner().equals(_currentPlayerId) && side == Side.SHADOW)
-            return false;
-
-        if (!card.getOwner().equals(_currentPlayerId) && side == Side.FREE_PEOPLE)
-            return false;
-
         if (card.getAttachedTo() != null)
             return isCardInPlayActive(card.getAttachedTo());
 
@@ -730,7 +719,8 @@ public class TribblesGameState extends GameState {
         if (chainBroken) {
             sendMessage("The chain has been broken.");
             for (GameStateListener listener : getAllGameStateListeners()) {
-                listener.setTribbleSequence("1 or " + _nextTribble);
+                DecimalFormat df = new DecimalFormat("#,###");
+                listener.setTribbleSequence("1 or " + df.format(_nextTribble));
             }
         }
     }
@@ -765,7 +755,9 @@ public class TribblesGameState extends GameState {
     }
 
     public void playerScored(String player, int points) {
-        // TODO
+        _players.get(player).scorePoints(points);
+        for (GameStateListener listener : getAllGameStateListeners())
+            listener.setPlayerScore(player, _players.get(player).getScore());
     }
 
     public void advanceRoundNum() {
@@ -778,4 +770,5 @@ public class TribblesGameState extends GameState {
     public boolean isLastRound() {
         return (_currentRound == 5);
     }
+
 }

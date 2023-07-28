@@ -1289,6 +1289,8 @@ var TribblesGameUI = Class.extend({
             this.animations.processDecision(gameEvent, animate);
         } else if (eventType = "TSEQ") {
             this.animations.tribbleSequence(gameEvent, animate);
+        } else if (eventType = "PLAYER_SCORE") {
+            this.animations.playerScore(gameEvent, animate);
         }
         else if (eventType == "EG") {
             this.processGameEnd();

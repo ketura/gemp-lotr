@@ -22,6 +22,7 @@ public interface GameStateListener {
     public void setPlayerPosition(String playerId, int i);
 
     public void setPlayerDecked(String playerId, boolean bool);
+    public void setPlayerScore(String playerId, int points);
 
     public void setTwilight(int twilightPool);
 

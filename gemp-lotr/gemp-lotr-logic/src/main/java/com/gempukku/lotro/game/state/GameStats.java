@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+//  Game stats to be delivered to the client
+
 public class GameStats {
     private Map<String, Map<Zone, Integer>> _zoneSizes = new HashMap<>();
 
