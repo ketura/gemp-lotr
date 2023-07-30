@@ -11,17 +11,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultActionContext implements ActionContext {
+public class DefaultActionContext<AbstractGame extends DefaultGame> implements ActionContext {
     private final Multimap<String, LotroPhysicalCard> cardMemory = HashMultimap.create();
     private final Map<String, String> valueMemory = new HashMap<>();
 
     private final String performingPlayer;
-    private final DefaultGame game;
+    private final AbstractGame game;
     private final LotroPhysicalCard source;
     private final EffectResult effectResult;
     private final Effect effect;
 
-    public DefaultActionContext(String performingPlayer, DefaultGame game, LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DefaultActionContext(String performingPlayer, AbstractGame game, LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
         this.performingPlayer = performingPlayer;
         this.game = game;
         this.source = source;
@@ -94,7 +94,7 @@ public class DefaultActionContext implements ActionContext {
     }
 
     @Override
-    public DefaultGame getGame() {
+    public AbstractGame getGame() {
         return game;
     }
 
