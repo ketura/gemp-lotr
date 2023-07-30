@@ -474,7 +474,7 @@ var GameAnimations = Class.extend({
         $("#main").queue(
             function (next) {
                 var message = element.getAttribute("message");
-                $(".tribbleSequence").html(message);
+                $(".tribbleSequence").html("<p>Next Tribble in sequence:</p><b>" + message + "</b>");
                 next();
             });
     },

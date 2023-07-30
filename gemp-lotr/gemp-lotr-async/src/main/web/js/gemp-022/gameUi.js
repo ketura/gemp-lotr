@@ -308,7 +308,7 @@ var TribblesGameUI = Class.extend({
 
 //        this.gameStateElem.append("<div class='twilightPool'>0</div>");
         this.gameStateElem.append("<div class='tribbleSequence'>1</div>");
-        this.gameStateElem.append("<div class='phase'></div>");
+//        this.gameStateElem.append("<div class='phase'></div>");
 
         $("#main").append(this.gameStateElem);
 

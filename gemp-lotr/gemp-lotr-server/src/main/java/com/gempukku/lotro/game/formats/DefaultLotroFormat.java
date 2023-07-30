@@ -212,7 +212,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     @Override
     public int getHandSize() {
-        return 3;
+        return 7;
     }
 
     public void addBannedCard(String baseBlueprintId) {

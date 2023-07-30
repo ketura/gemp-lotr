@@ -24,13 +24,13 @@ public class TribblesBetweenTurnsProcess extends DefaultGameProcess<TribblesGame
             currentPlayer = playOrder.getNextPlayer();
         }
 
-        String playOrderLabel;
+/*        String playOrderLabel;
         if (!game.getGameState().getPlayerOrder().getReversed()) {
             playOrderLabel = "clockwise";
         } else {
             playOrderLabel = "counterclockwise";
-        }
-        game.getGameState().sendMessage("Play advances " + playOrderLabel + ".");
+        }*/
+//        game.getGameState().sendMessage("Play advances " + playOrderLabel + ".");
         game.getGameState().startPlayerTurn(currentPlayer);
     }
 
