@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.build.field.effect.appender;
+package com.gempukku.lotro.cards.build.field.effect.appender.lotronly;
 
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
@@ -7,44 +7,36 @@ import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
+import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
+import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.effects.AddUntilModifierEffect;
-import com.gempukku.lotro.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.effects.KillEffect;
 import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
 
-public class ModifySiteNumber implements EffectAppenderProducer {
+public class Kill implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "until", "memorize");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter");
 
-        final ValueSource amountSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), environment);
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
-        final TimeResolver.Time time = TimeResolver.resolveTime(effectObject.get("until"), "end(current)");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, valueSource, memory, "you", "Choose cards to modify site number of", environment));
+                CardResolver.resolveCards(filter, valueSource, "_temp", "you", "Choose cards to kill", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
-                        final Evaluator evaluator = amountSource.getEvaluator(actionContext);
-                        final int amount = evaluator.evaluateExpression(actionContext.getGame(), actionContext.getSource());
-                        return new AddUntilModifierEffect(
-                                new MinionSiteNumberModifier(actionContext.getSource(), Filters.in(cardsFromMemory), amount), time);
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory("_temp");
+                        return new KillEffect(cardsFromMemory, KillEffect.Cause.CARD_EFFECT);
                     }
                 });
 
