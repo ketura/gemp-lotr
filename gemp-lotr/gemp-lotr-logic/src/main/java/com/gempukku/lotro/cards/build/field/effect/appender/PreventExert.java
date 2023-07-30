@@ -9,11 +9,11 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.PreventCardEffect;
-import com.gempukku.lotro.game.effects.PreventableCardEffect;
-import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.PreventCardEffect;
+import com.gempukku.lotro.effects.PreventableCardEffect;
+import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;

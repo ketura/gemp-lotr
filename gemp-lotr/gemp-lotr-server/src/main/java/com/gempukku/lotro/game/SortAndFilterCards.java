@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.cards.sets.SetDefinition;
-import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.util.MultipleComparator;
 
 import java.text.Normalizer;

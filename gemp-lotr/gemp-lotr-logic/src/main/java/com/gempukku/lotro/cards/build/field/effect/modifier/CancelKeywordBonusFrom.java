@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.game.modifiers.CancelKeywordBonusTargetModifier;
-import com.gempukku.lotro.game.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.CancelKeywordBonusTargetModifier;
+import com.gempukku.lotro.modifiers.Modifier;
 import org.json.simple.JSONObject;
 
 public class CancelKeywordBonusFrom implements ModifierSourceProducer {

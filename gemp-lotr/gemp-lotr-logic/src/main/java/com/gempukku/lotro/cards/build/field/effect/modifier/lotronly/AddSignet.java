@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
 import com.gempukku.lotro.common.Signet;
-import com.gempukku.lotro.game.modifiers.lotronly.AddSignetModifier;
+import com.gempukku.lotro.modifiers.lotronly.AddSignetModifier;
 import org.json.simple.JSONObject;
 
 public class AddSignet implements ModifierSourceProducer {

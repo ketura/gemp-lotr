@@ -2,7 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.game.adventure.Adventure;
+import com.gempukku.lotro.adventure.Adventure;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.List;

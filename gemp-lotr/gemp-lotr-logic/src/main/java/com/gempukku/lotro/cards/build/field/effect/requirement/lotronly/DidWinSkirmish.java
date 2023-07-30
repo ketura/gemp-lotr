@@ -9,8 +9,8 @@ import com.gempukku.lotro.cards.build.field.effect.requirement.RequirementProduc
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.effects.EffectResult;
-import com.gempukku.lotro.game.timing.results.CharacterWonSkirmishResult;
+import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.effects.results.CharacterWonSkirmishResult;
 import org.json.simple.JSONObject;
 
 public class DidWinSkirmish implements RequirementProducer {

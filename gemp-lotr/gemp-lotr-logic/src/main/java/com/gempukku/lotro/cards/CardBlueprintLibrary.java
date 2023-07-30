@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.game.ICallback;
 import com.gempukku.lotro.cards.sets.DefaultSetDefinition;
 import com.gempukku.lotro.cards.sets.SetDefinition;
-import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.util.JsonUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;

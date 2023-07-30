@@ -11,9 +11,9 @@ import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.CancelSkirmishEffect;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.CancelSkirmishEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class CancelSkirmish implements EffectAppenderProducer {

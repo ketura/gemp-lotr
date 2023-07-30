@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game.formats;
 
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
-import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
+import com.gempukku.lotro.adventure.DefaultAdventureLibrary;
 import org.junit.Test;
 
 public class LotroFormatLibraryTest {

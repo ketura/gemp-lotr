@@ -6,10 +6,10 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.game.decisions.AwaitingDecision;
-import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.game.modifiers.KeywordModifier;
+import com.gempukku.lotro.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.Collection;

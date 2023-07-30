@@ -6,8 +6,8 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.modifiers.AbstractExtraPlayCostModifier;
 import org.json.simple.JSONObject;
 
 public class ExtraCostToPlay implements ModifierSourceProducer {

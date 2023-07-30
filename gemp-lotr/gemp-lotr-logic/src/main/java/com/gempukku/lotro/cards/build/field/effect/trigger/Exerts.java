@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.timing.TriggerConditions;
-import com.gempukku.lotro.game.timing.results.ExertResult;
+import com.gempukku.lotro.game.TriggerConditions;
+import com.gempukku.lotro.effects.results.ExertResult;
 import org.json.simple.JSONObject;
 
 public class Exerts implements TriggerCheckerProducer {

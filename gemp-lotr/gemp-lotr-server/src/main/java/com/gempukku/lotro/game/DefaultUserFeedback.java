@@ -1,7 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.communication.UserFeedback;
-import com.gempukku.lotro.game.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.AwaitingDecision;
 
 import java.util.HashMap;
 import java.util.Map;

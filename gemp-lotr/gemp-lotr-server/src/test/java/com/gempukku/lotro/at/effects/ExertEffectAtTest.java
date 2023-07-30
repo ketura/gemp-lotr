@@ -2,13 +2,13 @@ package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
-import com.gempukku.lotro.game.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.game.actions.ActivateCardAction;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.actions.ActivateCardAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

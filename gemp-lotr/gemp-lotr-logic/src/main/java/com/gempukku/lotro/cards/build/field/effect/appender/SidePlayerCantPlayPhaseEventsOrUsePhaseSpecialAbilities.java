@@ -11,10 +11,10 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolve
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.AddUntilModifierEffect;
-import com.gempukku.lotro.game.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.AddUntilModifierEffect;
+import com.gempukku.lotro.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities implements EffectAppenderProducer {

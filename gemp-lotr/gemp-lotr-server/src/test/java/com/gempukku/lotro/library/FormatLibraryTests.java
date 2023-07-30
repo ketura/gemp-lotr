@@ -2,7 +2,7 @@ package com.gempukku.lotro.library;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
+import com.gempukku.lotro.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.SealedLeagueProduct;
 import com.gempukku.lotro.league.SealedLeagueType;

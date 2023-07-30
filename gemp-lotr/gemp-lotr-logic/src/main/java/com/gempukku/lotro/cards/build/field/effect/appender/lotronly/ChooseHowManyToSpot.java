@@ -10,12 +10,12 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.rules.GameUtils;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.game.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.game.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class ChooseHowManyToSpot implements EffectAppenderProducer {

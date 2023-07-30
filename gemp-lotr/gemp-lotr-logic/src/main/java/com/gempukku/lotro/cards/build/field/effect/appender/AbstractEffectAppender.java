@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.Effect;
 
 public abstract class AbstractEffectAppender implements EffectAppender {
     @Override

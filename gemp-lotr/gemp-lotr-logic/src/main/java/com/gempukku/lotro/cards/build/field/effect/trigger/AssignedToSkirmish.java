@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.timing.TriggerConditions;
-import com.gempukku.lotro.game.timing.results.AssignAgainstResult;
+import com.gempukku.lotro.game.TriggerConditions;
+import com.gempukku.lotro.effects.results.AssignAgainstResult;
 import org.json.simple.JSONObject;
 
 public class AssignedToSkirmish implements TriggerCheckerProducer {

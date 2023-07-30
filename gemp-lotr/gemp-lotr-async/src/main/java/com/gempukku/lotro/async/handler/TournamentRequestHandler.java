@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.game.SortAndFilterCards;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.tournament.Tournament;
 import com.gempukku.lotro.tournament.TournamentService;

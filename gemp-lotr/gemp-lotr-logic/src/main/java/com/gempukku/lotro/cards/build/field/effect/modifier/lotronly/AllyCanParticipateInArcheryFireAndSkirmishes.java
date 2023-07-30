@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
-import com.gempukku.lotro.game.modifiers.lotronly.AllyParticipatesInArcheryFireAndSkirmishesModifier;
+import com.gempukku.lotro.modifiers.lotronly.AllyParticipatesInArcheryFireAndSkirmishesModifier;
 import org.json.simple.JSONObject;
 
 public class AllyCanParticipateInArcheryFireAndSkirmishes implements ModifierSourceProducer {

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.modifiers.CantPlayCardsModifier;
+import com.gempukku.lotro.modifiers.CantPlayCardsModifier;
 import org.json.simple.JSONObject;
 
 public class CantPlayCards implements ModifierSourceProducer {

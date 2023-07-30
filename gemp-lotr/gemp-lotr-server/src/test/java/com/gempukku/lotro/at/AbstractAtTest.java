@@ -7,15 +7,15 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
+import com.gempukku.lotro.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.game.actions.lotronly.SystemQueueAction;
-import com.gempukku.lotro.game.decisions.AwaitingDecision;
-import com.gempukku.lotro.game.decisions.CardActionSelectionDecision;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.game.actions.Action;
+import com.gempukku.lotro.actions.lotronly.SystemQueueAction;
+import com.gempukku.lotro.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.CardActionSelectionDecision;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.actions.Action;
 import com.gempukku.lotro.game.LotroGame;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.effects.Effect;
 
 import java.util.*;
 

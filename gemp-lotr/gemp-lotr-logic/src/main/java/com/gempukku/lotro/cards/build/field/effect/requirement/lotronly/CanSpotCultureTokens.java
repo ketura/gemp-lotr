@@ -8,7 +8,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.requirement.RequirementProducer;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.game.timing.PlayConditions;
+import com.gempukku.lotro.game.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class CanSpotCultureTokens implements RequirementProducer {

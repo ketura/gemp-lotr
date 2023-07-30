@@ -5,11 +5,11 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.rules.lotronly.LotroPlayUtils;
-import com.gempukku.lotro.game.modifiers.AbstractModifier;
-import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.modifiers.ModifierEffect;
-import com.gempukku.lotro.game.actions.Action;
+import com.gempukku.lotro.rules.lotronly.LotroPlayUtils;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.ModifierEffect;
+import com.gempukku.lotro.actions.Action;
 import org.json.simple.JSONObject;
 
 import java.util.Collections;

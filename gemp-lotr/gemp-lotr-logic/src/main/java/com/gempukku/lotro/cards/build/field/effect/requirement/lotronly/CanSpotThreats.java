@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.requirement.RequirementProducer;
-import com.gempukku.lotro.game.timing.PlayConditions;
+import com.gempukku.lotro.game.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class CanSpotThreats implements RequirementProducer {

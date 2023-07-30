@@ -1,16 +1,18 @@
 package com.gempukku.lotro.cards;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.actions.lotronly.PlayEventAction;
+import com.gempukku.lotro.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.actions.Action;
-import com.gempukku.lotro.game.actions.ActivateCardAction;
-import com.gempukku.lotro.game.actions.OptionalTriggerAction;
-import com.gempukku.lotro.game.actions.lotronly.*;
-import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
+import com.gempukku.lotro.actions.Action;
+import com.gempukku.lotro.actions.ActivateCardAction;
+import com.gempukku.lotro.actions.OptionalTriggerAction;
+import com.gempukku.lotro.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.effects.EffectResult;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.EffectResult;
 
 import java.util.List;
 import java.util.Set;

@@ -3,7 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.gamestate.GameEvent;
 import com.gempukku.lotro.cards.CardDeck;
 import com.mysql.cj.util.StringUtils;
 

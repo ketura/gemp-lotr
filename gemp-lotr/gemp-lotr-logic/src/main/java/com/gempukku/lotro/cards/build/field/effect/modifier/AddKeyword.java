@@ -4,9 +4,9 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.game.modifiers.KeywordModifier;
-import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.modifiers.KeywordModifier;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class AddKeyword implements ModifierSourceProducer {

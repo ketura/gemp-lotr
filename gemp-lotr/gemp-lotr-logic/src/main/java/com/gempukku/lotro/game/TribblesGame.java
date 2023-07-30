@@ -6,20 +6,17 @@ import com.gempukku.lotro.cards.CardDeck;
 import com.gempukku.lotro.common.Phase; // has some LotR stuff
 import com.gempukku.lotro.communication.GameStateListener; // has some LotR stuff
 import com.gempukku.lotro.communication.UserFeedback;
-import com.gempukku.lotro.game.actions.ActionStack;
-import com.gempukku.lotro.game.actions.ActionsEnvironment;
-import com.gempukku.lotro.game.actions.DefaultActionsEnvironment; // sort of has some LotR stuff (costs for effects)
-import com.gempukku.lotro.game.adventure.Adventure; // LotR-specific
-import com.gempukku.lotro.game.modifiers.ModifiersEnvironment; // has some LotR stuff
-import com.gempukku.lotro.game.modifiers.ModifiersLogic; // has some LotR stuff
-import com.gempukku.lotro.game.modifiers.ModifiersQuerying; // has some LotR stuff
-import com.gempukku.lotro.game.state.tribbles.TribblesGameState;
-import com.gempukku.lotro.game.state.GameStats; // relies on a couple LotR things (like "adventure deck")
-import com.gempukku.lotro.game.timing.GameResultListener;
-import com.gempukku.lotro.game.timing.PlayerOrder;
-import com.gempukku.lotro.game.timing.PlayerOrderFeedback;
-import com.gempukku.lotro.game.timing.processes.turn.tribbles.TribblesTurnProcedure;
-import com.gempukku.lotro.game.rules.tribbles.TribblesRuleSet;
+import com.gempukku.lotro.actions.ActionStack;
+import com.gempukku.lotro.actions.ActionsEnvironment;
+import com.gempukku.lotro.actions.DefaultActionsEnvironment; // sort of has some LotR stuff (costs for effects)
+import com.gempukku.lotro.adventure.Adventure; // LotR-specific
+import com.gempukku.lotro.modifiers.ModifiersEnvironment; // has some LotR stuff
+import com.gempukku.lotro.modifiers.ModifiersLogic; // has some LotR stuff
+import com.gempukku.lotro.modifiers.ModifiersQuerying; // has some LotR stuff
+import com.gempukku.lotro.gamestate.tribbles.TribblesGameState;
+import com.gempukku.lotro.gamestate.GameStats; // relies on a couple LotR things (like "adventure deck")
+import com.gempukku.lotro.processes.turn.tribbles.TribblesTurnProcedure;
+import com.gempukku.lotro.rules.tribbles.TribblesRuleSet;
 
 import java.util.*;
 

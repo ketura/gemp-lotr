@@ -16,7 +16,7 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.*;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
 import io.netty.handler.codec.http.HttpMethod;

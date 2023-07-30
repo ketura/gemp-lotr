@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.Condition;
+import com.gempukku.lotro.modifiers.Condition;
 
 public class RequirementCondition implements Condition {
     private final Requirement[] requirements;

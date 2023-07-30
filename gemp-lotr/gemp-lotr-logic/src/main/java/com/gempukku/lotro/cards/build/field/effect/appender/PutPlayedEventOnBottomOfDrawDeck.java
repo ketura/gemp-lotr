@@ -6,9 +6,9 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.PutPlayedEventOnBottomOfDeckEffect;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.PutPlayedEventOnBottomOfDeckEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class PutPlayedEventOnBottomOfDrawDeck implements EffectAppenderProducer {

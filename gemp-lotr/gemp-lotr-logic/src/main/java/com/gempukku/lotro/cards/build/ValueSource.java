@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 
 public interface ValueSource {
     Evaluator getEvaluator(ActionContext actionContext);

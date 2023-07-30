@@ -4,7 +4,7 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
-import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.rules.GameUtils;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.Collection;

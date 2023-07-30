@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.AbstractModifier;
-import com.gempukku.lotro.game.modifiers.ModifierEffect;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.ModifierEffect;
 import org.json.simple.JSONObject;
 
 public class CantLookOrRevealHand implements ModifierSourceProducer {

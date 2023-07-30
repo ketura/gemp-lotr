@@ -1,7 +1,7 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.game.rules.GameUtils;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

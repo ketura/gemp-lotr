@@ -4,7 +4,7 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.decisions.AwaitingDecisionType;
 import org.junit.Test;
 
 import java.util.Map;

@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic;
 
 import static org.junit.Assert.assertEquals;
 
-import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 import org.junit.Test;
 
 public class GameUtilsTest {

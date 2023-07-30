@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
-import com.gempukku.lotro.game.modifiers.lotronly.AllyParticipatesInSkirmishesModifier;
+import com.gempukku.lotro.modifiers.lotronly.AllyParticipatesInSkirmishesModifier;
 import org.json.simple.JSONObject;
 
 public class AllyCanParticipateInSkirmishes implements ModifierSourceProducer {

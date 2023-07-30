@@ -6,9 +6,9 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.evaluator.*;
-import com.gempukku.lotro.game.modifiers.evaluator.lotronly.CountSpottableEvaluator;
-import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
+import com.gempukku.lotro.modifiers.evaluator.*;
+import com.gempukku.lotro.modifiers.evaluator.lotronly.CountSpottableEvaluator;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

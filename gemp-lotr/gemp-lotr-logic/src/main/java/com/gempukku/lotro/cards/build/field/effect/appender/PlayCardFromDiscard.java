@@ -10,12 +10,12 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.rules.PlayUtils;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.StackActionEffect;
-import com.gempukku.lotro.game.modifiers.ModifierFlag;
-import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.rules.PlayUtils;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.StackActionEffect;
+import com.gempukku.lotro.modifiers.ModifierFlag;
+import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.filters.ExtraFilters;
 import org.json.simple.JSONObject;
 

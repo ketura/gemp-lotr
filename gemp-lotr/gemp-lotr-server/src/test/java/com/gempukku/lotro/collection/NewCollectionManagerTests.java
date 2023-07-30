@@ -4,7 +4,7 @@ import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DbCollectionDAO;
 import com.gempukku.lotro.db.DbPlayerDAO;
 import com.gempukku.lotro.cards.CardNotFoundException;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 
 import java.io.IOException;
 import java.sql.SQLException;

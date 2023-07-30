@@ -7,10 +7,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.AddBurdenEffect;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.timing.PlayConditions;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.AddBurdenEffect;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.game.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class AddBurdens implements EffectAppenderProducer {

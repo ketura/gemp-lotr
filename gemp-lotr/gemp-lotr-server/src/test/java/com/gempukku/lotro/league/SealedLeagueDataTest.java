@@ -4,7 +4,7 @@ import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.adventure.DefaultAdventureLibrary;
+import com.gempukku.lotro.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;

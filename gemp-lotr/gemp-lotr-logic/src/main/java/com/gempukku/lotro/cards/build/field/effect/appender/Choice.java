@@ -5,12 +5,12 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.actions.lotronly.SubAction;
-import com.gempukku.lotro.game.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.game.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.game.effects.StackActionEffect;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.actions.lotronly.SubAction;
+import com.gempukku.lotro.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.effects.StackActionEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;

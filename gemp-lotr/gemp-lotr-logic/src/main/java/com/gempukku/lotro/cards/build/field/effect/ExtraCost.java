@@ -6,10 +6,10 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.ExtraPlayCost;
+import com.gempukku.lotro.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.modifiers.Condition;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.modifiers.Condition;
 import org.json.simple.JSONObject;
 
 public class ExtraCost implements EffectProcessor {

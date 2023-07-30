@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.modifiers.ModifierHook;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.ModifierHook;
 
 import java.util.LinkedList;
 import java.util.List;

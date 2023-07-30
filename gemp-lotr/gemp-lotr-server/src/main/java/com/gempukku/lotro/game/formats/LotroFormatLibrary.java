@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.JSONDefs;
-import com.gempukku.lotro.game.adventure.AdventureLibrary;
+import com.gempukku.lotro.adventure.AdventureLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.league.SealedLeagueDefinition;
 import com.gempukku.util.JsonUtils;

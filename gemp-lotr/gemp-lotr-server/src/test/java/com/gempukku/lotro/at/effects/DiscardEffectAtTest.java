@@ -2,18 +2,18 @@ package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.TriggerConditions;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.actions.AbstractActionProxy;
+import com.gempukku.lotro.actions.AbstractActionProxy;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
-import com.gempukku.lotro.game.actions.lotronly.RequiredTriggerAction;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.game.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.game.effects.EffectResult;
-import com.gempukku.lotro.game.timing.results.DiscardCardsFromPlayResult;
+import com.gempukku.lotro.actions.lotronly.RequiredTriggerAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.effects.results.DiscardCardsFromPlayResult;
 import org.junit.Test;
 
 import java.util.HashSet;

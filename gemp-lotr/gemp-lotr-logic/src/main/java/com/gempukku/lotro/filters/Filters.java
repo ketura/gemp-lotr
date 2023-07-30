@@ -6,13 +6,13 @@ import com.gempukku.lotro.cards.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.PhysicalCardVisitor;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.state.lotronly.Assignment;
-import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
-import com.gempukku.lotro.game.rules.lotronly.LotroPlayUtils;
-import com.gempukku.lotro.game.modifiers.Condition;
-import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.game.rules.RuleUtils;
+import com.gempukku.lotro.gamestate.lotronly.Assignment;
+import com.gempukku.lotro.gamestate.Skirmish;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
+import com.gempukku.lotro.rules.lotronly.LotroPlayUtils;
+import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.rules.RuleUtils;
 
 import java.util.*;
 

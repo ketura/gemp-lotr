@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
-import com.gempukku.lotro.game.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.modifiers.CantTakeWoundsModifier;
 import org.json.simple.JSONObject;
 
 public class CantTakeWounds implements ModifierSourceProducer {

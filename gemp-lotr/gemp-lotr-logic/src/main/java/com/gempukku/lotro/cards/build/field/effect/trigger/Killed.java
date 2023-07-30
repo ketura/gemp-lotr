@@ -7,8 +7,8 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.timing.TriggerConditions;
-import com.gempukku.lotro.game.timing.results.ForEachKilledResult;
+import com.gempukku.lotro.game.TriggerConditions;
+import com.gempukku.lotro.effects.results.ForEachKilledResult;
 import org.json.simple.JSONObject;
 
 public class Killed implements TriggerCheckerProducer {

@@ -11,13 +11,13 @@ import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.game.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.game.effects.AddTwilightEffect;
-import com.gempukku.lotro.game.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.effects.UnrespondableEffect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.effects.AddTwilightEffect;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 public class AddTwilight implements EffectAppenderProducer {

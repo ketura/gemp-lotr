@@ -5,9 +5,9 @@ import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.adventure.Adventure;
-import com.gempukku.lotro.game.adventure.AdventureLibrary;
-import com.gempukku.lotro.game.rules.GameUtils;
+import com.gempukku.lotro.adventure.Adventure;
+import com.gempukku.lotro.adventure.AdventureLibrary;
+import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.*;

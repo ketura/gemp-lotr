@@ -7,9 +7,9 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.modifiers.AbstractModifier;
-import com.gempukku.lotro.game.modifiers.ModifierEffect;
-import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.ModifierEffect;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class ModifyPlayOnCost implements ModifierSourceProducer {

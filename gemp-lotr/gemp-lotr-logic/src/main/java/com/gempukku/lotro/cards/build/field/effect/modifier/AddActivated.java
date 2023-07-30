@@ -8,14 +8,14 @@ import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppend
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.ActivateCardAction;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.IncrementPhaseLimitEffect;
-import com.gempukku.lotro.game.effects.IncrementTurnLimitEffect;
-import com.gempukku.lotro.game.modifiers.AddActionToCardModifier;
-import com.gempukku.lotro.game.modifiers.Modifier;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.timing.PlayConditions;
+import com.gempukku.lotro.actions.ActivateCardAction;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.IncrementPhaseLimitEffect;
+import com.gempukku.lotro.effects.IncrementTurnLimitEffect;
+import com.gempukku.lotro.modifiers.AddActionToCardModifier;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.game.PlayConditions;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;

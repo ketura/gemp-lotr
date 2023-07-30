@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.build;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.effects.EffectResult;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.EffectResult;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 

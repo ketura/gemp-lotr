@@ -13,11 +13,11 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolve
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.AddUntilModifierEffect;
-import com.gempukku.lotro.game.modifiers.CantTakeMoreThanXWoundsModifier;
-import com.gempukku.lotro.game.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.game.effects.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.AddUntilModifierEffect;
+import com.gempukku.lotro.modifiers.CantTakeMoreThanXWoundsModifier;
+import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;

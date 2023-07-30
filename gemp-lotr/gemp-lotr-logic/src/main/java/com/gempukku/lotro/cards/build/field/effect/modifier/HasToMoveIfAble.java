@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.modifiers.ModifierFlag;
-import com.gempukku.lotro.game.modifiers.SpecialFlagModifier;
+import com.gempukku.lotro.modifiers.ModifierFlag;
+import com.gempukku.lotro.modifiers.SpecialFlagModifier;
 import org.json.simple.JSONObject;
 
 public class HasToMoveIfAble implements ModifierSourceProducer {

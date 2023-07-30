@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.timing.TriggerConditions;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class AboutToHeal implements TriggerCheckerProducer {

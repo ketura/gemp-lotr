@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.timing.PlayConditions;
+import com.gempukku.lotro.game.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class HasCardInHand implements RequirementProducer {

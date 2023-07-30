@@ -8,10 +8,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.state.lotronly.Assignment;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.effects.UnrespondableEffect;
+import com.gempukku.lotro.gamestate.lotronly.Assignment;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;

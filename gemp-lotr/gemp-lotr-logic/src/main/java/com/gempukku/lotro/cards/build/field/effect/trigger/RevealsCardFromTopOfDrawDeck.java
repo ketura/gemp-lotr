@@ -8,8 +8,8 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.game.timing.TriggerConditions;
-import com.gempukku.lotro.game.timing.results.RevealCardFromTopOfDeckResult;
+import com.gempukku.lotro.game.TriggerConditions;
+import com.gempukku.lotro.effects.results.RevealCardFromTopOfDeckResult;
 import org.json.simple.JSONObject;
 
 public class RevealsCardFromTopOfDrawDeck implements TriggerCheckerProducer {

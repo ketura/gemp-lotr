@@ -8,10 +8,10 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.game.effects.Effect;
-import com.gempukku.lotro.game.timing.PlayConditions;
-import com.gempukku.lotro.game.effects.UnrespondableEffect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.game.PlayConditions;
+import com.gempukku.lotro.effects.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 public class Spot implements EffectAppenderProducer {

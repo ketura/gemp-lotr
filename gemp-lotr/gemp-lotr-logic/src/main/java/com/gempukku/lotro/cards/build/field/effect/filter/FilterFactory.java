@@ -8,10 +8,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.game.rules.lotronly.LotroGameUtils;
-import com.gempukku.lotro.game.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.game.modifiers.evaluator.SingleMemoryEvaluator;
-import com.gempukku.lotro.game.timing.results.CharacterLostSkirmishResult;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.modifiers.evaluator.SingleMemoryEvaluator;
+import com.gempukku.lotro.effects.results.CharacterLostSkirmishResult;
 
 import java.util.*;
 
