@@ -1,7 +1,7 @@
 package com.gempukku.lotro.processes.lotronly.regroup;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.actions.PlayerReconcilesAction;
+import com.gempukku.lotro.actions.lotronly.PlayerReconcilesAction;
 import com.gempukku.lotro.processes.GameProcess;
 
 public class PlayerReconcilesGameProcess implements GameProcess {

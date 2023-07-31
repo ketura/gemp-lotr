@@ -1,7 +1,7 @@
 package com.gempukku.lotro.effects;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.actions.PlayerReconcilesAction;
+import com.gempukku.lotro.actions.lotronly.PlayerReconcilesAction;
 
 public class ReconcileHandEffect extends AbstractEffect {
     private final String _playerId;

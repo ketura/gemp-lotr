@@ -10,20 +10,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PhysicalCardImpl implements LotroPhysicalCard {
-    private int _cardId;
-    private final String _blueprintId;
-    private final String _owner;
-    private String _cardController;
-    private Zone _zone;
-    private final LotroCardBlueprint _blueprint;
+    protected int _cardId;
+    protected final String _blueprintId;
+    protected final String _owner;
+    protected String _cardController;
+    protected Zone _zone;
+    protected final LotroCardBlueprint _blueprint;
 
-    private PhysicalCardImpl _attachedTo;
-    private PhysicalCardImpl _stackedOn;
+    protected PhysicalCardImpl _attachedTo;
+    protected PhysicalCardImpl _stackedOn;
 
-    private List<ModifierHook> _modifierHooks;
-    private List<ModifierHook> _modifierHooksStacked;
-    private List<ModifierHook> _modifierHooksInDiscard;
-    private List<ModifierHook> _modifierHooksControlledSite;
+    protected List<ModifierHook> _modifierHooks;
+    protected List<ModifierHook> _modifierHooksStacked;
+    protected List<ModifierHook> _modifierHooksInDiscard;
+    protected List<ModifierHook> _modifierHooksControlledSite;
 
     private Object _whileInZoneData;
 

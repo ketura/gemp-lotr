@@ -12,7 +12,6 @@ import com.gempukku.lotro.actions.Action;
 import com.gempukku.lotro.actions.lotronly.ActivateCardAction;
 import com.gempukku.lotro.actions.OptionalTriggerAction;
 import com.gempukku.lotro.modifiers.ExtraPlayCost;
-import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.rules.lotronly.LotroPlayUtils;
 import com.gempukku.lotro.effects.DiscountEffect;
 import com.gempukku.lotro.modifiers.Modifier;
