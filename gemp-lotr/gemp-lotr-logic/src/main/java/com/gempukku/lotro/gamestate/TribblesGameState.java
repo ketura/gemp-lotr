@@ -1,18 +1,15 @@
-package com.gempukku.lotro.gamestate.tribbles;
+package com.gempukku.lotro.gamestate;
 
 import com.gempukku.lotro.cards.*;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.TribblesGame;
 import com.gempukku.lotro.decisions.AwaitingDecision;
 import com.gempukku.lotro.modifiers.ModifierFlag;
-import com.gempukku.lotro.gamestate.GameState;
-import com.gempukku.lotro.gamestate.GameStats;
 import com.gempukku.lotro.game.PlayerOrder;
 import com.gempukku.lotro.game.Player;
 import org.apache.log4j.Logger;

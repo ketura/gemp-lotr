@@ -2,7 +2,7 @@ package com.gempukku.lotro.effects;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.gamestate.Skirmish;
+import com.gempukku.lotro.processes.lotronly.skirmish.Skirmish;
 import com.gempukku.lotro.rules.RuleUtils;
 import com.gempukku.lotro.effects.results.CharacterLostSkirmishResult;
 import com.gempukku.lotro.effects.results.CharacterWonSkirmishResult;

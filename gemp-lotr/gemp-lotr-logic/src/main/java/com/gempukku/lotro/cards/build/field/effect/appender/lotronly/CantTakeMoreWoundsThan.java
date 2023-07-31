@@ -15,7 +15,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.effects.AddUntilModifierEffect;
-import com.gempukku.lotro.modifiers.CantTakeMoreThanXWoundsModifier;
+import com.gempukku.lotro.modifiers.lotronly.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;

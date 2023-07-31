@@ -5,12 +5,12 @@ import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.gamestate.lotronly.Assignment;
+import com.gempukku.lotro.processes.lotronly.assign.Assignment;
 import com.gempukku.lotro.game.PlayerOrder;
 import com.gempukku.lotro.decisions.AwaitingDecision;
 import com.gempukku.lotro.modifiers.ModifierFlag;
+import com.gempukku.lotro.processes.lotronly.skirmish.Skirmish;
 import org.apache.log4j.Logger;
 
 import java.security.InvalidParameterException;

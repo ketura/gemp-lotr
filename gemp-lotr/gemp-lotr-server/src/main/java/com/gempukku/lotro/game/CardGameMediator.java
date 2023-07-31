@@ -6,7 +6,7 @@ import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.communication.GameStateListener;
+import com.gempukku.lotro.gamestate.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.gamestate.GameCommunicationChannel;
 import com.gempukku.lotro.gamestate.GameEvent;

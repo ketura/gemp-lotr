@@ -7,7 +7,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.decisions.PlayerAssignMinionsDecision;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.gamestate.lotronly.Assignment;
 import com.gempukku.lotro.gamestate.GameState;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.rules.GameUtils;

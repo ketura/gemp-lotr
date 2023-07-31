@@ -3,7 +3,7 @@ package com.gempukku.lotro.effects;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.gamestate.lotronly.Assignment;
+import com.gempukku.lotro.processes.lotronly.assign.Assignment;
 import com.gempukku.lotro.game.PlayConditions;
 
 public class ReplaceFpCharacterInAssignmentEffect extends AbstractEffect {

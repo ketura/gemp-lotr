@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.gamestate.lotronly.Assignment;
+import com.gempukku.lotro.processes.lotronly.assign.Assignment;
 import com.gempukku.lotro.gamestate.GameState;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.processes.GameProcess;

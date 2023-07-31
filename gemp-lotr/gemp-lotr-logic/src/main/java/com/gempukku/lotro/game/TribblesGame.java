@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.CardBlueprintLibrary; // has some LotR stuff
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard; // has some LotR stuff
 import com.gempukku.lotro.cards.CardDeck;
 import com.gempukku.lotro.common.Phase; // has some LotR stuff
-import com.gempukku.lotro.communication.GameStateListener; // has some LotR stuff
-import com.gempukku.lotro.communication.UserFeedback;
+import com.gempukku.lotro.gamestate.GameStateListener; // has some LotR stuff
+import com.gempukku.lotro.gamestate.UserFeedback;
 import com.gempukku.lotro.actions.ActionStack;
 import com.gempukku.lotro.actions.ActionsEnvironment;
 import com.gempukku.lotro.actions.DefaultActionsEnvironment; // sort of has some LotR stuff (costs for effects)
@@ -13,7 +13,7 @@ import com.gempukku.lotro.adventure.Adventure; // LotR-specific
 import com.gempukku.lotro.modifiers.ModifiersEnvironment; // has some LotR stuff
 import com.gempukku.lotro.modifiers.ModifiersLogic; // has some LotR stuff
 import com.gempukku.lotro.modifiers.ModifiersQuerying; // has some LotR stuff
-import com.gempukku.lotro.gamestate.tribbles.TribblesGameState;
+import com.gempukku.lotro.gamestate.TribblesGameState;
 import com.gempukku.lotro.gamestate.GameStats; // relies on a couple LotR things (like "adventure deck")
 import com.gempukku.lotro.processes.turn.tribbles.TribblesTurnProcedure;
 import com.gempukku.lotro.rules.tribbles.TribblesRuleSet;

@@ -6,7 +6,7 @@ import com.gempukku.lotro.actions.lotronly.RequiredTriggerAction;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.actions.Action;
-import com.gempukku.lotro.actions.ActivateCardAction;
+import com.gempukku.lotro.actions.lotronly.ActivateCardAction;
 import com.gempukku.lotro.actions.OptionalTriggerAction;
 import com.gempukku.lotro.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.game.DefaultGame;

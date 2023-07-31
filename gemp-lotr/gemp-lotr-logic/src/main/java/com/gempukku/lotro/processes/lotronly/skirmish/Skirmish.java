@@ -1,4 +1,4 @@
-package com.gempukku.lotro.gamestate;
+package com.gempukku.lotro.processes.lotronly.skirmish;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.modifiers.evaluator.Evaluator;

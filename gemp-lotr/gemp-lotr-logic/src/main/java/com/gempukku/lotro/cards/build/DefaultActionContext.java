@@ -15,11 +15,11 @@ public class DefaultActionContext<AbstractGame extends DefaultGame> implements A
     private final Multimap<String, LotroPhysicalCard> cardMemory = HashMultimap.create();
     private final Map<String, String> valueMemory = new HashMap<>();
 
-    private final String performingPlayer;
-    private final AbstractGame game;
-    private final LotroPhysicalCard source;
-    private final EffectResult effectResult;
-    private final Effect effect;
+    protected final String performingPlayer;
+    protected final AbstractGame game;
+    protected final LotroPhysicalCard source;
+    protected final EffectResult effectResult;
+    protected final Effect effect;
 
     public DefaultActionContext(String performingPlayer, AbstractGame game, LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
         this.performingPlayer = performingPlayer;

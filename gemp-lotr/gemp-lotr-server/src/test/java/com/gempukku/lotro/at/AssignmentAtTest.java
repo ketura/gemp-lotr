@@ -6,7 +6,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
-import com.gempukku.lotro.gamestate.lotronly.Assignment;
+import com.gempukku.lotro.processes.lotronly.assign.Assignment;
 import com.gempukku.lotro.decisions.AwaitingDecision;
 import com.gempukku.lotro.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;

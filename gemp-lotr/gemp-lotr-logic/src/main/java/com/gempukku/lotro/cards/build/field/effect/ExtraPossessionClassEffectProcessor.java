@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
+import com.gempukku.lotro.cards.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;

@@ -1,6 +1,5 @@
-package com.gempukku.lotro.actions;
+package com.gempukku.lotro.actions.lotronly;
 
-import com.gempukku.lotro.actions.lotronly.AbstractCostToEffectAction;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.effects.ActivateCardEffect;
 import com.gempukku.lotro.game.DefaultGame;

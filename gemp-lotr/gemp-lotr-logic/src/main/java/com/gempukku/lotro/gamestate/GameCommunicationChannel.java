@@ -3,7 +3,6 @@ package com.gempukku.lotro.gamestate;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.decisions.AwaitingDecision;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.polling.LongPollableResource;

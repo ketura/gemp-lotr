@@ -6,7 +6,7 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
-import com.gempukku.lotro.modifiers.CantTakeArcheryWoundsModifier;
+import com.gempukku.lotro.modifiers.lotronly.CantTakeArcheryWoundsModifier;
 import org.json.simple.JSONObject;
 
 public class CantTakeArcheryWounds implements ModifierSourceProducer {

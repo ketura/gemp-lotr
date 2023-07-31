@@ -6,7 +6,7 @@ import com.gempukku.lotro.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.CardDeck;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.communication.UserFeedback;
+import com.gempukku.lotro.gamestate.UserFeedback;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.OptionalTriggerAction;
 import com.gempukku.lotro.actions.lotronly.SystemQueueAction;

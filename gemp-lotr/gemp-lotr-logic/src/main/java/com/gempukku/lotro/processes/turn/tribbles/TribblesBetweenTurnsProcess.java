@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PlayOrder;
 import com.gempukku.lotro.processes.GameProcess;
 import com.gempukku.lotro.game.TribblesGame;
 import com.gempukku.lotro.processes.DefaultGameProcess;
-import com.gempukku.lotro.gamestate.tribbles.TribblesGameState;
+import com.gempukku.lotro.gamestate.TribblesGameState;
 
 public class TribblesBetweenTurnsProcess extends DefaultGameProcess<TribblesGame> {
 

@@ -2,7 +2,7 @@ package com.gempukku.lotro.processes.turn.tribbles;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.TribblesGame;
-import com.gempukku.lotro.gamestate.tribbles.TribblesGameState;
+import com.gempukku.lotro.gamestate.TribblesGameState;
 import com.gempukku.lotro.processes.GameProcess;
 import com.gempukku.lotro.processes.DefaultGameProcess;
 

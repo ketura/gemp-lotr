@@ -2,8 +2,8 @@ package com.gempukku.lotro.rules.lotronly;
 
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.modifiers.CantBeAssignedToSkirmishModifier;
-import com.gempukku.lotro.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.modifiers.lotronly.CantBeAssignedToSkirmishModifier;
+import com.gempukku.lotro.modifiers.lotronly.CantTakeWoundsModifier;
 import com.gempukku.lotro.modifiers.ModifiersLogic;
 import com.gempukku.lotro.modifiers.condition.PhaseCondition;
 

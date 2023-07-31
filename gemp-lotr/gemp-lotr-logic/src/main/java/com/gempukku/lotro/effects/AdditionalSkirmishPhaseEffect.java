@@ -3,7 +3,7 @@ package com.gempukku.lotro.effects;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.gamestate.Skirmish;
+import com.gempukku.lotro.processes.lotronly.skirmish.Skirmish;
 import com.gempukku.lotro.actions.lotronly.SkirmishPhaseAction;
 
 import java.util.Set;

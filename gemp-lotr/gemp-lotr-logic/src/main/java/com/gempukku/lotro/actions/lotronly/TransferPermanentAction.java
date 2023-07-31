@@ -6,7 +6,6 @@ import com.gempukku.lotro.effects.PayTwilightCostEffect;
 import com.gempukku.lotro.effects.TransferPermanentEffect;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.actions.ActivateCardAction;
 import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.lotro.modifiers.ModifierFlag;
 import com.gempukku.lotro.effects.UnrespondableEffect;

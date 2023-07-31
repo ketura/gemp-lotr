@@ -3,7 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.communication.UserFeedback;
+import com.gempukku.lotro.gamestate.UserFeedback;
 import com.gempukku.lotro.gamestate.GameState;
 import com.gempukku.lotro.actions.ActionsEnvironment;
 import com.gempukku.lotro.modifiers.ModifiersEnvironment;

@@ -7,7 +7,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.actions.ActivateCardAction;
+import com.gempukku.lotro.actions.lotronly.ActivateCardAction;
 import com.gempukku.lotro.actions.Action;
 import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.EffectResult;

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.modifier.lotronly;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
-import com.gempukku.lotro.modifiers.CantReplaceSiteModifier;
+import com.gempukku.lotro.modifiers.lotronly.CantReplaceSiteModifier;
 import com.gempukku.lotro.modifiers.Modifier;
 import org.json.simple.JSONObject;
 

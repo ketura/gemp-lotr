@@ -1,4 +1,4 @@
-package com.gempukku.lotro.gamestate.lotronly;
+package com.gempukku.lotro.processes.lotronly.assign;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 

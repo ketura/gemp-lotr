@@ -7,22 +7,13 @@ import com.gempukku.lotro.effects.EffectResult;
 
 import java.util.Collection;
 
-public class DelegateActionContext implements ActionContext {
+public class DelegateActionContext<AbstractGame extends DefaultGame> extends DefaultActionContext<AbstractGame> {
     private final ActionContext delegate;
 
-    private final String performingPlayer;
-    private final DefaultGame game;
-    private final LotroPhysicalCard source;
-    private final EffectResult effectResult;
-    private final Effect effect;
-
-    public DelegateActionContext(ActionContext delegate, String performingPlayer, DefaultGame game, LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DelegateActionContext(ActionContext delegate, String performingPlayer, AbstractGame game,
+                                 LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
+        super(performingPlayer, game, source, effectResult, effect);
         this.delegate = delegate;
-        this.performingPlayer = performingPlayer;
-        this.game = game;
-        this.source = source;
-        this.effectResult = effectResult;
-        this.effect = effect;
     }
 
     @Override
@@ -55,28 +46,4 @@ public class DelegateActionContext implements ActionContext {
         return delegate.getCardFromMemory(memory);
     }
 
-    @Override
-    public String getPerformingPlayer() {
-        return performingPlayer;
-    }
-
-    @Override
-    public DefaultGame getGame() {
-        return game;
-    }
-
-    @Override
-    public LotroPhysicalCard getSource() {
-        return source;
-    }
-
-    @Override
-    public EffectResult getEffectResult() {
-        return effectResult;
-    }
-
-    @Override
-    public Effect getEffect() {
-        return effect;
-    }
 }

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.processes.turn;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.communication.UserFeedback;
+import com.gempukku.lotro.gamestate.UserFeedback;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.effects.Effect;

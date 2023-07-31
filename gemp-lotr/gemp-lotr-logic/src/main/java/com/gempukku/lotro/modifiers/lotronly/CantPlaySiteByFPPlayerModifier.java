@@ -1,7 +1,10 @@
-package com.gempukku.lotro.modifiers;
+package com.gempukku.lotro.modifiers.lotronly;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.ModifierEffect;
 
 public class CantPlaySiteByFPPlayerModifier extends AbstractModifier {
     public CantPlaySiteByFPPlayerModifier(LotroPhysicalCard source, Condition condition) {
