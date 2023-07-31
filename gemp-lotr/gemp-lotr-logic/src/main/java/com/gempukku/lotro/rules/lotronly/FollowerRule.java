@@ -30,7 +30,7 @@ public class FollowerRule {
         defaultActionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
                             final Filter followerTarget = Filters.and(Filters.owner(playerId), Filters.or(CardType.COMPANION, CardType.MINION));
 

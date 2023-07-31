@@ -29,7 +29,7 @@ public class MusterRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, final DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(final String playerId, final DefaultGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.START_OF_PHASE
                                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
                                 && game.getGameState().getHand(playerId).size() > 0) {

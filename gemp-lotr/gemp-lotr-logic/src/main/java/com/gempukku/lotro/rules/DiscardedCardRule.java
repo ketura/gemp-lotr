@@ -35,7 +35,7 @@ public class DiscardedCardRule {
                     }
 
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_PLAY) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             final LotroPhysicalCard discardedCard = discardResult.getDiscardedCard();

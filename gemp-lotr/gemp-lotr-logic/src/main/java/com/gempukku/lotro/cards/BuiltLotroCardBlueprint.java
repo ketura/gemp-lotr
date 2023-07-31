@@ -656,14 +656,21 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         return result;
     }
 
-    @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self) {
+    public List<ActionSource> getOptionalAfterTriggers() {
+        return optionalAfterTriggers;
+    }
+
+/*    @Override
+    public List<OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game,
+                                                                      EffectResult effectResult,
+                                                                      LotroPhysicalCard self) {
         List<OptionalTriggerAction> result = null;
 
         if (optionalAfterTriggers != null) {
             result = new LinkedList<>();
             for (ActionSource optionalAfterTrigger : optionalAfterTriggers) {
-                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
+                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult,
+                        null);
                 if (optionalAfterTrigger.isValid(actionContext)) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     optionalAfterTrigger.createAction(action, actionContext);
@@ -676,16 +683,17 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             if (result == null)
                 result = new LinkedList<>();
             for (FilterableSource copiedFilter : copiedFilters) {
-                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
+                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult,
+                        null);
                 final LotroPhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    addAllNotNull(result, firstActive.getBlueprint().getOptionalAfterTriggers(playerId, game, effectResult, self));
+                    addAllNotNull(result, firstActive.getOptionalAfterTriggerActions(playerId, game, effectResult, self));
             }
         }
 
         return result;
     }
-
+*/
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self) {
         List<ActivateCardAction> result = null;
@@ -1029,4 +1037,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (cardType == CardType.FOLLOWER && aidCostSource == null)
             throw new InvalidCardDefinitionException("Follower requires an aid cost");
     }
+
+    public List<FilterableSource> getCopiedFilters() {
+        return copiedFilters;
+    }
+
 }

@@ -28,4 +28,6 @@ public interface LotroPhysicalCard extends PhysicalCard {
     void setSiteNumber(Integer number);
 
     Integer getSiteNumber();
+
+
 }

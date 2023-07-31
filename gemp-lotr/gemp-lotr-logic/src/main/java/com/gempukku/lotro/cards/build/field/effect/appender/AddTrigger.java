@@ -128,7 +128,7 @@ public class AddTrigger implements EffectAppenderProducer {
             }
 
             @Override
-            public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame lotroGame, EffectResult effectResult) {
+            public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame lotroGame, EffectResult effectResult) {
                 DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
                         lotroGame, actionContext.getSource(), effectResult, null);
                 if (!trigger.isBefore() && optional && trigger.accepts(delegate)) {

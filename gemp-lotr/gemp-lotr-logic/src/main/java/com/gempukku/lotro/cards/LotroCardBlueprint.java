@@ -3,6 +3,8 @@ package com.gempukku.lotro.cards;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.actions.lotronly.PlayEventAction;
 import com.gempukku.lotro.actions.lotronly.RequiredTriggerAction;
+import com.gempukku.lotro.cards.build.ActionSource;
+import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.actions.Action;
@@ -88,7 +90,9 @@ public interface LotroCardBlueprint {
 
     List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self);
 
-    List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
+    List<ActionSource> getOptionalAfterTriggers();
+
+//    List<OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult, LotroPhysicalCard self);
 
 
     List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self);
@@ -136,4 +140,6 @@ public interface LotroCardBlueprint {
     void appendAidCosts(DefaultGame game, CostToEffectAction action, LotroPhysicalCard self);
 
     boolean skipUniquenessCheck();
+
+    List<FilterableSource> getCopiedFilters();
 }

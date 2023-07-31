@@ -34,7 +34,7 @@ public abstract class AbstractActionProxy implements ActionProxy {
     }
 
     @Override
-    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
         return null;
     }
 

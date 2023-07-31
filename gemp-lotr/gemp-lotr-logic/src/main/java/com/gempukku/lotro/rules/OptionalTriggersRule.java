@@ -39,11 +39,11 @@ public class OptionalTriggersRule {
                     }
 
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         List<OptionalTriggerAction> result = new LinkedList<>();
                         for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
-                                final List<? extends OptionalTriggerAction> actions = activableCard.getBlueprint().getOptionalAfterTriggers(playerId, game, effectResult, activableCard);
+                                final List<? extends OptionalTriggerAction> actions = activableCard.getOptionalAfterTriggerActions(playerId, game, effectResult, activableCard);
                                 if (actions != null)
                                     result.addAll(actions);
                             }

@@ -24,7 +24,7 @@ public class OptionalTriggersFromHandRule {
         actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         List<OptionalTriggerAction> result = new LinkedList<>();
                         final Side side = LotroGameUtils.getSide(game, playerId);
                         for (LotroPhysicalCard responseEvent : Filters.filter(game.getGameState().getHand(playerId), game, side)) {

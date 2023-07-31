@@ -183,7 +183,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {
                 for (EffectResult effectResult : effectResults) {
-                    List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggers(playerId, _lotroGame, effectResult);
+                    List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalAfterTriggerActions(playerId, _lotroGame, effectResult);
                     if (actions != null) {
                         for (OptionalTriggerAction action : actions) {
                             if (!effectResult.wasOptionalTriggerUsed(action)) {

@@ -1,7 +1,13 @@
 package com.gempukku.lotro.cards;
 
+import com.gempukku.lotro.actions.OptionalTriggerAction;
+import com.gempukku.lotro.cards.build.ActionSource;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.Modifier;
 import com.gempukku.lotro.modifiers.ModifierHook;
@@ -187,6 +193,46 @@ public class PhysicalCardImpl implements LotroPhysicalCard {
     @Override
     public void setSiteNumber(Integer number) {
         _siteNumber = number;
+    }
+
+    public List<OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game,
+                                                                      EffectResult effectResult,
+                                                                      LotroPhysicalCard self) {
+        List<OptionalTriggerAction> result = null;
+
+        if (_blueprint.getOptionalAfterTriggers() != null) {
+            result = new LinkedList<>();
+            for (ActionSource optionalAfterTrigger : _blueprint.getOptionalAfterTriggers()) {
+                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult,
+                        null);
+                if (optionalAfterTrigger.isValid(actionContext)) {
+                    OptionalTriggerAction action = new OptionalTriggerAction(self);
+                    optionalAfterTrigger.createAction(action, actionContext);
+                    result.add(action);
+                }
+            }
+
+        }
+
+        if (_blueprint.getCopiedFilters() != null) {
+            if (result == null)
+                result = new LinkedList<>();
+            for (FilterableSource copiedFilter : _blueprint.getCopiedFilters()) {
+                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult,
+                        null);
+                final LotroPhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
+                if (firstActive != null)
+                    addAllNotNull(result, firstActive.getOptionalAfterTriggerActions(playerId, game,
+                            effectResult, self));
+            }
+        }
+
+        return result;
+    }
+
+    private <T> void addAllNotNull(List<T> list, List<? extends T> possiblyNullList) {
+        if (possiblyNullList != null)
+            list.addAll(possiblyNullList);
     }
 
 }

@@ -27,7 +27,7 @@ public class AmbushRule {
         _actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ASSIGNED_AGAINST) {
                             AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {

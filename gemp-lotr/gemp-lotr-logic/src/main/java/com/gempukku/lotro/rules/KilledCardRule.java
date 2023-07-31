@@ -42,7 +42,7 @@ public class KilledCardRule {
                     }
 
                     @Override
-                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, DefaultGame game, EffectResult effectResult) {
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
                             KilledResult killResult = (KilledResult) effectResult;
                             Set<LotroPhysicalCard> killedCards = killResult.getKilledCards();
