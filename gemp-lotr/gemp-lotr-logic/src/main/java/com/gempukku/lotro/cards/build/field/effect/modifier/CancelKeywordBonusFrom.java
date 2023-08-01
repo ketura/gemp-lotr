@@ -3,8 +3,9 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.modifiers.CancelKeywordBonusTargetModifier;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.lotronly.CancelKeywordBonusTargetModifier;
 import org.json.simple.JSONObject;
 
 public class CancelKeywordBonusFrom implements ModifierSourceProducer {
@@ -24,7 +25,7 @@ public class CancelKeywordBonusFrom implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new CancelKeywordBonusTargetModifier(actionContext.getSource(), keyword,
                         new RequirementCondition(requirements, actionContext),
                         filterableSource.getFilterable(actionContext),

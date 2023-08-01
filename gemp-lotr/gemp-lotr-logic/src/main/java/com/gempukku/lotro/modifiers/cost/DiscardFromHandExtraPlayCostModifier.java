@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 import com.gempukku.lotro.game.PlayConditions;
 
 public class DiscardFromHandExtraPlayCostModifier extends AbstractExtraPlayCostModifier {

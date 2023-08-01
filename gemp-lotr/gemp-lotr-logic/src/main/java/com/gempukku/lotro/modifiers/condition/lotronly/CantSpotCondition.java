@@ -3,7 +3,7 @@ package com.gempukku.lotro.modifiers.condition.lotronly;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class CantSpotCondition implements Condition {
     private final Filterable[] _filters;

@@ -37,7 +37,7 @@ public class ShuffleCardsFromDiscardIntoDrawDeck implements EffectAppenderProduc
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                                 // Added
                         final String recyclePlayer = playerSource.getPlayer(actionContext);
 
@@ -50,7 +50,7 @@ public class ShuffleCardsFromDiscardIntoDrawDeck implements EffectAppenderProduc
                 });
 
 /*
-        protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+        protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
             final String recyclePlayer = playerSource.getPlayer(actionContext);
             final Collection<? extends LotroPhysicalCard> cardsInDiscard = actionContext.getCardsFromMemory("_temp");
             return new ShuffleCardsFromDiscardIntoDeckEffect(actionContext.getSource(), recyclePlayer, cardsInDiscard);

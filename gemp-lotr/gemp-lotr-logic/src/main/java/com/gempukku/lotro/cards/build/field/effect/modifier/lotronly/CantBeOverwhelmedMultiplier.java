@@ -5,8 +5,9 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.Modifier;
-import com.gempukku.lotro.modifiers.OverwhelmedByMultiplierModifier;
+import com.gempukku.lotro.modifiers.lotronly.OverwhelmedByMultiplierModifier;
 import org.json.simple.JSONObject;
 
 public class CantBeOverwhelmedMultiplier implements ModifierSourceProducer {
@@ -23,7 +24,7 @@ public class CantBeOverwhelmedMultiplier implements ModifierSourceProducer {
 
         return new ModifierSource() {
                     @Override
-                    public Modifier getModifier(ActionContext actionContext) {
+                    public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         return new OverwhelmedByMultiplierModifier(actionContext.getSource(), filterable,
                                 new RequirementCondition(requirements, actionContext),

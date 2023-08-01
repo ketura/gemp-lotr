@@ -1,7 +1,8 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
@@ -11,10 +12,9 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolve
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.effects.AddUntilModifierEffect;
-import com.gempukku.lotro.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import org.json.simple.JSONObject;
 
 public class SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities implements EffectAppenderProducer {
@@ -29,9 +29,9 @@ public class SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities implements 
 
         final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 return new AddUntilModifierEffect(
                         new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(actionContext.getSource(),
                                 new RequirementCondition(conditions, actionContext),

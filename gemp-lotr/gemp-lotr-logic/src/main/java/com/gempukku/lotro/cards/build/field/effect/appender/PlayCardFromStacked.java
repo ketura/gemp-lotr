@@ -49,7 +49,7 @@ public class PlayCardFromStacked implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToPlay = actionContext.getCardsFromMemory("_temp");
                         if (cardsToPlay.size() == 1) {
                             final CostToEffectAction playCardAction = PlayUtils.getPlayCardAction(actionContext.getGame(), cardsToPlay.iterator().next(), 0, Filters.any, false);

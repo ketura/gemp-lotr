@@ -8,9 +8,9 @@ import com.gempukku.lotro.effects.EffectResult;
 import java.util.Collection;
 
 public class DelegateActionContext<AbstractGame extends DefaultGame> extends DefaultActionContext<AbstractGame> {
-    private final ActionContext delegate;
+    private final DefaultActionContext<AbstractGame> delegate;
 
-    public DelegateActionContext(ActionContext delegate, String performingPlayer, AbstractGame game,
+    public DelegateActionContext(DefaultActionContext<AbstractGame> delegate, String performingPlayer, AbstractGame game,
                                  LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
         super(performingPlayer, game, source, effectResult, effect);
         this.delegate = delegate;

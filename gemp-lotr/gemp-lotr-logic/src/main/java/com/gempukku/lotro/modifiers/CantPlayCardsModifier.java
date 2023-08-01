@@ -6,6 +6,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.Action;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class CantPlayCardsModifier extends AbstractModifier {
     private final Filter _filters;

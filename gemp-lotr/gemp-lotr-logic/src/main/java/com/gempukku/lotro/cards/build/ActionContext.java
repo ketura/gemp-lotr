@@ -22,7 +22,7 @@ public interface ActionContext {
 
     String getPerformingPlayer();
 
-    DefaultGame getGame();
+    <AbstractGame extends DefaultGame> AbstractGame getGame();
 
     LotroPhysicalCard getSource();
 

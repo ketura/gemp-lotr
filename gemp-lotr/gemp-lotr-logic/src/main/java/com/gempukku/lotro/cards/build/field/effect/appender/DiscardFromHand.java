@@ -36,15 +36,15 @@ public class DiscardFromHand implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCardsInHand(filter, countSource, memorize, player, hand, "Choose cards from hand to discard", true, environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToDiscard = actionContext.getCardsFromMemory(memorize);
                         return new DiscardCardsFromHandEffect(actionContext.getSource(), handSource.getPlayer(actionContext), cardsToDiscard, forced);
                     }
 
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
 
                         final String handPlayer = handSource.getPlayer(actionContext);

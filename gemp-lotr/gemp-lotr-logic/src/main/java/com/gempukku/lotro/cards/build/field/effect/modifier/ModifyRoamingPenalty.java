@@ -2,8 +2,9 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.Modifier;
-import com.gempukku.lotro.modifiers.RoamingPenaltyModifier;
+import com.gempukku.lotro.modifiers.lotronly.RoamingPenaltyModifier;
 import org.json.simple.JSONObject;
 
 public class ModifyRoamingPenalty implements ModifierSourceProducer {
@@ -20,7 +21,7 @@ public class ModifyRoamingPenalty implements ModifierSourceProducer {
 
         return new ModifierSource() {
                     @Override
-                    public Modifier getModifier(ActionContext actionContext) {
+                    public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                         return new RoamingPenaltyModifier(actionContext.getSource(),
                                 filterableSource.getFilterable(actionContext),
                                 new RequirementCondition(requirements, actionContext), amount);

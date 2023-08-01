@@ -1,14 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.TriggerConditions;
 import com.gempukku.lotro.effects.results.AssignAgainstResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class AssignedToSkirmish implements TriggerCheckerProducer {
@@ -29,7 +30,7 @@ public class AssignedToSkirmish implements TriggerCheckerProducer {
             }
 
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final Filterable assignedFilterable = filterableSource.getFilterable(actionContext);
                 final boolean result = TriggerConditions.assignedToSkirmish(actionContext.getGame(), actionContext.getEffectResult(), side, assignedFilterable);
                 if (result && memorize != null) {

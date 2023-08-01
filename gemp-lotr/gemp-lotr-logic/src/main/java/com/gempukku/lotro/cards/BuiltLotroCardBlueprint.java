@@ -660,40 +660,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         return optionalAfterTriggers;
     }
 
-/*    @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggerActions(String playerId, DefaultGame game,
-                                                                      EffectResult effectResult,
-                                                                      LotroPhysicalCard self) {
-        List<OptionalTriggerAction> result = null;
-
-        if (optionalAfterTriggers != null) {
-            result = new LinkedList<>();
-            for (ActionSource optionalAfterTrigger : optionalAfterTriggers) {
-                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult,
-                        null);
-                if (optionalAfterTrigger.isValid(actionContext)) {
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    optionalAfterTrigger.createAction(action, actionContext);
-                    result.add(action);
-                }
-            }
-        }
-
-        if (copiedFilters != null) {
-            if (result == null)
-                result = new LinkedList<>();
-            for (FilterableSource copiedFilter : copiedFilters) {
-                DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult,
-                        null);
-                final LotroPhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
-                if (firstActive != null)
-                    addAllNotNull(result, firstActive.getOptionalAfterTriggerActions(playerId, game, effectResult, self));
-            }
-        }
-
-        return result;
-    }
-*/
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, DefaultGame game, Effect effect, LotroPhysicalCard self) {
         List<ActivateCardAction> result = null;
@@ -963,7 +929,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<Modifier> result = new LinkedList<>();
         for (ModifierSource inPlayModifier : sources) {
-            ActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+            DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
             result.add(inPlayModifier.getModifier(actionContext));
         }
         return result;

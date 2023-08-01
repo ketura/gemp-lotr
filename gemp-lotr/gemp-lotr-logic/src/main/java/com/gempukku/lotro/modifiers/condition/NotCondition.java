@@ -1,7 +1,6 @@
 package com.gempukku.lotro.modifiers.condition;
 
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
 
 public class NotCondition implements Condition {
     private final Condition _condition;

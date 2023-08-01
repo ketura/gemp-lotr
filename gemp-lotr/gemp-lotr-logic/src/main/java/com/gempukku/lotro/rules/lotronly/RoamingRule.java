@@ -6,7 +6,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.KeywordModifier;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
 import com.gempukku.lotro.modifiers.ModifiersLogic;
 
 public class RoamingRule {

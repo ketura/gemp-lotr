@@ -25,9 +25,9 @@ public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
         final ValueSource countSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected List<Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final String playerId = playerSource.getPlayer(actionContext);
                 final int count = countSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
@@ -39,7 +39,7 @@ public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final DefaultGame game = actionContext.getGame();
                 final String playerId = playerSource.getPlayer(actionContext);
                 final int count = countSource.getEvaluator(actionContext).evaluateExpression(game, null);

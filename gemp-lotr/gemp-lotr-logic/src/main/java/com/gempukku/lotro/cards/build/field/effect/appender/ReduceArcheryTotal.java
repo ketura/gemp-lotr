@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.modifiers.lotronly.ArcheryTotalModifier;
-import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.rules.RuleUtils;
 import org.json.simple.JSONObject;
 
@@ -30,7 +30,7 @@ public class ReduceArcheryTotal implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         int archeryTotal = RuleUtils.calculateArcheryTotal(actionContext.getGame(), side);
                         return new PlayoutDecisionEffect(
                                 actionContext.getPerformingPlayer(),
@@ -46,7 +46,7 @@ public class ReduceArcheryTotal implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         int modifier = Integer.parseInt(actionContext.getValueFromMemory(memorize));
                         return new AddUntilEndOfPhaseModifierEffect(
                                 new ArcheryTotalModifier(actionContext.getSource(), side, -modifier));

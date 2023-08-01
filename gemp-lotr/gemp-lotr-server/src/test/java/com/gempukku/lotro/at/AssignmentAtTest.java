@@ -10,7 +10,7 @@ import com.gempukku.lotro.processes.lotronly.assign.Assignment;
 import com.gempukku.lotro.decisions.AwaitingDecision;
 import com.gempukku.lotro.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.modifiers.KeywordModifier;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
 import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import org.junit.Test;
 

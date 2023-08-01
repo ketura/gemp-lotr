@@ -1,14 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.effects.discount.*;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.effects.DiscountEffect;
+import com.gempukku.lotro.effects.discount.*;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 public class PotentialDiscount implements EffectProcessor {
@@ -30,12 +31,12 @@ public class PotentialDiscount implements EffectProcessor {
             blueprint.appendDiscountSource(
                 new DiscountSource() {
                     @Override
-                    public int getPotentialDiscount(ActionContext actionContext) {
+                    public int getPotentialDiscount(DefaultActionContext<DefaultGame> actionContext) {
                         return maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                     }
 
                     @Override
-                    public DiscountEffect getDiscountEffect(CostToEffectAction action, ActionContext actionContext) {
+                    public DiscountEffect getDiscountEffect(CostToEffectAction action, DefaultActionContext actionContext) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         return new DiscardCardFromHandDiscountEffect(action, actionContext.getPerformingPlayer(), filterable) {
                             @Override
@@ -57,12 +58,12 @@ public class PotentialDiscount implements EffectProcessor {
             blueprint.appendDiscountSource(
                 new DiscountSource() {
                     @Override
-                    public int getPotentialDiscount(ActionContext actionContext) {
+                    public int getPotentialDiscount(DefaultActionContext<DefaultGame> actionContext) {
                         return maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                     }
 
                     @Override
-                    public DiscountEffect getDiscountEffect(CostToEffectAction action, ActionContext actionContext) {
+                    public DiscountEffect getDiscountEffect(CostToEffectAction action, DefaultActionContext actionContext) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         final int multiplier = multiplierSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                         return new ExertCharactersDiscountEffect(action, actionContext.getSource(),
@@ -83,12 +84,12 @@ public class PotentialDiscount implements EffectProcessor {
             blueprint.appendDiscountSource(
                 new DiscountSource() {
                     @Override
-                    public int getPotentialDiscount(ActionContext actionContext) {
+                    public int getPotentialDiscount(DefaultActionContext<DefaultGame> actionContext) {
                         return maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                     }
 
                     @Override
-                    public DiscountEffect getDiscountEffect(CostToEffectAction action, ActionContext actionContext) {
+                    public DiscountEffect getDiscountEffect(CostToEffectAction action, DefaultActionContext actionContext) {
                         //final int multiplier = multiplierSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                         return new RemoveThreatsToDiscountEffect(action) {
 
@@ -111,12 +112,12 @@ public class PotentialDiscount implements EffectProcessor {
             blueprint.appendDiscountSource(
                 new DiscountSource() {
                     @Override
-                    public int getPotentialDiscount(ActionContext actionContext) {
+                    public int getPotentialDiscount(DefaultActionContext<DefaultGame> actionContext) {
                         return maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                     }
 
                     @Override
-                    public DiscountEffect getDiscountEffect(CostToEffectAction action, ActionContext actionContext) {
+                    public DiscountEffect getDiscountEffect(CostToEffectAction action, DefaultActionContext actionContext) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         final int max = maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                         final int discardCount = discardCountSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
@@ -141,12 +142,12 @@ public class PotentialDiscount implements EffectProcessor {
             blueprint.appendDiscountSource(
                 new DiscountSource() {
                     @Override
-                    public int getPotentialDiscount(ActionContext actionContext) {
+                    public int getPotentialDiscount(DefaultActionContext<DefaultGame> actionContext) {
                         return maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                     }
 
                     @Override
-                    public DiscountEffect getDiscountEffect(CostToEffectAction action, ActionContext actionContext) {
+                    public DiscountEffect getDiscountEffect(CostToEffectAction action, DefaultActionContext actionContext) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         final int max = maxSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
                         final int removeCount = removeCountSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());

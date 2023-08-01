@@ -28,9 +28,9 @@ public class LookAtRandomCardsFromHand implements EffectAppenderProducer {
         if (hand == null)
             throw new InvalidCardDefinitionException("LookAtRandomCardsFromHand requires that 'hand' be specified.");
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final DefaultGame game = actionContext.getGame();
                 final String handPlayer = handSource.getPlayer(actionContext);
                 final int count = countSource.getEvaluator(actionContext).evaluateExpression(game, null);
@@ -42,7 +42,7 @@ public class LookAtRandomCardsFromHand implements EffectAppenderProducer {
             }
 
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final String handPlayer = handSource.getPlayer(actionContext);
                 final int count = countSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 

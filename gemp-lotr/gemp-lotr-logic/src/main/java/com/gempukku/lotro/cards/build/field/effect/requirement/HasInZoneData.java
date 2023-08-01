@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 public class HasInZoneData implements RequirementProducer {
@@ -18,7 +19,7 @@ public class HasInZoneData implements RequirementProducer {
 
         return new Requirement() {
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 for (LotroPhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterable)) {
                     if (physicalCard.getWhileInZoneData() != null)

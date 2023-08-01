@@ -32,7 +32,7 @@ public class PutStackedCardsIntoHand implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToPutToHand = actionContext.getCardsFromMemory("_temp");
                         List<Effect> result = new LinkedList<>();
                         for (LotroPhysicalCard physicalCard : cardsToPutToHand)

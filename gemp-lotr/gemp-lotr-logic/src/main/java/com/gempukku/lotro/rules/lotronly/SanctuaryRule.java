@@ -8,7 +8,7 @@ import com.gempukku.lotro.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.modifiers.KeywordModifier;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
 import com.gempukku.lotro.modifiers.ModifiersLogic;
 import com.gempukku.lotro.effects.EffectResult;
 

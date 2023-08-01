@@ -35,17 +35,17 @@ public class ValueResolver {
                     throw new InvalidCardDefinitionException("Unable to resolve count: " + value);
                 return new ValueSource() {
                     @Override
-                    public Evaluator getEvaluator(ActionContext actionContext) {
+                    public Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
                     }
 
                     @Override
-                    public int getMinimum(ActionContext actionContext) {
+                    public int getMinimum(DefaultActionContext<DefaultGame> actionContext) {
                         return min;
                     }
 
                     @Override
-                    public int getMaximum(ActionContext actionContext) {
+                    public int getMaximum(DefaultActionContext<DefaultGame> actionContext) {
                         return max;
                     }
                 };
@@ -62,17 +62,17 @@ public class ValueResolver {
                 ValueSource toValue = resolveEvaluator(object.get("to"), environment);
                 return new ValueSource() {
                     @Override
-                    public Evaluator getEvaluator(ActionContext actionContext) {
+                    public Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
                     }
 
                     @Override
-                    public int getMinimum(ActionContext actionContext) {
+                    public int getMinimum(DefaultActionContext<DefaultGame> actionContext) {
                         return fromValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     }
 
                     @Override
-                    public int getMaximum(ActionContext actionContext) {
+                    public int getMaximum(DefaultActionContext<DefaultGame> actionContext) {
                         return toValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     }
                 };

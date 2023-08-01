@@ -1,7 +1,8 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.lotronly;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
@@ -9,15 +10,14 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.PreventCardEffect;
 import com.gempukku.lotro.effects.PreventableCardEffect;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.ModifierFlag;
 import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -39,9 +39,9 @@ public class PreventWound implements EffectAppenderProducer {
                             return Filters.in(preventableEffect.getAffectedCardsMinusPrevented(actionContext.getGame()));
                         }, new ConstantEvaluator(1), memory, "you", "Choose characters to prevent effect to", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cards = actionContext.getCardsFromMemory(memory);
                         final PreventableCardEffect preventableEffect = (PreventableCardEffect) actionContext.getEffect();
 
@@ -49,7 +49,7 @@ public class PreventWound implements EffectAppenderProducer {
                     }
 
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PREVENT_WOUNDS);
                     }

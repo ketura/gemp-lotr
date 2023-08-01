@@ -40,9 +40,9 @@ public class AddTrigger implements EffectAppenderProducer {
         final EffectAppender[] costs = environment.getEffectAppenderFactory().getEffectAppenders(costArray, environment);
         final EffectAppender[] effects = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 ActionProxy actionProxy = createActionProxy(action, actionContext, optional, trigger, requirements, costs, effects);
 
                 if (until.isEndOfTurn()) {
@@ -56,9 +56,9 @@ public class AddTrigger implements EffectAppenderProducer {
         };
     }
 
-    private ActionProxy createActionProxy(CostToEffectAction action, ActionContext actionContext, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
+    private ActionProxy createActionProxy(CostToEffectAction action, DefaultActionContext actionContext, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
         return new AbstractActionProxy() {
-            private boolean checkRequirements(ActionContext actionContext) {
+            private boolean checkRequirements(DefaultActionContext<DefaultGame> actionContext) {
                 for (Requirement requirement : requirements) {
                     if (!requirement.accepts(actionContext))
                         return true;
@@ -71,7 +71,7 @@ public class AddTrigger implements EffectAppenderProducer {
                 return false;
             }
 
-            private void customizeTriggerAction(AbstractCostToEffectAction action, ActionContext actionContext) {
+            private void customizeTriggerAction(AbstractCostToEffectAction action, DefaultActionContext actionContext) {
                 action.setVirtualCardAction(true);
                 for (EffectAppender cost : costs)
                     cost.appendEffect(true, action, actionContext);

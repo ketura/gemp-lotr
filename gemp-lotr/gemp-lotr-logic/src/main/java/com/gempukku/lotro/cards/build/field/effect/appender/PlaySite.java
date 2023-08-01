@@ -27,9 +27,9 @@ public class PlaySite implements EffectAppenderProducer {
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final DefaultGame game = actionContext.getGame();
                 final int siteNumber = valueSource.getEvaluator(actionContext).evaluateExpression(game, null);
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
@@ -58,7 +58,7 @@ public class PlaySite implements EffectAppenderProducer {
             }
 
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final DefaultGame game = actionContext.getGame();
                 final int siteNumber = valueSource.getEvaluator(actionContext).evaluateExpression(game, null);
                 final Filterable filterable = filterableSource.getFilterable(actionContext);

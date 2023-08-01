@@ -1,17 +1,18 @@
 package com.gempukku.lotro.cards.build.field.effect.filter;
 
+import com.gempukku.lotro.cards.PhysicalCard;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.effects.results.CharacterLostSkirmishResult;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.modifiers.evaluator.SingleMemoryEvaluator;
-import com.gempukku.lotro.effects.results.CharacterLostSkirmishResult;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 
 import java.util.*;
 

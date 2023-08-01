@@ -85,22 +85,14 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public void addUntilStartOfPhaseActionProxy(ActionProxy actionProxy, Phase phase) {
         _actionProxies.add(actionProxy);
-        List<ActionProxy> list = _untilStartOfPhaseActionProxies.get(phase);
-        if (list == null) {
-            list = new LinkedList<>();
-            _untilStartOfPhaseActionProxies.put(phase, list);
-        }
+        List<ActionProxy> list = _untilStartOfPhaseActionProxies.computeIfAbsent(phase, k -> new LinkedList<>());
         list.add(actionProxy);
     }
 
     @Override
     public void addUntilEndOfPhaseActionProxy(ActionProxy actionProxy, Phase phase) {
         _actionProxies.add(actionProxy);
-        List<ActionProxy> list = _untilEndOfPhaseActionProxies.get(phase);
-        if (list == null) {
-            list = new LinkedList<>();
-            _untilEndOfPhaseActionProxies.put(phase, list);
-        }
+        List<ActionProxy> list = _untilEndOfPhaseActionProxies.computeIfAbsent(phase, k -> new LinkedList<>());
         list.add(actionProxy);
     }
 

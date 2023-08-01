@@ -6,7 +6,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.cards.CardNotFoundException;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.modifiers.KeywordModifier;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
 import org.junit.Test;
 
 import java.util.HashMap;

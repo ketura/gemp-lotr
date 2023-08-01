@@ -47,9 +47,9 @@ public class AddActivated implements ModifierSourceProducer {
                 actionSource.addPlayRequirement(
                         (actionContext) -> PlayConditions.checkPhaseLimit(actionContext.getGame(), actionContext.getSource(), phase, limitPerPhase));
                 actionSource.addCost(
-                        new AbstractEffectAppender() {
+                        new AbstractEffectAppender<>() {
                             @Override
-                            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext<DefaultGame> actionContext) {
                                 return new IncrementPhaseLimitEffect(actionContext.getSource(), phase, limitPerPhase);
                             }
                         });
@@ -58,9 +58,9 @@ public class AddActivated implements ModifierSourceProducer {
                 actionSource.addPlayRequirement(
                         (actionContext) -> PlayConditions.checkTurnLimit(actionContext.getGame(), actionContext.getSource(), limitPerTurn));
                 actionSource.addCost(
-                        new AbstractEffectAppender() {
+                        new AbstractEffectAppender<>() {
                             @Override
-                            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext<DefaultGame> actionContext) {
                                 return new IncrementTurnLimitEffect(actionContext.getSource(), limitPerTurn);
                             }
                         });
@@ -74,7 +74,7 @@ public class AddActivated implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new AddActionToCardModifier(actionContext.getSource(), null, filterableSource.getFilterable(actionContext)) {
                     @Override
                     public List<? extends ActivateCardAction> getExtraPhaseAction(DefaultGame game, LotroPhysicalCard card) {

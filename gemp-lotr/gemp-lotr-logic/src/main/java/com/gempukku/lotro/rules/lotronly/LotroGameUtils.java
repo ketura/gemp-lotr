@@ -1,16 +1,19 @@
 package com.gempukku.lotro.rules.lotronly;
 
+import com.gempukku.lotro.adventure.InvalidSoloAdventureException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.adventure.InvalidSoloAdventureException;
 import com.gempukku.lotro.game.PlayOrder;
 import com.gempukku.lotro.rules.GameUtils;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class LotroGameUtils extends GameUtils {
     public static Side getSide(DefaultGame game, String playerId) {
@@ -93,7 +96,7 @@ public class LotroGameUtils extends GameUtils {
                 + culture.getHumanReadable() + "</span>";
     }
 
-    public static String SubstituteText(String text, ActionContext context)
+    public static String SubstituteText(String text, DefaultActionContext context)
     {
         String result = text;
         while (result.contains("{")) {

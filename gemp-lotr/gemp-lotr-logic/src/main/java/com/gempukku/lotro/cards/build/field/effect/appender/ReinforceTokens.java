@@ -39,16 +39,16 @@ public class ReinforceTokens implements EffectAppenderProducer {
                 CardResolver.resolveCards(filter, (actionContext) -> Filters.hasToken(token, 1),
                         new ConstantEvaluator(1), memory, "you", "Choose card to reinforce tokens on", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
                             && Filters.countActive(game, Filters.hasToken(token)) > 0;
                     }
 
                     @Override
-                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
 
                         final int tokenCount = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);

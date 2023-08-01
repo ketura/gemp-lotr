@@ -5,7 +5,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.AbstractModifier;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 import com.gempukku.lotro.modifiers.ModifierEffect;
 
 public class CantBeLiberatedModifier extends AbstractModifier {

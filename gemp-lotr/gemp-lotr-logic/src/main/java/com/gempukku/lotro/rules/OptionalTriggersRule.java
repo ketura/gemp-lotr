@@ -43,7 +43,9 @@ public class OptionalTriggersRule {
                         List<OptionalTriggerAction> result = new LinkedList<>();
                         for (LotroPhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
-                                final List<? extends OptionalTriggerAction> actions = activableCard.getOptionalAfterTriggerActions(playerId, game, effectResult, activableCard);
+                                final List<? extends OptionalTriggerAction> actions =
+                                        activableCard.getOptionalAfterTriggerActions(playerId, game, effectResult,
+                                                activableCard);
                                 if (actions != null)
                                     result.addAll(actions);
                             }
@@ -58,13 +60,10 @@ public class OptionalTriggersRule {
     private Filter getActivatableCardsFilter(String playerId) {
         return Filters.or(
                 Filters.and(CardType.SITE,
-                        new Filter() {
-                            @Override
-                            public boolean accepts(DefaultGame game, LotroPhysicalCard physicalCard) {
-                                if (game.getGameState().getCurrentPhase().isRealPhase())
-                                    return Filters.currentSite.accepts(game, physicalCard);
-                                return false;
-                            }
+                        (Filter) (game, physicalCard) -> {
+                            if (game.getGameState().getCurrentPhase().isRealPhase())
+                                return Filters.currentSite.accepts(game, physicalCard);
+                            return false;
                         }),
                 Filters.and(Filters.not(CardType.SITE), Filters.owner(playerId), Filters.active));
     }

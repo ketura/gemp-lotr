@@ -3,7 +3,7 @@ package com.gempukku.lotro.rules.lotronly;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.modifiers.CantPlayCardsModifier;
-import com.gempukku.lotro.modifiers.KeywordModifier;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
 import com.gempukku.lotro.modifiers.ModifiersLogic;
 
 public class RingRelatedRule {

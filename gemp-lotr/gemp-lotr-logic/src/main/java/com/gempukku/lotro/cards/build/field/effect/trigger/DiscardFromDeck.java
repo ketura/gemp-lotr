@@ -1,9 +1,13 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.cards.build.FilterableSource;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.TriggerConditions;
 import com.gempukku.lotro.effects.results.DiscardCardFromDeckResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class DiscardFromDeck implements TriggerCheckerProducer {
@@ -23,7 +27,7 @@ public class DiscardFromDeck implements TriggerCheckerProducer {
             }
 
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 boolean result = TriggerConditions.forEachDiscardedFromDeck(actionContext.getGame(), actionContext.getEffectResult(),
                         filterableSource.getFilterable(actionContext));
                 if (result && memorize != null) {

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.lotronly;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
@@ -10,11 +11,11 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.HealCharactersEffect;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.effects.HealCharactersEffect;
-import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -44,9 +45,9 @@ public class Heal implements EffectAppenderProducer {
                         },
                         count, memory, player, "Choose cards to heal", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext<DefaultGame> actionContext) {
                         final int healTimes = times.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                         final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         List<Effect> result = new LinkedList<>();

@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class IsAdditionalCardTypeModifier extends AbstractModifier {
     private final CardType _cardType;

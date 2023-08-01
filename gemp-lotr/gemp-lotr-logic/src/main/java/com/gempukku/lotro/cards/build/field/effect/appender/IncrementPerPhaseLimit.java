@@ -1,18 +1,19 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.effects.IncrementPhaseLimitEffect;
-import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.IncrementPhaseLimitEffect;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.game.PlayConditions;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class IncrementPerPhaseLimit implements EffectAppenderProducer {
@@ -23,9 +24,9 @@ public class IncrementPerPhaseLimit implements EffectAppenderProducer {
         final ValueSource limitSource = ValueResolver.resolveEvaluator(effectObject.get("limit"), 1, environment);
         final boolean perPlayer = FieldUtils.getBoolean(effectObject.get("perPlayer"), "perPlayer", false);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final Evaluator evaluator = limitSource.getEvaluator(actionContext);
                 final int limit = evaluator.evaluateExpression(actionContext.getGame(), actionContext.getSource());
 
@@ -36,7 +37,7 @@ public class IncrementPerPhaseLimit implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final Evaluator evaluator = limitSource.getEvaluator(actionContext);
                 final int limit = evaluator.evaluateExpression(actionContext.getGame(), actionContext.getSource());
 

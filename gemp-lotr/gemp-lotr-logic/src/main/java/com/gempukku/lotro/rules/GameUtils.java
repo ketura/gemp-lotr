@@ -1,14 +1,14 @@
 package com.gempukku.lotro.rules;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.adventure.InvalidSoloAdventureException;
 import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.adventure.InvalidSoloAdventureException;
-import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
-import com.gempukku.lotro.gamestate.GameState;
 import com.gempukku.lotro.game.PlayOrder;
 import com.gempukku.lotro.game.PlayerOrder;
+import com.gempukku.lotro.gamestate.GameState;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -114,7 +114,7 @@ public class GameUtils {
         return SubstituteText(text, null);
     }
 
-    public static String SubstituteText(String text, ActionContext context)
+    public static String SubstituteText(String text, DefaultActionContext context)
     {
         String result = text;
         while (result.contains("{")) {

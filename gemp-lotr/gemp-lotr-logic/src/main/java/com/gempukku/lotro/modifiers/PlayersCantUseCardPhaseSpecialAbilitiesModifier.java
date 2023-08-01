@@ -7,6 +7,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.Action;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class PlayersCantUseCardPhaseSpecialAbilitiesModifier extends AbstractModifier {
     private final Phase _phase;

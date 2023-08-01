@@ -33,7 +33,7 @@ public class ShuffleCardsFromHandIntoDrawDeck implements EffectAppenderProducer 
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsFromHand = actionContext.getCardsFromMemory(memorize);
 
                         return new ShuffleCardsFromHandIntoDeckEffect(actionContext.getSource(), playerSource.getPlayer(actionContext), cardsFromHand);

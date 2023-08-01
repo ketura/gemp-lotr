@@ -9,6 +9,7 @@ import com.gempukku.lotro.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.actions.OptionalTriggerAction;
 import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.game.TribblesGame;
 
 import java.util.LinkedList;
 import java.util.List;

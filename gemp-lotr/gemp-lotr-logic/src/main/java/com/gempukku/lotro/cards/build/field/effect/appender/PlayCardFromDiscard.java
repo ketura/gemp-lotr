@@ -71,9 +71,9 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
                         },
                         countSource, memorize, "you", "Choose card to play", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToPlay = actionContext.getCardsFromMemory(memorize);
                         if (cardsToPlay.size() == 1) {
                             final DefaultGame game = actionContext.getGame();
@@ -88,7 +88,7 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
                     }
 
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
                     }

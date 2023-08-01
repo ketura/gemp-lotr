@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class CantDiscardCardsFromHandOrTopOfDeckModifier extends AbstractModifier {
     private final String _playerId;

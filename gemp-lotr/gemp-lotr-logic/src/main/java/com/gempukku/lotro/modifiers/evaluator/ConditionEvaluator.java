@@ -2,7 +2,7 @@ package com.gempukku.lotro.modifiers.evaluator;
 
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class ConditionEvaluator implements Evaluator {
     private final int _default;

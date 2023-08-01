@@ -3,6 +3,7 @@ package com.gempukku.lotro.modifiers;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class ShouldSkipPhaseModifier extends AbstractModifier {
     private final Phase _phase;

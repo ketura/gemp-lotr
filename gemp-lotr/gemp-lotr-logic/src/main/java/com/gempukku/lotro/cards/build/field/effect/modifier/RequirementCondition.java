@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect.modifier;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class RequirementCondition implements Condition {
     private final Requirement[] requirements;
-    private final ActionContext actionContext;
+    private final DefaultActionContext actionContext;
 
-    public RequirementCondition(Requirement[] requirements, ActionContext actionContext) {
+    public RequirementCondition(Requirement[] requirements, DefaultActionContext actionContext) {
         this.requirements = requirements;
         this.actionContext = actionContext;
     }

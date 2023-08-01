@@ -59,9 +59,9 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                         },
                         countSource, memorize, "you", "you", "Choose card to play", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToPlay = actionContext.getCardsFromMemory(memorize);
                         if (cardsToPlay.size() == 1) {
                             final int costModifier = costModifierSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
@@ -76,7 +76,7 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                     }
 
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
                     }

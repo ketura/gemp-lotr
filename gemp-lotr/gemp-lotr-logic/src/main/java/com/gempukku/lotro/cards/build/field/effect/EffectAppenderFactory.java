@@ -134,6 +134,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("revealrandomcardsfromhand", new RevealRandomCardsFromHand());
         effectAppenderProducers.put("revealtopcardsofdrawdeck", new RevealTopCardsOfDrawDeck());
         effectAppenderProducers.put("reverseplayerorder", new ReversePlayerOrder());
+        effectAppenderProducers.put("setnexttribble", new SetNextTribble());
         effectAppenderProducers.put("shadowcanthaveinitiative", new ShadowCantHaveInitiative());
         effectAppenderProducers.put("shufflecardsfromdiscardintodrawdeck", new ShuffleCardsFromDiscardIntoDrawDeck());
         effectAppenderProducers.put("shufflecardsfromhandintodrawdeck", new ShuffleCardsFromHandIntoDrawDeck());

@@ -1,7 +1,8 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.lotronly;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
@@ -14,16 +15,15 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolv
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.effects.RemoveTokenEffect;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.ModifierFlag;
 import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -48,15 +48,15 @@ public class ChooseAndRemoveTokens implements EffectAppenderProducer {
                         new ConstantEvaluator(1),
                         memorizeCard, "you", "Choose card to remove tokens from", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS);
                     }
 
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final LotroPhysicalCard cardFromMemory = actionContext.getCardFromMemory(memorizeCard);
 
                         int min = valueSource.getMinimum(actionContext);
@@ -83,15 +83,15 @@ public class ChooseAndRemoveTokens implements EffectAppenderProducer {
                     }
                 });
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                         final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS);
                     }
 
                     @Override
-                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final LotroPhysicalCard cardFromMemory = actionContext.getCardFromMemory(memorizeCard);
                         int tokenCount = Integer.parseInt(actionContext.getValueFromMemory(memory));
 

@@ -21,7 +21,8 @@ public class DefaultActionContext<AbstractGame extends DefaultGame> implements A
     protected final EffectResult effectResult;
     protected final Effect effect;
 
-    public DefaultActionContext(String performingPlayer, AbstractGame game, LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DefaultActionContext(String performingPlayer, AbstractGame game, LotroPhysicalCard source,
+                                EffectResult effectResult, Effect effect) {
         this.performingPlayer = performingPlayer;
         this.game = game;
         this.source = source;

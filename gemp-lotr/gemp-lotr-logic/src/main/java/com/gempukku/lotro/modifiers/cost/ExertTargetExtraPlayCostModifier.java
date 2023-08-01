@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.lotronly.AttachPermanentAction;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class ExertTargetExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
     public ExertTargetExtraPlayCostModifier(LotroPhysicalCard source, Filterable affects, Condition condition) {

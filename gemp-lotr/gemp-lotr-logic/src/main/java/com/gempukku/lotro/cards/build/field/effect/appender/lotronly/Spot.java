@@ -29,9 +29,9 @@ public class Spot implements EffectAppenderProducer {
         if (skipMemorize) {
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
-            return new DelayedAppender() {
+            return new DelayedAppender<>() {
                 @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(DefaultGame game) {
@@ -40,7 +40,7 @@ public class Spot implements EffectAppenderProducer {
                 }
 
                 @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
+                public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                     final int count = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     Filterable filterable = filterableSource.getFilterable(actionContext);
                     return PlayConditions.canSpot(actionContext.getGame(), count, filterable);

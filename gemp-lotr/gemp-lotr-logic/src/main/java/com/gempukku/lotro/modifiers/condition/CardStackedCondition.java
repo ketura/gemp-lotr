@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
 
 public class CardStackedCondition implements Condition {
     private final Filter _stackedOn;

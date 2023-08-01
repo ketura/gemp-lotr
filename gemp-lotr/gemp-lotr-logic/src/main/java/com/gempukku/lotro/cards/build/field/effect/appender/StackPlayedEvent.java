@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.effects.StackPlayedEventOnACardEffect;
 import com.gempukku.lotro.effects.DoNothingEffect;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.StackPlayedEventOnACardEffect;
 import com.gempukku.lotro.effects.results.PlayEventResult;
 import org.json.simple.JSONObject;
 
@@ -29,7 +29,7 @@ public class StackPlayedEvent implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final LotroPhysicalCard card = actionContext.getCardFromMemory("_temp1");
                         if (card != null) {
                             final PlayEventResult playEventResult = (PlayEventResult) actionContext.getEffectResult();

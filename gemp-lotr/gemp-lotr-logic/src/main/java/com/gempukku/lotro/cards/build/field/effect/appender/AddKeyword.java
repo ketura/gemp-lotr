@@ -1,23 +1,20 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.ValueSource;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
-import com.gempukku.lotro.rules.GameUtils;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.effects.AddUntilModifierEffect;
-import com.gempukku.lotro.modifiers.KeywordModifier;
-import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
+import com.gempukku.lotro.rules.GameUtils;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -36,7 +33,7 @@ public class AddKeyword implements EffectAppenderProducer {
         final String keywordString = FieldUtils.getString(effectObject.get("keyword"), "keyword");
         final TimeResolver.Time until = TimeResolver.resolveTime(effectObject.get("until"), "end(current)");
 
-        Function<ActionContext, Keyword> keywordFunction;
+        Function<DefaultActionContext, Keyword> keywordFunction;
         ValueSource amount;
         if (keywordString.startsWith("fromMemory(") && keywordString.endsWith(")")) {
             String keywordMemory = keywordString.substring(keywordString.indexOf("(") + 1, keywordString.lastIndexOf(")"));
@@ -60,7 +57,7 @@ public class AddKeyword implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         List<Effect> result = new LinkedList<>();
                         final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         for (LotroPhysicalCard physicalCard : cardsFromMemory) {

@@ -1,10 +1,11 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.ActionSource;
-import com.gempukku.lotro.cards.build.Requirement;
-import com.gempukku.lotro.rules.GameUtils;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.cards.build.ActionSource;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.cards.build.Requirement;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.rules.GameUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class DefaultActionSource implements ActionSource {
     }
 
     @Override
-    public boolean isValid(ActionContext actionContext) {
+    public boolean isValid(DefaultActionContext<DefaultGame> actionContext) {
         for (Requirement requirement : requirements) {
             if (!requirement.accepts(actionContext))
                 return false;
@@ -53,7 +54,7 @@ public class DefaultActionSource implements ActionSource {
     }
 
     @Override
-    public void createAction(CostToEffectAction action, ActionContext actionContext) {
+    public void createAction(CostToEffectAction action, DefaultActionContext actionContext) {
         if (text != null)
             action.setText(GameUtils.SubstituteText(text, actionContext));
 

@@ -29,7 +29,7 @@ public class DiscardStackedCards implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         return new DiscardStackedCardsEffect(actionContext.getSource(), actionContext.getCardsFromMemory(memory));
                     }
                 });

@@ -31,9 +31,9 @@ public class ChooseANumber implements EffectAppenderProducer {
         if (memorize == null)
             throw new InvalidCardDefinitionException("ChooseANumber requires a field to memorize the value");
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
                     new IntegerAwaitingDecision(1, GameUtils.SubstituteText(displayText, actionContext),
                         fromSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null),

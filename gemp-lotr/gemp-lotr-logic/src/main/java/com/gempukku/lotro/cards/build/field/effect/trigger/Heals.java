@@ -5,8 +5,9 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.TriggerConditions;
 import com.gempukku.lotro.effects.results.HealResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class Heals implements TriggerCheckerProducer {
@@ -28,7 +29,7 @@ public class Heals implements TriggerCheckerProducer {
             }
 
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                 final boolean result = TriggerConditions.forEachHealed(actionContext.getGame(), actionContext.getEffectResult(), playerSource.getPlayer(actionContext), filterable);
                 if (result && memorize != null) {

@@ -11,6 +11,8 @@ import com.gempukku.lotro.modifiers.Modifier;
 import com.gempukku.lotro.modifiers.ModifierEffect;
 import com.gempukku.lotro.actions.Action;
 import org.json.simple.JSONObject;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +32,7 @@ public class CanPlayStackedCards implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new AbstractModifier(actionContext.getSource(), null,
                         Filters.and(filterableSource.getFilterable(actionContext), Filters.stackedOn(onFilterableSource.getFilterable(actionContext))),
                         new RequirementCondition(requirements, actionContext), ModifierEffect.EXTRA_ACTION_MODIFIER) {

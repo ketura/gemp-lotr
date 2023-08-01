@@ -35,7 +35,7 @@ public class DiscardCardsFromDrawDeck implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToDiscard = actionContext.getCardsFromMemory(memorize);
                         List<Effect> result = new LinkedList<>();
                         for (LotroPhysicalCard physicalCard : cardsToDiscard) {

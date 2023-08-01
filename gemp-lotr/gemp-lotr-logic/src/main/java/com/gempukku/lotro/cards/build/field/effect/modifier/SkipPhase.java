@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.Modifier;
 import com.gempukku.lotro.modifiers.ShouldSkipPhaseModifier;
 import org.json.simple.JSONObject;
@@ -19,7 +20,7 @@ public class SkipPhase implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new ShouldSkipPhaseModifier(actionContext.getSource(),
                         new RequirementCondition(requirements, actionContext), phase);
             }

@@ -64,8 +64,8 @@ public class GenericCardTestHelper extends AbstractAtTest {
 
     private final FilterFactory FilterFactory = new FilterFactory();
     private final CardGenerationEnvironment Environment = new LotroCardBlueprintBuilder();
-    private final ActionContext FreepsFilterContext = new DefaultActionContext(P1, _game, null, null, null);
-    private final ActionContext ShadowFilterContext = new DefaultActionContext(P2, _game, null, null, null);
+    private final DefaultActionContext FreepsFilterContext = new DefaultActionContext<DefaultGame>(P1, _game, null, null, null);
+    private final DefaultActionContext ShadowFilterContext = new DefaultActionContext<DefaultGame>(P2, _game, null, null, null);
 
 
     // Player key, then name/card

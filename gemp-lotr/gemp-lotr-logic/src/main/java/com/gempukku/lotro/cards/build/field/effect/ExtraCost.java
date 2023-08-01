@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 import org.json.simple.JSONObject;
 
 public class ExtraCost implements EffectProcessor {

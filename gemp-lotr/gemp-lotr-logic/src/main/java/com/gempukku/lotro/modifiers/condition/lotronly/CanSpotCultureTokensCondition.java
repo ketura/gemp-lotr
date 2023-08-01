@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 import java.util.Map;
 

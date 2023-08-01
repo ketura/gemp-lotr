@@ -1,12 +1,13 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.TriggerConditions;
 import com.gempukku.lotro.effects.results.CharacterWonSkirmishResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class WinsSkirmish implements TriggerCheckerProducer {
@@ -24,7 +25,7 @@ public class WinsSkirmish implements TriggerCheckerProducer {
 
         return new TriggerChecker() {
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final boolean result = TriggerConditions.winsSkirmishInvolving(actionContext.getGame(), actionContext.getEffectResult(),
                         winnerFilter.getFilterable(actionContext),
                         againstFilter.getFilterable(actionContext));

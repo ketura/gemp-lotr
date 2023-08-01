@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceProducer;
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
-import com.gempukku.lotro.modifiers.FPCulturesSpotCountModifier;
+import com.gempukku.lotro.modifiers.lotronly.FPCulturesSpotCountModifier;
 import org.json.simple.JSONObject;
 
 public class FPCultureSpot implements ModifierSourceProducer {

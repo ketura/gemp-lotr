@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.lotronly;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
@@ -11,11 +12,11 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResol
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.effects.AssignmentEffect;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -54,9 +55,9 @@ public class AssignFpCharacterToSkirmish implements EffectAppenderProducer {
                             return Filters.assignableToSkirmishAgainst(assigningSide, Filters.in(fpChar));
                         }, "_tempMinion", player, "Choose minion to assign to character", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext<DefaultGame> actionContext) {
                         final String assigningPlayer = playerSource.getPlayer(actionContext);
                         final Collection<? extends LotroPhysicalCard> fpChar = actionContext.getCardsFromMemory("_tempFpCharacter");
                         final Collection<? extends LotroPhysicalCard> minion = actionContext.getCardsFromMemory("_tempMinion");

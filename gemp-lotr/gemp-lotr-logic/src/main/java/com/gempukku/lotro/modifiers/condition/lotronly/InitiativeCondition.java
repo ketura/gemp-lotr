@@ -2,7 +2,7 @@ package com.gempukku.lotro.modifiers.condition.lotronly;
 
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.DefaultGame;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class InitiativeCondition implements Condition {
     private final Side _side;

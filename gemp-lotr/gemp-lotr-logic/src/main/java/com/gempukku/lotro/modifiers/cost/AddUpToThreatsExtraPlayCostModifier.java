@@ -11,7 +11,7 @@ import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.effects.AddThreatsEffect;
 import com.gempukku.lotro.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.modifiers.Condition;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class AddUpToThreatsExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
     private final int maxThreatCount;

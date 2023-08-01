@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.lotronly;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.MultiEffectAppender;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.effects.AddTwilightEffect;
-import com.gempukku.lotro.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
 import org.json.simple.JSONObject;
 
 public class ChooseAndAddTwilight implements EffectAppenderProducer {
@@ -27,7 +27,7 @@ public class ChooseAndAddTwilight implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
                                 new IntegerAwaitingDecision(1, "How much twilight do you wish to add", 0) {
                                     @Override
@@ -40,7 +40,7 @@ public class ChooseAndAddTwilight implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         int twilight = Integer.parseInt(actionContext.getValueFromMemory(memorize));
                         return new AddTwilightEffect(actionContext.getSource(), twilight);
                     }

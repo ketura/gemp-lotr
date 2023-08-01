@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.condition.Condition;
 
 public class CantDiscardFromPlayModifier extends AbstractModifier {
     private final Filter _sourceFilter;

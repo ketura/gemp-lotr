@@ -4,9 +4,12 @@ import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.gamestate.LoggingThreadLocal;
+import com.gempukku.lotro.modifiers.condition.Condition;
 import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.actions.Action;
+import com.gempukku.lotro.modifiers.lotronly.KeywordAffectingModifier;
 
 import java.util.*;
 

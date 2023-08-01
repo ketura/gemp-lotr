@@ -1,18 +1,18 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.rules.GameUtils;
-import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.decisions.YesNoDecision;
-import com.gempukku.lotro.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.rules.GameUtils;
 import org.json.simple.JSONObject;
 
 public class ChooseYesOrNo implements EffectAppenderProducer {
@@ -28,9 +28,9 @@ public class ChooseYesOrNo implements EffectAppenderProducer {
         final String noAnswer = FieldUtils.getString(effectObject.get("no"), "no", "no");
         PlayerSource playerSource = PlayerResolver.resolvePlayer(FieldUtils.getString(effectObject.get("player"), "player", "you"), environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 return new PlayoutDecisionEffect(playerSource.getPlayer(actionContext),
                         new YesNoDecision(GameUtils.SubstituteText(text, actionContext)) {
                             @Override

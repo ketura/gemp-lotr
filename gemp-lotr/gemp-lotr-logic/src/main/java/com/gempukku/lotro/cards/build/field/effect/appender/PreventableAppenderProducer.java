@@ -35,9 +35,9 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
         final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
         final EffectAppender[] costAppenders = environment.getEffectAppenderFactory().getEffectAppenders(costArray, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 if (areCostsPlayable(actionContext)) {
                     final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
 
@@ -92,7 +92,7 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                 }
             }
 
-            private boolean areCostsPlayable(ActionContext actionContext) {
+            private boolean areCostsPlayable(DefaultActionContext<DefaultGame> actionContext) {
                 for (EffectAppender costAppender : costAppenders) {
                     if (!costAppender.isPlayableInFull(actionContext))
                         return false;
@@ -101,7 +101,7 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 for (EffectAppender effectAppender : effectAppenders) {
                     if (!effectAppender.isPlayableInFull(actionContext))
                         return false;

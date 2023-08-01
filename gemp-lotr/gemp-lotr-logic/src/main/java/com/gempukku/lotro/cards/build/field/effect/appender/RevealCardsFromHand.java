@@ -33,7 +33,7 @@ public class RevealCardsFromHand implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final Collection<? extends LotroPhysicalCard> cardsToReveal = actionContext.getCardsFromMemory(memorize);
                         return new RevealCardsFromYourHandEffect(actionContext.getSource(), actionContext.getPerformingPlayer(), cardsToReveal);
                     }

@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.UnrespondableEffect;
+import com.gempukku.lotro.game.DefaultGame;
 
 import java.util.Collections;
 import java.util.List;
 
-public abstract class DelayedAppender implements EffectAppender {
+public abstract class DelayedAppender<AbstractGame extends DefaultGame> implements EffectAppender<AbstractGame> {
     private String text;
 
     public DelayedAppender() {
@@ -22,7 +22,7 @@ public abstract class DelayedAppender implements EffectAppender {
     }
 
     @Override
-    public final void appendEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+    public final void appendEffect(boolean cost, CostToEffectAction action, DefaultActionContext<AbstractGame> actionContext) {
         final UnrespondableEffect effect = new UnrespondableEffect() {
             @Override
             protected void doPlayEffect(DefaultGame game) {
@@ -51,11 +51,12 @@ public abstract class DelayedAppender implements EffectAppender {
         }
     }
 
-    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext<AbstractGame> actionContext) {
         throw new UnsupportedOperationException("One of createEffect or createEffects has to be overwritten");
     }
 
-    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action,
+                                                   DefaultActionContext<AbstractGame> actionContext) {
         final Effect effect = createEffect(cost, action, actionContext);
         if (effect == null)
             return null;
@@ -63,7 +64,7 @@ public abstract class DelayedAppender implements EffectAppender {
     }
 
     @Override
-    public boolean isPlayableInFull(ActionContext actionContext) {
+    public boolean isPlayableInFull(DefaultActionContext<AbstractGame> actionContext) {
         return true;
     }
 }
