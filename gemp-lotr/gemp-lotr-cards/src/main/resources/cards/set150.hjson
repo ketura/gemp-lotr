@@ -54,7 +54,7 @@
 			}
             effect: {
                 type: setNextTribble
-                forced: true
+                amount: 1
             }
 		}
     }

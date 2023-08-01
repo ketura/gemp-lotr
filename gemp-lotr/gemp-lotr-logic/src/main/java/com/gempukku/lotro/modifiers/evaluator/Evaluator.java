@@ -5,10 +5,10 @@ import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.game.DefaultGame;
 
-public interface Evaluator extends ValueSource {
-    int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected);
+public interface Evaluator<AbstractGame extends DefaultGame> extends ValueSource<AbstractGame> {
+    int evaluateExpression(AbstractGame game, LotroPhysicalCard cardAffected);
     @Override
-    default Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
+    default Evaluator getEvaluator(DefaultActionContext<AbstractGame> actionContext) {
         return this;
     }
 }

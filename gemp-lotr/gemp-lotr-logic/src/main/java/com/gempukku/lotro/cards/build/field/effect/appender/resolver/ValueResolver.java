@@ -15,11 +15,11 @@ import org.json.simple.JSONObject;
 import java.util.Collection;
 
 public class ValueResolver {
-    public static ValueSource resolveEvaluator(Object value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static ValueSource<DefaultGame> resolveEvaluator(Object value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         return resolveEvaluator(value, null, environment);
     }
 
-    public static ValueSource resolveEvaluator(Object value, Integer defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static ValueSource<DefaultGame> resolveEvaluator(Object value, Integer defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (value == null && defaultValue == null)
             throw new InvalidCardDefinitionException("Value not defined");
         if (value == null)
@@ -33,7 +33,7 @@ public class ValueResolver {
                 final int max = Integer.parseInt(split[1]);
                 if (min > max || min < 0 || max < 1)
                     throw new InvalidCardDefinitionException("Unable to resolve count: " + value);
-                return new ValueSource() {
+                return new ValueSource<>() {
                     @Override
                     public Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
@@ -60,7 +60,7 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "from", "to");
                 ValueSource fromValue = resolveEvaluator(object.get("from"), environment);
                 ValueSource toValue = resolveEvaluator(object.get("to"), environment);
-                return new ValueSource() {
+                return new ValueSource<>() {
                     @Override
                     public Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
@@ -365,7 +365,7 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
 
-                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                return actionContext -> (Evaluator<DefaultGame>) (game, cardAffected) -> {
                     int result = 0;
                     for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         result += physicalCard.getBlueprint().getStrength();
@@ -376,7 +376,7 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
 
-                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                return actionContext -> (Evaluator<DefaultGame>) (game, cardAffected) -> {
                     int result = 0;
                     for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         result += game.getModifiersQuerying().getStrength(game, physicalCard);
@@ -417,7 +417,7 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "multiplier", "memory");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
-                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                return actionContext -> (Evaluator<DefaultGame>) (game, cardAffected) -> {
                     int total = 0;
                     for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         total += physicalCard.getBlueprint().getTwilightCost();

@@ -707,6 +707,10 @@ public class TribblesGameState extends GameState {
 
     public void setNextTribble(int num) {
         _nextTribble = num;
+        for (GameStateListener listener : getAllGameStateListeners()) {
+            DecimalFormat df = new DecimalFormat("#,###");
+            listener.setTribbleSequence(df.format(num));
+        }
     }
 
     public int getNextTribble() { return _nextTribble; }
