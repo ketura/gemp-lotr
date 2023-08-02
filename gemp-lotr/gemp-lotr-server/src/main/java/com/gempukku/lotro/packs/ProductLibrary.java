@@ -2,7 +2,7 @@ package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.JSONDefs;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.util.JsonUtils;
 import org.json.simple.parser.JSONParser;
 
@@ -13,21 +13,24 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
+import org.apache.log4j.Logger;
+
 
 public class ProductLibrary {
     public static class OuterPackDef {
 
     }
     private final Map<String, PackBox> _products = new HashMap<>();
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
     private final File _packDirectory;
+    private static final Logger logger = Logger.getLogger(ProductLibrary.class);
 
     private final Semaphore collectionReady = new Semaphore(1);
 
-    public ProductLibrary(LotroCardBlueprintLibrary cardLibrary) {
+    public ProductLibrary(CardBlueprintLibrary cardLibrary) {
         this(cardLibrary, AppConfig.getProductPath());
     }
-    public ProductLibrary(LotroCardBlueprintLibrary cardLibrary, File packDefinitionDirectory) {
+    public ProductLibrary(CardBlueprintLibrary cardLibrary, File packDefinitionDirectory) {
         _cardLibrary = cardLibrary;
         _packDirectory = packDefinitionDirectory;
 
@@ -79,6 +82,7 @@ public class ProductLibrary {
             }
 
             for (var def : defs) {
+                logger.debug("Loading pack definitions for " + def.Name);
                 if(def == null)
                     continue;
 

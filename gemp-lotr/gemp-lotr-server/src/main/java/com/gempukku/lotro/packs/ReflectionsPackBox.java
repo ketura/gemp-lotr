@@ -1,8 +1,8 @@
 package com.gempukku.lotro.packs;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public class ReflectionsPackBox implements PackBox {
     private final List<String> _previousSetCards = new ArrayList<>();
     private final List<String> _reflectionSlotCards = new ArrayList<>();
 
-    public ReflectionsPackBox(LotroCardBlueprintLibrary library) {
+    public ReflectionsPackBox(CardBlueprintLibrary library) {
         var reflectionsRarity = library.getSetDefinitions().get("9");
 
         for (int set = 1; set <= 6; set++) {

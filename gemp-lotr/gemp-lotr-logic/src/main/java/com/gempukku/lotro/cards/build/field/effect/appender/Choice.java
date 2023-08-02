@@ -1,16 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.actions.lotronly.SubAction;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.effects.StackActionEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.effects.StackActionEffect;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -33,11 +32,11 @@ public class Choice implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final String choosingPlayer = playerSource.getPlayer(actionContext);
-                ActionContext delegateActionContext = new DelegateActionContext(actionContext,
+                DefaultActionContext delegateActionContext = new DelegateActionContext(actionContext,
                         choosingPlayer, actionContext.getGame(), actionContext.getSource(),
                         actionContext.getEffectResult(), actionContext.getEffect());
 
@@ -78,9 +77,9 @@ public class Choice implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final String choosingPlayer = playerSource.getPlayer(actionContext);
-                ActionContext delegateActionContext = new DelegateActionContext(actionContext,
+                DefaultActionContext delegateActionContext = new DelegateActionContext(actionContext,
                         choosingPlayer, actionContext.getGame(), actionContext.getSource(),
                         actionContext.getEffectResult(), actionContext.getEffect());
 

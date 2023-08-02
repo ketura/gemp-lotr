@@ -1,35 +1,45 @@
 package com.gempukku.lotro.hall;
 
-import com.gempukku.lotro.game.LotroGameMediator;
-import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.game.CardGameMediator;
+import com.gempukku.lotro.game.GameParticipant;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class GameTable {
-    private final GameSettings gameSettings;
-    private final Map<String, LotroGameParticipant> players = new HashMap<>();
+    private static final Logger logger = Logger.getLogger(GameTable.class);
 
-    private LotroGameMediator lotroGameMediator;
+    private final GameSettings gameSettings;
+    private final Map<String, GameParticipant> players = new HashMap<>();
+
+    private CardGameMediator cardGameMediator;
     private final int capacity;
 
     public GameTable(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
-        this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
+        String formatName = gameSettings.getLotroFormat().getName();
+        if (formatName.equals("Tribbles")) {
+            this.capacity = 2;
+        } else {
+            this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
+        }
+        logger.debug("Capacity of game: " + this.capacity);
     }
 
-    public void startGame(LotroGameMediator lotroGameMediator) {
-        this.lotroGameMediator = lotroGameMediator;
+    public void startGame(CardGameMediator cardGameMediator) {
+        logger.debug("GameTable - startGame function called;");
+        this.cardGameMediator = cardGameMediator;
     }
 
-    public LotroGameMediator getLotroGameMediator() {
-        return lotroGameMediator;
+    public CardGameMediator getLotroGameMediator() {
+        return cardGameMediator;
     }
 
     public boolean wasGameStarted() {
-        return lotroGameMediator != null;
+        return cardGameMediator != null;
     }
 
-    public boolean addPlayer(LotroGameParticipant player) {
+    public boolean addPlayer(GameParticipant player) {
         players.put(player.getPlayerId(), player);
         return players.size() == capacity;
     }
@@ -47,7 +57,7 @@ public class GameTable {
         return new LinkedList<>(players.keySet());
     }
 
-    public Set<LotroGameParticipant> getPlayers() {
+    public Set<GameParticipant> getPlayers() {
         return Collections.unmodifiableSet(new HashSet<>(players.values()));
     }
 

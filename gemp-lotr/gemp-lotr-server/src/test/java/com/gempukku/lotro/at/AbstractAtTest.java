@@ -1,38 +1,43 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.*;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.logic.actions.SystemQueueAction;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.DefaultLotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.actions.lotronly.SystemQueueAction;
+import com.gempukku.lotro.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.CardActionSelectionDecision;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.actions.Action;
+import com.gempukku.lotro.game.LotroGame;
+import com.gempukku.lotro.effects.Effect;
 
 import java.util.*;
 
 import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
-    protected static LotroCardBlueprintLibrary _cardLibrary;
+    protected static CardBlueprintLibrary _cardLibrary;
     protected static LotroFormatLibrary _formatLibrary;
     private final int cardId = 100;
 
     static {
-        _cardLibrary = new LotroCardBlueprintLibrary();
+        _cardLibrary = new CardBlueprintLibrary();
         _formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
     }
 
-    protected DefaultLotroGame _game;
+    protected LotroGame _game;
     protected DefaultUserFeedback _userFeedback;
     public static final String P1 = "player1";
     public static final String P2 = "player2";
 
-    protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
-        return (PhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _cardLibrary, blueprintId);
+    protected LotroPhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
+        return (LotroPhysicalCardImpl) _game.getGameState().createPhysicalCard(owner, _cardLibrary, blueprintId);
     }
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {
@@ -57,7 +62,7 @@ public abstract class AbstractAtTest {
         LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _cardLibrary);
         LotroFormat format = formatLibrary.getFormat(formatName);
 
-        _game = new DefaultLotroGame(format, decks, _userFeedback, _cardLibrary);
+        _game = new LotroGame(format, decks, _userFeedback, _cardLibrary);
         _userFeedback.setGame(_game);
         _game.startGame();
 
@@ -85,7 +90,7 @@ public abstract class AbstractAtTest {
         }
     }
 
-    protected String[] toCardIdArray(PhysicalCard... cards) {
+    protected String[] toCardIdArray(LotroPhysicalCard... cards) {
         String[] result = new String[cards.length];
         for (int i = 0; i < cards.length; i++)
             result[i] = String.valueOf(cards[i].getCardId());
@@ -139,7 +144,7 @@ public abstract class AbstractAtTest {
         decks.put(player, deck);
     }
 
-    protected void moveCardToZone(PhysicalCardImpl card, Zone zone) {
+    protected void moveCardToZone(LotroPhysicalCardImpl card, Zone zone) {
         _game.getGameState().addCardToZone(_game, card, zone);
     }
 

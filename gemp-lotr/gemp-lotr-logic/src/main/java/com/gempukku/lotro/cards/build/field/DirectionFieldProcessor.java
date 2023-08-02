@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.build.field;
 
-import com.gempukku.lotro.cards.build.BuiltLotroCardBlueprint;
+import com.gempukku.lotro.cards.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FieldProcessor;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 
 public class DirectionFieldProcessor implements FieldProcessor {
     @Override

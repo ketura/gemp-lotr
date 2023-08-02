@@ -1,16 +1,11 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.ReconcileHandEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.ReconcileHandEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class ReconcileHand implements EffectAppenderProducer {
@@ -21,9 +16,9 @@ public class ReconcileHand implements EffectAppenderProducer {
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 return new ReconcileHandEffect(playerSource.getPlayer(actionContext));
             }
         };

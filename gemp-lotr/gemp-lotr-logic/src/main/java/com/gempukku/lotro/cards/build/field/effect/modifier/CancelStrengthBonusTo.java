@@ -2,8 +2,9 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.lotronly.CancelStrengthBonusTargetModifier;
 import org.json.simple.JSONObject;
 
 public class CancelStrengthBonusTo implements ModifierSourceProducer {
@@ -19,7 +20,7 @@ public class CancelStrengthBonusTo implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new CancelStrengthBonusTargetModifier(actionContext.getSource(),
                         filterableSource.getFilterable(actionContext),
                         fromFilterableSource.getFilterable(actionContext));

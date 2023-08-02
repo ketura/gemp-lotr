@@ -254,6 +254,14 @@ table.tables th {
 	margin: 2px;
 }
 
+th.format, th.players {
+    width: 20%
+}
+
+th.status, th.actions {
+    width: 10%
+}
+
 td button {
 	width: calc(100% - 6px);
 	margin: 3px;

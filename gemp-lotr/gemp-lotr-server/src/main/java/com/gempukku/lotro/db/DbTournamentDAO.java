@@ -13,8 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
+
 
 public class DbTournamentDAO implements TournamentDAO {
+    private static final Logger logger = Logger.getLogger(DbTournamentDAO.class);
     private final DbAccess _dbAccess;
 
     public DbTournamentDAO(DbAccess dbAccess) {
@@ -69,6 +72,26 @@ public class DbTournamentDAO implements TournamentDAO {
 
     @Override
     public List<TournamentInfo> getUnfinishedTournaments() {
+        logger.debug("Called getUnfinishedTournaments function");
+        logger.debug("getUnfinishedTournaments function - attempting connection to " + _dbAccess.getDataSource());
+            // RUNNING EACH LINE WITHOUT TRY/CATCH TO BETTER UNDERSTAND WHERE ERROR IS THROWN
+/*        PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round, prizes from tournament where stage <> '" + Tournament.Stage.FINISHED.name() + "'");
+        ResultSet rs = statement.executeQuery();
+        List<TournamentInfo> result = new ArrayList<>();
+        while (rs.next()) {
+            String[] collectionTypeStr = rs.getString(5).split(":", 2);
+            result.add(new TournamentInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                    new CollectionType(collectionTypeStr[0], collectionTypeStr[1]), Tournament.Stage.valueOf(rs.getString(6)),
+                    rs.getString(7), rs.getString(9), rs.getInt(8)));
+        }
+        return result; */
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+        } catch(SQLException exp) {
+            logger.debug("Unable to connect to data source");
+            throw new RuntimeException(exp);
+        }
+
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round, prizes from tournament where stage <> '" + Tournament.Stage.FINISHED.name() + "'")) {

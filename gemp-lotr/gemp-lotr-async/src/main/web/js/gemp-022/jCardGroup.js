@@ -6,6 +6,7 @@ var CardGroup = Class.extend({
     height:null,
     belongTestFunc:null,
     padding:5,
+    containerPadding:3,
     maxCardHeight:497,
     descDiv:null,
 
@@ -38,10 +39,10 @@ var CardGroup = Class.extend({
     },
 
     setBounds:function (x, y, width, height) {
-        this.x = x + 3;
-        this.y = y + 3;
-        this.width = width - 6;
-        this.height = height - 6;
+        this.x = x + this.containerPadding;
+        this.y = y + this.containerPadding;
+        this.width = width - (this.containerPadding * 2);
+        this.height = height - (this.containerPadding * 2);
         if (this.descDiv != null)
             this.descDiv.css({left:x + "px", top:y + "px", width:width, height:height, position:"absolute"});
         this.layoutCards();
@@ -345,6 +346,140 @@ var NormalCardGroup = CardGroup.extend({
         return true;
     }
 });
+
+var StackedCardGroup = CardGroup.extend({
+    // StackedCardGroup assumes all cards are vertical
+
+    overlap:null,
+
+        // Stacked implementation
+    init:function (container, belongTest, createDiv) {
+        this._super(container, belongTest, createDiv);
+        this.overlap = 6;
+        this.maxCardHeight = 150;
+    },
+
+        // Stacked implementation
+    layoutCards:function () {
+        var cardsToLayout = this.getCardElems();
+
+        var proportionsArray = new Array();
+        for (var cardIndex in cardsToLayout) {
+            proportionsArray.push(cardScale); // cardScale defined in jCards.js
+        }
+
+        this.overlap = this.scaleOverlapToFit(proportionsArray);
+        var oneRowHeight = this.getHeightForLayoutInOneRow(proportionsArray);
+        this.layoutInStack(cardsToLayout, oneRowHeight);
+
+    },
+
+        // Stacked implementation
+    scaleOverlapToFit:function (proportionsArray) {
+        var newOverlap = this.overlap;
+        var cardCount = proportionsArray.length - 1;
+        var maxCardWidth = this.maxCardHeight * cardScale; // cardScale defined in jCards.js
+        var heightAvailable = this.height - (this.containerPadding * 2);
+        var widthAvailable = this.width - (this.containerPadding * 2);
+
+        if ((this.maxCardHeight + newOverlap * cardCount) > heightAvailable) {
+            newOverlap = (heightAvailable - this.maxCardHeight) / cardCount;
+        }
+        if ((this.maxCardWidth + newOverlap * cardCount) > widthAvailable) {
+            newOverlap = (widthAvailable - this.maxCardWidth) / cardCount;
+        }
+
+        // Don't allow overlap to get smaller than 1
+        return Math.max(newOverlap, 1);
+    },
+
+        // Stacked implementation
+    getHeightForLayoutInOneRow:function (proportionsArray) {
+        var maxHeightNeeded = this.maxCardHeight;
+        var maxWidthNeeded = this.maxCardHeight * cardScale; // cardScale defined in jCards.js
+
+            // Remove padding from this calculation because overlap will not be scaled
+        var maxWidthAvailable = this.width - (this.overlap * (proportionsArray.length - 1));
+        var maxHeightAvailable = this.height - (this.overlap * (proportionsArray.length - 1));
+
+        var scalingFactor = Math.min(1, (maxWidthAvailable / maxWidthNeeded), (maxHeightAvailable / maxHeightNeeded));
+        return Math.floor(maxHeightNeeded * scalingFactor);
+    },
+
+        // Stacked implementation
+    tryIfCanLayoutInRows:function (rowCount, proportionsArray) {
+        var rowHeight = (this.height - (this.padding * (rowCount - 1))) / rowCount;
+        if (this.maxCardHeight != null)
+            rowHeight = Math.min(this.maxCardHeight, rowHeight);
+        var totalWidth = 0;
+        var row = 0;
+        for (var cardIndex in proportionsArray) {
+            var cardWidthWithAttachments = proportionsArray[cardIndex] * rowHeight;
+            totalWidth += cardWidthWithAttachments;
+            if (totalWidth > this.width) {
+                row++;
+                if (row >= rowCount)
+                    return false;
+                totalWidth = cardWidthWithAttachments;
+            }
+            totalWidth += this.padding;
+        }
+        return true;
+    },
+
+        // Stacked implementation
+    layoutInStack:function (cardsToLayout, height) {
+        if (this.maxCardHeight != null)
+            height = Math.min(this.maxCardHeight, height);
+        var layoutVars = {};
+        layoutVars.x = this.x;
+        layoutVars.y = this.y;
+
+        for (var cardIndex in cardsToLayout) {
+            layoutVars.index = 10;
+            var cardElem = cardsToLayout[cardIndex];
+            var cardData = cardElem.data("card");
+            var cardWidth = cardData.getWidthForMaxDimension(height);
+            this.layoutCard(cardElem, layoutVars.x, layoutVars.y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
+            layoutVars.x += this.overlap;
+            layoutVars.y += this.overlap;
+        }
+    },
+
+        // Stacked implementation
+    layoutInRows:function (rowCount, cardsToLayout) {
+        var rowHeight = (this.height - ((rowCount - 1) * this.padding)) / rowCount;
+        if (this.maxCardHeight != null)
+            rowHeight = Math.min(this.maxCardHeight, rowHeight);
+        var yBias = Math.floor((this.height - (rowHeight * rowCount) - (this.padding * (rowCount - 1))) / 2);
+        var layoutVars = {};
+        layoutVars.x = 0;
+        var row = 0;
+        var y = yBias;
+
+        for (var cardIndex in cardsToLayout) {
+            layoutVars.index = 10;
+            var cardElem = cardsToLayout[cardIndex];
+            var cardData = cardElem.data("card");
+            var cardWidth = cardData.getWidthForMaxDimension(rowHeight);
+
+            if (layoutVars.x + cardWidth > this.width) {
+                row++;
+                layoutVars.x = 0;
+                y = yBias + row * (rowHeight + this.padding);
+            }
+
+            this.layoutCard(cardElem, this.x + layoutVars.x, this.y + y, cardWidth, cardData.getHeightForWidth(cardWidth), layoutVars.index);
+            layoutVars.x += cardWidth;
+            if (layoutVars.x > this.width)
+                return false;
+            layoutVars.x += this.padding;
+        }
+
+        return true;
+    }
+});
+
 
 function layoutCardElem(cardElem, x, y, width, height, index) {
     x = Math.floor(x);

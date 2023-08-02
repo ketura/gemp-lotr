@@ -2,7 +2,7 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import org.apache.commons.collections.map.LRUMap;
 
 import java.util.Collection;
@@ -24,7 +24,7 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO, Cac
     }
 
     @Override
-    public void userJoinsLeague(String leagueId, Player player, String remoteAddr) {
+    public void userJoinsLeague(String leagueId, User player, String remoteAddr) {
         _readWriteLock.writeLock().lock();
         try {
             getLeagueParticipantsInWriteLock(leagueId).add(player.getName());

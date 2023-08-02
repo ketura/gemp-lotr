@@ -1,0 +1,3 @@
+import org.apache.log4j.Logger;
+private static final Logger logger = Logger.getLogger(ClassNameHere.class);
+logger.debug("");

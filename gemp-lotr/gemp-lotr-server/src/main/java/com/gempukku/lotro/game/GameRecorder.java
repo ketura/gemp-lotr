@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.db.PlayerDAO;
-import com.gempukku.lotro.game.state.EventSerializer;
-import com.gempukku.lotro.game.state.GameCommunicationChannel;
-import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.gamestate.EventSerializer;
+import com.gempukku.lotro.gamestate.GameCommunicationChannel;
+import com.gempukku.lotro.gamestate.GameEvent;
+import com.gempukku.lotro.cards.CardDeck;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -45,7 +45,7 @@ public class GameRecorder {
     }
 
 
-    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, LotroFormat format, final String tournamentName, final Map<String, LotroDeck> decks) {
+    public GameRecordingInProgress recordGame(CardGameMediator lotroGame, LotroFormat format, final String tournamentName, final Map<String, CardDeck> decks) {
         final ZonedDateTime startDate = ZonedDateTime.now(ZoneOffset.UTC);
         final Map<String, GameCommunicationChannel> recordingChannels = new HashMap<>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
@@ -153,7 +153,7 @@ public class GameRecorder {
         return new DeflaterOutputStream(new FileOutputStream(recordingFile), deflater);
     }
 
-    private Map<String, String> saveRecordedChannels(Map<String, GameCommunicationChannel> gameProgress, DBDefs.GameHistory gameInfo, Map<String, LotroDeck> decks) {
+    private Map<String, String> saveRecordedChannels(Map<String, GameCommunicationChannel> gameProgress, DBDefs.GameHistory gameInfo, Map<String, CardDeck> decks) {
         Map<String, String> result = new HashMap<>();
         var metadata = new ReplayMetadata(gameInfo, decks);
 
@@ -196,10 +196,10 @@ public class GameRecorder {
                     var deckElement = doc.createElement("deckReadout");
                     deckElement.setAttribute("playerId", player);
                     deckElement.setAttribute("name", deck.getDeckName());
-                    deckElement.setAttribute("rb", deck.getRingBearer());
+/*                    deckElement.setAttribute("rb", deck.getRingBearer());
                     deckElement.setAttribute("ring", deck.getRing());
-                    deckElement.setAttribute("sites", String.join(",", deck.getSites()));
-                    deckElement.setAttribute("deck", String.join(",", deck.getAdventureCards()));
+                    deckElement.setAttribute("sites", String.join(",", deck.getSites())); */
+                    deckElement.setAttribute("deck", String.join(",", deck.getDrawDeckCards()));
 
                     info.appendChild(deckElement);
                 }

@@ -12,6 +12,7 @@ public abstract class AbstractServer {
     private boolean _started;
 
     public void startServer() {
+        _logger.debug("Starting startServer function for " + getClass().getSimpleName());
         if (!_started) {
             _cleaningTask.addServer(this);
             _started = true;

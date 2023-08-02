@@ -1,7 +1,7 @@
 package com.gempukku.lotro.packs;
 
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomFoilPack implements PackBox {
     private final List<String> _availableCards = new ArrayList<>();
 
-    public RandomFoilPack(String[] rarities, String[] sets, LotroCardBlueprintLibrary library) {
+    public RandomFoilPack(String[] rarities, String[] sets, CardBlueprintLibrary library) {
         var setList = Arrays.stream(sets).toList();
         for (var setDefinition : library.getSetDefinitions().values()) {
             if(!setList.contains(setDefinition.getSetId()))

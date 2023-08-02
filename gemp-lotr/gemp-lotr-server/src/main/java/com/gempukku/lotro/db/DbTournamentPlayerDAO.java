@@ -1,6 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.tournament.TournamentPlayerDAO;
 
 import java.sql.Connection;
@@ -27,7 +27,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                     statement.setString(1, tournamentId);
                     statement.setString(2, playerName);
                     statement.setString(3, deck.getDeckName());
-                    statement.setString(4, DeckSerialization.buildContentsFromDeck(deck));
+                    statement.setString(4, deck.buildContentsFromDeck());
                     statement.execute();
                 }
             }
@@ -42,7 +42,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
             try (Connection conn = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = conn.prepareStatement("update tournament_player set deck_name = ?, deck = ? where tournament_id=? and player=?")) {
                     statement.setString(1, deck.getDeckName());
-                    statement.setString(2, DeckSerialization.buildContentsFromDeck(deck));
+                    statement.setString(2, deck.buildContentsFromDeck());
                     statement.setString(3, tournamentId);
                     statement.setString(4, playerName);
                     statement.execute();
@@ -102,7 +102,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                             String deckName = rs.getString(2);
                             String contents = rs.getString(3);
 
-                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents, format, ""));
+                            result.put(player, new LotroDeck(deckName, contents, format, ""));
                         }
                         return result;
                     }
@@ -142,7 +142,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                     statement.setString(2, playerName);
                     try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
-                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2), format, "");
+                            return new LotroDeck(rs.getString(1), rs.getString(2), format, "");
                         else
                             return null;
                     }

@@ -2,7 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.mysql.cj.util.StringUtils;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
@@ -29,12 +29,12 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
             String login = getFormParameterSafely(postDecoder, "login");
             String password = getFormParameterSafely(postDecoder, "password");
 
-            Player player = _playerDao.loginUser(login, password);
+            User player = _playerDao.loginUser(login, password);
             if (player != null) {
                 if (StringUtils.isNullOrEmpty(player.getPassword())) {
                     throw new HttpProcessingException(202);
                 }
-                if (player.getType().contains(Player.Type.USER.getValue())) {
+                if (player.getType().contains(User.Type.USER.getValue())) {
                     final Date bannedUntil = player.getBannedUntil();
                     if (bannedUntil != null && bannedUntil.after(new Date()))
                         throw new HttpProcessingException(409);

@@ -1,6 +1,9 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.*;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.DeckInvalidException;
 import com.gempukku.lotro.chat.ChatCommandCallback;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatRoomMediator;
@@ -13,24 +16,25 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.timing.GameResultListener;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.game.GameResultListener;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.*;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+
 public class HallServer extends AbstractServer {
 
+    private static final Logger logger = Logger.getLogger(HallServer.class);
 
     private static final int _playerTableInactivityPeriod = 1000 * 20 ; // 20 seconds
 
@@ -42,7 +46,7 @@ public class HallServer extends AbstractServer {
     private final ChatServer _chatServer;
     private final LeagueService _leagueService;
     private final TournamentService _tournamentService;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
     private final CollectionsManager _collectionsManager;
     private final LotroServer _lotroServer;
@@ -61,7 +65,7 @@ public class HallServer extends AbstractServer {
 
     private final TableHolder tableHolder;
 
-    private final Map<Player, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<>();
+    private final Map<User, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<>();
     private int _nextChannelNumber = 0;
 
     private final Map<String, Tournament> _runningTournaments = new LinkedHashMap<>();
@@ -72,7 +76,7 @@ public class HallServer extends AbstractServer {
 
     private static final Logger _log = Logger.getLogger(HallServer.class);
 
-    public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
+    public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, CardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager,
                       AdminService adminService,
                       TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
@@ -235,7 +239,7 @@ public class HallServer extends AbstractServer {
                     }
                 });
 
-        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1500, "fotr_block",
+/*        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1500, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("ts_queue", new ImmediateRecurringQueue(1500, "towers_standard",
@@ -247,11 +251,11 @@ public class HallServer extends AbstractServer {
         _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(1500, "expanded",
                 CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
-
+*/
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-        try {
+/*        try {
             _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily Gondor Fellowship Block", 0,
                     true, _defaultCollectionType, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(_library, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
                     "fotr_block", 4));
@@ -266,7 +270,7 @@ public class HallServer extends AbstractServer {
                     "movie", 4));
         } catch (ParseException exp) {
             // Ignore, can't happen
-        }
+        }*/
     }
 
     private void hallChanged() {
@@ -339,7 +343,7 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
+    public void createNewTable(String type, User player, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -359,7 +363,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void spoofNewTable(String type, Player player, Player librarian, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
+    public void spoofNewTable(String type, User player, User librarian, String deckName, String timer, String description, boolean isInviteOnly, boolean isPrivate, boolean isHidden) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -420,7 +424,7 @@ public class HallServer extends AbstractServer {
                 league != null, isPrivate, isInviteOnly, isHidden, gameTimer, description);
     }
 
-    public boolean joinQueue(String queueId, Player player, String deckName) throws HallException, SQLException, IOException {
+    public boolean joinQueue(String queueId, User player, String deckName) throws HallException, SQLException, IOException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -449,7 +453,8 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
+    public boolean joinTableAsPlayer(String tableId, User player, String deckName) throws HallException {
+        logger.debug("HallServer - joinTableAsPlayer function called");
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -470,7 +475,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public boolean joinTableAsPlayerWithSpoofedDeck(String tableId, Player player, Player librarian, String deckName) throws HallException {
+    public boolean joinTableAsPlayerWithSpoofedDeck(String tableId, User player, User librarian, String deckName) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
 
@@ -491,7 +496,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void leaveQueue(String queueId, Player player) throws SQLException, IOException {
+    public void leaveQueue(String queueId, User player) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             TournamentQueue tournamentQueue = _tournamentQueues.get(queueId);
@@ -504,7 +509,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private boolean leaveQueuesForLeavingPlayer(Player player) throws SQLException, IOException {
+    private boolean leaveQueuesForLeavingPlayer(User player) throws SQLException, IOException {
         _hallDataAccessLock.writeLock().lock();
         try {
             boolean result = false;
@@ -520,7 +525,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void dropFromTournament(String tournamentId, Player player) {
+    public void dropFromTournament(String tournamentId, User player) {
         _hallDataAccessLock.writeLock().lock();
         try {
             Tournament tournament = _runningTournaments.get(tournamentId);
@@ -533,7 +538,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void leaveAwaitingTable(Player player, String tableId) {
+    public void leaveAwaitingTable(User player, String tableId) {
         _hallDataAccessLock.writeLock().lock();
         try {
             if (tableHolder.leaveAwaitingTable(player, tableId))
@@ -543,7 +548,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public boolean leaveAwaitingTablesForLeavingPlayer(Player player) {
+    public boolean leaveAwaitingTablesForLeavingPlayer(User player) {
         _hallDataAccessLock.writeLock().lock();
         try {
             return tableHolder.leaveAwaitingTablesForPlayer(player);
@@ -552,7 +557,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void signupUserForHall(Player player, HallChannelVisitor hallChannelVisitor) {
+    public void signupUserForHall(User player, HallChannelVisitor hallChannelVisitor) {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel channel = new HallCommunicationChannel(_nextChannelNumber++);
@@ -563,7 +568,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public HallCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
+    public HallCommunicationChannel getCommunicationChannel(User player, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
@@ -581,9 +586,8 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    protected void processHall(Player player, HallInfoVisitor visitor) {
+    protected void processHall(User player, HallInfoVisitor visitor) {
         final boolean isAdmin = player.getType().contains("a");
-
         _hallDataAccessLock.readLock().lock();
         try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
@@ -614,7 +618,8 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, User player, String deckName, CollectionType collectionType) throws HallException {
+        logger.debug("HallServer - calling validateUserAndDeck function for player " + player.getName() + " " + player.getId() + " and deck " + deckName);
         LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player, deckName);
         if (lotroDeck == null) {
             _log.debug("Player '" + player.getName() + "' attempting to use deck '" + deckName + "' but failed.");
@@ -631,7 +636,8 @@ public class HallServer extends AbstractServer {
         return lotroDeck;
     }
 
-    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, User player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
+        logger.debug("HallServer - calling validateUserAndDeck function for player " + player.getName() + " " + player.getId() + " and deck " + lotroDeck);
         String validation = format.validateDeckForHall(lotroDeck);
         if(validation == null || !validation.isEmpty())
         {
@@ -651,7 +657,7 @@ public class HallServer extends AbstractServer {
             for (String site : lotroDeck.getSites())
                 filteredSpecialCardsDeck.addSite(filterCard(site, ownedCollection));
 
-            for (Map.Entry<String, Integer> cardCount : CollectionUtils.getTotalCardCount(lotroDeck.getAdventureCards()).entrySet()) {
+            for (Map.Entry<String, Integer> cardCount : CollectionUtils.getTotalCardCount(lotroDeck.getDrawDeckCards()).entrySet()) {
                 String blueprintId = cardCount.getKey();
                 int count = cardCount.getValue();
 
@@ -736,8 +742,8 @@ public class HallServer extends AbstractServer {
     }
 
     private void createGameFromTable(GameTable gameTable) {
-        Set<LotroGameParticipant> players = gameTable.getPlayers();
-        LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[0]);
+        Set<GameParticipant> players = gameTable.getPlayers();
+        GameParticipant[] participants = players.toArray(new GameParticipant[0]);
         final League league = gameTable.getGameSettings().getLeague();
         final LeagueSerieData leagueSerie = gameTable.getGameSettings().getLeagueSerie();
 
@@ -756,18 +762,18 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        LotroGameMediator mediator = createGameMediator(participants, listener, getTournamentName(gameTable), gameTable.getGameSettings());
+        CardGameMediator mediator = createGameMediator(participants, listener, getTournamentName(gameTable), gameTable.getGameSettings());
         gameTable.startGame(mediator);
     }
 
-    private LotroGameMediator createGameMediator(LotroGameParticipant[] participants, GameResultListener listener, String tournamentName, GameSettings gameSettings) {
-        final LotroGameMediator lotroGameMediator = _lotroServer.createNewGame(tournamentName, participants, gameSettings);
+    private CardGameMediator createGameMediator(GameParticipant[] participants, GameResultListener listener, String tournamentName, GameSettings gameSettings) {
+        final CardGameMediator cardGameMediator = _lotroServer.createNewGame(tournamentName, participants, gameSettings);
         if (listener != null)
-            lotroGameMediator.addGameResultListener(listener);
-        lotroGameMediator.startGame();
-        lotroGameMediator.addGameResultListener(_notifyHallListeners);
+            cardGameMediator.addGameResultListener(listener);
+        cardGameMediator.startGame();
+        cardGameMediator.addGameResultListener(_notifyHallListeners);
 
-        return lotroGameMediator;
+        return cardGameMediator;
     }
 
     private class NotifyHallListenersGameResultListener implements GameResultListener {
@@ -792,10 +798,10 @@ public class HallServer extends AbstractServer {
             tableHolder.removeFinishedGames();
 
             long currentTime = System.currentTimeMillis();
-            Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<>(_playerChannelCommunication);
-            for (Map.Entry<Player, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
+            Map<User, HallCommunicationChannel> visitCopy = new LinkedHashMap<>(_playerChannelCommunication);
+            for (Map.Entry<User, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
                 if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerTableInactivityPeriod) {
-                    Player player = lastVisitedPlayer.getKey();
+                    User player = lastVisitedPlayer.getKey();
                     boolean leftTables = leaveAwaitingTablesForLeavingPlayer(player);
                     boolean leftQueues = leaveQueuesForLeavingPlayer(player);
                     if (leftTables || leftQueues)
@@ -803,7 +809,7 @@ public class HallServer extends AbstractServer {
                 }
 
                 if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerChatInactivityPeriod) {
-                    Player player = lastVisitedPlayer.getKey();
+                    User player = lastVisitedPlayer.getKey();
                     _playerChannelCommunication.remove(player);
                 }
             }
@@ -871,18 +877,18 @@ public class HallServer extends AbstractServer {
 
         @Override
         public void createGame(String playerOne, LotroDeck deckOne, String playerTwo, LotroDeck deckTwo) {
-            final LotroGameParticipant[] participants = new LotroGameParticipant[2];
-            participants[0] = new LotroGameParticipant(playerOne, deckOne);
-            participants[1] = new LotroGameParticipant(playerTwo, deckTwo);
+            final GameParticipant[] participants = new GameParticipant[2];
+            participants[0] = new GameParticipant(playerOne, deckOne);
+            participants[1] = new GameParticipant(playerTwo, deckTwo);
             createGameInternal(participants);
         }
 
-        private void createGameInternal(final LotroGameParticipant[] participants) {
+        private void createGameInternal(final GameParticipant[] participants) {
             _hallDataAccessLock.writeLock().lock();
             try {
                 if (!_shutdown) {
                     final GameTable gameTable = tableHolder.setupTournamentTable(tournamentGameSettings, participants);
-                    final LotroGameMediator mediator = createGameMediator(participants,
+                    final CardGameMediator mediator = createGameMediator(participants,
                             new GameResultListener() {
                                 @Override
                                 public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {

@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.actions.lotronly.SubAction;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.decisions.YesNoDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.effects.StackActionEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.decisions.YesNoDecision;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.effects.StackActionEffect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.rules.GameUtils;
 import org.json.simple.JSONObject;
 
 public class Optional implements EffectAppenderProducer {
@@ -29,9 +28,9 @@ public class Optional implements EffectAppenderProducer {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
         final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final String choosingPlayer = playerSource.getPlayer(actionContext);
                 SubAction subAction = new SubAction(action);
                 subAction.appendCost(
@@ -39,7 +38,7 @@ public class Optional implements EffectAppenderProducer {
                         new YesNoDecision(GameUtils.SubstituteText(text, actionContext)) {
                             @Override
                             protected void yes() {
-                                ActionContext delegate = new DelegateActionContext(actionContext,
+                                DefaultActionContext delegate = new DelegateActionContext(actionContext,
                                         choosingPlayer, actionContext.getGame(), actionContext.getSource(),
                                         actionContext.getEffectResult(), actionContext.getEffect());
                                 for (EffectAppender effectAppender : effectAppenders) {
@@ -51,9 +50,9 @@ public class Optional implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final String choosingPlayer = playerSource.getPlayer(actionContext);
-                ActionContext delegate = new DelegateActionContext(actionContext,
+                DefaultActionContext delegate = new DelegateActionContext(actionContext,
                         choosingPlayer, actionContext.getGame(), actionContext.getSource(),
                         actionContext.getEffectResult(), actionContext.getEffect());
                 for (EffectAppender effectAppender : effectAppenders) {

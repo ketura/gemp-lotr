@@ -1,13 +1,14 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class AboutToTakeWound implements TriggerCheckerProducer {
@@ -23,7 +24,7 @@ public class AboutToTakeWound implements TriggerCheckerProducer {
 
         return new TriggerChecker() {
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final Filterable sourceFilterable = sourceFilter.getFilterable(actionContext);
                 final Filterable affected = affectedFilter.getFilterable(actionContext);
                 if (sourceFilterable == Filters.any)

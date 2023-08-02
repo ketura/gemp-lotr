@@ -2,7 +2,7 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.common.DBDefs;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import org.apache.commons.collections.map.LRUMap;
 
 import java.sql.SQLException;
@@ -10,8 +10,8 @@ import java.util.*;
 
 public class CachedPlayerDAO implements PlayerDAO, Cached {
     private final PlayerDAO _delegate;
-    private final Map<Integer, Player> _playerById = Collections.synchronizedMap(new LRUMap(500));
-    private final Map<String, Player> _playerByName = Collections.synchronizedMap(new LRUMap(500));
+    private final Map<Integer, User> _playerById = Collections.synchronizedMap(new LRUMap(500));
+    private final Map<String, User> _playerByName = Collections.synchronizedMap(new LRUMap(500));
     private Set<String> _bannedUsernames = new HashSet<>();
 
     public CachedPlayerDAO(PlayerDAO delegate) {
@@ -63,7 +63,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean addPlayerFlag(String login, Player.Type flag) throws SQLException {
+    public boolean addPlayerFlag(String login, User.Type flag) throws SQLException {
         final boolean success = _delegate.addPlayerFlag(login, flag);
         if (success)
             clearCache();
@@ -71,7 +71,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean removePlayerFlag(String login, Player.Type flag) throws SQLException {
+    public boolean removePlayerFlag(String login, User.Type flag) throws SQLException {
         final boolean success = _delegate.removePlayerFlag(login, flag);
         if (success)
             clearCache();
@@ -79,7 +79,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public List<Player> findSimilarAccounts(String login) throws SQLException {
+    public List<User> findSimilarAccounts(String login) throws SQLException {
         return _delegate.findSimilarAccounts(login);
     }
 
@@ -91,8 +91,8 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public Player getPlayer(int id) {
-        Player player = (Player) _playerById.get(id);
+    public User getPlayer(int id) {
+        User player = (User) _playerById.get(id);
         if (player == null) {
             player = _delegate.getPlayer(id);
             if (player != null) {
@@ -104,8 +104,8 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public Player getPlayer(String playerName) {
-        Player player = (Player) _playerByName.get(playerName);
+    public User getPlayer(String playerName) {
+        User player = (User) _playerByName.get(playerName);
         if (player == null) {
             player = _delegate.getPlayer(playerName);
             if (player != null) {
@@ -117,7 +117,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public Player loginUser(String login, String password) throws SQLException {
+    public User loginUser(String login, String password) throws SQLException {
         return _delegate.loginUser(login, password);
     }
 
@@ -130,7 +130,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public void setLastReward(Player player, int currentReward) throws SQLException {
+    public void setLastReward(User player, int currentReward) throws SQLException {
         _delegate.setLastReward(player, currentReward);
         _playerById.remove(player.getId());
         _playerByName.remove(player.getName());
@@ -147,7 +147,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
+    public boolean updateLastReward(User player, int previousReward, int currentReward) throws SQLException {
         boolean updated = _delegate.updateLastReward(player, previousReward, currentReward);
         if (updated) {
             _playerById.remove(player.getId());

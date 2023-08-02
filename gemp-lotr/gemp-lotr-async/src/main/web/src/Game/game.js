@@ -5,7 +5,7 @@ $(document).ready(
     function () {
         var replay = getUrlParam("replayId");
 
-        ui = new GempLotrGameUI("/gemp-lotr-server", replay != null);
+        ui = new TribblesGameUI("/gemp-lotr-server", replay != null);
 
         $(window).resize(function () {
             ui.windowResized();

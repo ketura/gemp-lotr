@@ -2,15 +2,13 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.RemoveCardsFromTheGameEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.RemoveCardsFromTheGameEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -37,12 +35,12 @@ public class RemoveFromTheGame implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         final String removingPlayerId = discardingPlayer.getPlayer(actionContext);
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         if (stackedCardsMemory != null) {
-                            List<PhysicalCard> stackedCards = new LinkedList<>();
-                            for (PhysicalCard physicalCard : cardsFromMemory) {
+                            List<LotroPhysicalCard> stackedCards = new LinkedList<>();
+                            for (LotroPhysicalCard physicalCard : cardsFromMemory) {
                                 stackedCards.addAll(actionContext.getGame().getGameState().getStackedCards(physicalCard));
                             }
 

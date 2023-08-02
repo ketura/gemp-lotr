@@ -4,7 +4,7 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.Draft;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.List;
 

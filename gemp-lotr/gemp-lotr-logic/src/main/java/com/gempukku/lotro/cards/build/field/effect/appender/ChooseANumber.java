@@ -2,16 +2,14 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class ChooseANumber implements EffectAppenderProducer {
@@ -31,9 +29,9 @@ public class ChooseANumber implements EffectAppenderProducer {
         if (memorize == null)
             throw new InvalidCardDefinitionException("ChooseANumber requires a field to memorize the value");
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
                     new IntegerAwaitingDecision(1, GameUtils.SubstituteText(displayText, actionContext),
                         fromSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null),

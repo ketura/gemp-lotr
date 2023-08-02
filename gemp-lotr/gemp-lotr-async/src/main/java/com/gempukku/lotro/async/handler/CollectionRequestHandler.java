@@ -2,6 +2,8 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -32,7 +34,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     private final LeagueService _leagueService;
     private final CollectionsManager _collectionsManager;
     private final ProductLibrary _productLibrary;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
     private final SortAndFilterCards _sortAndFilterCards;
     private final ImportCards _importCards;
@@ -44,7 +46,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         _leagueService = extractObject(context, LeagueService.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
         _productLibrary = extractObject(context, ProductLibrary.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _sortAndFilterCards = new SortAndFilterCards();
         _importCards = new ImportCards();
@@ -106,7 +108,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
         int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = constructCollection(resourceOwner, collectionType);
 
@@ -160,7 +162,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         responseWriter.writeXmlResponse(doc, headers);
     }
 
-    private CardCollection constructCollection(Player player, String collectionType) {
+    private CardCollection constructCollection(User player, String collectionType) {
         return _collectionsManager.getPlayerCollection(player, collectionType);
     }
 
@@ -171,7 +173,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         String selection = getFormParameterSafely(postDecoder, "selection");
         String packId = getFormParameterSafely(postDecoder, "pack");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CollectionType collectionTypeObj = createCollectionType(collectionType);
         CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _productLibrary, packId);
@@ -213,7 +215,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

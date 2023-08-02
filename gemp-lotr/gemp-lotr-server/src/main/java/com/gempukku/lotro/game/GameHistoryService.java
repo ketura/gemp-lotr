@@ -42,7 +42,7 @@ public class GameHistoryService {
         return _gameHistoryDAO.getGameHistory(recordID);
     }
 
-    public int getGameHistoryForPlayerCount(Player player) {
+    public int getGameHistoryForPlayerCount(User player) {
         Integer result = _playerGameCount.get(player.getName());
         if (result != null)
             return result;
@@ -51,7 +51,7 @@ public class GameHistoryService {
         return count;
     }
 
-    public List<DBDefs.GameHistory> getGameHistoryForPlayer(Player player, int start, int count) {
+    public List<DBDefs.GameHistory> getGameHistoryForPlayer(User player, int start, int count) {
         return _gameHistoryDAO.getGameHistoryForPlayer(player, start, count);
     }
 
@@ -71,11 +71,11 @@ public class GameHistoryService {
         return _gameHistoryDAO.GetAllGameFormatData(from, to);
     }
 
-    public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
+    public List<PlayerStatistic> getCasualPlayerStatistics(User player) {
         return _gameHistoryDAO.getCasualPlayerStatistics(player);
     }
 
-    public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
+    public List<PlayerStatistic> getCompetitivePlayerStatistics(User player) {
         return _gameHistoryDAO.getCompetitivePlayerStatistics(player);
     }
 }

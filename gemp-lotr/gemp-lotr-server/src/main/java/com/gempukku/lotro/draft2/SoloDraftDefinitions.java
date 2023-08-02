@@ -1,9 +1,9 @@
 package com.gempukku.lotro.draft2;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.draft2.builder.*;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -26,12 +26,12 @@ public class SoloDraftDefinitions {
     private final File _draftDefinitionPath;
     private final Semaphore collectionReady = new Semaphore(1);
 
-    public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
+    public SoloDraftDefinitions(CollectionsManager collectionsManager, CardBlueprintLibrary cardLibrary,
                                 LotroFormatLibrary formatLibrary) {
         this(collectionsManager, cardLibrary, formatLibrary, AppConfig.getDraftPath());
     }
 
-    public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
+    public SoloDraftDefinitions(CollectionsManager collectionsManager, CardBlueprintLibrary cardLibrary,
                                 LotroFormatLibrary formatLibrary, File draftDefinitionPath) {
         _draftChoiceBuilder = new DraftChoiceBuilder(collectionsManager, cardLibrary, formatLibrary);
         _draftDefinitionPath = draftDefinitionPath;
@@ -87,7 +87,7 @@ public class SoloDraftDefinitions {
                         draftChoiceDefinitions.add(draftChoiceDefinition);
                 }
 
-                _logger.debug("Loaded draft definition: " + file);
+//                _logger.debug("Loaded draft definition: " + file);
                 var result = new DefaultSoloDraft(code, format, cardCollectionProducer, draftChoiceDefinitions, draftPoolProducer);
 
                 if(_draftTypes.containsKey(code))

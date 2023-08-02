@@ -1,11 +1,10 @@
 package com.gempukku.lotro.merchant;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.db.MerchantDAO;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.Date;
-import java.util.Map;
 
 public class ParametrizedMerchant implements Merchant {
     private static final int BOOSTER_PRICE = 1000;
@@ -22,9 +21,9 @@ public class ParametrizedMerchant implements Merchant {
     private final long _decreaseHalfedMs = 90 * DAY;
 
     private MerchantDAO _merchantDao;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
-    public ParametrizedMerchant(LotroCardBlueprintLibrary library) {
+    public ParametrizedMerchant(CardBlueprintLibrary library) {
         _library = library;
     }
 

@@ -3,8 +3,9 @@ package com.gempukku.lotro.cards.build.field.effect.trigger;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.DiscardCardFromHandResult;
+import com.gempukku.lotro.effects.results.DiscardCardFromHandResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class DiscardFromHand implements TriggerCheckerProducer {
@@ -26,7 +27,7 @@ public class DiscardFromHand implements TriggerCheckerProducer {
             }
 
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 boolean result = TriggerConditions.forEachDiscardedFromHand(actionContext.getGame(), actionContext.getEffectResult(),
                         filterableSource.getFilterable(actionContext));
                 if (result && playerSource != null) {

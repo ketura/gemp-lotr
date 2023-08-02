@@ -1,6 +1,7 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -23,7 +24,7 @@ public class SoloDraftLeagueData implements LeagueData {
     private final LeaguePrizes _leaguePrizes;
     private final LeagueSerieData _serie;
 
-    public SoloDraftLeagueData(LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
+    public SoloDraftLeagueData(CardBlueprintLibrary library, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(library);
 
         String[] params = parameters.split(",");
@@ -59,12 +60,12 @@ public class SoloDraftLeagueData implements LeagueData {
         return Collections.singletonList(_serie);
     }
 
-    private long getSeed(Player player) {
+    private long getSeed(User player) {
         return _collectionType.getCode().hashCode() + player.getId() * HIGH_ENOUGH_PRIME_NUMBER;
     }
 
     @Override
-    public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
+    public CardCollection joinLeague(CollectionsManager collectionsManager, User player, int currentTime) {
         MutableCardCollection startingCollection = new DefaultCardCollection();
         long seed = getSeed(player);
 

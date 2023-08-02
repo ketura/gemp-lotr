@@ -2,15 +2,13 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.DiscardBottomCardFromDeckEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.DiscardBottomCardFromDeckEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -27,25 +25,25 @@ public class DiscardBottomCardFromDeck implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final String deckId = playerSource.getPlayer(actionContext);
                 final int count = countSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
-                final LotroGame game = actionContext.getGame();
+                final DefaultGame game = actionContext.getGame();
                 return game.getGameState().getDeck(deckId).size() >= count
                         && (!forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, actionContext.getPerformingPlayer(), actionContext.getSource()));
             }
 
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final String deckId = playerSource.getPlayer(actionContext);
                 final int count = countSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
                 return new DiscardBottomCardFromDeckEffect(actionContext.getSource(), deckId, count, forced) {
                     @Override
-                    protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                    protected void cardsDiscardedCallback(Collection<LotroPhysicalCard> cards) {
                         if (memorize != null)
                             actionContext.setCardMemory(memorize, cards);
                     }

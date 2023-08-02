@@ -1,15 +1,16 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.effects.results.WoundResult;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.WoundResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class TakesWound implements TriggerCheckerProducer {
@@ -32,7 +33,7 @@ public class TakesWound implements TriggerCheckerProducer {
             }
 
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final Filterable filterable = targetFilterable.getFilterable(actionContext);
                 final Filterable sourceFilterable = sourceFilter.getFilterable(actionContext);
                 final boolean result = TriggerConditions.forEachWounded(actionContext.getGame(), actionContext.getEffectResult(), filterable);
@@ -43,7 +44,7 @@ public class TakesWound implements TriggerCheckerProducer {
                     }
                 }
                 if (result && memorize != null) {
-                    final PhysicalCard woundedCard = ((WoundResult) actionContext.getEffectResult()).getWoundedCard();
+                    final LotroPhysicalCard woundedCard = ((WoundResult) actionContext.getEffectResult()).getWoundedCard();
                     actionContext.setCardMemory(memorize, woundedCard);
                 }
                 return result;

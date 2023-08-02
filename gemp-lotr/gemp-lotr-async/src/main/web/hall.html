@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>GEMP: LotR-TCG - Main Hall</title>
+<title>Star Trek CCG - Ten Forward</title>
 	<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	<link rel="manifest" href="images/icons/site.webmanifest">
-	
+
 	<meta property="og:title" content="GEMP: Play the LotR-TCG" />
 	<meta property="og:description" content="Play the Lord of the Rings TCG for free in your browser using GEMP.  No limits, no clean-up, and no budget.  Build your deck and play today!" />
 	<meta property="og:url" content="https://play.lotrtcgpc.net" />
@@ -37,8 +37,6 @@
 	<script type="text/javascript" src="js/gemp-022/cardFilter.js"></script>
 
 	<script type="text/javascript" src="js/gemp-022/jCardGroup.js"></script>
-	<script type="text/javascript" src="js/gemp-022/hobbit.js"></script>
-	<script type="text/javascript" src="js/gemp-022/set40.js"></script>
 	<script type="text/javascript" src="js/gemp-022/PC_Cards.js"></script>
 	<script type="text/javascript" src="js/gemp-022/jCards.js"></script>
 
@@ -48,11 +46,8 @@
 	<script type="text/javascript" src="js/gemp-022/statsUi.js"></script>
 	<script type="text/javascript" src="js/gemp-022/playerStatsUi.js"></script>
 	<script type="text/javascript" src="js/gemp-022/gameHistoryUi.js"></script>
-	<script type="text/javascript" src="js/gemp-022/deckBuildingUi.js"></script>
-	<script type="text/javascript" src="js/gemp-022/gameUi.js"></script>
 	<script type="text/javascript" src="js/gemp-022/gameAnimations.js"></script>
-	<script type="text/javascript" src="js/gemp-022/merchantUi.js"></script>
-	
+
 	<script type="text/javascript" src="js/lib/json2html/json2html.js"></script>
 
 	<audio id="gamestart" src="/gemp-lotr/src/assets/fanfare_x.mp3" type="audio/mpeg" preload="metadata"></audio>
@@ -76,9 +71,6 @@
 			</li>
 			<li>
 				<a href="includes/info.html" class="custom-icon icon-stats">Server Info</a>
-			</li>
-			<li>
-				<a href="includes/user.html" class="custom-icon icon-users">Users</a>
 			</li>
 			<li>
 				<a href="includes/account.html" class="custom-icon icon-account">My Account</a>
@@ -116,17 +108,12 @@
 						</button>
 					</a>
 					
-					<a href="https://wiki.lotrtcgpc.net" target="_blank">
+					<a href="https://www.trekcc.org" target="_blank">
 						<button id="wiki-button" class="toolbar-button">
-							<span class="custom-icon icon-wiki"></span><span>Browse the LOTR-TCG Wiki</span>
+							<span class="custom-icon icon-wiki"></span><span>TrekCC.org</span>
 						</button>
 					</a>
 					
-					<a href="merchant.html" target="_blank">
-						<button id="merchant-button" class="toolbar-button">
-							<span class="custom-icon icon-merchant"></span><span class="strikethrough">Merchant</span>
-						</button>
-					</a>
 					<!-- If you find any problems with specific card or rules in general, please report it on <a target='_blank' href='http://lotrtcgwiki.com/forums/index.php/topic,7592.0.html'>TLHH forum thread here</a> or on the <a href='https://lotrtcgpc.net/discord'>PC Discord here</a>, in the #gemp-dev channel. Please include a game replay link. -->
 				</div>
 				<div class="flex-horiz" id="messageArea">
@@ -138,13 +125,13 @@
 				<div id="tablesDiv">
 					<div id="waitingTablesHeader" class='eventHeader waitingTables'>Waiting Tables<span class='count'>(0)</span></div>
 					<div id="waitingTablesContent" class='visibilityToggle'>
-						<table class='tables waitingTables'>
+						<table class="tables waitingTables">
 							<tr>
-								<th width='20%'>Format</th>
-								<th width='40%'>Table Info</th>
-								<th width='10%'>Status</th>
-								<th width='20%'>Players</th>
-								<th width='10%'>Actions</th>
+								<th class="format">Format</th>
+								<th class="tableinfo">Table Info</th>
+								<th class="status">Status</th>
+								<th class="players">Players</th>
+								<th class="actions">Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -153,11 +140,11 @@
 					<div id="playingTablesContent" class='visibilityToggle'>
 						<table class='tables playingTables'>
 							<tr>
-								<th width='20%'>Format</th>
-								<th width='40%'>Table Info</th>
-								<th width='10%'>Status</th>
-								<th width='20%'>Players</th>
-								<th width='10%'>Actions</th>
+								<th class="format">Format</th>
+								<th class="tableinfo">Table Info</th>
+								<th class="status">Status</th>
+								<th class="players">Players</th>
+								<th class="actions">Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -166,11 +153,11 @@
 					<div id="finishedTablesContent" class='visibilityToggle'>
 						<table class='tables finishedTables'>
 							<tr>
-								<th width='20%'>Format</th>
-								<th width='40%'>Table Info</th>
-								<th width='10%'>Status</th>
-								<th width='20%'>Players</th>
-								<th width='10%'>Winner</th>
+								<th class="format">Format</th>
+								<th class="tableinfo">Table Info</th>
+								<th class="status">Status</th>
+								<th class="players">Players</th>
+								<th class="actions">Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -179,15 +166,15 @@
 					<div id="tournamentQueuesContent" class='visibilityToggle'>
 						<table class='tables queues'>
 							<tr>
-								<th width='10%'>Format</th>
-								<th width='8%'>Collection</th>
-								<th width='20%'>Queue name</th>
-								<th width='16%'>Starts</th>
-								<th width='10%'>System</th>
-								<th width='6%'>Players</th>
-								<th width='8%'>Cost</th>
-								<th width='12%'>Prizes</th>
-								<th width='10%'>Actions</th>
+								<th>Format</th>
+								<th>Collection</th>
+								<th>Queue name</th>
+								<th>Starts</th>
+								<th>System</th>
+								<th>Players</th>
+								<th>Cost</th>
+								<th>Prizes</th>
+								<th>Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -196,14 +183,14 @@
 					<div id="activeTournamentsContent" class='visibilityToggle'>
 						<table class='tables tournaments'>
 							<tr>
-								<th width='10%'>Format</th>
-								<th width='10%'>Collection</th>
-								<th width='25%'>Tournament name</th>
-								<th width='15%'>System</th>
-								<th width='10%'>Stage</th>
-								<th width='10%'>Round</th>
-								<th width='10%'>Players</th>
-								<th width='10%'>Actions</th>
+								<th>Format</th>
+								<th>Collection</th>
+								<th>Tournament name</th>
+								<th>System</th>
+								<th>Stage</th>
+								<th>Round</th>
+								<th>Players</th>
+								<th>Actions</th>
 							</tr>
 						</table>
 					</div>
@@ -224,8 +211,8 @@
 			</select>
 			<input id='tableDescInput' type='text' maxlength='100' placeHolder='Description (or player to invite)'>
 			<div class="checkboxes">
-				<label id="inviteCheckbox"><input type='checkbox' id='isInviteOnlyCheckbox'>Invite Only</input></label>
-				<label id="privateCheckbox"><input type='checkbox' id='isPrivateCheckbox'>Private</input></label>
+				<label id="inviteCheckbox"><input type='checkbox' id='isInviteOnlyCheckbox'>Invite Only</label>
+				<label id="privateCheckbox"><input type='checkbox' id='isPrivateCheckbox'>Private</label>
 			</div>
 			<button id="createTableBut">Create table</button>
 	</div>

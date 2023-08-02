@@ -1,6 +1,7 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.BestOfOneStandingsProducer;
 import com.gempukku.lotro.competitive.PlayerStanding;
@@ -12,8 +13,7 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class LeagueService {
     private final LeagueDAO _leagueDao;
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
     private final LotroFormatLibrary _formatLibrary;
 
     // Cached on this layer
@@ -41,7 +41,7 @@ public class LeagueService {
 
     public LeagueService(LeagueDAO leagueDao, LeagueMatchDAO leagueMatchDao,
                          LeagueParticipationDAO leagueParticipationDAO, CollectionsManager collectionsManager,
-                         LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions) {
+                         CardBlueprintLibrary library, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions) {
         _leagueDao = leagueDao;
         _cardLibrary = library;
         _formatLibrary = formatLibrary;
@@ -94,11 +94,11 @@ public class LeagueService {
         }
     }
 
-    public synchronized boolean isPlayerInLeague(League league, Player player) {
+    public synchronized boolean isPlayerInLeague(League league, User player) {
         return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
-    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr) throws SQLException, IOException {
+    public synchronized boolean playerJoinsLeague(League league, User player, String remoteAddr) throws SQLException, IOException {
         if (isPlayerInLeague(league, player))
             return false;
         int cost = league.getCost();

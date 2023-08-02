@@ -1,19 +1,17 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.logic.effects.StackCardFromDeckEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.effects.StackCardFromDeckEffect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -39,13 +37,13 @@ public class StackCardsFromDeck implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
             @Override
-            protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                final PhysicalCard card = actionContext.getCardFromMemory("_temp1");
+            protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
+                final LotroPhysicalCard card = actionContext.getCardFromMemory("_temp1");
                 if (card != null) {
-                    final Collection<? extends PhysicalCard> cardsInDeck = actionContext.getCardsFromMemory("_temp2");
+                    final Collection<? extends LotroPhysicalCard> cardsInDeck = actionContext.getCardsFromMemory("_temp2");
 
                     List<Effect> result = new LinkedList<>();
-                    for (PhysicalCard physicalCard : cardsInDeck) {
+                    for (LotroPhysicalCard physicalCard : cardsInDeck) {
                         result.add(new StackCardFromDeckEffect(physicalCard, card));
                     }
 
@@ -58,7 +56,7 @@ public class StackCardsFromDeck implements EffectAppenderProducer {
             result.addEffectAppender(
                     new DelayedAppender() {
                 @Override
-                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                     return new ShuffleDeckEffect(actionContext.getPerformingPlayer());
                 }
             });

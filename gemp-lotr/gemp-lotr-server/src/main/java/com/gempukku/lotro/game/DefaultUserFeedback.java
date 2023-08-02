@@ -1,8 +1,7 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.communication.UserFeedback;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
+import com.gempukku.lotro.gamestate.UserFeedback;
+import com.gempukku.lotro.decisions.AwaitingDecision;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +10,9 @@ import java.util.Set;
 public class DefaultUserFeedback implements UserFeedback {
     private final Map<String, AwaitingDecision> _awaitingDecisionMap = new HashMap<>();
 
-    private LotroGame _game;
+    private DefaultGame _game;
 
-    public void setGame(LotroGame game) {
+    public void setGame(DefaultGame game) {
         _game = game;
     }
 

@@ -1,0 +1,29 @@
+package com.gempukku.lotro.modifiers.condition;
+
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.effects.results.PlayCardResult;
+
+public class CardPlayedInCurrentTurnCondition implements Condition {
+    private final Filter filter;
+
+    public CardPlayedInCurrentTurnCondition(Filterable... filters) {
+        filter = Filters.and(filters);
+    }
+
+    @Override
+    public boolean isFullfilled(DefaultGame game) {
+        for (EffectResult effectResult : game.getActionsEnvironment().getTurnEffectResults()) {
+            if (effectResult instanceof PlayCardResult playResult) {
+                if (filter.accepts(game, playResult.getPlayedCard()))
+                    return true;
+            }
+        }
+
+        return false;
+
+    }
+}

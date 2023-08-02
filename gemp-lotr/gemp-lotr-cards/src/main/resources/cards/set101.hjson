@@ -1,0 +1,12 @@
+// Set 101: Premiere [1E]
+
+{
+    101_001: {
+        title: Betazoid Gift Box
+        type: artifact
+    },
+    101_002: {
+        title: Horga'hn
+        type: artifact
+    }
+}

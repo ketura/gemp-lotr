@@ -1,28 +1,19 @@
 package com.gempukku.lotro.cards.build;
 
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.EffectResult;
 
 import java.util.Collection;
 
-public class DelegateActionContext implements ActionContext {
-    private final ActionContext delegate;
+public class DelegateActionContext<AbstractGame extends DefaultGame> extends DefaultActionContext<AbstractGame> {
+    private final DefaultActionContext<AbstractGame> delegate;
 
-    private final String performingPlayer;
-    private final LotroGame game;
-    private final PhysicalCard source;
-    private final EffectResult effectResult;
-    private final Effect effect;
-
-    public DelegateActionContext(ActionContext delegate, String performingPlayer, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
+    public DelegateActionContext(DefaultActionContext<AbstractGame> delegate, String performingPlayer, AbstractGame game,
+                                 LotroPhysicalCard source, EffectResult effectResult, Effect effect) {
+        super(performingPlayer, game, source, effectResult, effect);
         this.delegate = delegate;
-        this.performingPlayer = performingPlayer;
-        this.game = game;
-        this.source = source;
-        this.effectResult = effectResult;
-        this.effect = effect;
     }
 
     @Override
@@ -36,47 +27,23 @@ public class DelegateActionContext implements ActionContext {
     }
 
     @Override
-    public void setCardMemory(String memory, PhysicalCard card) {
+    public void setCardMemory(String memory, LotroPhysicalCard card) {
         delegate.setCardMemory(memory, card);
     }
 
     @Override
-    public void setCardMemory(String memory, Collection<? extends PhysicalCard> cards) {
+    public void setCardMemory(String memory, Collection<? extends LotroPhysicalCard> cards) {
         delegate.setCardMemory(memory, cards);
     }
 
     @Override
-    public Collection<? extends PhysicalCard> getCardsFromMemory(String memory) {
+    public Collection<? extends LotroPhysicalCard> getCardsFromMemory(String memory) {
         return delegate.getCardsFromMemory(memory);
     }
 
     @Override
-    public PhysicalCard getCardFromMemory(String memory) {
+    public LotroPhysicalCard getCardFromMemory(String memory) {
         return delegate.getCardFromMemory(memory);
     }
 
-    @Override
-    public String getPerformingPlayer() {
-        return performingPlayer;
-    }
-
-    @Override
-    public LotroGame getGame() {
-        return game;
-    }
-
-    @Override
-    public PhysicalCard getSource() {
-        return source;
-    }
-
-    @Override
-    public EffectResult getEffectResult() {
-        return effectResult;
-    }
-
-    @Override
-    public Effect getEffect() {
-        return effect;
-    }
 }

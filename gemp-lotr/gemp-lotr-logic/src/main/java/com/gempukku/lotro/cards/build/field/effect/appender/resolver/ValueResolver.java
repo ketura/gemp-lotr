@@ -2,23 +2,24 @@ package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.evaluator.*;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.evaluator.*;
+import com.gempukku.lotro.modifiers.evaluator.lotronly.CountSpottableEvaluator;
+import com.gempukku.lotro.rules.lotronly.LotroGameUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
 
 public class ValueResolver {
-    public static ValueSource resolveEvaluator(Object value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static ValueSource<DefaultGame> resolveEvaluator(Object value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         return resolveEvaluator(value, null, environment);
     }
 
-    public static ValueSource resolveEvaluator(Object value, Integer defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static ValueSource<DefaultGame> resolveEvaluator(Object value, Integer defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (value == null && defaultValue == null)
             throw new InvalidCardDefinitionException("Value not defined");
         if (value == null)
@@ -32,19 +33,19 @@ public class ValueResolver {
                 final int max = Integer.parseInt(split[1]);
                 if (min > max || min < 0 || max < 1)
                     throw new InvalidCardDefinitionException("Unable to resolve count: " + value);
-                return new ValueSource() {
+                return new ValueSource<>() {
                     @Override
-                    public Evaluator getEvaluator(ActionContext actionContext) {
+                    public Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
                     }
 
                     @Override
-                    public int getMinimum(ActionContext actionContext) {
+                    public int getMinimum(DefaultActionContext<DefaultGame> actionContext) {
                         return min;
                     }
 
                     @Override
-                    public int getMaximum(ActionContext actionContext) {
+                    public int getMaximum(DefaultActionContext<DefaultGame> actionContext) {
                         return max;
                     }
                 };
@@ -59,19 +60,19 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "from", "to");
                 ValueSource fromValue = resolveEvaluator(object.get("from"), environment);
                 ValueSource toValue = resolveEvaluator(object.get("to"), environment);
-                return new ValueSource() {
+                return new ValueSource<>() {
                     @Override
-                    public Evaluator getEvaluator(ActionContext actionContext) {
+                    public Evaluator getEvaluator(DefaultActionContext<DefaultGame> actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
                     }
 
                     @Override
-                    public int getMinimum(ActionContext actionContext) {
+                    public int getMinimum(DefaultActionContext<DefaultGame> actionContext) {
                         return fromValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     }
 
                     @Override
-                    public int getMaximum(ActionContext actionContext) {
+                    public int getMaximum(DefaultActionContext<DefaultGame> actionContext) {
                         return toValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     }
                 };
@@ -99,7 +100,7 @@ public class ValueResolver {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (game, cardAffected) -> actionContext.getCardFromMemory(memory).getSiteNumber();
             } else if (type.equalsIgnoreCase("regionNumber")) {
-                return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
+                return (actionContext) -> (game, cardAffected) -> LotroGameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "limit");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
@@ -141,7 +142,7 @@ public class ValueResolver {
                             (game, cardAffected) -> {
                                 final Filterable filterable = filterableSource.getFilterable(actionContext);
                                 int wounds = 0;
-                                for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                                     wounds += actionContext.getGame().getGameState().getWounds(physicalCard);
                                 }
 
@@ -156,7 +157,7 @@ public class ValueResolver {
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return (actionContext) -> (game, cardAffected) -> {
                     int count = 0;
-                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterableSource.getFilterable(actionContext))) {
+                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterableSource.getFilterable(actionContext))) {
                         count += game.getModifiersQuerying().getKeywordCount(game, physicalCard, keyword);
                     }
                     return count;
@@ -169,10 +170,10 @@ public class ValueResolver {
                 if (keyword == null)
                     throw new InvalidCardDefinitionException("Keyword cannot be null");
                 return (actionContext) -> {
-                    final LotroGame game = actionContext.getGame();
+                    final DefaultGame game = actionContext.getGame();
                     int count = 0;
-                    final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
-                    for (PhysicalCard cardFromMemory : cardsFromMemory) {
+                    final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                    for (LotroPhysicalCard cardFromMemory : cardsFromMemory) {
                         count += game.getModifiersQuerying().getKeywordCount(game, cardFromMemory, keyword);
                     }
                     return new ConstantEvaluator(count);
@@ -215,13 +216,13 @@ public class ValueResolver {
                                         filterableSource.getFilterable(actionContext))));
             } else if (type.equalsIgnoreCase("forEachInDiscard")) {
                 FieldUtils.validateAllowedFields(object, "filter", "multiplier", "limit");
-                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new MultiplyEvaluator(multiplier, new Evaluator() {
                     @Override
-                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                    public int evaluateExpression(DefaultGame game, LotroPhysicalCard cardAffected) {
                         final Filterable filterable = filterableSource.getFilterable(actionContext);
                         int count = 0;
                         for (String player : game.getGameState().getPlayerOrder().getAllPlayers())
@@ -236,7 +237,7 @@ public class ValueResolver {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableCulturesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
+                    int spottable = LotroGameUtils.getSpottableCulturesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
                     int result = Math.max(0, spottable - over);
                     return new ConstantEvaluator(result);
                 };
@@ -246,7 +247,7 @@ public class ValueResolver {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableRacesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
+                    int spottable = LotroGameUtils.getSpottableRacesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
                     int result = Math.max(0, spottable - over);
                     return new ConstantEvaluator(result);
                 };
@@ -255,7 +256,7 @@ public class ValueResolver {
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableFPCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
+                    int spottable = LotroGameUtils.getSpottableFPCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
                     int result = Math.max(0, spottable - over);
                     result = Math.min(limit, result);
                     return new ConstantEvaluator(result);
@@ -265,7 +266,7 @@ public class ValueResolver {
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return actionContext -> {
-                    int spottable = GameUtils.getSpottableShadowCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
+                    int spottable = LotroGameUtils.getSpottableShadowCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
                     int result = Math.max(0, spottable - over);
                     result = Math.min(limit, result);
                     return new ConstantEvaluator(result);
@@ -327,7 +328,7 @@ public class ValueResolver {
                                 (game, cardAffected) -> {
                                     final Filterable filterable = vitalitySource.getFilterable(actionContext);
                                     int strength = 0;
-                                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                                         strength += game.getModifiersQuerying().getStrength(game, physicalCard);
                                     }
 
@@ -352,7 +353,7 @@ public class ValueResolver {
                                 (game, cardAffected) -> {
                                     final Filterable filterable = vitalitySource.getFilterable(actionContext);
                                     int vitality = 0;
-                                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                                         vitality += game.getModifiersQuerying().getVitality(game, physicalCard);
                                     }
 
@@ -364,9 +365,9 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
 
-                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                return actionContext -> (Evaluator<DefaultGame>) (game, cardAffected) -> {
                     int result = 0;
-                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                    for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         result += physicalCard.getBlueprint().getStrength();
                     }
                     return result;
@@ -375,9 +376,9 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
 
-                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                return actionContext -> (Evaluator<DefaultGame>) (game, cardAffected) -> {
                     int result = 0;
-                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                    for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         result += game.getModifiersQuerying().getStrength(game, physicalCard);
                     }
                     return result;
@@ -416,9 +417,9 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "multiplier", "memory");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
-                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                return actionContext -> (Evaluator<DefaultGame>) (game, cardAffected) -> {
                     int total = 0;
-                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                    for (LotroPhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         total += physicalCard.getBlueprint().getTwilightCost();
                     }
                     return multiplier * total;
@@ -469,7 +470,7 @@ public class ValueResolver {
                 return actionContext -> (game, cardAffected) -> {
                     int result = 0;
                     final Filterable filterable = filterableSource.getFilterable(actionContext);
-                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                    for (LotroPhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
                         result += game.getGameState().getTokenCount(physicalCard, tokenForCulture);
                     }
 

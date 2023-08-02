@@ -7,7 +7,7 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.service.LoggedUserHolder;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -48,7 +48,7 @@ public class LotroServerRequestHandler {
 
     protected final void processLoginReward(String loggedUser) throws Exception {
         if (loggedUser != null) {
-            Player player = _playerDao.getPlayer(loggedUser);
+            User player = _playerDao.getPlayer(loggedUser);
             synchronized (PlayerLock.getLock(player)) {
                 int currentDate = DateUtils.getCurrentDate();
                 int latestMonday = DateUtils.getMondayBeforeOrOn(currentDate);
@@ -90,7 +90,7 @@ public class LotroServerRequestHandler {
             headersToAdd.put("Delivery-Service-Package", "true");
     }
 
-    protected final Player getResourceOwnerSafely(HttpRequest request, String participantId) throws HttpProcessingException {
+    protected final User getResourceOwnerSafely(HttpRequest request, String participantId) throws HttpProcessingException {
         String loggedUser = getLoggedUser(request);
         if (isTest() && loggedUser == null)
             loggedUser = participantId;
@@ -98,12 +98,12 @@ public class LotroServerRequestHandler {
         if (loggedUser == null)
             throw new HttpProcessingException(401);
 
-        Player resourceOwner = _playerDao.getPlayer(loggedUser);
+        User resourceOwner = _playerDao.getPlayer(loggedUser);
 
         if (resourceOwner == null)
             throw new HttpProcessingException(401);
 
-        if (resourceOwner.hasType(Player.Type.ADMIN) && participantId != null && !participantId.equals("null") && !participantId.equals("")) {
+        if (resourceOwner.hasType(User.Type.ADMIN) && participantId != null && !participantId.equals("null") && !participantId.equals("")) {
             resourceOwner = _playerDao.getPlayer(participantId);
             if (resourceOwner == null)
                 throw new HttpProcessingException(401);
@@ -111,8 +111,8 @@ public class LotroServerRequestHandler {
         return resourceOwner;
     }
 
-    protected final Player getLibrarian() throws HttpProcessingException {
-        Player resourceOwner = _playerDao.getPlayer("Librarian");
+    protected final User getLibrarian() throws HttpProcessingException {
+        User resourceOwner = _playerDao.getPlayer("Librarian");
 
         if (resourceOwner == null)
             throw new HttpProcessingException(401);

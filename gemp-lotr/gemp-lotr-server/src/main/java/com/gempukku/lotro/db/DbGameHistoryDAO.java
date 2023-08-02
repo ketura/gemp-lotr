@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.common.DBDefs;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
@@ -65,7 +65,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         }
     }
 
-    public List<DBDefs.GameHistory> getGameHistoryForPlayer(Player player, int start, int count) {
+    public List<DBDefs.GameHistory> getGameHistoryForPlayer(User player, int start, int count) {
 
         try {
 
@@ -170,7 +170,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         }
     }
 
-    public int getGameHistoryForPlayerCount(Player player) {
+    public int getGameHistoryForPlayerCount(User player) {
         try {
 
             Sql2o db = new Sql2o(_dbAccess.getDataSource());
@@ -274,7 +274,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
     }
 
 
-    public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
+    public List<PlayerStatistic> getCasualPlayerStatistics(User player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(
@@ -325,7 +325,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         }
     }
 
-    public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
+    public List<PlayerStatistic> getCompetitivePlayerStatistics(User player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(

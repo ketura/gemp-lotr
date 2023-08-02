@@ -4,7 +4,7 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -49,7 +49,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
         if (start < 0 || count < 1 || count > 100)
             throw new HttpProcessingException(400);
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         final List<DBDefs.GameHistory> playerGameHistory = _gameHistoryService.getGameHistoryForPlayer(resourceOwner, start, count);
         int recordCount = _gameHistoryService.getGameHistoryForPlayerCount(resourceOwner);

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
+import com.gempukku.lotro.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.actions.lotronly.ActivateCardAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +21,7 @@ public class ExertEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().addWound(merry);

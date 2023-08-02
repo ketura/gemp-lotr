@@ -1,9 +1,10 @@
 package com.gempukku.lotro.merchant;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 import org.apache.commons.collections.map.LRUMap;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class MerchantService {
     private final CollectionType _permanentCollection = CollectionType.MY_CARDS;
     private final CollectionsManager _collectionsManager;
 
-    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager) {
+    public MerchantService(CardBlueprintLibrary library, CollectionsManager collectionsManager) {
         _collectionsManager = collectionsManager;
 
         _merchant = new RarityBasedMerchant(library);
@@ -105,7 +106,7 @@ public class MerchantService {
         return Collections.unmodifiableSet(_merchantableItems);
     }
 
-    public PriceGuarantee priceCards(Player player, Collection<CardItem> cardBlueprintIds) {
+    public PriceGuarantee priceCards(User player, Collection<CardItem> cardBlueprintIds) {
         Lock lock = _lock.readLock();
         lock.lock();
         try {
@@ -138,7 +139,7 @@ public class MerchantService {
         }
     }
 
-    public void merchantBuysCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
+    public void merchantBuysCard(User player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
         priceCards(player, Collections.singleton(new BasicCardItem(blueprintId)));
 
         Date currentTime = new Date();
@@ -163,7 +164,7 @@ public class MerchantService {
         }
     }
 
-    public void merchantSellsCard(Player player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
+    public void merchantSellsCard(User player, String blueprintId, int price) throws MerchantException, SQLException, IOException {
         priceCards(player, Collections.singleton(new BasicCardItem(blueprintId)));
 
         Date currentTime = new Date();
@@ -188,7 +189,7 @@ public class MerchantService {
         }
     }
 
-    public void tradeForFoil(Player player, String blueprintId) throws MerchantException, SQLException, IOException {
+    public void tradeForFoil(User player, String blueprintId) throws MerchantException, SQLException, IOException {
         if (!blueprintId.contains("_") || blueprintId.endsWith("*"))
             throw new MerchantException("Unable to trade in this type of item");
         Lock lock = _lock.writeLock();

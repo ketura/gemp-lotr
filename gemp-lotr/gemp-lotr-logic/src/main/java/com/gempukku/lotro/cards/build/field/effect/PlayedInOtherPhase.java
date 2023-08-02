@@ -1,9 +1,14 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
-import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.BuiltLotroCardBlueprint;
+import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 public class PlayedInOtherPhase implements EffectProcessor {
@@ -19,7 +24,7 @@ public class PlayedInOtherPhase implements EffectProcessor {
         blueprint.appendPlayInOtherPhaseCondition(
                 new Requirement() {
                     @Override
-                    public boolean accepts(ActionContext actionContext) {
+                    public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                         if (actionContext.getGame().getGameState().getCurrentPhase() != phase)
                             return false;
 

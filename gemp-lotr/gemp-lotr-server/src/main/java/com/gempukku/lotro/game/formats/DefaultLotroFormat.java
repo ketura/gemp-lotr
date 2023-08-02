@@ -1,9 +1,14 @@
 package com.gempukku.lotro.game.formats;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.adventure.Adventure;
+import com.gempukku.lotro.adventure.AdventureLibrary;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,7 +17,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     public static final String CardRemovedError = "Deck contains card removed from the set";
     private final Adventure _adventure;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final String _name;
     private final String _code;
     private final int _order;
@@ -40,7 +45,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private final List<String> _limit3Cards = new ArrayList<>();
     private final Map<String,String> _errataCardMap = new TreeMap<>();
 
-    public DefaultLotroFormat(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library, JSONDefs.Format def) throws InvalidPropertiesFormatException{
+    public DefaultLotroFormat(AdventureLibrary adventureLibrary, CardBlueprintLibrary library, JSONDefs.Format def) throws InvalidPropertiesFormatException{
         this(library, adventureLibrary.getAdventure(def.adventure), def.name, def.code, def.order, def.surveyUrl, SitesBlock.valueOf(def.sites),
                 def.validateShadowFPCount, def.minimumDeckSize, def.maximumSameName, def.mulliganRule, def.cancelRingBearerSkirmish,
                 def.ruleOfFour, def.winAtEndOfRegroup, def.discardPileIsPublic, def.winOnControlling5Sites, def.playtest, def.hall);
@@ -68,7 +73,7 @@ public class DefaultLotroFormat implements LotroFormat {
             def.errata.forEach(this::addCardErrata);
     }
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library,
+    public DefaultLotroFormat(CardBlueprintLibrary library,
                               Adventure adventure, String name, String code, int order, String surveyUrl,
                               SitesBlock siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
@@ -207,7 +212,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     @Override
     public int getHandSize() {
-        return 8;
+        return 7;
     }
 
     public void addBannedCard(String baseBlueprintId) {
@@ -350,18 +355,6 @@ public class DefaultLotroFormat implements LotroFormat {
         ArrayList<String> errataResult = new ArrayList<>();
         String valid = null;
 
-        // Ring-bearer
-        valid = validateRingBearer(deck);
-        if(valid != null && !valid.isEmpty()) {
-            result.add(valid);
-        }
-
-        // Ring
-        valid = validateRing(deck);
-        if(valid != null && !valid.isEmpty()) {
-            result.add(valid);
-        }
-
         // Deck
         valid = validateDeckStructure(deck);
         if(valid != null && !valid.isEmpty()) {
@@ -370,7 +363,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
         String prevLine = "";
         String newLine = "";
-        for (String card : deck.getAdventureCards()){
+        for (String card : deck.getDrawDeckCards()){
             newLine = validateCard(card);
             if(newLine == null || newLine.isEmpty())
                 continue;
@@ -393,10 +386,6 @@ public class DefaultLotroFormat implements LotroFormat {
         }
 
         // Sites
-        valid = validateSites(deck);
-        if(valid != null && !valid.isEmpty()) {
-            result.add(valid);
-        }
         valid = validateSitesStructure(deck);
         if(valid != null && !valid.isEmpty()) {
             result.add(valid);
@@ -413,7 +402,7 @@ public class DefaultLotroFormat implements LotroFormat {
         if (deck.getRingBearer() != null) {
             processCardCounts(deck.getRingBearer(), cardCountByName, cardCountByBaseBlueprintId);
         }
-        for (String blueprintId : deck.getAdventureCards())
+        for (String blueprintId : deck.getDrawDeckCards())
             processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
         for (String blueprintId : deck.getSites())
             processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
@@ -475,7 +464,7 @@ public class DefaultLotroFormat implements LotroFormat {
         if (deck.getRing() != null) {
             deckWithErrata.setRing(applyErrata(deck.getRing()));
         }
-        for (String card : deck.getAdventureCards()) {
+        for (String card : deck.getDrawDeckCards()) {
             deckWithErrata.addCard(applyErrata(card));
         }
         for (String site : deck.getSites()) {
@@ -509,13 +498,13 @@ public class DefaultLotroFormat implements LotroFormat {
 
     private String validateDeckStructure(LotroDeck deck) {
         String result = "";
-        if (deck.getAdventureCards().size() < _minimumDeckSize) {
-            result += "Deck contains below minimum number of cards: " + deck.getAdventureCards().size() + "<" + _minimumDeckSize + ".\n";
+        if (deck.getDrawDeckCards().size() < _minimumDeckSize) {
+            result += "Deck contains below minimum number of cards: " + deck.getDrawDeckCards().size() + "<" + _minimumDeckSize + ".\n";
         }
         if (_validateShadowFPCount) {
             int shadow = 0;
             int fp = 0;
-            for (String blueprintId : deck.getAdventureCards()) {
+            for (String blueprintId : deck.getDrawDeckCards()) {
                 try {
                     LotroCardBlueprint card = _library.getLotroCardBlueprint(blueprintId);
                     if (card.getSide() == Side.SHADOW)
@@ -593,100 +582,6 @@ public class DefaultLotroFormat implements LotroFormat {
         }
 
         return result;
-    }
-
-    private String validateSites(LotroDeck deck)  {
-        List<String> sites = deck.getSites();
-        String result = "";
-        if (sites == null)
-            return "Deck doesn't have sites";
-        if (sites.size() != 9) {
-            result += "Deck has " + sites.size() + " sites instead of 9.\n";
-        }
-        for (String site : sites) {
-            try {
-                LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-
-                if (siteBlueprint.getCardType() != CardType.SITE) {
-                    result += "Card assigned as Site is not really a site.\n";
-                }
-                else if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != SitesBlock.SPECIAL) {
-                    result += "Site does not match block: " + GameUtils.getFullName(siteBlueprint) + "\n";
-                }
-                else if (_siteBlock == SitesBlock.SPECIAL && siteBlueprint.getSiteBlock() == SitesBlock.SHADOWS) {
-                    result += "Post-Shadows site not allowed: " + GameUtils.getFullName(siteBlueprint) + "\n";
-                }
-                else {
-                    String valid = validateCard(site);
-                    if(valid != null && !valid.isEmpty()) {
-                        result += valid + "\n";
-                    }
-                }
-            }
-            catch(CardNotFoundException ex)
-            {
-                result += CardRemovedError + "\n";
-            }
-
-        }
-        if (_siteBlock == SitesBlock.SPECIAL) {
-            SitesBlock usedBlock = null;
-            for (String site : deck.getSites()) {
-                try {
-                    LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-                    SitesBlock block = siteBlueprint.getSiteBlock();
-                    if (usedBlock == null)
-                        usedBlock = block;
-                    else if (usedBlock != block) {
-                        result += "All your sites have to be from the same block.\n";
-                        break;
-                    }
-                }
-                catch(CardNotFoundException ex)
-                {
-                    result += CardRemovedError + "\n";
-                }
-            }
-        }
-
-        return result;
-    }
-
-    private String validateRing(LotroDeck deck) {
-        String ringbp = deck.getRing();
-        // No Ring needed for Hobbit
-        if (_siteBlock == SitesBlock.HOBBIT)
-            return null;
-        if (ringbp == null)
-            return "Deck doesn't have a One Ring";
-        try {
-            LotroCardBlueprint ring = _library.getLotroCardBlueprint(ringbp);
-            if (ring.getCardType() != CardType.THE_ONE_RING)
-                return "Card assigned as Ring is not The One Ring";
-        }
-        catch(CardNotFoundException exception)
-        {
-            return CardRemovedError + ": " + ringbp;
-        }
-
-        return validateCard(ringbp);
-    }
-
-    private String validateRingBearer(LotroDeck deck) {
-        String rb = deck.getRingBearer();
-        if (rb == null)
-            return "Deck doesn't have a Ring-bearer";
-        try{
-            LotroCardBlueprint ringBearer = _library.getLotroCardBlueprint(rb);
-            if (!ringBearer.hasKeyword(Keyword.CAN_START_WITH_RING))
-                return "Card assigned as Ring-bearer cannot bear the ring";
-        }
-        catch(CardNotFoundException exception)
-        {
-            return CardRemovedError + ": " + rb;
-        }
-
-        return validateCard(rb);
     }
 
     private void processCardCounts(String blueprintId, Map<String, Integer> cardCountByName, Map<String, Integer> cardCountByBaseBlueprintId)  {

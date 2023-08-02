@@ -1,10 +1,10 @@
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -30,7 +30,8 @@ public class CreateCardStubs {
 
         File path = new File(projectRoot + "/gemp-lotr-async/src/main/web/cards-stub");
 
-        int[] sets = {2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 17, 18, 31};
+//        int[] sets = {2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 17, 18, 31};
+        int[] sets = {2, 3, 4, 5};
         for (int set : sets) {
             produceForSet(path, set);
         }
@@ -39,7 +40,7 @@ public class CreateCardStubs {
     private static void produceForSet(File root, int set) {
         File setPath = new File(root, "set" + set);
 
-        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+        CardBlueprintLibrary library = new CardBlueprintLibrary();
         Map<String, Map<String, LotroCardBlueprint>> cardsByFileName = new HashMap<>();
 
         SetDefinition setDefinition = library.getSetDefinitions().get("" + set);

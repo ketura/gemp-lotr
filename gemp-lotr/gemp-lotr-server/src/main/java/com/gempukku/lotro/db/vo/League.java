@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db.vo;
 
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.*;
 
@@ -35,7 +35,7 @@ public class League {
         return _type;
     }
 
-    public synchronized LeagueData getLeagueData(LotroCardBlueprintLibrary bpLibrary, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions) {
+    public synchronized LeagueData getLeagueData(CardBlueprintLibrary bpLibrary, LotroFormatLibrary formatLibrary, SoloDraftDefinitions soloDraftDefinitions) {
         if (_leagueData == null) {
             try {
                 Class<?> aClass = Class.forName(_clazz);

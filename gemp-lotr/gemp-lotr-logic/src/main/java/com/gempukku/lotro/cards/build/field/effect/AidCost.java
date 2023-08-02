@@ -1,9 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
-import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.cards.BuiltLotroCardBlueprint;
+import com.gempukku.lotro.cards.build.AidCostSource;
+import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.cards.build.field.effect.appender.EffectAppender;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 public class AidCost implements EffectProcessor {
@@ -18,7 +24,7 @@ public class AidCost implements EffectProcessor {
         blueprint.setAidCostSource(
                 new AidCostSource() {
                     @Override
-                    public boolean canPayAidCost(DefaultActionContext actionContext) {
+                    public boolean canPayAidCost(DefaultActionContext<DefaultGame> actionContext) {
                         for (EffectAppender costAppender : costAppenders) {
                             if (!costAppender.isPlayableInFull(actionContext))
                                 return false;

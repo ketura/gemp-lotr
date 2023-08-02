@@ -3,6 +3,9 @@ package com.gempukku.lotro.async.handler;
 import com.alibaba.fastjson.JSON;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.DeckDAO;
@@ -10,8 +13,8 @@ import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.SealedLeagueDefinition;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -34,7 +37,7 @@ import java.util.stream.Collectors;
 public class DeckRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final DeckDAO _deckDao;
     private final SortAndFilterCards _sortAndFilterCards;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
     private final SoloDraftDefinitions _draftLibrary;
     private final LotroServer _lotroServer;
@@ -45,7 +48,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         super(context);
         _deckDao = extractObject(context, DeckDAO.class);
         _sortAndFilterCards = new SortAndFilterCards();
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _lotroServer = extractObject(context, LotroServer.class);
         _draftLibrary = extractObject(context, SoloDraftDefinitions.class);
@@ -139,7 +142,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
             int fpCount = 0;
             int shadowCount = 0;
-            for (String card : deck.getAdventureCards()) {
+            for (String card : deck.getDrawDeckCards()) {
                 Side side = _library.getLotroCardBlueprint(card).getSide();
                 if (side == Side.SHADOW)
                     shadowCount++;
@@ -192,7 +195,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         try {
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String deckName = getFormParameterSafely(postDecoder, "deckName");
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
 
@@ -209,7 +212,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             String deckName = getFormParameterSafely(postDecoder, "deckName");
             String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             LotroDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
             if (deck == null)
@@ -230,7 +233,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             String notes = getFormParameterSafely(postDecoder, "notes");
             String contents = getFormParameterSafely(postDecoder, "deckContents");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             LotroFormat validatedFormat = validateFormat(targetFormat);
 
@@ -257,7 +260,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         String code = resourceOwner.getName() + "|" + deckName;
 
@@ -273,7 +276,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
         String shareCode = getQueryParameterSafely(queryDecoder, "id");
 
-        Player resourceOwner;
+        User resourceOwner;
         LotroDeck deck;
 
         if (shareCode != null)
@@ -368,7 +371,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             result.append("<b>Ring:</b> " + generateCardTooltip(_library.getLotroCardBlueprint(ring), ring) + "<br/>");
 
         DefaultCardCollection deckCards = new DefaultCardCollection();
-        for (String card : deck.getAdventureCards())
+        for (String card : deck.getDrawDeckCards())
             deckCards.addItem(_library.getBaseBlueprintId(card), 1);
         for (String site : deck.getSites())
             deckCards.addItem(_library.getBaseBlueprintId(site), 1);
@@ -435,7 +438,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         responseWriter.writeXmlResponse(serializeDeck(resourceOwner, deckName));
     }
@@ -451,7 +454,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         List<Map.Entry<LotroFormat, String>> decks = GetDeckNamesAndFormats(resourceOwner);
         SortDecks(decks);
@@ -476,7 +479,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         return doc;
     }
 
-    private List<Map.Entry<LotroFormat, String>> GetDeckNamesAndFormats(Player player)
+    private List<Map.Entry<LotroFormat, String>> GetDeckNamesAndFormats(User player)
     {
         Set<Map.Entry<String, String>> names = new HashSet(_deckDao.getPlayerDeckNames(player));
 
@@ -519,7 +522,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         responseWriter.writeXmlResponse(doc);
     }
 
-    private Document serializeDeck(Player player, String deckName) throws ParserConfigurationException {
+    private Document serializeDeck(User player, String deckName) throws ParserConfigurationException {
         LotroDeck deck = _deckDao.getDeckForPlayer(player, deckName);
 
         return serializeDeck(deck);
@@ -582,7 +585,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             deckElem.appendChild(site);
         }
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, _formatLibrary)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getDrawDeckCards()), _library, _formatLibrary)) {
             Element card = doc.createElement("card");
             String side;
             try {

@@ -1,4 +1,4 @@
-var GempLotrGameUI = Class.extend({
+var TribblesGameUI = Class.extend({
     padding: 5,
 
     bottomPlayerId: null,
@@ -18,11 +18,11 @@ var GempLotrGameUI = Class.extend({
     infoDialog: null,
 
     advPathGroup: null,
-    supportOpponent: null,
+    playPileOpponent: null,
     charactersOpponent: null,
     shadow: null,
     charactersPlayer: null,
-    supportPlayer: null,
+    playPilePlayer: null,
     hand: null,
     specialGroup: null,
 
@@ -30,8 +30,6 @@ var GempLotrGameUI = Class.extend({
     discardPileGroups: null,
     adventureDeckDialogs: null,
     adventureDeckGroups: null,
-    deadPileDialogs: null,
-    deadPileGroups: null,
     removedPileDialogs: null,
     removedPileGroups: null,
     miscPileDialogs: null,
@@ -97,14 +95,6 @@ var GempLotrGameUI = Class.extend({
                 }
             });
         
-        // window.onbeforeunload = function(event) {
-        //     var e = e || window.event;
-        //     if (e) {
-        //         e.returnValue = "If you are done with this game, please go to the 'Options' tab and click the 'Concede Game' button first.";
-        //     }
-        //     return message;
-        // };
-
         $.expr[':'].cardId = function (obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
             var cardData = $(obj).data("card");
@@ -148,8 +138,6 @@ var GempLotrGameUI = Class.extend({
         this.discardPileGroups = {};
         this.adventureDeckDialogs = {};
         this.adventureDeckGroups = {};
-        this.deadPileDialogs = {};
-        this.deadPileGroups = {};
         this.removedPileDialogs = {};
         this.removedPileGroups = {};
         this.miscPileDialogs = {};
@@ -174,11 +162,11 @@ var GempLotrGameUI = Class.extend({
         if (this.charactersOpponent.cardBelongs(cardData)) {
             return this.charactersOpponent;
         }
-        if (this.supportPlayer.cardBelongs(cardData)) {
-            return this.supportPlayer;
+        if (this.playPilePlayer.cardBelongs(cardData)) {
+            return this.playPilePlayer;
         }
-        if (this.supportOpponent.cardBelongs(cardData)) {
-            return this.supportOpponent;
+        if (this.playPileOpponent.cardBelongs(cardData)) {
+            return this.playPileOpponent;
         }
         if (this.hand != null)
             if (this.hand.cardBelongs(cardData)) {
@@ -188,6 +176,7 @@ var GempLotrGameUI = Class.extend({
             return this.shadow;
         }
 
+        // REMOVE THIS
         if (this.skirmishFellowshipGroup.cardBelongs(cardData)) {
             return this.skirmishFellowshipGroup;
         }
@@ -205,6 +194,7 @@ var GempLotrGameUI = Class.extend({
                 }
             }
         }
+        // REMOVE ABOVE
 
         return null;
     },
@@ -223,12 +213,12 @@ var GempLotrGameUI = Class.extend({
             this.charactersOpponent.layoutCards();
             return;
         }
-        if (this.supportPlayer.cardBelongs(cardData)) {
-            this.supportPlayer.layoutCards();
+        if (this.playPilePlayer.cardBelongs(cardData)) {
+            this.playPilePlayer.layoutCards();
             return;
         }
-        if (this.supportOpponent.cardBelongs(cardData)) {
-            this.supportOpponent.layoutCards();
+        if (this.playPileOpponent.cardBelongs(cardData)) {
+            this.playPileOpponent.layoutCards();
             return;
         }
         if (this.hand != null)
@@ -271,8 +261,8 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
-        this.supportOpponent = new NormalCardGroup($("#main"), function (card) {
-            return (card.zone == "SUPPORT" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+        this.playPileOpponent = new StackedCardGroup($("#main"), function (card) {
+            return (card.zone == "PLAY_PILE" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         this.charactersOpponent = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner != that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
@@ -283,8 +273,8 @@ var GempLotrGameUI = Class.extend({
         this.charactersPlayer = new NormalCardGroup($("#main"), function (card) {
             return (card.zone == "FREE_CHARACTERS" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
-        this.supportPlayer = new NormalCardGroup($("#main"), function (card) {
-            return (card.zone == "SUPPORT" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
+        this.playPilePlayer = new StackedCardGroup($("#main"), function (card) {
+            return (card.zone == "PLAY_PILE" && card.owner == that.bottomPlayerId && that.shadowAssignGroups[card.cardId] == null && card.skirmish == null);
         });
         if (!this.spectatorMode) {
             this.hand = new NormalCardGroup($("#main"), function (card) {
@@ -301,12 +291,24 @@ var GempLotrGameUI = Class.extend({
         this.gameStateElem.css({"border-radius": "7px"});
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            this.gameStateElem.append("<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
-                + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div><div id='adventureDeck" + i + "' class='adventureDeckSize'></div><div id='removedPile" + i + "' class='removedPileSize'></div></div></div>");
+            this.gameStateElem.append(
+                "<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] +
+                "<div id='clock" + i + "' class='clock'></div>" +
+                "<div class='playerStats'>" +
+                    "<div id='deck" + i + "' class='deckSize'></div>" +
+                    "<div id='hand" + i + "' class='handSize'></div>" +
+//                    "<div id='threats" + i + "' class='threatsSize'></div>" +
+                    "<div id='discard" + i + "' class='discardSize'></div>" +
+                    "<div id='score" + i + "' class='playerScore'></div>" +
+//                    "<div id='showStats" + i + "' class='showStats'></div>" +
+//                    "<div id='adventureDeck" + i + "' class='adventureDeckSize'></div>" +
+//                    "<div id='removedPile" + i + "' class='removedPileSize'>" +
+                "</div></div></div>");
         }
 
-        this.gameStateElem.append("<div class='twilightPool'>0</div>");
-        this.gameStateElem.append("<div class='phase'></div>");
+//        this.gameStateElem.append("<div class='twilightPool'>0</div>");
+        this.gameStateElem.append("<div class='tribbleSequence'>1</div>");
+//        this.gameStateElem.append("<div class='phase'></div>");
 
         $("#main").append(this.gameStateElem);
 
@@ -319,14 +321,12 @@ var GempLotrGameUI = Class.extend({
                                 if (index == playerIndex) {
                                     if ($(this).hasClass("opened")) {
                                         $(this).removeClass("opened").css({width: 150 - that.padding});
-                                        $("#discard" + playerIndex).css({display: "none"});
-                                        $("#deadPile" + playerIndex).css({display: "none"});
+//                                        $("#discard" + playerIndex).css({display: "none"});
                                         $("#adventureDeck" + playerIndex).css({display: "none"});
                                         $("#removedPile" + playerIndex).css({display: "none"});
                                     } else {
                                         $(this).addClass("opened").css({width: 150 - that.padding + 168});
-                                        $("#discard" + playerIndex).css({display: "table-cell"});
-                                        $("#deadPile" + playerIndex).css({display: "table-cell"});
+//                                        $("#discard" + playerIndex).css({display: "table-cell"});
                                         $("#adventureDeck" + playerIndex).css({display: "table-cell"});
                                         $("#removedPile" + playerIndex).css({display: "table-cell"});
                                     }
@@ -364,17 +364,6 @@ var GempLotrGameUI = Class.extend({
         }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
-            $("#deadPile" + i).addClass("clickable").click(
-                (function (index) {
-                    return function () {
-                        var dialog = that.deadPileDialogs[that.allPlayerIds[index]];
-                        var group = that.deadPileGroups[that.allPlayerIds[index]];
-                        openSizeDialog(dialog);
-                        that.dialogResize(dialog, group);
-                        group.layoutCards();
-                    };
-                })(i));
-            
             $("#removedPile" + i).addClass("clickable").click(
                 (function (index) {
                     return function () {
@@ -911,12 +900,18 @@ var GempLotrGameUI = Class.extend({
                 height: 30
             });
 
-            this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
-            this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
-
-            this.charactersOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 2 + yScales[1] * heightPerScale, currentPlayerTurn ? charsWidth : charsWidthWithAssignments, heightScales[1] * heightPerScale);
-            this.shadow.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 3 + yScales[2] * heightPerScale, charsWidthWithAssignments, heightScales[2] * heightPerScale);
-            this.charactersPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 4 + yScales[3] * heightPerScale, currentPlayerTurn ? charsWidthWithAssignments : charsWidth, heightScales[3] * heightPerScale);
+            this.playPileOpponent.setBounds(
+                advPathWidth + specialUiWidth + (padding * 2),
+                padding + yScales[0] * heightPerScale,
+                (width - (advPathWidth + specialUiWidth + padding * 3)) / 1.5,
+                heightScales[0] * heightPerScale * 2.5
+            );
+            this.playPilePlayer.setBounds(
+                advPathWidth + specialUiWidth + (padding * 2),
+                padding * 5 + yScales[3] * heightPerScale,
+                (width - (advPathWidth + specialUiWidth + padding * 3)) / 1.5,
+                heightScales[0] * heightPerScale * 2.5
+            );
 
             var i = 0;
 
@@ -1034,15 +1029,14 @@ var GempLotrGameUI = Class.extend({
                 }
             }
 
-            this.supportPlayer.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 5 + yScales[4] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[4] * heightPerScale);
             if (!this.spectatorMode)
                 this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
 
             this.gameStateElem.css({
                 position: "absolute",
-                left: padding * 2 + advPathWidth,
+                left: padding * 2, // + advPathWidth,
                 top: padding,
-                width: specialUiWidth - padding,
+                width: specialUiWidth - padding + 75,
                 height: height - padding * 4 - alertHeight - chatHeight
             });
             this.alertBox.css({
@@ -1062,10 +1056,6 @@ var GempLotrGameUI = Class.extend({
                 if (this.adventureDeckGroups.hasOwnProperty(playerId))
                     this.adventureDeckGroups[playerId].layoutCards();
 
-            for (var playerId in this.deadPileGroups)
-                if (this.deadPileGroups.hasOwnProperty(playerId))
-                    this.deadPileGroups[playerId].layoutCards();
-                
             for (var playerId in this.removedPileGroups)
                 if (this.removedPileGroups.hasOwnProperty(playerId))
                     this.removedPileGroups[playerId].layoutCards();
@@ -1298,7 +1288,12 @@ var GempLotrGameUI = Class.extend({
             this.animations.cardActivated(gameEvent, animate);
         } else if (eventType == "D") {
             this.animations.processDecision(gameEvent, animate);
-        } else if (eventType == "EG") {
+        } else if (eventType = "TSEQ") {
+            this.animations.tribbleSequence(gameEvent, animate);
+        } else if (eventType = "PLAYER_SCORE") {
+            this.animations.playerScore(gameEvent, animate);
+        }
+        else if (eventType == "EG") {
             this.processGameEnd();
         }
     },
@@ -1401,8 +1396,8 @@ var GempLotrGameUI = Class.extend({
         this.advPathGroup.layoutCards();
         this.charactersPlayer.layoutCards();
         this.charactersOpponent.layoutCards();
-        this.supportPlayer.layoutCards();
-        this.supportOpponent.layoutCards();
+        this.playPilePlayer.layoutCards();
+        this.playPileOpponent.layoutCards();
         if (!this.spectatorMode)
             this.hand.layoutCards();
         this.shadow.layoutCards();
@@ -1446,7 +1441,6 @@ var GempLotrGameUI = Class.extend({
             
             participantId = this.allPlayerIds[i];
             
-            this.createPile(participantId, "Dead Pile", "deadPileDialogs", "deadPileGroups");
             this.createPile(participantId, "'Removed From Game' Pile", "removedPileDialogs", "removedPileGroups");
             
             if(discardPublic) {

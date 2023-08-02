@@ -3,14 +3,16 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.PlayUtils;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.rules.lotronly.LotroPlayUtils;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.ModifierEffect;
+import com.gempukku.lotro.actions.Action;
 import org.json.simple.JSONObject;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -30,15 +32,15 @@ public class CanPlayStackedCards implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new AbstractModifier(actionContext.getSource(), null,
                         Filters.and(filterableSource.getFilterable(actionContext), Filters.stackedOn(onFilterableSource.getFilterable(actionContext))),
                         new RequirementCondition(requirements, actionContext), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override
-                    public List<? extends Action> getExtraPhaseActionFromStacked(LotroGame game, PhysicalCard card) {
-                        if (PlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, false))
+                    public List<? extends Action> getExtraPhaseActionFromStacked(DefaultGame game, LotroPhysicalCard card) {
+                        if (LotroPlayUtils.checkPlayRequirements(game, card, Filters.any, 0, 0, false, false, false))
                             return Collections.singletonList(
-                                    PlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
+                                    LotroPlayUtils.getPlayCardAction(game, card, 0, Filters.any, false));
                         return null;
                     }
                 };

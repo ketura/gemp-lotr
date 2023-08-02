@@ -1,0 +1,744 @@
+html, body {
+	display: flex;
+	padding-block: 5px;
+	background-color: #000;
+	font-family: 'Antonio', 'Arial Narrow', 'Avenir Next Condensed', sans-serif;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #c7f;
+}
+
+.flex-horiz {
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
+}
+
+.flex-vert {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+a:visited {
+	color: #A63F03;
+}
+
+.custom-icon {
+	display:inline-block;
+}
+
+/* Scrollbar styles for Firefox*/
+div {
+	scrollbar-color: #66666666 #222222AA;
+	scrollbar-width:  auto;
+}
+
+/* Scrollbar styles for Chrome/Safari */
+::-webkit-scrollbar-track {
+	background-color: #66666666;
+}
+
+::-webkit-scrollbar-button {
+	background-color: #222222AA;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #88888888;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #222222AA;
+}
+
+::-webkit-scrollbar-corner {
+	background-color: #222222AA;
+}
+
+::-webkit-resizer {
+	background-color: #222222AA;
+}
+
+/* Turn on a 16x16 scrollbar */
+::-webkit-scrollbar {
+	width: 16px;
+	height: 16px;
+}
+
+/* Turn on single button up on top, and down on bottom */
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+	display: block;
+}
+
+/* Turn off the down area up on top, and up area on bottom */
+::-webkit-scrollbar-button:vertical:start:increment,
+::-webkit-scrollbar-button:vertical:end:decrement {
+	display: none;
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:vertical:end:increment {
+	background-image: url(../ui/scroll-button-down.png);
+}
+
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:vertical:start:decrement {
+	background-image: url(../ui/scroll-button-up.png);
+}
+
+/* Place The scroll down button at the bottom */
+::-webkit-scrollbar-button:horizontal:end:increment {
+	background-image: url(../ui/scroll-button-right.png);
+}
+
+/* Place The scroll up button at the up */
+::-webkit-scrollbar-button:horizontal:start:decrement {
+	background-image: url(../ui/scroll-button-left.png);
+}
+
+
+textarea, input, select {
+	color: #ffffff;
+	background-color: #222222;
+}
+
+select {
+	border-color: #888888 #666666 #666666 #888888;
+	border-radius: 8px;
+	padding: 3px;
+}
+
+select:hover {
+	background-color: #444444;
+}
+ 
+textarea, input {
+	border-color: #666666 #888888 #888888 #666666;
+	margin: 2px;
+}
+
+button {
+	white-space: nowrap;
+}
+
+.toolbar-button {
+	padding: .4em .8em;
+}
+
+#main {
+	height: 100%;
+	min-height: 100%;
+	max-height: 100%;
+	width: 100%;
+	max-width: 1400px;
+	display: flex;
+	flex-direction: column;
+	margin-left: auto;
+	margin-right: auto;
+/*	overflow-x: hidden;*/
+	border: none;
+	padding: 0;
+}
+
+#tabs{
+	position: sticky;
+}
+
+#serverInfo {
+	align-items:stretch;
+	overflow: visible;
+	flex-shrink: 1;
+	
+	padding: 7px;
+	position: sticky;
+	top: -14px;
+	background: #7c3004;
+	background: linear-gradient(to top, #333333, #111111 40%, #111111);
+	border-radius:  6px;
+	border-color: #bf8a4a;
+	border-style: none none solid none;
+	z-index: 100;
+}
+
+/*#culture-icon {
+	position: relative;
+	display: block;
+	width: 80%;
+	height: 80%;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	z-index:  1;
+	filter: invert(10%) sepia(12%) saturate(5075%) hue-rotate(332deg) brightness(120%) contrast(108%) 
+		drop-shadow(0 -10px 0 #FFFFFF88) drop-shadow(0 10px 0 #00000088);
+	opacity: 0.3;
+}*/
+
+.cultureHint {
+	position:relative;
+	top: 4px;
+}
+
+#gameHall {
+	overflow-y: scroll;
+	width: calc(100% );
+}
+
+#gameHallMain {
+	flex-direction: column;
+	width: 100%;
+}
+
+#hall {
+	flex-grow: 3;
+}
+
+.hall-tab {
+	background: linear-gradient(to top, #200902, #111111 80%) !important;
+	width: calc(100% - 0.4em);
+	height: 100%;
+	overflow-x: hidden;
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
+	flex-grow: 3;
+	gap: 5px;
+}
+
+#buttonsDiv a,
+#motd a,
+#infoButtons a,
+.msg-content p a {
+	color: #BF6B04;
+}
+
+#infoButtons {
+	flex-wrap: wrap;
+	
+}
+
+#motd {
+	color: #ffffff;
+	margin: 5px;
+	flex-grow: 1;
+}
+
+.serverTime {
+	/*border: 1px solid #aaaaaa;*/
+	text-align: right;
+	padding: 5px;
+	color: #FFFF00;
+	min-width: 32ch;
+}
+
+#tablesDiv {
+	overflow-y: auto;
+	overflow-x: hidden;
+	border-style: none;
+}
+
+table.tables {
+	width: calc(100% - 20px);
+	border-collapse: collapse;
+	margin-left: 10px;
+	margin-right: 10px;
+	background-color: #121212;
+}
+
+table.tables td {
+	padding: 2px;
+	border: 2px solid #444444;
+}
+
+table.tables th {
+	padding: 4px;
+	background-color: #333333;
+	margin: 2px;
+}
+
+td button {
+	width: calc(100% - 6px);
+	margin: 3px;
+}
+
+.ui-tabs-nav li {
+}
+
+table.tables tr.played {
+	background-color: #590902;
+}
+
+table.tables tr.privateForPlayer {
+	background-color: #A63F03;
+}
+
+.eventHeader {
+	display: flex;
+	position: relative;
+	margin: 32px 0;
+	overflow: visible;
+	border-radius: 14px;
+	height: 32px;
+	background-color: #ffaa90;
+	border-right: 28px solid #dbf;
+	border-left: 28px solid #d44;
+}
+
+.eventHeader span {
+	position: absolute;
+	top: -4px;
+	background-color: #000;
+	height: 40px;
+	overflow: visible;
+	padding-inline: 10px;
+	font-size: 1.4rem;
+	line-height: 1.4rem;
+	text-transform: uppercase;
+	color: inherit; /* fa4 90bcff #90b1f4; #a2bef6 */ 
+}
+
+.eventHeader::before {
+	content: '';
+	background-color: #000;
+	display: block;
+	width: 10px;
+	height: 32px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.eventHeader::after {
+	content: '';
+	background-color: #000;
+	display: block;
+	width: 10px;
+	height: 32px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	overflow: hidden;
+}
+
+.tableFormatName {
+	text-align: center;
+	font-weight: bold;
+	font-size: 100%;
+}
+
+.tableStatus {
+	text-align: center;
+	font-style: italic;
+	font-size: 100%;
+}
+
+.tablePlayer {
+	text-align: center;
+}
+
+.winningPlayer {
+	font-weight: bold;
+	font-size: 110%;
+}
+
+.losingPlayer {
+	font-size: 80%;
+}
+
+.leagueName, #stats .period, .tournamentName, .playerStatHeader {
+	font-size: 200%;
+	font-weight: bolder;
+}
+
+.serieName {
+	font-size: 150%;
+	font-weight: bolder;
+}
+
+#buttonsDiv {
+	left:0px; 
+	top: 0px;
+	height: 40px;
+	background-color:#333333; 
+	border-top-width:1px; 
+	border-top-color:#aaaaaa; 
+	border-top-style:solid;
+	align-items: center;
+	gap: 4px;
+	padding: 5px;
+}
+
+#supportedFormatsSelect {
+	min-width: 150px;
+}
+
+#decksSelect {
+	min-width: 220px; 
+	flex-grow:2;
+}
+
+.checkboxes {
+	display: grid;
+	min-width: max-content;
+}
+
+#tableDescInput {
+	min-width: 150px; 
+	flex-grow: 1;
+}
+
+#createTableBut {
+	min-width: 100px;
+}
+
+#chat {
+/*	grid-template-columns: auto 150px;*/
+	position:relative;
+	width:100%;
+	/*min-height: 30px;*/
+	height: 300px;
+	grid-gap: 3px;
+	overflow: hidden;
+	background-color: #121212;
+	/*top: 0 !important;*/
+	padding-top: 5px;
+	align-self: flex-end;
+	flex-shrink: 0;
+}
+
+#chat[style] {
+	top:  0 !important;
+}
+
+.ui-resizable-handle {
+	background-color: #777777;
+	height: 7px;
+	top: -1px;
+}
+
+.ui-resizable-handle::after {
+  content: '';
+  width: 10%;
+  height: 10px;
+  background: #999999;
+  position: absolute;
+  bottom: -2px;
+  left: 45%;
+}
+
+#chatarea {
+	position:relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#discordChat {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+#widgetbot {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#legacyChat {
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+}
+
+#chatMessages {
+	height: 100%;
+	max-height: 100%;
+	overflow-y: scroll;
+	flex-shrink: 1;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #222222;
+	padding: 2px;
+}
+.message {
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
+	align-items:  flex-start;
+}
+
+.systemMessage {
+	color: #5f5f5f;
+}
+
+.user-mention.systemMessage {
+	color: #FFFFFF;
+}
+
+.warningMessage {
+	color: #ff0000;
+}
+
+.chatMessage {
+	color: #dddddd;
+}
+
+.chatMessage h1, 
+.chatMessage h2, 
+.chatMessage h3, 
+.chatMessage h4, 
+.chatMessage h5,
+.chatMessage h6 {
+	display:  inline;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.chatMessage p {
+	margin-top: 0;
+	margin-bottom: 0; 
+}
+
+.chatMessage blockquote {
+	display:  inline-block;
+	border-left: 5px solid #505050;
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+	font-style:  italic;
+}
+/*.chatMessage blockquote br {
+	line-height: 0px;
+	margin: 0px;
+	content: "";
+}*/
+
+.user-mention {
+	background-color: #FFFF0044;
+}
+
+.user-ping {
+	background-color: #FF000044;
+}
+
+.msg-identifier {
+	min-width: fit-content;
+	display: flex;
+	gap: 4px;
+	margin: 1px;
+}
+
+.systemMessage > .timestamp {
+	display: inline;
+	color: #5f5f5f;
+}
+
+.timestamp {
+	color: #cfcfcf;
+}
+
+.chatUser {
+	color: #ffffff;
+}
+
+.msg-content p {
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-bottom: 7px;
+}
+
+.msg-content {
+	flex-grow:  10;
+}
+
+#userListColumn {
+	min-width: fit-content;
+	max-width: 15em;
+}
+
+#userList {
+	flex-grow: 1;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border-left: 1px solid #999999;
+	padding: 5px;
+}
+
+#toggleChatButt {
+	padding: 4px;
+	margin: 3px;
+}
+
+.userList {
+	
+}
+
+#legacyChatInput {
+	/*min-height: fit-content;*/
+	flex-shrink: 1;
+}
+
+#chatTalk {
+	flex-grow: 1;
+	resize: none;
+	max-height: 60px;
+	height: 18px;
+	min-height: 16px;
+}
+
+
+.borderOverlay {
+	border: 2px solid #000000;
+}
+
+.foilOverlay {
+	opacity: 0.2;
+}
+
+.cardHint {
+	display: inline;
+	color: #6f6fff;
+	cursor: pointer;
+}
+
+.prizeHint {
+	display: inline;
+	color: #6f6fff;
+	cursor: pointer;
+}
+
+.clickableFormat {
+	cursor: pointer;
+	color: #6f6fff;
+}
+
+.pocket {
+	background-color: #000000;
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	font-size: 90%;
+	font-weight: bolder;
+	text-align: right;
+	opacity: 1;
+	height: 18px;
+	width: 95px;
+}
+
+.cardCount {
+	width: 20px;
+	height: 18px;
+	background-color: #000000;
+	color: #ffffff;
+	font-size: 120%;
+	font-weight: bolder;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	opacity: 0.7;
+}
+
+#disclaimer {
+	color: #ffffff;
+	font-size: 70%;
+	position: relative;
+	text-align: center;
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: .2em .5em;
+	text-align: center;
+}
+
+.standings td, .standings th {
+	padding: 2px;
+	border: 1px solid white;
+}
+
+.gameHistory td, .gameHistory th {
+	padding: 2px;
+	border: 1px solid white;
+}
+
+.highlight-new {
+	background-color: #aa2222 !important;
+}
+
+
+
+
+#main > .ui-tabs-panel {
+	overflow-x: hidden;
+	overflow-y: hidden;
+	height: 100%;
+	position: relative;
+	flex-grow: 1;
+	padding: 0;
+	border: 0px none #000000;
+	min-width: 50%;
+	width: 100%;
+}
+
+.sub-tabs{
+	position: sticky;
+	top: 5px;
+	margin: 4px;
+}
+
+.sub-tabs .ui-tabs-panel { 
+	overflow-y: scroll;
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav { 
+	/*padding: .2em .1em .2em .2em; */
+	float: left; 
+	max-width: 200px;
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav li{ 
+	/*clear: left; */
+	width: 100%; 
+	
+	border-bottom-width: 1px !important; 
+	border-right-width: 0 !important; 
+	margin: 0 -1px .2em 0; 
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav li a { 
+	display:block; 
+}
+
+.ui-tabs-vertical ol.ui-tabs-nav li.ui-tabs-active { 
+	padding-bottom: 0; 
+	padding-right: .1em; 
+	border-right-width: 1px;
+}
+
+.hall-tab > .ui-tabs-panel { 
+	/*padding: 1em; */
+	float: right; 
+	min-width: 50%;
+	width: 1000px;
+	flex-grow: 1;
+}
+
+.ui-tabs-anchor {
+	width: 100%;
+}
+
+.article {
+	width:max(800px, 50%); 
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3em;
+	margin-bottom: 20em;
+	
+	font-size: 120%;
+}
+
+.article li {
+	margin: 10px;
+}

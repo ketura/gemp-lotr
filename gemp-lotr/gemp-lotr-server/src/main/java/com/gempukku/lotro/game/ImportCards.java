@@ -1,7 +1,9 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.rules.GameUtils;
 import com.google.common.base.Strings;
 
 import java.util.*;
@@ -16,7 +18,7 @@ public class ImportCards {
             "fangorn forest", "plains of rohan camp", "rohirrim village", "uruk camp", "wold of rohan"));
     private final Set<String> kingSiteCheck = new HashSet<>(Arrays.asList("king's tent", "rohirrim camp", "west road"));
 
-    public List<CardCollection.Item> process(String rawDecklist, LotroCardBlueprintLibrary cardLibrary) {
+    public List<CardCollection.Item> process(String rawDecklist, CardBlueprintLibrary cardLibrary) {
         List<CardCount> decklist = getDecklist(rawDecklist);
         SitesBlock sitesBlock = determineBlock(decklist);
 

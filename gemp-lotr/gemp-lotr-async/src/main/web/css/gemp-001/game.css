@@ -36,7 +36,7 @@ body {
 }
 
 .discardSize {
-    display: none;
+    display: table-cell;
     text-align: center;
     vertical-align: middle;
     font-size: 200%;
@@ -46,15 +46,15 @@ body {
     background-image: url('/gemp-lotr/images/discard-42.png');
 }
 
-.deadPileSize {
-    display: none;
+.playerScore {
+    display: table-cell;
     text-align: center;
     vertical-align: middle;
-    font-size: 200%;
+    color: black;
+    font-size: 150%;
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('/gemp-lotr/images/deadPile-42.png');
 }
 
 .adventureDeckSize {
@@ -144,7 +144,7 @@ body {
     padding: 2px;
 }
 
-.fpArchery {
+/*.fpArchery {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
@@ -181,7 +181,7 @@ body {
     font-weight: bolder;
     width: 30px;
     height: 30px;
-}
+}*/
 
 .player {
     color: #ffffff;
@@ -208,16 +208,16 @@ body {
     font-size: 120%;
 }
 
-.twilightPool {
-    float: right;
-    font-size: 30px;
-    width: 40px;
-    border-radius: 7px;
-    border: 1px solid #ffffff;
-    background-color: #000000;
+.tribbleSequence {
+    float: left;
+    font-size: 15px;
+    width: 100px;
+//    border-radius: 7px;
+//    border: 1px solid #ffffff;
+//    background-color: #000000;
     color: #ffffff;
     padding: 2px;
-    text-align: right;
+    text-align: left;
 }
 
 .skirmish {

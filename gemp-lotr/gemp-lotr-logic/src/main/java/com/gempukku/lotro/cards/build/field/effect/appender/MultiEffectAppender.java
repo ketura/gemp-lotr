@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
+import com.gempukku.lotro.game.DefaultGame;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class MultiEffectAppender implements EffectAppender {
+public class MultiEffectAppender<AbstractGame extends DefaultGame> implements EffectAppender<AbstractGame> {
     private boolean playabilityCheckedForEffect;
 
     private final List<EffectAppender> effectAppenders = new LinkedList<>();
@@ -21,13 +21,13 @@ public class MultiEffectAppender implements EffectAppender {
     }
 
     @Override
-    public void appendEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+    public void appendEffect(boolean cost, CostToEffectAction action, DefaultActionContext<AbstractGame> actionContext) {
         for (EffectAppender effectAppender : effectAppenders)
             effectAppender.appendEffect(cost, action, actionContext);
     }
 
     @Override
-    public boolean isPlayableInFull(ActionContext actionContext) {
+    public boolean isPlayableInFull(DefaultActionContext<AbstractGame> actionContext) {
         for (EffectAppender effectAppender : effectAppenders) {
             if (!effectAppender.isPlayableInFull(actionContext))
                 return false;

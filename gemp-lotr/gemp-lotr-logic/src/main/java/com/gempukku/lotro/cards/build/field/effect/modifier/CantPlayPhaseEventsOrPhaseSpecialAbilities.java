@@ -3,8 +3,9 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
 import org.json.simple.JSONObject;
 
 public class CantPlayPhaseEventsOrPhaseSpecialAbilities implements ModifierSourceProducer {
@@ -22,7 +23,7 @@ public class CantPlayPhaseEventsOrPhaseSpecialAbilities implements ModifierSourc
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(actionContext.getSource(),
                         new RequirementCondition(requirements, actionContext), phase);
             }

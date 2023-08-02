@@ -1,19 +1,19 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.AbstractActionProxy;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
+import com.gempukku.lotro.actions.AbstractActionProxy;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
+import com.gempukku.lotro.actions.lotronly.RequiredTriggerAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.effects.results.DiscardCardsFromPlayResult;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -30,18 +30,18 @@ public class DiscardEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl hobbitSword = new PhysicalCardImpl(101, "1_299", P1, _cardLibrary.getLotroCardBlueprint("1_299"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl hobbitSword = new LotroPhysicalCardImpl(101, "1_299", P1, _cardLibrary.getLotroCardBlueprint("1_299"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, hobbitSword, merry);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        final Set<LotroPhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Filters.any)) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             discardedFromPlay.add(discardResult.getDiscardedCard());
@@ -71,20 +71,20 @@ public class DiscardEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl alatar = new PhysicalCardImpl(101, "13_28", P1, _cardLibrary.getLotroCardBlueprint("13_28"));
-        final PhysicalCardImpl whisperInTheDark = new PhysicalCardImpl(101, "18_77", P1, _cardLibrary.getLotroCardBlueprint("18_77"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl alatar = new LotroPhysicalCardImpl(101, "13_28", P1, _cardLibrary.getLotroCardBlueprint("13_28"));
+        final LotroPhysicalCardImpl whisperInTheDark = new LotroPhysicalCardImpl(101, "18_77", P1, _cardLibrary.getLotroCardBlueprint("18_77"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, alatar, merry);
         _game.getGameState().attachCard(_game, whisperInTheDark, alatar);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        final Set<LotroPhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Filters.any)) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             discardedFromPlay.add(discardResult.getDiscardedCard());
@@ -116,18 +116,18 @@ public class DiscardEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl hobbitSword = new PhysicalCardImpl(101, "1_299", P1, _cardLibrary.getLotroCardBlueprint("1_299"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl hobbitSword = new LotroPhysicalCardImpl(101, "1_299", P1, _cardLibrary.getLotroCardBlueprint("1_299"));
 
         _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
         _game.getGameState().stackCard(_game, hobbitSword, merry);
 
-        final Set<PhysicalCard> discardedFromPlay = new HashSet<>();
+        final Set<LotroPhysicalCard> discardedFromPlay = new HashSet<>();
 
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Filters.any)) {
                             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
                             discardedFromPlay.add(discardResult.getDiscardedCard());

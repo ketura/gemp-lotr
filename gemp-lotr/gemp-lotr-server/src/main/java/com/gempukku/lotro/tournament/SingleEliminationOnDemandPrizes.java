@@ -3,8 +3,8 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
     private final List<String> _promos = new ArrayList<>();
     private final String _registryRepresentation;
 
-    public SingleEliminationOnDemandPrizes(LotroCardBlueprintLibrary library, String registryRepresentation) {
+    public SingleEliminationOnDemandPrizes(CardBlueprintLibrary library, String registryRepresentation) {
         _registryRepresentation = registryRepresentation;
         for (SetDefinition setDefinition : library.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("originalSet"))

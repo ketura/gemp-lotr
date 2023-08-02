@@ -1,12 +1,13 @@
 package com.gempukku.lotro.cards.build;
 
+import com.gempukku.lotro.cards.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.field.*;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory;
+import com.gempukku.lotro.cards.build.field.effect.appender.EffectAppenderFactory;
 import com.gempukku.lotro.cards.build.field.effect.filter.FilterFactory;
 import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceFactory;
 import com.gempukku.lotro.cards.build.field.effect.requirement.RequirementFactory;
 import com.gempukku.lotro.cards.build.field.effect.trigger.TriggerCheckerFactory;
-import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -25,6 +26,9 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
     public LotroCardBlueprintBuilder() {
         fieldProcessors.put("title", new TitleFieldProcessor());
         fieldProcessors.put("subtitle", new SubtitleFieldProcessor());
+        fieldProcessors.put("image-url", new ImageUrlFieldProcessor());
+        fieldProcessors.put("tribble-value", new TribbleValueFieldProcessor());
+        fieldProcessors.put("tribble-power", new TribblePowerFieldProcessor());
         fieldProcessors.put("unique", new UniqueFieldProcessor());
         fieldProcessors.put("side", new SideFieldProcessor());
         fieldProcessors.put("culture", new CultureFieldProcessor());

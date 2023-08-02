@@ -1,10 +1,10 @@
 package com.gempukku.lotro.game.formats;
 
 import com.alibaba.fastjson.JSON;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.AppConfig;
 import com.gempukku.lotro.common.JSONDefs;
-import com.gempukku.lotro.game.AdventureLibrary;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.adventure.AdventureLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.league.SealedLeagueDefinition;
 import com.gempukku.util.JsonUtils;
@@ -26,18 +26,18 @@ public class LotroFormatLibrary {
     private final Map<String, SealedLeagueDefinition> _sealedTemplates = new LinkedHashMap<>();
 
     private final AdventureLibrary _adventureLibrary;
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
     private final File _formatPath;
     private final File _sealedPath;
 
 
     private final Semaphore collectionReady = new Semaphore(1);
 
-    public LotroFormatLibrary(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary bpLibrary) {
+    public LotroFormatLibrary(AdventureLibrary adventureLibrary, CardBlueprintLibrary bpLibrary) {
         this(adventureLibrary, bpLibrary, AppConfig.getFormatDefinitionsPath(), AppConfig.getSealedPath());
     }
 
-    public LotroFormatLibrary(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary bpLibrary, File formatPath, File sealedPath) {
+    public LotroFormatLibrary(AdventureLibrary adventureLibrary, CardBlueprintLibrary bpLibrary, File formatPath, File sealedPath) {
         _adventureLibrary = adventureLibrary;
         _cardLibrary = bpLibrary;
         _formatPath = formatPath;

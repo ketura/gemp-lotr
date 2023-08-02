@@ -6,7 +6,7 @@ import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.DBDefs;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
@@ -53,9 +53,9 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
     private void addTesterFlag(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-            Player player = getResourceOwnerSafely(request, null);
+            User player = getResourceOwnerSafely(request, null);
 
-            _playerDAO.addPlayerFlag(player.getName(), Player.Type.PLAY_TESTER);
+            _playerDAO.addPlayerFlag(player.getName(), User.Type.PLAY_TESTER);
 
             responseWriter.writeHtmlResponse("OK");
 
@@ -67,9 +67,9 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
     private void removeTesterFlag(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-            Player player = getResourceOwnerSafely(request, null);
+            User player = getResourceOwnerSafely(request, null);
 
-            _playerDAO.removePlayerFlag(player.getName(), Player.Type.PLAY_TESTER);
+            _playerDAO.removePlayerFlag(player.getName(), User.Type.PLAY_TESTER);
 
             responseWriter.writeHtmlResponse("OK");
 
@@ -81,14 +81,14 @@ public class PlaytestRequestHandler extends LotroServerRequestHandler implements
     private void getTesterFlag(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         try {
-            Player player = getResourceOwnerSafely(request, null);
+            User player = getResourceOwnerSafely(request, null);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = documentBuilder.newDocument();
             Element hasTester = doc.createElement("hasTester");
 
-            hasTester.setAttribute("result", String.valueOf(player.hasType(Player.Type.PLAY_TESTER)));
+            hasTester.setAttribute("result", String.valueOf(player.hasType(User.Type.PLAY_TESTER)));
 
             responseWriter.writeXmlResponse(doc);
 

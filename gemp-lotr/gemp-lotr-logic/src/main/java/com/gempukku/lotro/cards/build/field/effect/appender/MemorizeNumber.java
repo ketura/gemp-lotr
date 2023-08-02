@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.UnrespondableEffect;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 public class MemorizeNumber implements EffectAppenderProducer {
@@ -22,12 +20,12 @@ public class MemorizeNumber implements EffectAppenderProducer {
         final ValueSource amountSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), environment);
         final String memory = FieldUtils.getString(effectObject.get("memory"), "memory");
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 return new UnrespondableEffect() {
                     @Override
-                    protected void doPlayEffect(LotroGame game) {
+                    protected void doPlayEffect(DefaultGame game) {
                         final int value = amountSource.getEvaluator(actionContext).evaluateExpression(game, null);
                         actionContext.setValueToMemory(memory, String.valueOf(value));
                     }

@@ -2,13 +2,11 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.DiscardStackedCardsEffect;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 public class DiscardStackedCards implements EffectAppenderProducer {
@@ -29,7 +27,7 @@ public class DiscardStackedCards implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                         return new DiscardStackedCardsEffect(actionContext.getSource(), actionContext.getCardsFromMemory(memory));
                     }
                 });

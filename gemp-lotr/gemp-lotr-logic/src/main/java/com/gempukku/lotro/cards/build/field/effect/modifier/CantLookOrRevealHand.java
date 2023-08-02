@@ -3,9 +3,9 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.ModifierEffect;
 import org.json.simple.JSONObject;
 
 public class CantLookOrRevealHand implements ModifierSourceProducer {
@@ -22,7 +22,7 @@ public class CantLookOrRevealHand implements ModifierSourceProducer {
         return actionContext -> new AbstractModifier(actionContext.getSource(), "Player may not look at or reveal cards in another player hand",
                 null, ModifierEffect.LOOK_OR_REVEAL_MODIFIER) {
             @Override
-            public boolean canLookOrRevealCardsInHand(LotroGame game, String revealingPlayerId, String actingPlayerId) {
+            public boolean canLookOrRevealCardsInHand(DefaultGame game, String revealingPlayerId, String actingPlayerId) {
                 if (playerSource.getPlayer(actionContext).equals(actingPlayerId)
                         && handSource.getPlayer(actionContext).equals(revealingPlayerId))
                     return false;

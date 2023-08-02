@@ -2,12 +2,13 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.hall.GameSettings;
-import com.gempukku.lotro.logic.timing.GameResultListener;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
+import com.gempukku.lotro.cards.CardDeck;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -18,9 +19,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class LotroServer extends AbstractServer {
     private static final Logger log = Logger.getLogger(LotroServer.class);
 
-    private final LotroCardBlueprintLibrary _lotroCardBlueprintLibrary;
+    private final CardBlueprintLibrary _CardBlueprintLibrary;
 
-    private final Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<>();
+    private final Map<String, CardGameMediator> _runningGames = new ConcurrentHashMap<>();
     private final Set<String> _gameDeathWarningsSent = new HashSet<>();
 
     private final Map<String, Date> _finishedGamesTime = Collections.synchronizedMap(new LinkedHashMap<>());
@@ -36,9 +37,9 @@ public class LotroServer extends AbstractServer {
 
     private final ReadWriteLock _lock = new ReentrantReadWriteLock();
 
-    public LotroServer(DeckDAO deckDao, LotroCardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder) {
+    public LotroServer(DeckDAO deckDao, CardBlueprintLibrary library, ChatServer chatServer, GameRecorder gameRecorder) {
         _deckDao = deckDao;
-        _lotroCardBlueprintLibrary = library;
+        _CardBlueprintLibrary = library;
         _chatServer = chatServer;
         _gameRecorder = gameRecorder;
     }
@@ -73,8 +74,8 @@ public class LotroServer extends AbstractServer {
                 }
             }
 
-            for (LotroGameMediator lotroGameMediator : _runningGames.values())
-                lotroGameMediator.cleanup();
+            for (CardGameMediator cardGameMediator : _runningGames.values())
+                cardGameMediator.cleanup();
         } finally {
             _lock.writeLock().unlock();
         }
@@ -84,7 +85,7 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public LotroGameMediator createNewGame(String tournamentName, final LotroGameParticipant[] participants, GameSettings gameSettings) {
+    public CardGameMediator createNewGame(String tournamentName, final GameParticipant[] participants, GameSettings gameSettings) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -93,7 +94,7 @@ public class LotroServer extends AbstractServer {
 
             if (gameSettings.isCompetitive()) {
                 Set<String> allowedUsers = new HashSet<>();
-                for (LotroGameParticipant participant : participants)
+                for (GameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else
@@ -110,10 +111,10 @@ public class LotroServer extends AbstractServer {
                 spectate = false;
             }
 
-            LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,
+            CardGameMediator cardGameMediator = new CardGameMediator(gameId, gameSettings.getLotroFormat(), participants, _CardBlueprintLibrary,
                     gameSettings.getTimeSettings(),
                     spectate, !gameSettings.isCompetitive(), gameSettings.isHiddenGame());
-            lotroGameMediator.addGameResultListener(
+            cardGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override
                     public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
@@ -126,9 +127,9 @@ public class LotroServer extends AbstractServer {
                     }
                 });
             var formatName = gameSettings.getLotroFormat().getName();
-            lotroGameMediator.sendMessageToPlayers("You're starting a game of " + formatName);
+            cardGameMediator.sendMessageToPlayers("You're starting a game of " + formatName);
             if(formatName.contains("PC")) {
-                lotroGameMediator.sendMessageToPlayers("""
+                cardGameMediator.sendMessageToPlayers("""
                         As a reminder, PC formats incorporate the following changes:
                          - <a href="https://wiki.lotrtcgpc.net/wiki/PC_Errata">PC Errata are in effect</a>
                          - Set V1 is legal
@@ -138,18 +139,18 @@ public class LotroServer extends AbstractServer {
             }
 
             StringBuilder players = new StringBuilder();
-            Map<String, LotroDeck> decks =  new HashMap<>();
-            for (LotroGameParticipant participant : participants) {
+            Map<String, CardDeck> decks =  new HashMap<>();
+            for (GameParticipant participant : participants) {
                 if (players.length() > 0)
                     players.append(", ");
                 players.append(participant.getPlayerId());
                 decks.put(participant.getPlayerId(), participant.getDeck());
             }
 
-            lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players);
+            cardGameMediator.sendMessageToPlayers("Players in the game are: " + players);
 
-            final var gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, gameSettings.getLotroFormat(), tournamentName, decks);
-            lotroGameMediator.addGameResultListener(
+            final var gameRecordingInProgress = _gameRecorder.recordGame(cardGameMediator, gameSettings.getLotroFormat(), tournamentName, decks);
+            cardGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override
                     public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
@@ -167,15 +168,15 @@ public class LotroServer extends AbstractServer {
                 }
             );
 
-            _runningGames.put(gameId, lotroGameMediator);
+            _runningGames.put(gameId, cardGameMediator);
             _nextGameId++;
-            return lotroGameMediator;
+            return cardGameMediator;
         } finally {
             _lock.writeLock().unlock();
         }
     }
 
-    public LotroDeck getParticipantDeck(Player player, String deckName) {
+    public LotroDeck getParticipantDeck(User player, String deckName) {
         return _deckDao.getDeckForPlayer(player, deckName);
     }
 
@@ -191,18 +192,18 @@ public class LotroServer extends AbstractServer {
             if (cnt != 3)
                 return null;
 
-            return _deckDao.buildDeckFromContents(deckName, contents, targetFormat, notes);
+            return _deckDao.buildLotroDeckFromContents(deckName, contents, targetFormat, notes);
         } else {
             // Old format
             List<String> cards = Arrays.asList(contents.split(","));
             if (cards.size() < 2)
                 return null;
 
-            return _deckDao.buildDeckFromContents(deckName, contents, targetFormat, notes);
+            return _deckDao.buildLotroDeckFromContents(deckName, contents, targetFormat, notes);
         }
     }
 
-    public LotroGameMediator getGameById(String gameId) {
+    public CardGameMediator getGameById(String gameId) {
         _lock.readLock().lock();
         try {
             return _runningGames.get(gameId);

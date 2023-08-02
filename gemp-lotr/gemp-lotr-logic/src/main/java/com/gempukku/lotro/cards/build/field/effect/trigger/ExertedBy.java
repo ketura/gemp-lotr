@@ -1,14 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.timing.results.ExertResult;
+import com.gempukku.lotro.effects.results.ExertResult;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
 import org.json.simple.JSONObject;
 
 public class ExertedBy implements TriggerCheckerProducer {
@@ -31,12 +32,12 @@ public class ExertedBy implements TriggerCheckerProducer {
             }
 
             @Override
-            public boolean accepts(ActionContext actionContext) {
+            public boolean accepts(DefaultActionContext<DefaultGame> actionContext) {
                 final Filterable exerted = filterableSource.getFilterable(actionContext);
                 final Filterable exertedBy = byFilterableSource.getFilterable(actionContext);
                 final boolean result = TriggerConditions.forEachExertedBy(actionContext.getGame(), actionContext.getEffectResult(), exertedBy, exerted);
                 if (result && memorize != null) {
-                    final PhysicalCard exertedCard = ((ExertResult) actionContext.getEffectResult()).getExertedCard();
+                    final LotroPhysicalCard exertedCard = ((ExertResult) actionContext.getEffectResult()).getExertedCard();
                     actionContext.setCardMemory(memorize, exertedCard);
                 }
                 return result;

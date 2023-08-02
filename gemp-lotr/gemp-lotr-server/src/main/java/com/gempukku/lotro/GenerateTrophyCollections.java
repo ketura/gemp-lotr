@@ -1,13 +1,13 @@
 package com.gempukku.lotro;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.DbCollectionDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.packs.SetDefinition;
+import com.gempukku.lotro.cards.sets.SetDefinition;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class GenerateTrophyCollections {
     public static void main(String[] args) throws SQLException, IOException {
-        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+        CardBlueprintLibrary library = new CardBlueprintLibrary();
         DbAccess dbAccess = new DbAccess();
 
         DbCollectionDAO collections = new DbCollectionDAO(dbAccess, new CollectionSerializer());

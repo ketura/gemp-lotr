@@ -2,20 +2,18 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.AddTokenEffect;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.AddTokenEffect;
+import com.gempukku.lotro.modifiers.ModifierFlag;
+import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.effects.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -39,22 +37,22 @@ public class ReinforceTokens implements EffectAppenderProducer {
                 CardResolver.resolveCards(filter, (actionContext) -> Filters.hasToken(token, 1),
                         new ConstantEvaluator(1), memory, "you", "Choose card to reinforce tokens on", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
-                        final LotroGame game = actionContext.getGame();
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
+                        final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
                             && Filters.countActive(game, Filters.hasToken(token)) > 0;
                     }
 
                     @Override
-                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
 
                         final int tokenCount = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
                         List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard card : cardsFromMemory)
+                        for (LotroPhysicalCard card : cardsFromMemory)
                             result.add(new AddTokenEffect(actionContext.getSource(), card, token, tokenCount));
 
                         return result;

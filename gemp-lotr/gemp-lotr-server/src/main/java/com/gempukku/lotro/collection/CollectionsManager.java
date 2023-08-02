@@ -1,5 +1,6 @@
 package com.gempukku.lotro.collection;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -20,15 +21,15 @@ public class CollectionsManager {
     private final PlayerDAO _playerDAO;
     private final CollectionDAO _collectionDAO;
     private final TransferDAO _transferDAO;
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
 
     private CardCollection _defaultCollection;
 
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary) {
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final CardBlueprintLibrary cardBlueprintLibrary) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
         _transferDAO = transferDAO;
-        _cardLibrary = lotroCardBlueprintLibrary;
+        _cardLibrary = cardBlueprintLibrary;
 
         _defaultCollection = new CompleteCardCollection(_cardLibrary);
 
@@ -48,7 +49,7 @@ public class CollectionsManager {
         return getPlayerCollection(_playerDAO.getPlayer(playerName), collectionType);
     }
 
-    public CardCollection getPlayerCollection(Player player, String collectionType) {
+    public CardCollection getPlayerCollection(User player, String collectionType) {
         _readWriteLock.readLock().lock();
         try {
             if (collectionType.contains("+"))
@@ -70,7 +71,7 @@ public class CollectionsManager {
         }
     }
 
-    private CardCollection createSumCollection(Player player, String[] collectionTypes) {
+    private CardCollection createSumCollection(User player, String[] collectionTypes) {
         List<CardCollection> collections = new LinkedList<>();
         for (String collectionType : collectionTypes)
             collections.add(getPlayerCollection(player, collectionType));
@@ -78,7 +79,7 @@ public class CollectionsManager {
         return new SumCardCollection(collections);
     }
 
-    private void overwritePlayerCollection(Player player, String collectionType, CardCollection cardCollection, String reason) {
+    private void overwritePlayerCollection(User player, String collectionType, CardCollection cardCollection, String reason) {
         if (collectionType.contains("+"))
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         try {
@@ -88,7 +89,7 @@ public class CollectionsManager {
         }
     }
 
-    private void addToPlayerCollection(Player player, String collectionType, CardCollection cardCollection, String reason) {
+    private void addToPlayerCollection(User player, String collectionType, CardCollection cardCollection, String reason) {
         if (collectionType.contains("+"))
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         try {
@@ -98,7 +99,7 @@ public class CollectionsManager {
         }
     }
 
-    private void removeFromPlayerCollection(Player player, String collectionType, CardCollection cardCollection, String reason) {
+    private void removeFromPlayerCollection(User player, String collectionType, CardCollection cardCollection, String reason) {
         if (collectionType.contains("+"))
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         try {
@@ -112,7 +113,7 @@ public class CollectionsManager {
         addPlayerCollection(notifyPlayer, reason, _playerDAO.getPlayer(player), collectionType, cardCollection);
     }
 
-    public void addPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, CardCollection cardCollection) {
+    public void addPlayerCollection(boolean notifyPlayer, String reason, User player, CollectionType collectionType, CardCollection cardCollection) {
         if (collectionType.getCode().contains("+"))
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
 
@@ -125,7 +126,7 @@ public class CollectionsManager {
         }
     }
 
-    public Map<Player, CardCollection> getPlayersCollection(String collectionType) {
+    public Map<User, CardCollection> getPlayersCollection(String collectionType) {
         if (collectionType.contains("+"))
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
 
@@ -133,7 +134,7 @@ public class CollectionsManager {
         try {
             final Map<Integer, CardCollection> playerCollectionsByType = _collectionDAO.getPlayerCollectionsByType(collectionType);
 
-            Map<Player, CardCollection> result = new HashMap<>();
+            Map<User, CardCollection> result = new HashMap<>();
             for (Map.Entry<Integer, CardCollection> playerCollection : playerCollectionsByType.entrySet())
                 result.put(_playerDAO.getPlayer(playerCollection.getKey()), playerCollection.getValue());
 
@@ -145,7 +146,7 @@ public class CollectionsManager {
         }
     }
 
-    public CardCollection openPackInPlayerCollection(Player player, CollectionType collectionType, String selection, ProductLibrary productLibrary, String packId) throws SQLException, IOException {
+    public CardCollection openPackInPlayerCollection(User player, CollectionType collectionType, String selection, ProductLibrary productLibrary, String packId) throws SQLException, IOException {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -175,7 +176,7 @@ public class CollectionsManager {
         return result;
     }
 
-    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, Iterable<CardCollection.Item> items, Map<String, Object> extraInformation){
+    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, User player, CollectionType collectionType, Iterable<CardCollection.Item> items, Map<String, Object> extraInformation){
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -204,7 +205,7 @@ public class CollectionsManager {
         }
     }
 
-    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, Iterable<CardCollection.Item> items)  {
+    public void addItemsToPlayerCollection(boolean notifyPlayer, String reason, User player, CollectionType collectionType, Iterable<CardCollection.Item> items)  {
         addItemsToPlayerCollection(notifyPlayer, reason, player, collectionType, items, null);
     }
 
@@ -212,7 +213,7 @@ public class CollectionsManager {
         addItemsToPlayerCollection(notifyPlayer, reason, _playerDAO.getPlayer(player), collectionType, items);
     }
 
-    public boolean tradeCards(Player player, CollectionType collectionType, String removeBlueprintId, int removeCount, String addBlueprintId, int addCount, int currencyCost) throws SQLException, IOException {
+    public boolean tradeCards(User player, CollectionType collectionType, String removeBlueprintId, int removeCount, String addBlueprintId, int addCount, int currencyCost) throws SQLException, IOException {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -241,7 +242,7 @@ public class CollectionsManager {
         }
     }
 
-    public boolean buyCardToPlayerCollection(Player player, CollectionType collectionType, String blueprintId, int currency) throws SQLException, IOException {
+    public boolean buyCardToPlayerCollection(User player, CollectionType collectionType, String blueprintId, int currency) throws SQLException, IOException {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -267,7 +268,7 @@ public class CollectionsManager {
         }
     }
 
-    public boolean sellCardInPlayerCollection(Player player, CollectionType collectionType, String blueprintId, int currency) throws SQLException, IOException {
+    public boolean sellCardInPlayerCollection(User player, CollectionType collectionType, String blueprintId, int currency) throws SQLException, IOException {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
@@ -297,7 +298,7 @@ public class CollectionsManager {
         addCurrencyToPlayerCollection(notifyPlayer, reason, _playerDAO.getPlayer(player), collectionType, currency);
     }
 
-    public void addCurrencyToPlayerCollection(boolean notifyPlayer, String reason, Player player, CollectionType collectionType, int currency) throws SQLException, IOException {
+    public void addCurrencyToPlayerCollection(boolean notifyPlayer, String reason, User player, CollectionType collectionType, int currency) throws SQLException, IOException {
         if (currency > 0) {
             _readWriteLock.writeLock().lock();
             try {
@@ -316,7 +317,7 @@ public class CollectionsManager {
         }
     }
 
-    public boolean removeCurrencyFromPlayerCollection(String reason, Player player, CollectionType collectionType, int currency) throws SQLException, IOException {
+    public boolean removeCurrencyFromPlayerCollection(String reason, User player, CollectionType collectionType, int currency) throws SQLException, IOException {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());

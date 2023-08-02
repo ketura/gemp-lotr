@@ -638,8 +638,9 @@ var GempLotrHallUI = Class.extend({
 					participantIdAppend = "&participantId=" + participantId;
 				window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
 			}
-			if (games.length > 0) {				
-				this.PlaySound("gamestart");
+			if (games.length > 0) {
+			        // Turned off this sound because it was annoying :)
+//				this.PlaySound("gamestart");
 			}
 
 			if (!this.supportedFormatsInitialized) {

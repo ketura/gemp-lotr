@@ -1,12 +1,12 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -21,8 +21,8 @@ public class ArcheryAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legolas = new PhysicalCardImpl(100, "1_51", P1, _cardLibrary.getLotroCardBlueprint("1_51"));
-        PhysicalCardImpl archerMinion = new PhysicalCardImpl(101, "4_138", P2, _cardLibrary.getLotroCardBlueprint("4_138"));
+        LotroPhysicalCardImpl legolas = new LotroPhysicalCardImpl(100, "1_51", P1, _cardLibrary.getLotroCardBlueprint("1_51"));
+        LotroPhysicalCardImpl archerMinion = new LotroPhysicalCardImpl(101, "4_138", P2, _cardLibrary.getLotroCardBlueprint("4_138"));
 
         skipMulligans();
 
@@ -62,9 +62,9 @@ public class ArcheryAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl legolas = new PhysicalCardImpl(100, "1_51", P1, _cardLibrary.getLotroCardBlueprint("1_51"));
-        PhysicalCardImpl archerMinion = new PhysicalCardImpl(101, "4_138", P2, _cardLibrary.getLotroCardBlueprint("4_138"));
-        PhysicalCardImpl doubleShot = new PhysicalCardImpl(102, "1_38", P1, _cardLibrary.getLotroCardBlueprint("1_38"));
+        LotroPhysicalCardImpl legolas = new LotroPhysicalCardImpl(100, "1_51", P1, _cardLibrary.getLotroCardBlueprint("1_51"));
+        LotroPhysicalCardImpl archerMinion = new LotroPhysicalCardImpl(101, "4_138", P2, _cardLibrary.getLotroCardBlueprint("4_138"));
+        LotroPhysicalCardImpl doubleShot = new LotroPhysicalCardImpl(102, "1_38", P1, _cardLibrary.getLotroCardBlueprint("1_38"));
 
         skipMulligans();
 

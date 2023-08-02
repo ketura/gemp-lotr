@@ -202,6 +202,7 @@ var GameAnimations = Class.extend({
         var participantId = element.getAttribute("participantId");
         var cardId = element.getAttribute("cardId");
         var zone = element.getAttribute("zone");
+        var imageUrl = element.getAttribute("imageUrl");
 
         var that = this;
         $("#main").queue(
@@ -222,8 +223,6 @@ var GameAnimations = Class.extend({
                 var cardDiv = that.game.createCardDiv(card, null, card.isFoil(), card.hasErrata());
                 if (zone == "DISCARD")
                     that.game.discardPileDialogs[participantId].append(cardDiv);
-                else if (zone == "DEAD")
-                    that.game.deadPileDialogs[participantId].append(cardDiv);
                 else if (zone == "ADVENTURE_DECK")
                     that.game.adventureDeckDialogs[participantId].append(cardDiv);
                 else if (zone == "REMOVED")
@@ -252,7 +251,7 @@ var GameAnimations = Class.extend({
         }
 
         if (animate && (this.game.spectatorMode || this.game.replayMode || (participantId != this.game.bottomPlayerId))
-            && zone != "DISCARD" && zone != "DEAD" && zone != "HAND" && zone != "ADVENTURE_DECK" && zone != "DECK") {
+            && zone != "DISCARD" && zone != "HAND" && zone != "ADVENTURE_DECK" && zone != "DECK") {
             var oldValues = {};
 
             $("#main").queue(
@@ -466,6 +465,16 @@ var GameAnimations = Class.extend({
 
                 $(".twilightPool").html("" + count);
 
+                next();
+            });
+    },
+
+    tribbleSequence:function (element, animate) {
+        var that = this;
+        $("#main").queue(
+            function (next) {
+                var message = element.getAttribute("message");
+                $(".tribbleSequence").html("<p>Next Tribble in sequence:</p><b>" + message + "</b>");
                 next();
             });
     },
@@ -709,6 +718,45 @@ var GameAnimations = Class.extend({
         }
     },
 
+    playerScore:function (element, animate) {
+        var that = this;
+        $("#main").queue(
+            function (next) {
+                var participantId = element.getAttribute("participantId");
+                var score = element.getAttribute("score");
+
+                if (that.game.playerScores == null)
+                    that.game.playerScores = new Array();
+
+                var index = that.game.getPlayerIndex(participantId);
+                that.game.playerScores[index] = score;
+
+                // TODO - Deprecated. This has been added elsewhere.
+
+//                that.game.advPathGroup.setPositions(that.game.playerPositions);
+
+                next();
+            });
+                // TODO - This should always animate
+/*        if (animate) {
+            $("#main").queue(
+                function (next) {
+                    that.game.advPathGroup.layoutCards();
+                    next();
+                });
+        } */
+
+                // TODO - Sample code from tribblesequence inserted here for an example
+/*        $("#main").queue(
+            function (next) {
+                var message = element.getAttribute("message");
+                $(".tribbleSequence").html(message);
+                next();
+            }); */
+
+
+    },
+
     playerPosition:function (element, animate) {
         var that = this;
         $("#main").queue(
@@ -801,17 +849,25 @@ var GameAnimations = Class.extend({
                     var hand = playerZone.getAttribute("HAND");
                     var discard = playerZone.getAttribute("DISCARD");
                     var adventureDeck = playerZone.getAttribute("ADVENTURE_DECK");
-                    var dead = playerZone.getAttribute("DEAD");
                     var deck = playerZone.getAttribute("DECK");
                     var removed = playerZone.getAttribute("REMOVED");
 
                     $("#deck" + that.game.getPlayerIndex(playerId)).text(deck);
                     $("#hand" + that.game.getPlayerIndex(playerId)).text(hand);
                     $("#discard" + that.game.getPlayerIndex(playerId)).text(discard);
-                    $("#deadPile" + that.game.getPlayerIndex(playerId)).text(dead);
                     $("#adventureDeck" + that.game.getPlayerIndex(playerId)).text(adventureDeck);
                     $("#removedPile" + that.game.getPlayerIndex(playerId)).text(removed);
                 }
+
+                var playerScores = element.getElementsByTagName("playerScores");
+                for (var i = 0; i < playerScores.length; i++) {
+                    var playerScore = playerScores[i];
+                    var playerId = playerScore.getAttribute("name");
+                    var score = playerScore.getAttribute("score");
+
+                    $("#score" + that.game.getPlayerIndex(playerId)).text(Number(score).toLocaleString("en-US") + ' Tribbles');
+                }
+
 
                 var playerThreats = element.getElementsByTagName("threats")
                 for (var i = 0; i < playerThreats.length; i++) {

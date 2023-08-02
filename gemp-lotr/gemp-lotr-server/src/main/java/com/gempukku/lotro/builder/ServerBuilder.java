@@ -1,5 +1,6 @@
 package com.gempukku.lotro.builder;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -7,6 +8,8 @@ import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.adventure.AdventureLibrary;
+import com.gempukku.lotro.adventure.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
@@ -19,11 +22,15 @@ import com.gempukku.lotro.tournament.*;
 
 import java.lang.reflect.Type;
 import java.util.Map;
+import org.apache.log4j.Logger;
+
 
 public class ServerBuilder {
+    private static final Logger logger = Logger.getLogger(ServerBuilder.class);
     public static void CreatePrerequisites(Map<Type, Object> objectMap) {
-        final LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-        objectMap.put(LotroCardBlueprintLibrary.class, library);
+        logger.debug("Calling CreatePrerequisites function");
+        final CardBlueprintLibrary library = new CardBlueprintLibrary();
+        objectMap.put(CardBlueprintLibrary.class, library);
         objectMap.put(ProductLibrary.class, new ProductLibrary(library));
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
@@ -32,16 +39,18 @@ public class ServerBuilder {
 
         CollectionSerializer collectionSerializer = new CollectionSerializer();
         objectMap.put(CollectionSerializer.class, collectionSerializer);
+        logger.debug("Ending CreatePrerequisites function");
     }
 
     public static void CreateServices(Map<Type, Object> objectMap) {
+        logger.debug("Calling CreateServices function");
         objectMap.put(AdventureLibrary.class,
                 new DefaultAdventureLibrary());
 
         objectMap.put(LotroFormatLibrary.class,
                 new LotroFormatLibrary(
                         extract(objectMap, AdventureLibrary.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, CardBlueprintLibrary.class)));
 
         objectMap.put(GameHistoryService.class,
                 new GameHistoryService(
@@ -56,12 +65,12 @@ public class ServerBuilder {
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, CollectionDAO.class),
                         extract(objectMap, TransferDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, CardBlueprintLibrary.class)));
 
         objectMap.put(SoloDraftDefinitions.class,
                 new SoloDraftDefinitions(
                     extract(objectMap, CollectionsManager.class),
-                    extract(objectMap, LotroCardBlueprintLibrary.class),
+                    extract(objectMap, CardBlueprintLibrary.class),
                     extract(objectMap, LotroFormatLibrary.class)
                 ));
 
@@ -71,7 +80,7 @@ public class ServerBuilder {
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, SoloDraftDefinitions.class)));
 
@@ -95,11 +104,11 @@ public class ServerBuilder {
                         extract(objectMap, TournamentDAO.class),
                         extract(objectMap, TournamentPlayerDAO.class),
                         extract(objectMap, TournamentMatchDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, CardBlueprintLibrary.class)));
 
         objectMap.put(MerchantService.class,
                 new MerchantService(
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, CollectionsManager.class)));
 
         objectMap.put(ChatServer.class, new ChatServer(
@@ -109,7 +118,7 @@ public class ServerBuilder {
         objectMap.put(LotroServer.class,
                 new LotroServer(
                         extract(objectMap, DeckDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, GameRecorder.class)));
 
@@ -120,13 +129,14 @@ public class ServerBuilder {
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, LeagueService.class),
                         extract(objectMap, TournamentService.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, AdminService.class),
                         tournamentPrizeSchemeRegistry,
                         pairingMechanismRegistry
                 ));
+        logger.debug("Ending CreateServices function");
     }
 
     private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {
@@ -137,8 +147,11 @@ public class ServerBuilder {
     }
 
     public static void StartServers(Map<Type, Object> objectMap) {
+        logger.debug("Function StartServers - starting HallServer");
         extract(objectMap, HallServer.class).startServer();
+        logger.debug("Function StartServers - starting LotroServer");
         extract(objectMap, LotroServer.class).startServer();
+        logger.debug("Function StartServers - starting ChatServer");
         extract(objectMap, ChatServer.class).startServer();
     }
 

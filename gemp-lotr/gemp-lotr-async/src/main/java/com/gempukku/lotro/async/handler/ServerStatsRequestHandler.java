@@ -5,7 +5,7 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.JSONDefs;
 import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -38,7 +38,7 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
             String startDay = getQueryParameterSafely(queryDecoder, "startDay");
             String length = getQueryParameterSafely(queryDecoder, "length");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
 
             try {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

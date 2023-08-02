@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.actions.lotronly.SubAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
-import com.gempukku.lotro.cards.build.field.effect.EffectUtils;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.effects.StackActionEffect;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.StackActionEffect;
+import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 
 public class CostToEffect implements EffectAppenderProducer {
@@ -27,9 +25,9 @@ public class CostToEffect implements EffectAppenderProducer {
         final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
 
                 if(!checkConditions(actionContext))
                     return null;
@@ -44,7 +42,7 @@ public class CostToEffect implements EffectAppenderProducer {
                 return new StackActionEffect(subAction);
             }
 
-            private boolean checkConditions(ActionContext actionContext) {
+            private boolean checkConditions(DefaultActionContext<DefaultGame> actionContext) {
                 for (Requirement req : requirements) {
                     if (!req.accepts(actionContext))
                         return false;
@@ -53,7 +51,7 @@ public class CostToEffect implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
 
                 if(!checkConditions(actionContext))
                     return false;

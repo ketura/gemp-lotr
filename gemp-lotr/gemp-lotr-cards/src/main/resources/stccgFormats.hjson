@@ -1,0 +1,20 @@
+[
+    {
+      name: Debug
+      code: debug
+      sites: SPECIAL
+      maximumSameName: 100
+      set:[101, 144, 145, 146, 147, 150, 157, 164, 180, 190, 221]
+      hall:false
+    }
+    {
+        name: Tribbles
+        code: tribbles
+        sites: FELLOWSHIP
+        set:[144, 145, 146, 147, 150, 157, 164, 180, 190, 221]
+        minimumDeckSize: 35
+        maximumSameName: 9999
+        validateShadowFPCount: false
+        mulliganRule: false
+    }
+]

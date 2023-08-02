@@ -3,13 +3,13 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.AbstractModifier;
+import com.gempukku.lotro.modifiers.ModifierEffect;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class ModifyPlayOnCost implements ModifierSourceProducer {
@@ -34,7 +34,7 @@ public class ModifyPlayOnCost implements ModifierSourceProducer {
             return new AbstractModifier(actionContext.getSource(), "Cost to play on is modified", filterable,
                     requirementCondition, ModifierEffect.TWILIGHT_COST_MODIFIER) {
                 @Override
-                public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
+                public int getTwilightCostModifier(DefaultGame game, LotroPhysicalCard physicalCard, LotroPhysicalCard target, boolean ignoreRoamingPenalty) {
                     if (target != null && Filters.and(onFilterable).accepts(game, target))
                         return evaluator.evaluateExpression(game, null);
                     return 0;

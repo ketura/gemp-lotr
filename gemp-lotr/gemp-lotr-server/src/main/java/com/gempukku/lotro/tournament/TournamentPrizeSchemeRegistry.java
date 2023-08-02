@@ -1,9 +1,9 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 
 public class TournamentPrizeSchemeRegistry {
-    public TournamentPrizes getTournamentPrizes(LotroCardBlueprintLibrary library, String prizesScheme) {
+    public TournamentPrizes getTournamentPrizes(CardBlueprintLibrary library, String prizesScheme) {
         if (prizesScheme == null || prizesScheme.equals("none"))
             return new NoPrizes();
 

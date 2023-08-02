@@ -3,6 +3,7 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
@@ -10,8 +11,7 @@ import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueService;
@@ -32,7 +32,7 @@ import java.util.*;
 public class SoloDraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final CollectionsManager _collectionsManager;
     private final SoloDraftDefinitions _soloDraftDefinitions;
-    private final LotroCardBlueprintLibrary _cardLibrary;
+    private final CardBlueprintLibrary _cardLibrary;
     private final LotroFormatLibrary _formatLibrary;
     private final LeagueService _leagueService;
 
@@ -41,7 +41,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
     public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);
         _leagueService = extractObject(context, LeagueService.class);
-        _cardLibrary = extractObject(context, LotroCardBlueprintLibrary.class);
+        _cardLibrary = extractObject(context, CardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
@@ -76,7 +76,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         SoloDraftLeagueData soloDraftLeagueData = (SoloDraftLeagueData) leagueData;
         CollectionType collectionType = soloDraftLeagueData.getCollectionType();
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, collectionType.getCode());
 
@@ -139,7 +139,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         SoloDraftLeagueData soloDraftLeagueData = (SoloDraftLeagueData) leagueData;
         CollectionType collectionType = soloDraftLeagueData.getCollectionType();
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, collectionType.getCode());
         boolean finished = (Boolean) collection.getExtraInformation().get("finished");

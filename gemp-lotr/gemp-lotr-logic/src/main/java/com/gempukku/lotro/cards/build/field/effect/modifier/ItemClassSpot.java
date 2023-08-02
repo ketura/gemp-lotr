@@ -1,13 +1,14 @@
 package com.gempukku.lotro.cards.build.field.effect.modifier;
 
-import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.PossessionClassSpotModifier;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.modifiers.lotronly.PossessionClassSpotModifier;
 import org.json.simple.JSONObject;
 
 public class ItemClassSpot implements ModifierSourceProducer {
@@ -19,7 +20,7 @@ public class ItemClassSpot implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new PossessionClassSpotModifier(actionContext.getSource(), spotClass);
             }
         };

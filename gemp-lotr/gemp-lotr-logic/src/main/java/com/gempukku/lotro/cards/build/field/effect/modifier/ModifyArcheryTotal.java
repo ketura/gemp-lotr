@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.modifiers.lotronly.ArcheryTotalModifier;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class ModifyArcheryTotal implements ModifierSourceProducer {

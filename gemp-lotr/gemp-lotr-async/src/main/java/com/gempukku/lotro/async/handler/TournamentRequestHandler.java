@@ -5,11 +5,11 @@ import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.game.SortAndFilterCards;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.rules.GameUtils;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.tournament.Tournament;
 import com.gempukku.lotro.tournament.TournamentService;
 import io.netty.handler.codec.http.HttpMethod;
@@ -29,7 +29,7 @@ import java.util.Map;
 public class TournamentRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private final TournamentService _tournamentService;
     private final LotroFormatLibrary _formatLibrary;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final SortAndFilterCards _sortAndFilterCards;
 
     private static final Logger _log = Logger.getLogger(TournamentRequestHandler.class);
@@ -39,7 +39,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
 
         _tournamentService = extractObject(context, TournamentService.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _sortAndFilterCards = new SortAndFilterCards();
     }
 
@@ -122,7 +122,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
             result.append("<b>Ring:</b> " + GameUtils.getFullName(_library.getLotroCardBlueprint(ring)) + "<br/>");
 
         DefaultCardCollection deckCards = new DefaultCardCollection();
-        for (String card : deck.getAdventureCards())
+        for (String card : deck.getDrawDeckCards())
             deckCards.addItem(_library.getBaseBlueprintId(card), 1);
         for (String site : deck.getSites())
             deckCards.addItem(_library.getBaseBlueprintId(site), 1);

@@ -2,6 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
@@ -25,7 +26,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
     private final CollectionsManager _collectionsManager;
     private final SortAndFilterCards _sortAndFilterCards;
     private final MerchantService _merchantService;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
     private final LotroFormatLibrary _formatLibrary;
 
     private static final Logger _log = Logger.getLogger(MerchantRequestHandler.class);
@@ -36,7 +37,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         _collectionsManager = extractObject(context, CollectionsManager.class);
         _sortAndFilterCards = new SortAndFilterCards();
         _merchantService = extractObject(context, MerchantService.class);
-        _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _library = extractObject(context, CardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
 
     }
@@ -62,7 +63,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             try {
                 _merchantService.tradeForFoil(resourceOwner, blueprintId);
                 responseWriter.writeHtmlResponse("OK");
@@ -87,7 +88,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
             Document doc = documentBuilder.newDocument();
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             try {
                 _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
                 responseWriter.writeHtmlResponse("OK");
@@ -113,7 +114,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             Document doc = documentBuilder.newDocument();
 
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            User resourceOwner = getResourceOwnerSafely(request, participantId);
             try {
                 _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
                 responseWriter.writeHtmlResponse("OK");
@@ -134,7 +135,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
         int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        User resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode());
 

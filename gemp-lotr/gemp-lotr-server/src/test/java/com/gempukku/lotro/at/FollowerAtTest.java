@@ -1,10 +1,10 @@
 package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
+import com.gempukku.lotro.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -20,8 +20,8 @@ public class FollowerAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl pallando = new PhysicalCardImpl(100, "13_37", P1, _cardLibrary.getLotroCardBlueprint("13_37"));
-        PhysicalCardImpl goblinWarrior = new PhysicalCardImpl(101, "1_185", P2, _cardLibrary.getLotroCardBlueprint("1_185"));
+        LotroPhysicalCardImpl pallando = new LotroPhysicalCardImpl(100, "13_37", P1, _cardLibrary.getLotroCardBlueprint("13_37"));
+        LotroPhysicalCardImpl goblinWarrior = new LotroPhysicalCardImpl(101, "1_185", P2, _cardLibrary.getLotroCardBlueprint("1_185"));
 
         _game.getGameState().addCardToZone(_game, pallando, Zone.HAND);
         _game.getGameState().addCardToZone(_game, goblinWarrior, Zone.HAND);

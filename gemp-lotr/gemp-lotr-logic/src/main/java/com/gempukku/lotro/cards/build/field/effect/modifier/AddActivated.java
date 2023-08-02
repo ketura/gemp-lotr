@@ -5,17 +5,17 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.DefaultActionSource;
 import com.gempukku.lotro.cards.build.field.effect.EffectUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppender;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
-import com.gempukku.lotro.logic.effects.IncrementTurnLimitEffect;
-import com.gempukku.lotro.logic.modifiers.AddActionToCardModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.actions.lotronly.ActivateCardAction;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
+import com.gempukku.lotro.effects.IncrementPhaseLimitEffect;
+import com.gempukku.lotro.effects.IncrementTurnLimitEffect;
+import com.gempukku.lotro.modifiers.AddActionToCardModifier;
+import com.gempukku.lotro.modifiers.Modifier;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.game.PlayConditions;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -47,9 +47,9 @@ public class AddActivated implements ModifierSourceProducer {
                 actionSource.addPlayRequirement(
                         (actionContext) -> PlayConditions.checkPhaseLimit(actionContext.getGame(), actionContext.getSource(), phase, limitPerPhase));
                 actionSource.addCost(
-                        new AbstractEffectAppender() {
+                        new AbstractEffectAppender<>() {
                             @Override
-                            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext<DefaultGame> actionContext) {
                                 return new IncrementPhaseLimitEffect(actionContext.getSource(), phase, limitPerPhase);
                             }
                         });
@@ -58,9 +58,9 @@ public class AddActivated implements ModifierSourceProducer {
                 actionSource.addPlayRequirement(
                         (actionContext) -> PlayConditions.checkTurnLimit(actionContext.getGame(), actionContext.getSource(), limitPerTurn));
                 actionSource.addCost(
-                        new AbstractEffectAppender() {
+                        new AbstractEffectAppender<>() {
                             @Override
-                            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext<DefaultGame> actionContext) {
                                 return new IncrementTurnLimitEffect(actionContext.getSource(), limitPerTurn);
                             }
                         });
@@ -74,10 +74,10 @@ public class AddActivated implements ModifierSourceProducer {
 
         return new ModifierSource() {
             @Override
-            public Modifier getModifier(ActionContext actionContext) {
+            public Modifier getModifier(DefaultActionContext<DefaultGame> actionContext) {
                 return new AddActionToCardModifier(actionContext.getSource(), null, filterableSource.getFilterable(actionContext)) {
                     @Override
-                    public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, PhysicalCard card) {
+                    public List<? extends ActivateCardAction> getExtraPhaseAction(DefaultGame game, LotroPhysicalCard card) {
                         LinkedList<ActivateCardAction> result = new LinkedList<>();
                         for (ActionSource inPlayPhaseAction : actionSources) {
                             DefaultActionContext actionContext = new DefaultActionContext(card.getOwner(), game, card, null, null);
@@ -92,7 +92,7 @@ public class AddActivated implements ModifierSourceProducer {
                     }
 
                     @Override
-                    protected ActivateCardAction createExtraPhaseAction(LotroGame game, PhysicalCard matchingCard) {
+                    protected ActivateCardAction createExtraPhaseAction(DefaultGame game, LotroPhysicalCard matchingCard) {
                         return null;
                     }
                 };

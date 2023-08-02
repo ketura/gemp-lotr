@@ -1,0 +1,61 @@
+// Set 150: Trials and Tribble-ations
+
+{
+    150_002: {
+        title: 1 Tribble - Discard
+        type: tribble
+        tribble-value: 1
+        tribble-power: discard
+        image-url: https://www.trekcc.org/tribbles/cardimages/tat/38V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: {
+                type: discardFromHand
+                forced: true
+            }
+		}
+    }
+    150_013: {
+        title: "1,000 Tribbles - Discard"
+        type: tribble
+        tribble-value: 1000
+        tribble-power: discard
+        image-url: https://www.trekcc.org/tribbles/cardimages/tat/49V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: {
+                type: discardFromHand
+                forced: true
+            }
+		}
+    }
+    150_014: {
+        title: "1,000 Tribbles - Famine"
+        type: tribble
+        tribble-value: 1000
+        tribble-power: famine
+        image-url: https://www.trekcc.org/tribbles/cardimages/tat/50V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: {
+                type: setNextTribble
+                amount: 1
+            }
+		}
+    }
+}

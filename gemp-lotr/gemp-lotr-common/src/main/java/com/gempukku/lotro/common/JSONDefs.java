@@ -39,7 +39,7 @@ public class JSONDefs {
         public String surveyUrl;
         public String sites;
         public boolean cancelRingBearerSkirmish = false;
-        public boolean ruleOfFour = true;
+        public boolean ruleOfFour = false; // Changed from default "true" in original
         public boolean winAtEndOfRegroup = false;
         public boolean discardPileIsPublic = false;
         public boolean winOnControlling5Sites = false;

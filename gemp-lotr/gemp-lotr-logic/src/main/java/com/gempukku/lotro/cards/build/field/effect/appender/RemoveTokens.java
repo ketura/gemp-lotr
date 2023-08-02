@@ -1,24 +1,22 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.RemoveTokenEffect;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.ModifierFlag;
+import com.gempukku.lotro.modifiers.evaluator.ConstantEvaluator;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -50,23 +48,23 @@ public class RemoveTokens implements EffectAppenderProducer {
                         },
                         new ConstantEvaluator(1), memory, "you", "Choose card to remove tokens from", environment));
         result.addEffectAppender(
-                new DelayedAppender() {
+                new DelayedAppender<>() {
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext) {
-                        final LotroGame game = actionContext.getGame();
+                    public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
+                        final DefaultGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS);
                     }
 
                     @Override
-                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                    protected List<Effect> createEffects(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
+                        final Collection<? extends LotroPhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
 
                         final int tokenCount = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
-                        final LotroGame game = actionContext.getGame();
+                        final DefaultGame game = actionContext.getGame();
 
                         List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard card : cardsFromMemory) {
+                        for (LotroPhysicalCard card : cardsFromMemory) {
                             if (token != null)
                                 result.add(new RemoveTokenEffect(actionContext.getSource(), card, token, tokenCount));
                             else {
@@ -81,7 +79,7 @@ public class RemoveTokens implements EffectAppenderProducer {
         return result;
     }
 
-    private Token getCultureTokenOnCard(LotroGame game, PhysicalCard card) {
+    private Token getCultureTokenOnCard(DefaultGame game, LotroPhysicalCard card) {
         for (Token token : Token.values())
             if (token.getCulture() != null && game.getGameState().getTokenCount(card, token) > 0)
                 return token;

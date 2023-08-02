@@ -10,6 +10,7 @@ public enum Phase {
     ASSIGNMENT("Assignment", true, true),
     SKIRMISH("Skirmish", true, true),
     REGROUP("Regroup", true, true),
+    TRIBBLES_TURN("Tribbles turn", true, true),
     BETWEEN_TURNS("Between turns", false, false);
 
     private final String humanReadable;

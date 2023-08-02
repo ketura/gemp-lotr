@@ -1,13 +1,13 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.User;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class NewConstructedLeagueData implements LeagueData {
 
     private final int _maxRepeatGames;
 
-    public NewConstructedLeagueData(LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, String parameters) {
+    public NewConstructedLeagueData(CardBlueprintLibrary library, LotroFormatLibrary formatLibrary, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(library);
         
         String[] params = parameters.split(",");
@@ -65,7 +65,7 @@ public class NewConstructedLeagueData implements LeagueData {
     }
 
     @Override
-    public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime) {
+    public CardCollection joinLeague(CollectionsManager collecionsManager, User player, int currentTime) {
         return null;
     }
 

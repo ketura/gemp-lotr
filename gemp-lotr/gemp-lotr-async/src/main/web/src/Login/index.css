@@ -4,7 +4,7 @@ shtml {
 body {
     font-size: 100%;
     height: 100%; 
-    background-image: url('../../images/dwarrowdelf.jpg'); 
+    background-image: url('../../images/space.jpg');
     background-size: cover; 
     background-repeat:no-repeat; 
     background-position: center center;
@@ -27,12 +27,26 @@ body {
 .banner {
     display: block;
     text-align: center; 
-    background-color: #222222CC; 
+    background-color: #222222CC;
+    font-family: "Garamond", sans-serif;
+    width: 105vw;
+    left: 0vw;
+    padding: 10px;
+    color: #63C5DA;
+    font-size: 400%;
+    margin: -5px -5px 0 0;
+}
+
+.banner-sub {
+    display: block;
+    text-align: center;
+    background-color: #222222CC;
+    font-family: "Verdana", sans-serif;
     width: 105vw;
     left: -2.5vw;
     padding: 10px;
-    color: #D98E04; 
-    font-size: 500%;
+    color: #63C5DA;
+    font-size: 150%;
     margin: -5px 0 0 0;
 }
 

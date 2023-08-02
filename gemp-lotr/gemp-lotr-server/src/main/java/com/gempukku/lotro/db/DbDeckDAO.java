@@ -1,8 +1,11 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.LotroCardBlueprint;
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,23 +15,23 @@ import java.util.*;
 
 public class DbDeckDAO implements DeckDAO {
     private final DbAccess _dbAccess;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
-    public DbDeckDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
+    public DbDeckDAO(DbAccess dbAccess, CardBlueprintLibrary library) {
         _dbAccess = dbAccess;
         _library = library;
     }
 
-    public synchronized LotroDeck getDeckForPlayer(Player player, String name) {
+    public synchronized LotroDeck getDeckForPlayer(User player, String name) {
         return getPlayerDeck(player.getId(), name);
     }
 
-    public synchronized void saveDeckForPlayer(Player player, String name, String target_format, String notes, LotroDeck deck) {
+    public synchronized void saveDeckForPlayer(User player, String name, String target_format, String notes, LotroDeck deck) {
         boolean newDeck = getPlayerDeck(player.getId(), name) == null;
         storeDeckToDB(player.getId(), name, target_format, notes, deck, newDeck);
     }
 
-    public synchronized void deleteDeckForPlayer(Player player, String name) {
+    public synchronized void deleteDeckForPlayer(User player, String name) {
         try {
             deleteDeckFromDB(player.getId(), name);
         } catch (SQLException exp) {
@@ -36,7 +39,7 @@ public class DbDeckDAO implements DeckDAO {
         }
     }
 
-    public synchronized LotroDeck renameDeck(Player player, String oldName, String newName) {
+    public synchronized LotroDeck renameDeck(User player, String oldName, String newName) {
         LotroDeck deck = getDeckForPlayer(player, oldName);
         if (deck == null)
             return null;
@@ -46,7 +49,7 @@ public class DbDeckDAO implements DeckDAO {
         return deck;
     }
 
-    public synchronized Set<Map.Entry<String, String>> getPlayerDeckNames(Player player) {
+    public synchronized Set<Map.Entry<String, String>> getPlayerDeckNames(User player) {
         try {
             try (Connection connection = _dbAccess.getDataSource().getConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement("select name, target_format from deck where player_id=?")) {
@@ -77,7 +80,7 @@ public class DbDeckDAO implements DeckDAO {
                     statement.setString(2, name);
                     try (ResultSet rs = statement.executeQuery()) {
                         if (rs.next())
-                            return buildDeckFromContents(name, rs.getString(1), rs.getString(2), rs.getString(3));
+                            return buildLotroDeckFromContents(name, rs.getString(1), rs.getString(2), rs.getString(3));
 
                         return null;
                     }
@@ -90,7 +93,7 @@ public class DbDeckDAO implements DeckDAO {
     }
 
     private void storeDeckToDB(int playerId, String name, String target_format, String notes, LotroDeck deck, boolean newDeck) {
-        String contents = DeckSerialization.buildContentsFromDeck(deck);
+        String contents = deck.buildContentsFromDeck();
         try {
             if (newDeck)
                 storeDeckInDB(playerId, name, target_format, notes, contents);
@@ -101,9 +104,9 @@ public class DbDeckDAO implements DeckDAO {
         }
     }
 
-    public synchronized LotroDeck buildDeckFromContents(String deckName, String contents, String target_format, String notes) {
+    public synchronized LotroDeck buildLotroDeckFromContents(String deckName, String contents, String target_format, String notes) {
         if (contents.contains("|")) {
-            return DeckSerialization.buildDeckFromContents(deckName, contents, target_format, notes);
+            return new LotroDeck(deckName, contents, target_format, notes);
         } else {
             // Old format
             List<String> cardsList = Arrays.asList(contents.split(","));

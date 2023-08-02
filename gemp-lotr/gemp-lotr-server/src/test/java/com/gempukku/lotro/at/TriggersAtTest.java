@@ -1,15 +1,15 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.logic.decisions.AwaitingDecision;
-import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
+import com.gempukku.lotro.decisions.AwaitingDecision;
+import com.gempukku.lotro.decisions.AwaitingDecisionType;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.modifiers.lotronly.KeywordModifier;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -26,9 +26,9 @@ public class TriggersAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl gimli = new PhysicalCardImpl(100, "5_7", P1, _cardLibrary.getLotroCardBlueprint("5_7"));
-        PhysicalCardImpl stoutAndStrong = new PhysicalCardImpl(101, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
+        LotroPhysicalCardImpl gimli = new LotroPhysicalCardImpl(100, "5_7", P1, _cardLibrary.getLotroCardBlueprint("5_7"));
+        LotroPhysicalCardImpl stoutAndStrong = new LotroPhysicalCardImpl(101, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl goblinRunner = new LotroPhysicalCardImpl(102, "1_178", P2, _cardLibrary.getLotroCardBlueprint("1_178"));
 
         skipMulligans();
 
@@ -77,12 +77,12 @@ public class TriggersAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _cardLibrary.getLotroCardBlueprint("7_88"));
-        PhysicalCardImpl boromir = new PhysicalCardImpl(101, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
-        PhysicalCardImpl cardInHand1 = new PhysicalCardImpl(102, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand2 = new PhysicalCardImpl(103, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand3 = new PhysicalCardImpl(104, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand4 = new PhysicalCardImpl(105, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl dervorin = new LotroPhysicalCardImpl(100, "7_88", P1, _cardLibrary.getLotroCardBlueprint("7_88"));
+        LotroPhysicalCardImpl boromir = new LotroPhysicalCardImpl(101, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
+        LotroPhysicalCardImpl cardInHand1 = new LotroPhysicalCardImpl(102, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand2 = new LotroPhysicalCardImpl(103, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand3 = new LotroPhysicalCardImpl(104, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand4 = new LotroPhysicalCardImpl(105, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
 
         skipMulligans();
 
@@ -118,13 +118,13 @@ public class TriggersAtTest extends AbstractAtTest {
         Map<String, Collection<String>> extraCards = new HashMap<>();
         initializeSimplestGame(extraCards);
 
-        PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _cardLibrary.getLotroCardBlueprint("7_88"));
-        PhysicalCardImpl boromir = new PhysicalCardImpl(101, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
-        PhysicalCardImpl cardInHand1 = new PhysicalCardImpl(102, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand2 = new PhysicalCardImpl(103, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand3 = new PhysicalCardImpl(104, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand4 = new PhysicalCardImpl(105, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand5 = new PhysicalCardImpl(106, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl dervorin = new LotroPhysicalCardImpl(100, "7_88", P1, _cardLibrary.getLotroCardBlueprint("7_88"));
+        LotroPhysicalCardImpl boromir = new LotroPhysicalCardImpl(101, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
+        LotroPhysicalCardImpl cardInHand1 = new LotroPhysicalCardImpl(102, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand2 = new LotroPhysicalCardImpl(103, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand3 = new LotroPhysicalCardImpl(104, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand4 = new LotroPhysicalCardImpl(105, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand5 = new LotroPhysicalCardImpl(106, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
 
         skipMulligans();
 
@@ -163,12 +163,12 @@ public class TriggersAtTest extends AbstractAtTest {
     public void userOfMusterDisablesUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _cardLibrary.getLotroCardBlueprint("7_88"));
-        PhysicalCardImpl boromir = new PhysicalCardImpl(101, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
-        PhysicalCardImpl cardInHand1 = new PhysicalCardImpl(102, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand2 = new PhysicalCardImpl(103, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand3 = new PhysicalCardImpl(104, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
-        PhysicalCardImpl cardInHand4 = new PhysicalCardImpl(105, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl dervorin = new LotroPhysicalCardImpl(100, "7_88", P1, _cardLibrary.getLotroCardBlueprint("7_88"));
+        LotroPhysicalCardImpl boromir = new LotroPhysicalCardImpl(101, "1_96", P1, _cardLibrary.getLotroCardBlueprint("1_96"));
+        LotroPhysicalCardImpl cardInHand1 = new LotroPhysicalCardImpl(102, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand2 = new LotroPhysicalCardImpl(103, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand3 = new LotroPhysicalCardImpl(104, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
+        LotroPhysicalCardImpl cardInHand4 = new LotroPhysicalCardImpl(105, "4_57", P1, _cardLibrary.getLotroCardBlueprint("4_57"));
 
         skipMulligans();
 
@@ -206,8 +206,8 @@ public class TriggersAtTest extends AbstractAtTest {
     public void musterForShadowSideTriggersCorrectly() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl musterWitchKing = new PhysicalCardImpl(100, "11_226", P2, _cardLibrary.getLotroCardBlueprint("11_226"));
-        PhysicalCardImpl musterWitchKing2 = new PhysicalCardImpl(101, "11_226", P2, _cardLibrary.getLotroCardBlueprint("11_226"));
+        LotroPhysicalCardImpl musterWitchKing = new LotroPhysicalCardImpl(100, "11_226", P2, _cardLibrary.getLotroCardBlueprint("11_226"));
+        LotroPhysicalCardImpl musterWitchKing2 = new LotroPhysicalCardImpl(101, "11_226", P2, _cardLibrary.getLotroCardBlueprint("11_226"));
 
         skipMulligans();
 
@@ -252,9 +252,9 @@ public class TriggersAtTest extends AbstractAtTest {
     public void replaceSiteNotPossibleWithMountDoom() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
-        PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _cardLibrary.getLotroCardBlueprint("1_72"));
-        PhysicalCardImpl traveledLeader = new PhysicalCardImpl(101, "12_34", P1, _cardLibrary.getLotroCardBlueprint("12_34"));
-        PhysicalCardImpl mountDoom = new PhysicalCardImpl(102, "15_193", P2, _cardLibrary.getLotroCardBlueprint("15_193"));
+        LotroPhysicalCardImpl gandalf = new LotroPhysicalCardImpl(100, "1_72", P1, _cardLibrary.getLotroCardBlueprint("1_72"));
+        LotroPhysicalCardImpl traveledLeader = new LotroPhysicalCardImpl(101, "12_34", P1, _cardLibrary.getLotroCardBlueprint("12_34"));
+        LotroPhysicalCardImpl mountDoom = new LotroPhysicalCardImpl(102, "15_193", P2, _cardLibrary.getLotroCardBlueprint("15_193"));
 
         skipMulligans();
 
@@ -299,7 +299,7 @@ public class TriggersAtTest extends AbstractAtTest {
 
         playerDecided(P1, "0");
 
-        PhysicalCard siteOne = _game.getGameState().getSite(1);
+        LotroPhysicalCard siteOne = _game.getGameState().getSite(1);
 
         playerDecided(P1, "" + siteOne.getCardId());
 

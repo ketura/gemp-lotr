@@ -1,7 +1,7 @@
 package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 
 import java.util.Date;
 import java.util.List;

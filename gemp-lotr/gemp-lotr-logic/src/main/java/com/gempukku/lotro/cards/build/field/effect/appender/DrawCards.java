@@ -1,15 +1,14 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.DrawCardsEffect;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.effects.DrawCardsEffect;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class DrawCards implements EffectAppenderProducer {
@@ -22,9 +21,9 @@ public class DrawCards implements EffectAppenderProducer {
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
         final ValueSource count = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
 
-        return new DelayedAppender() {
+        return new DelayedAppender<>() {
             @Override
-            public boolean isPlayableInFull(ActionContext actionContext) {
+            public boolean isPlayableInFull(DefaultActionContext<DefaultGame> actionContext) {
                 final String drawPlayer = playerSource.getPlayer(actionContext);
                 final Evaluator evaluator = count.getEvaluator(null);
                 final int cardCount = evaluator.evaluateExpression(actionContext.getGame(), null);
@@ -32,7 +31,7 @@ public class DrawCards implements EffectAppenderProducer {
             }
 
             @Override
-            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+            protected Effect createEffect(boolean cost, CostToEffectAction action, DefaultActionContext actionContext) {
                 final String drawPlayer = playerSource.getPlayer(actionContext);
                 final Evaluator evaluator = count.getEvaluator(actionContext);
                 final int cardsDrawn = evaluator.evaluateExpression(actionContext.getGame(), null);

@@ -1,0 +1,209 @@
+// Set 144: More Tribbles, More Troubles
+
+{
+    144_001: {
+        title: 1 Tribble - Cycle
+        type: tribble
+        tribble-value: 1
+        tribble-power: cycle
+        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/1V.jpg
+//        cardId: 3737
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+    }
+    144_002: {
+        title: 1 Tribble - Exchange
+        type: tribble
+        tribble-value: 1
+        tribble-power: exchange
+        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/2V.jpg
+//        cardId: 3744
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
+    }
+    144_005: {
+        title: 10 Tribbles - Cycle
+        type: tribble
+        tribble-value: 10
+        tribble-power: cycle
+        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/5V.jpg
+//        cardId: 3779
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: putCardsFromHandOnBottomOfDeck
+				}
+			]
+			effect: {
+				type: drawCards
+			}
+		}
+    }
+    144_006: {
+        title: 10 Tribbles - Draw
+        type: tribble
+        tribble-value: 10
+        tribble-power: draw
+        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/6V.jpg
+//        cardId: 3780
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: drawCards
+                    player: FromMemory(playerChosen)
+                }
+            ]
+		}
+    }
+    144_008: {
+        title: 100 Tribbles - Draw
+        type: tribble
+        tribble-value: 100
+        tribble-power: draw
+        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/8V.jpg
+//        cardId: 3821
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+            effect: [
+                {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: drawCards
+                    player: FromMemory(playerChosen)
+                }
+            ]
+		}
+    }
+    144_010: {
+        title: "1,000 Tribbles - Exchange"
+        type: tribble
+        tribble-value: 1000
+        tribble-power: exchange
+        image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/10V.jpg
+		effects: {
+			type: trigger
+			optional: true
+			trigger: {
+			    type: played
+			    filter: self
+			}
+			cost: [
+				{
+					type: DiscardFromHand
+					forced: true
+				}
+			]
+			effect: {
+				type: PutCardsFromDiscardIntoHand
+			}
+		}
+    }
+    144_011: {
+         title: "1,000 Tribbles - Recycle"
+         type: tribble
+         tribble-value: 1000
+         tribble-power: recycle
+         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/11V.jpg
+         effects: {
+ 			type: trigger
+ 			optional: true
+ 			trigger: {
+ 			    type: played
+ 			    filter: self
+ 			}
+ 			effect: [
+ 			    {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: shufflecardsfromdiscardintodrawdeck
+                    count: {
+                        type: forEachInDiscard
+                    }
+                    player: fromMemory(playerChosen)
+                }
+            ]
+ 		}
+    }
+    144_015: {
+         title: "10,000 Tribbles - Recycle"
+         type: tribble
+         tribble-value: 10000
+         tribble-power: recycle
+         image-url: https://www.trekcc.org/tribbles/cardimages/mtmt/15V.jpg
+         effects: {
+ 			type: trigger
+ 			optional: true
+ 			trigger: {
+ 			    type: played
+ 			    filter: self
+ 			}
+ 			effect: [
+ 			    {
+                    type: ChoosePlayer
+                    memorize: playerChosen
+                }
+                {
+                    type: shufflecardsfromdiscardintodrawdeck
+                    count: {
+                        type: forEachInDiscard
+                    }
+                    player: fromMemory(playerChosen)
+                }
+            ]
+ 		}
+    }
+}

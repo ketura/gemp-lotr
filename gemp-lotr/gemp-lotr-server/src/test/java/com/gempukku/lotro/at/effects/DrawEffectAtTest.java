@@ -1,18 +1,18 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.game.AbstractActionProxy;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.effects.DrawCardsEffect;
-import com.gempukku.lotro.logic.effects.PreventEffect;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.Preventable;
+import com.gempukku.lotro.cards.lotronly.LotroPhysicalCardImpl;
+import com.gempukku.lotro.game.DefaultGame;
+import com.gempukku.lotro.game.TriggerConditions;
+import com.gempukku.lotro.actions.AbstractActionProxy;
+import com.gempukku.lotro.cards.CardNotFoundException;
+import com.gempukku.lotro.actions.lotronly.RequiredTriggerAction;
+import com.gempukku.lotro.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.effects.DrawCardsEffect;
+import com.gempukku.lotro.effects.PreventEffect;
+import com.gempukku.lotro.effects.Effect;
+import com.gempukku.lotro.effects.EffectResult;
+import com.gempukku.lotro.game.Preventable;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
 
@@ -37,7 +37,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachCardDrawn(game, effectResult, P1)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -66,7 +66,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
 
@@ -75,7 +75,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachCardDrawn(game, effectResult, P1)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -104,8 +104,8 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
-        final PhysicalCardImpl merry2 = new PhysicalCardImpl(102, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl merry2 = new LotroPhysicalCardImpl(102, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
         _game.getGameState().putCardOnTopOfDeck(merry2);
@@ -115,7 +115,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachCardDrawn(game, effectResult, P1)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -145,7 +145,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        final PhysicalCardImpl merry = new PhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
+        final LotroPhysicalCardImpl merry = new LotroPhysicalCardImpl(101, "1_303", P1, _cardLibrary.getLotroCardBlueprint("1_303"));
 
         _game.getGameState().putCardOnTopOfDeck(merry);
 
@@ -155,7 +155,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
         _game.getActionsEnvironment().addUntilEndOfTurnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(DefaultGame game, EffectResult effectResult) {
                         if (TriggerConditions.forEachCardDrawn(game, effectResult, P1)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(
@@ -166,7 +166,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
                     }
 
                     @Override
-                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
+                    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(DefaultGame game, Effect effect) {
                         if (TriggerConditions.isDrawingACard(effect, game, P1)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(merry);
                             action.appendEffect(

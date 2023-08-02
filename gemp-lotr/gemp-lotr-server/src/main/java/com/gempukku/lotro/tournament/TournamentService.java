@@ -1,17 +1,20 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.cards.CardBlueprintLibrary;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DraftPack;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.cards.lotronly.LotroDeck;
 import com.gempukku.lotro.packs.DraftPackStorage;
-import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.packs.ProductLibrary;
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
+
+
 public class TournamentService implements ITournamentService {
+    private static final Logger logger = Logger.getLogger(ITournamentService.class);
     private final ProductLibrary _productLibrary;
     private final DraftPackStorage _draftPackStorage;
     private final PairingMechanismRegistry _pairingMechanismRegistry;
@@ -19,7 +22,7 @@ public class TournamentService implements ITournamentService {
     private final TournamentDAO _tournamentDao;
     private final TournamentPlayerDAO _tournamentPlayerDao;
     private final TournamentMatchDAO _tournamentMatchDao;
-    private final LotroCardBlueprintLibrary _library;
+    private final CardBlueprintLibrary _library;
 
     private final CollectionsManager _collectionsManager;
 
@@ -28,7 +31,7 @@ public class TournamentService implements ITournamentService {
     public TournamentService(CollectionsManager collectionsManager, ProductLibrary productLibrary, DraftPackStorage draftPackStorage,
                              PairingMechanismRegistry pairingMechanismRegistry, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                              TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao,
-                             LotroCardBlueprintLibrary library) {
+                             CardBlueprintLibrary library) {
         _collectionsManager = collectionsManager;
         _productLibrary = productLibrary;
         _draftPackStorage = draftPackStorage;
@@ -125,9 +128,13 @@ public class TournamentService implements ITournamentService {
 
     @Override
     public List<Tournament> getLiveTournaments() {
+        logger.debug("Calling getLiveTournaments function");
         List<Tournament> result = new ArrayList<>();
+        logger.debug("Created result object");
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
+            logger.debug("Entered for loop");
             Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
+            logger.debug("Adding tournament " + tournament);
             if (tournament == null)
                 tournament = createTournamentAndStoreInCache(tournamentInfo.getTournamentId(), tournamentInfo);
             result.add(tournament);
