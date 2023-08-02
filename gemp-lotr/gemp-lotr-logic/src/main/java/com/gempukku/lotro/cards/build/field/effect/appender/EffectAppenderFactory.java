@@ -1,9 +1,8 @@
-package com.gempukku.lotro.cards.build.field.effect;
+package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.appender.*;
 import com.gempukku.lotro.cards.build.field.effect.appender.lotronly.*;
 import org.json.simple.JSONObject;
 
@@ -14,6 +13,10 @@ public class EffectAppenderFactory {
     private final Map<String, EffectAppenderProducer> effectAppenderProducers = new HashMap<>();
 
     public EffectAppenderFactory() {
+            // Tribbles-specific
+            // LotR-specific
+            // Shared functionality
+            //
         effectAppenderProducers.put("addburdens", new AddBurdens());
         effectAppenderProducers.put("addkeyword", new AddKeyword());
         effectAppenderProducers.put("addmodifier", new AddModifier());

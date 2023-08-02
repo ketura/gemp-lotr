@@ -5,8 +5,6 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.effects.Effect;
 import com.gempukku.lotro.effects.choose.ChoosePlayerEffect;
 import org.json.simple.JSONObject;

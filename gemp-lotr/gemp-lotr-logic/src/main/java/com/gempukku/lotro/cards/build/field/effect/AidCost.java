@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.build.field.effect.appender.EffectAppender;
 import com.gempukku.lotro.game.DefaultGame;
 import org.json.simple.JSONObject;
 

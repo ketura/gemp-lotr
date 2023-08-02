@@ -6,8 +6,6 @@ import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.modifier.RequirementCondition;
 import com.gempukku.lotro.common.Phase;

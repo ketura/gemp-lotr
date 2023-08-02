@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.build.field.effect.appender.EffectAppender;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.modifiers.ExtraPlayCost;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;

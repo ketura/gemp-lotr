@@ -3,8 +3,6 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.effects.Effect;

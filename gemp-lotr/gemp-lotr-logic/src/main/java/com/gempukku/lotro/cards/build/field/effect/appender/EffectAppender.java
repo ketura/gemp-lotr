@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.build.field.effect;
+package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.DefaultActionContext;

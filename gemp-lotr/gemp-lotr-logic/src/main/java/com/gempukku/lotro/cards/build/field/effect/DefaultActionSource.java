@@ -4,6 +4,7 @@ import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.cards.build.ActionSource;
 import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.Requirement;
+import com.gempukku.lotro.cards.build.field.effect.appender.EffectAppender;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.rules.GameUtils;
 

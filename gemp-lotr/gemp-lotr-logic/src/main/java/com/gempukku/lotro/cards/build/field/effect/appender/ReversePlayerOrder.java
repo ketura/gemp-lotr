@@ -1,8 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.*;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.game.DefaultGame;
 import com.gempukku.lotro.actions.lotronly.CostToEffectAction;
 import com.gempukku.lotro.effects.Effect;

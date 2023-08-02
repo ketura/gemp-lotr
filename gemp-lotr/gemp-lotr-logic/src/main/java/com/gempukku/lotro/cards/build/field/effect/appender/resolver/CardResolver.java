@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
 import com.gempukku.lotro.cards.build.*;
-import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
+import com.gempukku.lotro.cards.build.field.effect.appender.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.cards.lotronly.LotroPhysicalCard;
 import com.gempukku.lotro.common.Filterable;
